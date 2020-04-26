@@ -1,5 +1,6 @@
 # Dependency directories
 node_modules/
+package-lock.json
 
 #phpStorm
 .idea
@@ -19,7 +20,6 @@ perso/
 .bak
 $*.doc*
 .bin
-
 
 # others files
 .const.php
