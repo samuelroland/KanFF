@@ -1,0 +1,30 @@
+# Dependency directories
+node_modules/
+
+#phpStorm
+.idea
+
+#ngrok app and exe files
+ngrok.exe
+*.exe
+
+#MacOS
+.DS_Store
+
+# personnel folder
+perso/
+
+# temp files
+.tmp
+.bak
+$*.doc*
+.bin
+
+
+# others files
+.const.php
+.*.php
+.*.txt
+.pem
+.ppk
+.key
