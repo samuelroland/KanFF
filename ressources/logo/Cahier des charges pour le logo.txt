@@ -1,0 +1,28 @@
+Cahier des charges pour le logo de KanFF
+Version: 1.0
+
+Contexte:
+KanFF est une application web de gestion de projets, de tâches, et d'organisation du travail, conçue pour le milieu militant et associatif.
+
+Ce qu'il faut mettre en avant (en général et pas forcément dans le logo) : meilleure organisation (en très résumé).
+
+Consignes:
+Le logo inclut le nom du projet "KanFF" en respectant "majuscules minuscules" ou alors tailles de lettres (lettres majuscules plus hautes que lettre minuscules).
+Le mot "Kan" doit avoir une couleur différente et/ou une police différente du mot "FF". 
+
+Décision après brainstorm: Pas d'îcone seul.
+
+Essayer d'intégrer un vu à KanFF (intégrer avec la lettre K par exemple). (le vu étant le symbole de la todolist).
+
+Public cible de l'application: 13-60 ans. (pourrait être jusqu'à 80 ans mais peu de personnes seraient concernées).
+
+- Le rapport hauteur largeur du logo est à définir. Le logo doit être en mode paysage (longueur plus long que la hauteur).
+
+Différents propositions intermédiaires viendront et s'amélioreront selon les commentaires.
+
+Rendu:
+Tous les fichiers suivants dans une archive .zip:
+- fichier Adobe Illustrator du logo
+- 1 fichier en format SVG du logo
+- 4 fichiers en format png du logo de différentes tailles (tailles à définir)
+
