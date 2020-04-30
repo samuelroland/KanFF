@@ -28,5 +28,12 @@ switch ($action) {
     default: // unknown action
         //Login page
         break;
+
+//This funtion tries to signin using the infomations given
+    case"trySignin":
+        trySignin();
+        break;
 }
+
+
 ?>
