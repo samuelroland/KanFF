@@ -11,7 +11,7 @@
 function signin()
 {
 
-    require_once 'view/Signin.php';
+    require_once 'view/signin.php';
 }
 
 //This funtion will try to signin and create the data in the BD
@@ -35,7 +35,7 @@ function trySignin()
         createLogs($liste);
     }
     // il faut encore créer la page d'inscription
-    //require_once 'view/Signin.php';
+    require_once 'view/signin.php';
     $_POST["user"] = null;
     unset($_POST["password"]);
 }
