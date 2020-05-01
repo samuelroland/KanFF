@@ -10,7 +10,7 @@ session_start();
 
 // Include all controllers
 require "controler/Help.php";   //controler to generate common contents
-require "controler/controleur.php";
+require "controler/controler.php";
 //Extract values sent by GET or POST
 
 

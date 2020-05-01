@@ -2,11 +2,11 @@
 /**
  *  Project: KanFF
  *  File: usersModel.php model for the users
- *  Author: YOU
- *  Creation date: DATE
+ *  Author: LPO
+ *  Creation date: 01.05.2020
  */
 
-//TODO: change the informations of the cartouche !!!!!!!
+// TODO: change the informations of the cartouche !!!!!!!
 
 function getPDO()
 {
@@ -16,15 +16,14 @@ function getPDO()
     return $dbh;
 }
 
-//fonction qui va chercher les sessions dans la base de données
+// Fonction qui va chercher les sessions dans la base de données
 function getLogs()
 {
     {
-        require ".const.php";
         try {
             $dbh = getPDO();
-            //Encore en attente
-            //$query = "SELECT * FROM users";
+            // TODO: Query à faire
+            // $query =
             $statment = getPDO()->prepare($query);//prepare query
             $statment->execute();//execute query
             $queryResult = $statment->fetchAll(pdo::FETCH_ASSOC);//prepare result for client
@@ -36,14 +35,13 @@ function getLogs()
         }
     }
 }
-//fonction qui va créer les sessions dans la base de données
+// Fonction qui va créer les sessions dans la base de données
 function createLogs($data)
 {
-    require ".const.php";
     try {
-        $dbh =getPDO();
-        //Query a comleter
-        //$query = "INSERT INTO   ";
+        $dbh = getPDO();
+        // TODO: Query à faire
+        // $query =
         $statement = getPDO()->prepare($query);//prepare query
         $statement->execute($users);//execute query
         // $filmMakers['id']=$dbh -> lastIsertId();
