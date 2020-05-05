@@ -1,4 +1,4 @@
-# Dependency directories
+# Dependency directories and files
 node_modules/
 package-lock.json
 
@@ -16,15 +16,17 @@ ngrok.exe
 perso/
 
 # temp files
-.tmp
-.bak
+*.tmp
+*.bak
 $*.doc*
-.bin
+*.bin
 
 # others files
 .const.php
 .*.php
 .*.txt
-.pem
-.ppk
-.key
+.*
+*.pem
+*.ppk
+*.key
+
