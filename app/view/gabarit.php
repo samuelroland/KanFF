@@ -10,13 +10,7 @@
     <link href="node_modules/bootstrap/dist/css/bootstrap-grid.css" rel="stylesheet">
     <link href="node_modules/bootstrap/dist/css/bootstrap-reboot.css" rel="stylesheet">
 
-    <!-- Icons -->
-    <link href="assets/icons/general/stylesheets/general_foundicons.css" media="screen" rel="stylesheet"
-          type="text/css"/>
-    <link href="assets/icons/social/stylesheets/social_foundicons.css" media="screen" rel="stylesheet" type="text/css"/>
-
-    <link rel="stylesheet" href="assets/fontawesome/css/font-awesome.min.css">
-
+    <!-- Jquery files -->
     <script src="node_modules/jquery/dist/jquery.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
 
