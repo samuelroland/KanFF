@@ -19,7 +19,12 @@ function login()
 
     require_once 'view/Login.php';
 }
+//This funtion will try to Login Using the provided data
+function tryLogin(){
 
+    //Pour Luis
+
+}
 
 //This funtion will try to signin and create the data in the BD
 function trySignin()
@@ -50,6 +55,12 @@ function trySignin()
 function Logout(){
 
     require_once 'view/home.php';
+
+}
+
+function tryLogout(){
+
+    //Faire avec Luis
 
 }
 ?>

@@ -46,8 +46,14 @@ switch ($action) {
 
 
 //This function tries to Login using the infomations given
-case"trySignin":
+case"tryLogin":
         tryLogin();
+        break;
+
+
+//This function tries to Login using the infomations given
+case"tryLogout":
+        tryLogout();
         break;
 }
 
