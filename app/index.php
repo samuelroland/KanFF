@@ -11,49 +11,47 @@ session_start();
 // Include all controllers
 require "controler/Help.php";   //controler to generate common contents
 require "controler/controler.php";
-//Extract values sent by GET or POST
+
+//Extract values sent by GET
+extract($_GET); //vars:
+
+
+//Extract values sent by POST
+    extract($_POST); //vars:
 
 
 //Extract the action of the querystring
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
-} else {
-    $action = "default";
 }
 
 //depending on the chosen action
 switch ($action) {
-    case "home":
-        break;
-    default: // unknown action
-        //Login page
-        break;
 
-//This function displays the signin
+//This function displays the signin page
     case 'displaySignin':
         signin();
         break;
-
-    //This function displays the Login
+    //This function displays the Login page
     case 'displayLogin':
         login();
         break;
-
 //This function tries to signin using the infomations given
     case"trySignin":
         trySignin();
         break;
-
-
 //This function tries to Login using the infomations given
-case"tryLogin":
+    case"tryLogin":
         tryLogin();
         break;
 
-
 //This function tries to Login using the infomations given
-case"tryLogout":
+    case"tryLogout":
         tryLogout();
+        break;
+    default: // unknown action
+        //TODO: if user connected, then redirect to dashboard page, if not redirect to login page
+        login();    //return to the login page
         break;
 }
 
