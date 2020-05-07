@@ -29,14 +29,25 @@ switch ($action) {
         //Login page
         break;
 
-//This function displays de signin
+//This function displays the signin
     case 'displaySignin':
         signin();
+        break;
+
+    //This function displays the Login
+    case 'displayLogin':
+        login();
         break;
 
 //This function tries to signin using the infomations given
     case"trySignin":
         trySignin();
+        break;
+
+
+//This function tries to Login using the infomations given
+case"trySignin":
+        tryLogin();
         break;
 }
 

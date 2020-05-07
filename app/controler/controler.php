@@ -14,6 +14,13 @@ function signin()
     require_once 'view/signin.php';
 }
 
+function login()
+{
+
+    require_once 'view/Login.php';
+}
+
+
 //This funtion will try to signin and create the data in the BD
 function trySignin()
 {
@@ -38,5 +45,11 @@ function trySignin()
     require_once 'view/signin.php';
     $_POST["user"] = null;
     unset($_POST["password"]);
+}
+//This funtion will try to Logout from de current session
+function Logout(){
+
+    require_once 'view/home.php';
+
 }
 ?>
