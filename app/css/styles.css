@@ -5,6 +5,33 @@
  *  Creation date: 26.04.2020
  */
 
+<<<<<<< HEAD
+.logo {
+    height: 100px;
+
+}
+.gauche {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    background-color: red;
+}
+
+.centre {
+    margin-right: 5px;
+    margin-left: 5px;
+    background-color: red;
+}
+
+.roite {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    background-color: red;
+}
+=======
 .formlog {
     min-width: 500px;
     position: absolute;
@@ -19,3 +46,4 @@
         min-width: 90%;
     }
 }
+>>>>>>> 1e755920c2e797d8adb2fe2766fd73386d92e2a9

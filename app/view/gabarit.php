@@ -9,6 +9,7 @@
     <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="node_modules/bootstrap/dist/css/bootstrap-grid.css" rel="stylesheet">
     <link href="node_modules/bootstrap/dist/css/bootstrap-reboot.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
 
     <!-- Jquery files -->
     <script src="node_modules/jquery/dist/jquery.js"></script>
@@ -21,9 +22,13 @@
 
 </head>
 <body>
-<header>En-tête</header>
+<header></header>
+<div class="left"><img src="view/medias/logos/temp-logo.jpg" alt="logo" class="logo"></div>
+<div class="center"></div>
+<div class="right"></div>
+
 <div class="appbody">
-    corps de l'application
+
     <?= $content; ?>
 </div>
 </body>
