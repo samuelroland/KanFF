@@ -11,6 +11,7 @@ session_start();
 // Include all controllers
 require "controler/Help.php";   //controler to generate common contents
 require "controler/controler.php";
+require "controler/userControler.php";
 
 //Extract values sent by GET
 extract($_GET); //vars:
