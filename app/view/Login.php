@@ -19,7 +19,7 @@ ob_start();
         </div>
         <button type="submit" class="btn btn-primary btn-block ">Login</button>
         <p>Pas encore de compte sur cette instance Blason?</p>
-        <a href="index.php?action=displaySignin"><p>Créez un copte et rejoignez ensuite un collectif!</p></a>
+        <a href="index.php?action=signin"><p>Créez un copte et rejoignez ensuite un collectif!</p></a>
     </form>
 
 <?php
