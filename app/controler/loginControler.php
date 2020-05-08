@@ -8,16 +8,40 @@
 
 //Fonction qui nous permets de Créer un compte et e stocker dans la base de données
 //This funtion will redirect to de signin page
-function signin()
+
+function signin($firstname, $lastname, $initials, $username, $password, $password2, $email, $phoneNumber, $bio)
 {
 
-    require_once 'view/signin.php';
+    // If trying to create an account, else load the page
+    if ($username != "" || $email != "")
+    {
+        // Checks if password and password2 are equal
+        if ($password == $password2)
+        {
+            // Hash the password for higher security
+            $hash = password_hash($password, PASSWORD_DEFAULT);
+
+           /* if (getUser($username) != '')
+            {
+                $_SESSION['error'] = 2;
+                require_once 'app/view/signin.php';
+            }*/
+            //addUser($firstname, $lastname, $initials, $username, $hash, $email, $phoneNumber, $bio);
+        }
+        else{
+            $_SESSION['error'] = 2;
+            require_once 'view/signin.php';
+        }
+    }else{
+        echo ("bug");
+        require_once 'view/signin.php';
+    }
 }
 
 function login()
 {
 
-    require_once 'view/Login.php';
+    require_once 'view/login.php';
 }
 //This funtion will try to Login Using the provided data
 function tryLogin(){
@@ -47,14 +71,14 @@ function trySignin()
         createLogs($liste);
     }
     // il faut encore créer la page d'inscription
-    require_once 'view/signin.php';
+    require_once 'app/view/signin.php';
     $_POST["user"] = null;
     unset($_POST["password"]);
 }
 //This funtion will try to Logout from de current session
 function Logout(){
 
-    require_once 'view/home.php';
+    require_once 'app/view/home.php';
 
 }
 
@@ -63,4 +87,5 @@ function tryLogout(){
     //Faire avec Luis
 
 }
+
 ?>
