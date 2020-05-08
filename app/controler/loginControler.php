@@ -30,18 +30,18 @@ function signin($firstname, $lastname, $initials, $username, $password, $passwor
         }
         else{
             $_SESSION['error'] = 2;
-            require_once 'app/view/signin.php';
+            require_once 'view/signin.php';
         }
     }else{
         echo ("bug");
-        require_once 'app/view/signin.php';
+        require_once 'view/signin.php';
     }
 }
 
 function login()
 {
 
-    require_once 'app/view/login.php';
+    require_once 'view/login.php';
 }
 //This funtion will try to Login Using the provided data
 function tryLogin(){
