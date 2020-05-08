@@ -50,7 +50,7 @@ ob_start();
 
             </div>
             <button type="submit" class="btn btn-primary btn-block btn-large">Création du compte</button>
-            <a href="index.php?action=displayLogin"><p>Avez vous un compte? Connectez vous</p></a>
+            <a href="index.php?action=login"><p>Avez vous un compte? Connectez vous</p></a>
     </form>
 </div>
 <?php
