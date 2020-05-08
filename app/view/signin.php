@@ -33,6 +33,21 @@ ob_start();
             <div class="form-group col-md-6">
             Biographie <input class="" type="text" name="bio" placeholder=""  required="required" />
 
+                <?php
+                if(isset($_SESSION['erreur'])){
+                    if ($_SESSION['erreur'] = 1)
+                    {
+                        echo "<br><p class='alert-warning'>Les mots de passe introduits ne se correspondent pas</p>";
+                    }
+                    if ($_SESSION["erreur"] = 2)
+                    {
+                        echo "<br><p class='alert-warning'>Les initiales introduites sont déjà existantes</p>";
+                    }
+
+                    unset($_SESSION['erreur']);
+                }
+                ?>
+
             </div>
             <button type="submit" class="btn btn-primary btn-block btn-large">Création du compte</button>
 

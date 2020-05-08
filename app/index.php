@@ -10,7 +10,7 @@ session_start();
 
 // Include all controllers
 require "controler/Help.php";   //controler to generate common contents
-require "controler/controler.php";
+require "controler/loginControler.php";
 
 //Extract values sent by GET
 extract($_GET); //vars:
@@ -27,18 +27,9 @@ if (isset($_GET['action'])) {
 
 //depending on the chosen action
 switch ($action) {
-
-//This function displays the signin page
-    case 'displaySignin':
-        signin();
-        break;
-    //This function displays the Login page
-    case 'displayLogin':
-        login();
-        break;
 //This function tries to signin using the infomations given
-    case"trySignin":
-        trySignin();
+    case"signin":
+        signin($firstname, $lastname, $initials, $username, $password, $password2, $email, $phoneNumber, $bio);
         break;
 //This function tries to Login using the infomations given
     case"tryLogin":
@@ -49,6 +40,7 @@ switch ($action) {
     case"tryLogout":
         tryLogout();
         break;
+
     default: // unknown action
         //TODO: if user connected, then redirect to dashboard page, if not redirect to login page
         login();    //return to the login page
