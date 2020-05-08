@@ -1,0 +1,21 @@
+/**
+ *  Project: KanFF
+ *  File: records-management.txt Informations about the records of the database
+ *  Author: Samuel Roland
+ *  Creation date: 08.05.2020
+ */
+
+This file define:
+- the number of records for each tables of the db
+- what is the possibilities of specifics value (like status and their meaning if not clear)
+
+
+Tables:
+
+- Users:
+phonenumber: 10 numbers
+biography: replaced with lorum ipsum
+password: firstname hashed with password_hash()
+inscription: date between 01.01.2019 and date of generation
+status: status of the account
+    - Values: 
