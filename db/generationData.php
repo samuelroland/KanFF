@@ -6,7 +6,12 @@
  *  Creation date: 08.05.2020
  */
 
-//TODO: Functions for generate users data
+function getRandomDateFormated()
+{
+    //Generate a date between 01.01.2019 and today formated in DATETIME format.
+    return date("Y-m-d H:i:s", rand(1546300800, time()));
+}
+
 function dataUsers()
 {
     //Get all users basic data generated with generatedata.com (firstname, lastname, bio)
@@ -46,8 +51,8 @@ function dataUsers()
         //Generate a password with the firstname hashed
         $password = password_hash($firstname, PASSWORD_DEFAULT);
 
-        //Generate inscription date in timestamp format, between 01.01.2019 and today.
-        $inscription = date("Y-m-d H:i:s", rand(1546300800, time()));
+        //Generate inscription date,
+        $inscription = getRandomDateFormated();
 
         //Status is by default 0, so yyyyy
         $status = 0;
@@ -66,10 +71,74 @@ function dataUsers()
         $users[] = $userinrun;
         echo "\n" . $userinrun['id'] . " " . $userinrun['firstname'] . " " . $userinrun['lastname'] . " " . $userinrun['initials'] . " " . $userinrun['username'] . " " . $userinrun['email'] . " " . $userinrun['inscription'] . " " . $userinrun['status'] . " " . $userinrun['phonenumber'] . " " . $userinrun['password'];
     }
-    file_put_contents("data_generated/users.json", json_encode($users));
+    var_dump(json_encode($users));
+    file_put_contents("data_generated_general/users.json", json_encode($users, JSON_INVALID_UTF8_IGNORE | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
 }
 
+function dataGroups()
+{
+    $groupsressources = json_decode(file_get_contents("data-ressources/basic-data-groups.json"), true);
+
+    echo "\n-----------------------------\n Generating Groups \n-----------------------------\n ";
+    $id = 0;
+    $groups = [];    //array for the users generated
+
+    //For each user generate the other data
+    foreach ($groupsressources as $ressource) {
+        $id += 1;
+        $group = $ressource;
+
+        //Half time, email is the last word of the name of the group with @assoc.ch
+        if (rand(0, 1)) {
+            $wordsOfName = explode(" ", $group['name']);
+            $group['email'] = strtolower($wordsOfName[count($wordsOfName) - 1]) . "@assoc.ch";
+        } else {
+            //The other time it's null
+            $group['email'] = null;
+        }
+        $group['image'] = uniqid("group_", true) . ".png";
+
+        //Generating "visible" and "restrict_access". The groups are in most cases visible and not access restricted . just in 1/5 of cases the groups are considered sensitive so restric_access is 1 (true) and sometimes not visible.
+
+        $group['visible'] = 1;  //visible by default
+
+        //Generate parameters for sensitive groups in 1/5 of cases.
+        if (rand(1, 5) == 1) {
+            $group['restrict_access'] = 1;
+            if (rand(0, 1)) {
+                $group['visible'] = 0;
+            }
+        } else {
+            $group['restrict_access'] = 0;
+        }
+
+        //Generate chat and drive link that seem like a real like
+        $group['chat_link'] = "chat.link/join?v=" . generateRandomString(rand(10, 15));
+        $group['drive_link'] = "drive.link/open?f=" . generateRandomString(rand(50, 70));
+
+        //Foreign key of the user creator
+        $group['creator_id'] = rand(1, 100);
+
+        $group['creation_date'] = getRandomDateFormated();
+
+        print_r("\n" . $group['name']);
+        print_r("\n" . $group['email']."\n");
+    }
+
+}
+
+//Source: https://stackoverflow.com/questions/4356289/php-random-string-generator#answer-4356295
+function generateRandomString($length = 10)
+{
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
 
 dataUsers();
-
+//dataGroups();
 ?>
