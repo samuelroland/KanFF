@@ -12,38 +12,47 @@ session_start();
 require "controler/Help.php";   //controler to generate common contents
 require "controler/loginControler.php";
 
-//Extract values sent by GET
+// Extract values sent by GET
 extract($_GET); //vars:
 
 
-//Extract values sent by POST
-    extract($_POST); //vars:
+// Extract values sent by POST
+extract($_POST); //vars:
 
 
-//Extract the action of the querystring
+// Extract the action of the querystring
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
 }
 
-//depending on the chosen action
+// Depending on the chosen action
 switch ($action) {
-//This function tries to signin using the infomations given
+// This function tries to signin using the infomations given
     case"signin":
+        $firstname = $_POST["name"];
+        $lastname = $_POST["surname"];
+        $initials = $_POST["ini"];
+        $username = $_POST["user"];
+        $password = $_POST["password"];
+        $password2 = $_POST["passwordc"];
+        $email = $_POST["email"];
+        $phoneNumber = $_POST["nb_phone"];
+        $bio = $_POST['bio'];
         signin($firstname, $lastname, $initials, $username, $password, $password2, $email, $phoneNumber, $bio);
         break;
-//This function tries to Login using the infomations given
-    case"tryLogin":
-        tryLogin();
+// This function tries to Login using the infomations given
+    case"login":
+        login();
         break;
 
-//This function tries to Login using the infomations given
+// This function tries to Login using the infomations given
     case"tryLogout":
         tryLogout();
         break;
 
-    default: // unknown action
-        //TODO: if user connected, then redirect to dashboard page, if not redirect to login page
-        login();    //return to the login page
+    default: // Unknown action
+        // TODO: if user connected, then redirect to dashboard page, if not redirect to login page
+        login();    // Return to the login page
         break;
 }
 

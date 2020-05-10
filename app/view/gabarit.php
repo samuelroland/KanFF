@@ -23,7 +23,7 @@
 </head>
 <body>
 <header></header>
-<div class="left"><img src="view/medias/logos/temp-logo.jpg" alt="logo" class="logo"></div>
+<div class="left"><img src="view/medias/logos/temp-logo.jpg" alt="logo" class="logo" width="25%"></div>
 <div class="center"></div>
 <div class="right"></div>
 

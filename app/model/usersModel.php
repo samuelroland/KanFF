@@ -16,14 +16,14 @@ function getPDO()
     return $dbh;
 }
 
-// Fonction qui va chercher les sessions dans la base de données
+// Gets the logs in the database and return them
 function getLogs()
 {
     {
         try {
             $dbh = getPDO();
             // TODO: Query à faire
-            // $query =
+            // $query = "SELECT ... FROM ..."
             $statment = getPDO()->prepare($query);//prepare query
             $statment->execute();//execute query
             $queryResult = $statment->fetchAll(pdo::FETCH_ASSOC);//prepare result for client
@@ -35,16 +35,33 @@ function getLogs()
         }
     }
 }
-// Fonction qui va créer les sessions dans la base de données
+
+// Creates the logs in the database
 function createLogs($data)
 {
     try {
         $dbh = getPDO();
         // TODO: Query à faire
-        // $query =
+        // $query = "INSERT INTO ..."
         $statement = getPDO()->prepare($query);//prepare query
-        $statement->execute($users);//execute query
-        // $filmMakers['id']=$dbh -> lastIsertId();
+        $statement->execute();//execute query
+        $dbh = null;
+        return true;
+    } catch (PDOException $e) {
+        print "Error!: " . $e->getMessage() . "<br/>";
+        return null;
+    }
+}
+
+// Add the new user in the database
+function addUser($user)
+{
+    try {
+        $dbh = getPDO();
+        // TODO: Query à faire
+        // $query = "INSERT INTO ... "
+        $statement = getPDO()->prepare($query);//prepare query
+        $statement->execute([$user]);//execute query
         $dbh = null;
         return true;
     } catch (PDOException $e) {

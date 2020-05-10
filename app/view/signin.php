@@ -6,7 +6,7 @@ ob_start();
 
 <div class="container">
     <h1>Sign In</h1>
-        <form class="" action="index.php?action=tryLogIn" method="post">
+        <form class="" action="index.php?action=signin" method="post">
             <h6>Informations principales:</h6>
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -30,29 +30,30 @@ ob_start();
             N°télephone <input class="" type="text" name="nb_phone" placeholder="Phone"  required="required" />
         </div>
         <div class="form-row">
-            <div class="form-group col-md-6">
-            Biographie <input class="" type="text" name="bio" placeholder=""  required="required" />
+            <div class="form-group col-md-6">Biographie <input class="" type="text" name="bio" placeholder=""  required="required" />
 
-                <?php
-                if(isset($_SESSION['erreur'])){
-                    if ($_SESSION['erreur'] = 1)
+            <?php
+                if(isset($_SESSION['error']))
+                {
+                    if ($_SESSION['error'] = 1)
                     {
                         echo "<br><p class='alert-warning'>Les mots de passe introduits ne se correspondent pas</p>";
                     }
-                    if ($_SESSION["erreur"] = 2)
+                    if ($_SESSION["error"] = 2)
                     {
                         echo "<br><p class='alert-warning'>Les initiales introduites sont déjà existantes</p>";
                     }
 
-                    unset($_SESSION['erreur']);
+                    unset($_SESSION['error']);
                 }
-                ?>
+            ?>
 
             </div>
             <button type="submit" class="btn btn-primary btn-block btn-large">Création du compte</button>
             <a href="index.php?action=login"><p>Avez vous un compte? Connectez vous</p></a>
-    </form>
-</div>
+        </div>
+</form>
+
 <?php
 $content = ob_get_clean();
 require "gabarit.php";

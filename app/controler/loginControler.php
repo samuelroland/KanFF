@@ -6,12 +6,9 @@
  *  Creation date: 26.04.2020
  */
 
-//Fonction qui nous permets de Créer un compte et e stocker dans la base de données
-//This funtion will redirect to de signin page
-
+//This funtion will redirect to the signin page or redirect to the signin page
 function signin($firstname, $lastname, $initials, $username, $password, $password2, $email, $phoneNumber, $bio)
 {
-
     // If trying to create an account, else load the page
     if ($username != "" || $email != "")
     {
@@ -24,58 +21,42 @@ function signin($firstname, $lastname, $initials, $username, $password, $passwor
            /* if (getUser($username) != '')
             {
                 $_SESSION['error'] = 2;
-                require_once 'app/view/signin.php';
+                require_once 'view/signin.php';
             }*/
-            //addUser($firstname, $lastname, $initials, $username, $hash, $email, $phoneNumber, $bio);
+           // Saves the user in an array
+           $newUser = [
+               "firstname" => $firstname,
+               "lastname" => $lastname,
+               "initials" => $initials,
+               "username" => $username,
+               "password" => $hash,
+               "email" => $email,
+               "phoneNumber" => $phoneNumber,
+               "bio" => $bio];
+            var_dump($newUser);
+            //addUser($newUser);
+
+            var_dump($_SESSION);
+            require_once "view/login.php";
         }
         else{
             $_SESSION['error'] = 2;
             require_once 'view/signin.php';
         }
     }else{
-        echo ("bug");
         require_once 'view/signin.php';
     }
 }
 
+// This funtion will try to Login Using the provided data
 function login()
 {
+    // TODO: Code the Login function
 
     require_once 'view/login.php';
 }
-//This funtion will try to Login Using the provided data
-function tryLogin(){
 
-    //Pour Luis
-
-}
-
-//This funtion will try to signin and create the data in the BD
-function trySignin()
-{
-    // le if est encore a voir vu qu'on a pas de BD encore
-    if (isset($_POST["user"]) && isset($_POST["password"]) && isset($_POST["email"])  != "" && $_POST["user"] != "" && $_POST["password"] != "" && $_POST["email"] != "") {
-
-
-        $liste = getLogs();
-        $Lastid = 0;
-        foreach ($liste as $user) {
-            $id = $user["id"];
-
-            if ($id > $Lastid) {
-                $Lastid = $id;
-            }
-        }
-        $Lastid++;
-        $liste[] = ["id" => $Lastid, "user" => $_POST["user"], "password" => $_POST["password"],"email" => $_POST["email"]];
-        createLogs($liste);
-    }
-    // il faut encore créer la page d'inscription
-    require_once 'app/view/signin.php';
-    $_POST["user"] = null;
-    unset($_POST["password"]);
-}
-//This funtion will try to Logout from de current session
+// This funtion will try to Logout from de current session
 function Logout(){
 
     require_once 'app/view/home.php';
