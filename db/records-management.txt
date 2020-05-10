@@ -13,9 +13,34 @@ This file define:
 Tables:
 
 - Users:
+100 records.
+
 phonenumber: 10 numbers
 biography: replaced with lorum ipsum
 password: firstname hashed with password_hash()
 inscription: date between 01.01.2019 and date of generation
 status: status of the account
-    - Values: 
+    - Values: 0 = not approuved. 1 = approuved. 2 = archived. 3 = admin. 
+
+- Groups:
+11 records.
+
+context: why or in wich context, the group has been created.
+email: mean of contact of a entire group
+restrict_access: boolean field (in tinyint). is the access of the group totally free or the group want to manage the new members of the group ? set 1 if yes. This is useful for sensitive groups.
+visible: can change the visibility of the information of the group in the list of the groups. If not visible, the group is not listed in the list of groups. This is useful for sensitive groups.
+status: (varchar) a little text about what is the state of the group (if it's active, if it's on break, what is the occurence of the meetings, other informations about the status) 
+
+- user_join_group:
+
+
+every user should be in minimal in one group (perhaps 0 group in rare cases).
+every user are in 10 groups in maximum. 
+
+start: date of subscription
+end: date of when the user has left the group
+
+a user can join, leave, and join again a group.
+
+accepted: if the subscription has been accepted. Set to true immediatly if restrict_access is false. and after acceptation of a admin of the group for group with a restricted access.
+
