@@ -6,10 +6,10 @@
  *  Creation date: 08.05.2020
  */
 
-function getRandomDateFormated()
+function getRandomDateFormated($start = 1546300800)
 {
     //Generate a date between 01.01.2019 and today formated in DATETIME format.
-    return date("Y-m-d H:i:s", rand(1546300800, time()));
+    return date("Y-m-d H:i:s", rand($start, time()));
 }
 
 function dataUsers()
@@ -122,9 +122,89 @@ function dataGroups()
         $group['creation_date'] = getRandomDateFormated();
 
         print_r("\n" . $group['name']);
-        print_r("\n" . $group['email']."\n");
+        print_r("\n" . $group['email'] . "\n");
     }
 
+}
+
+function data_user_join_group()
+{
+    $joins = [];
+    $id = 0;
+    //For the 100 users
+    for ($i = 1; $i <= 100; $i++) {
+        $join['user_id'] = $i;
+
+
+
+        //Generate for the most majority of users but not for a minority of people that will not be in any groups.
+        if (rand(1, 50) != 1) {
+
+            //Generate the number of groups the user has joined.
+            $nbOfGroups = rand(2, 10);
+            $listOfGroupsJoinedByTheUser = [];
+
+            //For the number of groups decided, generate the other data.
+            for ($j = 1; $j <= $nbOfGroups; $j++) {
+                $id++;
+                $join['$id'] = $id;
+
+                //Generate the groups joined randomly:
+                $lastLeftDate = null;
+                $groupid = rand(0, 11);
+                if (in_array($groupid, $listOfGroupsJoinedByTheUser) == true) {
+                    foreach ($joins as $onejoin) {
+                        //Take the last join with user_id and groupid that are managed:
+                        if ($onejoin['user_id'] == $i && $onejoin['group_id'] == $groupid) {
+                            if ($onejoin['end'] != null) {
+                                //If the user has joined and left the group, he has the right to join again.
+                                $lastLeftDate = $onejoin['end'];
+                            } else {
+                                //If the user has joined and not left the group, he hasn't not the right to join again before he left the group. So the groupid need to be changed:
+
+                                //Generate a new group id that is not in the table.
+                                while (in_array($groupid, $listOfGroupsJoinedByTheUser) == true) {
+                                    $groupid = rand(1, 11);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Save groupid value
+                $join['group_id'] = $groupid;
+
+                //Add to the list of the groups joined by the user
+                $listOfGroupsJoinedByTheUser[] = $groupid;
+
+                //If the lastLeftDate is not null, the user has already joined and left, so the start must be after the end of the last join.
+                if ($lastLeftDate != null) {
+                    $join['start'] = getRandomDateFormated(strtotime($lastLeftDate));
+                } else {
+                    $join['start'] = getRandomDateFormated();
+                }
+
+                echo " \n";
+                if (rand(0, 10) == 0) {
+                    $join['end'] = getRandomDateFormated(strtotime($join['start']));
+                } else {
+                    $join['end'] = null;
+                }
+
+                //In most of cases the user is accepted.
+                if (rand(0, 20) == 0) {
+                    $join['accepted'] = 0;
+                } else {
+                    $join['accepted'] = 1;
+                }
+                echo $join['group_id'] . " \n";
+                echo $join['start'] . " \n";
+                echo $join['end'] . " \n";
+                $joins[] = $join;
+            }
+        }
+        die();
+    }
 }
 
 //Source: https://stackoverflow.com/questions/4356289/php-random-string-generator#answer-4356295
@@ -139,6 +219,7 @@ function generateRandomString($length = 10)
     return $randomString;
 }
 
-dataUsers();
+//dataUsers();
 //dataGroups();
+data_user_join_group();
 ?>
