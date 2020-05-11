@@ -10,7 +10,9 @@ session_start();
 
 // Include all controllers
 require "controler/Help.php";   //controler to generate common contents
-require "controler/loginControler.php";
+require "controler/loginControler.php"; //controler for login functions
+require "model/localFilesModel.php";    //model for local files functions
+require "view/helpers.php";     //functions for helpers functions
 
 // Extract values sent by GET
 extract($_GET); //vars:
