@@ -8,6 +8,7 @@
 
 session_start();
 
+var_dump($_SESSION);
 // Include all controllers
 require "controler/Help.php";   //controler to generate common contents
 require "controler/loginControler.php"; //controler for login functions

@@ -53,19 +53,20 @@ function login()
 {
     // TODO: Code the Login function
 
-    require_once 'view/Login.php';
+    require_once 'view/login.php';
 }
 
 // This funtion will try to Logout from de current session
 function Logout(){
 
-    require_once 'app/view/home.php';
+    require_once 'view/home.php';
 
 }
 
 function tryLogout(){
 
-    //Faire avec Luis
+    unset($_SESSION['user']);
+    require_once 'view/login.php';
 
 }
 
