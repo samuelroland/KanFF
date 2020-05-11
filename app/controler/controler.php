@@ -17,7 +17,7 @@ function signin()
 function login()
 {
 
-    require_once 'view/Login.php';
+    require_once 'view/login.php';
 }
 //This funtion will try to Login Using the provided data
 function tryLogin(){
