@@ -56,7 +56,7 @@ function updateOne($table,$id,$elementForUpdate,$params){
     return Query($query,$params,false);
 }
 //Create one element
-function createOne($table,$elementForCreate,$params){
+function createOne($table,$elementForCreate,$params,$criterions){
     $query='INSERT INTO '.$table.' WHERE '.$criterions;
 }
 ?>
