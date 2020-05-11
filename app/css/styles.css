@@ -5,13 +5,12 @@
  *  Creation date: 26.04.2020
  */
 
-<<<<<<< HEAD
 .versiontext{
     font-size: 0.7em;
 }
 
 .logo {
-    height: 100px;
+    width: 120px;
 
 }
 .gauche {
@@ -35,7 +34,7 @@
     width: 20px;
     background-color: red;
 }
-=======
+
 .formlog {
     min-width: 500px;
     position: absolute;
@@ -50,4 +49,3 @@
         min-width: 90%;
     }
 }
->>>>>>> 1e755920c2e797d8adb2fe2766fd73386d92e2a9
