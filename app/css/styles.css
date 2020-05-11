@@ -18,7 +18,7 @@
     top: 0;
     left: 0;
     width: 20px;
-    background-color: red;
+    background-color: #001fff;
 }
 
 .centre {
@@ -27,12 +27,12 @@
     background-color: red;
 }
 
-.roite {
+.droite {
     position: absolute;
     top: 0;
     right: 0;
     width: 20px;
-    background-color: red;
+    background-color: #1bff00;
 }
 
 .formlog {
