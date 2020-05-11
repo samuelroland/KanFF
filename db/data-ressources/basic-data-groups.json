@@ -1,0 +1,68 @@
+[
+  {
+    "name": "GT Finances",
+    "description": "Ce groupe s'occupe de gérer les finances de l'association. Il gère les dons, les dépenses, les demandes d'argent, et gère le compte bancaire.",
+    "context": "Ce groupe a été créé après un problème avec les finances. Le problème était que trop peu de personnes s'en occupaient.",
+    "status": "Travail une fois par mois pour les tâches répétitives"
+  },
+  {
+    "name": "GT Réfléxion interne",
+    "description": "Groupe pour réfléchir au fonctionnement interne.",
+    "context": "Différentes tensions entre certains membres.",
+    "status": ""
+  },
+  {
+    "name": "Coordination",
+    "description": "Coordination générale. Fait des AG toutes les 2 semaines.",
+    "context": "Besoin d'un groupe contenant tout les membres.",
+    "status": ""
+  },
+  {
+    "name": "GT Journal",
+    "description": "Collaboration avec un journal régional mensuel pour un prochain numéro consacré à l'association. Le journal sera publié fin mai.",
+    "context": "Envie de prendre place dans l'espace médiatique et de se faire connaître...",
+    "status": "En pause pour cause du covid et reporté en septembre."
+  },
+  {
+    "name": "GT Festival",
+    "description": "Organise le festival de l'association qui aura lieu le 17 juillet 2020.",
+    "context": "",
+    "status": ""
+  },
+  {
+    "name": "GT Multimedia",
+    "description": "Crée tous les design et médias dont l'association a besoin. Affiches, vidéos, photos, montages, ...",
+    "context": "Rassemblement des personnes créatives de l'association.",
+    "status": "ligula."
+  },
+  {
+    "name": "GT Sites web",
+    "description": "Ce GT s'occupe des sites web et de leur maintenance.",
+    "context": "Besoin de connaissances un peu technique et des personnes qui se portent responsables.",
+    "status": "Travail actif sur le site cantonal..."
+  },
+  {
+    "name": "GT Communication",
+    "description": "Gére toute la communication interne et externe de l'association. Gère les différents réseaux sociaux.",
+    "context": "",
+    "status": "Textes et messages envoyés tous les jours. Très actif pour la réfléxion."
+  },
+  {
+    "name": "GT Education",
+    "description": "Fait des formations en ligne pour des membres internes et externes.",
+    "context": "Volonté de se former au thèmes de l'association.",
+    "status": "Formations intenses entre le 15 et le 23. Ensuite pause."
+  },
+  {
+    "name": "GT relations",
+    "description": "Permet de gérer les relations externes, que ce soit les médias, la presse, les demandes d'interview, ...",
+    "context": "Beaucoup de demandes d'interview après pour les événements organisés.",
+    "status": ""
+  },
+  {
+    "name": "GT boîte mail",
+    "description": "Gestion de la boite mail et réponses aux messages.",
+    "context": "",
+    "status": "Une personne gère la boite mail par jour et ce tous les jours."
+  }
+]

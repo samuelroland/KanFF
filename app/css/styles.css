@@ -4,3 +4,48 @@
  *  Author: Team
  *  Creation date: 26.04.2020
  */
+
+.versiontext{
+    font-size: 0.7em;
+}
+
+.logo {
+    width: 120px;
+
+}
+.gauche {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    background-color: red;
+}
+
+.centre {
+    margin-right: 5px;
+    margin-left: 5px;
+    background-color: red;
+}
+
+.roite {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    background-color: red;
+}
+
+.formlog {
+    min-width: 500px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.0rem
+}
+@media (max-width: 500px) {
+    .formlog {
+        min-width: 90%;
+    }
+}

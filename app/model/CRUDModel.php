@@ -1,12 +1,10 @@
 <?php
 /**
  *  Project: KanFF
- *  File: CRUDModel Function: getall, getone, getbycritere, updateone, deleteone, createone
+ *  File: CRUDModel Function: getall, getone, getbycriterions, updateone, deleteone, createone
  *  Author: Benoit Pierrehumbert
  *  Creation date: 04/05/2020
  */
-
-//TODO: change the informations of the cartouche !!!!!!!
 
 function getPDO()
 {
@@ -14,8 +12,8 @@ function getPDO()
     $res = new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname, $user, $pass);
     return $res;
 }
-function Query($table,$query,$params,$manyrecords){
-    $params[]=['table'=>$table];
+function Query($query,$params,$manyrecords){
+
     try {
         $dbh = getPDO();
         $statement = $dbh->prepare($query);//prepare query
@@ -35,15 +33,30 @@ function Query($table,$query,$params,$manyrecords){
 //Get all elements of one Table
 function getAll($table)
 {
-    $query='SELECT * FROM :table';
+    $query='SELECT * FROM '.$table;
     $params='';
-   return Query($table,$query,$params,true);
+   return Query($query,$params,true);
+}
+//Get one element by his id
+function getOne($table,$id){
+    $query='SELECT * FROM '.$table.' WHERE id=:id';
+    $params="['id'=>.$id.]";
+    return Query($query,$params,false);
 }
 //Get one specific element of one Table
-function getByCondition($table,$params,$condition)
+function getByCriterion($table,$params,$criterions)
 {
-    $query='SELECT * FROM :table'.$where;
-    return Query($table,$query,$params,true);
+    //$criterions need the complete where condition with AND / OR write in SQL
+    $query='SELECT * FROM '.$table.' WHERE '.$criterions;
+    return Query($query,$params,false);
 }
-//Get
+//Update one element
+function updateOne($table,$id,$elementForUpdate,$params){
+    $query='UPDATE '.$table.' SET '.$elementForUpdate.' WHERE id='.$id;
+    return Query($query,$params,false);
+}
+//Create one element
+function createOne($table,$elementForCreate,$params){
+    $query='INSERT INTO '.$table.' WHERE '.$criterions;
+}
 ?>
