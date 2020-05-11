@@ -53,7 +53,7 @@ function login()
 {
     // TODO: Code the Login function
 
-    require_once 'view/login.php';
+    require_once 'view/Login.php';
 }
 
 // This funtion will try to Logout from de current session

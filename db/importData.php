@@ -10,7 +10,7 @@ define("DATAFOLDER", "data_generated_general");
 
 function getPDO()
 {
-    require "../.const.php";
+    require "../app/.const.php";
     return new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname, $user, $pass);
 }
 

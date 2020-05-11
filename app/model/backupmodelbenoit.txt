@@ -46,17 +46,17 @@ function getOne($table,$id){
 //Get one specific element of one Table
 function getByCriterion($table,$params,$criterions)
 {
-    //$criterions need the complete where condition with AND / OR write in SQL
-    $query='SELECT * FROM '.$table.' WHERE '.$criterions;
-    return Query($query,$params,false);
+//$criterions need the complete where condition with AND / OR write in SQL
+$query='SELECT * FROM '.$table.' WHERE '.$criterions;
+return Query($query,$params,false);
 }
 //Update one element
 function updateOne($table,$id,$elementForUpdate,$params){
-    $query='UPDATE '.$table.' SET '.$elementForUpdate.' WHERE id='.$id;
-    return Query($query,$params,false);
+$query='UPDATE '.$table.' SET '.$elementForUpdate.' WHERE id='.$id;
+return Query($query,$params,false);
 }
 //Create one element
 function createOne($table,$elementForCreate,$params,$criterions){
-    $query='INSERT INTO '.$table.' WHERE '.$criterions;
+$query='INSERT INTO '.$table.' WHERE '.$criterions;
 }
 ?>

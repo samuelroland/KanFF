@@ -1,18 +1,18 @@
 -- MySQL Workbench Synchronization
 -- Generated: 2020-05-09 12:37
--- Project: kanff_56649
--- File: create-db-kanff_56649.sql file for create the kanff_56649 database with the tables.
+-- Project: KanFF
+-- File: create-db-kanff.sql file for create the kanff database with the tables.
 -- Creation date: 09.05.2020
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
-DROP DATABASE if exists kanff_56649;
+DROP DATABASE if exists kanff;
 
-CREATE SCHEMA IF NOT EXISTS `kanff_56649` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin ;
+CREATE SCHEMA IF NOT EXISTS `kanff` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin ;
 
-CREATE TABLE IF NOT EXISTS `kanff_56649`.`users` (
+CREATE TABLE IF NOT EXISTS `kanff`.`users` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(15) NOT NULL,
   `initials` VARCHAR(3) NOT NULL,
@@ -31,7 +31,7 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `kanff_56649`.`groups` (
+CREATE TABLE IF NOT EXISTS `kanff`.`groups` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL,
   `description` VARCHAR(200) NOT NULL,
@@ -50,14 +50,14 @@ CREATE TABLE IF NOT EXISTS `kanff_56649`.`groups` (
   INDEX `fk_groups_users1_idx` (`creator_id` ASC) VISIBLE,
   CONSTRAINT `fk_groups_users1`
     FOREIGN KEY (`creator_id`)
-    REFERENCES `kanff_56649`.`users` (`id`)
+    REFERENCES `kanff`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `kanff_56649`.`projects` (
+CREATE TABLE IF NOT EXISTS `kanff`.`projects` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(70) NOT NULL,
   `description` VARCHAR(500) NOT NULL,
@@ -75,7 +75,7 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `kanff_56649`.`works` (
+CREATE TABLE IF NOT EXISTS `kanff`.`works` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL,
   `description` VARCHAR(200) NULL DEFAULT NULL,
@@ -94,19 +94,19 @@ CREATE TABLE IF NOT EXISTS `kanff_56649`.`works` (
   INDEX `fk_works_users1_idx` (`creator_id` ASC) VISIBLE,
   CONSTRAINT `fk_works_projects1`
     FOREIGN KEY (`project_id`)
-    REFERENCES `kanff_56649`.`projects` (`id`)
+    REFERENCES `kanff`.`projects` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_works_users1`
     FOREIGN KEY (`creator_id`)
-    REFERENCES `kanff_56649`.`users` (`id`)
+    REFERENCES `kanff`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `kanff_56649`.`tasks` (
+CREATE TABLE IF NOT EXISTS `kanff`.`tasks` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `number` INT(11) NOT NULL,
   `name` VARCHAR(50) NOT NULL,
@@ -127,24 +127,24 @@ CREATE TABLE IF NOT EXISTS `kanff_56649`.`tasks` (
   INDEX `fk_tasks_works1_idx` (`work_id` ASC) VISIBLE,
   CONSTRAINT `fk_tasks_users`
     FOREIGN KEY (`user_id`)
-    REFERENCES `kanff_56649`.`users` (`id`)
+    REFERENCES `kanff`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_tasks_users1`
     FOREIGN KEY (`creator_id`)
-    REFERENCES `kanff_56649`.`users` (`id`)
+    REFERENCES `kanff`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_tasks_works1`
     FOREIGN KEY (`work_id`)
-    REFERENCES `kanff_56649`.`works` (`id`)
+    REFERENCES `kanff`.`works` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `kanff_56649`.`competences` (
+CREATE TABLE IF NOT EXISTS `kanff`.`competences` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `category` VARCHAR(50) NULL DEFAULT NULL,
@@ -155,7 +155,7 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin
 COMMENT = '					';
 
-CREATE TABLE IF NOT EXISTS `kanff_56649`.`notifications` (
+CREATE TABLE IF NOT EXISTS `kanff`.`notifications` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(200) NOT NULL,
   `type` INT(11) NOT NULL,
@@ -166,7 +166,7 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `kanff_56649`.`events` (
+CREATE TABLE IF NOT EXISTS `kanff`.`events` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(90) NOT NULL,
   `description` VARCHAR(2000) NULL DEFAULT NULL,
@@ -183,14 +183,14 @@ CREATE TABLE IF NOT EXISTS `kanff_56649`.`events` (
   INDEX `fk_events_users1_idx` (`creator_id` ASC) VISIBLE,
   CONSTRAINT `fk_events_users1`
     FOREIGN KEY (`creator_id`)
-    REFERENCES `kanff_56649`.`users` (`id`)
+    REFERENCES `kanff`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `kanff_56649`.`user_own_competence` (
+CREATE TABLE IF NOT EXISTS `kanff`.`user_own_competence` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_id` INT(11) NOT NULL,
   `competence_id` INT(11) NOT NULL,
@@ -200,19 +200,19 @@ CREATE TABLE IF NOT EXISTS `kanff_56649`.`user_own_competence` (
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_users_has_competences_users1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `kanff_56649`.`users` (`id`)
+    REFERENCES `kanff`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_has_competences_competences1`
     FOREIGN KEY (`competence_id`)
-    REFERENCES `kanff_56649`.`competences` (`id`)
+    REFERENCES `kanff`.`competences` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `kanff_56649`.`user_suscribe_event` (
+CREATE TABLE IF NOT EXISTS `kanff`.`user_suscribe_event` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_id` INT(11) NOT NULL,
   `event_id` INT(11) NOT NULL,
@@ -222,19 +222,19 @@ CREATE TABLE IF NOT EXISTS `kanff_56649`.`user_suscribe_event` (
   INDEX `fk_users_has_events_users1_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_users_has_events_users1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `kanff_56649`.`users` (`id`)
+    REFERENCES `kanff`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_has_events_events1`
     FOREIGN KEY (`event_id`)
-    REFERENCES `kanff_56649`.`events` (`id`)
+    REFERENCES `kanff`.`events` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `kanff_56649`.`user_receive_notification` (
+CREATE TABLE IF NOT EXISTS `kanff`.`user_receive_notification` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `notification_id` INT(11) NOT NULL,
   `user_id` INT(11) NOT NULL,
@@ -246,19 +246,19 @@ CREATE TABLE IF NOT EXISTS `kanff_56649`.`user_receive_notification` (
   INDEX `fk_notifications_has_users_notifications1_idx` (`notification_id` ASC) VISIBLE,
   CONSTRAINT `fk_notifications_has_users_notifications1`
     FOREIGN KEY (`notification_id`)
-    REFERENCES `kanff_56649`.`notifications` (`id`)
+    REFERENCES `kanff`.`notifications` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_notifications_has_users_users1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `kanff_56649`.`users` (`id`)
+    REFERENCES `kanff`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `kanff_56649`.`group_realize_project` (
+CREATE TABLE IF NOT EXISTS `kanff`.`group_realize_project` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `group_id` INT(11) NOT NULL,
   `project_id` INT(11) NOT NULL,
@@ -267,19 +267,19 @@ CREATE TABLE IF NOT EXISTS `kanff_56649`.`group_realize_project` (
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_groups_has_projects_groups1`
     FOREIGN KEY (`group_id`)
-    REFERENCES `kanff_56649`.`groups` (`id`)
+    REFERENCES `kanff`.`groups` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_groups_has_projects_projects1`
     FOREIGN KEY (`project_id`)
-    REFERENCES `kanff_56649`.`projects` (`id`)
+    REFERENCES `kanff`.`projects` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `kanff_56649`.`user_log_project` (
+CREATE TABLE IF NOT EXISTS `kanff`.`user_log_project` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_id` INT(11) NOT NULL,
   `project_id` INT(11) NOT NULL,
@@ -294,19 +294,19 @@ CREATE TABLE IF NOT EXISTS `kanff_56649`.`user_log_project` (
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_users_has_projects_users1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `kanff_56649`.`users` (`id`)
+    REFERENCES `kanff`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_has_projects_projects1`
     FOREIGN KEY (`project_id`)
-    REFERENCES `kanff_56649`.`projects` (`id`)
+    REFERENCES `kanff`.`projects` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `kanff_56649`.`user_join_group` (
+CREATE TABLE IF NOT EXISTS `kanff`.`user_join_group` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_id` INT(11) NOT NULL,
   `group_id` INT(11) NOT NULL,
@@ -318,19 +318,19 @@ CREATE TABLE IF NOT EXISTS `kanff_56649`.`user_join_group` (
   INDEX `fk_users_has_groups_users1_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_users_has_groups_users1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `kanff_56649`.`users` (`id`)
+    REFERENCES `kanff`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_has_groups_groups1`
     FOREIGN KEY (`group_id`)
-    REFERENCES `kanff_56649`.`groups` (`id`)
+    REFERENCES `kanff`.`groups` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `kanff_56649`.`event_concern_group` (
+CREATE TABLE IF NOT EXISTS `kanff`.`event_concern_group` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `event_id` INT(11) NOT NULL,
   `group_id` INT(11) NOT NULL,
@@ -339,12 +339,12 @@ CREATE TABLE IF NOT EXISTS `kanff_56649`.`event_concern_group` (
   INDEX `fk_events_has_groups_events1_idx` (`event_id` ASC) VISIBLE,
   CONSTRAINT `fk_events_has_groups_events1`
     FOREIGN KEY (`event_id`)
-    REFERENCES `kanff_56649`.`events` (`id`)
+    REFERENCES `kanff`.`events` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_events_has_groups_groups1`
     FOREIGN KEY (`group_id`)
-    REFERENCES `kanff_56649`.`groups` (`id`)
+    REFERENCES `kanff`.`groups` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB

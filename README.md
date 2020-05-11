@@ -15,18 +15,8 @@ L'objectif est de pouvoir gérer: différents projets, des tâches, la répartit
 Sous le dossier `Ressources` il y a un `server-setup.cmd` qui permet de copier le template `.const.php.example` dans le dossier `app`.
 
 ### Matériel et logiciels nécessaires:
-1. Un serveur Php
-1. Un serveur MySQL
 
 Procédure d'installation et de configuration:
-1. Lancer le `server-setup.cmd`
-1. Lancer un serveur php en local dans le dossier `app` sur un port non occupé. Par exemple en faisant `php -S localhost:8080` ou créer un "Php builtin server" dans un IDE.
-1. Démarrer un service MySQL.
-1. Créer un utilisateur pour la base de donnée nommée `kanff` avec les droits dont il a besoin. 
-1. Aller dans `app` et remplissez les valeurs dans le `.const.php` (le mode debug et les identifiants de connexion à la base de données avec l'utilisateur précèdemment créé).
-1. Lancer le `npm install.cmd` pour installer les packages de npm. ou alors tapez la commande `npm install` dans le dossier `app`.
-1. Ouvrez un navigateur web à l'adresse: `localhost:8080`. Le site est accessible et fonctionne.
-
 ## Installation (pour développement)
 
 
