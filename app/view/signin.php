@@ -10,12 +10,12 @@ ob_start();
             <h6>Informations principales:</h6>
         <div class="form-row">
             <div class="form-group col-md-6">
-                Nom d'utilisateur <input class="" type="text" name="user" placeholder="Username"  required="required" />
-                Prénom <input type="text" name="name" placeholder="Name"  required="required" />
+                Nom d'utilisateur <input minlength="4" maxlength="20" class="" type="text" name="user" placeholder="Username"  required="required" />
+                Prénom <input minlength="2" maxlength="254" type="text" name="name" placeholder="Name"  required="required" />
             </div>
 
             <div class="form-group col-md-6">
-                Nom <input type="text" name="surname" placeholder="Surname"  required="required" />
+                Nom <input minlength="2" maxlength="254" type="text" name="surname" placeholder="Surname"  required="required" />
                 Initiales <input type="text" name="ini" placeholder="Initials"  required="required" />
             </div>
         </div>
@@ -26,11 +26,11 @@ ob_start();
         <h6>Champs facultatifs:</h6>
 
         <div class="form-group">
-            Nom d'utilisateur <input class="" type="text" name="email" placeholder="Email"  required="required" />
+            Email <input  class="" type="text" name="email" placeholder="Email"  required="required" />
             N°télephone <input class="" type="text" name="nb_phone" placeholder="Phone"  required="required" />
         </div>
         <div class="form-row">
-            <div class="form-group col-md-6">Biographie <input class="" type="text" name="bio" placeholder=""  required="required" />
+            <div class="form-group col-md-6">Biographie <input maxlength="254" class="" type="text" name="bio" placeholder=""  required="required" />
 
             <?php
                 if(isset($_SESSION['error']))
