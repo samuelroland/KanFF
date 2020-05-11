@@ -11,7 +11,7 @@ $versions = [
     [
         "version" => "1.0",
         "date" => "2020-05-11",
-        "changelog" => "Start of gabarit, start of the view of signin et create an account."
+        "changelog" => "Start of gabarit, start of the view of signin et create an account. logo temp."
     ]
 ];
 
