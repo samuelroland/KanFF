@@ -25,7 +25,7 @@ $*.doc*
 .const.php
 .*.php
 .*.txt
-.*
+
 *.pem
 *.ppk
 *.key
