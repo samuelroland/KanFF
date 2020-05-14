@@ -6,57 +6,94 @@
  *  Creation date: 08.05.2020
  */
 
+/// ----------------------------
+///  Useful functions
+/// ----------------------------
 function getPDO()
 {
     require "../app/.const.php";
     return new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname, $user, $pass);
 }
 
-function insertItemsInDB($query, $items)
-{
-    foreach ($items as $val) // execute it many times for each item
-    {
-        try {
-            $statement = getPDO()->prepare($query);//prepare query once
-            $statement->execute($val);   //éxecuter la requête
-        } catch (PDOException $e) { //en cas d'erreur dans le try
-            echo "Error!: " . $e->getMessage() . "\n";
-        }
-    }
-}
-
-//Build the string of the query with parameters according to the data.
+//Build the string of the SQL query with SQL parameters according to the data sent
 function queryInsertConstructor($items, $tablename)
 {
     require "../app/.const.php";
-    //Create the lists of the keys of an item of the list. Take the first item shouldn't create problem.
+    //Create the lists of the keys of an item of the array. Take the first item shouldn't create problem. (items are not manually indexed)
     foreach ($items[0] as $key => $fieldOfOneItem) {
         $listofkeys[] = $key;
     }
     $query = "INSERT INTO $dbname.$tablename (" . implode(", ", $listofkeys) . ") VALUES (:" . implode(", :", $listofkeys) . ");";
-    var_dump($query);
     return $query;
 }
 
+//Import data of an array in the database in a given table and delete the table records before
 function importTableData($table, $items)
 {
+    $error = false; //no error by default
+
+    //Build the query:
     $query = queryInsertConstructor($items, $table);
-    require "../app/.const.php";
+
     //Delete table records before insert
+    require "../app/.const.php";
     $statement = getPDO()->prepare("delete from $dbname.$table");
     $statement->execute();   //éxecuter la requête
 
     //Finally insert data!
-    insertItemsInDB($query, $items);
-    echo "Imported successfully! \n";
+    $statement = getPDO()->prepare($query);//prepare query once instead of for each item.
+    foreach ($items as $val) // for each item it will execute the sql query
+    {
+        try {
+            $statement->execute($val);   //execute query with data for parameters
+        } catch (PDOException $e) { //en cas d'erreur dans le try
+            echo "Error!: " . $e->getMessage() . "\n";
+            $error = true;
+        }
+    }
+
+    //Display the end message after inserting the table in run. If it's successful or if errors have been occured.
+    if ($error) {
+        echo "Some errors have been occured with inserting...\n";
+    } else {
+        echo "Imported successfully! \n";
+    }
 }
 
+//Generate a date between 01.01.2019 and today formated in DATETIME format ("Y-m-d H:i:s")
 function getRandomDateFormated($start = 1546300800)
 {
-    //Generate a date between 01.01.2019 and today formated in DATETIME format.
     return date("Y-m-d H:i:s", rand($start, time()));
 }
 
+//Get all the items of a table with the table name
+function getAllItems($tablename)
+{
+    try {
+        $dbh = getPDO();
+        $statement = $dbh->prepare("SELECT * FROM kanff.$tablename;");//prepare query
+        $statement->execute();//execute query
+        $queryResult = $statement->fetchAll(PDO::FETCH_ASSOC);//prepare result for client
+        $dbh = null;
+        $items = [];
+        foreach ($queryResult as $item) {
+            $items[$item['id']] = $item;
+        }
+        var_dump($items);
+        var_dump($queryResult);
+        die();
+        return $items;
+    } catch (PDOException $e) {
+        print "Error!: " . $e->getMessage() . "<br/>";
+        return null;
+    }
+}
+
+/// ----------------------------
+///  Generate data functions
+/// ----------------------------
+
+//Generate data for users
 function dataUsers()
 {
     //Get all users basic data generated with generatedata.com (firstname, lastname, bio)
@@ -132,6 +169,7 @@ function dataUsers()
     importTableData("users", $users);
 }
 
+//Generate data for groups
 function dataGroups()
 {
     $groupsressources = json_decode(file_get_contents("data-ressources/basic-data-groups.json"), true);
@@ -169,7 +207,7 @@ function dataGroups()
             $group['restrict_access'] = 0;
         }
 
-        //Generate chat and drive link that seem like a real like
+        //Generate chat and drive link that seem like a real one
         $group['chat_link'] = "chat.link/join?v=" . generateRandomString(rand(10, 15));
         $group['drive_link'] = "drive.link/open?f=" . generateRandomString(rand(50, 70));
 
@@ -184,38 +222,22 @@ function dataGroups()
         print_r("\n" . $group['email'] . "\n");
         $groups[] = $group;
     }
-    var_dump($groups);
 
     importTableData("groups", $groups);
 }
 
-function getAllItems($tablename)
-{
-    try {
-        $dbh = getPDO();
-        $statement = $dbh->prepare("select * form $tablename");//prepare query
-        $statement->execute();//execute query
-        $queryResult = $statement->fetchAll(PDO::FETCH_ASSOC);//prepare result for client
-        $dbh = null;
-        foreach ($queryResult as $item) {
-            $items[$item['id']] = $item;
-        }
-        return $items;
-    } catch (PDOException $e) {
-        print "Error!: " . $e->getMessage() . "<br/>";
-        return null;
-    }
-}
-
+//Generate data for user_join_group
 function data_user_join_group()
 {
+    //Take the group list
     $groups = getAllItems("groups");
+    //Declare variables
     $joins = [];
     $id = 0;
-    //For the 100 users
+
+    //Choose the groups joined for the 100 users (id 1 to 100)
     for ($i = 1; $i <= 100; $i++) {
         $join['user_id'] = $i;
-
 
         //Generate for the most majority of users but not for a minority of people that will not be in any groups.
         if (rand(1, 50) != 1) {
@@ -274,9 +296,9 @@ function data_user_join_group()
                 //In a few cases the user is not yet accepted.
                 if (rand(0, 20) == 0) {
                     if ($groups[$groupid]['restrict_access'] == 1) {
-                        $join['accepted'] = 1;
-                    } else {
                         $join['accepted'] = 0;
+                    } else {
+                        $join['accepted'] = 1;
                     }
 
                 } else {//In most of cases the user is accepted.
