@@ -7,7 +7,7 @@ $versions = getVersionsApp();
 <head>
     <meta charset="utf-8">
     <title><?= $title; ?></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
     <!-- Bootstrap files -->
     <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
@@ -27,12 +27,28 @@ $versions = getVersionsApp();
 </head>
 <body>
 <header></header>
-<div class="left"><img src="view/medias/logos/temp-logo.jpg" alt="logo" class="logo"> <br><span class="versiontext">v<?= $versions[count($versions)-1]['version'] ?></span>
-    <span class="versiontext"><em> le <?= date("d.m.Y", strtotime($versions[count($versions)-1]['date'])) ?></em></span></div>
-<div class="center">
+<div class="logodiv">
+    <img src="view/medias/logos/temp-logo.jpg" alt="logo" class="logo">
+    Logo
+
 
 </div>
-<div class="right"></div>
+<div class="user">
+    User
+</div>
+<div class="menu">
+    <ul>
+        <li><a class="active" href="#home">Home</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+
+</div>
+<br><br><br><span
+        class="versiontext">v<?= $versions[count($versions) - 1]['version'] ?></span>
+<span class="versiontext"><em> le <?= date("d.m.Y", strtotime($versions[count($versions) - 1]['date'])) ?></em></span>
+
 
 <div class="appbody">
 
