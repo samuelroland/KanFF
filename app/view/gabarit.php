@@ -28,7 +28,7 @@ $versions = getVersionsApp();
 <body>
 <header></header>
 <div class="logodiv">
-    <img src="view/medias/logos/temp-logo.jpg" alt="logo" class="logo">
+    <img src="view/medias/logos/temp-logo.png" alt="logo" class="logo">
     Logo
 
 
