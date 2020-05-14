@@ -6,6 +6,49 @@
  *  Creation date: 08.05.2020
  */
 
+function getPDO()
+{
+    require "../app/.const.php";
+    return new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname, $user, $pass);
+}
+
+function insertItemsInDB($query, $items)
+{
+    foreach ($items as $val) // execute it many times for each item
+    {
+        try {
+            $statement = getPDO()->prepare($query);//prepare query once
+            $statement->execute($val);   //éxecuter la requête
+        } catch (PDOException $e) { //en cas d'erreur dans le try
+            echo "Error!: " . $e->getMessage() . "\n";
+        }
+    }
+}
+
+//Build the string of the query with parameters according to the data.
+function queryInsertConstructor($items, $tablename)
+{
+    //Create the lists of the keys of an item of the list. Take the first item shouldn't create problem.
+    foreach ($items[0] as $key => $fieldOfOneItem) {
+        $listofkeys[] = $key;
+    }
+    $query = "INSERT INTO $tablename (" . implode(", ", $listofkeys) . ") VALUES (:" . implode(", :", $listofkeys) . ");";
+    return $query;
+}
+
+function importTableData($table, $items)
+{
+    $query = queryInsertConstructor($items, $table);
+
+    //Delete table records before insert
+    $statement = getPDO()->prepare("delete from $table");
+    $statement->execute();   //éxecuter la requête
+
+    //Finally insert data!
+    insertItemsInDB($query, $items);
+    echo "Imported successfully! \n";
+}
+
 function getRandomDateFormated($start = 1546300800)
 {
     //Generate a date between 01.01.2019 and today formated in DATETIME format.
@@ -47,7 +90,7 @@ function dataUsers()
         //Generate initials
         $initials = substr($firstname, 0, 1) . substr($lastname, 0, 1) . substr($lastname, strlen($lastname) - 1);
         $initials = strtoupper($initials);
-        //half the time, email is set to "firstname.lastname@example.com" and if not the email is null
+        //half the time, email is set to "firstname.lastname@assoc.com" and if not the email is null
         if (rand(0, 1)) {
             $email = $firstname . "." . $lastname . "@assoc.ch";    //create the email with the raw firstname and lastname
             $email = strtr($email, $unwanted_array);    //replace accent with corresponding char
@@ -82,9 +125,9 @@ function dataUsers()
         $users[] = $userinrun;
         echo "\n" . $userinrun['id'] . " " . $userinrun['firstname'] . " " . $userinrun['lastname'] . " " . $userinrun['initials'] . " " . $userinrun['username'] . " " . $userinrun['email'] . " " . $userinrun['inscription'] . " " . $userinrun['status'] . " " . $userinrun['phonenumber'] . " " . $userinrun['password'];
     }
-    var_dump(json_encode($users));
+
     var_dump($users[2]);
-    file_put_contents("data_generated_general/userds.json", json_encode($users));
+    importTableData("users", $users);
 }
 
 function dataGroups()
@@ -137,8 +180,8 @@ function dataGroups()
         print_r("\n" . $group['email'] . "\n");
         $groups[] = $group;
     }
-    var_dump(json_encode($groups));
-    file_put_contents("data_generated_general/groups.json", json_encode($groups));
+
+    importTableData("groups", $groups);
 }
 
 function data_user_join_group()
@@ -218,6 +261,7 @@ function data_user_join_group()
         }
         die();
     }
+    importTableData("user_join_group", $joins);
 }
 
 //Source: https://stackoverflow.com/questions/4356289/php-random-string-generator#answer-4356295
@@ -234,5 +278,6 @@ function generateRandomString($length = 10)
 
 dataUsers();
 dataGroups();
-//data_user_join_group();
+data_user_join_group();
+
 ?>

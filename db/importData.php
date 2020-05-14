@@ -6,19 +6,12 @@
  *  Creation date: 09.05.2020
  */
 
-define("DATAFOLDER", "data_generated_general");
-
 function getPDO()
 {
     require "../app/.const.php";
     return new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname, $user, $pass);
 }
 
-/**
- * Insère toutes les données contenues dans le tableau $batch dans la db au moyen de la requête $query
- * @param $query
- * @param $batch
- */
 function insertItemsInDB($query, $items)
 {
     foreach ($items as $val) // execute it many times for each item
@@ -43,42 +36,17 @@ function queryInsertConstructor($items, $tablename)
     return $query;
 }
 
-//General function to import table data by a table name
-function importTableData($table)
+function importTableData($table, $items)
 {
-    echo "\n----------------------------------------------------------
-    Importing $table 
-----------------------------------------------------------\n ";
-    if (file_exists(DATAFOLDER . "/$table.json")) {
-        $items = json_decode(file_get_contents(DATAFOLDER . "/$table.json"), true);
         $query = queryInsertConstructor($items, $table);
 
         //Delete table records before insert
-        $statement = getPDO()->prepare("delete from $table");//prepare query once
+        $statement = getPDO()->prepare("delete from $table");
         $statement->execute();   //éxecuter la requête
 
         //Finally insert data!
         insertItemsInDB($query, $items);
         echo "Imported successfully! \n";
-    } else {
-        echo "error: json file not found in " . DATAFOLDER . "/$table.json\n";
-    }
-}
-
-// --------------------------------------------
-// Execution for the tables choosed.
-// --------------------------------------------
-
-//List of tables to import (the order is important!) in the database. Every table need a json file (table users: users.json)
-$tablestoimport = [
-    "users",
-    "groups",
-    "...",
-];
-
-//Import each table of the list
-foreach ($tablestoimport as $table) {
-    importTableData($table);
 }
 
 
