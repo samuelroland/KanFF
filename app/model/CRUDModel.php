@@ -52,11 +52,21 @@ function getByCriterion($table,$params,$criterions)
 }
 //Update one element
 function updateOne($table,$id,$elementForUpdate,$params){
+    //$elementForUpdate = 'department'=:department
+    //$params = ["department"=>$department]
     $query='UPDATE '.$table.' SET '.$elementForUpdate.' WHERE id='.$id;
     return Query($query,$params,false);
 }
 //Create one element
-function createOne($table,$elementForCreate,$params,$criterions){
-    $query='INSERT INTO '.$table.' WHERE '.$criterions;
+function createOne($table,$params,$values,$field){
+    //$field = (department, name, code)
+    //$values = '('.:department.','.:name.','.:code.')'
+    //$params = ['department'=>$department,'name'=>$name,'code'=>$code]
+    $query='INSERT INTO '.$table.' ( '.$field.') VALUES ('.$values.')';
+    return Query($query,$params,false);
+}
+//Detlete one element by his id
+function deleteOne($table,$id){
+
 }
 ?>
