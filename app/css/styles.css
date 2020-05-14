@@ -15,12 +15,22 @@ body{
     width: 200px;
 
 }
+
 .logodiv {
 
-    float: left;
+            float: left;
 
-    background-color: #74f7ff;
-    width: 450px;
+            background-color: #74f7ff;
+            width: 450px;
+        }
+
+.gauche {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    background-color: #001fff;
+
 }
 
 .menu {
@@ -48,6 +58,7 @@ float: right;
         min-width: 90%;
     }
 }
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -70,4 +81,9 @@ li a {
 
 li a:hover {
     background-color: #111;
+}
+
+.logocenter{
+    align-content: center;
+>>>>>>> ff5a1e8350db71f62c938cf048e9175655a3d60b
 }

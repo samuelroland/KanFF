@@ -28,20 +28,22 @@ function insertItemsInDB($query, $items)
 //Build the string of the query with parameters according to the data.
 function queryInsertConstructor($items, $tablename)
 {
+    require "../app/.const.php";
     //Create the lists of the keys of an item of the list. Take the first item shouldn't create problem.
     foreach ($items[0] as $key => $fieldOfOneItem) {
         $listofkeys[] = $key;
     }
-    $query = "INSERT INTO $tablename (" . implode(", ", $listofkeys) . ") VALUES (:" . implode(", :", $listofkeys) . ");";
+    $query = "INSERT INTO $dbname.$tablename (" . implode(", ", $listofkeys) . ") VALUES (:" . implode(", :", $listofkeys) . ");";
+    var_dump($query);
     return $query;
 }
 
 function importTableData($table, $items)
 {
     $query = queryInsertConstructor($items, $table);
-
+    require "../app/.const.php";
     //Delete table records before insert
-    $statement = getPDO()->prepare("delete from $table");
+    $statement = getPDO()->prepare("delete from $dbname.$table");
     $statement->execute();   //éxecuter la requête
 
     //Finally insert data!
@@ -140,7 +142,7 @@ function dataGroups()
 
     //For each user generate the other data
     foreach ($groupsressources as $ressource) {
-        $id += 1;
+        $id++;
         $group = $ressource;
 
         //Half time, email is the last word of the name of the group with @assoc.ch
@@ -176,10 +178,13 @@ function dataGroups()
 
         $group['creation_date'] = getRandomDateFormated();
 
+        $group['id'] = $id;
+
         print_r("\n" . $group['name']);
         print_r("\n" . $group['email'] . "\n");
         $groups[] = $group;
     }
+var_dump($groups);
 
     importTableData("groups", $groups);
 }
@@ -203,11 +208,11 @@ function data_user_join_group()
             //For the number of groups decided, generate the other data.
             for ($j = 1; $j <= $nbOfGroups; $j++) {
                 $id++;
-                $join['$id'] = $id;
+                $join['id'] = $id;
 
                 //Generate the groups joined randomly:
                 $lastLeftDate = null;
-                $groupid = rand(0, 11);
+                $groupid = rand(1, 11);
                 if (in_array($groupid, $listOfGroupsJoinedByTheUser) == true) {
                     foreach ($joins as $onejoin) {
                         //Take the last join with user_id and groupid that are managed:
@@ -259,8 +264,8 @@ function data_user_join_group()
                 $joins[] = $join;
             }
         }
-        die();
     }
+    var_dump($joins);
     importTableData("user_join_group", $joins);
 }
 
@@ -276,7 +281,7 @@ function generateRandomString($length = 10)
     return $randomString;
 }
 
-dataUsers();
+//dataUsers();
 dataGroups();
 data_user_join_group();
 
