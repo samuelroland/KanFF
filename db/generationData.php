@@ -184,13 +184,32 @@ function dataGroups()
         print_r("\n" . $group['email'] . "\n");
         $groups[] = $group;
     }
-var_dump($groups);
+    var_dump($groups);
 
     importTableData("groups", $groups);
 }
 
+function getAllItems($tablename)
+{
+    try {
+        $dbh = getPDO();
+        $statement = $dbh->prepare("select * form $tablename");//prepare query
+        $statement->execute();//execute query
+        $queryResult = $statement->fetchAll(PDO::FETCH_ASSOC);//prepare result for client
+        $dbh = null;
+        foreach ($queryResult as $item) {
+            $items[$item['id']] = $item;
+        }
+        return $items;
+    } catch (PDOException $e) {
+        print "Error!: " . $e->getMessage() . "<br/>";
+        return null;
+    }
+}
+
 function data_user_join_group()
 {
+    $groups = getAllItems("groups");
     $joins = [];
     $id = 0;
     //For the 100 users
@@ -252,10 +271,15 @@ function data_user_join_group()
                     $join['end'] = null;
                 }
 
-                //In most of cases the user is accepted.
+                //In a few cases the user is not yet accepted.
                 if (rand(0, 20) == 0) {
-                    $join['accepted'] = 0;
-                } else {
+                    if ($groups[$groupid]['restrict_access'] == 1) {
+                        $join['accepted'] = 1;
+                    } else {
+                        $join['accepted'] = 0;
+                    }
+
+                } else {//In most of cases the user is accepted.
                     $join['accepted'] = 1;
                 }
                 echo $join['group_id'] . " \n";
