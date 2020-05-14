@@ -21,6 +21,12 @@ function dataUsers()
     $id = 0;
     $users = [];    //array for the users generated
 
+    $unwanted_array = array('Š' => 'S', 'š' => 's', 'Ž' => 'Z', 'ž' => 'z', 'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A', 'Æ' => 'A', 'Ç' => 'C', 'È' => 'E', 'É' => 'E',
+        'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I', 'Ñ' => 'N', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'O', 'Ø' => 'O', 'Ù' => 'U',
+        'Ú' => 'U', 'Û' => 'U', 'Ü' => 'U', 'Ý' => 'Y', 'Þ' => 'B', 'ß' => 'Ss', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'a', 'å' => 'a', 'æ' => 'a', 'ç' => 'c',
+        'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ð' => 'o', 'ñ' => 'n', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o',
+        'ö' => 'o', 'ø' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ý' => 'y', 'þ' => 'b', 'ÿ' => 'y', 'Ğ' => 'G', 'İ' => 'I', 'Ş' => 'S', 'ğ' => 'g', 'ı' => 'i', 'ş' => 's', 'ü' => 'u');
+
     //For each user generate the other data
     foreach ($usersressources as $ressource) {
         $id += 1;
@@ -34,13 +40,18 @@ function dataUsers()
         $lastname = $userinrun['lastname'];
 
         //Generate username with firstname and a number after
-        $username = strtolower($firstname) . rand(10, 99);
+        $username = $firstname . rand(10, 99);
+        $username = strtr($username, $unwanted_array);
+        $username = strtolower($username);
+
         //Generate initials
         $initials = substr($firstname, 0, 1) . substr($lastname, 0, 1) . substr($lastname, strlen($lastname) - 1);
         $initials = strtoupper($initials);
         //half the time, email is set to "firstname.lastname@example.com" and if not the email is null
         if (rand(0, 1)) {
-            $email = strtolower($firstname) . "." . strtolower($lastname) . "@example.com";
+            $email = $firstname . "." . $lastname . "@assoc.ch";    //create the email with the raw firstname and lastname
+            $email = strtr($email, $unwanted_array);    //replace accent with corresponding char
+            $email = strtolower($email);    //put the string to lower cases.
         } else {
             $email = null;
         }
@@ -72,7 +83,8 @@ function dataUsers()
         echo "\n" . $userinrun['id'] . " " . $userinrun['firstname'] . " " . $userinrun['lastname'] . " " . $userinrun['initials'] . " " . $userinrun['username'] . " " . $userinrun['email'] . " " . $userinrun['inscription'] . " " . $userinrun['status'] . " " . $userinrun['phonenumber'] . " " . $userinrun['password'];
     }
     var_dump(json_encode($users));
-    file_put_contents("data_generated_general/users.json", json_encode($users, JSON_INVALID_UTF8_IGNORE | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+    var_dump($users[2]);
+    file_put_contents("data_generated_general/userds.json", json_encode($users));
 }
 
 function dataGroups()
@@ -123,8 +135,10 @@ function dataGroups()
 
         print_r("\n" . $group['name']);
         print_r("\n" . $group['email'] . "\n");
+        $groups[] = $group;
     }
-
+    var_dump(json_encode($groups));
+    file_put_contents("data_generated_general/groups.json", json_encode($groups));
 }
 
 function data_user_join_group()
@@ -134,7 +148,6 @@ function data_user_join_group()
     //For the 100 users
     for ($i = 1; $i <= 100; $i++) {
         $join['user_id'] = $i;
-
 
 
         //Generate for the most majority of users but not for a minority of people that will not be in any groups.
@@ -219,7 +232,7 @@ function generateRandomString($length = 10)
     return $randomString;
 }
 
-//dataUsers();
-//dataGroups();
-data_user_join_group();
+dataUsers();
+dataGroups();
+//data_user_join_group();
 ?>
