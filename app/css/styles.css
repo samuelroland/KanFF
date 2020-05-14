@@ -8,30 +8,39 @@
 .versiontext{
     font-size: 0.7em;
 }
-
+body{
+    background-color: #ffb000;
+}
 .logo {
-    width: 120px;
+    width: 200px;
 
 }
+
+.logodiv {
+
+            float: left;
+
+            background-color: #74f7ff;
+            width: 450px;
+        }
+
 .gauche {
     position: absolute;
     top: 0;
     left: 0;
     width: 20px;
     background-color: #001fff;
+
 }
 
-.centre {
-    margin-right: 5px;
-    margin-left: 5px;
-    background-color: red;
+.menu {
+margin: auto;
+    width: 1100px;
 }
 
-.droite {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 20px;
+.user {
+float: right;
+    width: 450px;
     background-color: #1bff00;
 }
 
@@ -48,4 +57,33 @@
     .formlog {
         min-width: 90%;
     }
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111;
+}
+
+.logocenter{
+    align-content: center;
+>>>>>>> ff5a1e8350db71f62c938cf048e9175655a3d60b
 }
