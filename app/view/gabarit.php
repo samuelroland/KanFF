@@ -26,7 +26,7 @@ $versions = getVersionsApp();
 
 </head>
 <body>
-<header></header>
+<header>
 <div class="logodiv">
     <img src="view/medias/logos/temp-logo.png" alt="logo" class="logo">
     Logo
@@ -45,6 +45,7 @@ $versions = getVersionsApp();
     </ul>
 
 </div>
+</header>
 <br><br><br><span
         class="versiontext">v<?= $versions[count($versions) - 1]['version'] ?></span>
 <span class="versiontext"><em> le <?= date("d.m.Y", strtotime($versions[count($versions) - 1]['date'])) ?></em></span>
