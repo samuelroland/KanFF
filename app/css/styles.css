@@ -12,7 +12,13 @@ body{
     background-color: #ffb000;
 }
 .logo {
-    width: 200px;
+     width: 200px;
+
+ }
+
+.logoLog {
+    width: 500px;
+    text-align: center;
 
 }
 
