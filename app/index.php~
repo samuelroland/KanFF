@@ -53,9 +53,6 @@ switch ($action) {
         tryLogout();
         break;
 
-//This function test the good working of CrudModel
-    case "testCRUD":
-        testCRUD();
     default: // Unknown action
         // TODO: if user connected, then redirect to dashboard page, if not redirect to login page
         login();    // Return to the login page
