@@ -8,7 +8,6 @@
 
 session_start();
 
-var_dump($_SESSION);
 // Include all controllers
 require "controler/Help.php";   //controler to generate common contents
 require "controler/loginControler.php"; //controler for login functions
@@ -23,7 +22,6 @@ extract($_GET); //vars:
 
 // Extract values sent by POST
 extract($_POST); //vars:
-
 
 // Extract the action of the querystring
 if (isset($_GET['action'])) {
@@ -47,6 +45,8 @@ switch ($action) {
         break;
 // This function tries to Login using the infomations given
     case"login":
+        $email = $_POST['email'];
+        $password = $_POST['password'];
         login();
         break;
 

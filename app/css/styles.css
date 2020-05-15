@@ -8,7 +8,9 @@
 .versiontext{
     font-size: 0.7em;
 }
-
+body{
+    background-color: #ffb000;
+}
 .logo {
      width: 200px;
 
@@ -89,10 +91,5 @@ li a:hover {
 
 .logocenter{
     align-content: center;
-
-}
-header{
-    background-color: #ffb000;
-    width: 100%;
-    height: 100%;
+>>>>>>> ff5a1e8350db71f62c938cf048e9175655a3d60b
 }

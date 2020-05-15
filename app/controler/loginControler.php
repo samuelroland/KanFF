@@ -1,8 +1,8 @@
 <?php
 /**
  *  Project: KanFF
- *  File: Help.php controler for generating common contents
- *  Author: Samuel Roland
+ *  File: loginControler.php controler for all the accounts login or the account create
+ *  Author: Luís Pedro Pinheiro
  *  Creation date: 26.04.2020
  */
 
@@ -52,6 +52,25 @@ function signin($firstname, $lastname, $initials, $username, $password, $passwor
 function login()
 {
     // TODO: Code the Login function
+
+    // If trying to login it checks the data, else load the page
+    if ($username != "" || $email != "")
+    {
+        $UserLog = getUser();
+        // Checks if password and password2 are equal
+        if (password_verify($password,$user['password']))
+        {
+            $_SESSION['user'] =
+            require_once 'view/home.php';
+
+        }
+        else{
+            $_SESSION['error'] = 2;
+            require_once 'view/login.php';
+        }
+    }else{
+        require_once 'view/login.php';
+    }
 
     require_once 'view/login.php';
 }
