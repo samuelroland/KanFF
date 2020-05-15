@@ -4,17 +4,15 @@ ob_start();
 
 ?>
 
-
     <form class="formlog" action="index.php?action=tryLogIn" method="post">
         <div>
-            <h1 style="text-align: left ">Connexion:</h1>
-            <div class="left"><img src="view/medias/logos/temp-logo.png" alt="logoLog" class="logoLog"> <br><span class="versiontext">v<?= $versions[count($versions)-1]['version'] ?></span>
-                <span class="versiontext"><em> le <?= date("d.m.Y", strtotime($versions[count($versions)-1]['date'])) ?></em></span></div>
             <a>Bienvenue sur l'instance Blason. L'instance KanFF de GdC pour toute la Romandie.</a>
-
+            <div class="left"><img src="view/medias/logos/temp-logo.png" alt="logoLog" class="logoLog"> <br><span class="versiontext"></span>
+                <span class="versiontext"></span></div>
         </div>
+        <h1>Connexion:</h1>
         <div class="form-group" style="text-align: left" action="index.php?action=tryLogIn" method="post">
-            <label  for="exampleInputEmail1">Utilisateur ou Email :</label>
+            <label  for="exampleInputEmail1">Utilisateur ,Email ou Initials :</label>
             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email ou username" required="required">
         </div>
         <div class="form-group" style="text-align: left">
