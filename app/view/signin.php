@@ -10,8 +10,10 @@ ob_start();
         <form class="" action="index.php?action=signin" method="post">
             <h6>Informations principales:</h6>
         <div class="form-row">
-            <div class="form-group col-md-6">
+            <div class="">
                 Nom d'utilisateur <input minlength="4" maxlength="20" class="" type="text" name="user" placeholder="Username"  required="required" />
+            </div>
+                <div class= >
                 Prénom <input minlength="2" maxlength="254" type="text" name="name" placeholder="Name"  required="required" />
             </div>
             <div class="form-group col-md-6">
