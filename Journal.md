@@ -7,4 +7,5 @@
 1. (__SRD__, 05.05.2020) Publication du MCD v1.1 par SRD.
 1. (__SRD__, 08.05.2020) Le MLD v1.0 réalisé par SRD et relu par BPT, a été revu, discuté et validé en réunion virtuelle de 1h environ (personnes présentes: SRD, XCL, BPT). La version v1.1 sera publiée après correction.
 1. (__SRD__, 09.05.2020) Publication du MLD v1.1 par SRD.
+1. (__SRD__, 11.05.2020) Sprint review du sprint 1 avec Team + JIE (écourtée car début du projet, donc peu de stories à valider). PV dans le dossier [`PVs` du repos](https://github.com/samuelroland/KanFF/tree/master/PVs) . Clôture du Sprint 1 et lancement Sprint 2 sur IceScrum.
 
