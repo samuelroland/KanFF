@@ -13,25 +13,25 @@ ob_start();
     <table>
         <tbody>
         <tr>
-            <td><label for="username">Username : </label><input name="username" type="text" id="username"></td>
+            <td><label for="username">Username : </label><input value="Pseudo123" name="username" type="text" id="username"></td>
         </tr>
         <tr>
-            <td><label for="firstname">Firstname : </label><input name="firstname" type="text" id="firstname"></td>
+            <td><label for="firstname">Firstname : </label><input value="Pierrick" name="firstname" type="text" id="firstname"></td>
         </tr>
         <tr>
-            <td><label for="lastname">Lastname : </label><input name="lastname" type="text" id="lastname"></td>
+            <td><label for="lastname">Lastname : </label><input value="Beaujolet" name="lastname" type="text" id="lastname"></td>
         </tr>
         <tr>
-            <td><label for="email">E-mail : </label><input name="email" type="text" id="email"></td>
+            <td><label for="email">E-mail : </label><input value="perrick.beaujolet@hotmail.com" name="email" type="text" id="email" size="25px"></td>
         </tr>
         <tr>
-            <td><label for="phonenumber">Phonenumber : </label><input name="phonenumber" type="text" id="phonenumber"></td>
+            <td><label for="phonenumber">Phonenumber : </label><input value="0791234567" name="phonenumber" type="text" id="phonenumber"></td>
         </tr>
         <tr>
-            <td><label for="bio">Bio : </label><input name="bio" type="text" id="bio"></td>
+            <td><label for="bio">Bio : </label><input value="Bonsoir." name="bio" type="text" id="bio"></td>
         </tr>
         <tr>
-            <td><label for="password">Password : </label><input name="password" type="text" id="password"></td>
+            <td><label for="password">Password : </label><input value="Pa$$w0rd" name="password" type="text" id="password"></td>
         </tr>
         </tbody>
     </table>
