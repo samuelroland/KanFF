@@ -8,7 +8,7 @@
 $title = "KanFF - Modifier le compte";
 ob_start();
 ?>
-test
+
 <form>
     <table>
         <tbody>
