@@ -8,7 +8,7 @@
 $title = "KanFF - Modifier le compte";
 ob_start();
 ?>
-
+test
 <form>
     <table>
         <tbody>
@@ -39,5 +39,5 @@ ob_start();
 
 <?php
 $content = ob_get_clean();
-require_once 'gabarit.php';
+require "gabarit.php";
 ?>

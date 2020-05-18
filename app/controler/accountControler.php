@@ -7,5 +7,5 @@
  */
 
 function editAccount(){
-    require_once "/view/editAccount.php";
+    require_once "view/editAccount.php";
 }
