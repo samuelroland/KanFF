@@ -13,11 +13,11 @@ ob_start();
         <h1>Connexion:</h1>
         <div class="form-group" style="text-align: left" action="index.php?action=tryLogIn" method="post">
             <label  for="exampleInputEmail1">Utilisateur ,Email ou Initials :</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email ou username" required="required">
+            <input type="text"  class="form-control" name="infoLogin" aria-describedby="emailHelp" placeholder="Email ou username" required="required">
         </div>
         <div class="form-group" style="text-align: left">
             <label for="exampleInputPassword1"> Mot de passe : </label>
-           <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required="required">
+           <input type="text" class="form-control" name="password" placeholder="Password" required="required">
         </div>
         <div>
         <button type="submit" class="btn btn-primary btn-block ">Login</button>
