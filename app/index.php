@@ -7,7 +7,7 @@
  */
 
 session_start();
-
+error_reporting(0); //Hide all error with the php code and html/css/js code
 // Include all controllers
 require "controler/Help.php";   //controler to generate common contents
 require "controler/loginControler.php"; //controler for login functions

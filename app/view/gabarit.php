@@ -1,5 +1,6 @@
 ﻿<?php
 $versions = getVersionsApp();
+
 ?>
 
 <!DOCTYPE HTML>
@@ -25,34 +26,33 @@ $versions = getVersionsApp();
     <script src="js/global.js"></script>
 
 </head>
-<body>
 <header>
-<div class="logodiv">
-    <img src="view/medias/logos/temp-logo.png" alt="logo" class="logo">
-    Logo
+    <div class="logodiv">
+        <img src="view/medias/logos/temp-logo.png" alt="logo" class="logo">
+    </div>
+    <div class="user">
 
+        <a href="action=editAccount">
+            <img src="/view/medias/logos/User_JRD_Temp.png" alt="" class="usericon"></a>
+        Josette Richard
+    </div>
+    <div class="menu">
+        <ul>
+            <li><a class="active" href="#home">Home</a></li>
+            <li><a href="#news">News</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
 
-</div>
-<div class="user">
-    User
-</div>
-<div class="menu">
-    <ul>
-        <li><a class="active" href="#home">Home</a></li>
-        <li><a href="#news">News</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#about">About</a></li>
-    </ul>
+    </div>
 
-</div>
+    <span
+            class="versiontext">v<?= $versions[count($versions) - 1]['version'] ?></span>
+    <span class="versiontext"><em> le <?= date("d.m.Y", strtotime($versions[count($versions) - 1]['date'])) ?></em></span>
+
 </header>
-<br><br><br><span
-        class="versiontext">v<?= $versions[count($versions) - 1]['version'] ?></span>
-<span class="versiontext"><em> le <?= date("d.m.Y", strtotime($versions[count($versions) - 1]['date'])) ?></em></span>
-
-
+<body>
 <div class="appbody">
-
     <?= $content; ?>
 </div>
 </body>
