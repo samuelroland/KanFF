@@ -79,9 +79,6 @@ function getAllItems($tablename)
         foreach ($queryResult as $item) {
             $items[$item['id']] = $item;
         }
-        var_dump($items);
-        var_dump($queryResult);
-        die();
         return $items;
     } catch (PDOException $e) {
         print "Error!: " . $e->getMessage() . "<br/>";
@@ -244,7 +241,7 @@ function data_user_join_group()
 
             //Generate the number of groups the user has joined.
             $nbOfGroups = rand(2, 10);
-            $listOfGroupsJoinedByTheUser = [];
+            $listOfGroupsJoinedByTheUser = [];  //set to an empty array for each user
 
             //For the number of groups decided, generate the other data.
             for ($j = 1; $j <= $nbOfGroups; $j++) {
@@ -262,9 +259,7 @@ function data_user_join_group()
                                 //If the user has joined and left the group, he has the right to join again.
                                 $lastLeftDate = $onejoin['end'];
                             } else {
-                                //If the user has joined and not left the group, he hasn't not the right to join again before he left the group. So the groupid need to be changed:
-
-                                //Generate a new group id that is not in the table.
+                                //If the user has joined and not left the group, he hasn't the right to join again. Generate a new group id that is not in the list.
                                 while (in_array($groupid, $listOfGroupsJoinedByTheUser) == true) {
                                     $groupid = rand(1, 11);
                                 }
@@ -287,22 +282,33 @@ function data_user_join_group()
                 }
 
                 echo " \n";
-                if (rand(0, 10) == 0) {
+                if (rand(0, 7) == 0) {
                     $join['end'] = getRandomDateFormated(strtotime($join['start']));
                 } else {
                     $join['end'] = null;
                 }
 
-                //In a few cases the user is not yet accepted.
-                if (rand(0, 20) == 0) {
-                    if ($groups[$groupid]['restrict_access'] == 1) {
-                        $join['accepted'] = 0;
-                    } else {
-                        $join['accepted'] = 1;
-                    }
+                //INFO: Accepted field depend on the field restrict_access of the groups. (see records-management.txt for explanations).
 
-                } else {//In most of cases the user is accepted.
-                    $join['accepted'] = 1;
+                //Generate accepted for access restricted group
+                if ($groups[$groupid]['restrict_access'] == 1) {
+                    $join['accepted'] = 4;  //accepted by default
+
+                    //Others special states that not concerns the majority of cases
+                    if (rand(0, 10) == 0) {
+                        $join['accepted'] = 1;  //want to join the group but not yet accepted or not
+                    } else if (rand(0, 10) == 0) {
+                        $join['accepted'] = 2;  //not accepted/refused
+                    } else if (rand(0, 20) == 0) {
+                        $join['accepted'] = 3;  //banned of the group
+                    }
+                } else {    //With groups not restricted, the value 1 and 2 are not possible and the value 4 is by default
+                    $join['accepted'] = 4;  //automatically accepted by default
+
+                    //In rare case the user has been banned of the group
+                    if (rand(0, 20) == 0) {
+                        $join['accepted'] = 3;  //banned of the group
+                    }
                 }
                 echo $join['group_id'] . " \n";
                 echo $join['start'] . " \n";
@@ -328,7 +334,7 @@ function generateRandomString($length = 10)
 }
 
 //dataUsers();
-dataGroups();
+//dataGroups();
 data_user_join_group();
 
 ?>
