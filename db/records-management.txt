@@ -32,15 +32,28 @@ visible: can change the visibility of the information of the group in the list o
 status: (varchar) a little text about what is the state of the group (if it's active, if it's on break, what is the occurence of the meetings, other informations about the status) 
 
 - user_join_group:
-
+Depends on the random. result=
 
 every user should be in minimal in one group (perhaps 0 group in rare cases).
 every user are in 10 groups in maximum. 
 
 start: date of subscription
-end: date of when the user has left the group
+end: date of when the user has left the group/or has been banned, of has been refused 
 
 a user can join, leave, and join again a group.
 
-accepted: if the subscription has been accepted. Set to true immediatly if restrict_access is false. and after acceptation of a admin of the group for group with a restricted access.
+accepted: state of the subscription. The state is influenced by the group type (restricted access or not)
+
+If access restricted:
+1 = want to join the group but not yet accepted or not
+2 = not accepted/refused
+3 = banned of the group
+4 = accepted
+
+If access not restricted:
+3 = banned of the group
+4 = accepted
+
+--> automatically accepted (4) because free access. no value 1 or 2.
+
 
