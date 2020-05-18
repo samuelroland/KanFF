@@ -8,7 +8,7 @@ ob_start();
     <div class="container form-group">
 
         <h1>Sign In</h1>
-        <form style="align-self: auto" class="" action="index.php?action=signin" method="post">
+        <form style="align-self: auto" class="" action="?action=signin" method="post">
             <h5>Informations principales:</h5>
             <div class="">
                 <div class=>

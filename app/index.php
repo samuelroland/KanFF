@@ -20,9 +20,22 @@ require "view/helpers.php";     //functions for helpers functions
 // Extract values sent by GET
 extract($_GET); //vars:
 
-
 // Extract values sent by POST
 extract($_POST); //vars:
+
+if(isset($_POST))
+{
+    $firstname = $_POST["name"];
+    $lastname = $_POST["surname"];
+    $initials = $_POST["ini"];
+    $username = $_POST["user"];
+    $password = $_POST["password"];
+    $password2 = $_POST["passwordc"];
+    $email = $_POST["email"];
+    $phoneNumber = $_POST["nb_phone"];
+    $bio = $_POST['bio'];
+    $infoLogin = $_POST['infoLogin'];
+}
 
 // Extract the action of the querystring
 if (isset($_GET['action'])) {
@@ -33,22 +46,11 @@ if (isset($_GET['action'])) {
 switch ($action) {
 // This function tries to signin using the infomations given
     case"signin":
-        $firstname = $_POST["name"];
-        $lastname = $_POST["surname"];
-        $initials = $_POST["ini"];
-        $username = $_POST["user"];
-        $password = $_POST["password"];
-        $password2 = $_POST["passwordc"];
-        $email = $_POST["email"];
-        $phoneNumber = $_POST["nb_phone"];
-        $bio = $_POST['bio'];
         signin($firstname, $lastname, $initials, $username, $password, $password2, $email, $phoneNumber, $bio);
         break;
 // This function tries to Login using the infomations given
     case"login":
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        login();
+        login($infoLogin,$password);
         break;
 
 // This function tries to Login using the infomations given
@@ -61,7 +63,7 @@ switch ($action) {
         testCRUD();
     default: // Unknown action
         // TODO: if user connected, then redirect to dashboard page, if not redirect to login page
-        login();    // Return to the login page
+        login($infoLogin,$password);    // Return to the login page
         break;
 
     case "editAccount":

@@ -29,8 +29,20 @@ function addUser($user)
 }
 
 // Get one User
-function getUser($username, $email)
+function getUser($infoLogin)
 {
+    $table = "users";
+    var_dump($table);
+    $params =
+        [
+            "username" => $infoLogin,
+            "email" => $infoLogin
+        ];
+    var_dump($params);
+    $criterions = "username=:username OR email=:email";
+    $user = getByCriterion($table,$params,$criterions);
+    die($user);
+    //return $user;
 
 }
 

@@ -49,18 +49,19 @@ function signin($firstname, $lastname, $initials, $username, $password, $passwor
 }
 
 // This funtion will try to Login Using the provided data
-function login()
+function login($infoLogin,$password)
 {
     // TODO: Code the Login function
 
     // If trying to login it checks the data, else load the page
-    if ($username != "" || $email != "")
+    if ($infoLogin != "")
     {
-        $UserLog = getUser();
+        $UserLog = getUser($infoLogin);
+        var_dump($UserLog);
         // Checks if password and password2 are equal
-        if (password_verify($password,$user['password']))
+        if (password_verify($password,$UserLog['password']))
         {
-            $_SESSION['user'] =
+            $_SESSION['user'] = [$UserLog['id']];
             require_once 'view/home.php';
 
         }
@@ -75,7 +76,7 @@ function login()
     require_once 'view/login.php';
 }
 
-// This funtion will try to Logout from de current session
+// This funtion will try to Logout from de current sessionlenore.matthews@assoc.ch
 function Logout(){
 
     require_once 'view/home.php';
