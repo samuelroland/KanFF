@@ -13,7 +13,7 @@ require "controler/Help.php";   //controler to generate common contents
 require "controler/loginControler.php"; //controler for login functions
 require "model/localFilesModel.php";    //model for local files functions
 require  "model/CRUDModel.php";//default model CRUD
-require  "controler/testCRUDmodel.php";//controler for test CRUDmodel functions
+//require  "controler/testCRUDmodel.php";//controler for test CRUDmodel functions
 require "view/helpers.php";     //functions for helpers functions
 
 // Extract values sent by GET
