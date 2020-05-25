@@ -64,8 +64,8 @@ if (!isset($_SESSION['user'])) {
 } else {    //if user is logged
     // Depending on the chosen action
     switch ($action) {
-        case"tryLogout":
-            tryLogout();
+        case"logout":
+            logout();
             break;
         //This function test the good working of CrudModel
         case "testCRUD":

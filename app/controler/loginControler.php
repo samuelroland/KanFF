@@ -76,18 +76,11 @@ function login($infoLogin,$password)
     }
 }
 
-// This funtion will try to Logout from de current sessionlenore.matthews@assoc.ch
-function Logout(){
-
-    require_once 'view/home.php';
-
-}
-
-function tryLogout(){
-
+// function to logout the user from de current session
+function logout()
+{
     unset($_SESSION['user']);
-    require_once 'view/login.php';
-
+    login(null, null);
 }
 
 ?>

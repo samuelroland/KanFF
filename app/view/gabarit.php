@@ -32,18 +32,37 @@ $versions = getVersionsApp();
         <span class="versiontext">v<?= $versions[count($versions) - 1]['version'] ?></span>
         <span class="versiontext"><em> le <?= date("d.m.Y", strtotime($versions[count($versions) - 1]['date'])) ?></em></span>
     </div>
-    <div class="user">
-
-        <a href="?action=editAccount">
-            <img src="view/medias/logos/User_JRD_Temp.png" alt="logo user" class="usericon"></a>
-        <?= $_SESSION['user']['firstname'] ?> <?= $_SESSION['user']['lastname'] ?>
+    <div class="user row">
+        <?php if (isset($_SESSION['user'])) { ?>
+            <div class="col-2 usericon">
+                <a href="?action=editAccount">
+                    <img src="view/medias/logos/User_JRD_Temp.png" alt="logo user" class="usericon">
+                </a>
+            </div>
+            <div class="col-10 logout">
+                <?= $_SESSION['user']['firstname'] ?> <?= $_SESSION['user']['lastname'] ?><br><a href="/?action=logout"><span
+                            class="small">Déconnexion</span></a>
+            </div>
+        <?php } else { ?>
+            <div class="col-2 usericon">
+                <a href="?action=login">
+                    <img src="view/medias/logos/User_Unknown_Temp.png" alt="logo user" class="usericon">
+                </a>
+            </div>
+            <div class="col-10 logout">
+               <span class="small">Non connecté</span>
+                <br><a href="/?action=logout"><span class="small">Connexion</span></a>
+            </div>
+            <?php
+        } ?>
     </div>
     <div class="menu">
         <ul>
-            <li><a class="active" href="#home">Home</a></li>
-            <li><a href="#news">News</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="#about">About</a></li>
+            <li><a class="active" href="/">Dashboard</a></li>
+            <li><a href="/?action=groups">Groupes</a></li>
+            <li><a href="/?action=projects">Projets</a></li>
+            <li><a href="/?action=works">Travaux</a></li>
+            <li><a href="/?action=...">...</a></li>
         </ul>
 
     </div>
