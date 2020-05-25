@@ -6,7 +6,7 @@ ob_start();
 
     <form class="formlog" action="index.php?action=login" method="post">
         <div>
-            <a>Bienvenue sur l'instance Blason. L'instance KanFF de GdC pour toute la Romandie.</a>
+            <a>Bienvenue sur l'instance Blason. L'instance KanFF de Assoc pour toute la Romandie.</a>
             <div class="left"><img src="view/medias/logos/temp-logo.png" alt="logoLog" class="logoLog"> <br><span class="versiontext"></span>
                 <span class="versiontext"></span></div>
         </div>
