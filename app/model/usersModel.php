@@ -31,13 +31,10 @@ function addUser($user)
 function getUser($infoLogin)
 {
     $table = "users";
-    displaydebug($table);
     $params = ["infoLogin" => $infoLogin];
-    displaydebug($params);
-    $criterions = "username=:infoLogin OR email=:infoLogin";
+    $criterions = "username=:infoLogin OR email=:infoLogin OR initials=:infoLogin";
     $user = getByCriterion($table, $params, $criterions);
     return $user;
-
 }
 
 ?>
