@@ -59,13 +59,13 @@ function login($infoLogin,$password)
     if ($infoLogin != "")
     {
         $UserLog = getUser($infoLogin);
-        var_dump($UserLog);
         // Checks if password and password2 are equal
         if (password_verify($password,$UserLog['password']))
         {
-            $_SESSION['user'] = [$UserLog['id']];
+            unset($UserLog['password']);    //unset password to not save it in the session
+            $_SESSION['user'] = $UserLog;   //save all informations of the users in the session
+            displaydebug($_SESSION);
             require_once 'view/home.php';
-
         }
         else{
             $_SESSION['error'] = 2;
@@ -74,8 +74,6 @@ function login($infoLogin,$password)
     }else{
         require_once 'view/login.php';
     }
-
-    require_once 'view/login.php';
 }
 
 // This funtion will try to Logout from de current sessionlenore.matthews@assoc.ch
