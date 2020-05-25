@@ -5,7 +5,7 @@
  *  Author: YOU
  *  Creation date: DATE
  */
-//TODO: Fill the following informations for the database and the debug mode.
+//TODO: Fill the following informations for the database and the debug mode, and rename the file ".const.php.example" in ".const.php".
 
 //Database informations
 $user = "";
