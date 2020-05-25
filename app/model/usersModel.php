@@ -8,7 +8,6 @@
 
 // TODO: change the informations of the cartouche !!!!!!!
 
-require "CRUDModel.php";
 
 // Gets the logs in the database and return them
 function getLogs()

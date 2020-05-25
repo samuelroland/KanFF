@@ -6,6 +6,8 @@
  *  Creation date: 26.04.2020
  */
 
+require "model/usersModel.php";
+
 //This funtion will redirect to the signin page or redirect to the signin page
 function signin($firstname, $lastname, $initials, $username, $password, $password2, $email, $phoneNumber, $bio)
 {
