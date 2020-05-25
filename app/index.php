@@ -19,9 +19,11 @@ require "view/helpers.php";     //functions for helpers functions
 
 // Extract values sent by GET
 extract($_GET); //vars:
+displaydebug($_GET);
 
 // Extract values sent by POST
 extract($_POST); //vars:
+displaydebug($_POST);
 
 if(isset($_POST))
 {
