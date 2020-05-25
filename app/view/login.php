@@ -12,11 +12,11 @@ ob_start();
         </div>
         <h1>Connexion</h1>
         <div class="form-group" style="text-align: left">
-            <label  for="infoLogin">Utilisateur ,Email ou Initials</label>
+            <label  for="infoLogin">Nom d'utilisateur, Email ou Initials</label>
             <input type="text"  class="form-control" name="infoLogin" id="infoLogin" aria-describedby="emailHelp" placeholder="Email, username ou initials" required="required">
         </div>
         <div class="form-group" style="text-align: left">
-            <label for="password"> Mot de passe</label>
+            <label for="password">Mot de passe</label>
            <input type="password" class="form-control" name="password" id="password" placeholder="Password" required="required">
         </div>
         <div>
