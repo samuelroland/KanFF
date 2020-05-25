@@ -28,12 +28,14 @@ $versions = getVersionsApp();
 </head>
 <header>
     <div class="logodiv">
-        <img src="view/medias/logos/temp-logo.png" alt="logo" class="logo">
+        <a href="/"><img src="view/medias/logos/temp-logo.png" alt="logo" class="logo"></a>
+        <span class="versiontext">v<?= $versions[count($versions) - 1]['version'] ?></span>
+        <span class="versiontext"><em> le <?= date("d.m.Y", strtotime($versions[count($versions) - 1]['date'])) ?></em></span>
     </div>
     <div class="user">
 
-        <a href="action=editAccount">
-            <img src="/view/medias/logos/User_JRD_Temp.png" alt="" class="usericon"></a>
+        <a href="?action=editAccount">
+            <img src="view/medias/logos/User_JRD_Temp.png" alt="logo user" class="usericon"></a>
         Josette Richard
     </div>
     <div class="menu">
@@ -45,11 +47,6 @@ $versions = getVersionsApp();
         </ul>
 
     </div>
-
-    <span
-            class="versiontext">v<?= $versions[count($versions) - 1]['version'] ?></span>
-    <span class="versiontext"><em> le <?= date("d.m.Y", strtotime($versions[count($versions) - 1]['date'])) ?></em></span>
-
 </header>
 <body>
 <div class="appbody">
