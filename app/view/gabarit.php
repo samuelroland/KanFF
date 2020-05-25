@@ -36,7 +36,7 @@ $versions = getVersionsApp();
 
         <a href="?action=editAccount">
             <img src="view/medias/logos/User_JRD_Temp.png" alt="logo user" class="usericon"></a>
-        Josette Richard
+        <?= $_SESSION['user']['firstname'] ?> <?= $_SESSION['user']['lastname'] ?>
     </div>
     <div class="menu">
         <ul>

@@ -21,8 +21,8 @@ ob_start();
         </div>
         <div>
         <button type="submit" class="btn btn-primary btn-block ">Login</button>
-        <p>Pas encore de compte sur cette instance Blason?</p>
-        <a href="/?action=signin"><p>Créer un compte</p></a>
+        <p>Pas encore de compte sur cette instance Blason? <a href="/?action=signin">Créer un compte</a></p>
+
         </div>
     </form>
 
