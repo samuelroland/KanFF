@@ -12,6 +12,7 @@ error_reporting(0); //Hide all error with the php code and html/css/js code
 require "controler/Help.php";   //controler to generate common contents
 require "controler/loginControler.php"; //controler for login functions
 require "controler/accountControler.php"; // controler to modify account settings
+require "controler/dashboardControler.php"; // controler for the dashboard page
 require "model/localFilesModel.php";    //model for local files functions
 require "model/CRUDModel.php";//default model CRUD
 //require  "controler/testCRUDmodel.php";//controler for test CRUDmodel functions
@@ -25,8 +26,7 @@ displaydebug($_GET);
 extract($_POST); //vars:
 displaydebug($_POST);
 
-if(isset($_POST))
-{
+if (isset($_POST)) {
     $firstname = $_POST["name"];
     $lastname = $_POST["surname"];
     $initials = $_POST["ini"];
@@ -44,33 +44,40 @@ if (isset($_GET['action'])) {
     $action = $_GET['action'];
 }
 
-// Depending on the chosen action
-switch ($action) {
-// This function tries to signin using the infomations given
-    case"signin":
-        signin($firstname, $lastname, $initials, $username, $password, $password2, $email, $phoneNumber, $bio);
-        break;
-// This function tries to Login using the infomations given
-    case"login":
-        login($infoLogin,$password);
-        break;
+//If user is not logged, actions authorized are login and signin.
+if (!isset($_SESSION['user'])) {
+    // Depending on the chosen action
+    switch ($action) {
+        // try login using the infomations given
+        case"login":
+            login($infoLogin, $password);
+            break;
+        // try signin using the infomations given
+        case"signin":
+            signin($firstname, $lastname, $initials, $username, $password, $password2, $email, $phoneNumber, $bio);
+            break;
+        default:
+            //Default action: return to the login page
+            login(null, null);
+            break;
+    }
+} else {    //if user is logged
+    // Depending on the chosen action
+    switch ($action) {
+        case"tryLogout":
+            tryLogout();
+            break;
+        //This function test the good working of CrudModel
+        case "testCRUD":
+            testCRUD();
+        case "editAccount":
+            editAccount();
+            break;
 
-// This function tries to Login using the infomations given
-    case"tryLogout":
-        tryLogout();
-        break;
-
-//This function test the good working of CrudModel
-    case "testCRUD":
-        testCRUD();
-    default: // Unknown action
-        // TODO: if user connected, then redirect to dashboard page, if not redirect to login page
-        login($infoLogin,$password);    // Return to the login page
-        break;
-
-    case "editAccount":
-        editAccount();
-        break;
+        default: // if action is unknown, return back to the dashboard
+            dashboard();
+            break;
+    }
 }
 
 
