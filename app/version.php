@@ -11,7 +11,12 @@ $versions = [
     [
         "version" => "1.0",
         "date" => "2020-05-11",
-        "changelog" => "Start of gabarit, start of the view of signin et create an account. logo temp."
+        "changelog" => "Start of gabarit, start of the view of signin et create an account. logo temporary."
+    ],
+    [
+        "version" => "1.1",
+        "date" => "2020-05-25",
+        "changelog" => "The login is functional (login and logout). The account creation page, login page, account editing page and gabarit are in progress. The logo is temporary."
     ]
 ];
 
