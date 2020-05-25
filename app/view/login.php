@@ -10,13 +10,13 @@ ob_start();
             <div class="left"><img src="view/medias/logos/temp-logo.png" alt="logoLog" class="logoLog"> <br><span class="versiontext"></span>
                 <span class="versiontext"></span></div>
         </div>
-        <h1>Connexion:</h1>
+        <h1>Connexion</h1>
         <div class="form-group" style="text-align: left">
-            <label  for="infoLogin">Utilisateur ,Email ou Initials :</label>
+            <label  for="infoLogin">Utilisateur ,Email ou Initials</label>
             <input type="text"  class="form-control" name="infoLogin" id="infoLogin" aria-describedby="emailHelp" placeholder="Email, username ou initials" required="required">
         </div>
         <div class="form-group" style="text-align: left">
-            <label for="password"> Mot de passe : </label>
+            <label for="password"> Mot de passe</label>
            <input type="password" class="form-control" name="password" id="password" placeholder="Password" required="required">
         </div>
         <div>

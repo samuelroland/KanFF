@@ -24,9 +24,11 @@ ob_start();
                 <div class="">
                     Initiales <input type="text" name="ini" placeholder="Initials" required="required"/>
                 </div>
+            </div>
                 <BR>
                 <h5>Identification:<span title="Inserer le text volu" class="glyphicon glyphicon-question-sign"></span>
                 </h5>
+            <div class="">
                 <div class="">
                     Nom d'utilisateur <input minlength="4" maxlength="20" class="" type="text" name="user"
                                              placeholder="Username" required="required"/>
@@ -42,8 +44,10 @@ ob_start();
                             title="Inserer le text volu"
                             class="glyphicon glyphicon-question-sign"></span>
                 </div>
+            </div>
                 <BR>
                 <h5>Champs facultatifs:</h5>
+            <div class="">
                 <div class="">
                     Email <input class="" type="text" name="email" placeholder="Email" required="required"/>
                 </div>
@@ -70,6 +74,7 @@ ob_start();
                         ?>
 
                     </div>
+                </div>
                     <BR>
                     <button type="submit" class="btn btn-primary btn-block ">Création du compte</button>
                     <a href="/?action=login"><p>Avez vous un compte? Connectez vous</p></a>
