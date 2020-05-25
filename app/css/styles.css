@@ -10,7 +10,7 @@
 }
 
 .appbody {
-    background-color: #ffb000;
+    background-color: #d8dbe5;
     height: 100%;
 }
 
@@ -49,6 +49,7 @@ background-color: #333333;
 }
 
 .user {
+
     float: right;
     width: 450px;
     background-color: #333333;
