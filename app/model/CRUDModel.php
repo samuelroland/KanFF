@@ -21,7 +21,7 @@ function Query($query,$params,$manyrecords){
         if ($manyrecords){
         $queryResult = $statement->fetchAll(PDO::FETCH_ASSOC);//prepare result for client
         }else{
-            $queryResult = $statement->fetch();//prepare result for client
+            $queryResult = $statement->fetch(PDO::FETCH_ASSOC);//prepare result for client
         }
         $dbh = null;
         return $queryResult;
