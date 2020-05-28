@@ -26,8 +26,13 @@ ob_start();
         <p>Pas encore de compte sur cette instance Blason? <a href="/?action=signin">Créer un compte</a></p>
 
         </div>
-        <?php if ($_SESSION['error'] = 1) {
-            echo "<br><p class='alert-warning'>Les Donnés introduits ne sont pas correctes</p>";
+        <?php if (isset($_SESSION['error'])) {
+            if ($_SESSION['error'] == 1)
+            {
+                echo "<p class='alert-warning'>Les données introduites ne sont pas correctes</p>";
+                unset($_SESSION['error']);
+            }
+
         }?>
     </form>
 
