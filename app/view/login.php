@@ -13,19 +13,31 @@ ob_start();
         <h1>Connexion</h1>
         <div class="form-group" style="text-align: left">
             <label  for="infoLogin">Nom d'utilisateur, Email ou Initials</label>
-            <input type="text"  class="form-control" name="infoLogin" id="infoLogin" aria-describedby="emailHelp" placeholder="Email, username ou initials" required="required">
+            <input type="text"  class="form-control" name="infoLogin" id="infoLogin" aria-describedby="emailHelp" placeholder="nom d'utilisateur ou email" required="required">
         </div>
         <div class="form-group" style="text-align: left">
             <label for="password">Mot de passe</label>
            <input type="password" class="form-control" name="password" id="password" placeholder="Password" required="required">
         </div>
         <div>
-        <button type="submit" class="btn btn-primary btn-block ">Login</button>
+            <div class="vertical-center" >
+        <button type="submit" class="btn btn-primary btn-block button1 ">Login</button>
+            </div>
         <p>Pas encore de compte sur cette instance Blason? <a href="/?action=signin">Créer un compte</a></p>
 
         </div>
+        <?php if (isset($_SESSION['error'])) {
+            if ($_SESSION['error'] == 1)
+            {
+                echo "<p class='alert-warning'>Les données introduites ne sont pas correctes</p>";
+                unset($_SESSION['error']);
+            }
+
+        }?>
     </form>
 
+
+y
 <?php
 $content = ob_get_clean();
 require "gabarit.php";
