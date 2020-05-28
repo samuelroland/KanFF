@@ -34,9 +34,11 @@ $versions = getVersionsApp();
         <span class="versiontext">v<?= $versions[count($versions) - 1]['version'] ?></span>
         <span class="versiontext"><em> le <?= date("d.m.Y", strtotime($versions[count($versions) - 1]['date'])) ?></em></span>
     </div>
+
     <div class="user row">
         <?php if (isset($_SESSION['user'])) { ?>
             <div class="col-2 usericon">
+
                 <a href="?action=editAccount">
                     <img src="view/medias/logos/User_JRD_Temp.png" alt="logo user" class="usericon">
                 </a>
@@ -47,6 +49,7 @@ $versions = getVersionsApp();
             </div>
         <?php } else { ?>
             <div class="col-2 usericon">
+
                 <a href="?action=login">
                     <img src="view/medias/logos/User_Unknown_Temp.png" alt="logo user" class="usericon">
                 </a>
@@ -65,6 +68,7 @@ $versions = getVersionsApp();
             <li><a href="/?action=projects">Projets</a></li>
             <li><a href="/?action=works">Travaux</a></li>
             <li><a href="/?action=...">...</a></li>
+            <img src="view/medias/icons/bell.png" class="bell" alt="">
         </ul>
 
     </div>

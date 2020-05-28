@@ -46,7 +46,7 @@ background-color: #333333;
 
 .menu {
     margin: auto;
-    width: 1100px;
+    width: auto;
 }
 
 .user {
@@ -81,18 +81,20 @@ ul {
     overflow: hidden;
     background-color: #333333;
     height: 75px;
+    text-align: left;
 }
 
 li {
     float: left;
     height: 100px;
     font-size: 25px;
+    text-align: left;
 }
 
 li a {
     display: block;
     color: #D9DBE5;
-    text-align: center;
+    text-align: left ;
     padding: 14px 16px;
     text-decoration: none;
     height: 100px;
@@ -101,6 +103,7 @@ li a {
 li a:hover {
     background-color: #111;
     height: 100px;
+    color: yellow;
 }
 
 .logocenter {
@@ -110,4 +113,15 @@ li a:hover {
 
 .usericon {
     width: 75px;
+
+}
+body{
+    background-color: #D9DBE5;
+}
+.bell{
+height : 60px;
+float: right;
+    margin-right: 10px;
+    margin-bottom: 10px;
+
 }
