@@ -8,7 +8,7 @@
 
 function getPDO()
 {
-    require ".const.php";
+    require "../.const.php";
     $res = new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname, $user, $pass);
     return $res;
 }
@@ -17,7 +17,12 @@ function Query($query,$params,$manyrecords){
     try {
         $dbh = getPDO();
         $statement = $dbh->prepare($query);//prepare query
-        $statement->execute($params);//execute query
+        if (isset($params)){
+            $statement->execute($params);//execute query
+        }else{
+            $statement->execute();//execute query
+        }
+
         if ($manyrecords){
         $queryResult = $statement->fetchAll(PDO::FETCH_ASSOC);//prepare result for client
         }else{
@@ -34,20 +39,20 @@ function Query($query,$params,$manyrecords){
 function getAll($table)
 {
     $query='SELECT * FROM '.$table;
-    $params='';
+    $params=null;
    return Query($query,$params,true);
 }
 //Get one element by his id
 function getOne($table,$id){
     $query='SELECT * FROM '.$table.' WHERE id=:id';
-    $params="['id'=>.$id.]";
+    $params=['id'=>"$id"];
     return Query($query,$params,false);
 }
 //Get one specific element of one Table
 function getByCriterion($table,$params,$criterions)
 {
     //$criterions need the complete where condition with AND / OR write in SQL
-    //Example for $criterions: id=:id AND name=:name
+    //Example for $criterions= id=:id AND name=:name
     //$params=["id"=>$id,"name"=>$name]
     $query='SELECT * FROM '.$table.' WHERE '.$criterions;
     return Query($query,$params,false);
@@ -70,7 +75,7 @@ function createOne($table,$params,$values,$field){
 //Detlete one element by his id
 function deleteOne($table,$id){
     $query='DELETE FORM '.$table.' WHERE id=:id';
-    $params="['id'=>.$id.]";
+    $params=['id'=>"$id"];
     return Query($query,$params,false);
 }
 ?>
