@@ -27,12 +27,12 @@ ob_start();
 
         </div>
         <?php if ($_SESSION['error'] = 1) {
-            echo "<br><p class='alert-warning'>Les mots de passe introduits ne se correspondent pas</p>";
+            echo "<br><p class='alert-warning'>Les Donnés introduits ne sont pas correctes</p>";
         }?>
     </form>
 
 
-
+y
 <?php
 $content = ob_get_clean();
 require "gabarit.php";
