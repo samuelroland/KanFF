@@ -7,6 +7,7 @@
 
 .versiontext {
     font-size: 0.7em;
+    color: whitesmoke;
 }
 
 .appbody {
@@ -39,7 +40,7 @@ background-color: #333333;
     top: 0;
     left: 0;
     width: 20px;
-    background-color: #001fff;
+    background-color: #D9DBE5;
 
 }
 
@@ -54,7 +55,7 @@ background-color: #333333;
     width: 450px;
     background-color: #333333;
     font-size: 25px;
-    color: whitesmoke;
+    color: #D9DBE5;
 }
 
 .formlog {
@@ -90,7 +91,7 @@ li {
 
 li a {
     display: block;
-    color: white;
+    color: #D9DBE5;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -109,4 +110,16 @@ li a:hover {
 
 .usericon {
     width: 75px;
+}
+
+.button1 {
+    width: 250px;
+
+}
+
+.vertical-center {
+
+    display: flex; justify-content: center;
+
+
 }

@@ -42,14 +42,14 @@ ob_start();
                     Mot de Passe Confirmation <input type="password" name="passwordc"
                                                      placeholder="password confirmation" required="required"/> <span
                             title="Inserer le text volu"
-                            class="glyphicon glyphicon-question-sign"></span>
+                            class=" glyphicon-question-sign"></span>
                 </div>
             </div>
                 <BR>
                 <h5>Champs facultatifs:</h5>
             <div class="">
                 <div class="">
-                    Email <input class="" type="text" name="email" placeholder="Email" required="required"/>
+                    Email <input class="" type="text" name="email" placeholder="Email" />
                 </div>
                 <BR>
                 <div class="">
@@ -58,7 +58,7 @@ ob_start();
                 <BR>
                 <div class="">
                     <div class="">Biographie <input maxlength="254" class="" type="text" name="bio"
-                                                                       placeholder="" required="required"/>
+                                                                       placeholder="" r/>
 
                         <?php
                         if (isset($_SESSION['error'])) {
@@ -76,7 +76,10 @@ ob_start();
                     </div>
                 </div>
                     <BR>
-                    <button type="submit" class="btn btn-primary btn-block ">Création du compte</button>
+                <div class="vertical-center" >
+                    <button type="submit" class="btn btn-primary btn-block button1 ">Création du compte</button>
+                </div>
+        </form>
                     <a href="/?action=login"><p>Avez vous un compte? Connectez vous</p></a>
                 </div>
         </form>
