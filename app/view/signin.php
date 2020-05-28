@@ -53,7 +53,7 @@ ob_start();
                 </div>
                 <BR>
                 <div class="">
-                    N°télephone <input class="" type="text" name="nb_phone" placeholder="Phone" required="required"/>
+                    N°télephone <input class="" type="text" name="nb_phone" placeholder="Phone" />
                 </div>
                 <BR>
                 <div class="">
