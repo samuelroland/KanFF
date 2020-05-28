@@ -110,3 +110,15 @@ li a:hover {
 .usericon {
     width: 75px;
 }
+
+.button1 {
+    width: 250px;
+
+}
+
+.vertical-center {
+
+    display: flex; justify-content: center;
+
+
+}
