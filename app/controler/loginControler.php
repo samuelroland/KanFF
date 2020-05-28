@@ -62,7 +62,7 @@ function login($infoLogin, $password)
             displaydebug($_SESSION);
             require_once 'view/home.php';
         } else {
-            $_SESSION['error'] = 2;
+            $_SESSION['error'] = 1;
             require_once 'view/login.php';
         }
     } else {
