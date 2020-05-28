@@ -11,6 +11,7 @@ $versions = getVersionsApp();
 
 
     <!-- Bootstrap files -->
+
     <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="node_modules/bootstrap/dist/css/bootstrap-grid.css" rel="stylesheet">
     <link href="node_modules/bootstrap/dist/css/bootstrap-reboot.css" rel="stylesheet">
@@ -26,6 +27,8 @@ $versions = getVersionsApp();
     <script src="js/global.js"></script>
 
 </head>
+
+<body>
 <header>
     <div class="logodiv">
         <a href="/"><img src="view/medias/logos/temp-logo.png" alt="logo" class="logo"></a>
@@ -50,7 +53,7 @@ $versions = getVersionsApp();
                 </a>
             </div>
             <div class="col-10 logout">
-               <span class="small">Non connecté</span>
+                <span class="small">Non connecté</span>
                 <br><a href="/?action=logout"><span class="small">Connexion</span></a>
             </div>
             <?php
@@ -67,7 +70,6 @@ $versions = getVersionsApp();
 
     </div>
 </header>
-<body>
 <div class="appbody">
     <?= $content; ?>
 </div>

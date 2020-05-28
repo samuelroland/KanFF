@@ -24,9 +24,11 @@ ob_start();
                 <div class="">
                     Initiales <input type="text" name="ini" placeholder="Initials" required="required"/>
                 </div>
+            </div>
                 <BR>
                 <h5>Identification:<span title="Inserer le text volu" class="glyphicon glyphicon-question-sign"></span>
                 </h5>
+            <div class="">
                 <div class="">
                     Nom d'utilisateur <input minlength="4" maxlength="20" class="" type="text" name="user"
                                              placeholder="Username" required="required"/>
@@ -40,28 +42,30 @@ ob_start();
                     Mot de Passe Confirmation <input type="password" name="passwordc"
                                                      placeholder="password confirmation" required="required"/> <span
                             title="Inserer le text volu"
-                            class="glyphicon glyphicon-question-sign"></span>
+                            class=" glyphicon-question-sign"></span>
                 </div>
+            </div>
                 <BR>
                 <h5>Champs facultatifs:</h5>
+            <div class="">
                 <div class="">
-                    Email <input class="" type="text" name="email" placeholder="Email" required="required"/>
+                    Email <input class="" type="text" name="email" placeholder="Email" />
                 </div>
                 <BR>
                 <div class="">
-                    N°télephone <input class="" type="text" name="nb_phone" placeholder="Phone" required="required"/>
+                    N°télephone <input class="" type="text" name="nb_phone" placeholder="Phone" />
                 </div>
                 <BR>
                 <div class="">
                     <div class="">Biographie <input maxlength="254" class="" type="text" name="bio"
-                                                                       placeholder="" required="required"/>
+                                                                       placeholder="" r/>
 
                         <?php
                         if (isset($_SESSION['error'])) {
-                            if ($_SESSION['error'] = 1) {
+                            if ($_SESSION['error'] == 1) {
                                 echo "<br><p class='alert-warning'>Les mots de passe introduits ne se correspondent pas</p>";
                             }
-                            if ($_SESSION["error"] = 2) {
+                            if ($_SESSION["error"] == 2) {
                                 echo "<br><p class='alert-warning'>Les initiales introduites sont déjà existantes</p>";
                             }
 
@@ -70,8 +74,12 @@ ob_start();
                         ?>
 
                     </div>
+                </div>
                     <BR>
-                    <button type="submit" class="btn btn-primary btn-block ">Création du compte</button>
+                <div class="vertical-center" >
+                    <button type="submit" class="btn btn-primary btn-block button1 ">Création du compte</button>
+                </div>
+        </form>
                     <a href="/?action=login"><p>Avez vous un compte? Connectez vous</p></a>
                 </div>
         </form>
