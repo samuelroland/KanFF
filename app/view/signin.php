@@ -62,10 +62,10 @@ ob_start();
 
                         <?php
                         if (isset($_SESSION['error'])) {
-                            if ($_SESSION['error'] = 1) {
+                            if ($_SESSION['error'] == 1) {
                                 echo "<br><p class='alert-warning'>Les mots de passe introduits ne se correspondent pas</p>";
                             }
-                            if ($_SESSION["error"] = 2) {
+                            if ($_SESSION["error"] == 2) {
                                 echo "<br><p class='alert-warning'>Les initiales introduites sont déjà existantes</p>";
                             }
 
