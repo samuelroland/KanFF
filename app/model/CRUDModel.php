@@ -8,7 +8,12 @@
 
 function getPDO()
 {
-    require ".const.php";
+    if ($BENOIT){
+        require "../.const.php";
+    }else {
+        require ".const.php";
+    }
+
     $res = new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname, $user, $pass);
     return $res;
 }

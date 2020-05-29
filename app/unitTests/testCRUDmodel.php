@@ -5,7 +5,7 @@
  *  Author: Benoît Pierrehumbert
  *  Creation date: 15.05.2020
  */
-
+$BENOIT=true;
 require_once '../model/CRUDModel.php';
 //Get all elements of one Table
 function test_getAll()
