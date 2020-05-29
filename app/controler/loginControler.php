@@ -51,11 +51,9 @@ function signin($firstname, $lastname, $initials, $username, $password, $passwor
 function login($infoLogin, $password)
 {
     // TODO: Code the Login function
-
     // If trying to login it checks the data, else load the page
     if ($infoLogin != "") {
         $UserLog = getUser($infoLogin);
-        // Checks if password and password2 are equal
         if (password_verify($password, $UserLog['password'])) {
             unset($UserLog['password']);    //unset password to not save it in the session
             $_SESSION['user'] = $UserLog;   //save all informations of the users in the session

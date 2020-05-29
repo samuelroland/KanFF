@@ -32,12 +32,8 @@ ob_start();
                 echo "<p class='alert-warning'>Les données introduites ne sont pas correctes</p>";
                 unset($_SESSION['error']);
             }
-
         }?>
     </form>
-
-
-
 <?php
 $content = ob_get_clean();
 require "gabarit.php";

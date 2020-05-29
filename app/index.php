@@ -8,7 +8,6 @@
 
 session_start();
 
-var_dump($_SESSION);
 error_reporting(0); //Hide all error with the php code and html/css/js code
 // Include all controllers
 require "controler/Help.php";   //controler to generate common contents
