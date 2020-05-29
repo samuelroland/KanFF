@@ -35,15 +35,57 @@ function test_getOne(){
     }
     echo "<br>";
 }
-//Get one specific element of one Table
-function test_getByCriterion()
+//Get some specific elements of one Table
+function test_getAllByCriterion()
 {
-    echo "getByCriterion: ";
+    echo "getAllByCriterion: ";
     $id=56;
-    $criterions="name IS NULL";
+    $criterions="email IS NULL";
     $params=null;
-    $array= getByCriterion("users",$params,$criterions);
+    $array= getByCondition("users",$params,$criterions,true);
     if (count($array)==41){
+        echo "OK";
+    }else{
+        echo "BUG";
+        if (isset($array)){
+            echo "<br>Le retour de la requète :";
+            var_dump($array);
+        }else{
+            echo "\$array=null";
+        }
+    }
+    echo "<br>";
+}
+//Get only one specific element of one Table
+function test_getOneByCriterion()
+{
+    echo "getOneByCriterion: ";
+    $criterions='email IS NULL AND initials = "JRD" ';
+    $params=null;
+    $array= getByCondition("users",$params,$criterions,false);
+    if ($array['phonenumber']==6221542889){
+        echo "OK";
+    }else{
+        echo "BUG";
+        if (isset($array)){
+            echo "<br>Le retour de la requète :";
+            var_dump($array);
+        }else{
+            echo "\$array=null";
+        }
+    }
+    echo "<br>";
+}
+
+//Create one element
+function test_createOne($table,$params,$values,$field){
+    echo "crateOne: ";
+    $field = "(department, name, code)";
+    $values = "(':department',':name',':code')";
+    //$values = "(:department,:name,:code')";
+    $params = ['department'=>$department,'name'=>$name,'code'=>$code];
+    $array= createOne("users",);
+    if ($array['phonenumber']==6221542889){
         echo "OK";
     }else{
         echo "BUG";
@@ -58,11 +100,21 @@ function test_getByCriterion()
 }
 //Update one element
 function test_updateOne($table,$id,$elementForUpdate,$params){
+    echo "updateOne: ";
 
-}
-//Create one element
-function test_createOne($table,$params,$values,$field){
-
+    $array= updateOne("users",101);
+    if ($array['phonenumber']==6221542889){
+        echo "OK";
+    }else{
+        echo "BUG";
+        if (isset($array)){
+            echo "<br>Le retour de la requète :";
+            var_dump($array);
+        }else{
+            echo "\$array=null";
+        }
+    }
+    echo "<br>";
 }
 //Detlete one element by his id
 function test_deleteOne($table,$id){
@@ -73,5 +125,6 @@ function test_unitaire(){
 }
 test_getAll();
 test_getOne();
-test_getByCriterion();
+test_getAllByCriterion();
+test_getOneByCriterion();
 ?>

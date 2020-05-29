@@ -49,13 +49,14 @@ function getOne($table,$id){
     return Query($query,$params,false);
 }
 //Get one specific element of one Table
-function getByCriterion($table,$params,$criterions)
+function getByCondition($table,$params,$conditions,$manyrecords)
 {
     //$criterions need the complete where condition with AND / OR write in SQL
     //Example for $criterions= id=:id AND name=:name
     //$params=["id"=>$id,"name"=>$name]
-    $query='SELECT * FROM '.$table.' WHERE '.$criterions;
-    return Query($query,$params,false);
+    //$manyrecords=boolean (true/false)
+    $query='SELECT * FROM '.$table.' WHERE '.$conditions;
+    return Query($query,$params,$manyrecords);
 }
 //Update one element
 function updateOne($table,$id,$elementForUpdate,$params){
