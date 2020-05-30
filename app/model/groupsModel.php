@@ -7,7 +7,7 @@
  */
 
 //Get one group with his id
-function getGroup($id)
+function getOneGroup($id)
 {
     $table = "users";
     $group = getByCriterion($table, $params, $criterions);
@@ -15,7 +15,7 @@ function getGroup($id)
 }
 
 //Get all groups
-function getGroups()
+function getAllGroups()
 {
     $table = "groups";
     $groups = getAll($table);

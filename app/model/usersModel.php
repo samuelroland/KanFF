@@ -33,7 +33,7 @@ function getUser($infoLogin)
     $table = "users";
     $params = ["infoLogin" => $infoLogin];
     $criterions = "username=:infoLogin OR email=:infoLogin OR initials=:infoLogin";
-    $user = getByCriterion($table, $params, $criterions);
+    $user = getByCondition($table, $params, $criterions, false);
     return $user;
 }
 
