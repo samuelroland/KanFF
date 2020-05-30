@@ -74,6 +74,9 @@ if (!isset($_SESSION['user'])) {
         case "editAccount":
             editAccount();
             break;
+        case "createAGroup":
+            createAGroup();
+            break;
 
         default: // if action is unknown, return back to the dashboard
             dashboard();
