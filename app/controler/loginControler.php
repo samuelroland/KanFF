@@ -53,6 +53,9 @@ function login($infoLogin, $password)
     // TODO: Code the Login function
     // If trying to login it checks the data, else load the page
     if ($infoLogin != "") {
+        if (strlen($infoLogin) == 3) {//If the infoLogin is initials, then convert it to upper case
+            $infoLogin = strtoupper($infoLogin);
+        }
         $UserLog = getUser($infoLogin);
         if (password_verify($password, $UserLog['password'])) {
             unset($UserLog['password']);    //unset password to not save it in the session
