@@ -125,3 +125,40 @@ float: right;
     margin-bottom: 10px;
 
 }
+.fullwidth{
+    width: 100%;
+}
+
+.alignright{
+    text-align: right;
+}
+
+.aligncenter{
+    text-align: center;
+}
+
+.infotext{
+    color: #1d1919;
+    font-size: 1.1em;
+    font-style: italic;
+    font-family: Arial;
+}
+
+.rowtest{
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.alignverticalcenter{
+    vertical-align: center;
+}
+
+.marginauto{
+    margin: auto;
+}
+
+select {
+    font-size: 1.2em;
+}

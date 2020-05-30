@@ -10,7 +10,7 @@
 function getOneGroup($id)
 {
     $table = "users";
-    $group = getByCriterion($table, $params, $criterions);
+    $group = getOne($table, $id);
     return $group;
 }
 

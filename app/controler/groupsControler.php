@@ -8,7 +8,7 @@
 
 //display the page groups
 function groups(){
-    getAllGroups();
+    //getAllGroups();
     require_once "view/groups.php";
 }
 
