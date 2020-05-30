@@ -7,34 +7,36 @@ $title = "Créer un groupe"
         pour un groupe qui sont modifiables par la suite, et les autres informations pourront être rentrées dans les
         paramètres une fois le groupe créé.</p>
 
-    <form action="?action=createAGroup" method="POST" class="pt-5">
+    <form action="?action=createAGroup" method="POST" class="pt-4">
         <h4>Nom du groupe</h4>
-        <div class="divDescription row pt-5">
         <input type="text" class="smalltextinput textFieldToCheck" name="name" id="txtName" placeholder="GT mail"
                maxlength="50" required>
         <p id="pCounterName">0/50</p>
+        <div class="divDescription row pt-4">
             <div class="col-lg-3 col-md-12"><h4>Description du groupe</h4></div>
             <div class="col-lg-9 col-md-12 infotext">Ce champ permet de décrire le but et ce qu'il se passera dans ce
                 groupe. On
                 peut aussi y mettre une indication sur la fréquence de travail et des réunions ou d'autres événements,
                 ainsi que quelques dates importantes si nécessaire.
             </div>
-            <div class="col-12"><textarea class="fullwidth" name="description" id="txtDescription" rows="5"
+            <div class="col-12"><textarea class="fullwidth textFieldToCheck" name="description" id="txtDescription"
+                                          rows="2"
                                           maxlength="200" minlength="3" placeholder="tbd"></textarea>
             </div>
 
         </div>
-        <p id="pCounterDescription" data-max="200">0/200</p>
-        <div class="divContext row pt-5">
+        <p id="pCounterDescription">0/200</p>
+        <div class="divContext row pt-4">
             <div class="col-lg-3 col-md-12"><h4>Contexte</h4></div>
             <div class="col-lg-9 col-md-12 infotext">Le contexte répond aux questions suivantes:
                 Pourquoi ce groupe a été créé, dans quelles circonstances/contexte ?
             </div>
-            <div class="col-12"><textarea class="fullwidth" name="context" id="txtContext" rows="5" maxlength="200"
+            <div class="col-12"><textarea class="fullwidth textFieldToCheck" name="context" id="txtContext" rows="2"
+                                          maxlength="200"
                                           minlength="3" placeholder="tbd"></textarea></div>
         </div>
-        <p id="pCounterContext" data-max="200">0/200</p>
-        <div class="divVisibility row pt-5">
+        <p id="pCounterContext">0/200</p>
+        <div class="divVisibility row pt-4">
             <div class="col-lg-4 col-md-12 marginauto">
                 <h4>Niveau de visibilité</h4>
                 <select class="fullwidth" name="visibility" id="selVisibility">
@@ -60,7 +62,7 @@ $title = "Créer un groupe"
                 ... se gère sur chaque élément en question. (Ainsi un projet peut-être visible alors que d'autres pas).
             </div>
         </div>
-        <div class="divVisibility row pt-5">
+        <div class="divVisibility row pt-4">
             <div class="col-lg-4 col-md-12 marginauto ">
                 <h4>Type d'accès</h4>
                 <input type="checkbox" id="chkRestrictAccess"><label class="" for="chkRestrictAccess">Accès
@@ -72,7 +74,7 @@ $title = "Créer un groupe"
         <p class="mt-5 infotext">Les 2 paramètres "Visible" et "Accès restreint" n'interfèrent pas entre eux. Ils
             donnent différents niveaux de sécurité des groupes et permettent plus de sécurité ou de confidentialité pour
             les groupes sensibles.</p>
-        <div class="divPassword row pt-5">
+        <div class="divPassword row pt-4">
             <div class="col-lg-4 col-md-12 marginauto ">
                 <h4>Confirmation de l'action</h4>
                 <input class="fullwidth" type="password" name="password" placeholder="Mot de passe">
@@ -81,8 +83,8 @@ $title = "Créer un groupe"
                 votre confirmation pour valider l'action. Pour ceci rentrer le mot de passe de votre compte.
             </div>
         </div>
-        <div class="divBtnCreate row pt-5">
-            <input type="submit" value="Créer le groupe">
+        <div class="divBtnCreate pt-4">
+            <input type="submit" class="btn btn-info" value="Créer le groupe">
         </div>
     </form>
 <?php
