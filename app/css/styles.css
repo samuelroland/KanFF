@@ -161,4 +161,10 @@ float: right;
 
 select {
     font-size: 1.2em;
+    max-width: 400px;
+}
+
+label{
+    margin-left: 10px;
+    margin-right: 10px;
 }
