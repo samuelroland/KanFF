@@ -26,6 +26,7 @@ $versions = getVersionsApp();
     <link href="css/groups.css" rel="stylesheet">
     <!-- Js files  -->
     <script src="js/global.js"></script>
+    <script src="js/groups.js"></script>
 
 </head>
 

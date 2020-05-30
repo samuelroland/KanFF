@@ -9,8 +9,10 @@ $title = "Créer un groupe"
 
     <form action="?action=createAGroup" method="POST" class="pt-5">
         <h4>Nom du groupe</h4>
-        <input type="text" name="name" placeholder="GT mail" required>
         <div class="divDescription row pt-5">
+        <input type="text" class="smalltextinput textFieldToCheck" name="name" id="txtName" placeholder="GT mail"
+               maxlength="50" required>
+        <p id="pCounterName">0/50</p>
             <div class="col-lg-3 col-md-12"><h4>Description du groupe</h4></div>
             <div class="col-lg-9 col-md-12 infotext">Ce champ permet de décrire le but et ce qu'il se passera dans ce
                 groupe. On
