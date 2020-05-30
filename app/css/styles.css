@@ -13,7 +13,8 @@
 .appbody {
     height: 100%;
 }
-.appbodyrestrict{
+
+.appbodyrestrict {
     max-width: 750px;
 }
 
@@ -32,7 +33,7 @@
 
     float: left;
 
-background-color: #333333;
+    background-color: #333333;
     width: 450px;
     height: 75px;
 }
@@ -98,7 +99,7 @@ li {
 li a {
     display: block;
     color: #D9DBE5;
-    text-align: left ;
+    text-align: left;
     padding: 14px 16px;
     text-decoration: none;
     height: 100px;
@@ -119,47 +120,50 @@ li a:hover {
     width: 75px;
 
 }
-body{
+
+body {
     background-color: #D9DBE5;
 }
-.bell{
-height : 60px;
-float: right;
+
+.bell {
+    height: 60px;
+    float: right;
     margin-right: 10px;
     margin-bottom: 10px;
 
 }
-.fullwidth{
+
+.fullwidth {
     width: 100%;
 }
 
-.alignright{
+.alignright {
     text-align: right;
 }
 
-.aligncenter{
+.aligncenter {
     text-align: center;
 }
 
-.infotext{
+.infotext {
     color: #1d1919;
     font-size: 1.1em;
     font-style: italic;
     font-family: Arial;
 }
 
-.rowtest{
+.rowtest {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
 }
 
-.alignverticalcenter{
+.alignverticalcenter {
     vertical-align: center;
 }
 
-.marginauto{
+.marginauto {
     margin: auto;
 }
 
@@ -168,17 +172,26 @@ select {
     max-width: 400px;
 }
 
-label{
+label {
     margin-left: 10px;
     margin-right: 10px;
 }
 
-.box-alignright{
+.box-alignright {
     justify-content: end;
     display: flex;
 }
 
-.box-aligncenter{
+.box-aligncenter {
     justify-content: center;
     display: flex;
+}
+
+.smalltextinput {
+    width: 100%;
+    max-width: 300px;
+}
+
+.redCounter{
+    color: #ff3300;
 }
