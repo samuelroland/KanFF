@@ -73,6 +73,7 @@ ob_start();
     </form>
 
 <?php
+$contenttype = "large";
 $content = ob_get_clean();
 require "gabarit.php";
 ?>

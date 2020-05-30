@@ -10,6 +10,7 @@ ob_start();
 ?>
 <h1>Dashboard... (en construction)</h1>
 <?php
+$contenttype = "large";
 $content = ob_get_clean();
 require "gabarit.php";
 ?>

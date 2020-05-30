@@ -35,6 +35,7 @@ ob_start();
         }?>
     </form>
 <?php
+$contenttype = "restricted";
 $content = ob_get_clean();
 require "gabarit.php";
 ?>

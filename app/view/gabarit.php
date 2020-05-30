@@ -32,7 +32,7 @@ $versions = getVersionsApp();
 <body>
 <header>
     <div class="logodiv">
-        <a href="/"><img src="view/medias/logos/temp-logo.png" alt="logo" class="logo"></a>
+        <a href="/"><img src="view/medias/logos/temp-logo.png" alt="logo KanFF" class="logo"></a>
         <span class="versiontext">v<?= $versions[count($versions) - 1]['version'] ?></span>
         <span class="versiontext"><em> le <?= date("d.m.Y", strtotime($versions[count($versions) - 1]['date'])) ?></em></span>
     </div>
@@ -70,13 +70,36 @@ $versions = getVersionsApp();
             <li><a href="/?action=projects">Projets</a></li>
             <li><a href="/?action=works">Travaux</a></li>
             <li><a href="/?action=...">...</a></li>
-            <img src="view/medias/icons/bell.png" class="bell" alt="">
+            <img src="view/medias/icons/bell.png" class="bell" alt="bell icon">
         </ul>
 
     </div>
 </header>
-<div class="appbody">
-    <?= $content; ?>
-</div>
+
+<?php
+
+//Depending on the content type choosed in the view, the appbody will change. 3 types are available: full, large, restrict.
+switch ($contenttype){
+case "full":
+?>
+<div class="appbody p-1"><?php
+    break;
+    case "large":
+    ?>
+    <div class="appbody p-3"><?php
+        break;
+        case "restricted":
+        ?>
+        <div class="appbody appbodyrestrict col-lg-7 col-md-8 col-sm-11 marginauto p-3"><?php
+            break;
+            default:
+            ?>
+            <div class="appbody p-1"><?php
+                }
+
+                ?>
+
+                <?= $content; ?>
+            </div>
 </body>
 </html>

@@ -75,7 +75,7 @@ ob_start();
 
                     </div>
                 </div>
-                    <BR>
+                    <br>
                 <div class="vertical-center" >
                     <button type="submit" class="btn btn-primary btn-block button1 ">Création du compte</button>
                 </div>
@@ -85,6 +85,7 @@ ob_start();
         </form>
     </div>
     <?php
+    $typecontent ="restricted";
     $content = ob_get_clean();
     require "gabarit.php";
     ?>

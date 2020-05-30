@@ -11,8 +11,10 @@
 }
 
 .appbody {
-    background-color: #d8dbe5;
     height: 100%;
+}
+.appbodyrestrict{
+    max-width: 750px;
 }
 
 .logo {
@@ -167,4 +169,14 @@ select {
 label{
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.box-alignright{
+    justify-content: end;
+    display: flex;
+}
+
+.box-aligncenter{
+    justify-content: center;
+    display: flex;
 }

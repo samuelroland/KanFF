@@ -84,6 +84,7 @@ $title = "Créer un groupe"
         </div>
     </form>
 <?php
+$contenttype = "large";
 $content = ob_get_clean();
 require "gabarit.php";
 ?>
