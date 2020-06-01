@@ -22,4 +22,9 @@ function getAllGroups()
     return $groups;
 }
 
+function createGroup($group)
+{
+    createOne("groups", $group);
+}
+
 ?>

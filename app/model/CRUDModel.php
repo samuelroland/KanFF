@@ -71,12 +71,13 @@ function updateOne($table,$id,$elementForUpdate,$params){
     return Query($query,$params,false);
 }
 //Create one element
-function createOne($table,$params,$values,$field){
+function createOne($table, $values)
+{
     //$field = (department, name, code)
     //$values = '('.:department.','.:name.','.:code.')'
     //$params = ['department'=>$department,'name'=>$name,'code'=>$code]
-    $query='INSERT INTO '.$table.' ( '.$field.') VALUES ('.$values.')';
-    return Query($query,$params,false);
+    $query = 'INSERT INTO $table ' . buildStringForInsertValues($values);
+    return Query($query, $values, false);
 }
 //Detlete one element by his id
 function deleteOne($table,$id){
@@ -84,4 +85,12 @@ function deleteOne($table,$id){
     $params=['id'=>"$id"];
     return Query($query,$params,false);
 }
+
+function buildStringForInsertValues($values)
+{
+    $fieldsList = implode(", ", array_keys($values));
+    $valuesList = implode(", :", $values);
+    return "($fieldsList) VALUES (:$valuesList);";
+}
+
 ?>

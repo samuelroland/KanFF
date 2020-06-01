@@ -37,4 +37,14 @@ function getUser($infoLogin)
     return $user;
 }
 
+function getUserById($id)
+{
+    return getOne("users", $id);
+}
+
+function createUser($user)
+{
+    createOne("users", $user);
+}
+
 ?>
