@@ -7,15 +7,29 @@
  */
 
 //display the page groups
-function groups(){
+function groups()
+{
     //getAllGroups();
     require_once "view/groups.php";
 }
 
 //display the page groups or create the groupe (depends on the data sent)
-function createAGroup()
+function createAGroup($group)
 {
-    require_once "view/createAGroup.php";
+    if ($group != null) {
+        //If the required informations exist
+        if (isset($group['name'], $group['password'], $group['visibility'])) {
+            //Check password first:
+            if (checkUserPassword($_SESSION['user']['id'], $group['password'])) {
+                //Check length of the values:
+                if (strlen($group['name']) <= 50 && chkLength($group['context'], 200) && chkLength($group['group'], 200)) {
+
+                }
+            }
+        }
+    } else {
+        require_once "view/createAGroup.php";
+    }
 }
 
 ?>
