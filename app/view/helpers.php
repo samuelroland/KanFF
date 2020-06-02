@@ -10,8 +10,8 @@
 function flashMessage()
 {
     //TODO: export list of message in a json file for separate languages
-    if (isset($_SESSION["flashmessage"])) { //if flashmessage exists
-        switch ($_SESSION['flashmessage']) {
+    if (isset($_SESSION["flashmsg"])) { //if flashmessage exists
+        switch ($_SESSION['flashmsg']) {
             case 1: //erreur identifiants
                 $message = "Les identifiants de connexion ne concordent pas. Veuillez retenter la connexion.";
                 break;
@@ -28,7 +28,7 @@ function flashMessage()
     return $content;
 }
 
-//display a var (with var_dump()) for debug, only if debug mode enabled
+//display a var (with var_dump()) for debug, only if debug mode is enabled
 function displaydebug($var)
 {
     require ".const.php";   //get the $debug variable
@@ -38,4 +38,3 @@ function displaydebug($var)
 }
 
 ?>
-

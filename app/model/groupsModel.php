@@ -24,6 +24,8 @@ function getAllGroups()
 
 function createGroup($group)
 {
+    echo "create a group funciton";
+    displaydebug($group);
     createOne("groups", $group);
 }
 

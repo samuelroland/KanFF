@@ -65,7 +65,7 @@ $title = "Créer un groupe"
         <div class="divVisibility row pt-4">
             <div class="col-lg-4 col-md-12 marginauto ">
                 <h4>Type d'accès</h4>
-                <input type="checkbox" id="chkRestrictAccess"><label class="" for="chkRestrictAccess">Accès
+                <input type="checkbox" id="chkRestrictAccess" name="restrict_access"><label class="" for="chkRestrictAccess">Accès
                     restreint</label></div>
             <div class="col-lg-8 col-md-12 infotext">L'accès restreint permet de modérer l'entrée des personnes dans un
                 groupe. Les personnes devront attendre d'être acceptée avant de réelement rejoindre le groupe.
