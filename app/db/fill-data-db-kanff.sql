@@ -25,6 +25,8 @@
 /*!40000 ALTER TABLE `event_concern_group` DISABLE KEYS */;
 /*!40000 ALTER TABLE `event_concern_group` ENABLE KEYS */;
 
+USE `kanff`;
+
 -- Listage des données de la table kanff.groups : ~0 rows (environ)
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
 INSERT INTO `groups` (`id`, `name`, `description`, `context`, `email`, `image`, `restrict_access`, `chat_link`, `drive_link`, `status`, `visibility`, `creator_id`, `creation_date`) VALUES
