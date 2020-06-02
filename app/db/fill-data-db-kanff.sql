@@ -27,7 +27,7 @@
 
 -- Listage des données de la table kanff.groups : ~0 rows (environ)
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
-INSERT INTO `groups` (`id`, `name`, `description`, `context`, `email`, `image`, `restrict_access`, `chat_link`, `drive_link`, `status`, `visible`, `creator_id`, `creation_date`) VALUES
+INSERT INTO `groups` (`id`, `name`, `description`, `context`, `email`, `image`, `restrict_access`, `chat_link`, `drive_link`, `status`, `visibility`, `creator_id`, `creation_date`) VALUES
 	(1, 'GT Finances', 'Ce groupe s\'occupe de gérer les finances de l\'association. Il gère les dons, les dépenses, les demandes d\'argent, et gère le compte bancaire.', 'Ce groupe a été créé après un problème avec les finances. Le problème était que trop peu de personnes s\'en occupaient.', 'finances@assoc.ch', 'group_5ebd18109fb5a6.32412082.png', 1, 'chat.link/join?v=ie8si3um5zz', 'drive.link/open?f=ao4ynbqum5dim953wex4vpt8i0aqnkxwze4nq0up6nrsuxx9hlj5y1bb3teo8xq', 'Travail une fois par mois pour les tâches répétitives', 0, 5, '2020-03-28 23:10:50'),
 	(2, 'GT Réfléxion interne', 'Groupe pour réfléchir au fonctionnement interne.', 'Différentes tensions entre certains membres.', NULL, 'group_5ebd18109fc8d4.05636729.png', 0, 'chat.link/join?v=r1fwfp344fdq', 'drive.link/open?f=tkcsskgsbg2mw7928jdndbxxklzj1bw4npr5ofl94f6awdmucdfm7573qk2', '', 1, 34, '2019-10-01 17:42:23'),
 	(3, 'Coordination', 'Coordination générale. Fait des AG toutes les 2 semaines.', 'Besoin d\'un groupe contenant tout les membres.', 'coordination@assoc.ch', 'group_5ebd18109fda07.25532664.png', 0, 'chat.link/join?v=suf6yzktlb', 'drive.link/open?f=zk5utbqwgv5pzr0oit22yfxy2dg1zpb2d2dfpaxnsn4s6ejnrygptcqmc7w0jl7zat', '', 1, 67, '2019-01-24 10:07:58'),
