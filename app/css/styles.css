@@ -53,7 +53,7 @@
 
 .user {
     float: right;
-    width: 450px;
+    width: auto;
     font-size: 25px;
     color: black;
 }
@@ -227,21 +227,26 @@ label {
 }
 
 .usericon {
-    height: 75px;
-}
-
-.divusericon {
     display: flex;
     align-items: center;
     height: 75px;
 }
 
-.circletest {
+.circle-usericon {
+    font-weight: bold;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-size: 1.2em;
     height: 68px;
     width: 68px;
     border-radius: 50%;
     background-color: #1587ff;
     display: flex;
-    align-items: center;
+}
 
+.fullname{
+    max-width: 300px;
+    max-height: 75px;
+    width: auto;
+    overflow: hidden;
+    word-wrap: break-word;
 }

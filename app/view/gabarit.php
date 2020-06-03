@@ -47,12 +47,12 @@ $action = $_GET['action'];
     <?php if (isset($_SESSION['user'])) { ?>
     <div class="user row justify-content-end flexdiv">
         <div class="pr-3 box-verticalaligncenter"><img src="view/medias/icons/bell.png" class="bell" alt="bell icon"></div>
-        <div class="pr-2 justify-content-end box-verticalaligncenter">
+        <div class="fullname pr-2 justify-content-end box-verticalaligncenter">
             <?= $_SESSION['user']['firstname'] ?> <?= $_SESSION['user']['lastname'] ?>
         </div>
         <div class="box-alignright pr-4 nomargin">
-            <div class="divusericon ">
-                <div class="circletest"><p class="marginauto"><?= $_SESSION['user']['initials']?></p></div>
+            <div class="usericon ">
+                <div class="circle-usericon"><p class="marginauto"><?= $_SESSION['user']['initials']?></p></div>
             </div>
         </div>
         <?php } else { ?>
