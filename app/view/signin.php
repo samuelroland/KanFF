@@ -1,93 +1,103 @@
 <?php
 ob_start();
+$title = "Créer un compte";
 
-
+//Define css classes for repetitives markups, to change it quickly
+$cssForSpan = "col-md-5 col-sm-5 box-verticalaligncenter";
+$cssForInput = "col-md-5 col-sm-7 form-control";
+$cssForDivZone = "pl-3";
+$cssForDivField = "row pt-1";
 ?>
-<div class="text-center"><img src="view/medias/logos/temp-logo.png" alt="logoLog" class="logoLog"> <br><span
-            class="versiontext"></span>
-    <div class="container form-group">
-
-        <h1>Sign In</h1>
-        <form style="align-self: auto" class="" action="?action=signin" method="post">
-            <h5>Informations principales:</h5>
-            <div class="">
-                <div class=>
-                    Prénom <input minlength="2" maxlength="254" type="text" name="name" placeholder="Name"
-                                  required="required"/>
-                </div>
-                <BR>
-                <div class="">
-                    Nom <input minlength="2" maxlength="254" type="text" name="surname" placeholder="Surname"
-                               required="required"/>
-                </div>
-                <BR>
-                <div class="">
-                    Initiales <input type="text" name="ini" placeholder="Initials" required="required"/>
-                </div>
+<p class="aligncenter">Bienvenue sur l'instance Blason, l'instance KanFF de la GdC pour toute la Romandie.</p>
+<div class="box-aligncenter pt-4"><img src="view/medias/logos/temp-logo.png" alt="logoLog" class="logoLog"></div>
+<div class="form-group">
+    <h1 class="aligncenter pt-4"><?= $title ?></h1>
+    <form style="align-self: auto" class="pt-3" action="?action=signin" method="post">
+        <h5 class="pt-3">Informations principales:</h5>
+        <div class="<?= $cssForDivZone ?>">
+            <div class="<?= $cssForDivField ?>">
+                <span class="<?= $cssForSpan ?>">Prénom</span>
+                <input class="<?= $cssForInput ?>" minlength="2" maxlength="254" type="text" name="name"
+                       placeholder="Josette"
+                       required/>
             </div>
-                <BR>
-                <h5>Identification:<span title="Inserer le text volu" class="glyphicon glyphicon-question-sign"></span>
-                </h5>
-            <div class="">
-                <div class="">
-                    Nom d'utilisateur <input minlength="4" maxlength="20" class="" type="text" name="user"
-                                             placeholder="Username" required="required"/>
-                </div>
-                <BR>
-                <div class="">
-                    Mot de Passe <input type="password" name="password" placeholder="Password" required="required"/>
-                </div>
-                <BR>
-                <div class="">
-                    Mot de Passe Confirmation <input type="password" name="passwordc"
-                                                     placeholder="password confirmation" required="required"/> <span
-                            title="Inserer le text volu"
-                            class=" glyphicon-question-sign"></span>
-                </div>
+            <div class="<?= $cssForDivField ?>">
+                <span class="<?= $cssForSpan ?>">Nom</span>
+                <input class="<?= $cssForInput ?>" minlength="2" maxlength="254" type="text" name="surname"
+                       placeholder="Richard" required/>
             </div>
-                <BR>
-                <h5>Champs facultatifs:</h5>
-            <div class="">
-                <div class="">
-                    Email <input class="" type="text" name="email" placeholder="Email" />
-                </div>
-                <BR>
-                <div class="">
-                    N°télephone <input class="" type="text" name="nb_phone" placeholder="Phone" />
-                </div>
-                <BR>
-                <div class="">
-                    <div class="">Biographie <input maxlength="254" class="" type="text" name="bio"
-                                                                       placeholder="" r/>
+            <div class="<?= $cssForDivField ?>">
+                <span class="<?= $cssForSpan ?>">Initiales</span>
+                <input class="<?= $cssForInput ?>" type="text" placeholder="JRD" readonly/>
+            </div>
+        </div>
+        <h5 class="pt-3">Identification:<span title="Inserer le text volu"
+                                              class="glyphicon glyphicon-question-sign"></span>
+        </h5>
+        <div class="<?= $cssForDivZone ?>">
+            <div class="<?= $cssForDivField ?>">
+                <span class="<?= $cssForSpan ?>">Nom d'utilisateur.ice</span>
+                <input class="<?= $cssForInput ?>" minlength="4" maxlength="20" type="text" name="user"
+                       placeholder="josette27" required/>
+            </div>
 
-                        <?php
-                        if (isset($_SESSION['error'])) {
-                            if ($_SESSION['error'] == 1) {
-                                echo "<br><p class='alert-warning'>Les mots de passe introduits ne se correspondent pas</p>";
-                            }
-                            if ($_SESSION["error"] == 2) {
-                                echo "<br><p class='alert-warning'>Les initiales introduites sont déjà existantes</p>";
-                            }
+            <div class="<?= $cssForDivField ?>">
+                <span class="<?= $cssForSpan ?>">Mot de passe</span>
+                <input class="<?= $cssForInput ?>" type="password" name="password" placeholder="" required/>
+            </div>
 
-                            unset($_SESSION['error']);
-                        }
-                        ?>
+            <div class="<?= $cssForDivField ?>">
+                <span class="<?= $cssForSpan ?>">Confirmation</span>
+                <input class="<?= $cssForInput ?>" type="password" name="passwordc" placeholder="" required
+                       title="Confirmation du mot de passe"/>
+                <span title="Inserer le text volu" class=" glyphicon-question-sign"></span>
+            </div>
+        </div>
 
-                    </div>
-                </div>
-                    <br>
-                <div class="vertical-center" >
-                    <button type="submit" class="btn btn-primary btn-block button1 ">Création du compte</button>
-                </div>
-        </form>
-                    <a href="/?action=login"><p>Avez vous un compte? Connectez vous</p></a>
-                </div>
-        </form>
-    </div>
-    <?php
-    $typecontent ="restricted";
-    $content = ob_get_clean();
-    require "gabarit.php";
-    ?>
+        <h5 class="pt-3">Champs facultatifs:</h5>
+        <div class="<?= $cssForDivZone ?>">
+            <div class="<?= $cssForDivField ?>">
+                <span class="<?= $cssForSpan ?>">Email</span>
+                <input class="<?= $cssForInput ?>" type="email" name="email" placeholder="josette.richard@assoc.ch"/>
+            </div>
+
+            <div class="<?= $cssForDivField ?>">
+                <span class="<?= $cssForSpan ?>">N°téléphone</span>
+                <input class="<?= $cssForInput ?>" type="number" name="nb_phone" placeholder="Phone"/>
+            </div>
+
+            <div class="<?= $cssForDivField ?>">
+                <span class="<?= $cssForSpan ?>">Biographie</span>
+                <span class="fullwidth"><textarea name="biography" id="txtBiography" rows="2" placeholder="tbd"
+                                class="fullwidth form-control" title="Votre biographie"></textarea></span>
+
+                <?php
+                if (isset($_SESSION['error'])) {
+                    if ($_SESSION['error'] == 1) {
+                        echo "<br><p class='alert-warning'>Les mots de passe introduits ne se correspondent pas</p>";
+                    }
+                    if ($_SESSION["error"] == 2) {
+                        echo "<br><p class='alert-warning'>Les initiales introduites sont déjà existantes</p>";
+                    }
+
+                    unset($_SESSION['error']);
+                }
+                ?>
+            </div>
+        </div>
+        <div class="vertical-center box-alignright pt-3">
+            <button type="submit" class="btn btn-primary">Création du compte</button>
+        </div>
+
+    </form>
+    <p>Déjà un compte ? <a href="/?action=login">Connexion.</a></p>
+</div>
+
+<?php
+$contenttype = "restricted";
+$content = ob_get_clean();
+
+require "gabarit.php";
+?>
 
 
