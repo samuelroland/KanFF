@@ -7,7 +7,9 @@
 
 .versiontext {
     font-size: 0.7em;
-    color: whitesmoke;
+    color: black;
+    margin-left: 5px;
+    padding: 0;
 }
 
 .appbody {
@@ -19,8 +21,8 @@
 }
 
 .logo {
-    height: 75px;
-
+    height: 59px;
+    margin: 2px 4px;
 }
 
 .logoLog {
@@ -30,10 +32,7 @@
 }
 
 .logodiv {
-
     float: left;
-
-    background-color: #333333;
     width: 450px;
     height: 75px;
 }
@@ -53,12 +52,10 @@
 }
 
 .user {
-
     float: right;
     width: 450px;
-    background-color: #333333;
     font-size: 25px;
-    color: #D9DBE5;
+    color: black;
 }
 
 /*
@@ -84,7 +81,6 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333333;
     height: 75px;
     text-align: left;
 }
@@ -98,22 +94,25 @@ li {
 
 li a {
     display: block;
-    color: #D9DBE5;
+    color: black;
     text-align: left;
     padding: 14px 16px;
     text-decoration: none;
     height: 100px;
 }
 
+.active{
+    background-color: #ffb400;
+}
 li a:hover {
-    background-color: #111;
+    background-color: #ffb400;
     height: 100px;
-    color: yellow;
+    color: black;
+    text-decoration: none;
 }
 
 .logocenter {
     align-content: center;
-
 }
 
 .usericon {
@@ -122,7 +121,20 @@ li a:hover {
 }
 
 body {
-    background-color: #D9DBE5;
+    font-family: Verdana, Sans-serif;
+    background-color: #e2e7f0;
+}
+
+.bg-grey-header{
+    background-color: #ffc437;
+    /*
+     gris vert: #b3d59c
+     gris bleu: #cdced0
+     gris bleu clair: #e2e7f0
+     gris orange: #E5E2D9
+     orange fort: #ffc437
+     orange max pour hover: #ffb400
+    */
 }
 
 .bell {
@@ -149,7 +161,7 @@ body {
     color: #1d1919;
     font-size: 1.1em;
     font-style: italic;
-    font-family: Arial;
+    font-family: Arial, serif;
 }
 
 .rowtest {
@@ -192,6 +204,30 @@ label {
     max-width: 300px;
 }
 
-.redCounter{
+.redCounter {
     color: #ff3300;
+}
+
+.collectivename {
+    font-size: 1.3em;
+    height: 75px;
+    color: black;
+    width: 100%;
+}
+
+.flexdiv {
+    display: flex;
+}
+
+.lineheigthsmall{
+    line-height: 0.2rem;
+}
+
+.box-verticalaligncenter{
+    display: flex;
+    align-items: center;
+}
+
+.header-height{
+    height: 75px;
 }
