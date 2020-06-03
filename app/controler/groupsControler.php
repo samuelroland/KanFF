@@ -48,12 +48,15 @@ function createAGroup($group)
             } else {
                 flshmsg(15);    //password error for action
                 $dataerror = false; //unset error to protect the flshmsg of password error
+                require_once "view/createAGroup.php";
             }
+            displaydebug($group);
         } else {
             $dataerror = true;
         }
         if ($dataerror) {
             flshmsg(14);
+            require_once "view/createAGroup.php";
         }
         displaydebug($dataerror);
         displaydebug($_SESSION);

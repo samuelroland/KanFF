@@ -10,7 +10,7 @@ $title = "Créer un groupe"
     <form action="?action=createAGroup" method="POST" class="pt-4">
         <h4>Nom du groupe</h4>
         <input type="text" class="smalltextinput textFieldToCheck" name="name" id="txtName" placeholder="GT mail"
-               maxlength="50" required>
+               maxlength="50" value="<?= $group['name'] ?>" required>
         <p id="pCounterName">0/50</p>
         <div class="divDescription row pt-4">
             <div class="col-lg-3 col-md-12"><h4>Description du groupe</h4></div>
@@ -21,7 +21,7 @@ $title = "Créer un groupe"
             </div>
             <div class="col-12"><textarea class="fullwidth textFieldToCheck" name="description" id="txtDescription"
                                           rows="2"
-                                          maxlength="200" minlength="3" placeholder="tbd"></textarea>
+                                          maxlength="200" minlength="3" placeholder="tbd"><?= $group['description'] ?></textarea>
             </div>
 
         </div>
@@ -33,13 +33,13 @@ $title = "Créer un groupe"
             </div>
             <div class="col-12"><textarea class="fullwidth textFieldToCheck" name="context" id="txtContext" rows="2"
                                           maxlength="200"
-                                          minlength="3" placeholder="tbd"></textarea></div>
+                                          minlength="3" placeholder="tbd"><?= $group['context'] ?></textarea></div>
         </div>
         <p id="pCounterContext">0/200</p>
         <div class="divVisibility row pt-4">
             <div class="col-lg-4 col-md-12 marginauto">
                 <h4>Niveau de visibilité</h4>
-                <select class="fullwidth" name="visibility" id="selVisibility">
+                <select class="fullwidth" name="visibility" id="selVisibility" required>
                     <option value="1">Invisible</option>
                     <option value="2">Titre visible</option>
                     <option value="3">Image visible</option>
@@ -65,9 +65,10 @@ $title = "Créer un groupe"
         <div class="divVisibility row pt-4">
             <div class="col-lg-4 col-md-12 marginauto ">
                 <h4>Type d'accès</h4>
-                <input type="checkbox" id="chkRestrictAccess" name="restrict_access"><label class=""
-                                                                                            for="chkRestrictAccess">Accès
-                    restreint</label></div>
+                <input type="checkbox" id="chkRestrictAccess"
+                       name="restrict_access" <?= ($group['restrict_access'] == 1) ? "checked" : "" ?>>
+                <label for="chkRestrictAccess">Accès restreint</label>
+            </div>
             <div class="col-lg-8 col-md-12 infotext">L'accès restreint permet de modérer l'entrée des personnes dans un
                 groupe. Les personnes devront attendre d'être acceptée avant de réelement rejoindre le groupe.
             </div>
@@ -78,7 +79,7 @@ $title = "Créer un groupe"
         <div class="divPassword row pt-4">
             <div class="col-lg-4 col-md-12 marginauto ">
                 <h4>Confirmation de l'action</h4>
-                <input class="fullwidth" type="password" name="password" placeholder="Mot de passe">
+                <input class="fullwidth smalltextinput" type="password" name="password" placeholder="Mot de passe" required>
             </div>
             <div class="col-lg-8 col-md-12 infotext">Créer un groupe étant une action importante, nous avons besoin de
                 votre confirmation pour valider l'action. Pour ceci rentrer le mot de passe de votre compte.
