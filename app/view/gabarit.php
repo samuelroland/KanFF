@@ -1,6 +1,6 @@
 ﻿<?php
 $versions = getVersionsApp();
-
+$action = $_GET['action'];
 ?>
 
 <!DOCTYPE HTML>
@@ -31,47 +31,46 @@ $versions = getVersionsApp();
 </head>
 
 <body>
-<header>
-    <div class="logodiv">
-        <a href="/"><img src="view/medias/logos/temp-logo.png" alt="logo KanFF" class="logo"></a>
-        <span class="versiontext">v<?= $versions[count($versions) - 1]['version'] ?></span>
-        <span class="versiontext"><em> le <?= date("d.m.Y", strtotime($versions[count($versions) - 1]['date'])) ?></em></span>
+<header class="bg-grey-header">
+    <div class="logodiv row lineheigthsmall">
+        <div class="col-5">
+            <a href="/"><img src="view/medias/logos/temp-logo.png" alt="logo KanFF" class="logo"></a>
+            <br><span class="versiontext">v<?= $versions[count($versions) - 1]['version'] ?></span>
+            <span class="versiontext"><em> le <?= date("d.m.Y", strtotime($versions[count($versions) - 1]['date'])) ?></em></span>
+        </div>
+        <div class="col-7 collectivename flexdiv">
+            <div class="align-items-center flexdiv">Grève du Climat Vaud</div>
+        </div>
     </div>
 
-    <div class="user row">
-        <?php if (isset($_SESSION['user'])) { ?>
-            <div class="col-2 usericon">
 
-                <a href="?action=editAccount">
-                    <img src="view/medias/logos/User_JRD_Temp.png" alt="logo user" class="usericon">
-                </a>
+        <?php if (isset($_SESSION['user'])) { ?>
+    <div class="user row">
+            <div class="col-2"><img src="view/medias/icons/bell.png" class="bell" alt="bell icon"></div>
+            <div class="col-8">
+                <?= $_SESSION['user']['firstname'] ?> <?= $_SESSION['user']['lastname'] ?>
             </div>
-            <div class="col-10 logout">
-                <?= $_SESSION['user']['firstname'] ?> <?= $_SESSION['user']['lastname'] ?><br><a href="/?action=logout"><span
-                            class="small">Déconnexion</span></a>
+            <div class="col-2 usericon">
+                <a href="?action=editAccount">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="75" height="75"><circle cx="100" cy="100" r="80" fill="#1587ff"></circle></svg>
+                </a>
             </div>
         <?php } else { ?>
-            <div class="col-2 usericon">
-
-                <a href="?action=login">
-                    <img src="view/medias/logos/User_Unknown_Temp.png" alt="logo user" class="usericon">
-                </a>
-            </div>
-            <div class="col-10 logout">
-                <span class="small">Non connecté</span>
-                <br><a href="/?action=logout"><span class="small">Connexion</span></a>
+        <div class="user row col-2">
+            <div class="col-10 box-verticalaligncenter header-height">
+                <a href="/?action=logout"><span class="">Connexion</span></a>
             </div>
             <?php
         } ?>
     </div>
     <div class="menu">
         <ul>
-            <li><a class="active" href="/">Dashboard</a></li>
-            <li><a href="/?action=groups">Groupes</a></li>
-            <li><a href="/?action=projects">Projets</a></li>
-            <li><a href="/?action=works">Travaux</a></li>
-            <li><a href="/?action=...">...</a></li>
-            <img src="view/medias/icons/bell.png" class="bell" alt="bell icon">
+            <li><a class="<?= ($action == null) ? 'active' : '' ?>" href="/">Dashboard</a></li>
+            <li><a class="<?= ($action == "tasks") ? 'active' : '' ?>" href="/?action=tasks">Tâches</a></li>
+            <li><a class="<?= ($action == "projects") ? 'active' : '' ?>" href="/?action=projects">Projets</a></li>
+            <li><a class="<?= ($action == "groups") ? 'active' : '' ?>" href="/?action=groups">Groupes</a></li>
+            <li><a class="<?= ($action == "members") ? 'active' : '' ?>" href="/?action=members">Membres</a></li>
+            <li><a class="<?= ($action == "calendar") ? 'active' : '' ?>" href="/?action=calendar">Calendrier</a></li>
         </ul>
 
     </div>
