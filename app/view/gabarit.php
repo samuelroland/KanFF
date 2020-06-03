@@ -44,36 +44,37 @@ $action = $_GET['action'];
     </div>
 
 
-        <?php if (isset($_SESSION['user'])) { ?>
-    <div class="user row">
-            <div class="col-2"><img src="view/medias/icons/bell.png" class="bell" alt="bell icon"></div>
-            <div class="col-8">
-                <?= $_SESSION['user']['firstname'] ?> <?= $_SESSION['user']['lastname'] ?>
+    <?php if (isset($_SESSION['user'])) { ?>
+    <div class="user row justify-content-end flexdiv">
+        <div class="pr-3 box-verticalaligncenter"><img src="view/medias/icons/bell.png" class="bell" alt="bell icon"></div>
+        <div class="pr-2 justify-content-end box-verticalaligncenter">
+            <?= $_SESSION['user']['firstname'] ?> <?= $_SESSION['user']['lastname'] ?>
+        </div>
+        <div class="box-alignright pr-4 nomargin">
+            <div class="divusericon ">
+                <div class="circletest"><p class="marginauto"><?= $_SESSION['user']['initials']?></p></div>
             </div>
-            <div class="col-2 usericon">
-                <a href="?action=editAccount">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="75" height="75"><circle cx="100" cy="100" r="80" fill="#1587ff"></circle></svg>
-                </a>
-            </div>
+        </div>
         <?php } else { ?>
         <div class="user row col-2">
             <div class="col-10 box-verticalaligncenter header-height">
                 <a href="/?action=logout"><span class="">Connexion</span></a>
             </div>
             <?php
-        } ?>
-    </div>
-    <div class="menu">
-        <ul>
-            <li><a class="<?= ($action == null) ? 'active' : '' ?>" href="/">Dashboard</a></li>
-            <li><a class="<?= ($action == "tasks") ? 'active' : '' ?>" href="/?action=tasks">Tâches</a></li>
-            <li><a class="<?= ($action == "projects") ? 'active' : '' ?>" href="/?action=projects">Projets</a></li>
-            <li><a class="<?= ($action == "groups") ? 'active' : '' ?>" href="/?action=groups">Groupes</a></li>
-            <li><a class="<?= ($action == "members") ? 'active' : '' ?>" href="/?action=members">Membres</a></li>
-            <li><a class="<?= ($action == "calendar") ? 'active' : '' ?>" href="/?action=calendar">Calendrier</a></li>
-        </ul>
+            } ?>
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a class="<?= ($action == null) ? 'active' : '' ?>" href="/">Dashboard</a></li>
+                <li><a class="<?= ($action == "tasks") ? 'active' : '' ?>" href="/?action=tasks">Tâches</a></li>
+                <li><a class="<?= ($action == "projects") ? 'active' : '' ?>" href="/?action=projects">Projets</a></li>
+                <li><a class="<?= ($action == "groups") ? 'active' : '' ?>" href="/?action=groups">Groupes</a></li>
+                <li><a class="<?= ($action == "members") ? 'active' : '' ?>" href="/?action=members">Membres</a></li>
+                <li><a class="<?= ($action == "calendar") ? 'active' : '' ?>" href="/?action=calendar">Calendrier</a>
+                </li>
+            </ul>
 
-    </div>
+        </div>
 </header>
 
 <?php

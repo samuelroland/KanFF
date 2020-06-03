@@ -101,9 +101,10 @@ li a {
     height: 100px;
 }
 
-.active{
+.active {
     background-color: #ffb400;
 }
+
 li a:hover {
     background-color: #ffb400;
     height: 100px;
@@ -115,17 +116,14 @@ li a:hover {
     align-content: center;
 }
 
-.usericon {
-    width: 75px;
-
-}
 
 body {
     font-family: Verdana, Sans-serif;
     background-color: #e2e7f0;
+    overflow-x: hidden
 }
 
-.bg-grey-header{
+.bg-grey-header {
     background-color: #ffc437;
     /*
      gris vert: #b3d59c
@@ -139,10 +137,6 @@ body {
 
 .bell {
     height: 60px;
-    float: right;
-    margin-right: 10px;
-    margin-bottom: 10px;
-
 }
 
 .fullwidth {
@@ -219,15 +213,35 @@ label {
     display: flex;
 }
 
-.lineheigthsmall{
+.lineheigthsmall {
     line-height: 0.2rem;
 }
 
-.box-verticalaligncenter{
+.box-verticalaligncenter {
     display: flex;
     align-items: center;
 }
 
-.header-height{
+.header-height {
     height: 75px;
+}
+
+.usericon {
+    height: 75px;
+}
+
+.divusericon {
+    display: flex;
+    align-items: center;
+    height: 75px;
+}
+
+.circletest {
+    height: 68px;
+    width: 68px;
+    border-radius: 50%;
+    background-color: #1587ff;
+    display: flex;
+    align-items: center;
+
 }
