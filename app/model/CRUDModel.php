@@ -16,21 +16,19 @@ function getPDO()
 
 function Query($query, $params, $manyrecords)
 {
-
     try {
         $dbh = getPDO();
         $statement = $dbh->prepare($query);//prepare query
+        //If there are parameter, include them in the request:
         if (is_null($params) == false) {
             $statement->execute($params);//execute query
-            var_dump($params);
-        } else {
+        } else {    //else don't include them
             $statement->execute();//execute query
-            var_dump($params);
         }
-
+        //If it must have many records, use fetchAll()
         if ($manyrecords) {
             $queryResult = $statement->fetchAll(PDO::FETCH_ASSOC);//prepare result for client
-        } else {
+        } else {    //if not, use fetch()
             $queryResult = $statement->fetch(PDO::FETCH_ASSOC);//prepare result for client
         }
         $dbh = null;
@@ -44,7 +42,7 @@ function Query($query, $params, $manyrecords)
 //Get all elements of one Table
 function getAll($table)
 {
-    $query = 'SELECT * FROM ' . $table;
+    $query = "SELECT * FROM `$table`";
     $params = null;
     return Query($query, $params, true);
 }
@@ -52,8 +50,8 @@ function getAll($table)
 //Get one element by his id
 function getOne($table, $id)
 {
-    $query = 'SELECT * FROM ' . $table . ' WHERE id=:id';
-    $params = ['id' => "$id"];
+    $query = "SELECT * FROM `$table` WHERE id=:id";
+    $params = ['id' => $id];
     return Query($query, $params, false);
 }
 
@@ -64,48 +62,58 @@ function getByCondition($table, $params, $conditions, $manyrecords)
     //Example for $criterions= id=:id AND name=:name
     //$params=["id"=>$id,"name"=>$name]
     //$manyrecords=boolean (true/false)
-    $query = 'SELECT * FROM ' . $table . ' WHERE ' . $conditions;
+    $query = "SELECT * FROM `$table` WHERE " . $conditions;
     return Query($query, $params, $manyrecords);
 }
 
 //Update one element
-function updateOne($table, $id, $elementForUpdate, $params)
+function updateOne($table, $id, $values)
 {
-    //$elementForUpdate = 'department'=:department
-    //$params = ["department"=>$department]
-    $query = 'UPDATE ' . $table . ' SET ' . $elementForUpdate . ' WHERE id=' . $id;
-    return Query($query, $params, false);
+    //$values = ["department"=>$department]
+    unset($values['id']);   //destroy id because update the id is prohibited
+    $query = "UPDATE `$table` SET " . buildStringForUpdateValues($values) . " WHERE id=" . $id;
+    displaydebug($query);
+    displaydebug($values);
+    return Query($query, $values, false);
 }
 
 //Create one element
 function createOne($table, $values)
 {
-    require ".const.php";
     //$field = (department, name, code)
     //$values = '('.:department.','.:name.','.:code.')'
     //$params = ['department'=>$department,'name'=>$name,'code'=>$code]
     $query = "INSERT INTO `$table` " . buildStringForInsertValues($values);
     displaydebug($query);
-    displaydebug($table);
-    var_dump($values);
-    displaydebug(buildStringForInsertValues($values));
-    //die("stop create one");
+    displaydebug($values);
     return Query($query, $values, false);
 }
 
-//Detlete one element by his id
+//Delete one element by his id
 function deleteOne($table, $id)
 {
-    $query = 'DELETE FORM ' . $table . ' WHERE id=:id';
-    $params = ['id' => "$id"];
+    $query = "DELETE FROM `$table` WHERE id=:id";
+    $params = ['id' => $id];
     return Query($query, $params, false);
 }
 
+//build the string for the SQL Query for insert values with parameters, after string "INSERT INTO table ". Ex: "(firstname, lastname) VALUES (:firstname, :lastname)"
 function buildStringForInsertValues($values)
 {
     $fieldsList = implode(", ", array_keys($values));
     $valuesList = implode(", :", array_keys($values));
     return "($fieldsList) VALUES (:$valuesList);";
+}
+
+//build the string for the SQL Query for update values with parameters, after string "UPTATE table SET ". Ex: "firstname=:firstname, lastname=:lastname"
+function buildStringForUpdateValues($values)
+{
+    $keys = array_keys($values);    //get the keys of the array that are the fields names
+    //Prepare keys before implode()
+    foreach ($keys as $i => $onekey) {
+        $keys[$i] = $onekey . "=:" . $onekey;   //create string "description=:description" and save it in place of "description"
+    }
+    return implode(", ", $keys);
 }
 
 ?>
