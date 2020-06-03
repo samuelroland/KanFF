@@ -2,7 +2,7 @@
 ob_start();
 $title = "Groupes"
 ?>
-    <h1>Groupes</h1>
+    <h1><?= $title ?></h1>
     <a href="?action=createAGroup">
         <button class="justify-content-end">Créer un nouveau groupe</button>
     </a>

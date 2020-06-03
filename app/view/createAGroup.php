@@ -2,7 +2,7 @@
 ob_start();
 $title = "Créer un groupe"
 ?>
-    <h1>Créer un groupe</h1>
+    <h1><?= $title ?></h1>
     <p>Cette page vous permet de créer un nouveau groupe sur cette instance. Vous rentrez ici les informations de base
         pour un groupe qui sont modifiables par la suite, et les autres informations pourront être rentrées dans les
         paramètres une fois le groupe créé.</p>
@@ -65,7 +65,8 @@ $title = "Créer un groupe"
         <div class="divVisibility row pt-4">
             <div class="col-lg-4 col-md-12 marginauto ">
                 <h4>Type d'accès</h4>
-                <input type="checkbox" id="chkRestrictAccess" name="restrict_access"><label class="" for="chkRestrictAccess">Accès
+                <input type="checkbox" id="chkRestrictAccess" name="restrict_access"><label class=""
+                                                                                            for="chkRestrictAccess">Accès
                     restreint</label></div>
             <div class="col-lg-8 col-md-12 infotext">L'accès restreint permet de modérer l'entrée des personnes dans un
                 groupe. Les personnes devront attendre d'être acceptée avant de réelement rejoindre le groupe.

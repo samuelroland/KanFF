@@ -5,10 +5,10 @@
  *  Author: Samuel Roland
  *  Creation date: 25.05.2020
  */
-$title = "KanFF - Dashboard";
+$title = "Dashboard";
 ob_start();
 ?>
-<h1>Dashboard... (en construction)</h1>
+<h1><?= $title ?></h1>
 <?php
 $contenttype = "large";
 $content = ob_get_clean();

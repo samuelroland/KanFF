@@ -5,10 +5,10 @@
  *  Author: Kevin Vaucher
  *  Creation date: 18.05.2020
  */
-$title = "KanFF - Modifier le compte";
+$title = "Mon compte";
 ob_start();
 ?>
-    <h1>Mon compte</h1>
+    <h1><?= $title ?></h1>
     <p>Voici les informations de votre compte sur l'instance Blason. C'est sur cette page que vous pouvez gérer votre
         compte.<br> Vous pouvez modifier vos informations pour la plupart et aussi archiver ou supprimer votre compte
         (attention supprimer est une action irréversible !)</p>
