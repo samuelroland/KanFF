@@ -69,7 +69,7 @@ function getByCondition($table, $params, $conditions, $manyrecords)
 //Update one element
 function updateOne($table, $id, $values)
 {
-    //$values = ["department"=>$department]
+    //$values = ['department'=>$department,'name'=>$name,'code'=>$code]
     unset($values['id']);   //destroy id because update the id is prohibited
     $query = "UPDATE `$table` SET " . buildStringForUpdateValues($values) . " WHERE id=" . $id;
     displaydebug($query);
@@ -80,9 +80,7 @@ function updateOne($table, $id, $values)
 //Create one element
 function createOne($table, $values)
 {
-    //$field = (department, name, code)
-    //$values = '('.:department.','.:name.','.:code.')'
-    //$params = ['department'=>$department,'name'=>$name,'code'=>$code]
+    //$values = ['department'=>$department,'name'=>$name,'code'=>$code]
     $query = "INSERT INTO `$table` " . buildStringForInsertValues($values);
     displaydebug($query);
     displaydebug($values);
