@@ -69,7 +69,14 @@ ob_start();
                 <td><label for="bio">Biographie : </label><input value="Etudiant, en études d'éléctronique à l'EPFL, je milite depuis 4 ans ..." name="bio" type="text" id="bio" size="60px"></td>
             </tr>
             </tbody>
-        </table>
+            </table>
+            <h4>Zone danger - actions irréversibles ou à grosses conséquences techniques</h4>
+            <table>
+                <input type="button" value="Supprimer son compte">
+                <br>
+                <br>
+                <input type="button" value="Archiver son compte">
+            </table>
     </form>
 
 <?php

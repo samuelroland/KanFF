@@ -9,3 +9,5 @@
 function editAccount(){
     require_once "view/editAccount.php";
 }
+
+$_SESSION["user"] = "abcd";
