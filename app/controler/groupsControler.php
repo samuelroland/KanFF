@@ -11,7 +11,10 @@ require_once "model/groupsModel.php";
 //display the page groups
 function groups()
 {
-    //getAllGroups();
+    $groups = getAllGroups();
+    $fieldsToConvert = ["name", "description", "context", "status"];
+    $groups = specialCharsConvertFromAnArray($groups, $fieldsToConvert);
+    displaydebug($groups);
     require_once "view/groups.php";
 }
 

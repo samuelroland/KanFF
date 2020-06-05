@@ -225,10 +225,25 @@ label {
     display: flex;
 }
 
-.fullname{
+.fullname {
     max-width: 300px;
     max-height: 75px;
     width: auto;
     overflow: hidden;
     word-wrap: break-word;
+}
+
+.icon-simple {
+    width: 35px;
+    margin: 5px;
+}
+
+.linkExternal{
+    text-decoration: none;
+    color: #896b01;
+}
+
+.linkExternal:hover{
+    text-decoration: none;
+    color: #0097ba;
 }

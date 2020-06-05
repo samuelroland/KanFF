@@ -12,10 +12,17 @@ function getOneGroup($id)
     require getOne("groups", $id);
 }
 
-//Get all groups
+//Get all groups that are: visible and ordered by creation_date
 function getAllGroups()
 {
-    return getAll("groups");
+    $query = "
+    SELECT groups.id, groups.name, groups.description, groups.context, groups.email, groups.image, groups.restrict_access, groups.status, groups.visibility, groups.creator_id, groups.creation_date, groups.creator_id, users.initials AS creator_initials FROM `groups`
+INNER JOIN users ON users.id = groups.creator_id
+WHERE groups.visibility = 1
+ORDER BY groups.creation_date DESC";
+
+    return Query($query, null, true);
+
 }
 
 //Create group

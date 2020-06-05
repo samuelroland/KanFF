@@ -5,3 +5,58 @@
  *  Creation date: 30.05.2020
  */
 
+.newgroup {
+    max-height: 40px;
+}
+
+.imgGroup {
+    max-width: 190px;
+    max-height: 190px;
+}
+
+.divGroups{
+    display: flex;
+    justify-content: space-between;
+}
+
+.divGroup {
+    padding: 15px;
+    width: auto;
+    min-width: 600px;
+    flex: 1;
+    margin: 5px;
+    position: relative; /*to keep the button "See" in the div*/
+}
+
+.imgFrame {
+    padding: 5px;
+    background-color: #ffc437;
+    width: 200px;
+    height: 200px;
+}
+
+.bordertest {
+    border: solid black 3px;
+}
+
+.position-bottom-right {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+.groupDetails {
+    width: 200px;
+}
+
+.groupInfo {
+    margin-left: 200px;
+}
+
+.imgFrame {
+    float: left;
+}
+
+.topDiv {
+    height: 260px;
+}
