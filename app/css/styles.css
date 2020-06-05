@@ -58,24 +58,6 @@
     color: black;
 }
 
-/*
-.formlog {
-    min-width: 500px;
-    position: absolute;
-    text-align: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1.0rem
-}
-
-@media (max-width: 500px) {
-    .formlog {
-        min-width: 90%;
-    }
-}
-*/
-
 ul {
     list-style-type: none;
     margin: 0;
