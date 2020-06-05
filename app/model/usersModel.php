@@ -21,10 +21,10 @@ function createLogs($data)
 
 }
 
-// Add the new user in the database
-function addUser($user)
+//Get all users
+function getAllUsers()
 {
-    //createOne(users,,$user);
+    getAll("users");
 }
 
 // Get one User
@@ -32,19 +32,35 @@ function getUser($infoLogin)
 {
     $table = "users";
     $params = ["infoLogin" => $infoLogin];
-    $criterions = "username=:infoLogin OR email=:infoLogin OR initials=:infoLogin";
-    $user = getByCondition($table, $params, $criterions, false);
+    $conditions = "username=:infoLogin OR email=:infoLogin OR initials=:infoLogin";
+    $user = getByCondition($table, $params, $conditions, false);
     return $user;
 }
 
+//Get one user with his id
 function getUserById($id)
 {
     return getOne("users", $id);
 }
 
+//Create user
 function createUser($user)
 {
     createOne("users", $user);
 }
+
+//Update one user with his id
+function updateUser($user, $id)
+{
+    updateOne("users", $id, $user);
+}
+
+//Delete one user with his id
+function deleteUser($id)
+{
+    deleteOne("users", $id);
+}
+
+
 
 ?>
