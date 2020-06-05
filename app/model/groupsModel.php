@@ -9,22 +9,31 @@
 //Get one group with his id
 function getOneGroup($id)
 {
-    $table = "users";
-    $group = getOne($table, $id);
-    return $group;
+    require getOne("groups", $id);
 }
 
 //Get all groups
 function getAllGroups()
 {
-    $table = "groups";
-    $groups = getAll($table);
-    return $groups;
+    return getAll("groups");
 }
 
+//Create group
 function createGroup($group)
 {
     createOne("groups", $group);
+}
+
+//Update one group with his id
+function updateGroup($group, $id)
+{
+    updateOne("groups", $id, $group);
+}
+
+//Delete one group with his id
+function deleteGroup($id)
+{
+    deleteOne("groups", $id);
 }
 
 ?>
