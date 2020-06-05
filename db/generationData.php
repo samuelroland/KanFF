@@ -1,7 +1,7 @@
 <?php
 /**
  *  Project: KanFF
- *  File: generationData.php file to generate data for fill the database with the tables of the MCD v1.1
+ *  File: generationData.php file to generate data for fill the database with the tables of the MLD v1.1
  *  Author: Samuel Roland
  *  Creation date: 08.05.2020
  */
@@ -23,7 +23,7 @@ function queryInsertConstructor($items, $tablename)
     foreach ($items[0] as $key => $fieldOfOneItem) {
         $listofkeys[] = $key;
     }
-    $query = "INSERT INTO $dbname.$tablename (" . implode(", ", $listofkeys) . ") VALUES (:" . implode(", :", $listofkeys) . ");";
+    $query = "INSERT INTO `$tablename` (" . implode(", ", $listofkeys) . ") VALUES (:" . implode(", :", $listofkeys) . ");";
     return $query;
 }
 
@@ -37,7 +37,7 @@ function importTableData($table, $items)
 
     //Delete table records before insert
     require "../app/.const.php";
-    $statement = getPDO()->prepare("delete from $dbname.$table");
+    $statement = getPDO()->prepare("DELETE FROM `$table`");
     $statement->execute();   //éxecuter la requête
 
     //Finally insert data!
@@ -71,7 +71,7 @@ function getAllItems($tablename)
 {
     try {
         $dbh = getPDO();
-        $statement = $dbh->prepare("SELECT * FROM kanff.$tablename;");//prepare query
+        $statement = $dbh->prepare("SELECT * FROM `$tablename`;");//prepare query
         $statement->execute();//execute query
         $queryResult = $statement->fetchAll(PDO::FETCH_ASSOC);//prepare result for client
         $dbh = null;
@@ -188,17 +188,23 @@ function dataGroups()
             //The other time it's null
             $group['email'] = null;
         }
-        $group['image'] = uniqid("group_", true) . ".png";
+
+        //INFO: finally named by hand with format "group_blwt3uw94psz9n8xtmy1fym3exo8b2.jpg" (see doc for more details)
+        //$group['image'] = group_". generateRandomString(30) . ".jpg";
+        //If not set manually in the json file, set to null
+        if (isset($group['image']) == false) {
+            $group['image'] = null;
+        }
 
         //Generating "visible" and "restrict_access". The groups are in most cases visible and not access restricted . just in 1/5 of cases the groups are considered sensitive so restric_access is 1 (true) and sometimes not visible.
 
-        $group['visible'] = 1;  //visible by default
+        $group['visibility'] = 1;  //visible by default
 
         //Generate parameters for sensitive groups in 1/5 of cases.
         if (rand(1, 5) == 1) {
             $group['restrict_access'] = 1;
             if (rand(0, 1)) {
-                $group['visible'] = 0;
+                $group['visibility'] = 0;
             }
         } else {
             $group['restrict_access'] = 0;
@@ -216,7 +222,7 @@ function dataGroups()
         $group['id'] = $id;
 
         print_r("\n" . $group['name']);
-        print_r("\n" . $group['email'] . "\n");
+        print_r("\n" . $group['image'] . "\n");
         $groups[] = $group;
     }
 
@@ -334,7 +340,7 @@ function generateRandomString($length = 10)
 }
 
 //dataUsers();
-//dataGroups();
-data_user_join_group();
+dataGroups();
+//data_user_join_group();
 
 ?>
