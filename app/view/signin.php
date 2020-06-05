@@ -9,7 +9,7 @@ $cssForDivZone = "pl-3";
 $cssForDivField = "row pt-1";
 ?>
 <p class="aligncenter">Bienvenue sur l'instance Blason, l'instance KanFF de la GdC pour toute la Romandie.</p>
-<div class="box-aligncenter pt-4"><img src="view/medias/logos/temp-logo.png" alt="logoLog" class="logoLog"></div>
+<div class="box-aligncenter pt-4"></div>
 <div class="form-group">
     <h1 class="aligncenter pt-4"><?= $title ?></h1>
     <form style="align-self: auto" class="pt-3" action="?action=signin" method="post">
@@ -27,8 +27,13 @@ $cssForDivField = "row pt-1";
                        placeholder="Richard" required/>
             </div>
             <div class="<?= $cssForDivField ?>">
-                <span class="<?= $cssForSpan ?>">Initiales</span>
+                <span class="<?= $cssForSpan ?>">Initiales </span>
                 <input class="<?= $cssForInput ?>" type="text" placeholder="JRD" readonly/>
+                <img title="Les initiales sont uniques et générées automatiquement.
+                Format: première lettre du prénom + la première lettre
+                du nom + la dernière lettre du nom/2ème lettre du nom
+                (en cas de conflit)."
+                     src="view/medias/icons/point.png" alt="50px" width="35" height="35" class="">
             </div>
         </div>
         <h5 class="pt-3">Identification:<span title="Inserer le text volu"
@@ -44,7 +49,11 @@ $cssForDivField = "row pt-1";
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Mot de passe</span>
                 <input class="<?= $cssForInput ?>" type="password" name="password" placeholder="" required/>
-            </div>
+                <img title="Les critères de sécurité du mot de passe sont:
+                - yy caractères
+                - caractères minuscules, majuscules, spéciaux, chiffres.
+                - ... TBD" src="view/medias/icons/point.png" alt="50px" width="35" height="35" class="">
+                            </div>
 
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Confirmation</span>
@@ -69,7 +78,8 @@ $cssForDivField = "row pt-1";
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Biographie</span>
                 <span class="fullwidth"><textarea name="biography" id="txtBiography" rows="2" placeholder="tbd"
-                                class="fullwidth form-control" title="Votre biographie"></textarea></span>
+                                                  class="fullwidth form-control"
+                                                  title="Votre biographie"></textarea></span>
 
                 <?php
                 if (isset($_SESSION['error'])) {
