@@ -30,6 +30,7 @@ email: mean of contact of a entire group
 restrict_access: boolean field (in tinyint). is the access of the group totally free or the group want to manage the new members of the group ? set 1 if yes. This is useful for sensitive groups.
 visible: can change the visibility of the information of the group in the list of the groups. If not visible, the group is not listed in the list of groups. This is useful for sensitive groups.
 status: (varchar) a little text about what is the state of the group (if it's active, if it's on break, what is the occurence of the meetings, other informations about the status) 
+image: name of the image stored in folder "/data/groups". Format: "group_" + random string of 30 chars +".jpg" 
 
 - user_join_group:
 Depends on the random. result=
