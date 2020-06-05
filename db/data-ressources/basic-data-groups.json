@@ -3,7 +3,8 @@
     "name": "GT Finances",
     "description": "Ce groupe s'occupe de gérer les finances de l'association. Il gère les dons, les dépenses, les demandes d'argent, et gère le compte bancaire.",
     "context": "Ce groupe a été créé après un problème avec les finances. Le problème était que trop peu de personnes s'en occupaient.",
-    "status": "Travail une fois par mois pour les tâches répétitives"
+    "status": "Travail une fois par mois pour les tâches répétitives",
+    "image": "group_5ebd18109fb5a6.32412082.JPG"
   },
   {
     "name": "GT Réfléxion interne",
@@ -15,7 +16,8 @@
     "name": "Coordination",
     "description": "Coordination générale. Fait des AG toutes les 2 semaines.",
     "context": "Besoin d'un groupe contenant tout les membres.",
-    "status": ""
+    "status": "",
+    "image": "group_987d18109fda07.25532664.JPG"
   },
   {
     "name": "GT Journal",
@@ -27,13 +29,15 @@
     "name": "GT Festival",
     "description": "Organise le festival de l'association qui aura lieu le 17 juillet 2020.",
     "context": "",
-    "status": ""
+    "status": "",
+    "image": "group_6rtd18109ffb67.40668556.JPG"
   },
   {
     "name": "GT Multimedia",
     "description": "Crée tous les design et médias dont l'association a besoin. Affiches, vidéos, photos, montages, ...",
     "context": "Rassemblement des personnes créatives de l'association.",
-    "status": "Peu actif..."
+    "status": "Peu actif...",
+    "image": "group_652t1810a00773.56155618.JPG"
   },
   {
     "name": "GT Sites web",
@@ -51,7 +55,8 @@
     "name": "GT Education",
     "description": "Fait des formations en ligne pour des membres internes et externes.",
     "context": "Volonté de se former au thèmes de l'association.",
-    "status": "Formations intenses entre le 15 et le 23. Ensuite pause."
+    "status": "Formations intenses entre le 15 et le 23. Ensuite pause.",
+    "image": "group_56e95810a1ef96.76353169.JPG"
   },
   {
     "name": "GT relations",
@@ -63,6 +68,7 @@
     "name": "GT boîte mail",
     "description": "Gestion de la boite mail et réponses aux messages.",
     "context": "",
-    "status": "Une personne gère la boite mail par jour et ce tous les jours."
+    "status": "Une personne gère la boite mail par jour et ce tous les jours.",
+    "image": "group_5e5d96w0a21899.08247799.JPG"
   }
 ]
