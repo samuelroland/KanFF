@@ -37,4 +37,43 @@ function timeToDT($timestamp)
     return date("Y-m-d H:i:s", $timestamp);
 }
 
+function DTToHumanDate($datetime, $mode)
+{
+    switch ($mode) {
+        case "simpleday":
+            return date("d.m.Y", strtotime($datetime));
+            break;
+        case "simpletime":
+            return date("d.M.Y à H:i", strtotime($datetime));
+            break;
+        case "completeday":
+            return date("j F Y", strtotime($datetime));
+            break;
+        case "completetime":
+            return date("j F Y à H:i:S", strtotime($datetime));
+            break;
+        default:
+            return "ERROR!";
+            break;
+    }
+}
+
+//Convert special chars from values of an array of array, to html entities:
+function specialCharsConvertFromAnArray($items, $fields)
+{
+    //INFO: $fields is the list of the field to convert
+    foreach ($items as $index => $item) {
+        //For each item scan each value
+        foreach ($item as $key => $value) {
+            //If the key is in the fields list
+            if (in_array($key, $fields)) {
+                //Convert it to an html entity
+                $item[$key] = htmlentities($value, ENT_QUOTES);
+            }
+        }
+        $items[$index] = $item;
+    }
+    return $items;
+}
+
 ?>
