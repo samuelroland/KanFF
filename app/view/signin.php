@@ -36,7 +36,7 @@ $cssForDivField = "row pt-1";
         </h5>
         <div class="<?= $cssForDivZone ?>">
             <div class="<?= $cssForDivField ?>">
-                <span class="<?= $cssForSpan ?>">Nom d'utilisateur.ice</span>
+                <span class="<?= $cssForSpan ?>">Nom d'utilisateur/trice</span>
                 <input class="<?= $cssForInput ?>" minlength="4" maxlength="20" type="text" name="user"
                        placeholder="josette27" required/>
             </div>
