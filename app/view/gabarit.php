@@ -34,7 +34,7 @@ $action = $_GET['action'];
 <header class="bg-grey-header">
     <div class="logodiv row lineheigthsmall">
         <div class="col-5">
-            <a href="/"><img src="view/medias/logos/temp-logo.png" alt="logo KanFF" class="logo"></a>
+            <a href="/"><img src="view/medias/logos/KanFF_Logo.svg" alt="logo KanFF" class="logo"></a>
             <br><span class="versiontext">v<?= $versions[count($versions) - 1]['version'] ?></span>
             <span class="versiontext"><em> le <?= date("d.m.Y", strtotime($versions[count($versions) - 1]['date'])) ?></em></span>
         </div>

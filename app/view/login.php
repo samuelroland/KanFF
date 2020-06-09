@@ -7,7 +7,7 @@ $title = "Connexion";
     <form class="formlog" action="index.php?action=login" method="post">
         <div>
             <p class="aligncenter">Bienvenue sur l'instance Blason, l'instance KanFF de la GdC pour toute la Romandie.</p>
-            <div class="box-aligncenter pt-4"><img src="view/medias/logos/temp-logo.png" alt="logoLog" class="logoLog"> <br><span class="versiontext"></span>
+            <div class="box-aligncenter pt-4"><img src="view/medias/logos/KanFF_Logo.svg" alt="logoLog" class="logoLog"> <br><span class="versiontext"></span>
                 <span class="versiontext"></span></div>
         </div>
         <h1 class="aligncenter pt-4"><?= $title ?></h1>
