@@ -1,0 +1,39 @@
+Rapport d'assemblage
+
+-----------------------------------------------------------------------------
+Document :
+Nom : KanFF_Logo.ai
+Mode : Couleurs RVB
+Profil colorimétrique : sRGB IEC61966-2.1
+Unité : millimètres
+Dimensions : 307,756 mm x 135,7526 mm
+Afficher les images en mode Tracés : INACTIF
+Mettre en évidence les polices substituées : INACTIF
+Mettre en évidence les glyphes substitués : INACTIF
+Conserver le caractère modifiable du texte
+Simuler le papier couleur : INACTIF
+
+-----------------------------------------------------------------------------
+Objets en tons directs :
+
+-----------------------------------------------------------------------------
+Polices manquantes :SANS
+
+-----------------------------------------------------------------------------
+Polices protégées non assemblées :SANS
+
+-----------------------------------------------------------------------------
+Polices :
+SANS
+
+-----------------------------------------------------------------------------
+Polices incorporées :
+SANS
+
+-----------------------------------------------------------------------------
+Liens manquants :
+SANS
+
+-----------------------------------------------------------------------------
+Images liées :
+SANS
