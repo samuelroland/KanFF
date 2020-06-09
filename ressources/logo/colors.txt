@@ -1,0 +1,17 @@
+Hexa codes of colors of the KanFF logo:
+
+Dark blue: #38417f
+Light blue: #4fb6e3
+Green: #348a19
+
+INFO: Use the appropriate css classes (listed below that exist in styles.css) if you want to reuse these color on text or on background...
+
+For background:
+- .darkbluelogo
+- .lightbluelogo
+- .greenlogo
+
+For text color:
+- .txtdarkbluelogo
+- .txtlightbluelogo
+- .txtgreenlogo

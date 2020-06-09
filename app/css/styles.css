@@ -238,12 +238,37 @@ label {
     margin: 5px;
 }
 
-.linkExternal{
+.linkExternal {
     text-decoration: none;
     color: #896b01;
 }
 
-.linkExternal:hover{
+.linkExternal:hover {
     text-decoration: none;
     color: #0097ba;
+}
+
+/*classes for background and text color with colors of the logo. see colors.txt for more details.*/
+.darkbluelogo {
+    background-color: #38417f;
+}
+
+.lightbluelogo {
+    background-color: #4fb6e3;
+}
+
+.greenlogo {
+    background-color: #348a19;
+}
+
+.txtdarkbluelogo {
+    color: #38417f;
+}
+
+.txtlightbluelogo {
+    color: #4fb6e3;
+}
+
+.txtgreenlogo {
+    color: #348a19;
 }
