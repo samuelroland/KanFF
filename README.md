@@ -1,5 +1,8 @@
 # KanFF
-Une application web de gestion de projets, de tâches, et d'organisation du travail, conçu pour le milieu militant et associatif.
+
+<img src="https://raw.githubusercontent.com/samuelroland/KanFF/master/ressources/logo/exports/KanFF_Logo.svg" style="padding: 20px;">
+
+### Une application web de gestion de projets, de tâches, et d'organisation du travail, conçue pour le milieu militant et associatif.
 
 ## Gestion du projet:
 [Repository GitHub](https://github.com/samuelroland/KanFF) | [Projet IceScrum](https://cloud.icescrum.com/p/PWB2AGDC)
