@@ -60,7 +60,7 @@ function importTableData($table, $items)
     }
 }
 
-//Generate a date between 01.01.2019 and today formated in DATETIME format ("Y-m-d H:i:s")
+//Generate a date between 01.01.2019 (as default, or the date given if parameter exists) and today formated in DATETIME format ("Y-m-d H:i:s")
 function getRandomDateFormated($start = 1546300800)
 {
     return date("Y-m-d H:i:s", rand($start, time()));

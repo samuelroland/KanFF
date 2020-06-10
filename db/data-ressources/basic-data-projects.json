@@ -1,0 +1,155 @@
+[
+  {
+    "name": "Gestion des finances",
+    "description": "Travaux à faire pour gérer les dons importants, traiter les demandes de prêt, gérer les dettes, faire des rapports financiers mensuels.",
+    "goal": "Maintenir les rapports à jour tous les mois, améliorer la transparence interne et externe, améliorer le système de dons actuel.",
+    "importance": 3,
+    "urgency": 2,
+    "visible": 1,
+    "logbook_visible": 1
+  },
+  {
+    "name": "Crowfunding Festival",
+    "description": "Campagne de financement participatif pour pouvoir organiser le festival du 14 octobre.",
+    "goal": "Communiquer autour du festival, expliquer les enjeux et les impacts, et inciter les gens à participer au financement participatif. L'objectif chiffré est de récolter 20'000 CHF d'ici au 10 septembre.",
+    "importance": 5,
+    "urgency": 4,
+    "visible": 1,
+    "logbook_visible": 1
+  },
+  {
+    "name": "Gestion des communiqués de presse",
+    "description": "C'est ici que tous les communiqués de presse qui doivent être validé en coordination seront traités, afin que tout le monde soit au courant et puisse aider si besoin.",
+    "goal": "",
+    "importance": 1,
+    "urgency": 0,
+    "visible": 1,
+    "logbook_visible": 1
+  },
+  {
+    "name": "Collaboration nationale",
+    "description": "La collaboration nationale de l'association n'est pas aisée et demande du temps et de l'énergie",
+    "goal": "Maintenir le lien ",
+    "importance": 1,
+    "urgency": 0,
+    "visible": 1,
+    "logbook_visible": 1
+  },
+  {
+    "name": "",
+    "description": "",
+    "goal": "",
+    "importance": 1,
+    "urgency": 0,
+    "visible": 1,
+    "logbook_visible": 1
+  },
+  {
+    "name": "",
+    "description": "",
+    "goal": "",
+    "importance": 1,
+    "urgency": 0,
+    "visible": 1,
+    "logbook_visible": 1
+  },
+  {
+    "name": "",
+    "description": "",
+    "goal": "",
+    "importance": 1,
+    "urgency": 0,
+    "visible": 1,
+    "logbook_visible": 1
+  },
+  {
+    "name": "",
+    "description": "",
+    "goal": "",
+    "importance": 1,
+    "urgency": 0,
+    "visible": 1,
+    "logbook_visible": 1
+  },
+  {
+    "name": "",
+    "description": "",
+    "goal": "",
+    "importance": 1,
+    "urgency": 0,
+    "visible": 1,
+    "logbook_visible": 1
+  },
+  {
+    "name": "",
+    "description": "",
+    "goal": "",
+    "importance": 1,
+    "urgency": 0,
+    "visible": 1,
+    "logbook_visible": 1
+  },
+  {
+    "name": "",
+    "description": "",
+    "goal": "",
+    "importance": 1,
+    "urgency": 0,
+    "visible": 1,
+    "logbook_visible": 1
+  },
+  {
+    "name": "",
+    "description": "",
+    "goal": "",
+    "importance": 1,
+    "urgency": 0,
+    "visible": 1,
+    "logbook_visible": 1
+  },
+  {
+    "name": "",
+    "description": "",
+    "goal": "",
+    "importance": 1,
+    "urgency": 0,
+    "visible": 1,
+    "logbook_visible": 1
+  },
+  {
+    "name": "",
+    "description": "",
+    "goal": "",
+    "importance": 1,
+    "urgency": 0,
+    "visible": 1,
+    "logbook_visible": 1
+  },
+  {
+    "name": "",
+    "description": "",
+    "goal": "",
+    "importance": 1,
+    "urgency": 0,
+    "visible": 1,
+    "logbook_visible": 1
+  },
+  {
+    "name": "",
+    "description": "",
+    "goal": "",
+    "importance": 1,
+    "urgency": 0,
+    "visible": 1,
+    "logbook_visible": 1
+  },
+  {
+    "name": "",
+    "description": "",
+    "goal": "",
+    "importance": 1,
+    "urgency": 0,
+    "visible": 1,
+    "logbook_visible": 1
+  }
+]
