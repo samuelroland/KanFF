@@ -6,6 +6,7 @@
 -- --------------------------------------------------------
 
 -- TEMP VERSION !!!
+USE `kanff`;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
@@ -25,7 +26,7 @@
 /*!40000 ALTER TABLE `event_concern_group` DISABLE KEYS */;
 /*!40000 ALTER TABLE `event_concern_group` ENABLE KEYS */;
 
-USE `kanff`;
+
 
 -- Listage des données de la table kanff.groups : ~0 rows (environ)
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
@@ -62,7 +63,7 @@ INSERT INTO `groups` (`id`, `name`, `description`, `context`, `email`, `image`, 
 -- Listage des données de la table kanff.users : ~100 rows (environ)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `username`, `initials`, `firstname`, `lastname`, `email`, `phonenumber`, `biography`, `password`, `inscription`, `status`) VALUES
-	(1, 'josette27', 'JRD', 'Josette', 'Richard', NULL, '6221542889', 'Dans le milieu associatif, depuis 10 ans déjà, je suis à dans assoc depuis 2015 et j\'aide plusieurs heures par semaines. La partie contact médias m\'intéresse beaucoup. Je suis photorgaphe de métier, mais aussi céramiste et je cultive un petit potager...', '$2y$10$zXucTbNbTmjejcTw0W/9WOs0SfGQXjQtExopJBxRnwdmtRav1bdMS', '2019-11-26 22:45:03', 0),
+	(1, 'josette27', 'JRD', 'Josette', 'Richard', 'josette.richard@assoc.ch', '6221542889', 'Dans le milieu associatif, depuis 10 ans déjà, je suis à dans assoc depuis 2015 et j\'aide plusieurs heures par semaines. La partie contact médias m\'intéresse beaucoup. Je suis photorgaphe de métier, mais aussi céramiste et je cultive un petit potager...', '$2y$10$zXucTbNbTmjejcTw0W/9WOs0SfGQXjQtExopJBxRnwdmtRav1bdMS', '2019-11-26 22:45:03', 0),
 	(2, 'vincent45', 'VRT', 'Vincent', 'Rigot', NULL, '8951358356', 'Je suis passionné de litérrature, et la presse me questionne beaucoup aujourd\'hui. Les sujets polémiques ne sont pas les plus intéressants, mais ceux dont on ne parle jamais regorgent d\'informations passionnantes et de récits fabuleux.', '$2y$10$ewqrDwjxnggR2ZYaMcA5UutmWPLUwx9zDRLdGXz9ocJl8OgSZdqi.', '2020-02-09 11:54:23', 0),
 	(3, 'megane15', 'MBN', 'Mégane', 'Blan', 'megane.blan@assoc.ch', '9957388319', 'nibh dolor, nonummy ac, feugiat non, lobortis quis, pede. Suspendisse dui. Fusce diam nunc, ullamcorper eu, euismod ac, fermentum vel, mauris. Integer sem elit, pharetra ut, pharetra sed, hendrerit a, arcu. Sed et libero. Proin mi. Aliquam gravida mauris ut mi. Duis risus odio, auctor vitae, aliquet nec, imperdiet nec, leo. Morbi neque', '$2y$10$yL9gUNih5gM6HT1Ox9iR9ezFOn9CyvwIr5VMt19DRvFm2xdlnpTui', '2019-05-16 03:28:03', 0),
 	(4, 'michel90', 'MCE', 'Michel', 'Charrière', NULL, '1366779063', 'tempor arcu. Vestibulum ut eros non enim commodo hendrerit. Donec porttitor tellus non magna. Nam ligula elit, pretium et, rutrum non, hendrerit id, ante. Nunc mauris sapien, cursus in, hendrerit consectetuer, cursus et, magna. Praesent interdum ligula eu enim. Etiam imperdiet dictum magna. Ut tincidunt orci quis lectus. Nullam suscipit, est ac facilisis', '$2y$10$zXofUPEs.aHPB6TjXJDDcOKH4DHlTgVwW9LupAx7KRDXIMcmpwWii', '2019-05-13 20:28:51', 0),
