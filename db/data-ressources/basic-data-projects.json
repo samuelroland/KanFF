@@ -92,27 +92,27 @@
   {
     "name": "Affiche festival 2020",
     "description": "L'affiche étant médiocre l'année passée sur le festival 2019, le GT multimédia s'associe au GT Festival afin de faire un belle affiche pour cette année.",
-    "goal": "Réaliser de A à Z une affiche de bonne qualité pour le 26 octobre 2020.",
-    "importance": 1, WIP
-    "urgency": 0,
+    "goal": "Réaliser de A à Z une affiche de bonne qualité pour le 23 septembre 2020 (3 semaines plus tôt). La réalisation comprend: les réfléxions sur le contenu, le design et la création de l'affiche, la demande de retours à mi parcours, la publication sur les réseaux sociaux et l'impression papier et la distribution/affichage.",
+    "importance": 3,
+    "urgency": 1,
     "visible": 1,
     "logbook_visible": 1
   },
   {
-    "name": "",
-    "description": "",
-    "goal": "",
-    "importance": 1,
-    "urgency": 0,
-    "visible": 1,
+    "name": "Vidéo 1er mai",
+    "description": "Le 1er mai 2021 c'est la fête des travailleur.euses. Différentes manifestations seront organisées dans plusieurs villes dans tous le pays. Le projet consiste à filmer les manifestations dans plusieurs villes et d'en faire une compilation sous la forme d'un reportage tout en expliquant le contexte historique de cette fête et de ce qu'elle symbolise aujourd'hui.",
+    "goal": "Réaliser une vidéo de 5-10 minutes avec les meilleurs images des manifestations et tenter de répondre aux questions suivantes: quelle rôle a cette fête ? Comment est-elle apparue (contexte historique) ? Quelle est sa place et son impact aujourd'hui ?\n\n La vidéo devrait être publiée sur les réseaux sociaux, maximum 3 jour après le 1er mai, c'est à dire jusqu'au 4 mai 2020.",
+    "importance": 3,
+    "urgency": 4,
+    "visible": 0,
     "logbook_visible": 1
   },
-  {
-    "name": "",
-    "description": "",
-    "goal": "",
-    "importance": 1,
-    "urgency": 0,
+  { id=13
+    "name": "Podcast convergence des luttes",
+    "description": "Ce podcast engagé va parler de la convergence des luttes écologiques, féministes, sociales, anti-racistes et autres types de luttes. Il est prévu que ce podcast contienne entre 4 et 6 épisodes avec différentes thématiques. Les épisodes contiendront des interviews, des explications historiques, un peu de musique, des mises en scène, ... \n\nChaque épisode durera en moyenne 20 minutes et seront publiés à des intervalles régulières d'environ 1 semaine. Une partie des épisodes seront réalisés avant la publication du premier épisode, une autre partie se fera en parallèle.",
+    "goal": "Parler de l'importance de la convergence des luttes, parler des liens entre les différentes luttes et mouvements, donner des exemples concrets de mobilisation et de succès suite à des convergences.",
+    "importance": 5,
+    "urgency": 3,
     "visible": 1,
     "logbook_visible": 1
   },
