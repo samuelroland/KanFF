@@ -30,6 +30,36 @@ $action = $_GET['action'];
 
 </head>
 
+    <!--
+------------------------------------------------
+           Save together the planet !
+           
+              ,,ggddY"""Ybbgg,,
+          ,agd888b,_ "Y8, ___`""Ybga,
+       ,gdP""88888888baa,.""8b    "888g,
+     ,dP"     ]888888888P'  "Y     `888Yb,
+   ,dP"      ,88888888P"  db,       "8P""Yb,
+  ,8"       ,888888888b, d8888a           "8,
+ ,8'        d88888888888,88P"' a,          `8,
+,8'         88888888888888PP"  ""           `8,
+d'          I88888888888P"                   `b
+8           `8"88P""Y8P'                      8
+8            Y 8[  _ "                        8
+8              "Y8d8b  "Y a                   8
+8                 `""8d,   __                 8
+Y,                    `"8bd888b,             ,P
+`8,                     ,d8888888baaa       ,8'
+ `8,                    888888888888'      ,8'
+  `8a                   "8888888888I      a8'
+   `Yba                  `Y8888888P'    adP'
+     "Yba                 `888888P'   adY"
+       `"Yba,             d8888P" ,adP"'
+          `"Y8baa,      ,d888P,ad8P"'
+               ``""YYba8888P""''
+
+------------------------------------------------
+
+ -->
 <body>
 <header class="bg-grey-header">
     <div class="logodiv row lineheigthsmall">
@@ -43,7 +73,7 @@ $action = $_GET['action'];
         </div>
     </div>
 
-
+    <!-- login form -->
     <?php if (isset($_SESSION['user'])) { ?>
     <div class="user row justify-content-end flexdiv">
         <div class="pr-3 box-verticalaligncenter"><img src="view/medias/icons/bell.png" class="bell" alt="bell icon"></div>
@@ -63,6 +93,7 @@ $action = $_GET['action'];
             <?php
             } ?>
         </div>
+        <!-- Menu of navigation-->
         <div class="menu">
             <ul>
                 <li><a class="<?= ($action == null) ? 'active' : '' ?>" href="/">Dashboard</a></li>
