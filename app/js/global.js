@@ -40,14 +40,19 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 
-
-document.getElementById("demo").addEventListener("mouseover", mouseOver);
-document.getElementById("demo").addEventListener("mouseout", mouseOut);
-
-function mouseOver() {
-    document.getElementById("demo").style.color = "red";
-}
-
-function mouseOut() {
-    document.getElementById("demo").style.color = "black";
-}
+//All elements with class "clickable" that have a "data-href" attribute to know the link that have to be opened.
+document.addEventListener('DOMContentLoaded', function () {
+    var els = document.getElementsByClassName("clickable");
+    Array.prototype.forEach.call(els, function (el) {
+        el.addEventListener('click', function (evt) {
+            console.log(evt.target)
+            if (evt.target.getAttribute('data-href') == null) {
+                if (evt.target.parentNode.getAttribute('data-href') != null) {
+                    window.location = evt.target.parentNode.getAttribute('data-href')
+                }
+            } else {
+                window.location = evt.target.getAttribute('data-href')
+            }
+        })
+    })
+})

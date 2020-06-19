@@ -76,4 +76,20 @@ function specialCharsConvertFromAnArray($items, $fields)
     return $items;
 }
 
+//Substring a string cleverly without cut a word, to return a string that is equal or less long than the max defined
+function substrText($text, $max, $points = true)
+{
+    if ($points == true) {
+        $max -= 4;
+    }
+    $text = substr($text, 0, $max + 1); //substring without condition. Include the potential space at the top end
+    $position = strripos($text, " ");   //search the last space of the string
+    $text = substr($text, 0, $position);    //substring the text up to 1 char before the last position of the space
+
+    if ($points) {  //if points enabled, add 3 little points
+        $text .= " ...";
+    }
+    return $text;
+}
+
 ?>
