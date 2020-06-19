@@ -32,8 +32,8 @@ $action = $_GET['action'];
 
     <!--
 ------------------------------------------------
-           Save together the planet !
-           
+            Save together the planet !
+
               ,,ggddY"""Ybbgg,,
           ,agd888b,_ "Y8, ___`""Ybga,
        ,gdP""88888888baa,.""8b    "888g,
@@ -80,7 +80,8 @@ Y,                    `"8bd888b,             ,P
         <div class="fullname pr-2 justify-content-end box-verticalaligncenter">
             <?= $_SESSION['user']['firstname'] ?> <?= $_SESSION['user']['lastname'] ?>
         </div>
-        <div class="box-alignright pr-4 nomargin">
+        <!-- logo user https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_js_dropdown for the dropdown -->
+<div class="box-alignright pr-4 nomargin , " >
             <div class="usericon ">
                 <div class="circle-usericon"><p class="marginauto"><?= $_SESSION['user']['initials']?></p></div>
             </div>
