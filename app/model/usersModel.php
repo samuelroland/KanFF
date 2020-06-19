@@ -61,6 +61,9 @@ function deleteUser($id)
     deleteOne("users", $id);
 }
 
+function getAllUsersActive(){
+    return Query("SELECT * FROM users ORDER BY users.inscription desc",[], true);
+}
 
 
 ?>
