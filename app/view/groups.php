@@ -7,14 +7,14 @@ echo $result;
 
 ?>
     <h1><?= $title ?></h1>
-    <div class="headView row">
-        <div class="col-md-6 col-sm-12">
+    <div class="headView flexdiv">
+        <div class="flex-1">
             <button class="btn active">Tous</button>
             <button class="btn btn-info">Rejoints</button>
         </div>
-        <div class="box-alignright col-md-6 col-sm-12">
+        <div class="box-alignright flex-1">
             <a href="?action=createAGroup">
-                <button class="btn btn-primary newgroup">Créer un nouveau groupe</button>
+                <button class="btn btn-primary newgroup">Nouveau groupe</button>
             </a>
         </div>
     </div>

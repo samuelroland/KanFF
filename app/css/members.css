@@ -1,0 +1,10 @@
+/**
+ *  Project: KanFF
+ *  File: members.css css file for members pages
+ *  Author: Team
+ *  Creation date: 30.05.2020
+ */
+
+.divMembers table tr th {
+    padding: 4px 10px;
+}
