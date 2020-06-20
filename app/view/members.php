@@ -33,10 +33,11 @@ $title = "Membres";
             $test = 0;
             foreach ($members as $member) {
                 ?>
-                <tr class="clickable" data-href="?action=user&id=<?= $member['id'] ?>">
+                <tr class="clickable  <?= ($member['id'] == $_SESSION['user']['id']) ? "yellowveryligthheader" : "" ?>"
+                    data-href="?action=user&id=<?= $member['id'] ?>">
                     <td><?= $member['initials'] ?></td>
                     <td><?= $member['username'] ?></td>
-                    <td><?= $member['firstname'] . " <strong>" . $member['lastname']."</strong>" ?></td>
+                    <td><?= $member['firstname'] . " <strong>" . $member['lastname'] . "</strong>" ?></td>
                     <td><?= "<em>" . substrText($member['biography'], 77) . "</em>" ?></td>
                     <td><?= DTToHumanDate($member['inscription'], "simpleday") ?></td>
                 </tr>

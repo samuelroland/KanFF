@@ -280,6 +280,10 @@ label {
 .yellowligthheader {
     background-color: rgba(255, 196, 55, 0.77);
 }
+.yellowveryligthheader {
+    background-color: rgba(255, 196, 55, 0.21);
+}
+
 
 .dropbtn {
     background-color: #3498DB;
