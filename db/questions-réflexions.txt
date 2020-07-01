@@ -1,0 +1,35 @@
+Questions avant les vacances d'été:
+
+- là pendant les vacs pour les questions ?
+- comment faire pour déplacer les tâches dans un kanban ?
+- ajax et POST si pas compris comment faire ?
+- ajax: mieux vaut passer les valeurs en get ou en post ?
+- ajax: que retourner coté php ? si on crée une tâche avec ajax. retourne la tâche entière ou juste true/false ? que doit faire le js ? attendre la réponse ou créer la tâche directement ? Comment créer autant de HTML au bon endroit dans un travail, avec les bonnes valeurs ?
+- questions par email répondues ?
+
+questions mld:
+- users chatlink utile ? Oui.
+- status et état pour groupe ??? voir discord. et valeurs prévues ?
+- firstname et lastname pas assez long ? 100 plus sûr.
+- biographie pas assez longue ? 1500 mieux.
+- visibility ok ?? et nom du champ correct en plus court ?
+- group realize project: date départ et fin ? si fin n'est pas nulle alors le groupe est dedans. valeur d'état en plus ? un commentaire ? --> départ et fin obligatoire. fin peut être nul. pas de champ état car fin suffit ????
+- external_link renommer en link ? Oui. ca peut aussi être un lien interne.
+- status changer en state pour tasks ? Oui.
+- task description: 300 changer en 2000.
+
+- importance et urgency. utile ou pas ? et redondant ? un peu trop de fois il me semble. quel traitement et calculs par la suite ?
+Idée: projects on laisse importance and urgency. works: on met value and effort. tasks: on met urgency seulement.
+Traitements avec ces données:
+- projects: tri par important + urgent puis important et peu urgent puis peu important et urgent puis peu important et peu urgent. --> SQL tri desc par total urgency+important, puis par important en cas de meme total.
+- works: par valeur, par date de fin, affichés que ceux dans les dates ou en cours.
+- tasks: Pas de tri dans le kanban. Tri dans la page Tâches: par urgence et deadline.
+
+PHP et SQL dans le modèle:
+- comment faire des tableaux a + que 2 dimensions ? plusieurs requetes sql ? une seule requete sql et tri en php après ? ex. prendre toutes les tâches d'un projet, mais dans un sous tableau pour chaque travail.
+
+
+- si projet non visible, les projets, travaux et taches incluses ne sont pas visible ?
+
+
+- durant les vacs à 2, fin de sprint ou ne s'arrête pas ? sprint review seul?

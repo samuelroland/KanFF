@@ -38,7 +38,7 @@ These parameters are useful for sensitive or semi-sensitive groups.
 - image: name of the image stored in folder "/data/groups". Format: "group_" + random string of 30 chars +".jpg" 
 
 ### user_join_group:
-Depends on the random. result=
+Depends on the random.
 
 every user should be in minimal in one group (perhaps 0 group in rare cases).
 every user are in 10 groups in maximum. 
@@ -52,15 +52,18 @@ accepted: state of the subscription. The state is influenced by the group type (
 
 If access restricted:
 1 = want to join the group but not yet accepted or not
-2 = not accepted/refused
-3 = banned of the group
-4 = accepted
+2 = in wait before the choice of the members (they decide to accept or not)
+3 = not accepted/refused
+4 = banned of the group
+5 = accepted
+
+invitation ? sensible group ?
 
 If access not restricted:
-3 = banned of the group
-4 = accepted
+4 = banned of the group
+5 = accepted
 
---> automatically accepted (4) because free access. no value 1 or 2.
+--> automatically accepted (5) because free access. no value 1, 2 or 3.
 
 ### Projects:
 x records wroten by hand.
