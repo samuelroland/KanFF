@@ -10,23 +10,30 @@ Travail vacs et Ajax:
 - questions par email répondues ? Oui.
 
 MLD champs:
-- users chatlink utile ? Oui.
-- status et état pour groupe ??? voir discord. et valeurs prévues ? voir plus
-- firstname et lastname pas assez long ? 100 plus sûr.
-- biographie pas assez longue ? 1500 mieux.
+- users chatlink utile ? Oui. Mis à jour!
+- statut et état pour groupe, membres, projets, travaux et tâches ? Mis à jour!
+- quels valeurs pour state ?
+- firstname et lastname pas assez long ? 100 plus sûr. Mis à jour!
+- biographie pas assez longue ? 1500 mieux. Mis à jour!
 - visibility ok ?? et nom du champ correct en plus court ? question email: 4 options comme définies dans records management sont ok.
-- group realize project: date départ et fin ? si fin n'est pas nulle alors le groupe est dedans. valeur d'état en plus ? un commentaire ? --> départ et fin obligatoire. fin peut être nul. pas de champ état car fin suffit ????
-- external_link renommer en link ? Oui. ca peut aussi être un lien interne.
-- status changer en state pour tasks ? Oui.
-- task description: 300 changer en 2000.
+- group participate project: date départ et fin ? si fin n'est pas nulle alors le groupe est participant. il y a aussi une raison de participation et d'arrêt de la participation. Mis à jour!
+- external_link renommer en link ? Oui. ca peut aussi être un lien interne. Mis à jour!
+- status changer en state pour tasks ? Oui. Mis à jour!
+- task description: 300 changer en 2000. Mis à jour!
+- projects objective changer en goal. Mis à jour!
+
 
 - importance et urgency. utile ou pas ? et redondant ? un peu trop de fois il me semble. quel traitement et calculs par la suite ?
 Idée changement: projects on laisse importance and urgency. works: on met value and effort. tasks: on met urgency seulement.
 
 --> Traitement avec ces données:
 - projects: tri par important + urgent puis important et peu urgent puis peu important et urgent puis peu important et peu urgent. --> SQL tri desc par la somme de urgency+important, puis par important (en cas de meme total).
-- works: par valeur, par date de fin, affichés que ceux dans les dates ou en cours.
+- works:  par date de fin, par valeur, affichés que ceux dans les dates ou en cours. et alors avec EFFORT ????
 - tasks: Pas de tri dans le kanban. Tri dans la page Tâches: par urgence et deadline.
+
+ Mis à jour!
+
+
 
 PHP et SQL dans le modèle:
 - comment faire des tableaux a + que 2 dimensions ? plusieurs requetes sql ? une seule requete sql et tri en php après ? ex. prendre toutes les tâches d'un projet, mais dans un sous tableau pour chaque travail.
@@ -60,3 +67,9 @@ Divers:
 - si projet non visible, les projets, travaux et taches incluses ne sont pas visible ? Enfants d'un élément invisible sont invisibles.
 
 - durant les vacs à 2, fin de sprint ou ne s'arrête pas ? sprint review seul?
+
+
+Autres modifications pour plus tard (events, notifs, journaux de bord, compétences):
+event_concern_group: mettre un niveau d'organisation (aucun groupe, le groupe aide, le groupe coorganise, ... etc)
+event_concern_group: un événement ne concerne-t-il pas plutôt un projet qu'un groupe ? Il y aurait le groupe lié derrière.
+
