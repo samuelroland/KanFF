@@ -5,7 +5,7 @@ Questions avant les vacances d'été:
 - ajax et POST si pas compris comment faire ?
 - ajax: mieux vaut passer les valeurs en get ou en post ?
 - ajax: que retourner coté php ? si on crée une tâche avec ajax. retourne la tâche entière ou juste true/false ? que doit faire le js ? attendre la réponse ou créer la tâche directement ? Comment créer autant de HTML au bon endroit dans un travail, avec les bonnes valeurs ?
-- questions par email répondues ?
+- questions par email répondues ? Oui.
 
 questions mld:
 - users chatlink utile ? Oui.
@@ -29,7 +29,7 @@ PHP et SQL dans le modèle:
 - comment faire des tableaux a + que 2 dimensions ? plusieurs requetes sql ? une seule requete sql et tri en php après ? ex. prendre toutes les tâches d'un projet, mais dans un sous tableau pour chaque travail.
 
 
-- si projet non visible, les projets, travaux et taches incluses ne sont pas visible ?
+- si projet non visible, les projets, travaux et taches incluses ne sont pas visible ? Enfants d'un élément invisible sont invisibles.
 
 
 - durant les vacs à 2, fin de sprint ou ne s'arrête pas ? sprint review seul?
