@@ -1,5 +1,6 @@
 Questions avant les vacances d'été:
 
+Travail vacs et Ajax:
 - là pendant les vacs pour les questions ? Oui.
 - comment faire pour déplacer les tâches dans un kanban ?
 - ajax et POST si pas compris comment faire ?
@@ -8,7 +9,7 @@ Questions avant les vacances d'été:
 --> Réponse Ajax: de toute facon du JSON, même en cas de message d'erreur.
 - questions par email répondues ? Oui.
 
-questions mld:
+MLD champs:
 - users chatlink utile ? Oui.
 - status et état pour groupe ??? voir discord. et valeurs prévues ? voir plus
 - firstname et lastname pas assez long ? 100 plus sûr.
