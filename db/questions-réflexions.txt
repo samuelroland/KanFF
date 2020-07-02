@@ -1,35 +1,61 @@
 Questions avant les vacances d'été:
 
-- là pendant les vacs pour les questions ?
+- là pendant les vacs pour les questions ? Oui.
 - comment faire pour déplacer les tâches dans un kanban ?
 - ajax et POST si pas compris comment faire ?
-- ajax: mieux vaut passer les valeurs en get ou en post ?
+- ajax: mieux vaut passer les valeurs en get ou en post ? en POST! (mais si on pourrait faire les deux puisque la querystring ne se voit pas). GET c'est plutôt pour RECEVOIR des ressources en appliquant un filtre.
 - ajax: que retourner coté php ? si on crée une tâche avec ajax. retourne la tâche entière ou juste true/false ? que doit faire le js ? attendre la réponse ou créer la tâche directement ? Comment créer autant de HTML au bon endroit dans un travail, avec les bonnes valeurs ?
+--> Réponse Ajax: de toute facon du JSON, même en cas de message d'erreur.
 - questions par email répondues ? Oui.
 
 questions mld:
 - users chatlink utile ? Oui.
-- status et état pour groupe ??? voir discord. et valeurs prévues ?
+- status et état pour groupe ??? voir discord. et valeurs prévues ? voir plus
 - firstname et lastname pas assez long ? 100 plus sûr.
 - biographie pas assez longue ? 1500 mieux.
-- visibility ok ?? et nom du champ correct en plus court ?
+- visibility ok ?? et nom du champ correct en plus court ? question email: 4 options comme définies dans records management sont ok.
 - group realize project: date départ et fin ? si fin n'est pas nulle alors le groupe est dedans. valeur d'état en plus ? un commentaire ? --> départ et fin obligatoire. fin peut être nul. pas de champ état car fin suffit ????
 - external_link renommer en link ? Oui. ca peut aussi être un lien interne.
 - status changer en state pour tasks ? Oui.
 - task description: 300 changer en 2000.
 
 - importance et urgency. utile ou pas ? et redondant ? un peu trop de fois il me semble. quel traitement et calculs par la suite ?
-Idée: projects on laisse importance and urgency. works: on met value and effort. tasks: on met urgency seulement.
-Traitements avec ces données:
-- projects: tri par important + urgent puis important et peu urgent puis peu important et urgent puis peu important et peu urgent. --> SQL tri desc par total urgency+important, puis par important en cas de meme total.
+Idée changement: projects on laisse importance and urgency. works: on met value and effort. tasks: on met urgency seulement.
+
+--> Traitement avec ces données:
+- projects: tri par important + urgent puis important et peu urgent puis peu important et urgent puis peu important et peu urgent. --> SQL tri desc par la somme de urgency+important, puis par important (en cas de meme total).
 - works: par valeur, par date de fin, affichés que ceux dans les dates ou en cours.
 - tasks: Pas de tri dans le kanban. Tri dans la page Tâches: par urgence et deadline.
 
 PHP et SQL dans le modèle:
 - comment faire des tableaux a + que 2 dimensions ? plusieurs requetes sql ? une seule requete sql et tri en php après ? ex. prendre toutes les tâches d'un projet, mais dans un sous tableau pour chaque travail.
+--> 2 possibilités:
+1. fait des requêtes pour avoir tous les éléments des tables dont on a besoin (en indexant les éléments par leur id). Puis avec les clés étrangères on va faire la liaison en php. Ex. avec $works et $projects. ($work contient la clé étrangère "project_id").
+
+dans $project on rajoutera la liste des travaux (boucle foreach):
+$projects[$work['project_id']]['works'][] = $work;
+
+ou à l'inverse pour mettre le projet dans un travail (boucle foreach):
+$works[$key]['project'] = $projects[$work['project_id']];
 
 
+2. Faire des requêtes avec jointures (inner join, left join, right join, ...) et on aura tous les champs à plat (tableaux à 2 dimensions).
+Après on peut aussi restructurer le tableau afin d'avoir une autre structure (comme ex. avec $works et $projects au-dessus) donc + que 2D.
+
+
+Info optimisation du site: faire beaucoup de requêtes ca ne va pas changer les performances du site. Ca le ferait si le site contenait des données très fréquemment demandées. Et que les requêtes étaient à chaque fois préparées. En effet, pour optimiser les requêtes, la préparation prend du temps si elle est faite à chaque requête. Ainsi si on a des dizaines de requêtes à faire (seules les données changent), on peut préparer la requête une fois et executer 10 fois.
+
+
+
+
+Questions emails:
+1: visibility: ok.
+2: pre-release a mettre uniquement sur publication beta. ne surtout pas mettre sur les non beta donc de production.
+3: A voir. ne sait pas.
+4: stocker state (état technique) et status (statut en texte). les deux valeurs sont indépendantes.
+
+
+Divers:
 - si projet non visible, les projets, travaux et taches incluses ne sont pas visible ? Enfants d'un élément invisible sont invisibles.
-
 
 - durant les vacs à 2, fin de sprint ou ne s'arrête pas ? sprint review seul?
