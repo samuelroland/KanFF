@@ -39,14 +39,17 @@ Résumé:
         git clone https://github.com/samuelroland/KanFF
 
 
-1. Ouvrir un shell et installer les dépendances avec `npm` (téléchargement de npm depuis [npmjs.com](https://www.npmjs.com/get-npm)) dans le dossier `app` !
+1. Ouvrir un shell et installer les dépendances avec `npm` (téléchargement de npm depuis [npmjs.com](https://www.npmjs.com/get-npm)) dans le dossier `app` ! Un dossier `node_modules` et un fichier `package-lock.json` apparaîtront.
 
         cd app
         npm install
 
-1. Démarrer le service MySQL. Se connecter (avec un client SQL par ex.) en compte `root`. Lancer le fichier `db/db-manage/create-db-kanff.sql`, ce qui a pour effet de créer la base de données `kanff` et ses tables. Créer ensuite un nouvel utilisateur (nommé dans ce document `kanffApp` avec `Pa$$w0rd` pour mot de passe) et lui donner accès à la base de données `kanff` précédemment créée. Se connecter au nouvel utilisateur afin de vérifier qu'il a bien été créé et qu'il accède à la base de données `kanff`.
+1. Démarrer le service MySQL. Se connecter (avec un client SQL par ex.) en compte `root`. Executer le fichier `db/db-manage/create-db-kanff.sql`, ce qui a pour effet de créer la base de données `kanff` et ses tables. Créer ensuite un nouvel utilisateur (nommé dans ce document `kanffApp` avec `Pa$$w0rd` pour mot de passe) et lui donner accès à la base de données `kanff` précédemment créée. Se connecter au nouvel utilisateur afin de vérifier qu'il a bien été créé et qu'il accède à la base de données `kanff`.
 1. Aller dans `app`. Dupliquer le fichier `.const.php.example` et renommer le en `.const.php`.
-1. Démarrer un IDE à la racine du serveur.
+1. Démarrer un IDE à la racine du repository. Modifier les valeurs du fichier `.const.php` afin d'inscrire les identifiants de connexion à la base de donnée (4 valeurs + un cartouche).
+1. Lancer le fichier `db/db-manage/restore-db-kanff.bat` (ou alors lancer la commande `php -f restore-db.php` dans `db/db-manage/`). La base de données sera donc restaurée (recréation de la structure + insertion des données de tests). Ce script .bat est utile pour restaurer très rapidement la base de données lors du développement ou de tests.
+1. Démarrer un serveur PHP **dans le dossier `app`** (pas le dossier racine du repository!) sur un port libre (ici 8080).
+1. Ouvrir un navigateur sur l'adresse localhost et le port choisi: `localhost:8080`.
 
 
 ## Beta tests
