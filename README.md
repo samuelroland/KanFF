@@ -12,20 +12,27 @@
 L'application est prévue pour être utilisée par des membres d'associations, d'organisations, de mouvemements, de collectifs, ou de simples groupes militants,... L'application se veut polyvalente et devrait permettre d'être utilisée dans des groupes de différentes tailles et structures, ayant différentes organisations du travail et réalisant des projets différents, ...
 
 ## Objectif de l'application
-L'objectif est de pouvoir gérer: différents projets, des tâches, la répartition du travail, la planification des projets, les réunions, les membres, les groupes, les événéments, ... Afin de permettre de mieux répartir la charge de travail, d'inclure les personnes nouvelles dans des groupes, d'inclure les personnes moins engagées. Mais aussi permettre de récolter du feedback, de mieux connaître d'un groupe et leur niveau d'activité, ou encore prendre les avis pour prendre des décisions rapidement.
+L'objectif est de pouvoir gérer: différents projets, des tâches, la répartition du travail, la planification des projets, les réunions, les membres, les groupes, les événéments, ... afin de permettre de mieux répartir la charge de travail, d'inclure les personnes nouvelles dans des groupes, d'inclure les personnes moins engagées.
 
 ## Installation (pour une instance KanFF)
-Résumé:
-1. Récupération du repos et installation des dépendances
-1. 
+Cette procédure s'applique pour une instance à distance.
+### Prérequis:
+1. Accès SSH
+1. Accès FTP
+1. Accès MySQL à distance (facultatif)
 
+### Procédure:
+1. Récupérer les fichiers de l'application du dossier app.
+TBD.
 
+### Sécurité
+TBD. fichiers.
 
 ## Installation (pour développement)
-### Résumé:
-- Avoir un service php et mysql installé et pouvoir les atteindre dans un shell (tester `php -v` et `mysql -v` pour vérifier. Vérification réussie si la commande est reconnue... Cela sera utile pour la mise à jour de la base de données et l'éxecution des tests unitaires).
+### Prérequis:
+- Avoir un service php et mysql installé et pouvoir les atteindre dans un shell (tester `php -v` et `mysql -v` pour vérifier. Vérification réussie si la commande est reconnue... Cela sera utile pour la mise à jour de la base de données et l'exécution des tests unitaires).
 
-### Détails des opérations:
+### Procédure:
 
 1. **Récupérer le repository** depuis GitHub (clone ou téléchargement `.zip`) (exemple de clone dans un shell dans le dossier `C:/Alice/Documents/GitHub/`)
         
@@ -54,6 +61,8 @@ Résumé:
         
         initiales: JRD
         mot de passe: Josette
+
+Voilà. Si tout a réussi, vous avez réussi l'installation. Vous pouvez maintenant commencer à développer !
 
 
 ## Beta tests
