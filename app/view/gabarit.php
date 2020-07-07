@@ -89,14 +89,18 @@ Y,                    `"8bd888b,             ,P
         <?php } else { ?>
         <div class="user row col-2">
             <div class="col-10 box-verticalaligncenter header-height">
-                <a href="/?action=logout"><span class="">Connexion</span></a>
+                <a href="/?action=login"><span class="">Connexion</span></a>
             </div>
             <?php
             } ?>
         </div>
+
         <!-- Menu of navigation-->
         <div class="menu">
             <ul>
+                <?php
+                if (isset($_SESSION['user'])){  //display the buttons only if the user is logged
+                ?>
                 <li><a class="<?= ($action == null) ? 'active' : '' ?>" href="/">Dashboard</a></li>
                 <li><a class="<?= ($action == "tasks") ? 'active' : '' ?>" href="/?action=tasks">Tâches</a></li>
                 <li><a class="<?= ($action == "projects") ? 'active' : '' ?>" href="/?action=projects">Projets</a></li>
@@ -105,8 +109,11 @@ Y,                    `"8bd888b,             ,P
                 <li><a class="<?= ($action == "calendar") ? 'active' : '' ?>" href="/?action=calendar">Calendrier</a>
                 </li>
             </ul>
-
+            <?php
+            }
+            ?>
         </div>
+
 </header>
 
 <?php
