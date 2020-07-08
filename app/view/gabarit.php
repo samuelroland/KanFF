@@ -59,9 +59,9 @@ Y,                    `"8bd888b,             ,P
 
 ------------------------------------------------
 
- -->
+-->
 <body>
-<header class="bg-grey-header">
+<header class="bg-header header-fixed">
     <div class="logodiv row lineheigthsmall">
         <div class="col-5">
             <a href="/"><img src="view/medias/logos/KanFF_Logo.svg" alt="logo KanFF" class="logo"></a>
@@ -76,14 +76,15 @@ Y,                    `"8bd888b,             ,P
     <!-- login form -->
     <?php if (isset($_SESSION['user'])) { ?>
     <div class="user row justify-content-end flexdiv">
-        <div class="pr-3 box-verticalaligncenter"><img src="view/medias/icons/bell.png" class="bell" alt="bell icon"></div>
+        <div class="pr-3 box-verticalaligncenter"><img src="view/medias/icons/bell.png" class="bell" alt="bell icon">
+        </div>
         <div class="fullname pr-2 justify-content-end box-verticalaligncenter">
             <?= $_SESSION['user']['firstname'] ?> <?= $_SESSION['user']['lastname'] ?>
         </div>
         <!-- logo user https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_js_dropdown for the dropdown -->
-<div class="box-alignright pr-4 nomargin , " >
+        <div class="box-alignright pr-4 nomargin">
             <div class="usericon ">
-                <div class="circle-usericon"><p class="marginauto"><?= $_SESSION['user']['initials']?></p></div>
+                <div class="circle-usericon"><p class="marginauto"><?= $_SESSION['user']['initials'] ?></p></div>
             </div>
         </div>
         <?php } else { ?>
@@ -119,27 +120,31 @@ Y,                    `"8bd888b,             ,P
 <?php
 
 //Depending on the content type choosed in the view, the appbody will change. 3 types are available: full, large, restrict.
-switch ($contenttype){
-case "full":
-?>
-<div class="appbody p-1"><?php
-    break;
-    case "large":
-    ?>
-    <div class="appbody p-3"><?php
-        break;
-        case "restricted":
+switch ($contenttype) {
+    case "full":
         ?>
-        <div class="appbody appbodyrestrict col-lg-7 col-md-8 col-sm-11 marginauto p-3"><?php
-            break;
-            default:
-            ?>
-            <div class="appbody p-1"><?php
-                }
+        <div class="appbody margintopforheader p-1"><?= $content; ?></div><?php
+        break;
+    case "large":
+        ?>
+        <div class="appbody margintopforheader p-3"><?= $content; ?></div><?php
+        break;
+    case "restricted":
+        ?>
+        <div class="flexdiv margintopforheader justify-content-center">
+            <div class="appbody appbodyrestrict col-lg-7 col-md-8 col-sm-11 marginauto p-3"><?= $content; ?></div>
+        </div>
+        <?php
+        break;
+    default:
+        ?>
+        <div class="appbody p-1">$contenttype must be correctly defined...</div>
+        <?php
+        break;
+}
+?>
 
-                ?>
 
-                <?= $content; ?>
-            </div>
+</div>
 </body>
 </html>

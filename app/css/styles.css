@@ -16,6 +16,10 @@
     height: 100%;
 }
 
+.margintopforheader {
+    margin-top: 75px;
+}
+
 .appbodyrestrict {
     max-width: 750px;
 }
@@ -105,7 +109,15 @@ body {
     overflow-x: hidden
 }
 
-.bg-grey-header {
+.header-fixed {
+    z-index: 1000;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    box-shadow: 0 5px 5px rgba(57, 44, 12, 0.54);
+}
+
+.bg-header {
     background-color: #ffc437;
     /*
      gris vert: #b3d59c
@@ -280,6 +292,7 @@ label {
 .yellowligthheader {
     background-color: rgba(255, 196, 55, 0.77);
 }
+
 .yellowveryligthheader {
     background-color: rgba(255, 196, 55, 0.21);
 }
