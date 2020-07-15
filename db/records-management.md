@@ -61,7 +61,7 @@ If access restricted:
 4 = banned of the group
 5 = accepted
 
-invitation ? sensible group ?
+invitation ? sensible group ? !!! user quit a group himself!
 
 If access not restricted:
 4 = banned of the group
