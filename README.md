@@ -1,6 +1,7 @@
 # KanFF
-
-![kanff logo](https://raw.githubusercontent.com/samuelroland/KanFF/master/ressources/logo/exports/KanFF_Logo.svg)
+<div style="padding: 15px; background-color: #ffc437;">
+        <img src="https://raw.githubusercontent.com/samuelroland/KanFF/master/ressources/logo/exports/KanFF_Logo.svg">
+</div>
 
 ### Une application web de gestion de projets, de tâches, et d'organisation du travail, conçue pour le milieu militant et associatif.
 
