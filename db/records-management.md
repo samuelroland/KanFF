@@ -36,12 +36,12 @@ Here is the differents values that are stored and their meanings:
 These 2 parameters are useful for sensitive or semi-sensitive groups!
 
 Others fields:
-- image: name of the image stored in folder "/data/groups". Format: "group_" + random string of 30 chars +".jpg" 
+- image: name of the image stored in folder `/data/groups/`. Format: `group_` + random string of 30 chars + `.jpg`
 - status: status written by members of the group
 - state: technical state of the group:
     - Values: 0 = on start-up. 1 = active. 2 = in break. 3 = archived. 
 
-### user_join_group:
+### join:
 Depends on the random.
 
 every user should be in minimal in one group (perhaps 0 group in rare cases).
@@ -79,10 +79,16 @@ x records wroten by hand.
 - goal: goal/mission of the project
 - start and end: start and end dates of the project
 - state: technical state of the project:
-    - Values: 0 = under reflection, 1 = planned, 2 = in run, 3 = on break, 4 = reported, 5 = abandoned, 6 = cancelled, 7 = completed, 8 = archived.
-- importance and urgency: values 1 to 5 to mesure importance and urgency of the project.
+    - Values: 0 = under reflection, 1 = under planning, 2 = semi-active work, 3 = active work, 4 = on break, 5 = reported, 6 = abandoned, 7 = cancelled, 8 = completed.
+- archived: boolean value. if the project is archived or not. A project can be archived only if his state is abandoned, cancelled or compled (6, 7 or 8)
+- importance and urgency: values 1 to 5 to mesure importance and urgency of the project. (1=min and 5=max)
 - visible: boolean value. visible or not outside of the group.
 - logbook_visible: boolean value. can make the logbook visible or note. (The logbook make a group of log: user_log_project).
+- logbook_content: text about the content of the logbook. The members should write a very short text to say wich content should be saved in the logbook. And the text have to describe the definition of important. For example:
+    >Contains the important decisions, formal meetings, important change and publications of new versions of documents. 
+    ><br>Important means that what is described in the log, has an impact on the work of severals persons in the project.
+- needhelp: boolean value. Add a little icon "help" if the project need help of externals persons (to join the group or to help without join)
+
 
 ### Works:
 - name: name of the work
@@ -90,16 +96,19 @@ x records wroten by hand.
 - start and end: date of start and of the work. Is useful to make a planing.
 - state: technical state of the work (independant of dates about the work. changes are only manual)
     - Values: 1 = to do, 2 = in run, 3 = completed.
-- importance and urgency: values 1 to 5 to mesure importance and urgency of the project.
-- visible: boolean value. visible or not outside of the group.
+- value: value of the "work" made in this work 
 - effort: value between 1 and 10 about the effort to bring to achieve this work.
+- visible: boolean value. visible or not outside of the group.
 - creation_date: date of creation of the work.
 
 ### Tasks:
 - number: unique identifier to identify a task. equal to id ? !!how to generate an unique number ?
 - name: name of the task
-- description: what you should do in this task, if name is not clear of unprecise
-- deadline: date where the date should be done
-- importance and urgency: values 1 to 5 to mesure importance and urgency of the project.
+- description: what you should do in this task, if name is not clear or unprecise
+- deadline: date where the task should be done
 - state: technical state of the task (independant of dates about the task. changes are only manual)
     - Values: 1 = to do, 2 = in run, 3 = completed.
+- urgency: how the task is urgent (1=min and 5=max)
+- link: can contains a link that is related to the task
+- completion_date: date of the completion of the task
+
