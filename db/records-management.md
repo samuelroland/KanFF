@@ -80,7 +80,7 @@ x records wroten by hand.
 - start and end: start and end dates of the project
 - state: technical state of the project:
     - Values: 0 = under reflection, 1 = under planning, 2 = semi-active work, 3 = active work, 4 = on break, 5 = reported, 6 = abandoned, 7 = cancelled, 8 = completed.
-- archived: boolean value. if the project is archived or not. A project can be archived only if his state is abandoned, cancelled or compled (6, 7 or 8)
+- archived: boolean value. if the project is archived or not. A project can be archived only if his state is abandoned, cancelled or completed (6, 7 or 8)
 - importance and urgency: values 1 to 5 to mesure importance and urgency of the project. (1=min and 5=max)
 - visible: boolean value. visible or not outside of the group.
 - logbook_visible: boolean value. can make the logbook visible or note. (The logbook make a group of log: user_log_project).
@@ -88,15 +88,15 @@ x records wroten by hand.
     >Contains the important decisions, formal meetings, important change and publications of new versions of documents. 
     ><br>Important means that what is described in the log, has an impact on the work of severals persons in the project.
 - needhelp: boolean value. Add a little icon "help" if the project need help of externals persons (to join the group or to help without join)
-
+- 
 
 ### Works:
 - name: name of the work
 - description: simple description of what will be done in this work
-- start and end: date of start and of the work. Is useful to make a planing.
+- start and end: date of start and of the work. Is useful to make a planning.
 - state: technical state of the work (independant of dates about the work. changes are only manual)
-    - Values: 1 = to do, 2 = in run, 3 = completed.
-- value: value of the "work" made in this work 
+    - Values: 1 = to do, 2 = in run, 3 = in break, 4 = completed.
+- value: value of the "work" made in this work. INT value: 1 to 10.
 - effort: value between 1 and 10 about the effort to bring to achieve this work.
 - visible: boolean value. visible or not outside of the group.
 - creation_date: date of creation of the work.
