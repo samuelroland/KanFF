@@ -5,17 +5,31 @@
 
 ### Une application web de gestion de projets, de tâches, et d'organisation du travail, conçue pour le milieu militant et associatif.
 
-## Gestion du projet:
-[Repository GitHub](https://github.com/samuelroland/KanFF) | [Projet IceScrum](https://cloud.icescrum.com/p/PWB2AGDC)
-<br>Le repository GitHub est public, mais le projet IceScrum est privé.
+## Gestion du projet
+[Repository GitHub](https://github.com/samuelroland/KanFF) | [Projet IceScrum](https://cloud.icescrum.com/p/PWB2AGDC)  
+Le repository GitHub est public, mais le projet IceScrum est privé.
+
+## Objectif du projet
+Réaliser l'application KanFF afin d'atteindre l'objectif de l'application décrit ci-dessus pour une version `KanFF v1.0` publiée sur GitHub d'ici au **31.12.2020**.
 
 ## Contexte d'utilisation
-L'application est prévue pour être utilisée par des membres d'associations, d'organisations, de mouvemements, de collectifs, ou de simples groupes militants,... L'application se veut polyvalente et devrait permettre d'être utilisée dans des groupes de différentes tailles et structures, ayant différentes organisations du travail et réalisant des projets différents, ...
+L'application est pensée pour être utilisée par **des membres de collectifs, d'organisations, de mouvemements, d'associations ou de simples groupes ayant des projets communs.**  
+L'application se veut **polyvalente** et devrait pouvoir être utilisée dans des groupes de différentes tailles, structures et objectifs, organisation du travail et réalisant des projets de nature différente, ...  
+*Pour l'instant, une instance KanFF ne peut pas encore héberger plusieurs collectifs mais qu'un seul. Peut-être cela changera sur des versions suivantes à v1.0.*
 
 ## Objectif de l'application
-L'objectif est de pouvoir gérer: différents projets, des tâches, la répartition du travail, la planification des projets, les réunions, les membres, les groupes, les événéments, ... afin de permettre de mieux répartir la charge de travail, d'inclure les personnes nouvelles dans des groupes, d'inclure les personnes moins engagées.
+L'application doit pouvoir **gérer des projets, gérer des tâches**, la répartition du travail, planifier des projets, **des réunions et des événéments**, gérer les **membres** et les **groupes**, ... afin de **collaborer à plusieurs sur des projets**, avoir une **vision d'ensemble large** (de tous les projets, travaux, tâches, groupes et utilisateurs du collectif), de mieux répartir la charge de travail, d'inclure de nouvelles personnes et les personnes moins engagées.
 
-## Installation (pour une instance KanFF)
+### Publications (releases)
+- KanFF Beta v1.0, le 19.06.2020
+- KanFF Beta v2.0, le 13.11.2020
+- **KanFF v1.0**, le 15.12.2020
+D'autres petites publications sont faites entre ces grosses publications.
+
+## Description technique
+KanFF est une application web développée **en PHP** (HTML + CSS + Javascript + Ajax) **en MVC (Model View Controler)** avec une **base de données MySQL**. Les dépendances npm utilisées sont bootstrap et jquery.
+
+## Installation (pour une instance KanFF) WIP!
 Cette procédure s'applique pour une instance à distance.
 ### Prérequis:
 1. Accès SSH
@@ -70,4 +84,4 @@ Voilà. Si tout a réussi, vous avez réussi l'installation. Vous pouvez mainten
 **L'ouverture public des tests officiels pour la version 2.0-beta seront disponibles vers fin 2020.**
 Durant le projet il sera demandé à des membres de mouvements ou personnes extérieures au projets, d'aller tester l'application sur différentes versions.
 Le site est uploadé toutes les 2 semaines (en fin de sprint) à l'adresse suivante: [kanff.mycpnv.ch](https://kanff.mycpnv.ch)
-L'indication de la version de l'application (ainsi que la date de publicaiton) se trouve à coté du logo sur la page, ou dans le fichier `app/version.php`.
+L'indication de la version de l'application (ainsi que la date de publication) se trouve à coté du logo sur la page, ou dans le fichier `app/version.php`.

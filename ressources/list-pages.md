@@ -27,7 +27,7 @@
 		- Terminés: par date de fin décroissant, par importance.
 - **Page Détails du projet**: informations du projet + groupes réalisant (historique?) + événements + gestion du journal de bord + gestion des travaux.
 - **Page Gestion du projet**: la page `Détails du projet` en mode éditable (seulement pour les membres autorisés)
-- **Page Kanban d'un projet**: kanban d'un seul projet avec tous les travaux visibles contenant toutes les tâches: 2 vues = 1 éditable et 1 autre non éditable, selon autorisations.
+- **Page Kanban du projet**: kanban d'un seul projet avec tous les travaux visibles contenant toutes les tâches: 2 vues = 1 éditable et 1 autre non éditable, selon autorisations.
 - **Vue Créer une tâche**: donner les informations minimum (nom tâche + travail) pour créer une tâche.
 - **Vue Gérer une tâche**: gérer ses informations, ...
 
