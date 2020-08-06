@@ -1,0 +1,173 @@
+Réflexion en cours sur les projets/travaux/tâches:
+
+---------------------------
+Projets:
+- logbook content: oui tout simple et très utile.
+- archivage: utile si beaucoup de projets. archivé possible ou pas selon état?? possible uniquement si annulé, reporté ou terminé.
+- états: travail actif et semi actif ? autre champ à la place ? oui on inclut ces 2 états pour avoir une meilleure idée de ce qui se passe.
+
+---------------------------
+Travaux:
+- open
+	utile pour contacter/interagir avec un projet sans intégrer le groupe. ca permet de garder uniquement les personnes actives dans le groupe.
+	--> ca implique que toutes les tâches du travail sont en libre modification. Donc oui!
+
+- Travail "boite de réception" d'un projet. Oui on met. Voici les détails:
+	- permet d'envoyer des tâches pour un projet sans spécifier le travail
+		- parce que c'est une tâche administrative qui n'entre dans aucun des travaux actuels
+		- parce qu'on ne sait pas quel est le travail en lien
+		- parce que c'est plus rapide
+		- parce que le travail en question n'est pas ouvert--> du coup une boite de réception pas open ca fait une sorte de niveau semi-open).
+	- permet d'envoyer des tâches depuis ailleurs que le Kanban (depuis la page détails d'un projet et la page gestion du projet)
+	
+	--> Cas spéciaux:
+		- open: ce travail pourrait être open ou pas. (si oui alors toutes les 	tâches sont éditable, si non aucune tâche est modifiable sauf celles qu'on a créé--> propres tâches modifiables permettant de supprimer si erreur ou de gérer l'état par ex.)
+		- visible: si le travail est non visible, les tâches ne sont pas modifiables et non visibles. On voit seulement (et toujours) le nom dans le placeholder mais on ne verra pas le travail dans le kanban.
+
+	--> Contraintes: 
+		- il doit avoir exactement 1 travail désigné comme boite de réception. (ni plus ni moins)
+		- Créé automatiquement à la création du projet
+		- Valeurs modifiables (sans project_id, creator_id et creation_date --> jamais modifiables):
+			- name
+			- description
+			- visible
+			- open
+		Valeurs non-modifiables (sans project_id, creator_id et creation_date --> jamais modifiables) et non affichée:
+			- start
+			- end
+			- state
+			- value
+			- effort
+		Valeurs par défaut:
+			- name: Boite de réception
+			- description: Réception des tâches de tous types TBD
+			- start: idem que projet
+			- end: idem que projet
+			- state: en cours (toujours)
+			- value: 5
+			- effort: 5
+			- visible: 1
+			- creator_id: personne qui a créé le projet
+			- open: 0
+		Le nom est par défaut "Boite de réception" mais peut être modifié afin de préciser ou de restreindre oralement ce qui est envoyé. Ainsi par défaut on peut envoyer tout ce qu'on veut (demandes, questions, commentaires, ...) et si on nomme "Tâches urgentes" c'est plus spécifique et on restreint les possibilités de tâches qui peuvent y être créées. On retrouve le nom du travail dans le placeholder du champ de création...
+
+	--> Conséquences:
+		- Pas inclut dans les calculs d'effort et de valeurs ??? ah mais zut il y a pas de calculs...
+		- Pas inclut dans la planification puisque reste durant toute la longueur du projet.
+
+	--> MLD: inbox bool
+
+- travail répétitif: pratique pour indiquer que c'est un travail régulier et répétitif. après quelles sont les différences par la suite ? juste une indication pas d'autres conséquences. assoc: traiter les emails, valider les demandes denvoi de posts pour facebook + insta + twitter.
+
+	Ex. possible d'un cas concret:
+	GT Mail:
+		- Gestion des emails:
+			- Définitions des standards
+			- Organisation du travail
+			- Emails quotidiens
+	
+	GT Facebook: 
+		- Gestion des posts
+			- Questions
+			- Demandes de posts
+			- Postage des publications
+		- News du mois
+			- ...
+	OK on met. par contre sur projet ou travail ????
+	pour projet: processus global vague avec des répétitions. notion de "projet" qui devient un truc répétitif.
+	pour travail: plus précis si qu'une partie est répétitive et pas le reste.
+	--> Après longue réflexion le mot "travail répétitif" ca passe mieux que "projet répétitif" donc c'est pas pour rien, donc on met sur travail!
+
+
+- need help: 
+	
+	tout simple et peut être utile pour demander de l'aide à l'extérieur du groupe réalisant le projet. Donc oui. Plutot stocké sur le travail pour être plus spécifique et pour qu'on sache sur quelle partie on demande de l'aide. Valeur INT parce que on peut demander de l'aide à différentes personnes: 0 = pas besoin d'aide. 1 = besoin d'aide des personnes réalisant le projet. 2 = besoin d'aides de personnes extérieures. 3 = besoin d'aide de personnes internes ou externes au projet.
+
+
+- personne responsable du travail ?? juste mettre une clé "responsible_id"
+	- oui mais alors facultatif.
+
+- nouvel état: idée/proposition. comme pour les stories en Scrum.
+	- est-ce que ca reste utile si il y a l'état idée proposition pour les tâches ??
+
+- où sont fait et affichés les calculs avec les efforts et les valeurs des travaux ?
+
+- travail réservé pour un groupe ? --> un travail est réservé (lié aux compétences) à un des groupes réalisant le projet. (réservation morale et non technique --> enfin... ??)
+
+- Affichage:
+	- travaux terminés et autres états pas en cours ?
+	- quel ordre les travaux ont dans le kanban ? fixe mais alors faut stocker le rang ?
+	- couleur spéciale sur un travail si urgente
+		- définition d'urgent:
+			- soit le travail se fini aujourd'hui
+
+-------------------------
+Tâches:
+- automatiques lors d'événements (création d'un projet, travail, ...)
+	- Non. Utile que dans des cas spéciaux et rares.
+
+- tâches pour plusieurs personnes
+	- Intéressant, utile pour des tâches qui nécessitent plusieurs personnes. (pourrait y avoir une indication du nombre de personnes souhaités ou besoin, autre...). Mais pas indispensable, donc on met pas pour ne pas complexifier pour la v1.0.
+- tâches pour tout le monde
+	- Très utile pour donner des tâches à un groupe de personnes participant à un projet (groupe entier ou personnes ayant contribué ou autre tri). Et tracker l'avancement comme les tâches normales, sauf qu'on voit en plus quelle personnes en est à quoi.
+	- Autre avantage: ne pas créer 25 tâches disant la même chose pour les 25 personnes qui devront le faire--> ce qui est trop long à créer + prend beaucoup de places, et qui n'a pas de vision pratique (faut compter le nombre de tâches à chaque état)
+	- Voir combien et qui a la tâche en "à faire", "en cours" et "terminé" avec une tâche par colonne. Pour nous la tâche a sa couleur normale, et les autres (non cliquables) sont en grisé/transparent. les tâches n'apparaissent pas dans les colonnes où il n'y a personne qui est à cet état là. (voir maquettes).
+- Comment stocker ces valeurs dans le MLD ?
+
+- tâches répétitives (répétent automatiquement toutes les semaines ou tous les 2 jours par ex.)
+	- Trop compliqué. Donc pas pour la v1.0.
+
+- type: questions, décisions à prendre, tâche ?
+	- Intéressant si clairement visible sur la tâche. Mettre en couleur différente selon le type.
+	- Listes des types libre ou définie ?
+		- Je pencherais plus pour défini, histoire que ca devienne pas un moyen de mettre un tag unique. Ca doit quand même rester générale et pas être par ex. "longue", "administration"
+	- Idées (question: en quoi consiste la tâche? utile si implique qqch de différent que les autres: tâche->"travail", question->réponse, idée->réflexion de groupe, info->consulter et stocker ou partager, réflexion->WIP):
+			- tâche
+			- question
+			- proposition
+			- réflexion ?
+			- info ??
+			- idée ??
+			- correction ?
+			- amélioration ?
+WIP
+
+- nouvel état tâche: bloqué ou en pause. voir icescrum.
+- responsable de tâche ??
+	- permet de donner des tâches précises à la fin des réunions.
+Affichage:
+	- bouton "+" en plus petit qu'une tâche.
+	- couleur spéciale sur une tâche si urgente
+		- qu'est-ce que "urgent" ? 
+	- tâches ordrables ?? Afin de donner un certain ordre d'éxecution.
+-----------------------------
+log:
+- title à rajouter.
+- context à rediscuter sur l'utilité.
+- importance vraiment utile ? pensé pour le tri à la base. (afficher que ceux au dessus de 10)
+
+- support markdown ? ou markdown simplifié ?
+
+Affichage:
+- plusieurs mode d'affichage plus ou moins complet ?
+	- Idées:
+		- Titre et dates uniquement.
+		- Titre + date + date création + creator + mini flèche bas pour afficher autre info d'un seul log.
+		- Tout.
+- comment afficher la valeur "type". Mettre une petite icône pour chaque type ?
+
+-----------------------------
+groups:
+- prerequis: texte expliquant les prérequis nécessaires (compétences, motivation, temps, investissement,statut) pour rentrer dans le groupe.
+
+
+--------------------------------
+users:
+comment mettre un statut "membre" et nouvelleau ? vraiment besoin ?
+approuvé par : approver_id
+quid des roles et responsabilités ? par groupe ? par projet ?
+
+
+------------
+Quid des commentaires sur les tâches ou sur les travaux ?
+	-> manière de communiquer aux gens d'un travail, ou de discuter d'une tâche ou d'un sujet particulier.
