@@ -121,16 +121,13 @@ Tâches:
 	- Intéressant si clairement visible sur la tâche. Mettre en couleur différente selon le type.
 	- Listes des types libre ou définie ?
 		- Je pencherais plus pour défini, histoire que ca devienne pas un moyen de mettre un tag unique. Ca doit quand même rester générale et pas être par ex. "longue", "administration"
-	- Idées (question: en quoi consiste la tâche? utile si implique qqch de différent que les autres: tâche->"travail", question->réponse, idée->réflexion de groupe, info->consulter et stocker ou partager, réflexion->WIP):
+	- Idées (question: qu'est-ce que est la tâche? qu'est-ce qu'on donne si on donne la tâche. utile si implique qqch de différent que les autres): tâche->action, question->réponse, idée->réflexion puis décision, info->consulter et stocker ou partager, réflexion->commenter/réagir, proposition->acceptation ou refus):
 			- tâche
 			- question
+			- info
 			- proposition
-			- réflexion ?
-			- info ??
-			- idée ??
-			- correction ?
-			- amélioration ?
-WIP
+			- idée
+			- réflexion
 
 - nouvel état tâche: bloqué ou en pause. voir icescrum.
 - responsable de tâche ??
