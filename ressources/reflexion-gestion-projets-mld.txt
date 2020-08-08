@@ -97,9 +97,10 @@ Travaux:
 - Affichage:
 	- travaux terminés et autres états pas en cours ?
 	- quel ordre les travaux ont dans le kanban ? fixe mais alors faut stocker le rang ?
-	- couleur spéciale sur un travail si urgente
+		- Tri par start croissant, puis end croissant. pour commencer.
+	- couleur spéciale sur un travail si urgente (rouge clair par ex) OK
 		- définition d'urgent:
-			- soit le travail se fini aujourd'hui
+			- le travail se fini aujourd'hui OK
 
 -------------------------
 Tâches:
