@@ -16,7 +16,7 @@ This file define:
 - inscription: date between 01.01.2019 and date of generation
 - status: status written by the user
 - state: technical state of the account:
-    - Values: 0 = not approuved. 1 = approuved. 2 = archived. 3 = admin. 
+    - Values: 0 = unapproved. 1 = approved. 2 = archived. 3 = admin. 
 
 ### Groups:
 11 records.
@@ -39,7 +39,7 @@ Others fields:
 - image: name of the image stored in folder `/data/groups/`. Format: `group_` + random string of 30 chars + `.jpg`
 - status: status written by members of the group
 - state: technical state of the group:
-    - Values: 0 = on start-up. 1 = active. 2 = in break. 3 = archived. 
+    - Values: 0 = on start-up. 1 = active. 2 = on break. 3 = archived.
 
 ### join:
 Depends on the random.
@@ -95,7 +95,7 @@ x records wroten by hand.
 - description: simple description of what will be done in this work
 - start and end: date of start and of the work. Is useful to make a planning.
 - state: technical state of the work (independant of dates about the work. changes are only manual)
-    - Values: 1 = to do, 2 = in run, 3 = in break, 4 = completed.
+    - Values: 1 = to do, 2 = in run, 3 = on break, 4 = completed.
 - value: value of the "work" made in this work. INT value: 1 to 10.
 - effort: value between 1 and 10 about the effort to bring to achieve this work.
 - visible: boolean value. visible or not outside of the group.
