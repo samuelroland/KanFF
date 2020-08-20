@@ -109,17 +109,37 @@ Tâches:
 
 - tâches pour plusieurs personnes
 	- Intéressant, utile pour des tâches qui nécessitent plusieurs personnes. (pourrait y avoir une indication du nombre de personnes souhaités ou besoin, autre...). Mais pas indispensable, donc on met pas pour ne pas complexifier pour la v1.0.
+
 - tâches pour tout le monde
 	- Très utile pour donner des tâches à un groupe de personnes participant à un projet (groupe entier ou personnes ayant contribué ou autre tri). Et tracker l'avancement comme les tâches normales, sauf qu'on voit en plus quelle personnes en est à quoi.
 	- Autre avantage: ne pas créer 25 tâches disant la même chose pour les 25 personnes qui devront le faire--> ce qui est trop long à créer + prend beaucoup de places, et qui n'a pas de vision pratique (faut compter le nombre de tâches à chaque état)
 	- Voir combien et qui a la tâche en "à faire", "en cours" et "terminé" avec une tâche par colonne. Pour nous la tâche a sa couleur normale, et les autres (non cliquables) sont en grisé/transparent. les tâches n'apparaissent pas dans les colonnes où il n'y a personne qui est à cet état là. (voir maquettes).
-- Comment stocker ces valeurs dans le MLD ?
+	
+	Utilisation concrète:
+		- on peut s'inclure et s'exclure d'une supertâche
+		- A la création on choisit un sous-groupe de personnes des groupes réalisant. Tout le monde part avec l'état A faire.
+		- Si la colonne contient des tâches concrètes de la supertâche, on voit une tâche grisée si ce n'est pas l'état de notre tâche concrète, si c'est notre état elle est de couleur normale.
+		Si personne dans le projet non incluse dans le groupe de la supertâche, toutes toutes les tâches concrètes sont grisées. Idem pour les gens éxterieur au projet.
+		- Dans le panneau Détails d'une tâche: l'état de la tâche abstraite et concrète sont affichés (2 états donc).
+
+		Que vaut l'état de la tâche dans tasks ?
+		- Si toutes les tâches abstraites sont à faire: état = à faire
+		- Si toutes les tâches abstraites sont terminé: état = terminé
+		- Si  les tâches abstraites 
+
+	- Comment stocker ces valeurs dans le MLD ?
+		- Table de jointure: make (faire) entre users et tasks
+		- Champs de make:
+			- id
+			- user_id
+			- task_id
+			- state
 
 - tâches répétitives (répétent automatiquement toutes les semaines ou tous les 2 jours par ex.)
 	- Trop compliqué. Donc pas pour la v1.0.
 
 - type: questions, décisions à prendre, tâche ?
-	- Intéressant si clairement visible sur la tâche. Mettre en couleur différente selon le type.
+	- Intéressant si clairement visible sur la tâche. Mettre en couleur différente selon le type. Oui couleur différente.
 	- Listes des types libre ou définie ?
 		- Je pencherais plus pour défini, histoire que ca devienne pas un moyen de mettre un tag unique. Ca doit quand même rester générale et pas être par ex. "longue", "administration"
 	- Idées (question: qu'est-ce que est la tâche? qu'est-ce qu'on donne si on donne la tâche. utile si implique qqch de différent que les autres): tâche->action, question->réponse, idée->réflexion puis décision, info->consulter et stocker ou partager, réflexion->commenter/réagir, proposition->acceptation ou refus):
@@ -129,15 +149,22 @@ Tâches:
 			- proposition
 			- idée
 			- réflexion
+			OK!
 
-- nouvel état tâche: bloqué ou en pause. voir icescrum.
+à réfléchir (avis éxterieurs):
+idée et proposition trop semblable
+info /communication
+
+
+- nouvel état tâche: bloqué ou en pause. voir icescrum. NON. pas très utile et champ supplémentaire.
 - responsable de tâche ??
-	- permet de donner des tâches précises à la fin des réunions.
+	- permet de donner des tâches précises à la fin des réunions. OUI. mais remplace user_id donc si assigné = responsable de la tâche.
 Affichage:
 	- bouton "+" en plus petit qu'une tâche.
 	- couleur spéciale sur une tâche si urgente
 		- qu'est-ce que "urgent" ? 
-	- tâches ordrables ?? Afin de donner un certain ordre d'éxecution.
+	- tâches ordrables ?? Afin de donner un certain ordre d'éxecution. Non pas vraiment utile. ordré par défaut par date de création.
+
 -----------------------------
 log:
 - title à rajouter.
