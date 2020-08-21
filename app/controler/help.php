@@ -6,11 +6,12 @@
  *  Creation date: 26.04.2020
  */
 
+//Check that the password sent is the password of the user logged. The function is not useful for the logins, but it's useful to check the password when the user make an important action that need to be validated.
 function checkUserPassword($id, $password)
 {
-    require_once "controler/loginControler.php";
+    require_once "controler/loginControler.php";    //WIP useful
     $user = getUserById($id);
-    return password_verify($password, $user['password']);
+    return password_verify($password, $user['password']);   //return true ou false
 }
 
 //Check length of a string that must not be greater than the max given but less or equal
@@ -25,7 +26,7 @@ function chkToTinyint($value)
     return (is_null($value)) ? "0" : "1";
 }
 
-//Declare the flashmessage with his number
+//Define the next flashmessage with his number
 function flshmsg($number)
 {
     $_SESSION['flashmsg'] = $number;

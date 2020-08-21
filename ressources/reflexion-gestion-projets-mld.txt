@@ -6,6 +6,8 @@ Projets:
 - archivage: utile si beaucoup de projets. archivé possible ou pas selon état?? possible uniquement si annulé, reporté ou terminé.
 - états: travail actif et semi actif ? autre champ à la place ? oui on inclut ces 2 états pour avoir une meilleure idée de ce qui se passe.
 
+- lien wiki ?
+- lien vidéoconférence ?
 ---------------------------
 Travaux:
 - open
@@ -155,7 +157,7 @@ Tâches:
 idée et proposition trop semblable
 info /communication
 
-
+- complexité de 1 à 5 ?
 - nouvel état tâche: bloqué ou en pause. voir icescrum. NON. pas très utile et champ supplémentaire.
 - responsable de tâche ??
 	- permet de donner des tâches précises à la fin des réunions. OUI. mais remplace user_id donc si assigné = responsable de la tâche.
