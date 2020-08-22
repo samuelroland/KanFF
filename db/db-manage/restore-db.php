@@ -6,6 +6,12 @@
  *  Creation date: 12.06.2020
  */
 
+$path = "../../app/.const.php";
+if (file_exists($path) == false) {
+    $path = ".const.php";
+}
+echo "path is " . $path . " !!\n\n";
+require_once $path;  //get login informations for db in the app folder
 
 $filename = "create-db-kanff.sql";
 if ($dbname != "kanff") {
