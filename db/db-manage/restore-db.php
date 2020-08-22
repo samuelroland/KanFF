@@ -7,15 +7,34 @@
  */
 
 
-require '../../app/.const.php';  //get login informations for db in the app folder
-
+$filename = "create-db-kanff.sql";
+if ($dbname != "kanff") {
+//Prepare data before creation: replace "kanff" by the right dbname.
+    $queriesCreate = file_get_contents("create-db-kanff.sql");
+    $queriesCreate = str_replace("kanff", $dbname, $queriesCreate);
+    $queriesCreate = str_replace("VISIBLE", "", $queriesCreate);
+    file_put_contents("create-db-kanff-ok.sql", $queriesCreate);
+    echo "file create-db-kanff-ok.sql created!!";
+    $filename = "create-db-kanff-ok.sql";
+}
 //Drop and create again the database kanff:
-$cmdCreate = "mysql -u $user -p$pass < create-db-kanff.sql";  //system command for execute sql queries or sql file
+$cmdCreate = "mysql -u $user -p$pass < $filename -h $dbhost";  //system command for execute sql queries or sql file
 exec($cmdCreate);
 echo "\n\nDatabase kanff dropped and created again !";
 
+$filename = "fill-data-db-kanff.sql";
+if ($dbname != "kanff") {
+//Prepare data before creation: replace "kanff" by the right dbname.
+    $queriesFill = file_get_contents("fill-data-db-kanff.sql");
+    $queriesFill = str_replace("kanff", $dbname, $queriesFill);
+    $queriesFill = str_replace("VISIBLE", "", $queriesFill);
+    file_put_contents("fill-data-db-kanff-ok.sql", $queriesFill);
+    echo "file fill-data-db-kanff-ok.sql created!!";
+    $filename = "fill-data-db-kanff-ok.sql";
+}
+
 //Fill the db with the data
-$cmdFill = "mysql -u $user -p$pass < fill-data-db-kanff.sql";  //system command for execute sql queries or sql file
+$cmdFill = "mysql -u $user -p$pass < $filename -h $dbhost";  //system command for execute sql queries or sql file
 echo "\n\nDatabase kanff filled with data !";
 exec($cmdFill);
 
