@@ -172,7 +172,7 @@ log:
 - title à rajouter.
 - context à rediscuter sur l'utilité.
 - importance vraiment utile ? pensé pour le tri à la base. (afficher que ceux au dessus de 10)
-
+- date dernière modif et personne qui a fait la dernière modif.
 - support markdown ? ou markdown simplifié ?
 
 Affichage:
