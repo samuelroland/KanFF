@@ -186,7 +186,12 @@ Affichage:
 -----------------------------
 groups:
 - prerequis: texte expliquant les prérequis nécessaires (compétences, motivation, temps, investissement,statut) pour rentrer dans le groupe.
-
+- liste des groupes ordrés comment ?
+	- Tout ordrés par état croissant, puis par nombre de membres décroissant.
+	- Découpés en:
+		- Actuels: En démarrage + Actif
+		- En pause
+		- Archivés
 
 --------------------------------
 users:
