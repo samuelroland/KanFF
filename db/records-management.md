@@ -65,6 +65,8 @@ If access restricted:
 5 = accepted
 
 invitation ? sensible group ? !!! user quit a group himself!
+admin of a group ??
+date for accepted ? (last modification) ???
 
 If access not restricted:
 4 = banned of the group

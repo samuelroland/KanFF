@@ -35,12 +35,11 @@ function importTableData($table, $items)
 
     //Build the query:
     $query = queryInsertConstructor($items, $table);
-
     //Delete table records before insert
     require "../app/.const.php";
     $statement = getPDO()->prepare("DELETE FROM `$table`");
     $statement->execute();   //éxecuter la requête
-
+    var_dump($query);
     //Finally insert data!
     $statement = getPDO()->prepare($query);//prepare query once instead of for each item.
     foreach ($items as $val) // for each item it will execute the sql query
@@ -123,6 +122,9 @@ function dataUsers()
         $username = $firstname . rand(10, 99);
         $username = strtr($username, $unwanted_array);
         $username = strtolower($username);
+        if (isset($ressource['username'])) {
+            $username = $ressource['username'];
+        }
 
         //Generate initials
         $initials = substr($firstname, 0, 1) . substr($lastname, 0, 1) . substr($lastname, strlen($lastname) - 1);
@@ -167,6 +169,10 @@ function dataUsers()
             $state = USER_STATE_ARCHIVED;
         } else if (rand(1, 10) == 1) {
             $state = USER_STATE_ADMIN;
+        }
+
+        if (isset($ressource['state'])) {
+            $state = $ressource['state'];
         }
 
         //Generate chat_link:
@@ -272,7 +278,6 @@ function dataGroups()
         print_r("\n" . $group['image'] . "\n");
         $groups[] = $group;
     }
-    var_dump($groups);
     importTableData("groups", $groups);
 }
 
@@ -370,7 +375,6 @@ function data_join()
             }
         }
     }
-    var_dump($joins);
     importTableData("join", $joins);
 }
 
@@ -386,8 +390,19 @@ function generateRandomString($length = 10)
     return $randomString;
 }
 
+//Total creation of the database before insertion. (drop database before the creation)
+//_-------------------------
+require_once "../app/.const.php";
+$filename = "db-manage/create-db-kanff.sql";
+
+//Drop and create again the database kanff:
+$cmdCreate = "mysql -u $user -p$pass < $filename -h $dbhost";  //system command for execute sql queries or sql file
+exec($cmdCreate);
+echo "\n\nDatabase kanff dropped and created again !";
+//_-------------------------
+
 dataUsers();
 dataGroups();
-//data_join();
+data_join();
 
 ?>
