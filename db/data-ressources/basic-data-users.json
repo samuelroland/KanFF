@@ -2,22 +2,32 @@
   {
     "firstname": "Josette",
     "lastname": "Richard",
-    "biography": "Dans le milieu associatif, depuis 10 ans déjà, je suis à dans assoc depuis 2015 et j'aide plusieurs heures par semaines. La partie contact médias m'intéresse beaucoup. Je suis photorgaphe de métier, mais aussi céramiste et je cultive un petit potager..."
+    "email": "josette.richard@assoc.ch",
+    "biography": "Dans le milieu associatif, depuis 10 ans déjà, je suis à dans assoc depuis 2015 et j'aide plusieurs heures par semaines. La partie contact médias m'intéresse beaucoup. Je suis photorgaphe de métier, mais aussi céramiste et je cultive un petit potager...",
+    "status": "Actuellement en vacances, je reviendrai le 15. En cas d'urgence laissez moi un SMS et je vous rappelerai en soirée.",
+    "state": 4
   },
   {
     "firstname": "Vincent",
     "lastname": "Rigot",
-    "biography": "Je suis passionné de litérrature, et la presse me questionne beaucoup aujourd'hui. Les sujets polémiques ne sont pas les plus intéressants, mais ceux dont on ne parle jamais regorgent d'informations passionnantes et de récits fabuleux."
+    "email": "vincent.rigot@assoc.ch",
+    "biography": "Je suis passionné de litérrature, et la presse me questionne beaucoup aujourd'hui. Les sujets polémiques ne sont pas les plus intéressants, mais ceux dont on ne parle jamais regorgent d'informations passionnantes et de récits fabuleux.",
+    "status": "Actuellement en travail intense sur la rédaction d'un document contenant des réflexions autour du militantisme à l'époque des Romains!",
+    "state": 3
   },
   {
     "firstname": "Mégane",
     "lastname": "Blan",
-    "biography": "nibh dolor, nonummy ac, feugiat non, lobortis quis, pede. Suspendisse dui. Fusce diam nunc, ullamcorper eu, euismod ac, fermentum vel, mauris. Integer sem elit, pharetra ut, pharetra sed, hendrerit a, arcu. Sed et libero. Proin mi. Aliquam gravida mauris ut mi. Duis risus odio, auctor vitae, aliquet nec, imperdiet nec, leo. Morbi neque"
+    "email": "megane.blan@assoc.ch",
+    "biography": "Je suis une passionée de festival. J'en vais 4 fois par mois. Je trouvais le festival de Assoc vraiment génial alors j'ai voulu venir ajouter mon grain de sel et aider pour la communication. Je suis fan de musique et je joue du violon. Je consacre 5h par semaine à Assoc la plupart de l'année, et tout mon temps quand il y a le festival...",
+    "status": "Encore quelques jours de repos avant de commencer à travailler à fond pour le festival. J'aimerai que cette édition soit exceptionnelle!",
+    "state": 1
   },
   {
     "firstname": "Michel",
     "lastname": "Charrière",
-    "biography": "tempor arcu. Vestibulum ut eros non enim commodo hendrerit. Donec porttitor tellus non magna. Nam ligula elit, pretium et, rutrum non, hendrerit id, ante. Nunc mauris sapien, cursus in, hendrerit consectetuer, cursus et, magna. Praesent interdum ligula eu enim. Etiam imperdiet dictum magna. Ut tincidunt orci quis lectus. Nullam suscipit, est ac facilisis"
+    "biography": "Je suis nouveau ici et je découvre petit à petit le fonctionnement... Vestibulum ut eros non enim commodo hendrerit. Donec porttitor tellus non magna. Nam ligula elit, pretium et, rutrum non, hendrerit id, ante. Nunc mauris sapien, cursus in, hendrerit consectetuer, cursus et, magna. Praesent interdum ligula eu enim. Etiam imperdiet dictum magna. Ut tincidunt orci quis lectus.",
+    "state": 0
   },
   {
     "firstname": "Cassandra",

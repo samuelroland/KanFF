@@ -9,8 +9,9 @@
 //define constants value of users.state, identical to values in the database:
 define("USER_STATE_UNAPPROVED", 0);
 define("USER_STATE_APPROVED", 1);
-define("USER_STATE_ARCHIVED", 2);
-define("USER_STATE_ADMIN", 3);
+define("USER_STATE_ONBREAK", 2);
+define("USER_STATE_ARCHIVED", 3);
+define("USER_STATE_ADMIN", 4);
 
 //define constants of groups.state, identical to values in the database:
 define("GROUP_STATE_ONSTARTUP", 0);

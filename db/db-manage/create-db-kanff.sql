@@ -1,29 +1,30 @@
 -- MySQL Workbench Synchronization
--- Generated: 2020-05-09 12:37
+-- Generated: 2020-08-25 17:17
 -- Project: KanFF
 -- File: create-db-kanff.sql file for create the kanff database with the tables.
 -- Creation date: 09.05.2020
+-- MLD source: MLD-KanFF-official.png v1.2
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
-DROP DATABASE if exists kanff;
-
-CREATE SCHEMA IF NOT EXISTS `kanff` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin ;
+ALTER SCHEMA `kanff`  DEFAULT CHARACTER SET utf8  DEFAULT COLLATE utf8_bin ;
 
 CREATE TABLE IF NOT EXISTS `kanff`.`users` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(15) NOT NULL,
   `initials` VARCHAR(3) NOT NULL,
-  `firstname` VARCHAR(75) NOT NULL,
-  `lastname` VARCHAR(75) NOT NULL,
+  `firstname` VARCHAR(100) NOT NULL,
+  `lastname` VARCHAR(100) NOT NULL,
+  `chat_link` VARCHAR(2000) NULL DEFAULT NULL,
   `email` VARCHAR(254) NULL DEFAULT NULL,
   `phonenumber` VARCHAR(20) NULL DEFAULT NULL,
-  `biography` VARCHAR(500) NULL DEFAULT NULL,
+  `biography` VARCHAR(2000) NULL DEFAULT NULL,
   `password` VARCHAR(255) NOT NULL,
   `inscription` DATETIME NOT NULL,
-  `status` INT(11) NOT NULL,
+  `status` VARCHAR(200) NULL DEFAULT NULL,
+  `state` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
   UNIQUE INDEX `initials_UNIQUE` (`initials` ASC) VISIBLE)
@@ -37,11 +38,12 @@ CREATE TABLE IF NOT EXISTS `kanff`.`groups` (
   `description` VARCHAR(200) NOT NULL,
   `context` VARCHAR(200) NULL DEFAULT NULL,
   `email` VARCHAR(254) NULL DEFAULT NULL,
-  `image` VARCHAR(60) NULL DEFAULT NULL,
+  `image` VARCHAR(50) NULL DEFAULT NULL,
   `restrict_access` TINYINT(4) NOT NULL,
   `chat_link` VARCHAR(2000) NULL DEFAULT NULL,
   `drive_link` VARCHAR(2000) NULL DEFAULT NULL,
-  `status` VARCHAR(100) NOT NULL,
+  `status` VARCHAR(200) NULL DEFAULT NULL,
+  `state` INT(11) NOT NULL,
   `visibility` INT(11) NOT NULL,
   `creator_id` INT(11) NOT NULL,
   `creation_date` DATETIME NOT NULL,
@@ -61,10 +63,10 @@ CREATE TABLE IF NOT EXISTS `kanff`.`projects` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(70) NOT NULL,
   `description` VARCHAR(500) NOT NULL,
-  `objectif` VARCHAR(500) NULL DEFAULT NULL,
+  `goal` VARCHAR(500) NULL DEFAULT NULL,
   `start` DATETIME NULL DEFAULT NULL,
   `end` DATETIME NULL DEFAULT NULL,
-  `status` INT(11) NOT NULL,
+  `state` INT(11) NOT NULL,
   `importance` INT(11) NOT NULL,
   `urgency` INT(11) NOT NULL,
   `visible` TINYINT(4) NOT NULL,
@@ -79,13 +81,12 @@ CREATE TABLE IF NOT EXISTS `kanff`.`works` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL,
   `description` VARCHAR(200) NULL DEFAULT NULL,
-  `start` DATETIME NULL DEFAULT NULL,
-  `end` DATETIME NULL DEFAULT NULL,
-  `status` INT(11) NOT NULL,
-  `importance` INT(11) NOT NULL,
-  `urgency` INT(11) NOT NULL,
-  `visible` TINYINT(4) NOT NULL,
+  `start` DATETIME NOT NULL,
+  `end` DATETIME NOT NULL,
+  `state` INT(11) NOT NULL,
+  `value` INT(11) NOT NULL,
   `effort` INT(11) NOT NULL,
+  `visible` TINYINT(4) NOT NULL,
   `project_id` INT(11) NOT NULL,
   `creator_id` INT(11) NOT NULL,
   `creation_date` DATETIME NOT NULL,
@@ -110,12 +111,11 @@ CREATE TABLE IF NOT EXISTS `kanff`.`tasks` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `number` INT(11) NOT NULL,
   `name` VARCHAR(50) NOT NULL,
-  `description` VARCHAR(300) NULL DEFAULT NULL,
+  `description` VARCHAR(2000) NULL DEFAULT NULL,
   `deadline` DATETIME NULL DEFAULT NULL,
-  `status` INT(11) NOT NULL,
-  `importance` INT(11) NULL DEFAULT NULL,
-  `urgency` INT(11) NULL DEFAULT NULL,
-  `external_link` VARCHAR(2000) NULL DEFAULT NULL,
+  `state` INT(11) NOT NULL,
+  `urgency` INT(11) NOT NULL,
+  `link` VARCHAR(2000) NULL DEFAULT NULL,
   `user_id` INT(11) NULL DEFAULT NULL,
   `creator_id` INT(11) NOT NULL,
   `work_id` INT(11) NOT NULL,
@@ -190,7 +190,7 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `kanff`.`user_own_competence` (
+CREATE TABLE IF NOT EXISTS `kanff`.`own` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_id` INT(11) NOT NULL,
   `competence_id` INT(11) NOT NULL,
@@ -212,7 +212,7 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `kanff`.`user_suscribe_event` (
+CREATE TABLE IF NOT EXISTS `kanff`.`suscribe` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_id` INT(11) NOT NULL,
   `event_id` INT(11) NOT NULL,
@@ -234,7 +234,7 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `kanff`.`user_receive_notification` (
+CREATE TABLE IF NOT EXISTS `kanff`.`get` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `notification_id` INT(11) NOT NULL,
   `user_id` INT(11) NOT NULL,
@@ -258,10 +258,14 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `kanff`.`group_realize_project` (
+CREATE TABLE IF NOT EXISTS `kanff`.`participate` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `group_id` INT(11) NOT NULL,
   `project_id` INT(11) NOT NULL,
+  `start` DATETIME NOT NULL,
+  `end` DATETIME NULL DEFAULT NULL,
+  `reason_start` VARCHAR(45) NULL DEFAULT NULL,
+  `reason_end` VARCHAR(45) NULL DEFAULT NULL,
   INDEX `fk_groups_has_projects_projects1_idx` (`project_id` ASC) VISIBLE,
   INDEX `fk_groups_has_projects_groups1_idx` (`group_id` ASC) VISIBLE,
   PRIMARY KEY (`id`),
@@ -279,7 +283,7 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `kanff`.`user_log_project` (
+CREATE TABLE IF NOT EXISTS `kanff`.`log` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_id` INT(11) NOT NULL,
   `project_id` INT(11) NOT NULL,
@@ -306,7 +310,7 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `kanff`.`user_join_group` (
+CREATE TABLE IF NOT EXISTS `kanff`.`join` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_id` INT(11) NOT NULL,
   `group_id` INT(11) NOT NULL,
@@ -330,7 +334,7 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `kanff`.`event_concern_group` (
+CREATE TABLE IF NOT EXISTS `kanff`.`concern` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `event_id` INT(11) NOT NULL,
   `group_id` INT(11) NOT NULL,

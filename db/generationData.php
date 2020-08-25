@@ -15,6 +15,7 @@ function getPDO()
     return new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname, $user, $pass);
 }
 
+require_once "../app/view/helpers.php";
 //Build the string of the SQL query with SQL parameters according to the data sent
 function queryInsertConstructor($items, $tablename)
 {
@@ -126,13 +127,18 @@ function dataUsers()
         //Generate initials
         $initials = substr($firstname, 0, 1) . substr($lastname, 0, 1) . substr($lastname, strlen($lastname) - 1);
         $initials = strtoupper($initials);
-        //half the time, email is set to "firstname.lastname@assoc.com" and if not the email is null
-        if (rand(0, 1)) {
-            $email = $firstname . "." . $lastname . "@assoc.ch";    //create the email with the raw firstname and lastname
-            $email = strtr($email, $unwanted_array);    //replace accent with corresponding char
-            $email = strtolower($email);    //put the string to lower cases.
+
+        if (isset($ressource['email']) == false) {
+            //half the time, email is set to "firstname.lastname@assoc.com" and if not the email is null
+            if (rand(0, 1)) {
+                $email = $firstname . "." . $lastname . "@assoc.ch";    //create the email with the raw firstname and lastname
+                $email = strtr($email, $unwanted_array);    //replace accent with corresponding char
+                $email = strtolower($email);    //put the string to lower cases.
+            } else {
+                $email = null;
+            }
         } else {
-            $email = null;
+            $email = $ressource['email'];
         }
 
         //Generate phonenumber of 10 number
@@ -144,9 +150,30 @@ function dataUsers()
         //Generate inscription date,
         $inscription = getRandomDateFormated();
 
-        //Status is by default 0, so yyyyy
-        $status = 0;
+        //Status is by default null but taken from ressource if exists.
+        if (isset($ressource['status'])) {
+            $status = $ressource['status'];
+        } else {
+            $status = null;
+        }
 
+        //Generate the state: the technical state of the account:
+        $state = USER_STATE_APPROVED;   //default is approved
+        if (rand(1, 15) == 1) {
+            $state = USER_STATE_UNAPPROVED;
+        } else if (rand(1, 8) == 1) {
+            $state = USER_STATE_ONBREAK;
+        } else if (rand(1, 20) == 1) {
+            $state = USER_STATE_ARCHIVED;
+        } else if (rand(1, 10) == 1) {
+            $state = USER_STATE_ADMIN;
+        }
+
+        //Generate chat_link:
+        $userinrun['chat_link'] = "";
+        if (rand(0, 1) == 0) {
+            $userinrun['chat_link'] = "chat.link/user?t=" . generateRandomString(rand(10, 15));
+        }
         //Save data not already present in $userinrun
         $userinrun['id'] = $id; //fix id in prevision of foreign keys later
         $userinrun['email'] = $email;
@@ -154,6 +181,7 @@ function dataUsers()
         $userinrun['username'] = $username;
         $userinrun['inscription'] = $inscription;
         $userinrun['status'] = $status;
+        $userinrun['state'] = $state;
         $userinrun['phonenumber'] = $phonenumber;
         $userinrun['password'] = $password;
 
@@ -219,18 +247,37 @@ function dataGroups()
 
         $group['creation_date'] = getRandomDateFormated();
 
-        $group['id'] = $id;
+        $group['id'] = $id; //set id
+
+        //Generate state:
+        $state = GROUP_STATE_ACTIVE;    //default state is active
+        if (rand(1, 4) == 1) {
+            $state = GROUP_STATE_ONBREAK;
+        } else if (rand(1, 5) == 1) {
+            $state = GROUP_STATE_ARCHIVED;
+        } else if (rand(1, 5) == 1) {
+            $state = GROUP_STATE_ONSTARTUP;
+        }
+        $group['state'] = $state;
+
+        //Status is by default null but taken from ressource if exists.
+        if (isset($ressource['status'])) {
+            $status = $ressource['status'];
+        } else {
+            $status = null;
+        }
+        $group['status'] = $status;
 
         print_r("\n" . $group['name']);
         print_r("\n" . $group['image'] . "\n");
         $groups[] = $group;
     }
-
+    var_dump($groups);
     importTableData("groups", $groups);
 }
 
-//Generate data for user_join_group
-function data_user_join_group()
+//Generate data for join
+function data_join()
 {
     //Take the group list
     $groups = getAllItems("groups");
@@ -324,7 +371,7 @@ function data_user_join_group()
         }
     }
     var_dump($joins);
-    importTableData("user_join_group", $joins);
+    importTableData("join", $joins);
 }
 
 //Source: https://stackoverflow.com/questions/4356289/php-random-string-generator#answer-4356295
@@ -339,8 +386,8 @@ function generateRandomString($length = 10)
     return $randomString;
 }
 
-//dataUsers();
+dataUsers();
 dataGroups();
-//data_user_join_group();
+//data_join();
 
 ?>
