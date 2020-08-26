@@ -12,9 +12,10 @@ ob_start();
 $title = "A propos";
 ?>
     <h1><?= $title = "A propos"; ?></h1>
+    <br>
     <h2 class="txtdarkbluelogo"><?= $collective['name'] ?></h2>
-    <p><strong>Description: </strong><?= $collective['description'] ?></p>
     <p><strong>Type: </strong><?= $collective['type'] ?></p>
+    <p><strong>Description: </strong><?= $collective['description'] ?></p>
     <br>
     <h2 class="txtlightbluelogo">Instance <?= $instance['name'] ?></h2>
     <p><strong>Une instance, Késako ?</strong></p>
@@ -24,17 +25,21 @@ $title = "A propos";
             Dans de futures versions, il sera certainement possible d'en héberger plusieurs.</em></p>
     <p><?= $instance['description'] ?></p>
     <p><strong>Lien: </strong><?= $instance['url'] ?></p>
-    <p><strong>Contact: </strong><?= $instance['contact'] ?></p>
     <p><strong>A propos: </strong><br><?= $instance['about'] ?></p>
-    <p><strong>A propos de nouveaux collectifs: </strong><br><?= $instance['aboutnewcollectives'] ?></p>
+     <br>
+    <p><strong>Admin: </strong><?= $instance['admin'] ?></p>
+    <p><strong>Contact: </strong><?= $instance['contact'] ?></p>
+    <p><strong>Message de l'admin: </strong><?= $instance['adminmsg'] ?></p>
+    <p><strong>A propos la création de nouveaux collectifs: </strong><br><?= $instance['aboutnewcollectives'] ?></p>
 
     <br>
     <h2 class="txtgreenlogo">KanFF</h2>
-<p><strong>C'est quoi ?</strong></p>
-<p>Une application web de gestion de projets, de tâches, et d'organisation du travail, conçue pour le milieu militant et associatif.</p>
+<p><strong>canne... quoi ?</strong></p>
+<p><em class="txtdarkbluelogo">Une application web de gestion de projets, de tâches, et d'organisation du travail, conçue pour le milieu militant et associatif.</em><br>Chaque membre a son compte et intéragit dans des groupes, des projets, des travaux et tâches, de manière collaborative. Il y a aussi des événements et des journaux de bord par projet.</p>
 <p><strong>Gérer des projets et des tâches ? C'est quoi et comment ?</strong></p>
-<p>Il existe un petit mode d'emploi explicant de manière large et simple ce qu'on peut faire sur KanFF. Cette documentation se trouve ici. [ADD LINK]. Vous apprendrez également la signification des termes moins connus et utilisé dans l'application.
-    <br> La 2ème partie explique plus en détail certaines parties facultatives pour les personnes les plus intéressé.e.s...</p>
+
+<p>Il existe <strong>un petit mode d'emploi</strong> explicant de manière large et simple ce qu'on peut faire sur KanFF. Cette documentation se trouve ici. [ADD LINK]. Vous apprendrez également la signification des termes moins connus et largement utilisés dans l'application (comme kanban, travail, supertâche, ...). Le tout est illustré d'images afin de rendre les explications plus concrètes.
+    <br> La 2ème partie explique plus en détail certaines parties et s'adresse aux personnes les plus intéressé.e.s...</p>
 <?php
 $contenttype = "restricted";
 $content = ob_get_clean();

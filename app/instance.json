@@ -10,10 +10,9 @@
     "url": "localhost:80",
     "name": "Blason",
     "about": "Créé début 2019, cette instance accueille et permet la collaboration des membres de Assoc à l'échelle cantonale et aussi régional (sur la Romandie).",
-    "aboutnewcollectives": "Cette instance est gérée par des membres d'Assoc. Elle n'est malheureusement destinée que à Assoc. Si vous êtes intéressé.e.s par l'application KanFF, installez là sur une autre instance!",
+    "aboutnewcollectives": "Cette instance est gérée par des membres d'Assoc. Elle n'est malheureusement destinée que à Assoc. Si vous êtes intéressé.e.s par l'application KanFF, installez là sur une autre instance! Je refuserai donc toute demande de création de collectif extérieure à Assoc, sur cette instance...",
     "admin": "Lila Kobin",
     "contact": "blason@example.com",
-
-    "adminmsg": "En espérant que "
+    "adminmsg": "En espérant que les membres de Assoc pourront agréalement travailler sur cette instance. En cas de problème, contactez-moi par email. Je vous réponds dans la journée ou le lendemain..."
   }
 }
