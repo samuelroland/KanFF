@@ -21,6 +21,7 @@ require "controler/projectsControler.php"; // controler for the projects
 require "controler/tasksControler.php"; // controler for the projects
 require "controler/worksControler.php"; // controler for the projects
 require "controler/eventsControler.php"; // controler for the projects
+require "controler/adminControler.php"; // controler for the projects
 require "model/localFilesModel.php";    //model for local files functions
 require "model/CRUDModel.php";//default model CRUD
 //require  "controler/testCRUDmodel.php";//controler for test CRUDmodel functions
@@ -67,6 +68,9 @@ if (!isset($_SESSION['user'])) {
         case"signin":
             signin($firstname, $lastname, $initials, $username, $password, $password2, $email, $phoneNumber, $bio);
             break;
+        case "about":
+            about();
+            break;
         default:
             //Default action: return to the login page
             login(null, null);
@@ -102,12 +106,14 @@ if (!isset($_SESSION['user'])) {
         case "tasks":
             tasks();
             break;
+        case "about":
+            about();
+            break;
 
         default: // if action is unknown, return back to the dashboard
             dashboard();
             break;
     }
 }
-
 
 ?>
