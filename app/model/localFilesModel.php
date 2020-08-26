@@ -16,4 +16,9 @@ function getInstanceInfos(){
     return $data;
 }
 
+function getFlashMessageById($id){
+    $data = json_decode(file_get_contents("flashmessages.json"), true);
+    return $data[$id];
+}
+
 ?>
