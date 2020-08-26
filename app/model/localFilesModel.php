@@ -11,4 +11,9 @@ function getVersionsApp(){
     return $versions;
 }
 
+function getInstanceInfos(){
+    $data = json_decode(file_get_contents("instance.json"), true);
+    return $data;
+}
+
 ?>

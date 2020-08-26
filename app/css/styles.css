@@ -202,6 +202,10 @@ label {
     color: black;
     width: 100%;
 }
+.collectivename:hover{
+    background-color: #ffb400;
+    text-decoration: underline;
+}
 
 .flexdiv {
     display: flex;
@@ -337,7 +341,7 @@ label {
     background-color: #ddd;
 }
 
-.clickable:hover {
+.userline:hover {
     background-color: #4fb6e382;
 }
 

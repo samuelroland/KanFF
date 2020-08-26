@@ -1,6 +1,7 @@
 ﻿<?php
 $versions = getVersionsApp();
 $action = $_GET['action'];
+$instanceinfos = getInstanceInfos();
 ?>
 
 <!DOCTYPE HTML>
@@ -68,8 +69,8 @@ Y,                    `"8bd888b,             ,P
             <br><span class="versiontext">v<?= $versions[count($versions) - 1]['version'] ?></span>
             <span class="versiontext"><em> le <?= date("d.m.Y", strtotime($versions[count($versions) - 1]['date'])) ?></em></span>
         </div>
-        <div class="col-7 collectivename flexdiv">
-            <div class="align-items-center flexdiv">Grève du Climat Vaud</div>
+        <div data-href="?action=about" class="col-7 collectivename flexdiv clickable <?= ($action == "about") ? 'active' : '' ?>">
+                <div class="align-items-center flexdiv"><?= $instanceinfos['collective']['name'] ?></div>
         </div>
     </div>
 
