@@ -39,6 +39,8 @@ displaydebug($_GET);
 extract($_POST); //vars:
 displaydebug($_POST);
 
+displaydebug($_SESSION);
+
 if (isset($_POST)) {
     $firstname = $_POST["name"];
     $lastname = $_POST["surname"];

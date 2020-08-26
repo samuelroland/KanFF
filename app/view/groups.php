@@ -1,8 +1,8 @@
 <?php
 ob_start();
 $title = "Groupes";
-$test = "Rassemblement des personnes créatives de l'association.";
-$result = (htmlentities($test, ENT_QUOTES));
+//$test = "Rassemblement des personnes créatives de l'association.";
+//$result = (htmlentities($test, ENT_QUOTES));
 echo $result;
 
 ?>

@@ -37,7 +37,7 @@ define("WORK_STATE_ONBREAK", 3);
 define("WORK_STATE_COMPLETED", 4);
 
 //get the flashmessage with the messageid stored in the session.
-function flashMessage()
+function flashMessage($withHtml = true)
 {
     //TODO: export list of message in a json file for separate languages
     if (isset($_SESSION["flashmsg"])) { //if flashmessage exists
@@ -52,9 +52,13 @@ function flashMessage()
                 $message = "Action non autorisée avec ces permissions... mêlez vous de vos oignons.";
                 break;
         }
-        $content = "<div id='flashmessage' class='alert alert-dark bg-info'>" . $message . "</div>";
+        if ($withHtml) {
+            $content = "<div id='flashmessage' class='alert alert-dark flashmessage'>" . $message . "</div>";
+        } else {
+            $content = $message;
+        }
     }
-    unset($_SESSION["flashmessage"]);   //après avoir affiché le message, le message ne doit pas réapparaitre.
+    unset($_SESSION["flashmsg"]);   //après avoir affiché le message, le message ne doit pas réapparaitre.
     return $content;
 }
 

@@ -202,7 +202,8 @@ label {
     color: black;
     width: 100%;
 }
-.collectivename:hover{
+
+.collectivename:hover {
     background-color: #ffb400;
     text-decoration: underline;
 }
@@ -363,4 +364,10 @@ tr {
 
 .flex-4 {
     flex: 4;
+}
+
+.flashmessage {
+    color: black;
+    text-align: center;
+    background-color: #ff8500;
 }

@@ -119,22 +119,25 @@ Y,                    `\"8bd888b,             ,P
         </div>
 
 </header>
-
+<div class="bg-danger margintopforheader flashmessage"><?php
+    $msg = flashMessage(true);
+    echo $msg;
+    ?></div>
 <?php
 
 //Depending on the content type choosed in the view, the appbody will change. 3 types are available: full, large, restrict.
 switch ($contenttype) {
     case "full":
         ?>
-        <div class="appbody margintopforheader p-1"><?= $content; ?></div><?php
+        <div class="appbody <?= ($msg != "") ? "" : "margintopforheader" ?> p-1"><?= $content; ?></div><?php
         break;
     case "large":
         ?>
-        <div class="appbody margintopforheader p-3"><?= $content; ?></div><?php
+        <div class="appbody <?= ($msg != "") ? "" : "margintopforheader" ?> p-3"><?= $content; ?></div><?php
         break;
     case "restricted":
         ?>
-        <div class="flexdiv margintopforheader justify-content-center">
+        <div class="flexdiv <?= ($msg != "") ? "" : "margintopforheader" ?> justify-content-center">
             <div class="appbody appbodyrestrict col-lg-7 col-md-8 col-sm-11 marginauto p-3"><?= $content; ?></div>
         </div>
         <?php
@@ -146,7 +149,6 @@ switch ($contenttype) {
         break;
 }
 ?>
-
 
 </div>
 </body>
