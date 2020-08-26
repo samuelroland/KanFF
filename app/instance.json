@@ -1,0 +1,15 @@
+{
+  "collective": {
+    "name": "Collectif Assoc Vaud",
+    "description": "Assoc est un groupe de personnes venant de différents horizons militants et qui organise des événements et actions tentant de réunir diverses luttes.",
+    "msg": "Bienvenue sur l'instance Blason, l'instance KanFF destinée à Assoc pour toute la Romandie."
+    "waitofapprovation": "Tous nouveaux comptes doit être approuvé par un.e admin déjà membre. Une fois votre compte créé, contactez un membre afin de demander à être moderé. Si vous ne demandez pas, vous ne serez pas approuvé."
+  },
+  "instance": {
+    "url": "localhost:80",
+    "name": "Blason",
+    "contact": "blason@example.com",
+    "about": "Créé début 2019, cette instance accueille et permet la collaboration des membres de Assoc à l'échelle cantonale et aussi régional (sur la Romandie).",
+    "aboutnewcollectives": "Cette instance est gérée par des membres d'Assoc. Elle n'est malheureusement destinée que à Assoc. Si vous êtes intéressé.e.s par l'application KanFF, installez là sur une autre instance."
+  }
+}
