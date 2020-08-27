@@ -94,7 +94,7 @@ if (!isset($_SESSION['user'])) {
             groups();
             break;
         case "members":
-            members();
+            members($_GET['option']);
             break;
         case "createAGroup":
             createAGroup($group);
