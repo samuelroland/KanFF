@@ -10,8 +10,8 @@ session_start();
 
 error_reporting(0); //Hide all error with the php code and html/css/js code
 // Include all controllers
-require "view/helpers.php";     //functions for helpers functions
-require "controler/help.php";   //controler to generate common contents
+require_once "view/helpers.php";     //functions for helpers functions
+require_once "controler/help.php";   //controler to generate common contents
 require "controler/loginControler.php"; //controler for login functions
 require "controler/accountControler.php"; // controler to modify account settings
 require "controler/dashboardControler.php"; // controler for the dashboard page

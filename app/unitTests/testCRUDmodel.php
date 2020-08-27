@@ -6,7 +6,8 @@
  *  Creation date: 15.05.2020
  */
 $BENOIT=true;
-require_once '../model/CRUDModel.php';
+require_once 'model/CRUDModel.php';
+function displaydebug(){}
 //Get all elements of one Table
 function test_getAll()
 {
@@ -15,88 +16,101 @@ function test_getAll()
     if (count($array)==100){
         echo "OK";
     }else{
-        echo "BUG";
+        echo "BUG
+";
     }
-    echo "<br>";
+    echo "
+    
+    ";
 }
 //Get one element by his id
 function test_getOne(){
     echo "getOne: ";
     $array= getOne("users",56);
-    if ($array['username']=="orli22"){
+    if ($array['username']=="orli82"){
         echo "OK";
     }else{
-        echo "BUG";
+        echo "BUG
+";
         if (isset($array)){
-             var_dump($array);
+            echo "Array isn't null:";
         }else{
             echo "\$array=null";
         }
     }
-    echo "<br>";
+    echo "
+    
+    ";
 }
 //Get some specific elements of one Table
 function test_getAllByCriterion()
 {
     echo "getAllByCriterion: ";
-    $id=56;
     $criterions="email IS NULL";
     $params=null;
     $array= getByCondition("users",$params,$criterions,true);
-    if (count($array)==41){
+    if (count($array)==52){
         echo "OK";
     }else{
-        echo "BUG";
+        echo "BUG
+";
         if (isset($array)){
-            echo "<br>Le retour de la requète :";
-            var_dump($array);
+            echo "Array isn't null:";
         }else{
             echo "\$array=null";
         }
     }
-    echo "<br>";
+    echo "
+    
+    ";
 }
 //Get only one specific element of one Table
 function test_getOneByCriterion()
 {
     echo "getOneByCriterion: ";
-    $criterions='email IS NULL AND initials = "JRD" ';
+    $criterions=' initials = "JRD" ';
     $params=null;
     $array= getByCondition("users",$params,$criterions,false);
-    if ($array['phonenumber']==6221542889){
+    if ($array['phonenumber']==7565739989){
         echo "OK";
     }else{
-        echo "BUG";
+        echo "BUG
+";
         if (isset($array)){
-            echo "<br>Le retour de la requète :";
-            var_dump($array);
+            echo "Array isn't null:";
         }else{
             echo "\$array=null";
         }
     }
-    echo "<br>";
+    echo "
+    
+    ";
 }
 
 //Create one element
-function test_createOne($table,$params,$values,$field){
-    echo "crateOne: ";
-    $field = "(department, name, code)";
-    $values = "(':department',':name',':code')";
-    //$values = "(:department,:name,:code')";
-    $params = ['department'=>$department,'name'=>$name,'code'=>$code];
-    $array= createOne("users",);
-    if ($array['phonenumber']==6221542889){
+function test_createOne(){
+    echo "crateOne: 
+    ";
+    $name="Test";
+    $category="unitTest1";
+    $params = ['name'=>$name,'category'=>$category];
+    $test=createOne("users",$params);
+    $array=getOne("competences",1);
+    if ($array['category']=="unitTest1"){
         echo "OK";
     }else{
-        echo "BUG";
-        if (isset($array)){
-            echo "<br>Le retour de la requète :";
-            var_dump($array);
+        echo "BUG
+";
+        if (isset($test)){
+            echo "Array isn't null:";
+            echo $test;
         }else{
             echo "\$array=null";
         }
     }
-    echo "<br>";
+    echo "
+
+";
 }
 //Update one element
 function test_updateOne($table,$id,$elementForUpdate,$params){
@@ -106,15 +120,17 @@ function test_updateOne($table,$id,$elementForUpdate,$params){
     if ($array['phonenumber']==6221542889){
         echo "OK";
     }else{
-        echo "BUG";
+        echo "BUG
+";
         if (isset($array)){
-            echo "<br>Le retour de la requète :";
-            var_dump($array);
+            echo "Array isn't null:";
         }else{
             echo "\$array=null";
         }
     }
-    echo "<br>";
+    echo "
+
+";
 }
 //Detlete one element by his id
 function test_deleteOne($table,$id){
@@ -123,8 +139,11 @@ function test_deleteOne($table,$id){
 function test_unitaire(){
 
 }
+///cd C:\Users\benoit.pierrehumbert\Documents\GitHub\KanFF\app
+///php -f .\unitTests\testCRUDmodel.php
 test_getAll();
 test_getOne();
 test_getAllByCriterion();
 test_getOneByCriterion();
+test_createOne();
 ?>

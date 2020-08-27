@@ -5,79 +5,150 @@
  *  Author: Kevin Vaucher
  *  Creation date: 18.05.2020
  */
+//Define css classes for repetitives markups, to change it quickly
+$cssForSpan = "col-md-5 col-sm-5 box-verticalaligncenter";
+$cssForInput = "col-md-5 col-sm-7 form-control";
+$cssForDivZone = "pl-3";
+$cssForDivField = "row pt-1";
+
 $title = "Mon compte";
 ob_start();
 ?>
-    <h1><?= $title ?></h1>
-    <p>Voici les informations de votre compte sur l'instance Blason. C'est sur cette page que vous pouvez gérer votre
-        compte.<br> Vous pouvez modifier vos informations pour la plupart et aussi archiver ou supprimer votre compte
-        (attention supprimer est une action irréversible !)</p>
-    <br>
-    <form>
-        <table>
-            <tbody>
-            <tr><b>Informations principales</b></tr>
-            <tr>
-                <td><label for="firstname">Prénom : </label><input value="Josette" name="firstname" type="text"
-                                                                   id="firstname"></td>
-            </tr>
-            <tr>
-                <td><label for="lastname">Lastname : </label><input value="Richard" name="lastname" type="text"
-                                                                    id="lastname"></td>
-            </tr>
-            <tr>
-                <td><label for="initials">Initiales : </label><input value="JRD" name="initials" type="text"
-                                                                     id="initials"></td>
-            </tr>
-            <tr>
-                <td><label for="registerdate">Date d'inscription : </label><input value="2020-03-02" name="registerdate"
-                                                                                  type="text" id="registerdate"></td>
-            </tr>
-            <tr>
-                <td><label for="username">Username : </label><input value="jojosette" name="username" type="text" id="username"></td>
-            </tr>
-            </tbody>
-        </table>
-        <br>
-        <table>
-            <tbody>
-            <tr><b>Changement du mot de passe</b></tr>
-            <tr>
-                <td><label for="actualpassword">Actuel : </label><input value="MonMotdepa$332" name="actualpassword" type="text" id="actualpassword"></td>
-            </tr>
-            <tr>
-                <td><label for="password">Mot de passe : </label><input value="MonMotDepa$332" name="password" type="text" id="password"></td>
-            </tr>
-            <tr>
-                <td><label for="confirmationpassword">Confirmation : </label><input value="MonMotdepa$332" name="confirmationpassword" type="text" id="confirmationpassword"></td>
-            </tr>
-            </tbody>
-        </table>
-        <br>
-        <table>
-            <tbody>
-            <tr><b>Champs facultatifs</b></tr>
-            <tr>
-                <td><label for="email">Email : </label><input value="perrick.beaujolet@hotmail.com" name="email"
-                                                              type="text" id="email" size="25px"></td>
-            </tr>
-            <tr>
-                <td><label for="phonenumber">N. Téléphone : </label><input value="0791234567" name="phonenumber"
-                                                                           type="text" id="phonenumber"></td>
-            </tr>
-            <tr>
-                <td><label for="bio">Biographie : </label><input value="Etudiant, en études d'éléctronique à l'EPFL, je milite depuis 4 ans ..." name="bio" type="text" id="bio" size="60px"></td>
-            </tr>
-            </tbody>
-            </table>
-            <h4>Zone danger - actions irréversibles ou à grosses conséquences techniques</h4>
-            <table>
-                <input type="button" value="Supprimer son compte">
-                <br>
-                <br>
-                <input type="button" value="Archiver son compte">
-            </table>
-    </form>
+    <p class="aligncenter">Voici les informations de votre compte sur l'instance Blason. C'est sur cette page que vous
+        pouvez gérer votre compte. Vous pouvez modifier vos informations pour la plupart et aussi archiver ou supprimer
+        votre compte (attention supprimer est une action irréversible!)</p>
+    <div class="box-aligncenter pt-4"></div>
+    <div class="form-group">
+        <h1 class="aligncenter pt-4"><?= $title ?></h1>
+        <form style="align-self: auto" class="pt-3" action="?action=signin" method="post">
+            <h5 class="pt-3">Informations principales:</h5>
+            <div class="<?= $cssForDivZone ?>">
+                <div class="<?= $cssForDivField ?>">
+                    <span class="<?= $cssForSpan ?>">Prénom</span>
+                    <input class="<?= $cssForInput ?>" minlength="2" maxlength="254" type="text" name="name"
+                           placeholder="Josette"
+                           required/>
+                </div>
+                <div class="<?= $cssForDivField ?>">
+                    <span class="<?= $cssForSpan ?>">Nom</span>
+                    <input class="<?= $cssForInput ?>" minlength="2" maxlength="254" type="text" name="surname"
+                           placeholder="Richard" required/>
+                </div>
+                <div class="<?= $cssForDivField ?>">
+                    <span class="<?= $cssForSpan ?>">Initiales </span>
+                    <input class="<?= $cssForInput ?>" type="text" placeholder="JRD" readonly/>
+                    <img title="Les initiales sont uniques et générées automatiquement donc non modifiables"
+                         src="view/medias/icons/point.png" alt="50px" width="35" height="35" class="">
+                </div>
+                <div class="<?= $cssForDivField ?>">
+                    <span class="<?= $cssForSpan ?>">Date d'inscription </span>
+                    <input class="<?= $cssForInput ?>" type="date" placeholder="" readonly/>
+                    <img title="Date d'inscription non modifiable"
+                         src="view/medias/icons/point.png" alt="50px" width="35" height="35" class="">
+                </div>
+
+                <div class="<?= $cssForDivField ?>">
+                    <span class="<?= $cssForSpan ?>">Statut</span>
+                    <span class="fullwidth"><textarea name="biography" id="txtBiography" rows="2" placeholder="tbd"
+                                                      class="fullwidth form-control"
+                                                      title="Votre biographie"></textarea></span>
+
+                </div>
+                <div class="<?= $cssForDivZone ?>">
+                    <div class="<?= $cssForDivField ?>">
+                        <span class="<?= $cssForSpan ?>">Nom d'utilisateur/trice</span>
+                        <input class="<?= $cssForInput ?>" minlength="4" maxlength="20" type="text" name="user"
+                               placeholder="josette27" required/> <img title="Manque text"
+                                                                       src="view/medias/icons/point.png" alt="50px"
+                                                                       width="35" height="35" class="">
+                    </div>
+                </div>
+                <h5 class="pt-3">Changement de mot de passe:<span title="Inserer le text volu"
+                                                                  class="glyphicon glyphicon-question-sign"></span>
+                </h5>
+
+                <div class="<?= $cssForDivField ?>">
+                    <span class="<?= $cssForSpan ?>">Actuel</span>
+                    <input class="<?= $cssForInput ?>" type="password" name="password" placeholder="" required/>
+                    <img title="Iserez le mot de passe catuel" src="view/medias/icons/point.png" alt="50px" width="35"
+                         height="35" class="">
+                </div>
+                <div class="<?= $cssForDivField ?>">
+                    <span class="<?= $cssForSpan ?>">Mot de passe</span>
+                    <input class="<?= $cssForInput ?>" type="password" name="password" placeholder="" required/>
+                    <img title="Les critères de sécurité du mot de passe sont:
+                - yy caractères
+                - caractères minuscules, majuscules, spéciaux, chiffres.
+                - ... TBD" src="view/medias/icons/point.png" alt="50px" width="35" height="35" class="">
+                </div>
+
+                <div class="<?= $cssForDivField ?>">
+                    <span class="<?= $cssForSpan ?>">Confirmation</span>
+                    <input class="<?= $cssForInput ?>" type="password" name="passwordc" placeholder="" required
+                           title="Confirmation du mot de passe"/>
+                    <span title="Inserer le text volu" class=" glyphicon-question-sign"></span>
+                </div>
+            </div>
+
+            <h5 class="pt-3">Champs facultatifs:</h5>
+            <div class="<?= $cssForDivZone ?>">
+                <div class="<?= $cssForDivField ?>">
+                    <span class="<?= $cssForSpan ?>">Email</span>
+                    <input class="<?= $cssForInput ?>" type="email" name="email"
+                           placeholder="josette.richard@assoc.ch"/>
+                </div>
+
+                <div class="<?= $cssForDivField ?>">
+                    <span class="<?= $cssForSpan ?>">N°téléphone</span>
+                    <input class="<?= $cssForInput ?>" type="number" name="nb_phone" placeholder="Phone"/>
+                </div>
+
+                <div class="<?= $cssForDivZone ?>">
+                    <div class="<?= $cssForDivField ?>">
+                        <span class="<?= $cssForSpan ?>">Lien messagerie instantanée</span>
+                        <input class="<?= $cssForInput ?>" type="email" name="email"
+                               placeholder="t.me/josette27"/>
+                        <img title="Lien publique contenant votre pseudo publique. Fonctionne pour certaines messageries uniquement.
+Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard"
+                             src="view/medias/icons/point.png" alt="50px" width="35" height="35" class="">
+                    </div>
+                </div>
+
+                <div class="<?= $cssForDivField ?>">
+                    <span class="<?= $cssForSpan ?>">Biographie</span>
+                    <span class="fullwidth"><textarea name="biography" id="txtBiography" rows="2" placeholder="tbd"
+                                                      class="fullwidth form-control"
+                                                      title="Votre biographie"></textarea></span>
+
+                    <?php
+                    if (isset($_SESSION['error'])) {
+                        if ($_SESSION['error'] == 1) {
+                            echo "<br><p class='alert-warning'>Les mots de passe introduits ne se correspondent pas</p>";
+                        }
+                        if ($_SESSION["error"] == 2) {
+                            echo "<br><p class='alert-warning'>Les initiales introduites sont déjà existantes</p>";
+                        }
+
+                        unset($_SESSION['error']);
+                    }
+                    ?>
+                </div>
+            </div>
+            <p class="">Ces informations seront visibles à tous les membres approuvés de l'instance, dans le but d'avoir un ou des moyens de contact et une description pour les nouvelles personnes, qui ne connaissent pas les autres membres. </p>
+            <div class="vertical-center box-alignright pt-3">
+                <button type="submit" class="btn btn-primary">Enresgistrer</button>
+            </div>
+            <div>
+            <p class="">Zone danger - actions irréversibles ou à grosses conséquences techniques.</p>
+            <div class="vertical-center box-alignright pt-3">
+                <button type="submit" class="btn btn-primary">Supprimer son compte</button>
+            </div>
+            <div class="vertical-center box-alignright pt-3">
+            <button type="submit" class="btn btn-primary">Archiver son compte</button>
+            </div>
+            </div>
+        </form>
+    </div>
 
 <?php
 $contenttype = "large";
