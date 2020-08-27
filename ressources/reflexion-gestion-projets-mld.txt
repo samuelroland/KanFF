@@ -197,8 +197,9 @@ groups:
 users:
 comment mettre un statut "membre" et nouvelleau ? vraiment besoin ?
 approuvé par : approver_id
+date d'approbation ?? en lien avec changement d'état.
 quid des roles et responsabilités ? par groupe ? par projet ?
-
+changement d'état le +date ? archivé le tel date, approuvé le tel date.
 
 ------------
 Quid des commentaires sur les tâches ou sur les travaux ?
