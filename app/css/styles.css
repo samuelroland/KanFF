@@ -255,6 +255,12 @@ label {
     margin: 5px;
 }
 
+.icon-small {
+    width: 30px;
+    margin: 5px;
+}
+
+
 .linkExternal {
     text-decoration: none;
     color: #896b01;

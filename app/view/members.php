@@ -7,13 +7,24 @@ $isAdmin = checkAdmin();
     <h1><?= $title ?></h1>
     <div class="headView flexdiv">
         <div class="flex-4">
-            <button data-href="?action=members&option=1" class="clickable btn <?= ($option == 1) ? 'active' : 'btn-info' ?>">Actif.ves</button>
-            <button data-href="?action=members&option=2" class="clickable btn <?= ($option == 2) ? 'active' : 'btn-info' ?>">En pause</button>
-            <button data-href="?action=members&option=3" class="clickable btn <?= ($option == 3) ? 'active' : 'btn-info' ?>">Archivés</button>
-            <button data-href="?action=members&option=4" class="clickable btn <?= ($option == 4) ? 'active' : 'btn-info' ?>">Admins</button>
+            <button data-href="?action=members&option=1"
+                    class="clickable btn <?= ($option == 1) ? 'active' : 'btn-info' ?>">Actif
+            </button>
+            <button data-href="?action=members&option=2"
+                    class="clickable btn <?= ($option == 2) ? 'active' : 'btn-info' ?>">En pause
+            </button>
+            <button data-href="?action=members&option=3"
+                    class="clickable btn <?= ($option == 3) ? 'active' : 'btn-info' ?>">Archivé
+            </button>
+            <button data-href="?action=members&option=4"
+                    class="clickable btn <?= ($option == 4) ? 'active' : 'btn-info' ?>">Admin
+            </button>
             <?php
             if ($isAdmin) { ?>
-                <button data-href="?action=members&option=5" class="clickable btn <?= ($option == 5) ? 'active' : 'btn-info' ?>">Non approuvés (<strong><?= $nbUnapprovedUsers ?></strong>)</button>
+                <button data-href="?action=members&option=5"
+                        class="clickable btn <?= ($option == 5) ? 'active' : 'btn-info' ?>">Non approuvé
+                    (<strong><?= $nbUnapprovedUsers ?></strong>)
+                </button>
                 <?php
             }
             ?>
@@ -25,8 +36,8 @@ $isAdmin = checkAdmin();
             </a>
         </div>
     </div>
-
-    <div class="divMembers pt-3 flexdiv">
+    <p class="pt-2">La liste ci-dessous contient <strong><?= count($members) ?></strong> membres.</p>
+    <div class="divMembers pt-0 flexdiv">
         <table class="table">
             <thead class="yellowligthheader">
             <tr>
@@ -62,7 +73,7 @@ $isAdmin = checkAdmin();
                             echo "<option value='$onestate'" . (($member['state'] == $onestate) ? "selected" : '') . ">" . convertUserState($onestate) . "</option>";
                         }
                         echo "</select></th>
-                <th>Supprimer</th>";
+                <th class='imgTrash justify-content-center flexdiv'><img src='view/medias/icons/trash.png' class='icon-small ' alt='trash icon' data-userid='{$member['id']}'></th>";
                     }
                     ?>
                 </tr>
