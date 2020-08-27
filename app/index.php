@@ -26,6 +26,8 @@ require "model/localFilesModel.php";    //model for local files functions
 require "model/CRUDModel.php";//default model CRUD
 //require  "controler/testCRUDmodel.php";//controler for test CRUDmodel functions
 
+$isAdmin = checkAdmin();
+
 // Extract the action of the querystring
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
@@ -94,7 +96,11 @@ if (!isset($_SESSION['user'])) {
             groups();
             break;
         case "members":
-            members($_GET['option']);
+            $option = $_GET['option'];
+            if ($isAdmin == false && $option == 5) {
+                $option = 1;
+            }
+            members($option);
             break;
         case "createAGroup":
             createAGroup($group);

@@ -45,6 +45,8 @@ function members($option)
                 if ($state != USER_STATE_ADMIN && $state != USER_STATE_APPROVED) {
                     unset($members[$member['id']]);
                 }
+                //Change $option to default:
+                $option = 1;
                 break;
         }
     }

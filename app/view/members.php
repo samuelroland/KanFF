@@ -1,10 +1,7 @@
 <?php
 ob_start();
 $title = "Membres";
-$isAdmin = false;
-if ($_SESSION['user']['state'] == USER_STATE_ADMIN) {
-    $isAdmin = true;
-}
+$isAdmin = checkAdmin();
 
 ?>
     <h1><?= $title ?></h1>

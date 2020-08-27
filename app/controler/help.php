@@ -123,4 +123,14 @@ function indexAnArrayById($array)
     return $newarray;
 }
 
+//Return true or false if the user logged is an admin or not.
+function checkAdmin()
+{
+    $isAdmin = false;
+    if ($_SESSION['user']['state'] == USER_STATE_ADMIN) {
+        $isAdmin = true;
+    }
+    return $isAdmin;
+}
+
 ?>
