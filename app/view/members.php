@@ -28,12 +28,6 @@ $isAdmin = checkAdmin();
                 <?php
             }
             ?>
-
-        </div>
-        <div class="box-alignright flex-1">
-            <a href="?action=asjkdlf">
-                <button class="btn btn-primary newgroup">yyyyy</button>
-            </a>
         </div>
     </div>
     <p class="pt-2">La liste ci-dessous contient <strong><?= count($members) ?></strong> membres.</p>
