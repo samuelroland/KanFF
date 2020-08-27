@@ -29,8 +29,18 @@ $isAdmin = checkAdmin();
             }
             ?>
         </div>
+        <div class="box-alignright flex-1">
+            <button class="btn btn-primary" id="btnEditMode">Mode édition</button>
+        </div>
     </div>
-    <p class="pt-2">La liste ci-dessous contient <strong><?= count($members) ?></strong> membres.</p>
+
+    <div class="flexdiv">
+        <p class="pt-2 flex-2">La liste ci-dessous contient <strong><?= count($members) ?></strong> membres.</p>
+        <div class="box-alignright flex-1">
+            <input type="password" id="inpPassword" class="form-control" placeholder="Mot de passe" hidden>
+        </div>
+    </div>
+
     <div class="divMembers pt-0 flexdiv">
         <table class="table">
             <thead class="yellowligthheader">
@@ -62,12 +72,12 @@ $isAdmin = checkAdmin();
                     <td><?= DTToHumanDate($member['inscription'], "simpleday") ?></td>
                     <?php
                     if ($isAdmin) {
-                        echo "<th><select name='' id='' class='sltAccountState'>";
+                        echo "<th><select name='' id='' class='sltAccountState' disabled>";
                         foreach (USER_LIST_STATE as $onestate) {
                             echo "<option value='$onestate'" . (($member['state'] == $onestate) ? "selected" : '') . ">" . convertUserState($onestate) . "</option>";
                         }
                         echo "</select></th>
-                <th class='imgTrash justify-content-center flexdiv'><img src='view/medias/icons/trash.png' class='icon-small ' alt='trash icon' data-userid='{$member['id']}'></th>";
+                <th class='imgTrash justify-content-center flexdiv'><img src='view/medias/icons/trash.png' class='icon-small' alt='trash icon' data-userid='{$member['id']}' ></th>";
                     }
                     ?>
                 </tr>
