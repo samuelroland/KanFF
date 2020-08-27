@@ -33,7 +33,7 @@ $title = "Membres";
             $test = 0;
             foreach ($members as $member) {
                 ?>
-                <tr class="clickable  <?= ($member['id'] == $_SESSION['user']['id']) ? "yellowveryligthheader" : "" ?>"
+                <tr class="userline clickable  <?= ($member['id'] == $_SESSION['user']['id']) ? "yellowveryligthheader" : "" ?>"
                     data-href="?action=user&id=<?= $member['id'] ?>">
                     <td><?= $member['initials'] ?></td>
                     <td><?= $member['username'] ?></td>

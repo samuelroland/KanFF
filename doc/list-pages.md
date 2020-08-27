@@ -2,6 +2,9 @@
 
 - **Gabarit**: Logo + menu + membre connecté.
 
+## Divers:
+- **Page A propos"**: informations du collectif, de l'instance et sur KanFF, informations en partie tirée de `instance.json`.
+
 ## Users:
 - **Page Login**: se connecter.
 - **Page Créer un compte**: se créer un compte sur l'instance.

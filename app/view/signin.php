@@ -1,6 +1,7 @@
 <?php
 ob_start();
 $title = "Créer un compte";
+$instanceinfos = getInstanceInfos();
 
 //Define css classes for repetitives markups, to change it quickly
 $cssForSpan = "col-md-5 col-sm-5 box-verticalaligncenter";
@@ -8,7 +9,7 @@ $cssForInput = "col-md-5 col-sm-7 form-control";
 $cssForDivZone = "pl-3";
 $cssForDivField = "row pt-1";
 ?>
-<p class="aligncenter">Bienvenue sur l'instance Blason, l'instance KanFF de la GdC pour toute la Romandie.</p>
+<p class="aligncenter"><?= $instanceinfos['collective']['msg'] ?></p>
 <div class="box-aligncenter pt-4"></div>
 <div class="form-group">
     <h1 class="aligncenter pt-4"><?= $title ?></h1>
