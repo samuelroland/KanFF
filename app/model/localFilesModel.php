@@ -6,19 +6,26 @@
  *  Creation date: 11.05.2020
  */
 
-function getVersionsApp(){
+function getVersionsApp()
+{
     require "version.php";
     return $versions;
 }
 
-function getInstanceInfos(){
+function getInstanceInfos()
+{
     $data = json_decode(file_get_contents("instance.json"), true);
     return $data;
 }
 
-function getFlashMessageById($id){
+function getFlashMessageById($id)
+{
     $data = json_decode(file_get_contents("flashmessages.json"), true);
-    return $data[$id];
+    if (isset($data[$id])) {
+        return $data[$id];
+    } else {
+        return "MsgID $id for a flashmessage doesn't exists!";
+    }
 }
 
 ?>
