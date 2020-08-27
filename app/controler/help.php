@@ -93,4 +93,9 @@ function substrText($text, $max, $points = true)
     return $text;
 }
 
+//Trim value of spaces, tab, ... in " \t\n\r\0\x0B"
+function trimIt($string)
+{
+    return trim($string, " \t\n\r\0\x0B");
+}
 ?>

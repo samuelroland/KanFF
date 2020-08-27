@@ -39,19 +39,8 @@ define("WORK_STATE_COMPLETED", 4);
 //get the flashmessage with the messageid stored in the session.
 function flashMessage($withHtml = true)
 {
-    //TODO: export list of message in a json file for separate languages
     if (isset($_SESSION["flashmsg"])) { //if flashmessage exists
-        switch ($_SESSION['flashmsg']) {
-            case 1: //erreur identifiants
-                $message = "Les identifiants de connexion ne concordent pas. Veuillez retenter la connexion.";
-                break;
-            case 2: //erreur email déjà pris
-                $message = "Cet email est déjà utilisé par un autre utilisateur... Veuillez recommencer avec un autre email.";
-                break;
-            case 3: //erreurs de permissions en cas de bidouille des formulaires.
-                $message = "Action non autorisée avec ces permissions... mêlez vous de vos oignons.";
-                break;
-        }
+        $message = getFlashMessageById($_SESSION['flashmsg']);  //get message from JSON file flashmessages.json
         if ($withHtml) {
             $content = "<div id='flashmessage' class='alert alert-dark flashmessage'>" . $message . "</div>";
         } else {
@@ -67,6 +56,7 @@ function displaydebug($var)
 {
     require ".const.php";   //get the $debug variable
     if ($debug == true) {   //if debug mode enabled
+        echo "<br>";
         var_dump($var);
     }
 }

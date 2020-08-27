@@ -20,7 +20,7 @@ $instanceinfos = getInstanceInfos();
            <input type="password" class="form-control" name="password" id="password" placeholder="" required>
         </div>
         <div>
-            <div class="vertical-center box-alignright">
+            <div class="box-alignright">
         <button type="submit" class="btn btn-primary">Se connecter</button>
             </div>
             <br><p>Pas encore de compte sur cette instance ? <a href="/?action=signin">Créer un compte.</a></p>
