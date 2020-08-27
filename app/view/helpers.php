@@ -56,6 +56,7 @@ function displaydebug($var)
 {
     require ".const.php";   //get the $debug variable
     if ($debug == true) {   //if debug mode enabled
+        echo "<br>";
         var_dump($var);
     }
 }

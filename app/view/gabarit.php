@@ -2,6 +2,7 @@
 $versions = getVersionsApp();
 $action = $_GET['action'];
 $instanceinfos = getInstanceInfos();
+require ".const.php";
 ?>
 
 <!DOCTYPE HTML>
@@ -63,7 +64,7 @@ Y,                    `\"8bd888b,             ,P
 ----------------------------------------------- -->";
 ?>
 <body>
-<header class="bg-header header-fixed">
+<header class="bg-header <?php if ($debug==false){echo "header-fixed";} ?>">
     <div class="logodiv row lineheigthsmall">
         <div class="col-5">
             <a href="/"><img src="view/medias/logos/KanFF_Logo.svg" alt="logo KanFF" class="logo"></a>
