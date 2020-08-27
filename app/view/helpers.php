@@ -5,7 +5,7 @@
  *  Author: Team
  *  Creation date: 26.04.2020
  */
-
+require_once "controler/help.php";
 //define constants value of users.state, identical to values in the database:
 define("USER_STATE_UNAPPROVED", 0);
 define("USER_STATE_APPROVED", 1);
@@ -139,6 +139,10 @@ function convertWorkState($int)
     }
 }
 
+function setFirstCharToUpperCase($string)
+{
+    return strtoupper(replaceAccentChars(substr($string, 0, 1))) . substr($string, 1);
+}
 //tasks too or identical to works.state ?
 
 ?>
