@@ -86,6 +86,9 @@ function specialCharsConvertFromAnArray($items, $fields)
 //Substring a string cleverly without cut a word, to return a string that is equal or less long than the max defined
 function substrText($text, $max, $points = true)
 {
+    if ($text == "") {
+        return "";
+    }
     if ($points == true) {
         $max -= 4;
     }
@@ -109,6 +112,15 @@ function trimIt($string)
 function replaceAccentChars($string)
 {
     return strtr($string, ARRAY_ACCENT_CHARS);
+}
+
+function indexAnArrayById($array)
+{
+    $newarray = [];
+    foreach ($array as $item) {
+        $newarray[$item['id']] = $item;
+    }
+    return $newarray;
 }
 
 ?>
