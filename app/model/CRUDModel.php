@@ -85,7 +85,7 @@ function createOne($table, $values)
     displaydebug($query);
     displaydebug($values);
     return Query($query, $values, false);
-}
+}//
 
 //Delete one element by his id
 function deleteOne($table, $id)
@@ -100,6 +100,7 @@ function buildStringForInsertValues($values)
 {
     $fieldsList = implode(", ", array_keys($values));
     $valuesList = implode(", :", array_keys($values));
+    echo "($fieldsList) VALUES (:$valuesList);";
     return "($fieldsList) VALUES (:$valuesList);";
 }
 

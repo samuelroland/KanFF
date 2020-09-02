@@ -7,7 +7,12 @@
  */
 $BENOIT=true;
 require_once 'model/CRUDModel.php';
-function displaydebug(){}
+function displaydebug(){
+        echo "
+        ";
+        var_dump($var);
+
+}
 //Get all elements of one Table
 function test_getAll()
 {
@@ -92,18 +97,17 @@ function test_createOne(){
     echo "crateOne: 
     ";
     $name="Test";
-    $category="unitTest1";
-    $params = ['name'=>$name,'category'=>$category];
-    $test=createOne("users",$params);
+    $params = ['name'=>$name];
+    $test=createOne("competences",$params);
     $array=getOne("competences",1);
-    if ($array['category']=="unitTest1"){
+    if ($array['name']=="Test"){
         echo "OK";
     }else{
-        echo "BUG
+        echo "BUG Create
 ";
-        if (isset($test)){
+        echo $test;
+        if (isset($array)){
             echo "Array isn't null:";
-            echo $test;
         }else{
             echo "\$array=null";
         }
@@ -140,7 +144,7 @@ function test_unitaire(){
 
 }
 ///cd C:\Users\benoit.pierrehumbert\Documents\GitHub\KanFF\app
-///php -f .\unitTests\testCRUDmodel.php
+///cls | php -f .\unitTests\testCRUDmodel.php
 test_getAll();
 test_getOne();
 test_getAllByCriterion();
