@@ -24,7 +24,7 @@ function createLogs($data)
 //Get all users
 function getAllUsers()
 {
-    getAll("users");
+    return indexAnArrayById(getAll("users"));
 }
 
 // Get one User
@@ -61,8 +61,13 @@ function deleteUser($id)
     deleteOne("users", $id);
 }
 
-function getAllUsersActive(){
-    return Query("SELECT * FROM users ORDER BY users.inscription desc",[], true);
+function getAllUsersActive()
+{
+    $query = "SELECT * FROM users 
+WHERE users.state in (" . USER_STATE_ADMIN . ", " . USER_STATE_APPROVED . ")
+ORDER BY users.inscription desc";
+    displaydebug($query);
+    return Query($query, [], true);
 }
 
 

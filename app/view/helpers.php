@@ -12,12 +12,14 @@ define("USER_STATE_APPROVED", 1);
 define("USER_STATE_ONBREAK", 2);
 define("USER_STATE_ARCHIVED", 3);
 define("USER_STATE_ADMIN", 4);
+define("USER_LIST_STATE", [USER_STATE_UNAPPROVED, USER_STATE_APPROVED, USER_STATE_ONBREAK, USER_STATE_ARCHIVED, USER_STATE_ADMIN]);
 
 //define constants of groups.state, identical to values in the database:
 define("GROUP_STATE_ONSTARTUP", 0);
 define("GROUP_STATE_ACTIVE", 1);
 define("GROUP_STATE_ONBREAK", 2);
 define("GROUP_STATE_ARCHIVED", 3);
+define("GROUP_LIST_STATE", [GROUP_STATE_ONSTARTUP, GROUP_STATE_ACTIVE, GROUP_STATE_ONBREAK, GROUP_STATE_ARCHIVED]);
 
 //define constants of projects.state, identical to values in the database:
 define("PROJECT_STATE_UNDERREFLECTION", 0);
@@ -29,12 +31,15 @@ define("PROJECT_STATE_REPORTED", 5);
 define("PROJECT_STATE_ABANDONNED", 6);
 define("PROJECT_STATE_CANCELLED", 7);
 define("PROJECT_STATE_COMPLETED", 8);
+define("PROJECT_LIST_STATE", [PROJECT_STATE_UNDERREFLECTION, PROJECT_STATE_UNDERPLANNING, PROJECT_STATE_SEMIACTIVEWORK, PROJECT_STATE_ACTIVEWORK, PROJECT_STATE_ONBREAK, PROJECT_STATE_REPORTED, PROJECT_STATE_ABANDONNED, PROJECT_STATE_CANCELLED, PROJECT_STATE_COMPLETED]);
+
 
 //define constants of works.state, identical to values in the database:
 define("WORK_STATE_TODO", 1);
 define("WORK_STATE_INRUN", 2);
 define("WORK_STATE_ONBREAK", 3);
 define("WORK_STATE_COMPLETED", 4);
+define("WORK_LIST_STATE", [WORK_STATE_TODO, WORK_STATE_INRUN, WORK_STATE_ONBREAK, WORK_STATE_COMPLETED]);
 
 //get the flashmessage with the messageid stored in the session.
 function flashMessage($withHtml = true)
@@ -69,6 +74,8 @@ function convertUserState($int)
             return "non approuvé";
         case USER_STATE_APPROVED:
             return "approuvé";
+        case USER_STATE_ONBREAK:
+            return "en pause";
         case USER_STATE_ARCHIVED:
             return "archivé";
         case USER_STATE_ADMIN:
@@ -143,6 +150,7 @@ function setFirstCharToUpperCase($string)
 {
     return strtoupper(replaceAccentChars(substr($string, 0, 1))) . substr($string, 1);
 }
+
 //tasks too or identical to works.state ?
 
 ?>

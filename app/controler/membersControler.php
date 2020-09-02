@@ -9,9 +9,48 @@
 require_once "model/groupsModel.php";
 
 //display the page groups
-function members()
+function members($option)
 {
-    $members = getAllUsersActive();
+    $members = getAllUsers();   //get all users without any sorting
+
+    //Countings and sorting of the users:
+    $nbUnapprovedUsers = 0;
+    foreach ($members as $member) {
+        $state = $member['state'];
+        if ($state == USER_STATE_UNAPPROVED) {
+            $nbUnapprovedUsers++;
+        }
+        switch ($option) {
+            case "2":
+                if ($state != USER_STATE_ONBREAK) {
+                    unset($members[$member['id']]);
+                }
+                break;
+            case "3":
+                if ($state != USER_STATE_ARCHIVED) {
+                    unset($members[$member['id']]);
+                }
+                break;
+            case "4":
+                if ($state != USER_STATE_ADMIN) {
+                    unset($members[$member['id']]);
+                }
+                break;
+            case "5":
+                if ($state != USER_STATE_UNAPPROVED) {
+                    unset($members[$member['id']]);
+                }
+                break;
+            default:    //option 1 by default
+                if ($state != USER_STATE_ADMIN && $state != USER_STATE_APPROVED) {
+                    unset($members[$member['id']]);
+                }
+                //Change $option to default:
+                $option = 1;
+                break;
+        }
+    }
+
     require_once "view/members.php";
 }
 

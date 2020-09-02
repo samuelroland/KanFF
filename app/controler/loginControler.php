@@ -13,6 +13,8 @@ function login($infoLogin, $password)
 {
     // If trying to login it checks the data, else load the page
     if ($infoLogin != "") {
+        $infoLogin = trimIt($infoLogin);
+        var_dump($infoLogin);
         if (strlen($infoLogin) == 3) {// If the infoLogin is initials, then convert it to upper case
             $infoLogin = strtoupper($infoLogin);
         }
