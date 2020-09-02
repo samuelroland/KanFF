@@ -10,11 +10,10 @@ require "model/usersModel.php";
 
 // This funtion will try to Login Using the provided data
 function login($infoLogin, $password)
-{
     // If trying to login it checks the data, else load the page
+{
     if ($infoLogin != "") {
         $infoLogin = trimIt($infoLogin);
-        var_dump($infoLogin);
         if (strlen($infoLogin) == 3) {// If the infoLogin is initials, then convert it to upper case
             $infoLogin = strtoupper($infoLogin);
         }
@@ -25,7 +24,7 @@ function login($infoLogin, $password)
             displaydebug($_SESSION);    // Function that will display a var_dump if the debug mode is active
             require_once 'view/home.php';
         } else {
-            $_SESSION['error'] = 1;
+            flshmsg(1);
             require_once 'view/login.php';
         }
     } else {

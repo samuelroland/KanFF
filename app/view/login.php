@@ -19,19 +19,14 @@ $instanceinfos = getInstanceInfos();
             <label for="password">Mot de passe</label>
            <input type="password" class="form-control" name="password" id="password" placeholder="" required>
         </div>
+        <?php echo flashMessage(); ?>
         <div>
             <div class="box-alignright">
         <button type="submit" class="btn btn-primary">Se connecter</button>
             </div>
             <br><p>Pas encore de compte sur cette instance ? <a href="/?action=signin">Créer un compte.</a></p>
         </div>
-        <?php if (isset($_SESSION['error'])) {
-            if ($_SESSION['error'] == 1)
-            {
-                echo "<p class='alert-warning'>Les données introduites ne sont pas correctes</p>";
-                unset($_SESSION['error']);
-            }
-        }?>
+
     </form>
 <?php
 $contenttype = "restricted";
