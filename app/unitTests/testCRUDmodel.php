@@ -7,11 +7,8 @@
  */
 $BENOIT=true;
 require_once 'model/CRUDModel.php';
-function displaydebug(){
-        echo "
-        ";
-        var_dump($var);
-
+function displaydebug($var){
+//do nothing
 }
 //Get all elements of one Table
 function test_getAll()
@@ -91,21 +88,24 @@ function test_getOneByCriterion()
     
     ";
 }
-
 //Create one element
 function test_createOne(){
-    echo "crateOne: 
-    ";
+    echo "crateOne: ";
     $name="Test";
     $params = ['name'=>$name];
     $test=createOne("competences",$params);
-    $array=getOne("competences",1);
+    $criterions=' name = "Test" ';
+    $params=null;
+    $array= getByCondition("competences",$params,$criterions,false);
+
     if ($array['name']=="Test"){
         echo "OK";
-    }else{
-        echo "BUG Create
-";
-        echo $test;
+    }
+    else{
+        echo "
+        BUG Create
+        ";
+        echo $array["name"];
         if (isset($array)){
             echo "Array isn't null:";
         }else{
@@ -117,11 +117,21 @@ function test_createOne(){
 ";
 }
 //Update one element
-function test_updateOne($table,$id,$elementForUpdate,$params){
+function test_updateOne(){
     echo "updateOne: ";
+    $criterions=' name = "Test" ';
+    $params=null;
+    $element= getByCondition("competences",$params,$criterions,false);
 
-    $array= updateOne("users",101);
-    if ($array['phonenumber']==6221542889){
+    $name="Updated-Test";
+    $params = ['name'=>$name];
+    updateOne("competences",$element["id"],$params);
+
+    $criterions=' name = "'.$name.'" ';
+    $params=null;
+    $array= getByCondition("competences",$params,$criterions,false);
+
+    if ($array['name']==$name){
         echo "OK";
     }else{
         echo "BUG
@@ -137,11 +147,33 @@ function test_updateOne($table,$id,$elementForUpdate,$params){
 ";
 }
 //Detlete one element by his id
-function test_deleteOne($table,$id){
+function test_deleteOne(){
+    echo "delteOne : ";
+    $criterions=' name = "Updated-Test" ';
+    $params=null;
+    $element= getByCondition("competences",$params,$criterions,false);
 
-}
-function test_unitaire(){
+    $total= count(getAll("users"));
 
+    deleteOne("competences",$element["id"]);
+
+    $test=getOne("competences",$element["id"]);
+    if (($test["name"]!="Updated-Test")&&($total==count(getAll("users")))){
+
+        echo "OK";
+    }
+    else{
+        echo "BUG
+        ";
+        if (isset($array)){
+            echo "Array isn't null:";
+        }else{
+            echo "\$array=null";
+        }
+    }
+    echo "
+
+";
 }
 ///cd C:\Users\benoit.pierrehumbert\Documents\GitHub\KanFF\app
 ///cls | php -f .\unitTests\testCRUDmodel.php
@@ -150,4 +182,6 @@ test_getOne();
 test_getAllByCriterion();
 test_getOneByCriterion();
 test_createOne();
+test_updateOne();
+test_deleteOne();
 ?>
