@@ -14,12 +14,13 @@ $cssForDivField = "row pt-1";
 $title = "Mon compte";
 ob_start();
 ?>
+    <h1 class="alignleft pt-4"><?= $title ?></h1>
     <p class="aligncenter">Voici les informations de votre compte sur l'instance Blason. C'est sur cette page que vous
         pouvez gérer votre compte. Vous pouvez modifier vos informations pour la plupart et aussi archiver ou supprimer
         votre compte (attention supprimer est une action irréversible!)</p>
     <div class="box-aligncenter pt-4"></div>
     <div class="form-group">
-        <h1 class="aligncenter pt-4"><?= $title ?></h1>
+
         <form style="align-self: auto" class="pt-3" action="?action=signin" method="post">
             <h5 class="pt-3">Informations principales:</h5>
             <div class="<?= $cssForDivZone ?>">
@@ -47,14 +48,6 @@ ob_start();
                          src="view/medias/icons/point.png" alt="50px" width="35" height="35" class="">
                 </div>
 
-                <div class="<?= $cssForDivField ?>">
-                    <span class="<?= $cssForSpan ?>">Statut</span>
-                    <span class="fullwidth"><textarea name="biography" id="txtBiography" rows="2" placeholder="tbd"
-                                                      class="fullwidth form-control"
-                                                      title="Votre biographie"></textarea></span>
-
-                </div>
-                <div class="<?= $cssForDivZone ?>">
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Nom d'utilisateur/trice</span>
                         <input class="<?= $cssForInput ?>" minlength="4" maxlength="20" type="text" name="user"
@@ -62,6 +55,24 @@ ob_start();
                                                                        src="view/medias/icons/point.png" alt="50px"
                                                                        width="35" height="35" class="">
                     </div>
+                    <div class="<?= $cssForDivZone ?>">
+                    <div class="<?= $cssForDivField ?>">
+                        <span class="<?= $cssForSpan ?>">Statut</span>
+                        <span class="fullwidth"><textarea style="resize: none" name="Statut" id="txtBiography" rows="2" placeholder="tbd"
+                                                          class="fullwidth form-control"
+                                                          title="Votre biographie"></textarea></span>
+
+                    </div>
+
+
+
+                    <div class="<?= $cssForDivField ?>">
+                        <span class="<?= $cssForSpan ?>">Etat du compte </span>
+                        <input class="<?= $cssForInput ?>" type="text" placeholder="Aprouvé" readonly/>
+                        <img title="Cet état peut être non aprouvé, aprouvé, archivé ou admin"
+                             src="view/medias/icons/point.png" alt="50px" width="35" height="35" class="">
+                    </div>
+
                 </div>
                 <h5 class="pt-3">Changement de mot de passe:<span title="Inserer le text volu"
                                                                   class="glyphicon glyphicon-question-sign"></span>
@@ -100,10 +111,9 @@ ob_start();
 
                 <div class="<?= $cssForDivField ?>">
                     <span class="<?= $cssForSpan ?>">N°téléphone</span>
-                    <input class="<?= $cssForInput ?>" type="number" name="nb_phone" placeholder="Phone"/>
+                    <input class="<?= $cssForInput ?>" type="" name="nb_phone" placeholder="Phone"/>
                 </div>
 
-                <div class="<?= $cssForDivZone ?>">
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Lien messagerie instantanée</span>
                         <input class="<?= $cssForInput ?>" type="email" name="email"
@@ -116,7 +126,7 @@ Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard"
 
                 <div class="<?= $cssForDivField ?>">
                     <span class="<?= $cssForSpan ?>">Biographie</span>
-                    <span class="fullwidth"><textarea name="biography" id="txtBiography" rows="2" placeholder="tbd"
+                    <span class="fullwidth"><textarea style="resize: none" id="txtBiography" rows="2" placeholder="tbd"
                                                       class="fullwidth form-control"
                                                       title="Votre biographie"></textarea></span>
 
@@ -134,18 +144,20 @@ Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard"
                     ?>
                 </div>
             </div>
-            <p class="">Ces informations seront visibles à tous les membres approuvés de l'instance, dans le but d'avoir un ou des moyens de contact et une description pour les nouvelles personnes, qui ne connaissent pas les autres membres. </p>
+            <p class="">Ces informations seront visibles à tous les membres approuvés de l'instance, dans le but d'avoir
+                un ou des moyens de contact et une description pour les nouvelles personnes, qui ne connaissent pas les
+                autres membres. </p>
             <div class="vertical-center box-alignright pt-3">
                 <button type="submit" class="btn btn-primary">Enresgistrer</button>
             </div>
             <div>
-            <p class="">Zone danger - actions irréversibles ou à grosses conséquences techniques.</p>
-            <div class="vertical-center box-alignright pt-3">
-                <button type="submit" class="btn btn-primary">Supprimer son compte</button>
-            </div>
-            <div class="vertical-center box-alignright pt-3">
-            <button type="submit" class="btn btn-primary">Archiver son compte</button>
-            </div>
+                <p class="">Zone danger - actions irréversibles ou à grosses conséquences techniques.</p>
+                <div class="vertical-center box-alignright pt-3">
+                    <button type="submit" class="btn btn-primary">Supprimer son compte</button>
+                </div>
+                <div class="vertical-center box-alignright pt-3">
+                    <button type="submit" class="btn btn-primary">Archiver son compte</button>
+                </div>
             </div>
         </form>
     </div>
