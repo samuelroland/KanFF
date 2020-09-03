@@ -153,12 +153,12 @@ function test_deleteOne(){
     $params=null;
     $element= getByCondition("competences",$params,$criterions,false);
 
-    $total= count(getAll("users"));
+    $total= count(getAll("competences"));
 
     deleteOne("competences",$element["id"]);
 
     $test=getOne("competences",$element["id"]);
-    if (($test["name"]!="Updated-Test")&&($total==count(getAll("users")))){
+    if (($test["name"]!="Updated-Test")&&($total==count(getAll("competences")))){
 
         echo "OK";
     }
