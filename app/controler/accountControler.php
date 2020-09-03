@@ -34,7 +34,7 @@ function signin($firstname, $lastname, $initials, $username, $password, $passwor
 
             require_once "view/login.php";
         } else {
-            $_SESSION['error'] = 2;
+            flshmsg(4);
             require_once 'view/signin.php';
         }
     } else {
