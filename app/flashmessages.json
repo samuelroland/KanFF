@@ -1,5 +1,7 @@
 {
   "1": "Les identifiants de connexion ne concordent pas. Veuillez retenter la connexion.",
   "2": "Cet email est déjà utilisé par un autre utilisateur... Veuillez recommencer avec un autre email.",
-  "3": "Action non autorisée avec ces permissions... mêlez vous de vos oignons."
+  "3": "Action non autorisée avec ces permissions... mêlez vous de vos oignons.",
+  "4": "Les mots de passe introduits ne se correspondent pas... Veuillez introduire le même mot de passe dans les deux cases.",
+  "5": "Les données introduites sont déjà utilisées par un autre utilisateur... Veuillez utiliser des données différentes"
 }
