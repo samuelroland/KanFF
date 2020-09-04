@@ -27,6 +27,12 @@ function getAllUsers()
     return indexAnArrayById(getAll("users"));
 }
 
+//Get all users by inscription date desc
+function getAllUsersByInscriptionDesc()
+{
+    return indexAnArrayById(Query("select * from `users` order by users.inscription desc", [], true));
+}
+
 // Get one User
 function getUser($infoLogin)
 {
