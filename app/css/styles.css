@@ -6,9 +6,8 @@
  */
 
 .versiontext {
-    font-size: 0.7em;
+    font-size: 0.6em;
     color: black;
-    margin-left: 5px;
     padding: 0;
 }
 
@@ -26,7 +25,7 @@
 
 .logo {
     height: 59px;
-    margin: 2px 4px;
+    margin: 0px 0px;
 }
 
 .logoLog {
@@ -201,12 +200,22 @@ label {
     height: 75px;
     color: black;
     width: 100%;
+    padding: 10px;
 }
 
 .collectivename:hover {
     background-color: #ffb400;
     text-decoration: underline;
 }
+
+.borderleftorange{
+    border-left: solid 2px #ffb400;
+}
+
+.borderrightorange{
+    border-right: solid 2px #ffb400;
+}
+
 
 .flexdiv {
     display: flex;
@@ -296,6 +305,10 @@ label {
     color: #348a19;
 }
 
+.txtblack a{
+    color: black;
+}
+
 .yellowheader {
     background-color: #ffc437;
 }
@@ -376,4 +389,18 @@ tr {
     color: black;
     text-align: center;
     background-color: #ff8500;
+}
+
+.cursorpointer{
+    cursor: pointer;
+}
+
+.logosmalldiv{
+    padding: 3px 5px;
+    margin-right: 5px;
+}
+
+.divVersion{
+    height: 10px;
+    margin-top: 2px;
 }

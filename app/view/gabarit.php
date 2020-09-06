@@ -64,25 +64,30 @@ Y,                    `\"8bd888b,             ,P
 ----------------------------------------------- -->";
 ?>
 <body>
-<header class="bg-header <?php if ($debug==false){echo "header-fixed";} ?>">
-    <div class="logodiv row lineheigthsmall">
-        <div class="col-5">
-            <a href="/"><img src="view/medias/logos/KanFF_Logo.svg" alt="logo KanFF" class="logo"></a>
-            <br><span class="versiontext">v<?= $versions[count($versions) - 1]['version'] ?></span>
-            <span class="versiontext"><em> le <?= date("d.m.Y", strtotime($versions[count($versions) - 1]['date'])) ?></em></span>
+<header class="bg-header <?php if ($debug == false) {
+    echo "header-fixed";
+} ?>">
+    <div class="logodiv flexdiv">
+        <div class="logosmalldiv lineheigthsmall">
+            <img src="view/medias/logos/KanFF_Logo.svg" alt="logo KanFF" class="logo clickable cursorpointer"
+                 data-href="/">
+            <div class="divVersion ">
+                <span class="versiontext ">v<?= $versions[count($versions) - 1]['version'] ?></span>
+                <span class="versiontext alignright"><em>le <?= date("d.m.Y", strtotime($versions[count($versions) - 1]['date'])) ?></em></span>
+            </div>
         </div>
         <div data-href="?action=about"
-             class="col-7 collectivename flexdiv clickable <?= ($action == "about") ? 'active' : '' ?>">
+             class="flex-3 collectivename flexdiv overflow-hidden borderleftorange clickable <?= ($action == "about") ? 'active' : '' ?>">
             <div class="align-items-center flexdiv"><?= $instanceinfos['collective']['name'] ?></div>
         </div>
     </div>
 
     <!-- login form -->
     <?php if (isset($_SESSION['user'])) { ?>
-    <div class="user row justify-content-end flexdiv">
+    <div class="borderleftorange user row justify-content-end flexdiv borderrightorange">
         <div class="pr-3 box-verticalaligncenter"><img src="view/medias/icons/bell.png" class="bell" alt="bell icon">
         </div>
-        <div class="fullname pr-2 justify-content-end box-verticalaligncenter">
+        <div class="fullname alignright pr-2 justify-content-end box-verticalaligncenter">
             <?= $_SESSION['user']['firstname'] ?> <?= $_SESSION['user']['lastname'] ?>
         </div>
         <!-- logo user https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_js_dropdown for the dropdown -->
@@ -92,7 +97,7 @@ Y,                    `\"8bd888b,             ,P
             </div>
         </div>
         <?php } else { ?>
-        <div class="user row col-2">
+        <div class="user row col-2 borderleftorange txtblack">
             <div class="col-10 box-verticalaligncenter header-height">
                 <a href="/?action=login"><span class="">Connexion</span></a>
             </div>

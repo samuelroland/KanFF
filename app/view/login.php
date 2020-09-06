@@ -4,7 +4,7 @@ $title = "Connexion";
 $instanceinfos = getInstanceInfos();
 ?>
 
-    <form class="formlog" action="index.php?action=login" method="post">
+    <form class="formlog" action="?action=login" method="post">
         <div>
             <p class="aligncenter"><?= $instanceinfos['collective']['msg'] ?></p>
             <div class="box-aligncenter pt-4"><img src="view/medias/logos/KanFF_Logo.svg" alt="logoLog" class="logoLog"> <br><span class="versiontext"></span>
