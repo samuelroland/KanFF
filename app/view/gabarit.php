@@ -107,8 +107,9 @@ Y,                    `\"8bd888b,             ,P
                                 <?= $_SESSION['user']['phonenumber'] ?><br>
                                 <br>
                                 <p>Inscription: <?= DTToHumanDate($_SESSION['user']['inscription']) ?></p>
-                                <p class=""><strong>Statut: <br></strong><em><?= $_SESSION['user']['status'] ?></em><img src="view/medias/icons/modify.png"
+                                <p><strong>Statut <br></strong><em><?= $_SESSION['user']['status'] ?></em><img src="view/medias/icons/modify.png"
                                                                                                                 alt="modify icon" class="yellowdarkonhover icon-small justify-content-end"></p>
+                                <p><strong>Etat:</strong> <?= convertUserState($_SESSION['user']['state']) ?></p>
                                 <div class="clickable cursorpointer yellowdarkonhover" data-href="/?action=editAccount"><img
                                             src="view/medias/icons/settings.png" alt="settings icon" class="icon-small"><strong>Mon compte</strong></div>
                                 <div class="clickable cursorpointer yellowdarkonhover fullwidth" data-href="/?action=logout"><img

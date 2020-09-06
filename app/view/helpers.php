@@ -146,6 +146,7 @@ function convertWorkState($int)
     }
 }
 
+//WIP don't use it
 function setFirstCharToUpperCase($string)
 {
     return strtoupper(replaceAccentChars(substr($string, 0, 1))) . substr($string, 1);
