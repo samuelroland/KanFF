@@ -22,8 +22,6 @@ require ".const.php";
     <!-- Jquery files -->
     <script src="node_modules/jquery/dist/jquery.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    <script src="node_modules/bootstrap/js/dist/dropdown.js"></script>
-    <script src="node_modules/bootstrap/js/dist/util.js"></script>
 
     <!-- CSS files -->
     <link href="css/styles.css" rel="stylesheet">
