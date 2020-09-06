@@ -34,10 +34,15 @@
 
 }
 
-.logodiv {
+.divZoneLogo {
     float: left;
     width: 450px;
     height: 75px;
+}
+
+.divLogo{
+    padding: 3px 5px;
+    margin-right: 5px;
 }
 
 .gauche {
@@ -402,10 +407,6 @@ tr {
     cursor: pointer;
 }
 
-.logosmalldiv{
-    padding: 3px 5px;
-    margin-right: 5px;
-}
 
 .divVersion{
     height: 10px;
