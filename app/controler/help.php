@@ -44,7 +44,7 @@ function timeToDT($timestamp)
     return date("Y-m-d H:i:s", $timestamp);
 }
 
-function DTToHumanDate($datetime, $mode)
+function DTToHumanDate($datetime, $mode = "simpleday")
 {
     switch ($mode) {
         case "simpleday":
@@ -83,18 +83,25 @@ function specialCharsConvertFromAnArray($items, $fields)
     return $items;
 }
 
-//Substring a string cleverly without cut a word, to return a string that is equal or less long than the max defined
-function substrText($text, $max, $points = true)
+//Substring a string cleverly (depend on spaces or not) without cut a word, to return a string that is equal or less long than the max defined
+function substrText($text, $max, $nospace = false, $points = true)
 {
-    if ($text == "") {
-        return "";
+    //if string is already less or equal than the max:
+    if (strlen($text) <= $max) {
+        return $text;
     }
+    //If points are asked, the max is 4 chars shorter because "... " is 4 chars long
     if ($points == true) {
         $max -= 4;
     }
-    $text = substr($text, 0, $max + 1); //substring without condition. Include the potential space at the top end
-    $position = strripos($text, " ");   //search the last space of the string
-    $text = substr($text, 0, $position);    //substring the text up to 1 char before the last position of the space
+
+    if ($nospace) {
+        $text = substr($text, 0, $max); //normal substring independantly of the spaces included
+    } else {
+        $text = substr($text, 0, $max + 1); //substring without condition. Include the potential space at the top end
+        $position = strripos($text, " ");   //search the last space of the string
+        $text = substr($text, 0, $position);    //substring the text up to 1 char before the last position of the space
+    }
 
     if ($points) {  //if points enabled, add 3 little points
         $text .= " ...";

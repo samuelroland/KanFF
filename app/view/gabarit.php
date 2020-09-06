@@ -21,7 +21,9 @@ require ".const.php";
 
     <!-- Jquery files -->
     <script src="node_modules/jquery/dist/jquery.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="node_modules/bootstrap/js/dist/dropdown.js"></script>
+    <script src="node_modules/bootstrap/js/dist/util.js"></script>
 
     <!-- CSS files -->
     <link href="css/styles.css" rel="stylesheet">
@@ -93,7 +95,28 @@ Y,                    `\"8bd888b,             ,P
         <!-- logo user https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_js_dropdown for the dropdown -->
         <div class="box-alignright pr-4 nomargin">
             <div class="usericon ">
-                <div class="circle-usericon"><p class="marginauto"><?= $_SESSION['user']['initials'] ?></p></div>
+                <div class="dropdown">
+                    <form action=""><!-- form? -> thanks to https://stackoverflow.com/questions/25089297/avoid-dropdown-menu-close-on-click-inside#answer-34216265 -->
+                        <div class="circle-usericon cursorpointer" data-toggle="dropdown" aria-expanded="false"><p
+                                    class="marginauto"><?= $_SESSION['user']['initials'] ?></p></div>
+                        <div class="divDropDown dropdown-menu yellowheader" style="">
+                            <div>
+                                <strong>Mes informations</strong><br>
+                                <?= $_SESSION['user']['username'] ?><br>
+                                <span title="<?= $_SESSION['user']['email'] ?>"><?= substrText($_SESSION['user']['email'], 32, true) ?></span><br>
+                                <?= $_SESSION['user']['phonenumber'] ?><br>
+                                <br>
+                                <p>Inscription: <?= DTToHumanDate($_SESSION['user']['inscription']) ?></p>
+                                <p class=""><strong>Statut: <br></strong><em><?= $_SESSION['user']['status'] ?></em><img src="view/medias/icons/modify.png"
+                                                                                                                alt="modify icon" class="yellowdarkonhover icon-small justify-content-end"></p>
+                                <div class="clickable cursorpointer yellowdarkonhover" data-href="/?action=editAccount"><img
+                                            src="view/medias/icons/settings.png" alt="settings icon" class="icon-small"><strong>Mon compte</strong></div>
+                                <div class="clickable cursorpointer yellowdarkonhover fullwidth" data-href="/?action=logout"><img
+                                            src="view/medias/icons/logout.png" alt="settings icon" class="icon-small"><strong>Déconnexion</strong></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
         <?php } else { ?>

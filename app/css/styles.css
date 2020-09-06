@@ -250,6 +250,9 @@ label {
     background-color: #1587ff;
     display: flex;
 }
+.circle-usericon:hover{
+    background-color: #4fb6e3;
+}
 
 .fullname {
     max-width: 300px;
@@ -311,6 +314,10 @@ label {
 
 .yellowheader {
     background-color: #ffc437;
+}
+
+.yellowdarkonhover:hover {
+    background-color: #ffb400;
 }
 
 .yellowligthheader {
@@ -403,4 +410,10 @@ tr {
 .divVersion{
     height: 10px;
     margin-top: 2px;
+}
+.divDropDown{
+    padding: 10px;
+    margin: 5px;
+    width: 300px;
+    box-shadow: 0 5px 5px rgba(57, 44, 12, 0.54);
 }
