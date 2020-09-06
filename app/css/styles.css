@@ -401,6 +401,7 @@ tr {
     color: black;
     text-align: center;
     background-color: #ff8500;
+    padding: 3px;
 }
 
 .cursorpointer{

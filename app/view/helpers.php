@@ -47,7 +47,7 @@ function flashMessage($withHtml = true)
     if (isset($_SESSION["flashmsg"])) { //if flashmessage exists
         $message = getFlashMessageById($_SESSION['flashmsg']);  //get message from JSON file flashmessages.json
         if ($withHtml) {
-            $content = "<div id='flashmessage' class='alert alert-dark flashmessage'>" . $message . "</div>";
+            $content = "<div id='flashmessage' class='flashmessage'>" . $message . "</div>";
         } else {
             $content = $message;
         }
