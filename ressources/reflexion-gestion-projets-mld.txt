@@ -79,7 +79,7 @@ Travaux:
 	OK on met. par contre sur projet ou travail ????
 	pour projet: processus global vague avec des répétitions. notion de "projet" qui devient un truc répétitif.
 	pour travail: plus précis si qu'une partie est répétitive et pas le reste.
-	--> Après longue réflexion le mot "travail répétitif" ca passe mieux que "projet répétitif" donc c'est pas pour rien, donc on met sur travail!
+	--> Après longue réflexion le mot "travail répétitif" ca passe mieux que "projet répétitif" donc c'est pas pour rien, donc on met sur travail! C'est seulement une indication.
 
 
 - need help: 
@@ -91,7 +91,7 @@ Travaux:
 	- oui mais alors facultatif.
 
 - nouvel état: idée/proposition. comme pour les stories en Scrum.
-	- est-ce que ca reste utile si il y a l'état idée proposition pour les tâches ??
+	- est-ce que ca reste utile si il y a déjà l'état idée proposition pour les tâches (ca pourrait parce que si le groupe n'a pas encore de projet c'est pas possible de créer une tâche idée) ?? Non. ca surcharge la liste des projets et ca peut être fait dans le chat du groupe, donc ailleurs que sur KanFF. Donc NON!
 
 - où sont fait et affichés les calculs avec les efforts et les valeurs des travaux ?
 
@@ -153,7 +153,7 @@ Tâches:
 	- Intéressant si clairement visible sur la tâche. Mettre en couleur différente selon le type. Oui couleur différente.
 	- Listes des types libre ou définie ?
 		- Je pencherais plus pour défini, histoire que ca devienne pas un moyen de mettre un tag unique. Ca doit quand même rester générale et pas être par ex. "longue", "administration"
-	- Idées (question: qu'est-ce que est la tâche? qu'est-ce qu'on donne si on donne la tâche. utile si implique qqch de différent que les autres): tâche->action, question->réponse, idée->réflexion puis décision, info->consulter et stocker ou partager, réflexion->commenter/réagir, proposition->acceptation ou refus):
+	- Idées (question: qu'est-ce que c'est la tâche? qu'est-ce qu'on donne si on donne la tâche. utile si implique qqch de différent que les autres): tâche->action, question->réponse, idée->réflexion puis décision, info->consulter et stocker ou partager, réflexion->commenter/réagir, proposition->acceptation ou refus):
 			- tâche
 			- question
 			- info
@@ -166,23 +166,33 @@ Tâches:
 idée et proposition trop semblable
 info /communication
 
-- complexité de 1 à 5 ?
+- complexité de 1 à 5 ? Ca fait un champ de plus à remplir qui n'est pas indispensable même si ca pourrait avoir une utilité. Donc NON.
 - nouvel état tâche: bloqué ou en pause. voir icescrum. NON. pas très utile et champ supplémentaire.
 - responsable de tâche ??
 	- permet de donner des tâches précises à la fin des réunions. OUI. mais remplace user_id donc si assigné = responsable de la tâche.
 Affichage:
 	- bouton "+" en plus petit qu'une tâche.
 	- couleur spéciale sur une tâche si urgente
-		- qu'est-ce que "urgent" ? 
+		- qu'est-ce que "urgent" ?
+		- si son travail est urgent
 	- tâches ordrables ?? Afin de donner un certain ordre d'éxecution. Non pas vraiment utile. ordré par défaut par date de création.
 
 -----------------------------
 log:
 - title à rajouter.
-- context à rediscuter sur l'utilité.
-- importance vraiment utile ? pensé pour le tri à la base. (afficher que ceux au dessus de 10)
-- date dernière modif et personne qui a fait la dernière modif.
+- context à rediscuter sur l'utilité. ouais. pas super clair et augmente l'espace d'affichage d'un log. On met PAS.
+- importance vraiment utile ? pensé pour le tri à la base. (afficher que ceux au dessus de 10). Valeur compliquée à définir et assez subjective. Donc NON.
+- date dernière modif et personne qui a fait la dernière modif. ca pourrait ajouter de la "sécurité" sur les logs, mais ce n'est pas sans faille non plus (on ne saura pas ce qui a été modifié et si c'est légitime ou pas). 
+--> date de dernière modification on ajoute mais la personne qui a modifié non puisque c'est aussi la personne qui a créé le log. (cf dessous)
+- qui peut modifier un log ?? C'est pas sensé être modifié. Uniquement la personne qui a créé le log peut modifier.
+- peut-on supprimer un log ?? Uniquement la personne qui a créé le log.
 - support markdown ? ou markdown simplifié ?
+	- la version de https://commonmark.org/help/ paraît bien.
+	- on peut avoir 2 versions: 1 complète et 1 pour description (sans titre # ## etc et sans citations et sans ligne horizontale)
+	- Support markdown permettrait de ne pas rendre tout le texte neutre et visuellement ce serait plus joli.
+	- attention aux failles XSS.
+
+- visible ? il y a déjà une notion de visible sur le projet: logbook_visible, mais ?
 
 Affichage:
 - plusieurs mode d'affichage plus ou moins complet ?
@@ -192,6 +202,8 @@ Affichage:
 		- Tout.
 - comment afficher la valeur "type". Mettre une petite icône pour chaque type ?
 
+
+???? type tache ??? nouveau type: rappel ?
 -----------------------------
 groups:
 - prerequis: texte expliquant les prérequis nécessaires (compétences, motivation, temps, investissement,statut) pour rentrer dans le groupe.

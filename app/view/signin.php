@@ -10,57 +10,56 @@ $cssForDivZone = "pl-3";
 $cssForDivField = "row pt-1";
 ?>
 <p class="aligncenter"><?= $instanceinfos['collective']['msg'] ?></p>
-<div class="box-aligncenter pt-4"></div>
+
 <div class="form-group">
-    <h1 class="aligncenter pt-4"><?= $title ?></h1>
-    <form style="align-self: auto" class="pt-3" action="?action=signin" method="post">
+    <h1 class="aligncenter"><?= $title ?></h1>
+    <form style="align-self: auto" class="" action="/?action=signin" method="POST">
         <h5 class="pt-3">Informations principales:</h5>
         <div class="<?= $cssForDivZone ?>">
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Prénom</span>
-                <input class="<?= $cssForInput ?>" minlength="2" maxlength="254" type="text" name="name"
-                       placeholder="Josette"
-                       required/>
+                <input class="<?= $cssForInput ?> textFieldToCheck trimItOnChange" minlength="2" maxlength="100" type="text"
+                       name="firstname" placeholder="Josette" required/>
+                <p id="pCounterFirstname" class="m-2"></p>
             </div>
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Nom</span>
-                <input class="<?= $cssForInput ?>" minlength="2" maxlength="254" type="text" name="surname"
+                <input class="<?= $cssForInput ?> textFieldToCheck trimItOnChange" minlength="2" maxlength="100" type="text"
+                       name="lastname"
                        placeholder="Richard" required/>
+                <p id="pCounterLastname" class="m-2"></p>
             </div>
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Initiales </span>
                 <input class="<?= $cssForInput ?>" type="text" placeholder="JRD" readonly/>
                 <img title="Les initiales sont uniques et générées automatiquement.
-                Format: première lettre du prénom + la première lettre
-                du nom + la dernière lettre du nom/2ème lettre du nom
-                (en cas de conflit)."
-                     src="view/medias/icons/point.png" alt="50px" width="35" height="35" class="">
+Format: première lettre du prénom + la première lettre du nom + la dernière lettre du nom/2ème lettre du nom (en cas de conflit)."
+                     src="view/medias/icons/point.png" alt="point icon" width="35" height="35" class="mr-2 ml-2">
             </div>
         </div>
-        <h5 class="pt-3">Identification:<span title="Inserer le text volu"
-                                              class="glyphicon glyphicon-question-sign"></span>
+        <h5 class="pt-3">Identification:
         </h5>
         <div class="<?= $cssForDivZone ?>">
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Nom d'utilisateur/trice</span>
-                <input class="<?= $cssForInput ?>" minlength="4" maxlength="20" type="text" name="user"
+                <input class="<?= $cssForInput ?> textFieldToCheck removeSpaceInRT trimItOnChange" minlength="4" maxlength="15" type="text"
+                       name="username"
                        placeholder="josette27" required/>
+                <p id="pCounterUsername" class="m-2"></p>
             </div>
 
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Mot de passe</span>
                 <input class="<?= $cssForInput ?>" type="password" name="password" placeholder="" required/>
-                <img title="Les critères de sécurité du mot de passe sont:
-                - yy caractères
-                - caractères minuscules, majuscules, spéciaux, chiffres.
-                - ... TBD" src="view/medias/icons/point.png" alt="50px" width="35" height="35" class="">
-                            </div>
+                <img title="Les mots de passes doivent contenir:
+- 8 caractères minimum
+- au moins une lettre et un chiffre" src="view/medias/icons/point.png" alt="point icon" width="35" height="35" class="mr-2 ml-2">
+            </div>
 
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Confirmation</span>
                 <input class="<?= $cssForInput ?>" type="password" name="passwordc" placeholder="" required
                        title="Confirmation du mot de passe"/>
-                <span title="Inserer le text volu" class=" glyphicon-question-sign"></span>
             </div>
         </div>
 
@@ -68,29 +67,47 @@ $cssForDivField = "row pt-1";
         <div class="<?= $cssForDivZone ?>">
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Email</span>
-                <input class="<?= $cssForInput ?>" type="email" name="email" placeholder="josette.richard@assoc.ch"/>
+                <input class="<?= $cssForInput ?> removeSpaceInRT trimItOnChange" type="email" name="email" minlength="5" maxlength="254"
+                       placeholder="josette.richard@assoc.ch"/>
             </div>
 
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">N°téléphone</span>
-                <input class="<?= $cssForInput ?>" type="number" name="nb_phone" placeholder="Phone"/>
+                <input class="<?= $cssForInput ?> trimItOnChange" type="string" name="phonenumber" placeholder="+41 088 965 35 56"
+                       minlength="4" maxlength="20"/>
+            </div>
+
+            <div class="<?= $cssForDivField ?>">
+                <span class="<?= $cssForSpan ?>">Lien messagerie instantanée</span>
+                <input class="<?= $cssForInput ?> trimItOnChange" type="text" name="chat_link" placeholder="t.me/josette27"/>
+                <img title="Lien publique contenant votre pseudo publique. Fonctionne pour certaines messageries uniquement.
+Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard" src="view/medias/icons/point.png" alt="point icon"
+                     width="35" height="35" class="mr-2 ml-2">
             </div>
 
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Biographie</span>
-                <span class="fullwidth"><textarea name="biography" id="txtBiography" rows="2" placeholder="tbd"
-                                                  class="fullwidth form-control"
-                                                  title="Votre biographie"></textarea></span>
-
-                <?php echo flashMessage(); ?>
+                <span class="fullwidth col-lg-12">
+                    <textarea name="biography" id="txtBiography" rows="4" maxlength="2000"
+                              placeholder="Dans le milieu associatif, depuis 10 ans déjà, je suis à dans Assoc depuis 2015 et j'aide plusieurs heures par semaines. La partie contact médias m'intéresse beaucoup. Je suis photographe de métier, mais aussi céramiste et je cultive un petit potager..."
+                              class="fullwidth form-control textFieldToCheck trimItOnChange"
+                              title="Votre biographie"></textarea>
+                </span>
+                <p id="pCounterBiography" class="mt-2 mb-2 col-lg-12"></p>
             </div>
+
         </div>
+        <?= flashMessage(); ?>
         <div class="vertical-center box-alignright pt-3">
             <button type="submit" class="btn btn-primary">Création du compte</button>
         </div>
 
     </form>
     <p>Déjà un compte ? <a href="/?action=login">Connexion.</a></p>
+    <div class="vertical-center box-alignright pt-3">
+        <button class="btn btn-info clickable" data-href="/?action=about">Détails de cette
+            instance <?= $instanceinfos['instance']['name'] ?></button>
+    </div>
 </div>
 
 <?php

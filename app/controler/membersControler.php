@@ -11,7 +11,7 @@ require_once "model/groupsModel.php";
 //display the page groups
 function members($option)
 {
-    $members = getAllUsers();   //get all users without any sorting
+    $members = getAllUsersByInscriptionDesc();   //get all users without any sorting
 
     //Countings and sorting of the users:
     $nbUnapprovedUsers = 0;

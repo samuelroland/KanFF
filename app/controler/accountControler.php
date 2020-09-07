@@ -13,6 +13,8 @@ function editAccount(){
 //This funtion will redirect to the signin page or redirect to the signin page
 function signin($firstname, $lastname, $initials, $username, $password, $password2, $email, $phoneNumber, $bio)
 {
+    //TODO: make createAccount work
+
     // If trying to create an account, else load the page
     if ($username != "" || $email != "") {
         // Checks if password and password2 are equal
@@ -30,8 +32,8 @@ function signin($firstname, $lastname, $initials, $username, $password, $passwor
                 "email" => $email,
                 "phoneNumber" => $phoneNumber,
                 "bio" => $bio];
-            addUser($newUser);
 
+            createOne("users",$newUser);
             require_once "view/login.php";
         } else {
             flshmsg(4);
@@ -41,3 +43,4 @@ function signin($firstname, $lastname, $initials, $username, $password, $passwor
         require_once 'view/signin.php';
     }
 }
+

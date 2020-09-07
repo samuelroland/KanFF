@@ -136,6 +136,7 @@ function dataUsers()
                 $email = $firstname . "." . $lastname . "@assoc.ch";    //create the email with the raw firstname and lastname
                 $email = strtr($email, $unwanted_array);    //replace accent with corresponding char
                 $email = strtolower($email);    //put the string to lower cases.
+                $email = str_replace(" ", "", $email);    //remove spaces for big name with spaces
             } else {
                 $email = null;
             }

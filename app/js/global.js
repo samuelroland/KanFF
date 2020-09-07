@@ -56,3 +56,21 @@ document.addEventListener('DOMContentLoaded', function () {
         })
     })
 })
+
+//Declare event keyup at start. Remove space in real time for inputs with the class .removeSpaceInRT
+$(document).ready(function () {
+    $(".removeSpaceInRT").on("keyup", function (txt) {
+        inp = txt.target
+        while (inp.value.search(" ") != -1) {   //while there are spaces in the string, remove them
+            inp.value = inp.value.replace(" ", "")
+        }
+    })
+})
+
+//Declare event keyup at start. Trim values when user quit inputs with the class .trimItOnChange
+$(document).ready(function () {
+    $(".trimItOnChange").on("change", function (txt) {
+        inp = txt.target
+        inp.value = inp.value.trim()
+    })
+})

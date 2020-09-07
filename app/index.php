@@ -119,6 +119,7 @@ if (!isset($_SESSION['user'])) {
             break;
 
         default: // if action is unknown, return back to the dashboard
+            flshmsg(0);
             dashboard();
             break;
     }

@@ -6,9 +6,8 @@
  */
 
 .versiontext {
-    font-size: 0.7em;
+    font-size: 0.6em;
     color: black;
-    margin-left: 5px;
     padding: 0;
 }
 
@@ -26,7 +25,7 @@
 
 .logo {
     height: 59px;
-    margin: 2px 4px;
+    margin: 0px 0px;
 }
 
 .logoLog {
@@ -35,10 +34,15 @@
 
 }
 
-.logodiv {
+.divZoneLogo {
     float: left;
     width: 450px;
     height: 75px;
+}
+
+.divLogo{
+    padding: 3px 5px;
+    margin-right: 5px;
 }
 
 .gauche {
@@ -201,12 +205,22 @@ label {
     height: 75px;
     color: black;
     width: 100%;
+    padding: 10px;
 }
 
 .collectivename:hover {
     background-color: #ffb400;
     text-decoration: underline;
 }
+
+.borderleftorange{
+    border-left: solid 2px #ffb400;
+}
+
+.borderrightorange{
+    border-right: solid 2px #ffb400;
+}
+
 
 .flexdiv {
     display: flex;
@@ -240,6 +254,9 @@ label {
     border-radius: 50%;
     background-color: #1587ff;
     display: flex;
+}
+.circle-usericon:hover{
+    background-color: #4fb6e3;
 }
 
 .fullname {
@@ -296,8 +313,16 @@ label {
     color: #348a19;
 }
 
+.txtblack a{
+    color: black;
+}
+
 .yellowheader {
     background-color: #ffc437;
+}
+
+.yellowdarkonhover:hover {
+    background-color: #ffb400;
 }
 
 .yellowligthheader {
@@ -376,4 +401,21 @@ tr {
     color: black;
     text-align: center;
     background-color: #ff8500;
+    padding: 3px;
+}
+
+.cursorpointer{
+    cursor: pointer;
+}
+
+
+.divVersion{
+    height: 10px;
+    margin-top: 2px;
+}
+.divDropDown{
+    padding: 10px;
+    margin: 5px;
+    width: 300px;
+    box-shadow: 0 5px 5px rgba(57, 44, 12, 0.54);
 }
