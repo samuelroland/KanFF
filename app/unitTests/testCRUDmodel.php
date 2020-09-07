@@ -158,14 +158,15 @@ function test_deleteOne(){
     deleteOne("competences",$element["id"]);
 
     $test=getOne("competences",$element["id"]);
-    if (($test["name"]!="Updated-Test")&&($total==count(getAll("competences")))){
+
+    if ((!isset($test))&&($total==count(getAll("competences")))){
 
         echo "OK";
     }
     else{
         echo "BUG
         ";
-        if (isset($array)){
+        if (isset($test)){
             echo "Array isn't null:";
         }else{
             echo "\$array=null";
