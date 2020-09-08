@@ -27,6 +27,7 @@ require ".const.php";
     <!-- Js files  -->
     <script src="js/global.js"></script>
     <script src="js/groups.js"></script>
+    <script src="js/users.js"></script>
 
 </head>
 <body>

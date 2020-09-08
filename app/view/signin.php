@@ -18,20 +18,20 @@ $cssForDivField = "row pt-1";
         <div class="<?= $cssForDivZone ?>">
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Prénom</span>
-                <input class="<?= $cssForInput ?> textFieldToCheck trimItOnChange" minlength="2" maxlength="100" type="text"
+                <input id="inpFirstname" class="<?= $cssForInput ?> textFieldToCheck trimItOnChange" minlength="2" maxlength="100" type="text"
                        name="firstname" placeholder="Josette" required/>
                 <p id="pCounterFirstname" class="m-2"></p>
             </div>
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Nom</span>
-                <input class="<?= $cssForInput ?> textFieldToCheck trimItOnChange" minlength="2" maxlength="100" type="text"
+                <input id="inpLastname" class="<?= $cssForInput ?> textFieldToCheck trimItOnChange" minlength="2" maxlength="100" type="text"
                        name="lastname"
                        placeholder="Richard" required/>
                 <p id="pCounterLastname" class="m-2"></p>
             </div>
             <div class="<?= $cssForDivField ?>">
-                <span class="<?= $cssForSpan ?>">Initiales </span>
-                <input class="<?= $cssForInput ?>" type="text" placeholder="JRD" readonly/>
+                <span class="<?= $cssForSpan ?>">Initiales</span>
+                <input id="inpInitials" class="<?= $cssForInput ?>" type="text" placeholder="JRD" readonly disabled/>
                 <img title="Les initiales sont uniques et générées automatiquement.
 Format: première lettre du prénom + la première lettre du nom + la dernière lettre du nom/2ème lettre du nom (en cas de conflit)."
                      src="view/medias/icons/point.png" alt="point icon" width="35" height="35" class="mr-2 ml-2">
