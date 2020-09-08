@@ -62,7 +62,8 @@ Format: première lettre du prénom + la première lettre du nom + la dernière 
                        required pattern="^(?=.*[A-Za-z])(?=.*\d).{8,}$"/>
                 <img title="Les mots de passes doivent contenir:
 - 8 caractères minimum
-- au moins une lettre et un chiffre" src="view/medias/icons/point.png" alt="point icon" width="35" height="35" class="mr-2 ml-2">
+- au moins une lettre et un chiffre" src="view/medias/icons/point.png" alt="point icon" width="35" height="35"
+                     class="mr-2 ml-2">
             </div>
 
             <div class="<?= $cssForDivField ?>">
@@ -83,19 +84,22 @@ Format: première lettre du prénom + la première lettre du nom + la dernière 
         <div class="<?= $cssForDivZone ?>">
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Email</span>
-                <input class="<?= $cssForInput ?> removeSpaceInRT trimItOnChange" type="email" name="email" minlength="5" maxlength="254"
+                <input class="<?= $cssForInput ?> removeSpaceInRT trimItOnChange" type="email" name="email"
+                       minlength="5" maxlength="254"
                        placeholder="josette.richard@assoc.ch"/>
             </div>
 
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">N°téléphone</span>
-                <input class="<?= $cssForInput ?> trimItOnChange" type="string" name="phonenumber" placeholder="+41 088 965 35 56"
+                <input class="<?= $cssForInput ?> trimItOnChange" type="string" name="phonenumber"
+                       placeholder="+41 088 965 35 56"
                        minlength="4" maxlength="20"/>
             </div>
 
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Lien messagerie instantanée</span>
-                <input class="<?= $cssForInput ?> trimItOnChange" type="text" name="chat_link" placeholder="t.me/josette27"/>
+                <input class="<?= $cssForInput ?> trimItOnChange" type="text" name="chat_link"
+                       placeholder="t.me/josette27"/>
                 <img title="Lien publique contenant votre pseudo publique. Fonctionne pour certaines messageries uniquement.
 Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard" src="view/medias/icons/point.png" alt="point icon"
                      width="35" height="35" class="mr-2 ml-2">
