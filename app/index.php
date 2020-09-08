@@ -117,7 +117,9 @@ if (!isset($_SESSION['user'])) {
         case "about":
             about();
             break;
-
+        case "":    //if no action it's the dashboard
+            dashboard();
+            break;
         default: // if action is unknown, return back to the dashboard
             flshmsg(0);
             dashboard();

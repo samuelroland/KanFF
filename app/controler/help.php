@@ -50,7 +50,6 @@ function DTToHumanDate($datetime, $isTimestamp = false, $mode = "simpleday")
 
     if ($isTimestamp == false) {
         $timestamp = strtotime($datetime);
-        die("stop");
     }
     switch ($mode) {
         case "simpleday":
