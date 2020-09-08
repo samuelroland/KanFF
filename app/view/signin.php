@@ -13,18 +13,24 @@ $cssForDivField = "row pt-1";
 
 <div class="form-group">
     <h1 class="aligncenter"><?= $title ?></h1>
+    <p>Les informations demandées permettent de vous identifier et seront visibles aux autres membres du collectif (sauf
+        mot de passe). Les informations facultatives ne sont pas utile à l'application. Avant de créer un compte, vous
+        pouvez vous renseigner sur <a href="/?action=about">cette instance <?= $instanceinfos['instance']['name'] ?></a>
+        si besoin.</p>
     <form style="align-self: auto" class="" action="/?action=signin" method="POST">
         <h5 class="pt-3">Informations principales:</h5>
         <div class="<?= $cssForDivZone ?>">
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Prénom</span>
-                <input id="inpFirstname" class="<?= $cssForInput ?> textFieldToCheck trimItOnChange" minlength="2" maxlength="100" type="text"
+                <input id="inpFirstname" class="<?= $cssForInput ?> textFieldToCheck trimItOnChange" minlength="2"
+                       maxlength="100" type="text"
                        name="firstname" placeholder="Josette" required/>
                 <p id="pCounterFirstname" class="m-2"></p>
             </div>
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Nom</span>
-                <input id="inpLastname" class="<?= $cssForInput ?> textFieldToCheck trimItOnChange" minlength="2" maxlength="100" type="text"
+                <input id="inpLastname" class="<?= $cssForInput ?> textFieldToCheck trimItOnChange" minlength="2"
+                       maxlength="100" type="text"
                        name="lastname"
                        placeholder="Richard" required/>
                 <p id="pCounterLastname" class="m-2"></p>
@@ -42,15 +48,18 @@ Format: première lettre du prénom + la première lettre du nom + la dernière 
         <div class="<?= $cssForDivZone ?>">
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Nom d'utilisateur/trice</span>
-                <input class="<?= $cssForInput ?> textFieldToCheck removeSpaceInRT trimItOnChange" minlength="4" maxlength="15" type="text"
-                       name="username"
+                <input id="inpUsername" class="<?= $cssForInput ?> textFieldToCheck removeSpaceInRT trimItOnChange"
+                       minlength="4"
+                       maxlength="15" type="text"
+                       name="username" pattern="^[a-zA-Z0-9_]*$"
                        placeholder="josette27" required/>
                 <p id="pCounterUsername" class="m-2"></p>
             </div>
 
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Mot de passe</span>
-                <input class="<?= $cssForInput ?>" type="password" name="password" placeholder="" required/>
+                <input id="inpPassword1" class="<?= $cssForInput ?>" type="password" name="password" placeholder=""
+                       required pattern="^(?=.*[A-Za-z])(?=.*\d).{8,}$"/>
                 <img title="Les mots de passes doivent contenir:
 - 8 caractères minimum
 - au moins une lettre et un chiffre" src="view/medias/icons/point.png" alt="point icon" width="35" height="35" class="mr-2 ml-2">
@@ -58,8 +67,15 @@ Format: première lettre du prénom + la première lettre du nom + la dernière 
 
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Confirmation</span>
-                <input class="<?= $cssForInput ?>" type="password" name="passwordc" placeholder="" required
+                <input id="inpPassword2" class="<?= $cssForInput ?>" type="password" name="passwordc" placeholder=""
+                       required
                        title="Confirmation du mot de passe"/>
+                <p class="errormsg" id="pErrorUsername" hidden>Le nom d'utilisateur/trice doit être alphanumérique
+                    (lettre et nombres, tirets du bas acceptés).</p>
+                <p class="errormsg" id="pErrorRegexPassword" hidden>Les mots de passe doivent respecter les critères de
+                    sécurité (voir "?")</p>
+                <p class="errormsg" id="pErrorPassword" hidden>Les 2 mots de passe doivent être
+                    identiques.</p>
             </div>
         </div>
 
@@ -99,15 +115,11 @@ Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard" src="view/medias/
         </div>
         <?= flashMessage(); ?>
         <div class="vertical-center box-alignright pt-3">
-            <button type="submit" class="btn btn-primary">Création du compte</button>
+            <button type="submit" class="btn btn-primary" id="inpSubmit">Création du compte</button>
         </div>
 
     </form>
-    <p>Déjà un compte ? <a href="/?action=login">Connexion.</a></p>
-    <div class="vertical-center box-alignright pt-3">
-        <button class="btn btn-info clickable" data-href="/?action=about">Détails de cette
-            instance <?= $instanceinfos['instance']['name'] ?></button>
-    </div>
+    <p class="flex-1 nomargin">Déjà un compte ? <a href="/?action=login">Connexion.</a></p>
 </div>
 
 <?php
