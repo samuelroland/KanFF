@@ -70,7 +70,7 @@ if (!isset($_SESSION['user'])) {
             break;
         // try signin using the infomations given
         case"signin":
-            signin($firstname, $lastname, $initials, $username, $password, $password2, $email, $phoneNumber, $bio);
+            signin($_POST);
             break;
         case "about":
             about();

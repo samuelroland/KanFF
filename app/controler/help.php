@@ -44,20 +44,23 @@ function timeToDT($timestamp)
     return date("Y-m-d H:i:s", $timestamp);
 }
 
-function DTToHumanDate($datetime, $mode = "simpleday")
+function DTToHumanDate($datetime, $isTimestamp = false, $mode = "simpleday")
 {
+    if ($isTimestamp == false) {
+        $timestamp = strtotime($datetime);
+    }
     switch ($mode) {
         case "simpleday":
-            return date("d.m.Y", strtotime($datetime));
+            return date("d.m.Y", $timestamp);
             break;
         case "simpletime":
-            return date("d.M.Y à H:i", strtotime($datetime));
+            return date("d.M.Y à H:i", $timestamp);
             break;
         case "completeday":
-            return date("j F Y", strtotime($datetime));
+            return date("j F Y", $timestamp);
             break;
         case "completetime":
-            return date("j F Y à H:i:S", strtotime($datetime));
+            return date("j F Y à H:i:S", $timestamp);
             break;
         default:
             return "ERROR!";
