@@ -35,21 +35,21 @@ function validateSigninFields() {
     if (inpPassword1.value != "" && inpPassword2.value != "") {
         test = (inpPassword1.value === inpPassword2.value)    //value for hidden is the result of the comparison between password 1 and 2
         pErrorPassword.hidden = test
-        error = !test
+        if (test==false){error = true}
     }
 
     //Check that password respect security criterions:
     if (inpPassword1.value != "") { //only the first one is checked, so we don't need to wait on the second to display the error message
         test = testRegex("^(?=.*[A-Za-z])(?=.*\\d).{8,}$", inpPassword1.value)  //attention to the \\ before the d!
         pErrorRegexPassword.hidden = test
-        error = !test
+        if (test==false){error = true}
     }
 
     //Check that username is alphanumeric (include underscore):
     if (inpUsername.value !== "") {
         test = testRegex("^[a-zA-Z0-9_]*$", inpUsername.value)
         pErrorUsername.hidden = test
-        error = !test
+        if (test==false){error = true}
     }
 
     manageSubmitButton(error)

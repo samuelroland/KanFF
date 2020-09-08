@@ -24,7 +24,7 @@ $cssForDivField = "row pt-1";
                 <span class="<?= $cssForSpan ?>">Prénom</span>
                 <input id="inpFirstname" class="<?= $cssForInput ?> textFieldToCheck trimItOnChange" minlength="2"
                        maxlength="100" type="text"
-                       name="firstname" placeholder="Josette" required/>
+                       name="firstname" placeholder="Josette" required value="<?= $post['firstname'] ?>"/>
                 <p id="pCounterFirstname" class="m-2"></p>
             </div>
             <div class="<?= $cssForDivField ?>">
@@ -32,7 +32,7 @@ $cssForDivField = "row pt-1";
                 <input id="inpLastname" class="<?= $cssForInput ?> textFieldToCheck trimItOnChange" minlength="2"
                        maxlength="100" type="text"
                        name="lastname"
-                       placeholder="Richard" required/>
+                       placeholder="Richard" required value="<?= $post['lastname'] ?>"/>
                 <p id="pCounterLastname" class="m-2"></p>
             </div>
             <div class="<?= $cssForDivField ?>">
@@ -52,7 +52,7 @@ Format: première lettre du prénom + la première lettre du nom + la dernière 
                        minlength="4"
                        maxlength="15" type="text"
                        name="username" pattern="^[a-zA-Z0-9_]*$"
-                       placeholder="josette27" required/>
+                       placeholder="josette27" required value="<?= $post['username'] ?>"/>
                 <p id="pCounterUsername" class="m-2"></p>
             </div>
 
@@ -86,20 +86,22 @@ Format: première lettre du prénom + la première lettre du nom + la dernière 
                 <span class="<?= $cssForSpan ?>">Email</span>
                 <input class="<?= $cssForInput ?> removeSpaceInRT trimItOnChange" type="email" name="email"
                        minlength="5" maxlength="254"
-                       placeholder="josette.richard@assoc.ch"/>
+                       placeholder="josette.richard@assoc.ch" value="<?= $post['email'] ?>"/>
             </div>
 
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">N°téléphone</span>
                 <input class="<?= $cssForInput ?> trimItOnChange" type="string" name="phonenumber"
                        placeholder="+41 088 965 35 56"
-                       minlength="4" maxlength="20"/>
+                       minlength="4" maxlength="20"
+                       value="<?= $post['phonenumber'] ?>"
+                />
             </div>
 
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Lien messagerie instantanée</span>
                 <input class="<?= $cssForInput ?> trimItOnChange" type="text" name="chat_link"
-                       placeholder="t.me/josette27"/>
+                       placeholder="t.me/josette27"/ value="<?= $post['chat_link'] ?>">
                 <img title="Lien publique contenant votre pseudo publique. Fonctionne pour certaines messageries uniquement.
 Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard" src="view/medias/icons/point.png" alt="point icon"
                      width="35" height="35" class="mr-2 ml-2">
@@ -111,7 +113,7 @@ Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard" src="view/medias/
                     <textarea name="biography" id="txtBiography" rows="4" maxlength="2000"
                               placeholder="Dans le milieu associatif, depuis 10 ans déjà, je suis à dans Assoc depuis 2015 et j'aide plusieurs heures par semaines. La partie contact médias m'intéresse beaucoup. Je suis photographe de métier, mais aussi céramiste et je cultive un petit potager..."
                               class="fullwidth form-control textFieldToCheck trimItOnChange"
-                              title="Votre biographie"></textarea>
+                              title="Votre biographie"><?= $post['biography'] ?></textarea>
                 </span>
                 <p id="pCounterBiography" class="mt-2 mb-2 col-lg-12"></p>
             </div>
