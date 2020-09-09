@@ -14,14 +14,16 @@ $cssForDivField = "row pt-1";
 $title = "Mon compte";
 ob_start();
 ?>
-    <h1 class="alignleft pt-4"><?= $title ?></h1>
-    <p class="aligncenter">Voici les informations de votre compte sur l'instance Blason. C'est sur cette page que vous
+    <div class="float-left">
+    <h1 class="float-left pt-4"><?= $title ?></h1>
+        <BR>
+    <p class="float-left">Voici les informations de votre compte sur l'instance Blason. C'est sur cette page que vous
         pouvez gérer votre compte. Vous pouvez modifier vos informations pour la plupart et aussi archiver ou supprimer
         votre compte (attention supprimer est une action irréversible!)</p>
-    <div class="box-aligncenter pt-4"></div>
+    <div class="box-aligleft pt-4"></div>
     <div class="form-group">
 
-        <form style="align-self: auto" class="pt-3" action="?action=signin" method="post">
+        <form style="align-self: auto" class="pt-3 float-left" action="?action=signin" method="post">
             <h5 class="pt-3">Informations principales:</h5>
             <div class="<?= $cssForDivZone ?>">
                 <div class="<?= $cssForDivField ?>">
@@ -30,7 +32,7 @@ ob_start();
                            placeholder="Josette"
                            required/>
                 </div>
-                <div class="<?= $cssForDivField ?>">
+                <div class=" <?= $cssForDivField ?>">
                     <span class="<?= $cssForSpan ?>">Nom</span>
                     <input class="<?= $cssForInput ?>" minlength="2" maxlength="254" type="text" name="surname"
                            placeholder="Richard" required/>
@@ -144,24 +146,27 @@ Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard"
                     ?>
                 </div>
             </div>
+        <div class=" float-left">
             <p class="">Ces informations seront visibles à tous les membres approuvés de l'instance, dans le but d'avoir
                 un ou des moyens de contact et une description pour les nouvelles personnes, qui ne connaissent pas les
                 autres membres. </p>
-            <div class="vertical-center box-alignright pt-3">
+
+            <div class=" box-alignright pt-3">
                 <button type="submit" class="btn btn-primary">Enresgistrer</button>
             </div>
-            <div>
+            <div class="float-left">
                 <p class="">Zone danger - actions irréversibles ou à grosses conséquences techniques.</p>
-                <div class="vertical-center box-alignright pt-3">
+                <div class="box-alignright pt-3">
                     <button type="submit" class="btn btn-primary">Supprimer son compte</button>
                 </div>
-                <div class="vertical-center box-alignright pt-3">
-                    <button type="submit" class="btn btn-primary">Archiver son compte</button>
+                <div class="  box-alignright pt-3">
+                    <button type="submit" class=" btn btn-primary">Archiver son compte</button>
                 </div>
             </div>
         </form>
     </div>
-
+    </div>
+    </div>
 <?php
 $contenttype = "large";
 $content = ob_get_clean();
