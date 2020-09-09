@@ -71,7 +71,7 @@ Y,                    `\"8bd888b,             ,P
             <img src="view/medias/logos/KanFF_Logo.svg" alt="logo KanFF" class="logo clickable cursorpointer"
                  data-href="/">
             <div class="divVersion ">
-                <span class="versiontext ">v<?= $versions[count($versions) - 1]['version'] ?></span>
+                <span class="versiontext "><?= $versions[count($versions) - 1]['version'] ?></span>
                 <span class="versiontext alignright"><em>le <?= date("d.m.Y", strtotime($versions[count($versions) - 1]['date'])) ?></em></span>
             </div>
         </div>
