@@ -64,7 +64,7 @@ function getByCondition($table, $params, $conditions, $manyrecords)
     //$table = "users" OR "competences" ...
     //$conditions need the complete where condition with AND / OR write in SQL
     //Example for $conditions => id=:id AND name=:name
-    //$params = ["id"=>$id,"name"=>$name]
+    //$params = ["id"=>$id,"name"=>$name,"NPA"=>94654]
     //$manyrecords = if the query will return more than 1 items (true/false)
 
     $query = "SELECT * FROM `$table` WHERE " . $conditions;
@@ -76,7 +76,7 @@ function updateOne($table, $id, $params)
 {
     //$table = "users" OR "competences" ...
     //$id = 55 OR 96556 OR 1 ...
-    //$params = ["id"=>$id,"name"=>$name]
+    //$params = ["id"=>$id,"name"=>$name,"NPA"=>94654]
 
     unset($params['id']);   //destroy id because update the id is prohibited
     $query = "UPDATE `$table` SET " . buildStringForUpdateValues($params) . " WHERE id=" . $id;
@@ -89,8 +89,10 @@ function updateOne($table, $id, $params)
 function createOne($table, $params)
 {
     //$table = "users" OR "competences" ...
-    //$params = ["id"=>$id,"name"=>$name]
-
+    //$params = ["name"=>$name,"NPA"=>94654]
+    if($debug==false){
+        unset($params["id"]);
+    }
     $query = "INSERT INTO `$table` " . buildStringForInsertValues($params);
     displaydebug($query);
     displaydebug($params);
@@ -102,7 +104,7 @@ function deleteOne($table, $id)
 {
     //$table = "users" OR "competences" ...
     //$id = 55 OR 96556 OR 1 ...
-    
+
     $query = "DELETE FROM `$table` WHERE id=:id";
     $params = ['id' => $id];
     return Query($query, $params, false);
