@@ -65,7 +65,7 @@ function getByCondition($table, $params, $conditions, $manyrecords)
     //$conditions need the complete where condition with AND / OR write in SQL
     //Example for $conditions => id=:id AND name=:name
     //$params = ["id"=>$id,"name"=>$name,"NPA"=>94654]
-    //$manyrecords = if the query will return more than 1 items (true/false)
+    //$manyrecords = if the query will return more than 1 item (true/false)
 
     $query = "SELECT * FROM `$table` WHERE " . $conditions;
     return Query($query, $params, $manyrecords);
@@ -90,6 +90,8 @@ function createOne($table, $params)
 {
     //$table = "users" OR "competences" ...
     //$params = ["name"=>$name,"NPA"=>94654]
+
+    //If $debug = true the id won't be changed
     if($debug==false){
         unset($params["id"]);
     }
