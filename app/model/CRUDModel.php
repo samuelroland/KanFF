@@ -42,6 +42,7 @@ function Query($query, $params, $manyrecords)
 //Get all elements of one Table
 function getAll($table)
 {
+    //$table = "users" OR "competences" ...
     $query = "SELECT * FROM `$table`";
     $params = null;
     return Query($query, $params, true);
@@ -50,6 +51,8 @@ function getAll($table)
 //Get one element by his id
 function getOne($table, $id)
 {
+    //$table = "users" OR "competences" ...
+    //$id = 55 OR 96556 OR 1 ...
     $query = "SELECT * FROM `$table` WHERE id=:id";
     $params = ['id' => $id];
     return Query($query, $params, false);
@@ -58,39 +61,48 @@ function getOne($table, $id)
 //Get one specific element of one Table
 function getByCondition($table, $params, $conditions, $manyrecords)
 {
-    //$criterions need the complete where condition with AND / OR write in SQL
-    //Example for $criterions= id=:id AND name=:name
-    //$params=["id"=>$id,"name"=>$name]
-    //$manyrecords=boolean (true/false)
+    //$table = "users" OR "competences" ...
+    //$conditions need the complete where condition with AND / OR write in SQL
+    //Example for $conditions => id=:id AND name=:name
+    //$params = ["id"=>$id,"name"=>$name]
+    //$manyrecords = if the query will return more than 1 items (true/false)
+
     $query = "SELECT * FROM `$table` WHERE " . $conditions;
     return Query($query, $params, $manyrecords);
 }
 
 //Update one element
-function updateOne($table, $id, $values)
+function updateOne($table, $id, $params)
 {
-    //$values = ['department'=>$department,'name'=>$name,'code'=>$code]
-    unset($values['id']);   //destroy id because update the id is prohibited
-    $query = "UPDATE `$table` SET " . buildStringForUpdateValues($values) . " WHERE id=" . $id;
+    //$table = "users" OR "competences" ...
+    //$id = 55 OR 96556 OR 1 ...
+    //$params = ["id"=>$id,"name"=>$name]
+
+    unset($params['id']);   //destroy id because update the id is prohibited
+    $query = "UPDATE `$table` SET " . buildStringForUpdateValues($params) . " WHERE id=" . $id;
     displaydebug($query);
-    displaydebug($values);
-    return Query($query, $values, false);
+    displaydebug($params);
+    return Query($query, $params, false);
 }
 
 //Create one element
-function createOne($table, $values)
+function createOne($table, $params)
 {
+    //$table = "users" OR "competences" ...
+    //$params = ["id"=>$id,"name"=>$name]
 
-    //$values = ['department'=>$department,'name'=>$name,'code'=>$code]
-    $query = "INSERT INTO `$table` " . buildStringForInsertValues($values);
+    $query = "INSERT INTO `$table` " . buildStringForInsertValues($params);
     displaydebug($query);
-    displaydebug($values);
-    return Query($query, $values, false);
+    displaydebug($params);
+    return Query($query, $params, false);
 }
 
 //Delete one element by his id
 function deleteOne($table, $id)
 {
+    //$table = "users" OR "competences" ...
+    //$id = 55 OR 96556 OR 1 ...
+    
     $query = "DELETE FROM `$table` WHERE id=:id";
     $params = ['id' => $id];
     return Query($query, $params, false);
