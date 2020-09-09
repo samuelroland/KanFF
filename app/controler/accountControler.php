@@ -40,7 +40,7 @@ function signin($post)
 
         //Generate others values:
         $newUser['inscription'] = timeToDT(time());
-        $newUser['status'] = "Arrivé le " . DTToHumanDate(time(), true);
+        $newUser['status'] = "Arrivé le " . DTToHumanDate(time(), "simpleday", true);   //simple day and a timestamp is sent (not a DateTime)
         $newUser['state'] = USER_STATE_UNAPPROVED;  //by default unapproved
         $newUser['password'] = password_hash($post['password'], PASSWORD_DEFAULT);
 

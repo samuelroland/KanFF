@@ -44,7 +44,7 @@ function timeToDT($timestamp)
     return date("Y-m-d H:i:s", $timestamp);
 }
 
-function DTToHumanDate($datetime, $isTimestamp = false, $mode = "simpleday")
+function DTToHumanDate($datetime, $mode = "simpleday", $isTimestamp = false)
 {
     $timestamp = $datetime;
 
