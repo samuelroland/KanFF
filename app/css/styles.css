@@ -419,3 +419,11 @@ tr {
     width: 300px;
     box-shadow: 0 5px 5px rgba(57, 44, 12, 0.54);
 }
+.errormsg{
+    color: red;
+    font-style: italic;
+}
+
+.nomargin{
+    margin: 0px !important;
+}
