@@ -59,11 +59,11 @@ function signin($post)
             $error = 5; //data error
         }
 
-        //Is username not already taken ?
+        //Is username already taken ?
         if (empty(searchUserByUsername($newUser['username'])) == false) {
             $error = 4; //data not unique
         }
-        //Is email not already taken ?
+        //Is email already taken ?
         if (empty(searchUserByEmail($newUser['email'])) == false) {
             $error = 4; //data not unique
         }
@@ -74,6 +74,7 @@ function signin($post)
             require "view/signin.php";  //view values sent inserted
         } else {
             createOne("users", $newUser);
+            displaydebug($newUser);
             flshmsg(6);
             login($newUser['initials'], $password1);
         }
@@ -104,30 +105,4 @@ function getUniqueInitials($firstname, $lastname)
         }
     }
     return $choosedInitials;
-}
-
-function searchUserByInitials($initials)
-{
-    return getByCondition("users", ["initials" => $initials], "initials =:initials", false);
-}
-
-function searchUserByUsername($username)
-{
-    return getByCondition("users", ["username" => $username], "username =:username", false);
-}
-
-function searchUserByEmail($email)
-{
-    return getByCondition("users", ["email" => $email], "email =:email", false);
-}
-
-
-function checkThatEachKeyIsNotEmpty($array)
-{
-    foreach ($array as $item) {
-        if ($item == null) {
-            return false;
-        }
-    }
-    return true;
 }

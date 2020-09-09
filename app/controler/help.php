@@ -145,4 +145,15 @@ function checkAdmin()
     return $isAdmin;
 }
 
+//Check that each key of an simple array is not empty (useful to check that all not null fields have been sent):
+function checkThatEachKeyIsNotEmpty($array)
+{
+    foreach ($array as $item) {
+        if ($item == null) {
+            return false;
+        }
+    }
+    return true;
+}
+
 ?>

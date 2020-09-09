@@ -76,5 +76,23 @@ ORDER BY users.inscription desc";
     return Query($query, [], true);
 }
 
+//Search a user by the initials
+function searchUserByInitials($initials)
+{
+    return getByCondition("users", ["initials" => $initials], "initials =:initials", false);
+}
+
+//Search a user by the username
+function searchUserByUsername($username)
+{
+    return getByCondition("users", ["username" => $username], "username =:username", false);
+}
+
+//Search a user by the email
+function searchUserByEmail($email)
+{
+    return getByCondition("users", ["email" => $email], "email =:email", false);
+}
+
 
 ?>
