@@ -19,7 +19,7 @@ function signin($post)
 
         //Get the variables, trim them and define the variables that are not sent (because not in the form)
         $newUser['username'] = trimIt($post['username']);
-        $newUser['initials'] = getUniqueInitials($post['firstname'], $post['lastname']);
+        $newUser['initials'] = getUniqueInitials(trimIt($post['firstname']), trimIt($post['lastname']));
         $newUser['firstname'] = trimIt($post['firstname']);
         $newUser['lastname'] = trimIt($post['lastname']);
         $newUser['password'] = $post['password'];   //only to check it's not empty
