@@ -58,8 +58,8 @@ ob_start();
 
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Statut</span>
-                        <span class=""><textarea style="resize: none" name="Statut" id="txtStatut" rows="2" placeholder="tbd"
-                                                          class="fullwidth  form-control"
+                        <span class=""><textarea  style="resize: none" name="Statut" id="txtStatut" rows="2" placeholder="tbd"
+                                                          class="form-control"
                                                           title="Votre Statut"></textarea></span>
 
                     </div>
@@ -128,21 +128,10 @@ Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard"
 
                     <span style="left: auto" class="<?= $cssForSpan ?>">Biographie</span>
                     <span class=" "><textarea  style="resize: none" id="txtBiography" rows="2" placeholder="tbd"
-                                                      class=" fullwidth form-control "
+                                                      class="  form-control "
                                                       title="Votre biographie"></textarea></span>
 
-                    <?php
-                    if (isset($_SESSION['error'])) {
-                        if ($_SESSION['error'] == 1) {
-                            echo "<br><p class='alert-warning'>Les mots de passe introduits ne se correspondent pas</p>";
-                        }
-                        if ($_SESSION["error"] == 2) {
-                            echo "<br><p class='alert-warning'>Les initiales introduites sont déjà existantes</p>";
-                        }
-
-                        unset($_SESSION['error']);
-                    }
-                    ?>
+                    <?= flashMessage(); ?>
                 </div>
             </div>
     </div>
@@ -151,15 +140,15 @@ Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard"
                 un ou des moyens de contact et une description pour les nouvelles personnes, qui ne connaissent pas les
                 autres membres. </p>
 
-            <div class=" box-alignright pt-3">
+            <div class="  pt-3">
                 <button type="submit" class="btn btn-primary">Enresgistrer</button>
             </div>
             <div class="float-left">
                 <p class="">Zone danger - actions irréversibles ou à grosses conséquences techniques.</p>
-                <div class="box-alignright pt-3">
+                <div class=" pt-3">
                     <button type="submit" class="btn btn-primary">Supprimer son compte</button>
                 </div>
-                <div class="  box-alignright pt-3">
+                <div class="  pt-3">
                     <button type="submit" class=" btn btn-primary">Archiver son compte</button>
                 </div>
             </div>
