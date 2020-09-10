@@ -26,6 +26,13 @@ $versions = [
 - CRUDModel unit tests in progress.\n
 - Create a group and display the list of the groups, in progress.\n
 - Create an account in progress."
+    ],
+    [
+        "version" => "1.1-beta",
+        "date" => "2020-09-10",
+        "changelog" => "- Create an account is possible!
+        - Login is finished (you can login with space at start and end of the username, email or initials)
+        - Design of the gabarit "
     ]
 ];
 
