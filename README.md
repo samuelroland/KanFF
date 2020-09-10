@@ -5,6 +5,9 @@
 
 ### Une application web de gestion de projets, de tâches, et d'organisation du travail, conçue pour le milieu militant et associatif.
 
+## Contact
+Ce projet vous intéresse ? Vous avez une question, des encouragements, une suggestion, une remarque, un retour, une critique constructive, sur l'application ou le projet ? Ecrivez nous un email à kanff [ate] protonmail.com en français ou en anglais! *(Empreinte de clé publique OpenPGP: `de52d839a9baf0486f6049761500b58971c1047f`)*. Si vous avez un compte GitHub mettez-nous une étoile si vous pensez que le projet en vaut la peine.
+
 ## Gestion du projet
 [Repository GitHub](https://github.com/samuelroland/KanFF) | [Projet IceScrum](https://cloud.icescrum.com/p/PWB2AGDC)  
 Le repository GitHub est public, mais le projet IceScrum est privé.
