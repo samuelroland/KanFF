@@ -13,6 +13,7 @@ function displaydebug($var)
 //do nothing
 }
 
+
 //Get all elements of one Table
 function test_getAll()
 {
@@ -28,6 +29,35 @@ function test_getAll()
     echo "
     
     ";
+}
+
+//Create all users i need below
+function createAll()
+{
+
+    $name = "Test";
+    $params = ['name' => $name];
+    createOne("competences", $params);
+    $criterions = ' name = "Test" ';
+    $params = null;
+    $array = getByCondition("competences", $params, $criterions, false);
+
+    if ($array['name'] == "Test") {
+        echo "OK";
+    } else {
+        echo "
+        BUG Create
+        ";
+        echo $array["name"];
+        if (isset($array)) {
+            echo "Array isn't null:";
+        } else {
+            echo "\$array=null";
+        }
+    }
+    echo "
+
+";
 }
 
 //Get one element by his id
@@ -129,7 +159,7 @@ function test_getOneByCriterion()
 }
 
 //Create one element
-function test_createOne()
+function test_createOneCompetences()
 {
 
     echo "crateOne 
@@ -250,11 +280,14 @@ function test_deleteOne()
 }
 
 ///cd C:\Users\benoit.pierrehumbert\Documents\GitHub\KanFF\app |cls | php -f .\unitTests\testCRUDmodel.php
+
+
 test_getAll();
+createAll();
 test_getOne();
 test_getAllByCriterion();
 test_getOneByCriterion();
-test_createOne();
+test_createOneCompetences();
 test_updateOne();
 test_deleteOne();
 ?>
