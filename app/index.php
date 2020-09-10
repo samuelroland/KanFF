@@ -90,7 +90,7 @@ if (!isset($_SESSION['user'])) {
         case "testCRUD":
             testCRUD();
         case "editAccount":
-            editAccount();
+            editAccount($post);
             break;
         case "groups":
             groups();

@@ -6,9 +6,73 @@
  *  Creation date: 18.05.2020
  */
 
-function editAccount()
+function editAccount($post)
 {
-    require_once "view/editAccount.php";
+    if (empty($post) == false) {    //if data have been sent
+        $error = false; //no error by default
+
+        //Get the variables, trim them and define the variables that are not sent (because not in the form)
+        $editUser['username'] = trimIt($post['username']);
+        $editUser['initials'] = getUniqueInitials(trimIt($post['firstname']), trimIt($post['lastname']));
+        $editUser['firstname'] = trimIt($post['firstname']);
+        $editUser['lastname'] = trimIt($post['lastname']);
+        $editUser['password'] = $post['password'];   //only to check it's not empty
+
+        //All not null values are set so we can test if these informations are not missing:
+        if (checkThatEachKeyIsNotEmpty($editUser) == false) {
+            $error = 5; //data error
+        }
+
+        //Optionnals variables
+        $editUser['chat_link'] = trimIt($post['chat_link']);
+        $editUser['email'] = trimIt($post['email']);
+        $editUser['phonenumber'] = trimIt($post['phonenumber']);
+        $editUser['biography'] = trimIt($post['biography']);
+
+        $password1 = $post['password'];
+        $password2 = $post['passwordc'];
+
+        //Generate others values:
+        $editUser['password'] = password_hash($post['password'], PASSWORD_DEFAULT);
+
+        //Check initials if error has occured:
+        if ($editUser['initials'] == false) {    //no unique combination for initials have been found
+            $error = 4; //data not unique
+        }
+
+        //Check that the 2 passwords are the same:
+        if ($password1 != $password2) {
+            $error = 5; //data error
+        }
+
+        //Check the Regex on it:
+        if (!preg_match("/^(?=.*[A-Za-z])(?=.*\d).{8,}$/", $password1)) {
+            $error = 5; //data error
+        }
+
+        //Is username already taken ?
+        if (empty(searchUserByUsername($editUser['username'])) == false) {
+            $error = 4; //data not unique
+        }
+        //Is email already taken ?
+        if (empty(searchUserByEmail($editUser['email'])) == false) {
+            $error = 4; //data not unique
+        }
+
+        //Then depending on errors or on success:
+        if ($error != false) {
+            flshmsg($error);
+            require "view/editAccount.php";  //view values sent inserted
+        } else {
+            updateOne("users",$_SESSION['user']['id'],$editUser);
+            displaydebug($editUser);
+            flshmsg(6);
+            logout();
+            login($editUser['initials'], $password1);
+        }
+    } else {    //if no data, load the page as normal
+        require "view/editAccount.php";
+    }
 }
 
 //This funtion will redirect to the signin page or redirect to the signin page
