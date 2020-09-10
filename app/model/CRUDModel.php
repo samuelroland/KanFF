@@ -92,7 +92,7 @@ function createOne($table, $params)
     //$params = ["name"=>$name,"NPA"=>94654]
 
     //If $debug = true the id won't be changed
-    if($debug==false){
+    if ($debug == false) {
         unset($params["id"]);
     }
     $query = "INSERT INTO `$table` " . buildStringForInsertValues($params);
@@ -123,6 +123,7 @@ function buildStringForInsertValues($values)
 //build the string for the SQL Query for update values with parameters, after string "UPTATE table SET ". Ex: "firstname=:firstname, lastname=:lastname"
 function buildStringForUpdateValues($values)
 {
+
     $keys = array_keys($values);    //get the keys of the array that are the fields names
     //Prepare keys before implode()
     foreach ($keys as $i => $onekey) {
@@ -131,4 +132,19 @@ function buildStringForUpdateValues($values)
     return implode(", ", $keys);
 }
 
+//Check that each char of every key of the array (that are names of MLD fields) is alphabetical or - or _ (for sql parameters)
+//Ex: ["firstname" => "test", ...] will be converted to "... :firstname" so firstname must be trusted.
+//If: ["firstname; DELETE * FROM users;--" => "test", ...] will be converted to "firstname; DELETE * FROM users;--, ..."
+//So an SQL injection is possible. So this functions check strings like "firstname; DELETE * FROM users;--".
+//If alphabetical return true, else return false
+function checkIfEachKeyIsAlphabetical($array)
+{
+    $regex = "^[a-zA-Z0-9_-]*$";    //only alphabetic uppercase and lowercase and - and _ are accepted.
+    foreach ($array as $key => $item) {
+        if (preg_match($regex, $key) == false) {
+            return false;
+        }
+    }
+    return true;
+}
 ?>
