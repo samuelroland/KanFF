@@ -5,7 +5,8 @@
  *  Author: Benoît Pierrehumbert
  *  Creation date: 15.05.2020
  */
-$BENOIT = true;
+
+$debug = false;
 require_once 'model/CRUDModel.php';
 function displaydebug($var)
 {
@@ -15,7 +16,8 @@ function displaydebug($var)
 //Get all elements of one Table
 function test_getAll()
 {
-    echo "getAll: ";
+    echo "    getAll 
+     get all users (100) : ";
     $array = getAll("users");
     if (count($array) == 100) {
         echo "OK";
@@ -31,9 +33,27 @@ function test_getAll()
 //Get one element by his id
 function test_getOne()
 {
-    echo "getOne: ";
+    echo "getOne
+     get one items from users with his id users[56] => id=56, username=orli82 : ";
     $array = getOne("users", 56);
     if ($array['username'] == "orli82") {
+        echo "OK";
+    } else {
+        echo "BUG
+";
+        if (isset($array)) {
+            echo "Array isn't null:";
+        } else {
+            echo "\$array=null";
+        }
+    }
+    echo "
+    
+    ";
+    echo "getOneEmpty
+     get one users with a wrong id, ids goes from 0 to 100, test with 600 : ";
+    $array = getOne("users", 600);
+    if (empty($array)) {
         echo "OK";
     } else {
         echo "BUG
@@ -52,15 +72,26 @@ function test_getOne()
 //Get some specific elements of one Table
 function test_getAllByCriterion()
 {
-    echo "getAllByCriterion: ";
-    $criterions = "email IS NULL";
+    echo "getAllByCriterion
+     get all items where phonenumber begins with 1 AND firstname OR lastname begins with R : ";
+    $criterions = '	phonenumber LIKE	"1%"
+	AND firstname LIKE "R%" 
+	OR
+	phonenumber LIKE	"1%"
+	AND lastname LIKE "R%"';
     $params = null;
     $array = getByCondition("users", $params, $criterions, true);
-    if (count($array) == 52) {
+    $return1=getOne("users",18);
+    $return2=getOne("users",26);
+    $return3=getOne("users",75);
+    $return4=getOne("users",98);
+
+    if (($return1==$array[0])&&($return2==$array[1])&&($return3==$array[2])&&($return4==$array[3])) {
         echo "OK";
     } else {
         echo "BUG
-";
+                ";
+
         if (isset($array)) {
             echo "Array isn't null:";
         } else {
@@ -75,11 +106,13 @@ function test_getAllByCriterion()
 //Get only one specific element of one Table
 function test_getOneByCriterion()
 {
-    echo "getOneByCriterion: ";
+    echo "getOneByCriterion 
+     get one item whith the \"JRD\" initials : ";
     $criterions = ' initials = "JRD" ';
     $params = null;
     $array = getByCondition("users", $params, $criterions, false);
-    if ($array['phonenumber'] == 7565739989) {
+    $arrayToCompare= getOne("users", 1);
+    if ($array==$arrayToCompare) {
         echo "OK";
     } else {
         echo "BUG
@@ -98,10 +131,12 @@ function test_getOneByCriterion()
 //Create one element
 function test_createOne()
 {
-    echo "crateOne: ";
+
+    echo "crateOne 
+     create one competences whith name=>\"Test\" : ";
     $name = "Test";
     $params = ['name' => $name];
-    $test = createOne("competences", $params);
+    createOne("competences", $params);
     $criterions = ' name = "Test" ';
     $params = null;
     $array = getByCondition("competences", $params, $criterions, false);
@@ -127,7 +162,8 @@ function test_createOne()
 //Update one element
 function test_updateOne()
 {
-    echo "updateOne: ";
+    echo "    updateOne 
+     update one items where name =\"Test\", replace name by \"Updated-Test\"";
     $criterions = ' name = "Test" ';
     $params = null;
     $element = getByCondition("competences", $params, $criterions, false);
@@ -154,12 +190,38 @@ function test_updateOne()
     echo "
 
 ";
+    echo "    updateOneID 
+     trying to update an id with the \$debug = \"false\",the id should not be updated";
+    $criterions = ' name = "Updated-Test" ';
+    $params = null;
+    $element = getByCondition("competences", $params, $criterions, false);
+
+    $name = 1000000;
+    $params = ['id' => $name];
+    updateOne("competences", $element["id"], $params);
+
+
+    if ($array['id'] == $element["id"]) {
+        echo "OK";
+    } else {
+        echo "BUG
+";
+        if (isset($array)) {
+            echo "Array isn't null:";
+        } else {
+            echo "\$array=null";
+        }
+    }
+    echo "
+
+";
 }
 
 //Detlete one element by his id
 function test_deleteOne()
 {
-    echo "delteOne : ";
+    echo "    delteOne 
+     delete one item whith name = \"Updated-Test\", if item is deleted, the test return OK : ";
     $criterions = ' name = "Updated-Test" ';
     $params = null;
     $element = getByCondition("competences", $params, $criterions, false);
@@ -187,8 +249,7 @@ function test_deleteOne()
 ";
 }
 
-///cd C:\Users\benoit.pierrehumbert\Documents\GitHub\KanFF\app
-///cls | php -f .\unitTests\testCRUDmodel.php
+///cd C:\Users\benoit.pierrehumbert\Documents\GitHub\KanFF\app |cls | php -f .\unitTests\testCRUDmodel.php
 test_getAll();
 test_getOne();
 test_getAllByCriterion();
