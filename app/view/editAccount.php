@@ -53,9 +53,7 @@ ob_start();
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Nom d'utilisateur/trice</span>
                         <input class="<?= $cssForInput ?>" minlength="4" maxlength="20" type="text" name="user"
-                               placeholder="josette27" required/> <img title="Manque text"
-                                                                       src="view/medias/icons/point.png" alt="50px"
-                                                                       width="35" height="35" class="">
+                               placeholder="josette27" required/>
                     </div>
                     <div class="<?= $cssForDivZone ?>">
                     <div class="<?= $cssForDivField ?>">
@@ -65,15 +63,15 @@ ob_start();
                                                           title="Votre biographie"></textarea></span>
 
                     </div>
-
+                    </div>
 
 
                     <div class="<?= $cssForDivField ?>">
-                        <span class="<?= $cssForSpan ?>">Etat du compte </span>
+                        <span class=" <?= $cssForSpan ?>">Etat du compte </span>
                         <input class="<?= $cssForInput ?>" type="text" placeholder="Aprouvé" readonly/>
                         <img title="Cet état peut être non aprouvé, aprouvé, archivé ou admin"
                              src="view/medias/icons/point.png" alt="50px" width="35" height="35" class="">
-                    </div>
+
 
                 </div>
                 <h5 class="pt-3">Changement de mot de passe:<span title="Inserer le text volu"
@@ -127,9 +125,10 @@ Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard"
                 </div>
 
                 <div class="<?= $cssForDivField ?>">
-                    <span class="<?= $cssForSpan ?>">Biographie</span>
-                    <span class="fullwidth"><textarea style="resize: none" id="txtBiography" rows="2" placeholder="tbd"
-                                                      class="fullwidth form-control"
+
+                    <span style="left: auto" class="<?= $cssForSpan ?>">Biographie</span>
+                    <span class="fullwidth"><textarea  style="resize: none" id="txtBiography" rows="2" placeholder="tbd"
+                                                      class=" fullwidth form-control "
                                                       title="Votre biographie"></textarea></span>
 
                     <?php
