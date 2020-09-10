@@ -6,5 +6,6 @@
   "4": "Les initiales, l'email ou le nom d'utilisateur, est déjà utilisé par un autre utilisateur... Veuillez utiliser des données différentes.",
   "5": "Erreur dans les données envoyées. Veuillez retenter.",
   "6": "Votre compte a été créé avec succès! Vous avez été directement connecté à votre compte.",
-  "7": "Votre compte a été modifié avec succès! Vous avez été directement connecté à votre compte."
+  "7": "Votre compte a été modifié avec succès! Vous avez été directement connecté à votre compte.",
+  "8": "Le mot de passe inséré n'est pas correct.... Veuillez ressayer",
 }

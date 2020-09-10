@@ -86,7 +86,7 @@ ob_start();
                 </div>
                 <div class="<?= $cssForDivField ?>">
                     <span class="<?= $cssForSpan ?>">Mot de passe</span>
-                    <input class="<?= $cssForInput ?>" type="password" name="password2" placeholder="" required/>
+                    <input class="<?= $cssForInput ?>" type="password" name="newpassword" placeholder="" required/>
                     <img title="Les critères de sécurité du mot de passe sont:
                 - yy caractères
                 - caractères minuscules, majuscules, spéciaux, chiffres.
@@ -95,7 +95,7 @@ ob_start();
 
                 <div class="<?= $cssForDivField ?>">
                     <span class="<?= $cssForSpan ?>">Confirmation</span>
-                    <input class="<?= $cssForInput ?>" type="password" name="passwordc" placeholder="" required
+                    <input class="<?= $cssForInput ?>" type="password" name="newpasswordc" placeholder="" required
                            title="Confirmation du mot de passe"/>
                     <span title="Inserer le text souhaité" class=" glyphicon-question-sign"></span>
                 </div>
