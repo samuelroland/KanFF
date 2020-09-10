@@ -74,19 +74,19 @@ ob_start();
 
 
                 </div>
-                <h5 class="pt-3">Changement de mot de passe:<span title="Inserer le text volu"
+                <h5 class="pt-3">Changement de mot de passe:<span title="Inserer le text souhaité"
                                                                   class="glyphicon glyphicon-question-sign"></span>
                 </h5>
 
                 <div class="<?= $cssForDivField ?>">
                     <span class="<?= $cssForSpan ?>">Actuel</span>
                     <input class="<?= $cssForInput ?>" type="password" name="password" placeholder="" required/>
-                    <img title="Iserez le mot de passe catuel" src="view/medias/icons/point.png" alt="50px" width="35"
+                    <img title="Inserez le mot de passe actuel" src="view/medias/icons/point.png" alt="50px" width="35"
                          height="35" class="">
                 </div>
                 <div class="<?= $cssForDivField ?>">
                     <span class="<?= $cssForSpan ?>">Mot de passe</span>
-                    <input class="<?= $cssForInput ?>" type="password" name="password" placeholder="" required/>
+                    <input class="<?= $cssForInput ?>" type="password" name="password2" placeholder="" required/>
                     <img title="Les critères de sécurité du mot de passe sont:
                 - yy caractères
                 - caractères minuscules, majuscules, spéciaux, chiffres.
@@ -97,7 +97,7 @@ ob_start();
                     <span class="<?= $cssForSpan ?>">Confirmation</span>
                     <input class="<?= $cssForInput ?>" type="password" name="passwordc" placeholder="" required
                            title="Confirmation du mot de passe"/>
-                    <span title="Inserer le text volu" class=" glyphicon-question-sign"></span>
+                    <span title="Inserer le text souhaité" class=" glyphicon-question-sign"></span>
                 </div>
             </div>
 
@@ -126,9 +126,9 @@ Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard"
 
                 <div class="<?= $cssForDivField ?>">
 
-                    <span style="left: auto" class="<?= $cssForSpan ?>">Biographie</span>
-                    <span class=" "><textarea  style="resize: none" id="txtBiography" rows="2" placeholder="tbd"
-                                                      class="  form-control "
+                    <span style="" class="<?= $cssForSpan ?>">Biographie</span>
+                    <span class=" fullwidth col-lg-12"><textarea  style="resize: none" id="txtBiography" rows="2" placeholder="tbd"
+                                                      class="fullwidth form-control "
                                                       title="Votre biographie"></textarea></span>
 
                     <?= flashMessage(); ?>
