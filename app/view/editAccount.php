@@ -55,15 +55,15 @@ ob_start();
                         <input class="<?= $cssForInput ?>" minlength="4" maxlength="20" type="text" name="user"
                                placeholder="josette27" required/>
                     </div>
-                    <div class="<?= $cssForDivZone ?>">
+
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Statut</span>
-                        <span class="fullwidth"><textarea style="resize: none" name="Statut" id="txtBiography" rows="2" placeholder="tbd"
-                                                          class="fullwidth form-control"
-                                                          title="Votre biographie"></textarea></span>
+                        <span class=""><textarea style="resize: none" name="Statut" id="txtStatut" rows="2" placeholder="tbd"
+                                                          class="fullwidth  form-control"
+                                                          title="Votre Statut"></textarea></span>
 
                     </div>
-                    </div>
+
 
 
                     <div class="<?= $cssForDivField ?>">
@@ -122,12 +122,12 @@ ob_start();
 Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard"
                              src="view/medias/icons/point.png" alt="50px" width="35" height="35" class="">
                     </div>
-                </div>
+
 
                 <div class="<?= $cssForDivField ?>">
 
                     <span style="left: auto" class="<?= $cssForSpan ?>">Biographie</span>
-                    <span class="fullwidth"><textarea  style="resize: none" id="txtBiography" rows="2" placeholder="tbd"
+                    <span class=" "><textarea  style="resize: none" id="txtBiography" rows="2" placeholder="tbd"
                                                       class=" fullwidth form-control "
                                                       title="Votre biographie"></textarea></span>
 
@@ -145,6 +145,7 @@ Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard"
                     ?>
                 </div>
             </div>
+    </div>
         <div class=" float-left">
             <p class="">Ces informations seront visibles à tous les membres approuvés de l'instance, dans le but d'avoir
                 un ou des moyens de contact et une description pour les nouvelles personnes, qui ne connaissent pas les
