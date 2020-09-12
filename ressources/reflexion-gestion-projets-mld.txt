@@ -76,7 +76,7 @@ Travaux:
 			- Postage des publications
 		- News du mois
 			- ...
-	OK on met. par contre sur projet ou travail ????
+	OK on met. par contre sur projet ou travail ??
 	pour projet: processus global vague avec des répétitions. notion de "projet" qui devient un truc répétitif.
 	pour travail: plus précis si qu'une partie est répétitive et pas le reste.
 	--> Après longue réflexion le mot "travail répétitif" ca passe mieux que "projet répétitif" donc c'est pas pour rien, donc on met sur travail! C'est seulement une indication.
@@ -175,52 +175,85 @@ Affichage:
 	- couleur spéciale sur une tâche si urgente
 		- qu'est-ce que "urgent" ?
 		- si son travail est urgent
+		- si deadline est aujourdhui
 	- tâches ordrables ?? Afin de donner un certain ordre d'éxecution. Non pas vraiment utile. ordré par défaut par date de création.
+
+
+nouveau type: rappel ? peut être rappel et tâche en meme temps (donc incohérent). fonctionne déjà avec les deadlines qui rendent les tâches urgentes (affichées dans Page Tâches). donc on met PAS.
 
 -----------------------------
 log:
 - title à rajouter.
-- context à rediscuter sur l'utilité. ouais. pas super clair et augmente l'espace d'affichage d'un log. On met PAS.
+- context à rediscuter sur l'utilité. ouais. pas super clair et augmente l'espace d'affichage d'un log. on peut déjà l'inclure dans la description. On met PAS.
 - importance vraiment utile ? pensé pour le tri à la base. (afficher que ceux au dessus de 10). Valeur compliquée à définir et assez subjective. Donc NON.
 - date dernière modif et personne qui a fait la dernière modif. ca pourrait ajouter de la "sécurité" sur les logs, mais ce n'est pas sans faille non plus (on ne saura pas ce qui a été modifié et si c'est légitime ou pas). 
 --> date de dernière modification on ajoute mais la personne qui a modifié non puisque c'est aussi la personne qui a créé le log. (cf dessous)
-- qui peut modifier un log ?? C'est pas sensé être modifié. Uniquement la personne qui a créé le log peut modifier.
+- qui peut modifier un log ?? C'est pas sensé être modifié. Uniquement la personne qui a créé le log peut modifier (en cas d'erreur--> modification ou suppression du log)
+	- délai de modification après création: 4 jours
 - peut-on supprimer un log ?? Uniquement la personne qui a créé le log.
+	- délai de suppression après création: 4 jours
+
 - support markdown ? ou markdown simplifié ?
 	- la version de https://commonmark.org/help/ paraît bien.
 	- on peut avoir 2 versions: 1 complète et 1 pour description (sans titre # ## etc et sans citations et sans ligne horizontale)
 	- Support markdown permettrait de ne pas rendre tout le texte neutre et visuellement ce serait plus joli.
+	- mention d'une personne possible. se fait par @XDE (si les initiales existent ca pointe sur les détails du user)
+	- mention d'un groupe possible: @GT Multimédia (lien pour détails du groupe si groupe trouvé) uniquement si le groupe est visible.
 	- attention aux failles XSS.
 
 - visible ? il y a déjà une notion de visible sur le projet: logbook_visible, mais ?
+	- oui utile de pouvoir dans certains cas pour les groupes sensibles (infos sensibles ou log par rapport à une surprise). OUI on met.
 
 Affichage:
 - plusieurs mode d'affichage plus ou moins complet ?
 	- Idées:
-		- Titre et dates uniquement.
-		- Titre + date + date création + creator + mini flèche bas pour afficher autre info d'un seul log.
-		- Tout.
-- comment afficher la valeur "type". Mettre une petite icône pour chaque type ?
+		- Titre et date uniquement et initiales
+		- Titre et date et description raccourcie et initiales (le tout sur la même ligne)
+		- Tout. (ajout date création)
+		--> 3 boutons pour changer d'option en JS
+- type vraiment utile ? a part pour la couleur et le tri non. NON.
 
-
-???? type tache ??? nouveau type: rappel ?
 -----------------------------
 groups:
-- prerequis: texte expliquant les prérequis nécessaires (compétences, motivation, temps, investissement,statut) pour rentrer dans le groupe.
+- prerequis: texte expliquant les prérequis nécessaires (compétences, motivation, temps, investissement, statut) pour rentrer dans le groupe.
 - liste des groupes ordrés comment ?
 	- Tout ordrés par état croissant, puis par nombre de membres décroissant.
 	- Découpés en:
 		- Actuels: En démarrage + Actif
 		- En pause
 		- Archivés
+	-> voir maquette!
 
 --------------------------------
 users:
 comment mettre un statut "membre" et nouvelleau ? vraiment besoin ?
 approuvé par : approver_id
-date d'approbation ?? en lien avec changement d'état.
-quid des roles et responsabilités ? par groupe ? par projet ?
-changement d'état le +date ? archivé le tel date, approuvé le tel date.
+	- utile en cas de problème (n'aurait pas du être approuvé) et un petit peu utile pour savoir qui nous a approuvé. donc on met. OUI.
+date d'approbation ?? (en lien avec date de changement d'état.)
+	- Utile en cas de problème (n'aurait pas du être approuvé, n'aurait pas du être archivé)
+	--> Changer en "date de modification de state". comme ca on peut avoir "approuvé le x date", "en pause depuis le x date", "admin depuis le x date" affichés (et pas seulement l'approbation).
+--> mais alors personne qui approuve, faudrait pas aussi mettre "dernière personne qui change état"???
+
+Quels sont les changements d'état possible ?
+- de x vers y:
+	- de non approuvé, archivé: rien.
+	- de approuvé, en pause: vers approuvé, en pause.
+
+
+- Problème admin et en pause pas possible les 2 en même temps (puisque c'est une seule valeur sur users.state).
+	- On pourrait dire qu'un admin en pause n'a plus besoin de son rôle d'admin (qui permet uniquement de gérer les membres) puisqu'il est censé ne pas être très présent. Sauf qu'au retour il ne pourra plus se remettre admin seul. Il faudra demander à un autre admin de le promouvoir.
+	- Donc: on créé un nouveau champ int admin avec comme valeur 0 non, 1 oui. (int--> en prévision d'une modification des valeurs possibles et d'un rajout de superadmin par ex.) et on retire le state admin 4. C'est plus sûr d'avoir un champ admin séparé.
+
+- Comment devenir ou ne plus être admin?
+	- devenir: un.e autre admin doit nous promouvoir admin
+	- ne plus être: on peut se retirer le rôle admin soit-même ou un.e autre admin peut nous retirer le rôle.
+	--> La conséquence est qu'il ne doit jamais y avoir moins d'un admin dans le collectif. -> Vérification avant d'enlever un admin et bloquage de l'action si c'est le dernier admin.
+
+
+- quid des roles et responsabilités ? par groupe ? par projet ?
+	- Responsabilités:
+		- Philosophie générale des responsabilités (ou question de vocabulaire):
+			- Les responsabilités sont toutes les choses à faire dont une personne est responsable. Ex: Les tâches assignées, les travaux dont la personne est responsable, sont des responsabilités.
 
 ------------
 Quid des commentaires sur les tâches ou sur les travaux ?

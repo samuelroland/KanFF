@@ -16,10 +16,10 @@ This file define:
 - inscription: date between 01.01.2019 and date of generation
 - status: status written by the user
 - state: technical state of the account:
-    - Values: 0 = unapproved. 1 = approved. 2 = archived. 3 = on break. 4 = admin. 
+    - Values: 0 = unapproved. 1 = approved. 2 = on break. 3 = archived.
         - unapproved and archived: the user can not see internal data. He can login, logout, change his account informations and see the message "you are not approved yet" or "you're account has been archived. contact an admin."
         - approved and on break: access to internal data like normal users
-        - admin: access to internal data and options not allowed to normal users.
+        - admin: access to internal data and the members management (management of their state only, and delete if needed).
 
 ### Groups:
 11 records.
