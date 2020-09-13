@@ -254,8 +254,8 @@ Quels sont les changements d'état possible ?
 	- Responsabilités:
 		- Philosophie générale des responsabilités (ou question de vocabulaire):
 			- Les responsabilités sont toutes les choses à faire dont une personne est responsable. Ex: Les tâches assignées, les travaux dont la personne est responsable, les projets dont la personne est responsable, sont des responsabilités. Responsable signifie une "Nécessité morale de remplir un devoir, un engagement" (lerobert.com)
-		- Possible d'être responsable d'un projet ? Oui pour des projets courts c'est possible et ca complique peu le fonctionnement (la donnée peut être utile par rapport à la gestion du projet). Alors on met. OUI.
-		- Dans un groupe ? la possibilité que je vois est "gestion des membres". 
+		- Possible d'être responsable d'un projet ? Oui pour des projets courts c'est possible et ca complique peu le fonctionnement (la donnée peut être utile par rapport à la gestion du projet). Ca peut aussi être la personne qui s'assure que les tâches sont bien listées, de gérer la planification globale,  Alors on met. OUI.
+		- responsable d'un groupe ? la possibilité que je vois est "gestion des membres" (possibilité technique), et rôle serait de 
 
 
 Permissions:
@@ -286,3 +286,9 @@ Quid des commentaires sur les tâches ou sur les travaux ?
 groups:
 
 - personne de contact ?
+
+- communiquer sur le temps qu'on a à investir dans un projet ou un groupe ? et ses intérêts et capacités ?
+
+- raison de joindre un GT ? Pourquoi on rejoint, par curiosité sans avoir le temps, donner son avis, sur quoi on veut aider ?
+
+
