@@ -61,8 +61,11 @@ function displaydebug($var)
 {
     require ".const.php";   //get the $debug variable
     if ($debug == true) {   //if debug mode enabled
-        echo "<br>";
-        var_dump($var);
+        if (substr($_SERVER['SERVER_SOFTWARE'], 0, 7) != "PHP 7.3") {  //if version is not 7.3 (var_dump() don't have the same design)
+            echo "<pre><small>" . print_r($var, true) . "</small></pre>";   //print with line break and style of <pre>
+        } else {
+            var_dump($var); //else to a simple var_dump() of PHP 7.3
+        }
     }
 }
 
