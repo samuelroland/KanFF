@@ -25,7 +25,8 @@ function createAProject($newProject)
 {
     if (empty($newProject) != false) {
         $error = false;
-        
+        $newProject['name'] = trimIt($newProject['name']);
+
         if (checkUserPassword($_SESSION['user']['id'], $newProject['password']) == false) {
             $error = 8;
         }
