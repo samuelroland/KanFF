@@ -26,6 +26,9 @@ function createAProject($newProject)
     if (empty($newProject) != false) {
         $error = false;
         
+        if (checkUserPassword($_SESSION['user']['id'], $newProject['password']) == false) {
+            $error = 8;
+        }
     } else {
         require_once "view/projects.php";
     }
