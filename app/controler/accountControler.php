@@ -11,8 +11,7 @@ function editAccount($post)
     if (empty($post) == false) {    //if data have been sent
         $error = false; //no error by default
 
-        if (checkUserPassword($_SESSION['user']['id'], $post["password"]))
-        {
+        if (checkUserPassword($_SESSION['user']['id'], $post["password"])) {
             //Get the variables, trim them and define the variables that are not sent (because not in the form)
             $editUser['username'] = trimIt($post['username']);
             $editUser['initials'] = getUniqueInitials(trimIt($post['firstname']), trimIt($post['lastname']));
@@ -67,17 +66,16 @@ function editAccount($post)
                 flshmsg($error);
                 require "view/editAccount.php";  //view values sent inserted
             } else {
-                updateOne("users",$_SESSION['user']['id'],$editUser);
+                updateOne("users", $_SESSION['user']['id'], $editUser);
                 displaydebug($editUser);
                 flshmsg(6);
                 unset($_SESSION['user']);   // Clears the session
                 login($editUser['initials'], $password1);
             }
-        }else
-            {
-                flshmsg(8);
-                require "view/editAccount.php";
-            }
+        } else {
+            flshmsg(8);
+            require "view/editAccount.php";
+        }
 
     } else {    //if no data, load the page as normal
         require "view/editAccount.php";
