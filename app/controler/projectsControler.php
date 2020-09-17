@@ -30,6 +30,16 @@ function createAProject($newProject)
         if (checkUserPassword($_SESSION['user']['id'], $newProject['password']) == false) {
             $error = 8;
         }
+
+        //Then depending on errors or on success:
+        if ($error != false) {
+            flshmsg($error);
+            require "view/editAccount.php";  //view values sent inserted
+        } else {
+            createOne("projects", $newProject);
+            displaydebug($newProject);
+            flshmsg(9);
+        }
     } else {
         require_once "view/projects.php";
     }
