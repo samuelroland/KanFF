@@ -20,7 +20,7 @@ function test_getAll()
     echo "    getAll 
      get all users (100) : ";
     $array = getAll("users");
-    if (count($array) == 100) {
+    if (count($array) == 101) {
         echo "OK";
     } else {
         echo "BUG
@@ -32,41 +32,30 @@ function test_getAll()
 }
 
 //Create all users i need below
-function createAll()
+function createAllUser1()
 {
-
-    $name = "Test";
-    $params = ['name' => $name];
-    createOne("competences", $params);
-    $criterions = ' name = "Test" ';
-    $params = null;
-    $array = getByCondition("competences", $params, $criterions, false);
-
-    if ($array['name'] == "Test") {
-        echo "OK";
-    } else {
-        echo "
-        BUG Create
-        ";
-        echo $array["name"];
-        if (isset($array)) {
-            echo "Array isn't null:";
-        } else {
-            echo "\$array=null";
-        }
+//first user
+    $criterions = ' initials = "666" ';
+    $user1 = getByCondition("users", null, $criterions, false);
+    if ($user1 != 0) {
+        deleteOne("users", $user1["id"]);
     }
-    echo "
-
-";
+    $user1 = "INSERT INTO `users` 
+(username, initials, firstname, lastname, password, chat_link, email, phonenumber, biography, inscription, status, state)
+ VALUES ('Username', '666', 'Prenom','Nom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 101626654,NULL, '2020-09-17 06:12:47', null, 3);";
+    $res = Query($user1, null, false);
+    return $res;
 }
 
 //Get one element by his id
-function test_getOne()
+function test_getOne($id)
 {
+
     echo "getOne
-     get one items from users with his id users[56] => id=56, username=orli82 : ";
-    $array = getOne("users", 56);
-    if ($array['username'] == "orli82") {
+     get one items from users with his id users[LastInstertedID] => id=LastInsertId, Initials = '666' : ";
+
+    $array = getOne("users", $id);
+    if ($array['initials'] == "666") {
         echo "OK";
     } else {
         echo "BUG
@@ -100,7 +89,7 @@ function test_getOne()
 }
 
 //Get some specific elements of one Table
-function test_getAllByCriterion()
+function test_getAllByCondition()
 {
     echo "getAllByCriterion
      get all items where phonenumber begins with 1 AND firstname OR lastname begins with R : ";
@@ -111,12 +100,12 @@ function test_getAllByCriterion()
 	AND lastname LIKE "R%"';
     $params = null;
     $array = getByCondition("users", $params, $criterions, true);
-    $return1=getOne("users",18);
-    $return2=getOne("users",26);
-    $return3=getOne("users",75);
-    $return4=getOne("users",98);
+    $return1 = getOne("users", 18);
+    $return2 = getOne("users", 26);
+    $return3 = getOne("users", 75);
+    $return4 = getOne("users", 98);
 
-    if (($return1==$array[0])&&($return2==$array[1])&&($return3==$array[2])&&($return4==$array[3])) {
+    if (($return1 == $array[0]) && ($return2 == $array[1]) && ($return3 == $array[2]) && ($return4 == $array[3])) {
         echo "OK";
     } else {
         echo "BUG
@@ -134,15 +123,15 @@ function test_getAllByCriterion()
 }
 
 //Get only one specific element of one Table
-function test_getOneByCriterion()
+function test_getOneByCondition()
 {
     echo "getOneByCriterion 
-     get one item whith the \"JRD\" initials : ";
-    $criterions = ' initials = "JRD" ';
+     get one item whith the \"666\" initials : ";
+    $criterions = ' initials = "666" ';
     $params = null;
     $array = getByCondition("users", $params, $criterions, false);
-    $arrayToCompare= getOne("users", 1);
-    if ($array==$arrayToCompare) {
+    $arrayToCompare = getOne("users", $array["id"]);
+    if ($array == $arrayToCompare) {
         echo "OK";
     } else {
         echo "BUG
@@ -156,6 +145,7 @@ function test_getOneByCriterion()
     echo "
     
     ";
+    return $array["id"];
 }
 
 //Create one element
@@ -280,14 +270,17 @@ function test_deleteOne()
 }
 
 ///cd C:\Users\benoit.pierrehumbert\Documents\GitHub\KanFF\app |cls | php -f .\unitTests\testCRUDmodel.php
-
-
+$id=createAllUser1();
 test_getAll();
-createAll();
-test_getOne();
-test_getAllByCriterion();
-test_getOneByCriterion();
+test_getOne($id);
+test_getOneByCondition();
+/*
+
+
+
+test_getAllByCondition();
+
 test_createOneCompetences();
 test_updateOne();
-test_deleteOne();
+test_deleteOne();*/
 ?>

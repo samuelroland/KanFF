@@ -30,10 +30,15 @@ function Query($query, $params, $manyrecords)
             $queryResult = $statement->fetchAll(PDO::FETCH_ASSOC);//prepare result for client
         } else {    //if not, use fetch()
             $queryResult = $statement->fetch(PDO::FETCH_ASSOC);//prepare result for client
+
+        }
+        if (substr($query,0,11)=="INSERT INTO"){
+            $queryResult = $dbh->lastInsertId();
         }
         if ($statement->errorInfo()[2] != null) {
             displaydebug($statement->errorInfo()[2]);
         }
+
         $dbh = null;
         return $queryResult;
     } catch (PDOException $e) {
