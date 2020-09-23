@@ -14,6 +14,22 @@ function getPDO()
     return $res;
 }
 
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+SELECT LAST_INSERT_ID(); In SQL
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
 function Query($query, $params, $manyrecords)
 {
     try {

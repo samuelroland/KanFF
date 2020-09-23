@@ -276,6 +276,7 @@ function test_deleteOne()
 ";
 }
 
+//Delete all created users in this file for testing function
 function deleteAllCreatedUser(){
     $user1 = getByCondition("users", null, ' initials = "666" ', false);
     $user2 = getByCondition("users", null, ' initials = "667" ', false);
@@ -288,23 +289,19 @@ function deleteAllCreatedUser(){
     deleteOne("users",$user4["id"]);
 }
 
-///cd C:\Users\benoit.pierrehumbert\Documents\GitHub\KanFF\app |cls | php -f .\unitTests\testCRUDmodel.php
-createAllUser();
-test_getAll();
-test_getOne();
-test_getOneByCondition();
-test_getAllByCondition();
-test_createOneCompetences();
-test_updateOne();
-test_deleteOne();
-deleteAllCreatedUser();
-/*
+//Lunch all tests
+function StartTests(){
+    ///cd C:\Users\benoit.pierrehumbert\Documents\GitHub\KanFF\app |cls | php -f .\unitTests\testCRUDmodel.php
+    createAllUser();
+    test_getAll();
+    test_getOne();
+    test_getOneByCondition();
+    test_getAllByCondition();
+    test_createOneCompetences();
+    test_updateOne();
+    test_deleteOne();
+    deleteAllCreatedUser();
+}
 
-
-
-test_getAllByCondition();
-
-test_createOneCompetences();
-test_updateOne();
-test_deleteOne();*/
+StartTests();
 ?>
