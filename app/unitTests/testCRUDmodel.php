@@ -32,7 +32,7 @@ function test_getAll()
 }
 
 //Create all users i need below
-function createAllUser1()
+function createAllUser()
 {
 //first user
     $criterions = ' initials = "666" ';
@@ -42,20 +42,31 @@ function createAllUser1()
     }
     $user1 = "INSERT INTO `users` 
 (username, initials, firstname, lastname, password, chat_link, email, phonenumber, biography, inscription, status, state)
- VALUES ('Username', '666', 'Prenom','Nom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 101626654,NULL, '2020-09-17 06:12:47', null, 3);";
-    $res = Query($user1, null, false);
-    return $res;
+ VALUES ('Username', '666', 'Rrenom','Rom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 16666654,NULL, '2020-09-17 06:12:47', null, 3);";
+    $user2 = "INSERT INTO `users` 
+(username, initials, firstname, lastname, password, chat_link, email, phonenumber, biography, inscription, status, state)
+ VALUES ('Username2', '667', 'Rrenom','Rom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 16666654,NULL, '2020-09-17 06:12:47', null, 3);";
+    $user3 = "INSERT INTO `users` 
+(username, initials, firstname, lastname, password, chat_link, email, phonenumber, biography, inscription, status, state)
+ VALUES ('Username4', '668', 'Rrenom','Rom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 16666654,NULL, '2020-09-17 06:12:47', null, 3);";
+    $user4 = "INSERT INTO `users` 
+(username, initials, firstname, lastname, password, chat_link, email, phonenumber, biography, inscription, status, state)
+ VALUES ('Username3', '669', 'Rrenom','Rom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 16666654,NULL, '2020-09-17 06:12:47', null, 3);";
+    Query($user1, null, false);
+    Query($user2, null, false);
+    Query($user3, null, false);
+    Query($user4, null, false);
 }
 
 //Get one element by his id
-function test_getOne($id)
+function test_getOne()
 {
 
     echo "getOne
-     get one items from users with his id users[LastInstertedID] => id=LastInsertId, Initials = '666' : ";
+     get one items from users with his id, Initials = '666' : ";
 
-    $array = getOne("users", $id);
-    if ($array['initials'] == "666") {
+    $array = getOne("users", 1);
+    if ($array['initials'] == "JRD") {
         echo "OK";
     } else {
         echo "BUG
@@ -86,26 +97,22 @@ function test_getOne($id)
     echo "
     
     ";
-}
+}//ok
 
 //Get some specific elements of one Table
 function test_getAllByCondition()
 {
     echo "getAllByCriterion
      get all items where phonenumber begins with 1 AND firstname OR lastname begins with R : ";
-    $criterions = '	phonenumber LIKE	"1%"
+    $criterions = '	phonenumber LIKE	"166666%"
 	AND firstname LIKE "R%" 
 	OR
-	phonenumber LIKE	"1%"
+	phonenumber LIKE	"166666%"
 	AND lastname LIKE "R%"';
     $params = null;
     $array = getByCondition("users", $params, $criterions, true);
-    $return1 = getOne("users", 18);
-    $return2 = getOne("users", 26);
-    $return3 = getOne("users", 75);
-    $return4 = getOne("users", 98);
 
-    if (($return1 == $array[0]) && ($return2 == $array[1]) && ($return3 == $array[2]) && ($return4 == $array[3])) {
+    if (count($array)==4) {
         echo "OK";
     } else {
         echo "BUG
@@ -269,11 +276,28 @@ function test_deleteOne()
 ";
 }
 
+function deleteAllCreatedUser(){
+    $user1 = getByCondition("users", null, ' initials = "666" ', false);
+    $user2 = getByCondition("users", null, ' initials = "667" ', false);
+    $user3 = getByCondition("users", null, ' initials = "668" ', false);
+    $user4 = getByCondition("users", null, ' initials = "669" ', false);
+
+    deleteOne("users",$user1["id"]);
+    deleteOne("users",$user2["id"]);
+    deleteOne("users",$user3["id"]);
+    deleteOne("users",$user4["id"]);
+}
+
 ///cd C:\Users\benoit.pierrehumbert\Documents\GitHub\KanFF\app |cls | php -f .\unitTests\testCRUDmodel.php
-$id=createAllUser1();
+createAllUser();
 test_getAll();
-test_getOne($id);
+test_getOne();
 test_getOneByCondition();
+test_getAllByCondition();
+test_createOneCompetences();
+test_updateOne();
+test_deleteOne();
+deleteAllCreatedUser();
 /*
 
 
