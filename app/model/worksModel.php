@@ -30,8 +30,9 @@ function getAllByConditionWorks($criterions,$params){
 }
 
 //Get all works of one sepcific project
-function getAllWorksByProject($params){
-    $query='';
+function getAllWorksByProject($project_id){
+    $query='SELECT * FROM works WHERE works.project_id =:id';
+    $params = ['id' => $project_id];
     return Query($query, $params, true);
 }
 
