@@ -60,6 +60,12 @@ if ($action == "createAGroup") {
     $group = $_POST;
 }
 
+if ($action == "createAProject") {
+    $group = $_POST;
+}
+
+
+
 //If user is not logged, actions authorized are login and signin.
 if (!isset($_SESSION['user'])) {
     // Depending on the chosen action
@@ -104,6 +110,9 @@ if (!isset($_SESSION['user'])) {
             break;
         case "createAGroup":
             createAGroup($group);
+            break;
+        case "createAProject":
+            createAGroup($project);
             break;
         case "projects":
             projects();
