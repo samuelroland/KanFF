@@ -127,7 +127,7 @@ Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard"
                 <div class="<?= $cssForDivField ?>">
 
                     <span style="" class="<?= $cssForSpan ?>">Biographie</span>
-                    <span class=" fullwidth col-lg-12"><textarea  style="resize: none" id="txtBiography" rows="2" placeholder="tbd"
+                    <span class="  "><textarea  style="resize: none" id="txtBiography" rows="2" placeholder="tbd"
                                                       class="fullwidth form-control "
                                                       title="Votre biographie"></textarea></span>
 
