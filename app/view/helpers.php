@@ -149,10 +149,16 @@ function convertWorkState($int)
     }
 }
 
-//WIP don't use it
+//Done you can use it
 function setFirstCharToUpperCase($string)
 {
-    return strtoupper(replaceAccentChars(substr($string, 0, 1))) . substr($string, 1);
+    $string = strtoupper(replaceAccentChars(substr($string, 0, 1))) . substr($string, 1);
+    $string = str_replace(
+            array('é', 'è', 'ù', 'â', 'ê', 'î', 'ô', 'û', 'ä', 'ë', 'ï', 'ö', 'ü', 'à', 'æ', 'œ', 'ç'),
+            array('É', 'È', 'Ù', 'Â', 'Ê', 'Î', 'Ô', 'Û', 'Ä', 'Ë', 'Ï', 'Ö', 'Ü', 'À', 'Æ', 'Œ', 'Ç'),
+            substr($string, 0, 2)
+        ) . substr($string, 2);
+    return $string;
 }
 
 //tasks too or identical to works.state ?

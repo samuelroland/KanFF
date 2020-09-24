@@ -34,14 +34,14 @@ function createAProject($newProject)
         //Then depending on errors or on success:
         if ($error != false) {
             flshmsg($error);
-            require "view/editAccount.php";  //view values sent inserted
+            require "view/createAProject.php";  //view values sent inserted
         } else {
             createOne("projects", $newProject);
             displaydebug($newProject);
             flshmsg(9);
         }
     } else {
-        require_once "view/projects.php";
+        require_once "view/createAProject.php";
     }
 }
 
