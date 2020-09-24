@@ -21,12 +21,12 @@ function getAllWorks()
 
 //Get one work whith conditions
 function getOneByConditionWorks($criterions,$params){
-    return getByCondition("users", $params, $criterions, false);
+    return getByCondition("works", $params, $criterions, false);
 }
 
 //Get more than one work whith conditions
 function getAllByConditionWorks($criterions,$params){
-    return getByCondition("users", $params, $criterions, true);
+    return getByCondition("works", $params, $criterions, true);
 }
 
 //Get all works of one sepcific project
