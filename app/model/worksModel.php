@@ -21,17 +21,18 @@ function getAllWorks()
 
 //Get one work whith conditions
 function getOneByConditionWorks($criterions,$params){
-    return getByCondition("users", $params, $criterions, false);
+    return getByCondition("works", $params, $criterions, false);
 }
 
 //Get more than one work whith conditions
 function getAllByConditionWorks($criterions,$params){
-    return getByCondition("users", $params, $criterions, true);
+    return getByCondition("works", $params, $criterions, true);
 }
 
 //Get all works of one sepcific project
-function getAllWorksByProject($params){
-    $query='';
+function getAllWorksByProject($project_id){
+    $query='SELECT * FROM works WHERE works.project_id =:id';
+    $params = ['id' => $project_id];
     return Query($query, $params, true);
 }
 
