@@ -112,7 +112,7 @@ if (!isset($_SESSION['user'])) {
             createAGroup($group);
             break;
         case "createAProject":
-            createAGroup($project);
+            createAProject($project);
             break;
         case "projects":
             projects();
