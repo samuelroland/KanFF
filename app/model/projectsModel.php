@@ -7,7 +7,7 @@
  */
 
 //Get one projects with his id
-function getOneProjects($id)
+function getOneProject($id)
 {
     require getOne("projects", $id);
 }
@@ -20,7 +20,7 @@ function getAllProjects()
 }
 
 //Get one projects whith conditions
-function getOneByConditionProjects($criterions,$params){
+function getOneByConditionProject($criterions,$params){
     return getByCondition("projects", $params, $criterions, false);
 }
 
