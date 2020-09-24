@@ -4,7 +4,7 @@ $title = "Project";
 //$test = "Rassemblement des personnes créatives de l'association.";
 //$result = (htmlentities($test, ENT_QUOTES));
 
-
+echo $result;
 ?>
     <h1><?= $title ?></h1>
     <div class="headView flexdiv">
@@ -13,8 +13,8 @@ $title = "Project";
             <button class="btn btn-info">Contribués</button>
         </div>
         <div class="box-alignright flex-1">
-            <a href="?action=createAGroup">
-                <button class="btn btn-primary newgroup">Nouveau Project</button>
+            <a href="?action=createAProject">
+                <button class="btn btn-primary newproject">Nouveau Project</button>
             </a>
         </div>
     </div>

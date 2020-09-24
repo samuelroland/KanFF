@@ -6,21 +6,21 @@
  *  Creation date: 22.07.2020
  */
 
-//require_once "model/projectsModel.php";
+require_once "model/projectsModel.php";
 
 // Display the page groups
 function projects()
 {
-    /*
-    $groups = getAllGroups();
-    $fieldsToConvert = ["name", "description", "context", "status"];
-    $groups = specialCharsConvertFromAnArray($groups, $fieldsToConvert);
-    displaydebug($groups);
-    */
+
+    $projects = getAllProjects();
+    $fieldsToConvert = ["name", "description", "start", "end", "state", "value", "effort", "visible", "project_id", "creator_id", "creation_date"];
+    $projects = specialCharsConvertFromAnArray($projects, $fieldsToConvert);
+    displaydebug($projects);
+
     require_once "view/projects.php";
 }
 
-// Display the page create a group or create the group (depends on the data sent)
+// Display the page create a project or create the project (depends on the data sent)
 function createAProject($newProject)
 {
     if (empty($newProject) != false) {
@@ -34,14 +34,14 @@ function createAProject($newProject)
         //Then depending on errors or on success:
         if ($error != false) {
             flshmsg($error);
-            require "view/editAccount.php";  //view values sent inserted
+            require "view/createAProject.php";  //view values sent inserted
         } else {
             createOne("projects", $newProject);
             displaydebug($newProject);
             flshmsg(9);
         }
     } else {
-        require_once "view/projects.php";
+        require_once "view/createAProject.php";
     }
 }
 

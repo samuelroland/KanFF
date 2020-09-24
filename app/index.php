@@ -56,9 +56,6 @@ if (isset($_POST)) {
     $infoLogin = $_POST['infoLogin'];
 }
 
-if ($action == "createAGroup") {
-    $group = $_POST;
-}
 
 //If user is not logged, actions authorized are login and signin.
 if (!isset($_SESSION['user'])) {
@@ -90,7 +87,7 @@ if (!isset($_SESSION['user'])) {
         case "testCRUD":
             testCRUD();
         case "editAccount":
-            editAccount($post);
+            editAccount($_POST);
             break;
         case "groups":
             groups();
@@ -103,7 +100,10 @@ if (!isset($_SESSION['user'])) {
             members($option);
             break;
         case "createAGroup":
-            createAGroup($group);
+            createAGroup($_POST);
+            break;
+        case "createAProject":
+            createAProject($_POST);
             break;
         case "projects":
             projects();
