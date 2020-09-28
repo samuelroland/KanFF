@@ -379,6 +379,51 @@ function data_join()
     importTableData("join", $joins);
 }
 
+function dataProjects()
+{
+    $projectsress = json_decode(file_get_contents("data-ressources/basic-data-projects.json"), true);
+
+    echo "\n-----------------------------\n Generating Projects \n-----------------------------\n ";
+    $id = 0;
+    $projects = [];    //array for the users generated
+    var_dump($projectsress);
+    //For each project generate the other data
+    foreach ($projectsress as $ressource) {
+        $id++;
+        $project = $ressource;
+
+        //Generating start and end (end must be after start):
+        $project['start'] = getRandomDateFormated(strtotime("2018-08-01")); //random date after 2018-08-01
+        $project['end'] = getRandomDateFormated(strtotime($project['start']));  //random date after start
+
+        //Generate state:
+        $state = PROJECT_STATE_ACTIVEWORK;    //default state is active work
+        if (rand(1, 15) == 1) {
+            $state = PROJECT_STATE_UNDERREFLECTION;
+        } else if (rand(1, 6) == 1) {
+            $state = PROJECT_STATE_COMPLETED;
+        } else if (rand(1, 5) == 1) {
+            $state = PROJECT_STATE_SEMIACTIVEWORK;
+        } else if (rand(1, 6) == 1) {
+            $state = PROJECT_STATE_ONBREAK;
+        } else if (rand(1, 7) == 1) {
+            $state = PROJECT_STATE_REPORTED;
+        } else if (rand(1, 8) == 1) {
+            $state = PROJECT_STATE_ABANDONNED;
+        } else if (rand(1, 9) == 1) {
+            $state = PROJECT_STATE_CANCELLED;
+        } else if (rand(1, 10) == 1) {
+            $state = PROJECT_STATE_UNDERPLANNING;
+        }
+        $project['state'] = $state;
+
+        $project['id'] = $id;
+        $projects[] = $project;
+    }
+    print_r($project);
+    importTableData("projects", $projects);
+}
+
 //Source: https://stackoverflow.com/questions/4356289/php-random-string-generator#answer-4356295
 function generateRandomString($length = 10)
 {
@@ -391,19 +436,21 @@ function generateRandomString($length = 10)
     return $randomString;
 }
 
+define("CREATE_DB_BEFORE_INSERTION", false);    //if can recreate the db before insertion or not
+
+if (CREATE_DB_BEFORE_INSERTION) {
 //Total creation of the database before insertion. (drop database before the creation)
-//_-------------------------
-require_once "../app/.const.php";
-$filename = "db-manage/create-db-kanff.sql";
+    require_once "../app/.const.php";
+    $filename = "db-manage/create-db-kanff.sql";
 
 //Drop and create again the database kanff:
-$cmdCreate = "mysql -u $user -p$pass < $filename -h $dbhost";  //system command for execute sql queries or sql file
-exec($cmdCreate);
-echo "\n\nDatabase kanff dropped and created again !";
-//_-------------------------
+    $cmdCreate = "mysql -u $user -p$pass < $filename -h $dbhost";  //system command for execute sql queries or sql file
+    exec($cmdCreate);
+    echo "\n\nDatabase kanff dropped and created again !";
+}
 
-dataUsers();
-dataGroups();
-data_join();
-
+//dataUsers();
+//dataGroups();
+//data_join();
+dataProjects();
 ?>

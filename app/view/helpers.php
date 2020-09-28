@@ -5,7 +5,7 @@
  *  Author: Team
  *  Creation date: 26.04.2020
  */
-require_once "controler/help.php";
+
 //define constants value of users.state, identical to values in the database:
 define("USER_STATE_UNAPPROVED", 0);
 define("USER_STATE_APPROVED", 1);
