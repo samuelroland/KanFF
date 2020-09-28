@@ -3,7 +3,7 @@
 - **Gabarit**: Logo + menu + membre connecté.
 
 ## Divers:
-- **Page A propos"**: informations du collectif, de l'instance et sur KanFF, informations en partie tirée de `instance.json`.
+- **Page A propos**: informations du collectif, de l'instance et sur KanFF, informations en partie tirée de `instance.json`.
 
 ## Users:
 - **Page Login**: se connecter.
@@ -35,7 +35,7 @@
 - **Vue Gérer une tâche**: gérer ses informations, ...
 
 ## Tasks:
-- **Page Tâches de la semaine**: toutes les tâches à faire pour le user connecté durant les 7 jours à venir.
+- **Page Tâches de la semaine**: toutes les tâches à faire pour le user connecté durant les 7 jours à venir. Gestion des tâches rapides (leur état) et visualisation ordrée par priorité.
 
 ## Events:
 - **Page Calendrier**: tous les événements visibles affichés dans un calendrier sur le mois, la semaine ou le jour.

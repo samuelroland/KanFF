@@ -242,7 +242,7 @@ Quels sont les changements d'état possible ?
 
 - Problème admin et en pause pas possible les 2 en même temps (puisque c'est une seule valeur sur users.state).
 	- On pourrait dire qu'un admin en pause n'a plus besoin de son rôle d'admin (qui permet uniquement de gérer les membres) puisqu'il est censé ne pas être très présent. Sauf qu'au retour il ne pourra plus se remettre admin seul. Il faudra demander à un autre admin de le promouvoir.
-	- Donc: on créé un nouveau champ int admin avec comme valeur 0 non, 1 oui. (int--> en prévision d'une modification des valeurs possibles et d'un rajout de superadmin par ex.) et on retire le state admin 4. C'est plus sûr d'avoir un champ admin séparé.
+	- Mais en fait, la valeur "en pause" n'a rien à faire ici: on créé un nouveau champ int onbreak avec comme valeur 0 non, 1 oui. (int--> en prévision d'une modification des valeurs possibles et d'un rajout de longueur de pause par ex.).
 
 - Comment devenir ou ne plus être admin?
 	- devenir: un.e autre admin doit nous promouvoir admin
@@ -254,41 +254,62 @@ Quels sont les changements d'état possible ?
 	- Responsabilités:
 		- Philosophie générale des responsabilités (ou question de vocabulaire):
 			- Les responsabilités sont toutes les choses à faire dont une personne est responsable. Ex: Les tâches assignées, les travaux dont la personne est responsable, les projets dont la personne est responsable, sont des responsabilités. Responsable signifie une "Nécessité morale de remplir un devoir, un engagement" (lerobert.com)
-		- Possible d'être responsable d'un projet ? Oui pour des projets courts c'est possible et ca complique peu le fonctionnement (la donnée peut être utile par rapport à la gestion du projet). Ca peut aussi être la personne qui s'assure que les tâches sont bien listées, de gérer la planification globale,  Alors on met. OUI.
-		- responsable d'un groupe ? la possibilité que je vois est "gestion des membres" (possibilité technique), et rôle serait de 
+		- Possible d'être responsable d'un projet ? Oui pour des projets courts c'est possible et ca complique peu le fonctionnement (la donnée peut être utile par rapport à la gestion du projet). Ca peut aussi être la personne qui s'assure que les tâches sont bien listées, de gérer la planification globale, d'être la personne de contact. Alors on met. OUI.
+		- responsable d'un groupe ? la possibilité que je vois est "gestion des membres" (possibilité technique). Mais c'est les admins du groupe qui peuvent faire ca.
 
 
 Permissions:
 - Qui peut gérer un groupe ?
 	- Créer: Tous les membres du collectif
-	- Modifier: 
-	- Supprimer: 
+	- Modifier: Tous les admins du groupe
+	- Supprimer: Tous les admins du groupe
+	- Gérer les membres: Tous les admins du groupe
 - Qui peut gérer un projet ?
 	- Créer: Tous les membres du collectif
-	- Modifier: 
-	- Supprimer: 
+	- Modifier: responsable du projet
+	- Supprimer: responsable du projet
+	- Groupes participants: responsable du projet
 - Qui peut gérer un travail ?
 	- Créer: Tous les membres du collectif
-	- Modifier: 
-	- Supprimer: 
-- Qui peut gérer une tâche ?
+	- Modifier: Tous les membres du groupe
+	- Supprimer: responsable du projet
+- Qui peut gérer une tâche ? (si travail non boite de réception et si non ouvert--> pour ces exceptions les droits sont impactés)
+	- Créer: Tous les membres du groupe
+	- Modifier: Tous les membres du groupe
+	- Supprimer: Tous les membres du groupe
+- Qui peut gérer une tâche ? (si travail open)
 	- Créer: Tous les membres du collectif
-	- Modifier: 
-	- Supprimer: 
+	- Modifier: Tous les membres du collectif
+	- Supprimer: Tous les membres du groupe et la personne qui a créé sa tâche
 
 
 Quid des commentaires sur les tâches ou sur les travaux ?
-	-> manière de communiquer aux gens d'un travail, ou de discuter d'une tâche ou d'un sujet particulier.
-
+	-> unique moyen de communiquer et d'avoir des réponses à propos de tâches ou de travaux.
+	-> Utile mais trop de travail en plus pour la v1.0... donc NON.
 
 
 ---------------
 groups:
 
-- personne de contact ?
+- personne de contact ? C'est plus pour les projets qu'il peut y avoir une personne de contact. Et actuellement on peut dire implicitement que c'est les personnes admins.
 
 - communiquer sur le temps qu'on a à investir dans un projet ou un groupe ? et ses intérêts et capacités ?
+- On le fait en dehors de KanFF... donc NON.
 
 - raison de joindre un GT ? Pourquoi on rejoint, par curiosité sans avoir le temps, donner son avis, sur quoi on veut aider ?
+- On le fait en dehors de KanFF... donc NON.
 
+- membres admins dans des groupes: pour tâche importantes ? OUI.
+	- personne qui crée le groupe est admin.
+	- au moins un.e admin par groupe (pas de max)
+	- peut supprimer le groupe et gérer les membres d'un projet
+	--> join.admin int
 
+---------------
+join:
+- valeurs de accepted ???
+
+---------------
+participate:
+- utilité de reason start et end ? ahhh. euh. Je sais plus trop pourquoi. On enlève c'est plus simple.
+- stocker une valeur pour l'invitation ou la modération ? qqch de semblable à join.accepted.

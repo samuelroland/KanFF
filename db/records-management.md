@@ -58,9 +58,11 @@ a user can join, leave, and join again a group.
 accepted: state of the subscription. The state is influenced by the group type (restricted access or not)
 
 If access restricted:
-1 = want to join the group but not yet accepted or not
-2 = in wait before the choice of the members (they decide to accept or not)
-3 = not accepted/refused
+1 = non approuved
+2 = refused
+3 = ask for invitation
+4 = invitation accepted
+5 = invitation refused
 4 = banned of the group
 5 = accepted
 
