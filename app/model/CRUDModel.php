@@ -11,6 +11,7 @@ function getPDO()
     require ".const.php";
 
     $res = new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname, $user, $pass);
+    $res->exec("set names utf8");
     return $res;
 }
 
