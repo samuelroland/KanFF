@@ -308,6 +308,26 @@ groups:
 ---------------
 join:
 - valeurs de accepted ???
+--> changer en state
+->state of the subscription. The state is influenced by the group type (restricted access or not)
+
+If access restricted:
+1 = non approuved
+2 = refused
+3 = invitation
+5 = invitation refused
+6 = invitation accepted
+7 = banned of the group
+8 = has left himself
+9 = accepted
+
+Afficher seulement le dernier join par groupe.
+
+invitation ? sensible group ? !!! user quit a group himself!
+admin of a group ??
+date for accepted ? (last modification) ???
+ne peut pas modifier l'état sans rentrer ou sortir du groupe.
+
 
 ---------------
 participate:
