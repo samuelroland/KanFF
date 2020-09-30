@@ -6,24 +6,24 @@
  *  Creation date: 18.05.2020
  */
 //Define css classes for repetitives markups, to change it quickly
-$cssForSpan = "col-md-5 col-sm-5 box-verticalaligncenter";
-$cssForInput = "col-md-5 col-sm-7 form-control";
+$cssForSpan = "col-md-5 col-sm-5 box-verticalaligncenter spanForForm";
+$cssForInput = "col-md-5 col-sm-7 form-control inputForForm";
 $cssForDivZone = "pl-3";
 $cssForDivField = "row pt-1";
 
 $title = "Mon compte";
 ob_start();
 ?>
-    <div class="float-left">
-    <h1 class="float-left pt-4"><?= $title ?></h1>
+    <div class="">
+    <h1 class="pt-4"><?= $title ?></h1>
         <BR>
-    <p class="float-left">Voici les informations de votre compte sur l'instance Blason. C'est sur cette page que vous
+    <p class="">Voici les informations de votre compte sur l'instance Blason. C'est sur cette page que vous
         pouvez gérer votre compte. Vous pouvez modifier vos informations pour la plupart et aussi archiver ou supprimer
         votre compte (attention supprimer est une action irréversible!)</p>
     <div class="box-aligleft pt-4"></div>
     <div class="form-group">
 
-        <form style="align-self: auto" class="pt-3 float-left" action="?action=signin" method="post">
+        <form class="pt-3" action="?action=signin" method="post">
             <h5 class="pt-3">Informations principales:</h5>
             <div class="<?= $cssForDivZone ?>">
                 <div class="<?= $cssForDivField ?>">
@@ -58,7 +58,7 @@ ob_start();
 
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Statut</span>
-                        <span class=""><textarea  style="resize: none" name="Statut" id="txtStatut" rows="2" placeholder="tbd"
+                        <span class="spanTextArea"><textarea  name="Statut" id="txtStatut" rows="2" placeholder="tbd"
                                                           class="form-control"
                                                           title="Votre Statut"></textarea></span>
 
@@ -125,9 +125,8 @@ Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard"
 
 
                 <div class="<?= $cssForDivField ?>">
-
-                    <span style="" class="<?= $cssForSpan ?>">Biographie</span>
-                    <span class="  "><textarea  style="resize: none" id="txtBiography" rows="2" placeholder="tbd"
+                    <span class="<?= $cssForSpan ?>">Biographie</span>
+                    <span class="spanTextArea"><textarea  id="txtBiography" rows="5" placeholder="tbd"
                                                       class="fullwidth form-control "
                                                       title="Votre biographie"></textarea></span>
 
@@ -135,7 +134,7 @@ Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard"
                 </div>
             </div>
     </div>
-        <div class=" float-left">
+        <div class="">
             <p class="">Ces informations seront visibles à tous les membres approuvés de l'instance, dans le but d'avoir
                 un ou des moyens de contact et une description pour les nouvelles personnes, qui ne connaissent pas les
                 autres membres. </p>
@@ -143,7 +142,7 @@ Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard"
             <div class="  pt-3">
                 <button type="submit" class="btn btn-primary">Enresgistrer</button>
             </div>
-            <div class="float-left">
+            <div class="">
                 <p class="">Zone danger - actions irréversibles ou à grosses conséquences techniques.</p>
                 <div class=" pt-3">
                     <button type="submit" class="btn btn-primary">Supprimer son compte</button>
