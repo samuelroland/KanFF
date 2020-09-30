@@ -1,21 +1,20 @@
 <?php
-    ob_start();
-    $title = "Créer un projet"
+ob_start();
+$title = "Créer un projet"
 ?>
 <h1><?= $title ?></h1>
 <p>Cette page vous permet de créer un nouveau projet réalisé par un groupe dont vous êtes membre</p>
 
 <form action="?action=createAGroup" method="POST" class="pt-4">
-    <h4>Nom du Project</h4>
-    <input type="text" class="smalltextinput textFieldToCheck" name="name" id="txtName" placeholder="GT mail"
-           maxlength="50" value="<?= $project['name'] ?>" required>
+    <div class="divContext row pt-4">
+        <div class="col-lg-3 col-md-12"><h4>Nom du Project</h4></div>
+        <div class="col-12"><input type="text" class="smalltextinput textFieldToCheck" name="name" id="txtName" maxlength="50" required></div>
+    </div>
     <p id="pCounterName">0/50</p>
     <div class="divDescription row pt-4">
         <div class="col-lg-3 col-md-12"><h4>Description du projet</h4></div>
-        <div class="col-12"><textarea class="fullwidth textFieldToCheck" name="description" id="txtDescription"
-                                      rows="2"
-                                      maxlength="200" minlength="3" placeholder="tbd"><?= $project['description'] ?></textarea>
-        </div>
+        <div class="col-12"><textarea class="fullwidth textFieldToCheck" name="description" id="txtDescription" rows="2" maxlength="200" minlength="3" placeholder="tbd"></textarea>
+    </div>
 
     </div>
     <p id="pGoalDescription">0/200</p>
@@ -23,7 +22,7 @@
         <div class="col-lg-3 col-md-12"><h4>Objectif</h4></div>
         <div class="col-12"><textarea class="fullwidth textFieldToCheck" name="context" id="txtGoal" rows="2"
                                       maxlength="200"
-                                      minlength="3" placeholder="tbd"><?= $project['goal'] ?></textarea></div>
+                                      minlength="3" placeholder="tbd"></textarea></div>
     </div>
     <p id="pCounterGoal">0/200</p>
     <div class="divImportance row pt-4">
@@ -56,7 +55,7 @@
         <div class="col-lg-4 col-md-12 marginauto ">
             <h4>Type d'accès</h4>
             <input type="checkbox" id="chkRestrictAccess"
-                   name="restrict_access" <?= ($group['restrict_access'] == 1) ? "checked" : "" ?>>
+                   name="restrict_access">
             <label for="chkRestrictAccess">Accès restreint</label>
         </div>
         <div class="col-lg-8 col-md-12 infotext">L'accès restreint permet de modérer l'entrée des personnes dans un
