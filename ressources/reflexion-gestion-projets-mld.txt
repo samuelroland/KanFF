@@ -55,7 +55,7 @@ Travaux:
 		Le nom est par défaut "Boite de réception" mais peut être modifié afin de préciser ou de restreindre oralement ce qui est envoyé. Ainsi par défaut on peut envoyer tout ce qu'on veut (demandes, questions, commentaires, ...) et si on nomme "Tâches urgentes" c'est plus spécifique et on restreint les possibilités de tâches qui peuvent y être créées. On retrouve le nom du travail dans le placeholder du champ de création...
 
 	--> Conséquences:
-		- Pas inclut dans les calculs d'effort et de valeurs ??? ah mais zut il y a pas de calculs...
+		- Pas inclut dans les calculs d'effort et de valeurs.
 		- Pas inclut dans la planification puisque reste durant toute la longueur du projet.
 
 	--> MLD: inbox bool
@@ -193,16 +193,20 @@ log:
 - peut-on supprimer un log ?? Uniquement la personne qui a créé le log.
 	- délai de suppression après création: 4 jours
 
-- support markdown ? ou markdown simplifié ?
+- support markdown ? ou markdown simplifié ? NON.
 	- la version de https://commonmark.org/help/ paraît bien.
 	- on peut avoir 2 versions: 1 complète et 1 pour description (sans titre # ## etc et sans citations et sans ligne horizontale)
 	- Support markdown permettrait de ne pas rendre tout le texte neutre et visuellement ce serait plus joli.
 	- mention d'une personne possible. se fait par @XDE (si les initiales existent ca pointe sur les détails du user)
 	- mention d'un groupe possible: @GT Multimédia (lien pour détails du groupe si groupe trouvé) uniquement si le groupe est visible.
 	- attention aux failles XSS.
+	- Utile pour quelles textes ??
+		- En fait il y a pas de texte assez long pour que le markdown soit vraiment utile...
+		- Serait utile pour un Wiki, pour de longues descriptions ou explications, ...
+		- Pour les logs, ca pourrait être utile mais c'est censé ne pas être très long les descriptions. et pour ne pas complexifier la v1.0 on fait pas. NON.
 
 - visible ? il y a déjà une notion de visible sur le projet: logbook_visible, mais ?
-	- oui utile de pouvoir dans certains cas pour les groupes sensibles (infos sensibles ou log par rapport à une surprise). OUI on met.
+	- oui utile de pouvoir gérer la visibilité sur chaque log, dans certains cas pour les groupes sensibles (infos sensibles ou log par rapport à une surprise). OUI on met.
 
 Affichage:
 - plusieurs mode d'affichage plus ou moins complet ?
@@ -215,7 +219,7 @@ Affichage:
 
 -----------------------------
 groups:
-- prerequis: texte expliquant les prérequis nécessaires (compétences, motivation, temps, investissement, statut) pour rentrer dans le groupe.
+- prerequis: texte expliquant les prérequis nécessaires (compétences, motivation, temps, investissement, statut) pour rentrer dans le groupe. OUI.
 - liste des groupes ordrés comment ?
 	- Tout ordrés par état croissant, puis par nombre de membres décroissant.
 	- Découpés en:
@@ -226,13 +230,14 @@ groups:
 
 --------------------------------
 users:
-comment mettre un statut "membre" et nouvelleau ? vraiment besoin ?
+comment mettre un statut "membre" et nouvelleau ? vraiment besoin ? non pas besoin.
 approuvé par : approver_id
 	- utile en cas de problème (n'aurait pas du être approuvé) et un petit peu utile pour savoir qui nous a approuvé. donc on met. OUI.
 date d'approbation ?? (en lien avec date de changement d'état.)
 	- Utile en cas de problème (n'aurait pas du être approuvé, n'aurait pas du être archivé)
 	--> Changer en "date de modification de state". comme ca on peut avoir "approuvé le x date", "en pause depuis le x date", "admin depuis le x date" affichés (et pas seulement l'approbation).
---> mais alors personne qui approuve, faudrait pas aussi mettre "dernière personne qui change état"???
+	--> mais alors personne qui approuve, faudrait pas aussi mettre "dernière personne qui change état"?
+		--> donc on met un champ state_modifier_id
 
 Quels sont les changements d'état possible ?
 - de x vers y:
@@ -255,7 +260,7 @@ Quels sont les changements d'état possible ?
 		- Philosophie générale des responsabilités (ou question de vocabulaire):
 			- Les responsabilités sont toutes les choses à faire dont une personne est responsable. Ex: Les tâches assignées, les travaux dont la personne est responsable, les projets dont la personne est responsable, sont des responsabilités. Responsable signifie une "Nécessité morale de remplir un devoir, un engagement" (lerobert.com)
 		- Possible d'être responsable d'un projet ? Oui pour des projets courts c'est possible et ca complique peu le fonctionnement (la donnée peut être utile par rapport à la gestion du projet). Ca peut aussi être la personne qui s'assure que les tâches sont bien listées, de gérer la planification globale, d'être la personne de contact. Alors on met. OUI.
-		- responsable d'un groupe ? la possibilité que je vois est "gestion des membres" (possibilité technique). Mais c'est les admins du groupe qui peuvent faire ca.
+		- responsable d'un groupe ? la possibilité que je vois est "gestion des membres" (possibilité technique). Mais c'est les admins du groupe qui peuvent faire ca. donc NON.
 
 
 Permissions:
@@ -299,37 +304,38 @@ groups:
 - raison de joindre un GT ? Pourquoi on rejoint, par curiosité sans avoir le temps, donner son avis, sur quoi on veut aider ?
 - On le fait en dehors de KanFF... donc NON.
 
+
+
+---------------
+join:
+- valeurs de accepted:
+	--> changer en state, car le nom du champ accepted n'a plus de sens avec les valeurs.
+	->sens: state of the subscription. The state is influenced by the group type (restricted access or not)
+
+	If access restricted:
+	1 = non approuved
+	2 = refused
+	3 = invitation
+	5 = has left himself
+	6 = invitation refused
+	7 = banned of the group
+	8 = invitation accepted
+	9 = approuved
+
+	Afficher seulement le dernier join par groupe (un seul join par groupe) par user (il n'y a donc pas d'historique affiché).
+
 - membres admins dans des groupes: pour tâche importantes ? OUI.
 	- personne qui crée le groupe est admin.
 	- au moins un.e admin par groupe (pas de max)
 	- peut supprimer le groupe et gérer les membres d'un projet
 	--> join.admin int
 
----------------
-join:
-- valeurs de accepted ???
---> changer en state
-->state of the subscription. The state is influenced by the group type (restricted access or not)
-
-If access restricted:
-1 = non approuved
-2 = refused
-3 = invitation
-5 = invitation refused
-6 = invitation accepted
-7 = banned of the group
-8 = has left himself
-9 = accepted
-
-Afficher seulement le dernier join par groupe.
-
-invitation ? sensible group ? !!! user quit a group himself!
-admin of a group ??
-date for accepted ? (last modification) ???
-ne peut pas modifier l'état sans rentrer ou sortir du groupe.
+date de changement d'état ? 
+	--> déjà dans start et end car on ne peut pas modifier l'état sans rentrer ou sortir du groupe. Si on rentre on met à jour la date start et si on quitte on change la date de end. Les dates sont donc déjà enregistrées.
 
 
 ---------------
 participate:
 - utilité de reason start et end ? ahhh. euh. Je sais plus trop pourquoi. On enlève c'est plus simple.
-- stocker une valeur pour l'invitation ou la modération ? qqch de semblable à join.accepted.
+- stocker une valeur pour l'invitation ou la modération ? qqch de semblable à join.accepted ?
+
