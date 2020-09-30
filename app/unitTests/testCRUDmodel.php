@@ -6,7 +6,7 @@
  *  Creation date: 15.05.2020
  */
 
-$debug = false;
+
 require_once 'model/CRUDModel.php';
 function displaydebug($var)
 {
@@ -17,29 +17,20 @@ function displaydebug($var)
 //Get all elements of one Table
 function test_getAll()
 {
-    echo "    getAll 
-     get all users (100) : ";
     $array = getAll("users");
-    if (count($array) == 101) {
-        echo "OK";
+    if (count($array) == 100) {
+        echo "    OK     ";
     } else {
-        echo "BUG
-";
+        echo "    BUG     ";
     }
-    echo "
-    
-    ";
+    echo "getAll: get all users (100) ";
 }
 
 //Create all users i need below
 function createAllUser()
 {
 //first user
-    $criterions = ' initials = "666" ';
-    $user1 = getByCondition("users", null, $criterions, false);
-    if ($user1 != 0) {
-        deleteOne("users", $user1["id"]);
-    }
+
     $user1 = "INSERT INTO `users` 
 (username, initials, firstname, lastname, password, chat_link, email, phonenumber, biography, inscription, status, state)
  VALUES ('Username', '666', 'Rrenom','Rom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 16666654,NULL, '2020-09-17 06:12:47', null, 3);";
@@ -61,49 +52,39 @@ function createAllUser()
 //Get one element by his id
 function test_getOne()
 {
-
-    echo "getOne
-     get one items from users with his id, Initials = '666' : ";
-
     $array = getOne("users", 1);
-    if ($array['initials'] == "JRD") {
-        echo "OK";
+    if ($array['initials'] == "666") {
+        echo "    OK     ";
     } else {
-        echo "BUG
-";
+        echo "    BUG     ";
         if (isset($array)) {
-            echo "Array isn't null:";
+            echo "A!=0    ";
         } else {
-            echo "\$array=null";
+            echo "A=0    ";
         }
     }
-    echo "
-    
+    echo " getOne: get one items from users with his id, Initials = '666' 
     ";
-    echo "getOneEmpty
-     get one users with a wrong id, ids goes from 0 to 100, test with 600 : ";
+
     $array = getOne("users", 600);
     if (empty($array)) {
-        echo "OK";
+        echo "OK     ";
     } else {
-        echo "BUG
-";
+        echo "BUG     ";
         if (isset($array)) {
-            echo "Array isn't null:";
+            echo "A!=0    ";
         } else {
-            echo "\$array=null";
+            echo "A=0    ";
         }
     }
-    echo "
-    
+    echo "getOneEmpty: get one users with a wrong id, ids goes from 0 to 100, test with 600 
     ";
-}//ok
+}//OK     
 
 //Get some specific elements of one Table
 function test_getAllByCondition()
 {
-    echo "getAllByCriterion
-     get all items where phonenumber begins with 1 AND firstname OR lastname begins with R : ";
+
     $criterions = '	phonenumber LIKE	"166666%"
 	AND firstname LIKE "R%" 
 	OR
@@ -113,44 +94,38 @@ function test_getAllByCondition()
     $array = getByCondition("users", $params, $criterions, true);
 
     if (count($array)==4) {
-        echo "OK";
+        echo "OK    ";
     } else {
-        echo "BUG
-                ";
+        echo "BUG    ";
 
         if (isset($array)) {
-            echo "Array isn't null:";
+            echo "A!=0    ";
         } else {
-            echo "\$array=null";
+            echo "A=0    ";
         }
     }
-    echo "
-    
+    echo " getAllByCriterion: get all items where phonenumber begins with 1 AND firstname OR lastname begins with R 
     ";
 }
 
 //Get only one specific element of one Table
 function test_getOneByCondition()
 {
-    echo "getOneByCriterion 
-     get one item whith the \"666\" initials : ";
     $criterions = ' initials = "666" ';
     $params = null;
     $array = getByCondition("users", $params, $criterions, false);
     $arrayToCompare = getOne("users", $array["id"]);
     if ($array == $arrayToCompare) {
-        echo "OK";
+        echo "OK     ";
     } else {
-        echo "BUG
-";
+        echo "BUG     ";
         if (isset($array)) {
-            echo "Array isn't null:";
+            echo "A!=0    ";
         } else {
-            echo "\$array=null";
+            echo "A=0    ";
         }
     }
-    echo "
-    
+    echo "getOneByCriterion: get one item whith the \"666\" initials 
     ";
     return $array["id"];
 }
@@ -159,8 +134,6 @@ function test_getOneByCondition()
 function test_createOneCompetences()
 {
 
-    echo "crateOne 
-     create one competences whith name=>\"Test\" : ";
     $name = "Test";
     $params = ['name' => $name];
     createOne("competences", $params);
@@ -169,28 +142,25 @@ function test_createOneCompetences()
     $array = getByCondition("competences", $params, $criterions, false);
 
     if ($array['name'] == "Test") {
-        echo "OK";
+        echo "OK     ";
     } else {
-        echo "
-        BUG Create
-        ";
+        echo "BUG     ";
         echo $array["name"];
         if (isset($array)) {
-            echo "Array isn't null:";
+            echo "A!=0    ";
         } else {
-            echo "\$array=null";
+            echo "A=0    ";
         }
     }
-    echo "
+    echo "crateOne: create one competences whith name=>\"Test\" 
+    ";
 
-";
 }
 
 //Update one element
 function test_updateOne()
 {
-    echo "    updateOne 
-     update one items where name =\"Test\", replace name by \"Updated-Test\"";
+
     $criterions = ' name = "Test" ';
     $params = null;
     $element = getByCondition("competences", $params, $criterions, false);
@@ -204,21 +174,17 @@ function test_updateOne()
     $array = getByCondition("competences", $params, $criterions, false);
 
     if ($array['name'] == $name) {
-        echo "OK";
+        echo "OK     ";
     } else {
-        echo "BUG
-";
+        echo "BUG     ";
         if (isset($array)) {
-            echo "Array isn't null:";
+            echo "A!=0    ";
         } else {
-            echo "\$array=null";
+            echo "A=0    ";
         }
     }
-    echo "
-
-";
-    echo "    updateOneID 
-     trying to update an id with the \$debug = \"false\",the id should not be updated";
+    echo "updateOne: update one items where name =\"Test\", replace name by \"Updated-Test\"
+    ";
     $criterions = ' name = "Updated-Test" ';
     $params = null;
     $element = getByCondition("competences", $params, $criterions, false);
@@ -229,26 +195,23 @@ function test_updateOne()
 
 
     if ($array['id'] == $element["id"]) {
-        echo "OK";
+        echo "OK     ";
     } else {
-        echo "BUG
-";
+        echo "BUG     ";
         if (isset($array)) {
-            echo "Array isn't null:";
+            echo "A!=0    ";
         } else {
-            echo "\$array=null";
+            echo "A=0    ";
         }
     }
-    echo "
+    echo "updateOneID: trying to update an id with the \$debug = \"false\",the id should not be updated
+    ";
 
-";
 }
 
 //Detlete one element by his id
 function test_deleteOne()
 {
-    echo "    delteOne 
-     delete one item whith name = \"Updated-Test\", if item is deleted, the test return OK : ";
     $criterions = ' name = "Updated-Test" ';
     $params = null;
     $element = getByCondition("competences", $params, $criterions, false);
@@ -261,19 +224,18 @@ function test_deleteOne()
 
     if ((empty($test)) && ($total == count(getAll("competences")) + 1)) {
 
-        echo "OK";
+        echo "OK     ";
     } else {
-        echo "BUG
-        ";
+        echo "BUG     ";
         if (isset($test)) {
-            echo "Array isn't null:";
+            echo "A!=0    ";
         } else {
-            echo "\$array=null";
+            echo "A=0    ";
         }
     }
-    echo "
+    echo "delteOne: delete one item whith name = \"Updated-Test\", if item is deleted, the test return OK      
+    ";
 
-";
 }
 
 //Delete all created users in this file for testing function
@@ -291,9 +253,9 @@ function deleteAllCreatedUser(){
 
 //Lunch all tests
 function StartTests(){
-    ///cd C:\Users\benoit.pierrehumbert\Documents\GitHub\KanFF\app |cls | php -f .\unitTests\testCRUDmodel.php
-    createAllUser();
+    $_SESSION["debugUnitTests"]="BugRelou";
     test_getAll();
+    createAllUser();
     test_getOne();
     test_getOneByCondition();
     test_getAllByCondition();
@@ -302,6 +264,6 @@ function StartTests(){
     test_deleteOne();
     deleteAllCreatedUser();
 }
-
+//cd C:\Users\benoit.pierrehumbert\Documents\GitHub\KanFF\app |cls | php -f .\unitTests\testCRUDmodel.php
 StartTests();
 ?>

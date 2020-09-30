@@ -118,6 +118,9 @@ function createOne($table, $params)
     //$params = ["name"=>$name,"NPA"=>94654]
 
     //If $debug = true the id won't be changed
+    if (isset($_SESSION["debugUnitTests"])){
+        $debug=false;
+    }
     if ($debug == false) {
         unset($params["id"]);
     }
