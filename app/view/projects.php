@@ -26,37 +26,35 @@ echo $result;
 
             ?>
             <div class="divGroup bordertest">
-                <div class="topDiv">
-                    <div class="imgFrame">
-                    </div>
-                    <div class="groupInfo p-3">
+                <div class="">
+
                         <h3><?= $project['name'] ?></h3>
+                    <h5><?= $project[''] ?></h5>
+                    <div class="groupInfo ">
                         <p title="<?= $project['description'] ?>"><?= $project['description'] ?></p>
                         <p title="<?= $project['context'] ?>"><?= $project['context'] ?></p>
+                        <p title="<?= $project['state'] ?>"><?= $project['state'] ?></p>
                     </div>
                 </div>
-                <div class="groupDetails bordertest">
-                        <div class="box-verticalaligncenter">
-                            <a title="Ecrire un email à <?= $project['email'] ?>" class="linkExternal"
-                               href="mailto:<?= $project['email'] ?>">
-                                <img src="view/medias/icons/email.png" alt="email logo" class="icon-simple">
-                                <span><em><?= $project['email'] ?></em></a></span></div>
+                <div class="groupDetails ">
 
-
-                        <div class="box-verticalaligncenter">
-                            <a href="/?action=user&id=<?= $project['creator_id'] ?>" class="linkExternal"><img src="view/medias/icons/user.png" alt="email logo" class="icon-simple">
-                                <span class="verticalalign"><?= $project['creator_initials'] ?></span></a>
-                        </div>
 
                     <div class="box-verticalaligncenter">
 
-                        <img src="view/medias/icons/calendar.png" alt="email logo" class="icon-simple">
-                        <span><?= "Création: " . DTToHumanDate($project['creation_date'], "simpleday") ?></span></div>
+                        <div class="position-bottom-left">
+                            <img src="view/medias/icons/PointDexcalamtion.jpg" alt="email logo" class="icon-simple">
+                            <p title="<?= $project['importance'] ?>"><?= $project['importance'] ?></p>
+                        </div>
+                        <div class="position-bottom-left">
+                            <img src="view/medias/icons/IconMontre.png" alt="email logo" class="icon-simple">
+                            <p title="<?= $project['urgency'] ?>"><?= $project['urgency'] ?></p>
+                        </div>
+                        </div>
 
 
                 </div>
                 <div class="position-bottom-right">
-                    <button class="btn btn-info">Voir</button>
+                    <button class="btn btn-info">Détails</button>
                 </div>
             </div>
         <?php } ?>
