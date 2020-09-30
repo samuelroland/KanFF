@@ -427,3 +427,19 @@ tr {
 .nomargin{
     margin: 0px !important;
 }
+
+.spanForForm{
+    max-width: 300px;
+}
+
+.inputForForm{
+    max-width: 300px;
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.spanTextArea{
+    min-width: 700px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
