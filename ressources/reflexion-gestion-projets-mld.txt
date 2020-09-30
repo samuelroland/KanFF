@@ -3,11 +3,15 @@ Réflexion en cours sur les projets/travaux/tâches:
 ---------------------------
 Projets:
 - logbook content: oui tout simple et très utile.
-- archivage: utile si beaucoup de projets. archivé possible ou pas selon état?? possible uniquement si annulé, reporté ou terminé.
+- archivage: utile si beaucoup de projets. archivé possible ou pas selon état??
+	--> possible uniquement si annulé, reporté ou terminé.
 - états: travail actif et semi actif ? autre champ à la place ? oui on inclut ces 2 états pour avoir une meilleure idée de ce qui se passe.
 
 - lien wiki ? Non. peu utile.
 - lien vidéoconférence ? Non. peu utile.
+
+- ajout manager_id (cf participate)
+
 
 ---------------------------
 Travaux:
@@ -93,7 +97,7 @@ Travaux:
 - nouvel état: idée/proposition. comme pour les stories en Scrum.
 	- est-ce que ca reste utile si il y a déjà l'état idée proposition pour les tâches (ca pourrait parce que si le groupe n'a pas encore de projet c'est pas possible de créer une tâche idée) ?? Non. ca surcharge la liste des projets et ca peut être fait dans le chat du groupe, donc ailleurs que sur KanFF. Donc NON!
 
-- où sont fait et affichés les calculs avec les efforts et les valeurs des travaux ?
+- où sont fait et affichés les calculs avec les efforts et les valeurs des travaux ? Il n'y a pas de calcul. Il y a juste les valeurs d'effort affichées.
 
 - travail réservé pour un groupe ? --> un travail est réservé (lié aux compétences) à un des groupes réalisant le projet. (réservation morale et non technique --> enfin... ??). Non! Complexifie la technique.
 
@@ -144,7 +148,7 @@ Tâches:
 
 			--> un item dans make correspond donc à 1 tâche concrète.
 
-=====>>> Ces super tâches c'est cool, mais ca complexifie beaucoup niveau technique pour gérer les tâches. Donc on ne fait pas pour la v1.0
+=====>>> Ces super tâches c'est génial!, mais ca complexifie beaucoup niveau technique pour gérer les tâches. Donc on ne fait pas pour la v1.0
 
 - tâches répétitives (répétent automatiquement toutes les semaines ou tous les 2 jours par ex.)
 	- Trop compliqué. Donc pas pour la v1.0.
@@ -162,12 +166,14 @@ Tâches:
 			- réflexion
 			OK!
 
-à réfléchir (avis éxterieurs):
-idée et proposition trop semblable
-info /communication
+à réfléchir (avis extérieurs):
+idée et proposition trop semblable --> petite nuance donc on garde.
+info /communication --> "information" c'est plus neutre donc on garde pour l'instant.
 
 - complexité de 1 à 5 ? Ca fait un champ de plus à remplir qui n'est pas indispensable même si ca pourrait avoir une utilité. Donc NON.
+
 - nouvel état tâche: bloqué ou en pause. voir icescrum. NON. pas très utile et champ supplémentaire.
+
 - responsable de tâche ??
 	- permet de donner des tâches précises à la fin des réunions. OUI. mais remplace user_id donc si assigné = responsable de la tâche.
 Affichage:
@@ -180,6 +186,7 @@ Affichage:
 
 
 nouveau type: rappel ? peut être rappel et tâche en meme temps (donc incohérent). fonctionne déjà avec les deadlines qui rendent les tâches urgentes (affichées dans Page Tâches). donc on met PAS.
+
 
 -----------------------------
 log:
@@ -230,29 +237,35 @@ groups:
 
 --------------------------------
 users:
-comment mettre un statut "membre" et nouvelleau ? vraiment besoin ? non pas besoin.
-approuvé par : approver_id
+- comment mettre un statut "membre" et nouvelleau ? vraiment besoin ? non pas besoin.
+
+- approuvé par : approver_id ?
 	- utile en cas de problème (n'aurait pas du être approuvé) et un petit peu utile pour savoir qui nous a approuvé. donc on met. OUI.
 date d'approbation ?? (en lien avec date de changement d'état.)
 	- Utile en cas de problème (n'aurait pas du être approuvé, n'aurait pas du être archivé)
-	--> Changer en "date de modification de state". comme ca on peut avoir "approuvé le x date", "en pause depuis le x date", "admin depuis le x date" affichés (et pas seulement l'approbation).
+- "date de modification de state". comme ca on peut avoir "approuvé le x date", "en pause depuis le x date", "admin depuis le x date" affichés (et pas seulement l'approbation). oui.
+		--> state_modification_date
 	--> mais alors personne qui approuve, faudrait pas aussi mettre "dernière personne qui change état"?
-		--> donc on met un champ state_modifier_id
+		--> donc on met un champ state_modifier_id à la place de approver_id
 
-Quels sont les changements d'état possible ?
-- de x vers y:
-	- de non approuvé, archivé: rien.
-	- de approuvé, en pause: vers approuvé, en pause.
-
+Quels sont les changements d'état possible ? Aucun sauf si admin et approuvé.
 
 - Problème admin et en pause pas possible les 2 en même temps (puisque c'est une seule valeur sur users.state).
-	- On pourrait dire qu'un admin en pause n'a plus besoin de son rôle d'admin (qui permet uniquement de gérer les membres) puisqu'il est censé ne pas être très présent. Sauf qu'au retour il ne pourra plus se remettre admin seul. Il faudra demander à un autre admin de le promouvoir.
-	- Mais en fait, la valeur "en pause" n'a rien à faire ici: on créé un nouveau champ int onbreak avec comme valeur 0 non, 1 oui. (int--> en prévision d'une modification des valeurs possibles et d'un rajout de longueur de pause par ex.).
+	((- On pourrait dire qu'un admin en pause n'a plus besoin de son rôle d'admin (qui permet uniquement de gérer les membres) puisqu'il est censé ne pas être très présent. Sauf qu'au retour il ne pourra plus se remettre admin seul. Il faudra demander à un autre admin de le promouvoir.))
+	--> Mais en fait, la valeur "en pause" n'a rien à faire ici: on créé un nouveau champ int onbreak avec comme valeur 0 non, 1 oui. (int--> en prévision d'une modification des valeurs possibles et d'un rajout de longueur de pause par ex.).
 
 - Comment devenir ou ne plus être admin?
 	- devenir: un.e autre admin doit nous promouvoir admin
 	- ne plus être: on peut se retirer le rôle admin soit-même ou un.e autre admin peut nous retirer le rôle.
 	--> La conséquence est qu'il ne doit jamais y avoir moins d'un admin dans le collectif. -> Vérification avant d'enlever un admin et bloquage de l'action si c'est le dernier admin.
+
+- Y a-t-il un minimum d'admins dans le collectif ?
+	- But: empêcher qu'un.e admin devienne seul.e et détruise tout.
+	--> A définir. (2 3 ou plus ???)
+	--> serait stocké dans les paramètres du collectif.
+
+- comment une personne bannie peut savoir qu'elle a été bannie ? (si on archive le compte on ne sait pas formellement ce que c'est)
+	--> stocker dans users.state une valeur pour "bannie"
 
 ------------
 - Quid des roles et responsabilités ? par groupe ? par projet ?
@@ -264,6 +277,12 @@ Quels sont les changements d'état possible ?
 
 
 Permissions:
+- Qui peut gérer un compte de membre ?
+	- Créer: Public
+	- Modifier infos: Membre uniquement
+	- Modifier état: Autres admins uniquement
+	- Supprimer: Membre uniquement
+	- Définir état en pause: Membre et admin.
 - Qui peut gérer un groupe ?
 	- Créer: Tous les membres du collectif
 	- Modifier: Tous les admins du groupe
@@ -290,13 +309,13 @@ Permissions:
 
 Quid des commentaires sur les tâches ou sur les travaux ?
 	-> unique moyen de communiquer et d'avoir des réponses à propos de tâches ou de travaux.
-	-> Utile mais trop de travail en plus pour la v1.0... donc NON.
+	-> Très utile mais trop de travail en plus pour la v1.0... donc NON.
 
 
 ---------------
 groups:
 
-- personne de contact ? C'est plus pour les projets qu'il peut y avoir une personne de contact. Et actuellement on peut dire implicitement que c'est les personnes admins.
+- personne de contact ? C'est plus pour les projets qu'il peut y avoir une personne de contact. Et actuellement on peut dire implicitement que c'est la personne responsable. NON.
 
 - communiquer sur le temps qu'on a à investir dans un projet ou un groupe ? et ses intérêts et capacités ?
 - On le fait en dehors de KanFF... donc NON.
@@ -305,29 +324,53 @@ groups:
 - On le fait en dehors de KanFF... donc NON.
 
 
-
 ---------------
 join:
 - valeurs de accepted:
 	--> changer en state, car le nom du champ accepted n'a plus de sens avec les valeurs.
 	->sens: state of the subscription. The state is influenced by the group type (restricted access or not)
 
-	If access restricted:
-	1 = non approuved
+Question sous entendue: comment rejoint-on un groupe ?
+	- rejoint par soi-même directement
+	- on rejoint et on attend d'être approuvé
+	- on recoit une invitation et on l'accepte
+	- qqun.e dans le groupe nous ajoute avec effet immédiat (pas de valeur dédiée mais directement approuvé)
+	--> à partir du moment où on a rejoint, date start est définie
+
+Question dérivée: comment quitte-on un groupe ? (quitter ne signifie pas forcément qu'on a été un moment dans le groupe ici (si on refuse une invitation on a "quitté"))
+	- on quitte par soi-même
+	- on se fait bannir
+	- on se fait refuser l'entrée
+	- on refuse une invitation
+	--> à partir du moment où on a quitté, date end est définie
+
+
+	Si accès restreint toutes ces valeurs sont possibles:
+	1 = non approved
 	2 = refused
 	3 = invitation
-	5 = has left himself
-	6 = invitation refused
-	7 = banned of the group
-	8 = invitation accepted
-	9 = approuved
+	4 = has left himself
+	5 = invitation refused
+	6 = banned of the group
+	7 = invitation accepted
+	8 = approved
 
-	Afficher seulement le dernier join par groupe (un seul join par groupe) par user (il n'y a donc pas d'historique affiché).
+	Si accès non restreint alors seulement ces valeurs sont possibles:
+	3 = invitation
+	4 = has left himself
+	5 = invitation refused
+	6 = banned of the group
+	7 = invitation accepted
+	8 = approved
+
+	--> les invitations, bannir un user, quitter par soi-même est donc possible.
+
+	Dans l'app, sera affiché seulement le dernier join par groupe (un seul join par groupe) par user (il n'y a donc pas d'historique affiché).
 
 - membres admins dans des groupes: pour tâche importantes ? OUI.
 	- personne qui crée le groupe est admin.
 	- au moins un.e admin par groupe (pas de max)
-	- peut supprimer le groupe et gérer les membres d'un projet
+	- peut supprimer le groupe et gérer les membres du groupe
 	--> join.admin int
 
 date de changement d'état ? 
@@ -337,5 +380,32 @@ date de changement d'état ?
 ---------------
 participate:
 - utilité de reason start et end ? ahhh. euh. Je sais plus trop pourquoi. On enlève c'est plus simple.
-- stocker une valeur pour l'invitation ou la modération ? qqch de semblable à join.accepted ?
 
+- valeurs de state ?
+	Question sous entendue: comment un groupe commence à participer à un projet ?
+		- avec une invitation
+		--> à partir du moment où le groupe participe, date start est définie
+	
+	
+	Question dérivée: comment un groupe s'arrête de participer à un projet ?
+		- invitation refusée
+		- groupe banni par le groupe gérant
+		- le groupe a quitté lui-même
+		--> à partir du moment où le groupe ne participe plus, date start est définie
+	
+	
+	- valeurs de state (état de la participation):
+	
+		1 = invitation
+		2 = has left himself
+		3 = invitation refused
+		4 = banned
+		5 = invitation accepted
+	
+	Quels groupes peuvent gérer les participants ? (actions à grandes conséquences)
+		- donc qui peut faire une invitation à un autre groupe, bannir un groupe ?
+		--> Le groupe "admin" enfin qui gére les participants. -> on rajoute un champ manager_id qui est l'id du groupe qui gère les participants.
+		----> Dans ce groupe seulement les admins peuvent effectuer ces actions.
+		-> manager_id int
+	
+	- Chaque groupe externe au projet peut accepter l'invitation ou la refuser, et chaque groupe interne au projet peut quitter lui-même.
