@@ -15,40 +15,41 @@ $title = "Mon compte";
 ob_start();
 ?>
     <div class="">
-    <h1 class="pt-4"><?= $title ?></h1>
+        <h1 class="pt-4"><?= $title ?></h1>
         <BR>
-    <p class="">Voici les informations de votre compte sur l'instance Blason. C'est sur cette page que vous
-        pouvez gérer votre compte. Vous pouvez modifier vos informations pour la plupart et aussi archiver ou supprimer
-        votre compte (attention supprimer est une action irréversible!)</p>
-    <div class="box-aligleft pt-4"></div>
-    <div class="form-group">
+        <p class="">Voici les informations de votre compte sur l'instance Blason. C'est sur cette page que vous
+            pouvez gérer votre compte. Vous pouvez modifier vos informations pour la plupart et aussi archiver ou
+            supprimer
+            votre compte (attention supprimer est une action irréversible!)</p>
+        <div class="box-aligleft pt-4"></div>
+        <div class="form-group">
 
-        <form class="pt-3" action="?action=signin" method="post">
-            <h5 class="pt-3">Informations principales:</h5>
-            <div class="<?= $cssForDivZone ?>">
-                <div class="<?= $cssForDivField ?>">
-                    <span class="<?= $cssForSpan ?>">Prénom</span>
-                    <input class="<?= $cssForInput ?>" minlength="2" maxlength="254" type="text" name="name"
-                           placeholder="Josette"
-                           required/>
-                </div>
-                <div class=" <?= $cssForDivField ?>">
-                    <span class="<?= $cssForSpan ?>">Nom</span>
-                    <input class="<?= $cssForInput ?>" minlength="2" maxlength="254" type="text" name="surname"
-                           placeholder="Richard" required/>
-                </div>
-                <div class="<?= $cssForDivField ?>">
-                    <span class="<?= $cssForSpan ?>">Initiales </span>
-                    <input class="<?= $cssForInput ?>" type="text" placeholder="JRD" readonly/>
-                    <img title="Les initiales sont uniques et générées automatiquement donc non modifiables"
-                         src="view/medias/icons/point.png" alt="50px" width="35" height="35" class="">
-                </div>
-                <div class="<?= $cssForDivField ?>">
-                    <span class="<?= $cssForSpan ?>">Date d'inscription </span>
-                    <input class="<?= $cssForInput ?>" type="date" placeholder="" readonly/>
-                    <img title="Date d'inscription non modifiable"
-                         src="view/medias/icons/point.png" alt="50px" width="35" height="35" class="">
-                </div>
+            <form class="pt-3" action="?action=signin" method="post">
+                <h5 class="pt-3">Informations principales:</h5>
+                <div class="<?= $cssForDivZone ?>">
+                    <div class="<?= $cssForDivField ?>">
+                        <span class="<?= $cssForSpan ?>">Prénom</span>
+                        <input class="<?= $cssForInput ?>" minlength="2" maxlength="254" type="text" name="name"
+                               placeholder="Josette"
+                               required/>
+                    </div>
+                    <div class=" <?= $cssForDivField ?>">
+                        <span class="<?= $cssForSpan ?>">Nom</span>
+                        <input class="<?= $cssForInput ?>" minlength="2" maxlength="254" type="text" name="surname"
+                               placeholder="Richard" required/>
+                    </div>
+                    <div class="<?= $cssForDivField ?>">
+                        <span class="<?= $cssForSpan ?>">Initiales </span>
+                        <input class="<?= $cssForInput ?>" type="text" placeholder="JRD" readonly/>
+                        <img title="Les initiales sont uniques et générées automatiquement donc non modifiables"
+                             src="view/medias/icons/point.png" alt="50px" width="35" height="35" class="">
+                    </div>
+                    <div class="<?= $cssForDivField ?>">
+                        <span class="<?= $cssForSpan ?>">Date d'inscription </span>
+                        <input class="<?= $cssForInput ?>" type="date" placeholder="" readonly/>
+                        <img title="Date d'inscription non modifiable"
+                             src="view/medias/icons/point.png" alt="50px" width="35" height="35" class="">
+                    </div>
 
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Nom d'utilisateur/trice</span>
@@ -58,12 +59,11 @@ ob_start();
 
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Statut</span>
-                        <span class="spanTextArea"><textarea  name="Statut" id="txtStatut" rows="2" placeholder="tbd"
-                                                          class="form-control"
-                                                          title="Votre Statut"></textarea></span>
+                        <span class="spanTextArea"><textarea name="Statut" id="txtStatut" rows="2" placeholder="tbd"
+                                                             class="form-control"
+                                                             title="Votre Statut"></textarea></span>
 
                     </div>
-
 
 
                     <div class="<?= $cssForDivField ?>">
@@ -73,46 +73,47 @@ ob_start();
                              src="view/medias/icons/point.png" alt="50px" width="35" height="35" class="">
 
 
-                </div>
-                <h5 class="pt-3">Changement de mot de passe:<span title="Inserer le text souhaité"
-                                                                  class="glyphicon glyphicon-question-sign"></span>
-                </h5>
+                    </div>
+                    <h5 class="pt-3">Changement de mot de passe:<span title="Inserer le text souhaité"
+                                                                      class="glyphicon glyphicon-question-sign"></span>
+                    </h5>
 
-                <div class="<?= $cssForDivField ?>">
-                    <span class="<?= $cssForSpan ?>">Actuel</span>
-                    <input class="<?= $cssForInput ?>" type="password" name="password" placeholder="" required/>
-                    <img title="Inserez le mot de passe actuel" src="view/medias/icons/point.png" alt="50px" width="35"
-                         height="35" class="">
-                </div>
-                <div class="<?= $cssForDivField ?>">
-                    <span class="<?= $cssForSpan ?>">Mot de passe</span>
-                    <input class="<?= $cssForInput ?>" type="password" name="newpassword" placeholder="" required/>
-                    <img title="Les critères de sécurité du mot de passe sont:
+                    <div class="<?= $cssForDivField ?>">
+                        <span class="<?= $cssForSpan ?>">Actuel</span>
+                        <input class="<?= $cssForInput ?>" type="password" name="password" placeholder="" required/>
+                        <img title="Inserez le mot de passe actuel" src="view/medias/icons/point.png" alt="50px"
+                             width="35"
+                             height="35" class="">
+                    </div>
+                    <div class="<?= $cssForDivField ?>">
+                        <span class="<?= $cssForSpan ?>">Mot de passe</span>
+                        <input class="<?= $cssForInput ?>" type="password" name="newpassword" placeholder="" required/>
+                        <img title="Les critères de sécurité du mot de passe sont:
                 - yy caractères
                 - caractères minuscules, majuscules, spéciaux, chiffres.
                 - ... TBD" src="view/medias/icons/point.png" alt="50px" width="35" height="35" class="">
+                    </div>
+
+                    <div class="<?= $cssForDivField ?>">
+                        <span class="<?= $cssForSpan ?>">Confirmation</span>
+                        <input class="<?= $cssForInput ?>" type="password" name="newpasswordc" placeholder="" required
+                               title="Confirmation du mot de passe"/>
+                        <span title="Inserer le text souhaité" class=" glyphicon-question-sign"></span>
+                    </div>
                 </div>
 
-                <div class="<?= $cssForDivField ?>">
-                    <span class="<?= $cssForSpan ?>">Confirmation</span>
-                    <input class="<?= $cssForInput ?>" type="password" name="newpasswordc" placeholder="" required
-                           title="Confirmation du mot de passe"/>
-                    <span title="Inserer le text souhaité" class=" glyphicon-question-sign"></span>
-                </div>
-            </div>
+                <h5 class="pt-3">Champs facultatifs:</h5>
+                <div class="<?= $cssForDivZone ?>">
+                    <div class="<?= $cssForDivField ?>">
+                        <span class="<?= $cssForSpan ?>">Email</span>
+                        <input class="<?= $cssForInput ?>" type="email" name="email"
+                               placeholder="josette.richard@assoc.ch"/>
+                    </div>
 
-            <h5 class="pt-3">Champs facultatifs:</h5>
-            <div class="<?= $cssForDivZone ?>">
-                <div class="<?= $cssForDivField ?>">
-                    <span class="<?= $cssForSpan ?>">Email</span>
-                    <input class="<?= $cssForInput ?>" type="email" name="email"
-                           placeholder="josette.richard@assoc.ch"/>
-                </div>
-
-                <div class="<?= $cssForDivField ?>">
-                    <span class="<?= $cssForSpan ?>">N°téléphone</span>
-                    <input class="<?= $cssForInput ?>" type="" name="nb_phone" placeholder="Phone"/>
-                </div>
+                    <div class="<?= $cssForDivField ?>">
+                        <span class="<?= $cssForSpan ?>">N°téléphone</span>
+                        <input class="<?= $cssForInput ?>" type="" name="nb_phone" placeholder="Phone"/>
+                    </div>
 
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Lien messagerie instantanée</span>
@@ -124,16 +125,16 @@ Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard"
                     </div>
 
 
-                <div class="<?= $cssForDivField ?>">
-                    <span class="<?= $cssForSpan ?>">Biographie</span>
-                    <span class="spanTextArea"><textarea  id="txtBiography" rows="5" placeholder="tbd"
-                                                      class="fullwidth form-control "
-                                                      title="Votre biographie"></textarea></span>
+                    <div class="<?= $cssForDivField ?>">
+                        <span class="<?= $cssForSpan ?>">Biographie</span>
+                        <span class="spanTextArea"><textarea id="txtBiography" rows="5" placeholder="tbd"
+                                                             class="fullwidth form-control "
+                                                             title="Votre biographie"></textarea></span>
 
-                    <?= flashMessage(); ?>
+                        <?= flashMessage(); ?>
+                    </div>
                 </div>
-            </div>
-    </div>
+        </div>
         <div class="">
             <p class="">Ces informations seront visibles à tous les membres approuvés de l'instance, dans le but d'avoir
                 un ou des moyens de contact et une description pour les nouvelles personnes, qui ne connaissent pas les
@@ -151,8 +152,8 @@ Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard"
                     <button type="submit" class=" btn btn-primary">Archiver son compte</button>
                 </div>
             </div>
-        </form>
-    </div>
+            </form>
+        </div>
     </div>
     </div>
 <?php

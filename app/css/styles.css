@@ -40,7 +40,7 @@
     height: 75px;
 }
 
-.divLogo{
+.divLogo {
     padding: 3px 5px;
     margin-right: 5px;
 }
@@ -213,11 +213,11 @@ label {
     text-decoration: underline;
 }
 
-.borderleftorange{
+.borderleftorange {
     border-left: solid 2px #ffb400;
 }
 
-.borderrightorange{
+.borderrightorange {
     border-right: solid 2px #ffb400;
 }
 
@@ -255,7 +255,8 @@ label {
     background-color: #1587ff;
     display: flex;
 }
-.circle-usericon:hover{
+
+.circle-usericon:hover {
     background-color: #4fb6e3;
 }
 
@@ -317,7 +318,7 @@ label {
     color: #348a19;
 }
 
-.txtblack a{
+.txtblack a {
     color: black;
 }
 
@@ -408,41 +409,43 @@ tr {
     padding: 3px;
 }
 
-.cursorpointer{
+.cursorpointer {
     cursor: pointer;
 }
 
 
-.divVersion{
+.divVersion {
     height: 10px;
     margin-top: 2px;
 }
-.divDropDown{
+
+.divDropDown {
     padding: 10px;
     margin: 5px;
     width: 300px;
     box-shadow: 0 5px 5px rgba(57, 44, 12, 0.54);
 }
-.errormsg{
+
+.errormsg {
     color: red;
     font-style: italic;
 }
 
-.nomargin{
+.nomargin {
     margin: 0px !important;
 }
 
-.spanForForm{
+.spanForForm {
     max-width: 300px;
 }
 
-.inputForForm{
+.inputForForm {
     max-width: 300px;
     margin-right: 15px;
     margin-left: 15px;
 }
 
-.spanTextArea{
+.spanTextArea {
     min-width: 700px;
     padding-right: 15px;
     padding-left: 15px;

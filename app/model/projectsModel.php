@@ -20,12 +20,14 @@ function getAllProjects()
 }
 
 //Get one projects whith conditions
-function getOneByConditionProject($criterions,$params){
+function getOneByConditionProject($criterions, $params)
+{
     return getByCondition("projects", $params, $criterions, false);
 }
 
 //Get more than one projects whith conditions
-function getAllByConditionProjects($criterions,$params){
+function getAllByConditionProjects($criterions, $params)
+{
     return getByCondition("projects", $params, $criterions, true);
 }
 
