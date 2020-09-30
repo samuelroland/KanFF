@@ -259,6 +259,10 @@ label {
     background-color: #4fb6e3;
 }
 
+.innerbordercircle {
+    border: 3px solid #92d2ff;
+}
+
 .fullname {
     max-width: 300px;
     max-height: 75px;

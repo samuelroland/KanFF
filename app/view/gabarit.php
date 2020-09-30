@@ -63,7 +63,7 @@ Y,                    `\"8bd888b,             ,P
 ?>
 
 <!-- The full header -->
-<header class="bg-header <?= ($debug == false) ? "header-fixed" : "" //the header is not fixed in debug mode because else devs can't see var_dump() results printed under the menu.                     ?>">
+<header class="bg-header <?= ($debug == false) ? "header-fixed" : "" //the header is not fixed in debug mode because else devs can't see var_dump() results printed under the menu.                      ?>">
 
     <!-- Zone Logo with logo image + version texts -->
     <div class="divZoneLogo flexdiv">
@@ -76,7 +76,7 @@ Y,                    `\"8bd888b,             ,P
             </div>
         </div>
         <div data-href="?action=about"
-             class="flex-3 collectivename flexdiv overflow-hidden borderleftorange borderrightorange clickable <?= ($action == "about") ? 'active' : '' //button active or not                     ?>">
+             class="flex-3 collectivename flexdiv overflow-hidden borderleftorange borderrightorange clickable <?= ($action == "about") ? 'active' : '' //button active or not                      ?>">
             <div class="align-items-center flexdiv"><?= $instanceinfos['collective']['name'] ?></div>
         </div>
     </div>
@@ -99,7 +99,8 @@ Y,                    `\"8bd888b,             ,P
                         <form action="">
                             <!-- form tag ? -> thanks to https://stackoverflow.com/questions/25089297/avoid-dropdown-menu-close-on-click-inside#answer-34216265 -->
                             <!-- The circle -->
-                            <div class="circle-usericon cursorpointer" data-toggle="dropdown" aria-expanded="false">
+                            <div class="circle-usericon cursorpointer <?= ($_SESSION['user']['state'] == USER_STATE_ADMIN) ? "innerbordercircle" : "" ?>"
+                                 data-toggle="dropdown" aria-expanded="false">
                                 <p class="marginauto"><?= $_SESSION['user']['initials'] ?></p>
                             </div>
                             <!-- The dropdown -->
