@@ -46,20 +46,16 @@ function deleteProjects($id)
 {
     deleteOne("projects", $id);
 }
-function getAllProjectsByGroup($id, $isMember){
-    $query="SELECT projects.* FROM kanff.projects 
-INNER	join kanff.participate ON projects.id = participate.project_id
-INNER	join kanff.groups ON groups.id = participate.group_id
-WHERE	groups.id = :id  "//If ismember est vrai"AND projects.visible = 1;";
-    $params=["id"=>$id];
-    $array=Query($query,$params,true);
-    $res=array();
 
-    foreach ($array as $item){
-        if ($item["visible"]==1){
-            $res[]=$item;
-        }
-        return $res;
-    }
+//Get all the projects in which a group participates, for a person that is a member of this group or not (can see invisible projects only if is a member)
+function getAllProjectsByGroup($id, $isMember)
+{
+    $query = "SELECT projects.* FROM projects
+INNER join participate ON projects.id = participate.project_id
+INNER join `groups` ON `groups`.id = participate.group_id
+WHERE `groups`.id = :id" . (($isMember == false) ? " AND projects.visible = 1;" : ";");
+    $params = ["id" => $id];
+    return Query($query, $params, true);
 }
+
 ?>
