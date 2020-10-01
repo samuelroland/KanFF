@@ -7,14 +7,35 @@ $title = "Créer un projet"
 
 <form action="?action=createAGroup" method="POST" class="pt-4">
     <div class="divContext row pt-4">
-        <div class="col-lg-3 col-md-12"><h4>Nom du Project</h4></div>
-        <div class="col-12"><input type="text" class="smalltextinput textFieldToCheck" name="name" id="txtName" maxlength="50" required></div>
+        <div class="col-lg-3 col-md-12 ">
+            <h4>Nom du Project</h4>
+            <input type="text" class="smalltextinput textFieldToCheck" name="name" id="txtName"
+                   maxlength="50" required>
+        </div>
+
+        <div class="col-lg-3 col-md-12 marginauto">
+
+            <h4>Importance</h4>
+            <select class="fullwidth" name="" id="selImportance" required>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+        
+        <div class="col-lg-5 col-md-12 infotext">
+            Notez de 1 à 5 (1 = minimum et 5 = maximum), l'importance de l'urgence du projet.
+            Ce qui permet ensuite de calculer la priorité du projet en privélégiant l'important à l'urgent.
+        </div>
     </div>
     <p id="pCounterName">0/50</p>
     <div class="divDescription row pt-4">
         <div class="col-lg-3 col-md-12"><h4>Description du projet</h4></div>
-        <div class="col-12"><textarea class="fullwidth textFieldToCheck" name="description" id="txtDescription" rows="2" maxlength="200" minlength="3" placeholder="tbd"></textarea>
-    </div>
+        <div class="col-12"><textarea class="fullwidth textFieldToCheck" name="description" id="txtDescription" rows="2"
+                                      maxlength="200" minlength="3" placeholder="tbd"></textarea>
+        </div>
 
     </div>
     <p id="pGoalDescription">0/200</p>

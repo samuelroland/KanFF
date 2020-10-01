@@ -23,6 +23,7 @@ function projects()
 // Display the page create a project or create the project (depends on the data sent)
 function createAProject($newProject)
 {
+    $groups = getAllGroups();
     if (empty($newProject) == false) {
         $error = false;
         $newProject['name'] = trimIt($newProject['name']);
