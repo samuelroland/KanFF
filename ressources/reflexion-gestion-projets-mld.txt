@@ -158,13 +158,14 @@ Tâches:
 	- Listes des types libre ou définie ?
 		- Je pencherais plus pour défini, histoire que ca devienne pas un moyen de mettre un tag unique. Ca doit quand même rester générale et pas être par ex. "longue", "administration"
 	- Idées (question: qu'est-ce que c'est la tâche? qu'est-ce qu'on donne si on donne la tâche. utile si implique qqch de différent que les autres): tâche->action, question->réponse, idée->réflexion puis décision, info->consulter et stocker ou partager, réflexion->commenter/réagir, proposition->acceptation ou refus):
-			- tâche
+			- tâche (NON)
 			- question
 			- info
 			- proposition
 			- idée
 			- réflexion
-			OK!
+			OK! --> 5 types
+	--> Mais tâche type tâche, c'est pas trop utile... donc par défaut c'est juste qu'il n'y a pas de type! (champ peut donc être null). on enlève l'option tâche.
 
 à réfléchir (avis extérieurs):
 idée et proposition trop semblable --> petite nuance donc on garde.
