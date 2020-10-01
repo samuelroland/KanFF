@@ -37,12 +37,12 @@ $title = "Créer un projet"
     </div>
     <p id="pCounterDescription">0/500</p>
     <div class="divContext row pt-4">
-        <div class="col-lg-3 col-md-12"><h4>Objectif</h4></div>
-        <div class="col-12"><textarea class="fullwidth textFieldToCheck" name="context" id="txtGoal" rows="2"
-                                      maxlength="200"
-                                      minlength="3" placeholder="tbd"></textarea></div>
+        <div class="col-lg-3 col-md-12"><h4>Objectif du projet</h4></div>
+        <div class="col-12"><textarea class="fullwidth textFieldToCheck" name="context" id="txtContext" rows="2"
+                                      maxlength="500"
+                                      minlength="3"></textarea></div>
     </div>
-    <p id="pCounterGoal">0/200</p>
+    <p id="pCounterContext">0/500</p>
     <div class="divImportance row pt-4">
         <div class="col-lg-3 col-md-12"><h3>Priorité du projet</h3></div>
         <div class="col-lg-8 col-md-12 infotext">
