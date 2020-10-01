@@ -15,7 +15,7 @@ $title = "Créer un projet"
 
         <div class="col-lg-3 col-md-12 marginauto">
             <h4>Importance</h4>
-            <select class="fullwidth" name="" id="selImportance" required>
+            <select class="fullwidth" name="group" id="group" required>
                 <?php foreach ($groups as $g) { ?>
                     <option value="<?= $g['id'] ?>"><?= $g['name'] ?></option>
                 <?php } ?>
@@ -31,18 +31,35 @@ $title = "Créer un projet"
     <div class="divDescription row pt-4">
         <div class="col-lg-3 col-md-12"><h4>Description du projet</h4></div>
         <div class="col-12"><textarea class="fullwidth textFieldToCheck" name="description" id="txtDescription" rows="2"
-                                      maxlength="500" minlength="3"></textarea>
+                                      maxlength="500" minlength="3" required></textarea>
         </div>
 
     </div>
     <p id="pCounterDescription">0/500</p>
+
     <div class="divContext row pt-4">
         <div class="col-lg-3 col-md-12"><h4>Objectif du projet</h4></div>
-        <div class="col-12"><textarea class="fullwidth textFieldToCheck" name="context" id="txtContext" rows="2"
+        <div class="col-12"><textarea class="fullwidth textFieldToCheck" name="goal" id="txtGoal" rows="2"
                                       maxlength="500"
                                       minlength="3"></textarea></div>
     </div>
-    <p id="pCounterContext">0/500</p>
+
+    <p id="pCounterGoal">0/500</p>
+
+    <div class="divContext row pt-4">
+        <h4 class="col-lg-3 col-md-12">Début et fin prévus</h4>
+        <div class="marginauto">
+            <label for="start">Début:</label>
+            <input type="date" id="start" name="dateStart" required>
+        </div>
+        <div class="marginauto">
+            <label for="end">Fin(facultatif):</label>
+            <input class="marginauto" type="date" id="end" name="dateEnd">
+        </div>
+
+
+    </div>
+
     <div class="divImportance row pt-4">
         <div class="col-lg-3 col-md-12"><h3>Priorité du projet</h3></div>
         <div class="col-lg-8 col-md-12 infotext">
@@ -70,7 +87,7 @@ $title = "Créer un projet"
             </select></div>
     </div>
     <div class="divVisibility row pt-4">
-        <div class="col-lg-4 col-md-12 marginauto ">
+        <div class="col-lg-4 col-md-12 marginauto">
             <h4>Type d'accès</h4>
             <input type="checkbox" id="chkRestrictAccess"
                    name="restrict_access">
