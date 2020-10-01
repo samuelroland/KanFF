@@ -14,17 +14,14 @@ $title = "Créer un projet"
         </div>
 
         <div class="col-lg-3 col-md-12 marginauto">
-
             <h4>Importance</h4>
             <select class="fullwidth" name="" id="selImportance" required>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
+                <?php foreach ($groups as $g) { ?>
+                    <option value="<?= $g['id'] ?>"><?= $g['name'] ?></option>
+                <?php } ?>
             </select>
         </div>
-        
+
         <div class="col-lg-5 col-md-12 infotext">
             Notez de 1 à 5 (1 = minimum et 5 = maximum), l'importance de l'urgence du projet.
             Ce qui permet ensuite de calculer la priorité du projet en privélégiant l'important à l'urgent.
@@ -34,11 +31,11 @@ $title = "Créer un projet"
     <div class="divDescription row pt-4">
         <div class="col-lg-3 col-md-12"><h4>Description du projet</h4></div>
         <div class="col-12"><textarea class="fullwidth textFieldToCheck" name="description" id="txtDescription" rows="2"
-                                      maxlength="200" minlength="3" placeholder="tbd"></textarea>
+                                      maxlength="500" minlength="3"></textarea>
         </div>
 
     </div>
-    <p id="pGoalDescription">0/200</p>
+    <p id="pCounterDescription">0/500</p>
     <div class="divContext row pt-4">
         <div class="col-lg-3 col-md-12"><h4>Objectif</h4></div>
         <div class="col-12"><textarea class="fullwidth textFieldToCheck" name="context" id="txtGoal" rows="2"
