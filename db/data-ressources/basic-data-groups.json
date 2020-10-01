@@ -4,14 +4,16 @@
     "description": "Ce groupe s'occupe de gérer les finances de l'association. Il gère les dons, les dépenses, les demandes d'argent, et gère le compte bancaire.",
     "context": "Ce groupe a été créé après un problème avec les finances. Le problème était que trop peu de personnes s'en occupaient.",
     "status": "Travail une fois par mois pour les tâches répétitives",
-    "image": "group_5ecjoxx4zzza8cni2zv4t523buef6n.jpg"
+    "image": "group_5ecjoxx4zzza8cni2zv4t523buef6n.jpg",
+    "prerequisite": "Connaissances minimales en comptabilité requises. Le reste peu être appris sur le tas si vous voulez vous intégrer dans ce groupe. De la rigueur administrative est aussi de mise."
   },
   {
     "name": "GT Réfléxion interne",
     "description": "Groupe pour réfléchir au fonctionnement interne.",
     "context": "Différentes tensions entre certains membres.",
     "status": "",
-    "image": "group_oivabk34kanwygt3vywoeplzf0lqox.jpg"
+    "image": "group_oivabk34kanwygt3vywoeplzf0lqox.jpg",
+    "prerequisite": "A partir du moment que vous avez constaté ou pu expérimenter des problèmes internes dans l'organisation et la structure, vous êtes aptes à travailler dans ce groupe."
   },
   {
     "name": "Coordination",
@@ -24,7 +26,8 @@
     "name": "GT Journal",
     "description": "Collaboration avec un journal régional mensuel pour un prochain numéro consacré à l'association. Le journal sera publié fin mai.",
     "context": "Envie de prendre place dans l'espace médiatique et de se faire connaître...",
-    "status": "En pause pour cause du covid et reporté en septembre."
+    "status": "En pause pour cause du covid et reporté en septembre.",
+    "prerequisite": "Aimer écrire ou dessiner. Les textes sont travaillés très longtemps avant d'arriver dans leur phase finale."
   },
   {
     "name": "GT Festival",

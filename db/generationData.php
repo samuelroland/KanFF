@@ -16,6 +16,8 @@ function getPDO()
 }
 
 require_once "../app/view/helpers.php";
+require_once "../app/controler/help.php";
+
 //Build the string of the SQL query with SQL parameters according to the data sent
 function queryInsertConstructor($items, $tablename)
 {
@@ -75,15 +77,18 @@ function getAllItems($tablename)
         $statement->execute();//execute query
         $queryResult = $statement->fetchAll(PDO::FETCH_ASSOC);//prepare result for client
         $dbh = null;
-        $items = [];
-        foreach ($queryResult as $item) {
-            $items[$item['id']] = $item;
-        }
+
+        $items = indexAnArrayById($queryResult);
         return $items;
     } catch (PDOException $e) {
         print "Error!: " . $e->getMessage() . "<br/>";
         return null;
     }
+}
+
+function getLoremIpsum($length)
+{
+    return substr(file_get_contents("https://loripsum.net/api/short/1/long/plaintext"), 0, $length - 2);
 }
 
 /// ----------------------------
@@ -99,6 +104,7 @@ function dataUsers()
     echo "\n-----------------------------\n Generating Users \n-----------------------------\n ";
     $id = 0;
     $users = [];    //array for the users generated
+    $adminsIds[0] = 1;  //id of JRD that is an admin in all cases
 
     $unwanted_array = array('Š' => 'S', 'š' => 's', 'Ž' => 'Z', 'ž' => 'z', 'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A', 'Æ' => 'A', 'Ç' => 'C', 'È' => 'E', 'É' => 'E',
         'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I', 'Ñ' => 'N', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'O', 'Ø' => 'O', 'Ù' => 'U',
@@ -164,16 +170,34 @@ function dataUsers()
         $state = USER_STATE_APPROVED;   //default is approved
         if (rand(1, 15) == 1) {
             $state = USER_STATE_UNAPPROVED;
-        } else if (rand(1, 8) == 1) {
-            $state = USER_STATE_ONBREAK;
+        } else if (rand(1, 70) == 1) {
+            $state = USER_STATE_BANNED;
         } else if (rand(1, 20) == 1) {
             $state = USER_STATE_ARCHIVED;
         } else if (rand(1, 10) == 1) {
             $state = USER_STATE_ADMIN;
+            $adminsIds[] = $id;
         }
 
-        if (isset($ressource['state'])) {
+        if (isset($ressource['state'])) {   //take value from pack if exists
             $state = $ressource['state'];
+        }
+
+        //Generate on_break:
+        if (rand(1, 20) == 1) {
+            $onbreak = 1;
+        } else {
+            $onbreak = 0;
+        }
+
+        //Generate state_modifier_id: take the id of a random admin
+        $statemodifierid = $adminsIds[rand(0, count($adminsIds) - 1)];
+
+        //Generate state_modification_date: take a random date after inscription to simulate change of state made by an admin
+        if ($state != USER_STATE_UNAPPROVED) {  //only if the state has changed
+            $statemodificationdate = getRandomDateFormated(strtotime($inscription));
+        } else {
+            $statemodificationdate = null;  //else value is just null
         }
 
         //Generate chat_link:
@@ -189,8 +213,12 @@ function dataUsers()
         $userinrun['inscription'] = $inscription;
         $userinrun['status'] = $status;
         $userinrun['state'] = $state;
+        $userinrun['on_break'] = $onbreak;
         $userinrun['phonenumber'] = $phonenumber;
         $userinrun['password'] = $password;
+        $userinrun['password'] = $password;
+        $userinrun['state_modifier_id'] = $statemodifierid;
+        $userinrun['state_modification_date'] = $statemodificationdate;
 
         //Save the userinrun in the lists:
         $users[] = $userinrun;
@@ -214,6 +242,14 @@ function dataGroups()
     foreach ($groupsressources as $ressource) {
         $id++;
         $group = $ressource;
+
+        //Generate prerequisite:
+        if (isset($group['prerequisite']) == false) {
+            $group['prerequisite'] = getLoremIpsum(500);
+            if (rand(1, 5) == 1) {
+                $group['prerequisite'] = null;
+            }
+        }
 
         //Half time, email is the last word of the name of the group with @assoc.ch
         if (rand(0, 1)) {
@@ -333,6 +369,46 @@ function data_join()
                 //Add to the list of the groups joined by the user
                 $listOfGroupsJoinedByTheUser[] = $groupid;
 
+
+                //INFO: state field depend on the field restrict_access of the groups. (see records-management.txt for explanations).
+
+                //Generate state for access restricted group
+                if ($groups[$groupid]['restrict_access'] == 1) {
+                    $join['state'] = JOIN_STATE_APPROVED;  //accepted by default
+
+                    //Others special states that not concerns the majority of cases
+                    if (rand(0, 10) == 0) {
+                        $join['state'] = JOIN_STATE_UNAPPROVED;
+                    } else if (rand(0, 10) == 0) {
+                        $join['state'] = JOIN_STATE_REFUSED;
+                    } else if (rand(0, 30) == 0) {
+                        $join['state'] = JOIN_STATE_BANNED;
+                    } else if (rand(0, 15) == 0) {
+                        $join['state'] = JOIN_STATE_INVITATION;
+                    } else if (rand(0, 15) == 0) {
+                        $join['state'] = JOIN_STATE_INVITATION_ACCEPTED;
+                    } else if (rand(0, 25) == 0) {
+                        $join['state'] = JOIN_STATE_INVITATION_REFUSED;
+                    } else if (rand(0, 15) == 0) {
+                        $join['state'] = JOIN_STATE_LEFT;
+                    }
+                } else {    //With groups not restricted, the value 1 and 2 are not possible and the value 4 is by default
+                    $join['state'] = JOIN_STATE_APPROVED;  //accepted by default
+
+                    //Others special states that not concerns the majority of cases
+                    if (rand(0, 35) == 0) {
+                        $join['state'] = JOIN_STATE_BANNED;
+                    } else if (rand(0, 20) == 0) {
+                        $join['state'] = JOIN_STATE_INVITATION;
+                    } else if (rand(0, 10) == 0) {
+                        $join['state'] = JOIN_STATE_INVITATION_ACCEPTED;
+                    } else if (rand(0, 25) == 0) {
+                        $join['state'] = JOIN_STATE_INVITATION_REFUSED;
+                    } else if (rand(0, 15) == 0) {
+                        $join['state'] = JOIN_STATE_LEFT;
+                    }
+                }
+
                 //If the lastLeftDate is not null, the user has already joined and left, so the start must be after the end of the last join.
                 if ($lastLeftDate != null) {
                     $join['start'] = getRandomDateFormated(strtotime($lastLeftDate));
@@ -340,35 +416,19 @@ function data_join()
                     $join['start'] = getRandomDateFormated();
                 }
 
-                echo " \n";
-                if (rand(0, 7) == 0) {
+                $join['end'] = null;    //null by default
+                if ($join['state'] != JOIN_STATE_INVITATION_ACCEPTED && $join['state'] != JOIN_STATE_APPROVED) {    //if the user is not in the group
                     $join['end'] = getRandomDateFormated(strtotime($join['start']));
-                } else {
-                    $join['end'] = null;
                 }
 
-                //INFO: Accepted field depend on the field restrict_access of the groups. (see records-management.txt for explanations).
-
-                //Generate accepted for access restricted group
-                if ($groups[$groupid]['restrict_access'] == 1) {
-                    $join['accepted'] = 4;  //accepted by default
-
-                    //Others special states that not concerns the majority of cases
-                    if (rand(0, 10) == 0) {
-                        $join['accepted'] = 1;  //want to join the group but not yet accepted or not
-                    } else if (rand(0, 10) == 0) {
-                        $join['accepted'] = 2;  //not accepted/refused
-                    } else if (rand(0, 20) == 0) {
-                        $join['accepted'] = 3;  //banned of the group
-                    }
-                } else {    //With groups not restricted, the value 1 and 2 are not possible and the value 4 is by default
-                    $join['accepted'] = 4;  //automatically accepted by default
-
-                    //In rare case the user has been banned of the group
-                    if (rand(0, 20) == 0) {
-                        $join['accepted'] = 3;  //banned of the group
-                    }
+                //Generate admin:
+                $join['admin'] = 0; //not admin by default
+                if ($groups[$join['group_id']]['creator_id'] == $i) {  //if the user is the creator of the group, the user is admin
+                    $join['admin'] = 1;
+                } else if (rand(0, 30) == 0) { //randomly users are admins
+                    $join['admin'] = 1;
                 }
+
                 echo $join['group_id'] . " \n";
                 echo $join['start'] . " \n";
                 echo $join['end'] . " \n";
@@ -401,7 +461,7 @@ function dataProjects()
         if (rand(1, 15) == 1) {
             $state = PROJECT_STATE_UNDERREFLECTION;
         } else if (rand(1, 6) == 1) {
-            $state = PROJECT_STATE_COMPLETED;
+            $state = PROJECT_STATE_DONE;
         } else if (rand(1, 5) == 1) {
             $state = PROJECT_STATE_SEMIACTIVEWORK;
         } else if (rand(1, 6) == 1) {
@@ -449,8 +509,8 @@ if (CREATE_DB_BEFORE_INSERTION) {
     echo "\n\nDatabase kanff dropped and created again !";
 }
 
-//dataUsers();
-//dataGroups();
-//data_join();
-dataProjects();
+dataUsers();
+dataGroups();
+data_join();
+//dataProjects();
 ?>

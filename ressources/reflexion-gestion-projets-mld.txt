@@ -350,7 +350,7 @@ Question dérivée: comment quitte-on un groupe ? (quitter ne signifie pas forc�
 	1 = non approved
 	2 = refused
 	3 = invitation
-	4 = has left
+	4 = left
 	5 = invitation refused
 	6 = banned of the group
 	7 = invitation accepted
@@ -358,7 +358,7 @@ Question dérivée: comment quitte-on un groupe ? (quitter ne signifie pas forc�
 
 	Si accès non restreint alors seulement ces valeurs sont possibles:
 	3 = invitation
-	4 = has left
+	4 = left
 	5 = invitation refused
 	6 = banned of the group
 	7 = invitation accepted
