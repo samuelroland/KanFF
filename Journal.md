@@ -20,4 +20,4 @@
 1. (__SRD__, 03.07.2020) Publication **du MCD v1.2 et du MLD v1.2**. Beaucoup de petits changements ont été effectués. Voir les différences sur ce [commit](https://github.com/samuelroland/KanFF/commit/9c2750af553e89d78b1328bef933f551531caa8a?short_path=746d79f#diff-746d79f94c149821d5da23f7da15e358).
 1. (__SRD__, 09.09.2020) **Sprint review** du sprint 4 avec Team + JIE (sans SCY et KVR). PV dans le dossier [`PVs` du repos](https://github.com/samuelroland/KanFF/tree/master/PVs) . Clôture du Sprint 4. Lancement du Sprint 5 sur IceScrum (Objectif du Sprint 5: Terminer partie gestion des projets et des travaux)
 1. (__SRD__, 11.09.2020) **Release** `KanFF Beta v1.1` sur [GitHub](https://github.com/samuelroland/KanFF/releases/tag/v1.1-beta).
-
+1. (__SRD__, 01.10.2020) Publication **du MCD v1.3 et du MLD v1.3**. 0 à 5 changements par tables. Voir les différences sur ce [commit](https://github.com/samuelroland/KanFF/commit/3d2befef6149d7191587f3333d420790514ea9fe?short_path=1ac66ef#diff-1ac66ef7010fbb602c6cc4d4b8f10d96).
