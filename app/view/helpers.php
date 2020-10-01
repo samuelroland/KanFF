@@ -30,16 +30,22 @@ define("PROJECT_STATE_ONBREAK", 4);
 define("PROJECT_STATE_REPORTED", 5);
 define("PROJECT_STATE_ABANDONNED", 6);
 define("PROJECT_STATE_CANCELLED", 7);
-define("PROJECT_STATE_COMPLETED", 8);
-define("PROJECT_LIST_STATE", [PROJECT_STATE_UNDERREFLECTION, PROJECT_STATE_UNDERPLANNING, PROJECT_STATE_SEMIACTIVEWORK, PROJECT_STATE_ACTIVEWORK, PROJECT_STATE_ONBREAK, PROJECT_STATE_REPORTED, PROJECT_STATE_ABANDONNED, PROJECT_STATE_CANCELLED, PROJECT_STATE_COMPLETED]);
-
+define("PROJECT_STATE_DONE", 8);
+define("PROJECT_LIST_STATE", [PROJECT_STATE_UNDERREFLECTION, PROJECT_STATE_UNDERPLANNING, PROJECT_STATE_SEMIACTIVEWORK, PROJECT_STATE_ACTIVEWORK, PROJECT_STATE_ONBREAK, PROJECT_STATE_REPORTED, PROJECT_STATE_ABANDONNED, PROJECT_STATE_CANCELLED, PROJECT_STATE_DONE]);
 
 //define constants of works.state, identical to values in the database:
 define("WORK_STATE_TODO", 1);
 define("WORK_STATE_INRUN", 2);
 define("WORK_STATE_ONBREAK", 3);
-define("WORK_STATE_COMPLETED", 4);
-define("WORK_LIST_STATE", [WORK_STATE_TODO, WORK_STATE_INRUN, WORK_STATE_ONBREAK, WORK_STATE_COMPLETED]);
+define("WORK_STATE_DONE", 4);
+define("WORK_LIST_STATE", [WORK_STATE_TODO, WORK_STATE_INRUN, WORK_STATE_ONBREAK, WORK_STATE_DONE]);
+
+//define constants of tasks.state, identical to values in the database:
+define("TASK_STATE_TODO", 1);
+define("TASK_STATE_INRUN", 2);
+define("TASK_STATE_DONE", 3);
+define("TASK_LIST_STATE", [TASK_STATE_TODO, TASK_STATE_INRUN, TASK_STATE_DONE]);
+
 
 //get the flashmessage with the messageid stored in the session.
 function flashMessage($withHtml = true)
@@ -125,7 +131,7 @@ function convertProjectState($int)
             return "abandonné";
         case PROJECT_STATE_CANCELLED:
             return "annulé";
-        case PROJECT_STATE_COMPLETED:
+        case PROJECT_STATE_DONE:
             return "terminé";
         default:
             return "ERROR UNKNOWN STATE";
@@ -142,7 +148,21 @@ function convertWorkState($int)
             return "en cours";
         case WORK_STATE_ONBREAK:
             return "en pause";
-        case WORK_STATE_COMPLETED:
+        case WORK_STATE_DONE:
+            return "terminé";   //ou fini ??
+        default:
+            return "ERROR UNKNOWN STATE";
+    }
+}
+//Convert the task state in french
+function convertTaskState($int)
+{
+    switch ($int) {
+        case TASK_STATE_TODO:
+            return "à faire";
+        case TASK_STATE_INRUN:
+            return "en cours";
+        case TASK_STATE_DONE:
             return "terminé";   //ou fini ??
         default:
             return "ERROR UNKNOWN STATE";

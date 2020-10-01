@@ -43,11 +43,11 @@ echo $result;
 
                         <div class="position-bottom-left">
                             <img src="view/medias/icons/PointDexcalamtion.jpg" alt="email logo" class="icon-simple">
-                            <p title="<?= $project['importance'] ?>"><?= $project['importance'] ?></p>
+                            <span title="<?= $project['importance'] ?>"><?= $project['importance'] ?></span>
                         </div>
                         <div class="position-bottom-left">
                             <img src="view/medias/icons/IconMontre.png" alt="email logo" class="icon-simple">
-                            <p title="<?= $project['urgency'] ?>"><?= $project['urgency'] ?></p>
+                            <span title="<?= $project['urgency'] ?>"><?= $project['urgency'] ?></span>
                         </div>
                         </div>
 

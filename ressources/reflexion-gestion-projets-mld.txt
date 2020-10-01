@@ -349,7 +349,7 @@ Question dérivée: comment quitte-on un groupe ? (quitter ne signifie pas forc�
 	1 = non approved
 	2 = refused
 	3 = invitation
-	4 = has left himself
+	4 = has left
 	5 = invitation refused
 	6 = banned of the group
 	7 = invitation accepted
@@ -357,7 +357,7 @@ Question dérivée: comment quitte-on un groupe ? (quitter ne signifie pas forc�
 
 	Si accès non restreint alors seulement ces valeurs sont possibles:
 	3 = invitation
-	4 = has left himself
+	4 = has left
 	5 = invitation refused
 	6 = banned of the group
 	7 = invitation accepted
@@ -397,10 +397,10 @@ participate:
 	- valeurs de state (état de la participation):
 	
 		1 = invitation
-		2 = has left himself
-		3 = invitation refused
-		4 = banned
-		5 = invitation accepted
+		2 = invitation accepted
+		3 = has left
+		4 = invitation refused
+		5 = banned
 	
 	Quels groupes peuvent gérer les participants ? (actions à grandes conséquences)
 		- donc qui peut faire une invitation à un autre groupe, bannir un groupe ?

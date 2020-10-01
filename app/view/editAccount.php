@@ -16,6 +16,9 @@ ob_start();
 ?>
     <div class="">
         <h1 class="pt-4"><?= $title ?></h1>
+        <div class="alignright">
+            <button type="submit" class=" btn btn-primary">Détails de cette instance blason</button>
+        </div>
         <BR>
         <p class="">Voici les informations de votre compte sur l'instance Blason. C'est sur cette page que vous
             pouvez gérer votre compte. Vous pouvez modifier vos informations pour la plupart et aussi archiver ou
