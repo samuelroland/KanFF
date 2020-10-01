@@ -9,10 +9,20 @@
 //define constants value of users.state, identical to values in the database:
 define("USER_STATE_UNAPPROVED", 0);
 define("USER_STATE_APPROVED", 1);
-define("USER_STATE_ONBREAK", 2);
-define("USER_STATE_ARCHIVED", 3);
+define("USER_STATE_ARCHIVED", 2);
+define("USER_STATE_BANNED", 3);
 define("USER_STATE_ADMIN", 4);
-define("USER_LIST_STATE", [USER_STATE_UNAPPROVED, USER_STATE_APPROVED, USER_STATE_ONBREAK, USER_STATE_ARCHIVED, USER_STATE_ADMIN]);
+define("USER_LIST_STATE", [USER_STATE_UNAPPROVED, USER_STATE_APPROVED, USER_STATE_ARCHIVED, USER_STATE_BANNED, USER_STATE_ADMIN]);
+
+//define constants of join.state, identical to values in the database:
+define("JOIN_STATE_UNAPPROVED", 1);
+define("JOIN_STATE_REFUSED", 2);
+define("JOIN_STATE_INVITATION", 3);
+define("JOIN_STATE_LEFT", 4);
+define("JOIN_STATE_INVITATION_REFUSED", 5);
+define("JOIN_STATE_BANNED", 6);
+define("JOIN_STATE_INVITATION_ACCEPTED", 7);
+define("JOIN_STATE_APPROVED", 8);
 
 //define constants of groups.state, identical to values in the database:
 define("GROUP_STATE_ONSTARTUP", 0);
@@ -83,12 +93,37 @@ function convertUserState($int)
             return "non approuvé";
         case USER_STATE_APPROVED:
             return "approuvé";
-        case USER_STATE_ONBREAK:
-            return "en pause";
         case USER_STATE_ARCHIVED:
             return "archivé";
+        case USER_STATE_BANNED:
+            return "banni";
         case USER_STATE_ADMIN:
             return "admin";
+        default:
+            return "ERROR UNKNOWN STATE";
+    }
+}
+
+//Convert the user state in french
+function convertJoinState($int)
+{
+    switch ($int) {
+        case JOIN_STATE_UNAPPROVED:
+            return "non approuvé";
+        case JOIN_STATE_REFUSED:
+            return "refusé";
+        case JOIN_STATE_INVITATION:
+            return "invitation";
+        case JOIN_STATE_LEFT:
+            return "quitté";
+        case JOIN_STATE_INVITATION_REFUSED:
+            return "invitation refusée";
+        case JOIN_STATE_BANNED:
+            return "banni";
+        case JOIN_STATE_INVITATION_ACCEPTED:
+            return "invitation acceptée";
+        case JOIN_STATE_APPROVED:
+            return "approuvé";
         default:
             return "ERROR UNKNOWN STATE";
     }
@@ -154,6 +189,7 @@ function convertWorkState($int)
             return "ERROR UNKNOWN STATE";
     }
 }
+
 //Convert the task state in french
 function convertTaskState($int)
 {
