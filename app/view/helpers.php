@@ -23,6 +23,7 @@ define("JOIN_STATE_INVITATION_REFUSED", 5);
 define("JOIN_STATE_BANNED", 6);
 define("JOIN_STATE_INVITATION_ACCEPTED", 7);
 define("JOIN_STATE_APPROVED", 8);
+define("JOIN_LIST_STATE", [JOIN_STATE_UNAPPROVED, JOIN_STATE_REFUSED, JOIN_STATE_INVITATION, JOIN_STATE_LEFT, JOIN_STATE_INVITATION_REFUSED, JOIN_STATE_BANNED, JOIN_STATE_INVITATION_ACCEPTED, JOIN_STATE_APPROVED]);
 
 //define constants of groups.state, identical to values in the database:
 define("GROUP_STATE_ONSTARTUP", 0);
@@ -42,6 +43,15 @@ define("PROJECT_STATE_ABANDONNED", 6);
 define("PROJECT_STATE_CANCELLED", 7);
 define("PROJECT_STATE_DONE", 8);
 define("PROJECT_LIST_STATE", [PROJECT_STATE_UNDERREFLECTION, PROJECT_STATE_UNDERPLANNING, PROJECT_STATE_SEMIACTIVEWORK, PROJECT_STATE_ACTIVEWORK, PROJECT_STATE_ONBREAK, PROJECT_STATE_REPORTED, PROJECT_STATE_ABANDONNED, PROJECT_STATE_CANCELLED, PROJECT_STATE_DONE]);
+
+//define constants of participate.state, identical to values in the database:
+define("PARTICIPATE_STATE_INVITATION", 1);
+define("PARTICIPATE_STATE_INVITATION_ACCEPTED", 2);
+define("PARTICIPATE_STATE_CREATOR", 3);
+define("PARTICIPATE_STATE_LEFT", 4);
+define("PARTICIPATE_STATE_INVITATION_REFUSED", 5);
+define("PARTICIPATE_STATE_BANNED", 6);
+define("PARTICIPATE_LIST_STATE", [PARTICIPATE_STATE_INVITATION, PARTICIPATE_STATE_INVITATION_ACCEPTED, PARTICIPATE_STATE_CREATOR, PARTICIPATE_STATE_LEFT, PARTICIPATE_STATE_INVITATION_REFUSED, PARTICIPATE_STATE_BANNED]);
 
 //define constants of works.state, identical to values in the database:
 define("WORK_STATE_TODO", 1);
@@ -168,6 +178,27 @@ function convertProjectState($int)
             return "annulé";
         case PROJECT_STATE_DONE:
             return "terminé";
+        default:
+            return "ERROR UNKNOWN STATE";
+    }
+}
+
+//Convert the participate state in french
+function convertParticipateState($int)
+{
+    switch ($int) {
+        case PARTICIPATE_STATE_INVITATION:
+            return "invitation";
+        case PARTICIPATE_STATE_INVITATION_ACCEPTED:
+            return "invitation acceptée";
+        case PARTICIPATE_STATE_CREATOR:
+            return "créateur";
+        case PARTICIPATE_STATE_LEFT:
+            return "quitté";
+        case PARTICIPATE_STATE_INVITATION_REFUSED:
+            return "invitation refusée";
+        case PARTICIPATE_STATE_BANNED:
+            return "banni";
         default:
             return "ERROR UNKNOWN STATE";
     }

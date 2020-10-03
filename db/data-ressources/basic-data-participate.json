@@ -13,7 +13,23 @@
   },
   {
     "group_id": 6,
-    "project_id": 2
+    "project_id": 2,
+    "state": 1
+  },
+  {
+    "group_id": 11,
+    "project_id": 2,
+    "state": 4
+  },
+  {
+    "group_id": 4,
+    "project_id": 2,
+    "state": 6
+  },
+  {
+    "group_id": 7,
+    "project_id": 2,
+    "state": 5
   },
   {
     "group_id": 8,

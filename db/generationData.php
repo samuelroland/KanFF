@@ -504,6 +504,54 @@ Important, signifie que ce qui est décrit dans l'enregistrement, a un impact su
     printAllChoosenFields($projects, "manager_id");
 }
 
+function dataParticipate()
+{
+    $projects = getAllItems("projects");
+    $groups = getAllItems("groups");
+    $participateres = json_decode(file_get_contents("data-ressources/basic-data-participate.json"), true);
+
+    echo "\n-----------------------------\n Generating Participate \n-----------------------------\n ";
+    $id = 0;
+    $participates = [];    //array for the users generated
+    var_dump($participateres);
+    //For each project generate the other data
+    foreach ($participateres as $ressource) {
+        $id++;
+        $participate = $ressource;
+
+        //Generate state:
+        if ($participate['group_id'] == $projects[$participate['project_id']]['manager_id']) {   //if the group is the creator (in our basic data it's the manager too).
+            $participate['state'] = PARTICIPATE_STATE_CREATOR;    //it's the creator group
+        } else {
+            if (!isset($participate['state'])) {
+                $participate['state'] = PARTICIPATE_STATE_INVITATION_ACCEPTED;  //if not defined in basic data and not the creator, so default state is invitation accepted
+            } else {
+                //if already defined in basic data, do nothing
+            }
+        }
+
+        //Generating start and end (end must be after start):
+        if ($participate['state'] == PARTICIPATE_STATE_CREATOR) {
+            $participate['start'] = $projects[$participate['project_id']]['start']; //same date as the project start
+            $participate['end'] = null; //in this data pack we say that the creator can not leave the group
+        } else {
+            $participate['start'] = getRandomDateFormated(strtotime($projects[$participate['project_id']]['start'])); //date after the project start
+            if ($participate['state'] != PARTICIPATE_STATE_INVITATION_ACCEPTED) {
+                $participate['end'] = getRandomDateFormated(strtotime($participate['start']));  //random date after start because the group is not here overthere
+            } else {
+                $participate['end'] = null; //null because invitation accepted means that the group is currently participating
+            }
+
+        }
+
+
+        $participate['id'] = $id;
+        $participates[] = $participate;
+    }
+
+    importTableData("participate", $participates);
+}
+
 //Source: https://stackoverflow.com/questions/4356289/php-random-string-generator#answer-4356295
 function generateRandomString($length = 10)
 {
@@ -542,4 +590,5 @@ if (CREATE_DB_BEFORE_INSERTION) {
 //dataGroups();
 //data_join();
 dataProjects();
+dataParticipate();
 ?>

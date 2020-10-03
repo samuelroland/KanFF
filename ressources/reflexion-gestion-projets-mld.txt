@@ -385,6 +385,7 @@ participate:
 - valeurs de state ?
 	Question sous entendue: comment un groupe commence à participer à un projet ?
 		- avec une invitation
+		- le groupe est le créateur et donc participe directement
 		--> à partir du moment où le groupe participe, date start est définie
 	
 	
@@ -399,9 +400,10 @@ participate:
 	
 		1 = invitation
 		2 = invitation accepted
-		3 = has left
-		4 = invitation refused
-		5 = banned
+		3 = creator
+		4 = has left
+		5 = invitation refused
+		6 = banned
 	
 	Quels groupes peuvent gérer les participants ? (actions à grandes conséquences)
 		- donc qui peut faire une invitation à un autre groupe, bannir un groupe ?
