@@ -22,7 +22,7 @@ function getPDO()
  *
  *
  *
-SELECT LAST_INSERT_ID(); In SQL
+ * SELECT LAST_INSERT_ID(); In SQL
  *
  *
  *
@@ -49,7 +49,7 @@ function Query($query, $params, $manyrecords)
             $queryResult = $statement->fetch(PDO::FETCH_ASSOC);//prepare result for client
 
         }
-        if (substr($query,0,11)=="INSERT INTO"){
+        if (substr(strtoupper(trimIt($query)), 0, 11) == "INSERT INTO") {
             $queryResult = $dbh->lastInsertId();
         }
         if ($statement->errorInfo()[2] != null) {
@@ -118,8 +118,8 @@ function createOne($table, $params)
     //$params = ["name"=>$name,"NPA"=>94654]
 
     //If $debug = true the id won't be changed
-    if (isset($_SESSION["debugUnitTests"])){
-        $debug=false;
+    if (isset($_SESSION["debugUnitTests"])) {
+        $debug = false;
     }
     if ($debug == false) {
         unset($params["id"]);
@@ -176,4 +176,5 @@ function checkIfEachKeyIsAlphabetical($array)
     }
     return true;
 }
+
 ?>
