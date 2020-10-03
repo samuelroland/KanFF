@@ -43,26 +43,49 @@ function importTableData($table, $items)
     $statement->execute();   //éxecuter la requête
     var_dump($query);
     //Finally insert data!
-    $statement = getPDO()->prepare($query);//prepare query once instead of for each item.
     foreach ($items as $val) // for each item it will execute the sql query
     {
-        try {
-            $statement->execute($val);   //execute query with data for parameters
-        } catch (PDOException $e) { //en cas d'erreur dans le try
-            echo "Error!: " . $e->getMessage() . "\n";
-            $error = true;
-        }
+        Query($query, $val, false);
     }
 
-    //Display the end message after inserting the table in run. If it's successful or if errors have been occured.
-    if ($error) {
-        echo "Some errors have been occured with inserting...\n";
-    } else {
-        echo "Imported successfully! \n";
+}
+
+//Copy of CRUDModel.php with little adaptations:
+function Query($query, $params, $manyrecords)
+{
+    try {
+        $dbh = getPDO();
+        $statement = $dbh->prepare($query);//prepare query
+        //If there are parameter, include them in the request:
+        if (is_null($params) == false) {
+            $statement->execute($params);//execute query
+        } else {    //else don't include them
+            $statement->execute();//execute query
+        }
+        //If it must have many records, use fetchAll()
+        if ($manyrecords) {
+            $queryResult = $statement->fetchAll(PDO::FETCH_ASSOC);//prepare result for client
+        } else {    //if not, use fetch()
+            $queryResult = $statement->fetch(PDO::FETCH_ASSOC);//prepare result for client
+
+        }
+        if (substr(strtoupper(trimIt($query)), 0, 11) == "INSERT INTO") {
+            $queryResult = $dbh->lastInsertId();
+        }
+        if ($statement->errorInfo()[2] != null) {
+            var_dump($statement->errorInfo()[2]);
+        }
+
+        $dbh = null;
+        return $queryResult;
+    } catch (PDOException $e) {
+        echo "Error!: " . $e->getMessage() . "<br/>";
+        var_dump($statement->errorInfo()[2]);
+        return null;
     }
 }
 
-//Generate a date between 01.01.2019 (as default, or the date given if parameter exists) and today formated in DATETIME format ("Y-m-d H:i:s")
+//Generate a date between 01.01.2019 (as default, or the date given if parameter exists) and today formatted in DATETIME format ("Y-m-d H:i:s")
 function getRandomDateFormated($start = 1546300800)
 {
     return date("Y-m-d H:i:s", rand($start, time()));
@@ -86,7 +109,7 @@ function getAllItems($tablename)
     }
 }
 
-function getLoremIpsum($length)
+function getLoremIpsum($length = 100)
 {
     return substr(file_get_contents("https://loripsum.net/api/short/1/long/plaintext"), 0, $length - 2);
 }
@@ -513,7 +536,7 @@ function dataParticipate()
     echo "\n-----------------------------\n Generating Participate \n-----------------------------\n ";
     $id = 0;
     $participates = [];    //array for the users generated
-    //For each project generate the other data
+    //For each participate generate the other data
     foreach ($participateres as $ressource) {
         $id++;
         $participate = $ressource;
@@ -558,7 +581,7 @@ function dataLog()
     echo "\n-----------------------------\n Generating Log \n-----------------------------\n ";
     $id = 0;
     $logs = [];    //array for the users generated
-    //For each project generate the other data
+    //For each log generate the other data
     foreach ($logsres as $ressource) {
         $id++;
         $log = $ressource;
@@ -592,6 +615,94 @@ function dataLog()
     importTableData("log", $logs);
 }
 
+function dataWorks()
+{
+    $projects = getAllItems("projects");
+    $worksres = json_decode(file_get_contents("data-ressources/basic-data-works.json"), true);
+
+    echo "\n-----------------------------\n Generating Works \n-----------------------------\n ";
+    $id = 0;
+    $works = [];    //array for the users generated
+    //For each work generate the other data
+    foreach ($worksres as $ressource) {
+        $id++;
+        $work = $ressource;
+
+        //Convert date in datetime format:
+        $work['start'] = timeToDT(strtotime($work['start']));
+        $work['end'] = timeToDT(strtotime($work['end']));
+
+        //Generate visible if is not already defined
+        if (!isset($work['visible'])) {
+            $work['visible'] = 1;
+        }
+
+        //Generate open if is not already defined
+        if (!isset($work['open'])) {
+            $work['open'] = 0;
+        }
+
+        //Generate inbox if is not already defined
+        if (!isset($work['inbox'])) {
+            $work['inbox'] = 0;
+        }
+
+        //Generate repetitive if is not already defined
+        if (!isset($work['repetitive'])) {
+            $work['repetitive'] = 0;
+        }
+
+        //Generate need_help if is not already defined
+        if (!isset($work['need_help'])) {
+            $work['need_help'] = 0;
+        }
+
+        //Generate creation_date:
+        $work['creation_date'] = timeToDT(strtotime($projects[$work['project_id']]['start']) + rand(0, 1000000) - rand(0, 1000000));  //set the date of when it happened +- a random time between -11 and 11 days (approximately).
+
+        //Generate responsible_id:
+        $work['responsible_id'] = null;
+        if (rand(1, 3) == 1) {
+            $work['responsible_id'] = rand(1, 100);
+        }
+
+        //Generate creator_id:
+        $work['creator_id'] = rand(1, 100);
+
+        $work['id'] = $id;
+        $works[] = $work;
+    }
+
+    //Generate one inbox work for each project
+    $inboxWorks = [];  //empty array for inbox works
+    foreach ($projects as $oneproject) {
+        $id++;
+        //Define directly all fields with configuration for an inbox work:
+        $inboxWork = [
+            "id" => $id,
+            "name" => "Boîte de réception",
+            "description" => "(Créé automatiquement à la création du projet). Ce travail fait office de boîte de réception pour les tâches envoyés n'ayant pas de travail lié. Plus d'infos dans le mode d'emploi.",
+            "start" => $oneproject['start'],
+            "end" => $oneproject['end'],
+            "state" => 2,   //always in run
+            "value" => 5,
+            "effort" => 5,
+            "visible" => 1,
+            "open" => 1,    //open by default
+            "inbox" => 1,   //obviously set as inbox
+            "repetitive" => 0,
+            "need_help" => 0,
+            "creation_date" => $oneproject['start'],    //automatically created with the project
+            "project_id" => $oneproject['id'],
+            "creator_id" => rand(1, 100),
+            "responsible_id" => ((rand(1, 3) == 1) ? rand(1, 100) : null)
+        ];
+        $inboxWorks[] = $inboxWork;
+    }
+
+    importTableData("works", array_merge($works, $inboxWorks)); //import the 2 arrays in the database
+}
+
 //Source: https://stackoverflow.com/questions/4356289/php-random-string-generator#answer-4356295
 function generateRandomString($length = 10)
 {
@@ -613,6 +724,7 @@ function printAllChoosenFields($array, $fieldname)
     }
 }
 
+//EXECUTION - Here is the code and functions that will be started:
 define("CREATE_DB_BEFORE_INSERTION", false);    //if can recreate the db before insertion or not
 
 if (CREATE_DB_BEFORE_INSERTION) {
@@ -626,10 +738,12 @@ if (CREATE_DB_BEFORE_INSERTION) {
     echo "\n\nDatabase kanff dropped and created again !";
 }
 
+//Comment or uncomment the functions that you need (be aware of foreign keys and if the creation of db before insertion is enabled):
 //dataUsers();
 //dataGroups();
 //data_join();
 //dataProjects();
 //dataParticipate();
-dataLog();
+//dataLog();
+dataWorks();
 ?>

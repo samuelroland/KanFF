@@ -1,0 +1,94 @@
+[
+  {
+    "name": "Création sur crof.com",
+    "description": "Création du compte sur la plafeforme de crowdfunding permettant de récolter les financements et d'expliquer le but de ce financement participatif.",
+    "start": "2020-06-10",
+    "end": "2020-06-21",
+    "value": 6,
+    "effort": 8,
+    "state": 2,
+    "project_id": 2
+  },
+  {
+    "name": "Texte présentation",
+    "description": "Ecrire le texte qui présente le projet et le collectif. Il faut donner un aperçu de ce qui s'est déjà fait les années précédentes et ce qui est prévu pour cette année de spécial qui fait que le collectif lance ce crowdfunding.",
+    "start": "2020-06-11",
+    "end": "2020-06-21",
+    "need_help": 1,
+    "value": 8,
+    "effort": 9,
+    "state": 2,
+    "project_id": 2
+  },
+  {
+    "name": "Vidéo présentation",
+    "description": "Réaliser une vidéo pour présenter le festival. La vidéo sera affichée directement sur la première page sur crof.com quand les personnes intéressées cliqueront sur le lien.",
+    "start": "2020-06-15",
+    "end": "2020-06-30",
+    "value": 6,
+    "effort": 8,
+    "state": 2,
+    "project_id": 2,
+    "visible": 0
+  },
+  {
+    "name": "Brainstorming de la faisabilité du projet",
+    "description": "La gestion d'une campagne crowdfunding demandant des compétences particulières et une énergie importante, le GT Festival doit discuter de son déroulement et des moyens à dispositions (notamment la collaboration avec d'autres GTs).",
+    "start": "2020-06-02",
+    "end": "2020-06-08",
+    "value": 8,
+    "effort": 3,
+    "state": 4,
+    "project_id": 2
+  },
+  {
+    "name": "Coordination + partage du travail entre les 4 GTs",
+    "description": "4 GTs qui travaillent en parallèle sur le même projet, on a vraiment besoin d'une bonne coordination et un partage du travail clairement défini.",
+    "start": "2020-06-08",
+    "end": "2020-06-13",
+    "value": 9,
+    "effort": 3,
+    "state": 4,
+    "project_id": 2
+  },
+  {
+    "name": "Comptabilité finale",
+    "description": "Décompte et validations des dons",
+    "start": "2020-07-15",
+    "end": "2020-07-25",
+    "value": 9,
+    "effort": 6,
+    "state": 1,
+    "project_id": 2
+  },
+  {
+    "name": "Gestion des demandes par email",
+    "description": "Gestion des demandes et questions par email à propos du crowdfunding. Actuellement en pause parce que pas le temps avec les autres travaux.",
+    "start": "2020-06-10",
+    "end": "2020-07-30",
+    "value": 5,
+    "effort": 5,
+    "state": 3,
+    "project_id": 2
+  },
+  {
+    "name": "Résoudre les questions juridiques",
+    "description": "Les questions juridiques quand au possible remboursement après dons doivent être résolues afin de limiter les problèmes par la suite.",
+    "start": "2020-06-08",
+    "end": "2020-06-10",
+    "value": 3,
+    "effort": 4,
+    "state": 4,
+    "project_id": 2
+  },
+  {
+    "name": "Communication sur la campagne",
+    "description": "Envoi à travers la newsletter, les réseaux sociaux et autres canaux de communications externes, un message pour appeler les personnes qui nous suivent à participer au crowdfunding, en joignant à ce message un lien vers crof.com",
+    "start": "2020-06-31",
+    "end": "2020-07-03",
+    "value": 10,
+    "effort": 5,
+    "state": 1,
+    "project_id": 2
+  }
+]
