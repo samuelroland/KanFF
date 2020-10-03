@@ -513,7 +513,6 @@ function dataParticipate()
     echo "\n-----------------------------\n Generating Participate \n-----------------------------\n ";
     $id = 0;
     $participates = [];    //array for the users generated
-    var_dump($participateres);
     //For each project generate the other data
     foreach ($participateres as $ressource) {
         $id++;
@@ -541,7 +540,6 @@ function dataParticipate()
             } else {
                 $participate['end'] = null; //null because invitation accepted means that the group is currently participating
             }
-
         }
 
 
@@ -550,6 +548,48 @@ function dataParticipate()
     }
 
     importTableData("participate", $participates);
+}
+
+function dataLog()
+{
+    $projects = getAllItems("projects");
+    $logsres = json_decode(file_get_contents("data-ressources/basic-data-log.json"), true);
+
+    echo "\n-----------------------------\n Generating Log \n-----------------------------\n ";
+    $id = 0;
+    $logs = [];    //array for the users generated
+    //For each project generate the other data
+    foreach ($logsres as $ressource) {
+        $id++;
+        $log = $ressource;
+
+        //Convert date in datetime format:
+        $log['date'] = timeToDT(strtotime($log['date']));
+
+        //Generate creation_date:
+        $log['creation_date'] = timeToDT(strtotime($log['date']) + rand(0, 260000));  //set the date of when it happened + a random time between 0 and 3 days (approximately).
+
+        //Generate modification_date:
+        if (rand(1, 4) == 1) {  //if the log has been modified
+            $log['modification_date'] = timeToDT(strtotime($log['creation_date']) + rand(0, 350000));   //set the date of when the log was created + a random time between 0 and 4 days (approximately).
+        } else {
+            $log['modification_date'] = null;
+        }
+
+        //Generate visible:
+        $log['visible'] = 1;
+        if (rand(1, 7) == 1) {
+            $log['visible'] = 0;
+        }
+
+        //Generate user_id:
+        $log['user_id'] = rand(1, 100);
+
+        $log['id'] = $id;
+        $logs[] = $log;
+    }
+    print_r($logs);
+    importTableData("log", $logs);
 }
 
 //Source: https://stackoverflow.com/questions/4356289/php-random-string-generator#answer-4356295
@@ -589,6 +629,7 @@ if (CREATE_DB_BEFORE_INSERTION) {
 //dataUsers();
 //dataGroups();
 //data_join();
-dataProjects();
-dataParticipate();
+//dataProjects();
+//dataParticipate();
+dataLog();
 ?>

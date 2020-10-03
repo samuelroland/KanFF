@@ -1,101 +1,74 @@
 [
   {
     "title": "Démarrage du projet",
-    "description": "Première réunion du GT Festival pour s'organiser et planifier le travail pour cette édition 2020. Un brainstorm des idées pour le programme a été fait et noté. L'entier du GT Festival sera actif. Beaucoup d'idées et de motivations qui font plaisir à tout le monde.",
+    "description": "Première réunion du GT Festival pour s'organiser et planifier le travail pour cette édition 2020. Un brainstorm des idées pour le programme a été fait et noté. L'entier du GT Festival sera actif. Beaucoup d'idées et de motivations qui font plaisir à tout le monde. A partir de la fin du Festival 2019, le GT était en pause jusque là, en attente du festival de l'année suivante... Le travail peut maintenant recommencer intensément.",
     "date": "2020-05-15",
-    "context": "A partir de la fin du Festival 2019, le GT était en pause jusque là, en attente du festival de l'année suivante... Le travail peut maintenant recommencer intensément.",
-    "type": 1,
-    "importance": 5,
     "project_id": 9
   },
   {
     "title": "Choix du thème du projet",
     "description": "Après de multiples discussions et votes, le thème du festival a été choisi: \"Couleurs et diversité\". Un logo en lien avec le thème sera créé.",
     "date": "2020-05-18",
-    "context": null,
-    "type": 1,
-    "importance": 4,
     "project_id": 9
   },
   {
     "title": "Tri éléments programme",
     "description": "Toutes les idées notées lors du premier brainstorm ont été passé en revue. Josette s'est beaucoup renseigné auprès des artistes et potentielles intervenant.e.s. Un premier tri a été fait et validé en réunion du GT Festival (1h).",
     "date": "2020-05-25",
-    "context": null,
-    "type": 1,
-    "importance": 5,
     "project_id": 9
   },
   {
     "title": "Démarrage crowdfunding",
-    "description": "Rapidement le besoin en budget est devenu gros. Contrairement à l'année passée ou le GT avait fait une demande à la commune, cette année est venu l'idée de lancer un crowdfunding avec l'aide du GT Finances, du GT Communication et du GT Multimédia, puisque cela demande énormément de travail et les délais sont court. Un projet incluant ces 4 groupes a donc été créé.",
+    "description": "Rapidement le besoin en budget est devenu gros. Contrairement à l'année passée ou le GT avait fait une demande à la commune, cette année est venu l'idée de lancer un crowdfunding avec l'aide du GT Finances, du GT Communication et du GT Multimédia, puisque cela demande énormément de travail et les délais sont court. Un projet incluant ces 4 groupes a donc été créé. Après le tri des éléments du programme, le montant estimé pour payer les artistes et les intervenant.e.s est de 18'000 CHF.",
     "date": "2020-05-27",
-    "context": "Après le tri des éléments du programme, le montant estimé pour payer les artistes et les intervenant.e.s est de 18'000 CHF.",
-    "type": 1,
-    "importance": 5,
     "project_id": 9
+  },
+  {
+    "title": "Répartition du travail",
+    "description": "La réunion du 05.06.2020 afin de préparer l'organisation de ce gros projet, a donné lieu a un simple découpage du projet: \n- Le GT Communication et Multimédia s'occuperont de communiquer sur le festival et de demander au public de soutenir le festival via le crowdfunding. Pour cela une vidéo est prévue avec des images de l'année passée, un bout du programme, une interview d'une artiste de l'année passée. Le GT Multimédia créera le logo \"Couleurs et diversité\" et créera également des visuels pour les réseaux sociaux. Le GT Communication se chargera de créer une stratégie de communication et s'occupera de répondre aux demandes des médias.\n- Le GT Finances s'occupera des comptes et de la mise en place technique du crowdfunding via une plateforme spécialisée. Il tiendra régulièrement au courant sur le montant reçu. \n- Quant au GT Festival, il sera là pour donner les ressources nécessaires aux 2 autres GT, étant déjà très occupé à organiser le festival lui-même.\n\nLes compétences de chaque groupe ont été favorisées, afin de ne pas perdre du temps à se former. Le GT Finances a déjà eu une expérience de crowdfunding.",
+    "date": "2020-06-05",
+    "project_id": 2
+  },
+  {
+    "title": "Lancement du crowdfunding prévu",
+    "description": "Le crowdfunding est bientôt prêt à être lancé. Le lancement est prévu pour le 15.06.2020. Le GT Finances est entièrement prêt pour le lancement, tandis que le GT Multimédia finalise la vidéo et commence les visuels. Les visuels devraient être rapidement créé (plus rapidement que la vidéo). Le GT Communication a déjà préparé des messages pour le lancement.",
+    "date": "2020-06-10",
+    "project_id": 2
+  },
+  {
+    "title": "Logo \"Couleurs et diversité\" validé",
+    "description": "Durant la réunion du 08.06.2020 (30min) le logo créé par le GT Multimédia a été validé. Le logo représente le thème du festival et sera intégré aux visuels, à la vidéo et au programme.",
+    "date": "2020-06-08",
+    "project_id": 2
+  },
+  {
+    "title": "Taille du groupe d'organisation",
+    "description": "Après un premier rassemblement de 3 personnes pour organiser cette anniversaire et une première réunion, il a été décidé que 3 personnes suffisaient pour toute l'organisation.",
+    "date": "2020-10-16",
+    "project_id": 16
+  },
+  {
+    "title": "Publication Programme v1",
+    "description": "Le programme v1 a été publié et est consultable dans le dossier du drive \"programme/exports\". Il n'est pas encore en version définitive, mais sera finalisé dans les prochains jours.",
+    "date": "2020-11-25",
+    "project_id": 16
+  },
+  {
+    "title": "Choix du lieu et réservation",
+    "description": "Après de nombreux débats et recherches du lieu, un lieu a été décidé: Salle du Chateau, Rue du Châle 12 à Chamblasonoi. La salle est réservée pour le 15 et 16 décembre 2020.",
+    "date": "2020-10-30",
+    "project_id": 16
+  },
+  {
+    "title": "Choix du moment de l'annonce",
+    "description": "L'annonce de la fête à tout le collectif sera faite 3 jours avant, c'est à dire le 12 décembre 2020. Le collectif a été cependant averti qu'il se passerait quelque chose de spécial ce jour là et que la date doit être réservée dans la mesure du possible.",
+    "date": "2020-11-03",
+    "project_id": 16
   },
   {
     "title": "Création du projet",
     "description": "Le GT Festival a besoin de 18'000 CHF afin d'organiser son festival. 3 groupes vont donc travailler ensemble pour organiser un crowdfunding.",
     "date": "2020-05-27",
-    "context": "4 GT vont y participer.",
-    "type": 1,
-    "importance": 3,
     "project_id": 2
-  },
-  {
-    "title": "Répartition du travail",
-    "description": "La réunion du 05.06.2020 afin de préparer l'organisation de ce gros projet, a donné lieu a un simple découpage du projet: \n- Le GT Communication et Multimédia s'occuperont de communiquer sur le festival et de demander au public de soutenir le festival via le crowdfunding. Pour cela une vidéo est prévue avec des images de l'année passée, un bout du programme, une interview d'une artiste de l'année passée. Le GT Multimédia créera le logo \"Couleurs et diversité\" et créera également des visuels pour les réseaux sociaux. Le GT Communication se chargera de créer une stratégie de communication et s'occupera de répondre aux demandes des médias.\n- Le GT Finances s'occupera des comptes et de la mise en place technique du crowdfunding via une plateforme spécialisée. Il tiendra régulièrement au courant sur le montant reçu. \n- Quant au GT Festival, il sera là pour donner les ressources nécessaires aux 2 autres GT, étant déjà très occupé à organiser le festival lui-même.",
-    "date": "2020-06-05",
-    "context": "Les compétences de chaque groupe ont été favorisées, afin de ne pas perdre du temps à se former. Le GT Finances a déjà eu une expérience de crowdfunding.",
-    "type": 1,
-    "importance": 4,
-    "project_id": 2
-  },
-  {
-    "title": "Lancement du crowdfunding prévu",
-    "description": "Le crowdfunding est bientôt prêt à être lancé. Le lancement est prévu pour le 15.06.2020",
-    "date": "2020-06-10",
-    "context": "Le GT Finances est entièrement prêt pour le lancement, tandis que le GT Multimédia finalise la vidéo et commence les visuels. Les visuels devraient être rapidement créé (plus rapidement que la vidéo). Le GT Communication a déjà préparé des messages pour le lancement.",
-    "type": 1,
-    "importance": 5,
-    "project_id": 2
-  },
-  {
-    "title": "Logo \"Couleurs et diversité\" validé",
-    "description": "Durant la réunion du 08.06.2020 (30min) le logo créé par le GT Multimédia a été validé.",
-    "date": "2020-06-08",
-    "context": "Le logo représentant le thème du festival, sera intégré aux visuels, à la vidéo et au programme.",
-    "type": 1,
-    "importance": 2,
-    "project_id": 2
-  },
-  {
-    "title": "empty",
-    "description": "empty",
-    "date": "2020-05-25",
-    "context": null,
-    "type": 1,
-    "importance": 5,
-    "project_id":
-  },
-  {
-    "title": "empty",
-    "description": "empty",
-    "date": "2020-05-25",
-    "context": null,
-    "type": 1,
-    "importance": 5,
-    "project_id":
-  },
-  {
-    "title": "empty",
-    "description": "empty",
-    "date": "2020-05-25",
-    "context": null,
-    "type": 1,
-    "importance": 5,
-    "project_id":
   }
 ]
