@@ -267,18 +267,11 @@ function dataGroups()
             $group['image'] = null;
         }
 
-        //Generating "visible" and "restrict_access". The groups are in most cases visible and not access restricted . just in 1/5 of cases the groups are considered sensitive so restric_access is 1 (true) and sometimes not visible.
-
-        $group['visibility'] = 1;  //visible by default
-
-        //Generate parameters for sensitive groups in 1/5 of cases.
-        if (rand(1, 5) == 1) {
-            $group['restrict_access'] = 1;
-            if (rand(0, 1)) {
-                $group['visibility'] = 0;
-            }
-        } else {
-            $group['restrict_access'] = 0;
+        if (!isset($group['restrict_access'])) { //if not defined in basic-data-groups.json,
+            $group['restrict_access'] = 0;   //choose the default option
+        }
+        if (!isset($group['visibility'])) { //if not defined in basic-data-groups.json,
+            $group['visibility'] = 3;   //choose the default option
         }
 
         //Generate chat and drive link that seem like a real one
@@ -315,6 +308,7 @@ function dataGroups()
         print_r("\n" . $group['image'] . "\n");
         $groups[] = $group;
     }
+
     importTableData("groups", $groups);
 }
 
@@ -345,7 +339,7 @@ function data_join()
 
                 //Generate the groups joined randomly:
                 $lastLeftDate = null;
-                $groupid = rand(1, 11);
+                $groupid = rand(1, count($groups));
                 if (in_array($groupid, $listOfGroupsJoinedByTheUser) == true) {
                     foreach ($joins as $onejoin) {
                         //Take the last join with user_id and groupid that are managed:
@@ -356,7 +350,7 @@ function data_join()
                             } else {
                                 //If the user has joined and not left the group, he hasn't the right to join again. Generate a new group id that is not in the list.
                                 while (in_array($groupid, $listOfGroupsJoinedByTheUser) == true) {
-                                    $groupid = rand(1, 11);
+                                    $groupid = rand(1, count($groups));
                                 }
                             }
                         }

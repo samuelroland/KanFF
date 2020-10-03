@@ -8,7 +8,7 @@
     "prerequisite": "Connaissances minimales en comptabilité requises. Le reste peu être appris sur le tas si vous voulez vous intégrer dans ce groupe. De la rigueur administrative est aussi de mise."
   },
   {
-    "name": "GT Réfléxion interne",
+    "name": "GT Réflexion interne",
     "description": "Groupe pour réfléchir au fonctionnement interne.",
     "context": "Différentes tensions entre certains membres.",
     "status": "",
@@ -20,7 +20,8 @@
     "description": "Coordination générale. Fait des AG toutes les 2 semaines.",
     "context": "Besoin d'un groupe contenant tout les membres.",
     "status": "",
-    "image": "group_ufgdaawfard697vev4q7biit5onz1v.jpg"
+    "image": "group_ufgdaawfard697vev4q7biit5onz1v.jpg",
+    "restrict_access": 1
   },
   {
     "name": "GT Journal",
@@ -34,7 +35,8 @@
     "description": "Organise les \"festivals\" annuels de l'association.",
     "context": "",
     "status": "",
-    "image": "group_2mzics1tk66xw6d3q6hsqmplj4pqud.jpg"
+    "image": "group_2mzics1tk66xw6d3q6hsqmplj4pqud.jpg",
+    "visibility": 4
   },
   {
     "name": "GT Multimédia",
@@ -47,7 +49,8 @@
     "name": "GT Sites web",
     "description": "Ce GT s'occupe des sites web et de leur maintenance.",
     "context": "Besoin de connaissances un peu technique et des personnes qui se portent responsables.",
-    "status": "Travail actif sur le site cantonal..."
+    "status": "Travail actif sur le site cantonal...",
+    "restrict_access": 1
   },
   {
     "name": "GT Communication",
@@ -62,10 +65,11 @@
     "status": "Formations intenses entre le 15 et le 23. Ensuite pause."
   },
   {
-    "name": "\"GT\" relations",
+    "name": "\"GT\" relations externes",
     "description": "Permet de gérer les relations externes, que ce soit les médias, la presse, les demandes d'interview, ...",
-    "context": "Beaucoup de demandes d'interview après pour les événements organisés.",
-    "status": ""
+    "context": "Beaucoup de demandes d'interview après le festival 2019.",
+    "status": "",
+    "restrict_access": 1
   },
   {
     "name": "GT boîte mail",
@@ -73,5 +77,21 @@
     "context": "",
     "status": "Une personne gère la boite mail par jour et ce tous les jours.",
     "image": "group_blwt3uw94psz9n8xtmy1fym3exo8b2.jpg"
+  },
+  {
+    "name": "GT Anniversaire",
+    "description": "Organisation d'une fête surprise pour les membres de Assoc. L'événement doit rester secret jusqu'à 3 jours avant l'événement.",
+    "context": "C'est le 20ème anniversaire de Assoc le 15 décembre 2020. Cette date doit rester en mémoire.",
+    "status": "Constitution du groupe en cours et brainstorm des idées sur le déroulement de la fête.",
+    "visibility": 1,
+    "restrict_access": 1
+  },
+  {
+    "name": "GT Bien-être",
+    "description": "S'occupe de gérer les conflits à l'interne et de veiller au bien-être de chaque membre, via la boîte aux lettres.",
+    "context": "",
+    "status": "",
+    "visibility": 2,
+    "restrict_access": 1
   }
 ]

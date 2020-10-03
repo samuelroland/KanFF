@@ -107,66 +107,12 @@
     "visible": 0,
     "logbook_visible": 1
   },
-  { id=13
+  {
     "name": "Podcast convergence des luttes",
     "description": "Ce podcast engagé va parler de la convergence des luttes écologiques, féministes, sociales, anti-racistes et autres types de luttes. Il est prévu que ce podcast contienne entre 4 et 6 épisodes avec différentes thématiques. Les épisodes contiendront des interviews, des explications historiques, un peu de musique, des mises en scène, ... \n\nChaque épisode durera en moyenne 20 minutes et seront publiés à des intervalles régulières d'environ 1 semaine. Une partie des épisodes seront réalisés avant la publication du premier épisode, une autre partie se fera en parallèle.",
     "goal": "Parler de l'importance de la convergence des luttes, parler des liens entre les différentes luttes et mouvements, donner des exemples concrets de mobilisation et de succès suite à des convergences.",
     "importance": 5,
     "urgency": 3,
-    "visible": 1,
-    "logbook_visible": 1
-  },
-  {
-    "name": "",
-    "description": "",
-    "goal": "",
-    "importance": 1,
-    "urgency": 0,
-    "visible": 1,
-    "logbook_visible": 1
-  },
-  {
-    "name": "",
-    "description": "",
-    "goal": "",
-    "importance": 1,
-    "urgency": 0,
-    "visible": 1,
-    "logbook_visible": 1
-  },
-  {
-    "name": "",
-    "description": "",
-    "goal": "",
-    "importance": 1,
-    "urgency": 0,
-    "visible": 1,
-    "logbook_visible": 1
-  },
-  {
-    "name": "",
-    "description": "",
-    "goal": "",
-    "importance": 1,
-    "urgency": 0,
-    "visible": 1,
-    "logbook_visible": 1
-  },
-  {
-    "name": "",
-    "description": "",
-    "goal": "",
-    "importance": 1,
-    "urgency": 0,
-    "visible": 1,
-    "logbook_visible": 1
-  },
-  {
-    "name": "",
-    "description": "",
-    "goal": "",
-    "importance": 1,
-    "urgency": 0,
     "visible": 1,
     "logbook_visible": 1
   }
