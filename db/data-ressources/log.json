@@ -27,8 +27,8 @@
     "project_id": 9
   },
   {
-    "title": "Démarrage Crowfunding",
-    "description": "Rapidement le besoin en budget est devenu gros. Contrairement à l'année passée ou le GT avait fait une demande à la commune, cette année est venu l'idée de lancer un crowfunding avec l'aide du GT Finances, du GT Communication et du GT Multimédia, puisque cela demande énormement de travail et les délais sont court. Un projet incluant ces 4 groupes a donc été créé.",
+    "title": "Démarrage crowdfunding",
+    "description": "Rapidement le besoin en budget est devenu gros. Contrairement à l'année passée ou le GT avait fait une demande à la commune, cette année est venu l'idée de lancer un crowdfunding avec l'aide du GT Finances, du GT Communication et du GT Multimédia, puisque cela demande énormément de travail et les délais sont court. Un projet incluant ces 4 groupes a donc été créé.",
     "date": "2020-05-27",
     "context": "Après le tri des éléments du programme, le montant estimé pour payer les artistes et les intervenant.e.s est de 18'000 CHF.",
     "type": 1,
@@ -37,7 +37,7 @@
   },
   {
     "title": "Création du projet",
-    "description": "Le GT Festival a besoin de 18'000 CHF afin d'organiser son festival. 3 groupes vont donc travailler ensemble pour organiser un crowfunding.",
+    "description": "Le GT Festival a besoin de 18'000 CHF afin d'organiser son festival. 3 groupes vont donc travailler ensemble pour organiser un crowdfunding.",
     "date": "2020-05-27",
     "context": "4 GT vont y participer.",
     "type": 1,
@@ -46,16 +46,16 @@
   },
   {
     "title": "Répartition du travail",
-    "description": "La réunion du 05.06.2020 afin de préparer l'organisation de ce gros projet, a donné lieu a un simple découpage du projet: \n- Le GT Communication et Multimédia s'occuperont de communiquer sur le festival et de demander au public de soutenir le festival via le crowfunding. Pour cela une vidéo est prévue avec des images de l'année passée, un bout du programme, une interview d'une artiste de l'année passée. Le GT Multimédia créera le logo \"Couleurs et diversité\" et créera également des visuels pour les réseaux sociaux. Le GT Communication se chargera de créer une stratégie de communication et s'occupera de répondre aux demandes des médias.\n- Le GT Finances s'occupera des comptes et de la mise en place technique du Crowfunding via une plateforme spécialisée. Il tiendra régulièrement au courant sur le montant reçu. \n- Quant au GT Festival, il sera là pour donner les ressources nécessaires aux 2 autres GT, étant déjà très occupé à organiser le festival lui-même.",
+    "description": "La réunion du 05.06.2020 afin de préparer l'organisation de ce gros projet, a donné lieu a un simple découpage du projet: \n- Le GT Communication et Multimédia s'occuperont de communiquer sur le festival et de demander au public de soutenir le festival via le crowdfunding. Pour cela une vidéo est prévue avec des images de l'année passée, un bout du programme, une interview d'une artiste de l'année passée. Le GT Multimédia créera le logo \"Couleurs et diversité\" et créera également des visuels pour les réseaux sociaux. Le GT Communication se chargera de créer une stratégie de communication et s'occupera de répondre aux demandes des médias.\n- Le GT Finances s'occupera des comptes et de la mise en place technique du crowdfunding via une plateforme spécialisée. Il tiendra régulièrement au courant sur le montant reçu. \n- Quant au GT Festival, il sera là pour donner les ressources nécessaires aux 2 autres GT, étant déjà très occupé à organiser le festival lui-même.",
     "date": "2020-06-05",
-    "context": "Les compétences de chaque groupe ont été favorisées, afin de ne pas perdre du temps à se former. Le GT Finances a déjà eu une expérience de Crowfunding.",
+    "context": "Les compétences de chaque groupe ont été favorisées, afin de ne pas perdre du temps à se former. Le GT Finances a déjà eu une expérience de crowdfunding.",
     "type": 1,
     "importance": 4,
     "project_id": 2
   },
   {
-    "title": "Lancement du crowfunding prévu",
-    "description": "Le Crowfunding est bientôt prêt à être lancé. Le lancement est prévu pour le 15.06.2020",
+    "title": "Lancement du crowdfunding prévu",
+    "description": "Le crowdfunding est bientôt prêt à être lancé. Le lancement est prévu pour le 15.06.2020",
     "date": "2020-06-10",
     "context": "Le GT Finances est entièrement prêt pour le lancement, tandis que le GT Multimédia finalise la vidéo et commence les visuels. Les visuels devraient être rapidement créé (plus rapidement que la vidéo). Le GT Communication a déjà préparé des messages pour le lancement.",
     "type": 1,
