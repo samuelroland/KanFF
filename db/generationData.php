@@ -471,11 +471,37 @@ function dataProjects()
         }
         $project['state'] = $state;
 
+        //Generate logbook_content:
+        $project['logbook_content'] = "Contient les décisions importantes, rencontres formelles, changements importants et publications de nouvelles version de document.
+Important, signifie que ce qui est décrit dans l'enregistrement, a un impact sur le travail de plusieurs personnes du projet."; //default value
+        if (rand(1, 2) == 1) {
+            if (rand(1, 2) == 1) {
+                $project['logbook_content'] = getLoremIpsum(500);
+            } else {
+                $project['logbook_content'] = null;
+            }
+        }
+
+        //Generate archived:
+        $project['archived'] = 0;
+        if ($state == PROJECT_STATE_CANCELLED || $state == PROJECT_STATE_ABANDONNED || $state == PROJECT_STATE_DONE) {
+            if (rand(1, 2)) {   //project can be finished but not yet archived
+                $project['archived'] = 1;
+            }
+        }
+
+        //Generate repsonsible_id
+        $project['responsible_id'] = null;
+        if (rand(1, 3) == 1) {
+            $project['responsible_id'] = rand(1, 100);
+        }
+
         $project['id'] = $id;
         $projects[] = $project;
     }
     print_r($project);
     importTableData("projects", $projects);
+    printAllChoosenFields($projects, "manager_id");
 }
 
 //Source: https://stackoverflow.com/questions/4356289/php-random-string-generator#answer-4356295
@@ -488,6 +514,15 @@ function generateRandomString($length = 10)
         $randomString .= $characters[rand(0, $charactersLength - 1)];
     }
     return $randomString;
+}
+
+//Display the choosen field in each array that is in an array of associative array:
+function printAllChoosenFields($array, $fieldname)
+{
+    echo "\n---- printAllChoosenFields() -----\n Field: $fieldname\n";
+    foreach ($array as $item) {
+        echo "\n{$item[$fieldname]}";
+    }
 }
 
 define("CREATE_DB_BEFORE_INSERTION", false);    //if can recreate the db before insertion or not
@@ -503,8 +538,8 @@ if (CREATE_DB_BEFORE_INSERTION) {
     echo "\n\nDatabase kanff dropped and created again !";
 }
 
-dataUsers();
-dataGroups();
-data_join();
-//dataProjects();
+//dataUsers();
+//dataGroups();
+//data_join();
+dataProjects();
 ?>

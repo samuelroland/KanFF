@@ -80,9 +80,9 @@
   },
   {
     "name": "GT Anniversaire",
-    "description": "Organisation d'une fête surprise pour les membres de Assoc. L'événement doit rester secret jusqu'à 3 jours avant l'événement.",
-    "context": "C'est le 20ème anniversaire de Assoc le 15 décembre 2020. Cette date doit rester en mémoire.",
-    "status": "Constitution du groupe en cours et brainstorm des idées sur le déroulement de la fête.",
+    "description": "Organisation de la fête annuel de l'anniversaire du collectif, qui consiste simplement en un apéro sur une soirée.",
+    "context": "Moment de plaisir et de détente pour changer des périodes de l'année intense en travail.",
+    "status": "Nouveau projet pour les 20 ans démarré.",
     "visibility": 1,
     "restrict_access": 1
   },
@@ -90,7 +90,7 @@
     "name": "GT Bien-être",
     "description": "S'occupe de gérer les conflits à l'interne et de veiller au bien-être de chaque membre, via la boîte aux lettres.",
     "context": "",
-    "status": "",
+    "status": "Diverses conflits sont en cours d'être géré mais cela prend du temps...",
     "visibility": 2,
     "restrict_access": 1
   }

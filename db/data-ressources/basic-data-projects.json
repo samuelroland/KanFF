@@ -6,7 +6,8 @@
     "importance": 3,
     "urgency": 2,
     "visible": 1,
-    "logbook_visible": 1
+    "logbook_visible": 1,
+    "manager_id": 1
   },
   {
     "name": "Crowfunding Festival 2020",
@@ -15,7 +16,8 @@
     "importance": 5,
     "urgency": 4,
     "visible": 1,
-    "logbook_visible": 1
+    "logbook_visible": 1,
+    "manager_id": 1
   },
   {
     "name": "Gestion des communiqués de presse",
@@ -24,7 +26,8 @@
     "importance": 3,
     "urgency": 2,
     "visible": 1,
-    "logbook_visible": 1
+    "logbook_visible": 0,
+    "manager_id": 3
   },
   {
     "name": "Collaboration nationale",
@@ -33,7 +36,8 @@
     "importance": 4,
     "urgency": 1,
     "visible": 1,
-    "logbook_visible": 1
+    "logbook_visible": 1,
+    "manager_id": 3
   },
   {
     "name": "Evolution de la structure et du fonctionnement",
@@ -42,7 +46,8 @@
     "importance": 5,
     "urgency": 4,
     "visible": 1,
-    "logbook_visible": 1
+    "logbook_visible": 1,
+    "manager_id": 2
   },
   {
     "name": "Réfléxion hiérarchie + égalité des genres",
@@ -51,7 +56,8 @@
     "importance": 3,
     "urgency": 4,
     "visible": 1,
-    "logbook_visible": 1
+    "logbook_visible": 1,
+    "manager_id": 2
   },
   {
     "name": "Numéro de août",
@@ -60,7 +66,8 @@
     "importance": 5,
     "urgency": 3,
     "visible": 1,
-    "logbook_visible": 1
+    "logbook_visible": 1,
+    "manager_id": 4
   },
   {
     "name": "Numéro de janvier",
@@ -69,7 +76,8 @@
     "importance": 4,
     "urgency": 1,
     "visible": 1,
-    "logbook_visible": 1
+    "logbook_visible": 1,
+    "manager_id": 4
   },
   {
     "name": "Festival 2020",
@@ -78,7 +86,8 @@
     "importance": 5,
     "urgency": 3,
     "visible": 1,
-    "logbook_visible": 1
+    "logbook_visible": 1,
+    "manager_id": 1
   },
   {
     "name": "Festival 2019",
@@ -87,7 +96,8 @@
     "importance": 5,
     "urgency": 5,
     "visible": 1,
-    "logbook_visible": 1
+    "logbook_visible": 0,
+    "manager_id": 5
   },
   {
     "name": "Affiche festival 2020",
@@ -96,7 +106,8 @@
     "importance": 3,
     "urgency": 1,
     "visible": 1,
-    "logbook_visible": 1
+    "logbook_visible": 1,
+    "manager_id": 5
   },
   {
     "name": "Vidéo 1er mai",
@@ -105,15 +116,47 @@
     "importance": 3,
     "urgency": 4,
     "visible": 0,
-    "logbook_visible": 1
+    "logbook_visible": 1,
+    "manager_id": 8
   },
   {
     "name": "Podcast convergence des luttes",
-    "description": "Ce podcast engagé va parler de la convergence des luttes écologiques, féministes, sociales, anti-racistes et autres types de luttes. Il est prévu que ce podcast contienne entre 4 et 6 épisodes avec différentes thématiques. Les épisodes contiendront des interviews, des explications historiques, un peu de musique, des mises en scène, ... \n\nChaque épisode durera en moyenne 20 minutes et seront publiés à des intervalles régulières d'environ 1 semaine. Une partie des épisodes seront réalisés avant la publication du premier épisode, une autre partie se fera en parallèle.",
+    "description": "Ce podcast engagé va parler de la convergence des luttes écologiques, féministes, sociales, anti-racistes et autres luttes. Il est prévu que ce podcast contienne entre 4 et 6 épisodes avec différentes thématiques. Les épisodes contiendront des interviews, des explications historiques, un peu de musique, des mises en scène, ... \n\nChaque épisode durera en moyenne 20 minutes et seront publiés à des intervalles régulières d'environ 1 semaine. Une partie des épisodes seront réalisés avant la publication du premier épisode, une autre partie se fera en parallèle.",
     "goal": "Parler de l'importance de la convergence des luttes, parler des liens entre les différentes luttes et mouvements, donner des exemples concrets de mobilisation et de succès suite à des convergences.",
     "importance": 5,
     "urgency": 3,
     "visible": 1,
-    "logbook_visible": 1
+    "logbook_visible": 1,
+    "manager_id": 6
+  },
+  {
+    "name": "Gestion Site Assoc Vaud",
+    "description": "Gestion du site web: page à créer à chaque événement organisé, communiqués de presse à publier, et informations générales à tenir à jour.",
+    "goal": "Permettre aux personnes intéressées par le collectif de trouver les informations qu'elles recherchent sur le collectif et qu'elles aient un moyen de rejoindre.",
+    "importance": 2,
+    "urgency": 2,
+    "visible": 1,
+    "logbook_visible": 1,
+    "manager_id": 7
+  },
+  {
+    "name": "Conférence \"Changement de système ?\"",
+    "description": "Conférence en ligne de 1h30 environ sur la nécessité de changer de système. Avec divers intervenant.e.s.",
+    "goal": "Organiser cette conférence pour la fin mars 2021 afin de montrer ce que signifie un changement de système et à quoi cela peut ressembler.",
+    "importance": 5,
+    "urgency": 3,
+    "visible": 1,
+    "logbook_visible": 1,
+    "manager_id": 9
+  },
+  {
+    "name": "20ème anniversaire",
+    "description": "Pour bien fêter les 20 ans de Assoc, il faut organiser autre chose que l'habituel apéro annuel avec discours. Ce projet reste secret pour les membres (sauf pour les personnes du GT Anniversaire du collectifs afin de faire une surprise à la fin. Cette fête ferait office de remerciement aux membres du collectif pour leur engagement et leur temps.",
+    "goal": "Organiser une grande fête dans la salle du Château le 15.12.2020 qui durerait toute la nuit. Inclut dans le programme: musique, présentations des projets de l'année, anecdotes, sketchs, ...",
+    "importance": 4,
+    "urgency": 4,
+    "visible": 0,
+    "logbook_visible": 1,
+    "manager_id": 12
   }
 ]
