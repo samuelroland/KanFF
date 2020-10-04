@@ -44,18 +44,9 @@ displaydebug($_POST);
 displaydebug($_SESSION);
 
 if (isset($_POST)) {
-    $firstname = $_POST["name"];
-    $lastname = $_POST["surname"];
-    $initials = $_POST["ini"];
-    $username = $_POST["user"];
     $password = $_POST["password"];
-    $password2 = $_POST["passwordc"];
-    $email = $_POST["email"];
-    $phoneNumber = $_POST["nb_phone"];
-    $bio = $_POST['bio'];
     $infoLogin = $_POST['infoLogin'];
 }
-
 
 //If user is not logged, actions authorized are login and signin.
 if (!isset($_SESSION['user'])) {

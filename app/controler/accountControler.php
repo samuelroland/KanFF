@@ -111,9 +111,12 @@ function signin($post)
 
         //Generate others values:
         $newUser['inscription'] = timeToDT(time());
-        $newUser['status'] = "Arrivé le " . DTToHumanDate(time(), "simpleday", true);   //simple day and a timestamp is sent (not a DateTime)
+        $newUser['status'] = "Arrivé.e le " . DTToHumanDate(time(), "simpleday", true);   //simple day and a timestamp is sent (not a DateTime)
         $newUser['state'] = USER_STATE_UNAPPROVED;  //by default unapproved
         $newUser['password'] = password_hash($post['password'], PASSWORD_DEFAULT);
+        $newUser['on_break'] = 0;   //not on break
+        $newUser['state_modifier_id'] = null;   //state not modified
+        $newUser['state_modification_date'] = null;   //state not modified
 
         //Check initials if error has occured:
         if ($newUser['initials'] == false) {    //no unique combination for initials have been found
