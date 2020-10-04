@@ -102,6 +102,10 @@ function getAllItems($tablename)
         $dbh = null;
 
         $items = indexAnArrayById($queryResult);
+        if (empty($items)) { //$items can never be empty (else there is an error with importating before or database has been deleted and not all tables linked are presents)
+            die("\n\n----- ERROR getAllItems() return empty ---- CREATE_DB_BEFORE_INSERTION=" . CREATE_DB_BEFORE_INSERTION . " is it right ? Be aware of foregin keys linked with id in tables deleted at start of this script...\n\n\n");
+        }
+
         return $items;
     } catch (PDOException $e) {
         print "Error!: " . $e->getMessage() . "<br/>";
@@ -350,6 +354,7 @@ function dataGroups()
 //Generate data for join
 function data_join()
 {
+    echo "\n-----------------------------\n Generating Join \n-----------------------------\n ";
     //Take the group list
     $groups = getAllItems("groups");
     //Declare variables
@@ -737,7 +742,7 @@ function printAllChoosenFields($array, $fieldname)
 }
 
 //EXECUTION - Here is the code and functions that will be started:
-define("CREATE_DB_BEFORE_INSERTION", false);    //if can recreate the db before insertion or not
+define("CREATE_DB_BEFORE_INSERTION", true);    //if can recreate the db before insertion or not
 
 if (CREATE_DB_BEFORE_INSERTION) {
 //Total creation of the database before insertion. (drop database before the creation)
@@ -751,11 +756,11 @@ if (CREATE_DB_BEFORE_INSERTION) {
 }
 
 //Comment or uncomment the functions that you need (be aware of foreign keys and if the creation of db before insertion is enabled):
-//dataUsers();
-//dataGroups();
-//data_join();
-//dataProjects();
-//dataParticipate();
-//dataLog();
+dataUsers();
+dataGroups();
+data_join();
+dataProjects();
+dataParticipate();
+dataLog();
 dataWorks();
 ?>
