@@ -117,6 +117,13 @@ function getLoremIpsum($length = 100)
 /// ----------------------------
 ///  Generate data functions
 /// ----------------------------
+///
+define("UNWANTED_CHARS_ARRAY", array('Š' => 'S', 'š' => 's', 'Ž' => 'Z', 'ž' => 'z', 'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A', 'Æ' => 'A', 'Ç' => 'C', 'È' => 'E', 'É' => 'E',
+        'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I', 'Ñ' => 'N', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'O', 'Ø' => 'O', 'Ù' => 'U',
+        'Ú' => 'U', 'Û' => 'U', 'Ü' => 'U', 'Ý' => 'Y', 'Þ' => 'B', 'ß' => 'Ss', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'a', 'å' => 'a', 'æ' => 'a', 'ç' => 'c',
+        'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ð' => 'o', 'ñ' => 'n', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o',
+        'ö' => 'o', 'ø' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ý' => 'y', 'þ' => 'b', 'ÿ' => 'y', 'Ğ' => 'G', 'İ' => 'I', 'Ş' => 'S', 'ğ' => 'g', 'ı' => 'i', 'ş' => 's', 'ü' => 'u')
+);
 
 //Generate data for users
 function dataUsers()
@@ -128,12 +135,6 @@ function dataUsers()
     $id = 0;
     $users = [];    //array for the users generated
     $adminsIds[0] = 1;  //id of JRD that is an admin in all cases
-
-    $unwanted_array = array('Š' => 'S', 'š' => 's', 'Ž' => 'Z', 'ž' => 'z', 'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A', 'Æ' => 'A', 'Ç' => 'C', 'È' => 'E', 'É' => 'E',
-        'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I', 'Ñ' => 'N', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'O', 'Ø' => 'O', 'Ù' => 'U',
-        'Ú' => 'U', 'Û' => 'U', 'Ü' => 'U', 'Ý' => 'Y', 'Þ' => 'B', 'ß' => 'Ss', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'a', 'å' => 'a', 'æ' => 'a', 'ç' => 'c',
-        'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ð' => 'o', 'ñ' => 'n', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o',
-        'ö' => 'o', 'ø' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ý' => 'y', 'þ' => 'b', 'ÿ' => 'y', 'Ğ' => 'G', 'İ' => 'I', 'Ş' => 'S', 'ğ' => 'g', 'ı' => 'i', 'ş' => 's', 'ü' => 'u');
 
     //For each user generate the other data
     foreach ($usersressources as $ressource) {
@@ -149,7 +150,7 @@ function dataUsers()
 
         //Generate username with firstname and a number after
         $username = $firstname . rand(10, 99);
-        $username = strtr($username, $unwanted_array);
+        $username = strtr($username, UNWANTED_CHARS_ARRAY);
         $username = strtolower($username);
         if (isset($ressource['username'])) {
             $username = $ressource['username'];
@@ -163,7 +164,7 @@ function dataUsers()
             //half the time, email is set to "firstname.lastname@assoc.com" and if not the email is null
             if (rand(0, 1)) {
                 $email = $firstname . "." . $lastname . "@assoc.ch";    //create the email with the raw firstname and lastname
-                $email = strtr($email, $unwanted_array);    //replace accent with corresponding char
+                $email = strtr($email, UNWANTED_CHARS_ARRAY);    //replace accent with corresponding char
                 $email = strtolower($email);    //put the string to lower cases.
                 $email = str_replace(" ", "", $email);    //remove spaces for big name with spaces
             } else {
@@ -186,7 +187,13 @@ function dataUsers()
         if (isset($ressource['status'])) {
             $status = $ressource['status'];
         } else {
-            $status = null;
+            $status = "Arrivé.e le " . DTToHumanDate(strtotime($inscription), "simpleday", true);;
+            if (rand(1, 3) == 1) {
+                $status = getLoremIpsum(200);
+            }
+            if (rand(1, 10) == 1) {
+                $status = null;
+            }
         }
 
         //Generate the state: the technical state of the account:
@@ -214,7 +221,11 @@ function dataUsers()
         }
 
         //Generate state_modifier_id: take the id of a random admin
-        $statemodifierid = $adminsIds[rand(0, count($adminsIds) - 1)];
+        if ($state != USER_STATE_UNAPPROVED) {  //only if the state has changed
+            $statemodifierid = $adminsIds[rand(0, count($adminsIds) - 1)];
+        } else {
+            $statemodifierid = null;  //else value is just null
+        }
 
         //Generate state_modification_date: take a random date after inscription to simulate change of state made by an admin
         if ($state != USER_STATE_UNAPPROVED) {  //only if the state has changed
@@ -277,7 +288,8 @@ function dataGroups()
         //Half time, email is the last word of the name of the group with @assoc.ch
         if (rand(0, 1)) {
             $wordsOfName = explode(" ", $group['name']);
-            $group['email'] = strtolower($wordsOfName[count($wordsOfName) - 1]) . "@assoc.ch";
+            $startEmail = strtr($wordsOfName[count($wordsOfName) - 1], UNWANTED_CHARS_ARRAY);    //replace accent with corresponding char
+            $group['email'] = strtolower($startEmail) . "@assoc.ch";    //concat start email with domain name
         } else {
             //The other time it's null
             $group['email'] = null;
