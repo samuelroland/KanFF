@@ -67,8 +67,8 @@ DROP TABLE IF EXISTS `kanff`.`groups` ;
 CREATE TABLE IF NOT EXISTS `kanff`.`groups` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL,
-  `description` VARCHAR(500) NOT NULL,
-  `context` VARCHAR(500) NULL,
+  `description` VARCHAR(1000) NOT NULL,
+  `context` VARCHAR(1000) NULL,
   `prerequisite` VARCHAR(500) NULL,
   `email` VARCHAR(254) NULL,
   `image` VARCHAR(50) NULL,
@@ -99,8 +99,8 @@ DROP TABLE IF EXISTS `kanff`.`projects` ;
 CREATE TABLE IF NOT EXISTS `kanff`.`projects` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(70) NOT NULL,
-  `description` VARCHAR(500) NOT NULL,
-  `goal` VARCHAR(500) NULL,
+  `description` VARCHAR(1000) NOT NULL,
+  `goal` VARCHAR(1000) NULL,
   `start` DATETIME NOT NULL,
   `end` DATETIME NULL,
   `state` INT NOT NULL,
@@ -137,7 +137,7 @@ DROP TABLE IF EXISTS `kanff`.`works` ;
 CREATE TABLE IF NOT EXISTS `kanff`.`works` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL,
-  `description` VARCHAR(200) NULL,
+  `description` VARCHAR(500) NULL,
   `start` DATETIME NOT NULL,
   `end` DATETIME NOT NULL,
   `state` INT NOT NULL,
