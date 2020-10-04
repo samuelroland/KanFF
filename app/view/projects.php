@@ -25,7 +25,7 @@ echo $result;
         foreach ($projects as $project) {
 
             ?>
-            <div class="divGroup bordertest">
+            <div class="divGroup thinBorder">
                 <div class="">
 
                         <h3><?= $project['name'] ?></h3>

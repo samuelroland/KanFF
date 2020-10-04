@@ -32,6 +32,13 @@ define("GROUP_STATE_ONBREAK", 2);
 define("GROUP_STATE_ARCHIVED", 3);
 define("GROUP_LIST_STATE", [GROUP_STATE_ONSTARTUP, GROUP_STATE_ACTIVE, GROUP_STATE_ONBREAK, GROUP_STATE_ARCHIVED]);
 
+//define constants of groups.visibility, identical to values in the database:
+define("GROUP_VISIBILITY_INVISIBLE", 1);
+define("GROUP_VISIBILITY_TITLE", 2);
+define("GROUP_VISIBILITY_STANDARD", 3);
+define("GROUP_VISIBILITY_TOTAL", 4);
+define("GROUP_LIST_VISIBILITY", [GROUP_VISIBILITY_INVISIBLE, GROUP_VISIBILITY_TITLE, GROUP_VISIBILITY_STANDARD, GROUP_VISIBILITY_TOTAL]);
+
 //define constants of projects.state, identical to values in the database:
 define("PROJECT_STATE_UNDERREFLECTION", 0);
 define("PROJECT_STATE_UNDERPLANNING", 1);
@@ -151,6 +158,23 @@ function convertGroupState($int)
             return "en pause";
         case GROUP_STATE_ARCHIVED:
             return "archivé";
+        default:
+            return "ERROR UNKNOWN STATE";
+    }
+}
+
+//Convert the group visibility in french
+function convertGroupVisibility($int)
+{
+    switch ($int) {
+        case GROUP_VISIBILITY_INVISIBLE:
+            return "Invisible";
+        case GROUP_VISIBILITY_TITLE:
+            return "Titre uniquement";
+        case GROUP_VISIBILITY_STANDARD:
+            return "Standard";
+        case GROUP_VISIBILITY_TOTAL:
+            return "Totalement visible";
         default:
             return "ERROR UNKNOWN STATE";
     }

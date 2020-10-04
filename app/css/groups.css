@@ -34,10 +34,12 @@
     background-color: #ffc437;
     width: 200px;
     height: 200px;
+    border-radius: 5px;
 }
 
-.bordertest {
-    border: solid black 3px;
+.thinBorder {
+    border: solid #8d8d8d 2px;
+    border-radius: 5px;
 }
 
 .position-bottom-right {

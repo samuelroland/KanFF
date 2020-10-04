@@ -15,11 +15,18 @@ function getOneGroup($id)
 //Get all groups that are: visible and ordered by creation_date
 function getAllGroups()
 {
+    $listOfVisibilityAccepted = GROUP_LIST_VISIBILITY;
+    foreach ($listOfVisibilityAccepted as $key => $oneOption) {
+        if ($oneOption == GROUP_VISIBILITY_INVISIBLE) {
+            unset($listOfVisibilityAccepted[$key]);
+        }
+    }
+
     $query = "
-    SELECT groups.id, groups.name, groups.description, groups.context, groups.email, groups.image, groups.restrict_access, groups.status, groups.visibility, groups.creator_id, groups.creation_date, groups.creator_id, users.initials AS creator_initials FROM `groups`
-INNER JOIN users ON users.id = groups.creator_id
-WHERE groups.visibility = 1
-ORDER BY groups.creation_date DESC";
+    SELECT `groups`.*, users.initials AS creator_initials FROM `groups`
+INNER JOIN users ON users.id = `groups`.creator_id
+WHERE `groups`.visibility in (" . implode(", ", $listOfVisibilityAccepted) . ")
+ORDER BY `groups`.creation_date DESC";
 
     return Query($query, null, true);
 
