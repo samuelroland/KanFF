@@ -30,7 +30,9 @@ $isAdmin = checkAdmin();
             ?>
         </div>
         <div class="box-alignright flex-1">
-            <button class="btn btn-primary" id="btnEditMode">Mode édition</button>
+            <?php if ($isAdmin) { ?>
+                <button class="btn btn-primary" id="btnEditMode">Mode édition</button>
+            <?php } ?>
         </div>
     </div>
 
@@ -46,16 +48,18 @@ $isAdmin = checkAdmin();
             <thead class="yellowligthheader">
             <tr>
                 <th>Initiales</th>
-                <th>Nom d'utilisateur.ice</th>
-                <th>Nom complet</th>
+                <th>Nom <br>d'utilisateur.ice</th>
+                <th>Nom <br>complet</th>
                 <th>Statut</th>
                 <th>Inscription</th>
                 <?php
                 if ($isAdmin) {
-                    echo "<th>Etat du compte</th>
+                    echo "<th>Etat du<br> compte</th>
                 <th>Supprimer</th>";
                 }
                 ?>
+                <?= ($isAdmin == false && ($option == 1 || $option == 2)) ? "" : "<th>En<br>pause</th>" ?>
+
             </tr>
             </thead>
             <tbody>
@@ -70,7 +74,7 @@ $isAdmin = checkAdmin();
                     <td><?= $member['firstname'] . " <strong>" . $member['lastname'] . "</strong>" ?></td>
                     <td><?= "<em>" . substrText($member['status'], 77) . "</em>" ?></td>
                     <td><?= DTToHumanDate($member['inscription'], "simpleday") ?></td>
-                    <?php
+                    <?php //State account and delete cell:
                     if ($isAdmin) {
                         echo "<th><select name='' id='' class='sltAccountState' disabled>";
                         foreach (USER_LIST_STATE as $onestate) {
@@ -79,6 +83,11 @@ $isAdmin = checkAdmin();
                         echo "</select></th>
                 <th class='imgTrash justify-content-center flexdiv'><img src='view/medias/icons/trash.png' class='icon-small' alt='trash icon' data-userid='{$member['id']}' ></th>";
                     }
+                    ?>
+                    <?php //On break cell:
+                    //$cellOnBreak = '<td><input type="checkbox" disabled ' . (($member['on_break'] == 1) ? "checked" : "") . '></td>';
+                    $cellOnBreak = '<td>' . (($member['on_break'] == 1) ? "Oui" : "Non") . '</td>';
+                    echo ($isAdmin == false && ($option == 1 || $option == 2)) ? "" : $cellOnBreak
                     ?>
                 </tr>
             <?php } ?>
