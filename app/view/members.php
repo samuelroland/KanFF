@@ -70,7 +70,7 @@ $isAdmin = checkAdmin();
             foreach ($members as $member) {
                 ?>
                 <tr class="userline clickable  <?= ($member['id'] == $_SESSION['user']['id']) ? "yellowveryligthheader" : "" ?>"
-                    data-href="?action=user&id=<?= $member['id'] ?>">
+                    data-href="?action=member&id=<?= $member['id'] ?>">
                     <td><?= $member['initials'] ?></td>
                     <td><?= $member['username'] ?></td>
                     <td><?= $member['firstname'] . " <strong>" . $member['lastname'] . "</strong>" ?></td>

@@ -252,7 +252,7 @@ function setFirstCharToUpperCase($string)
 function mentionUser($basicUser)
 {
     //TODO: add tooltip on initials hover with full name (and username?)
-    $mention = "<span class='clickable cursorpointer text-info d-inline' data-href='?action=user&id={$basicUser['id']}'>{$basicUser['initials']} </span>";
+    $mention = "<span class='clickable cursorpointer text-info d-inline' data-href='?action=member&id={$basicUser['id']}'>{$basicUser['initials']} </span>";
     return $mention;
 }
 

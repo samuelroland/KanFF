@@ -90,6 +90,9 @@ if (!isset($_SESSION['user'])) {
             }
             members($option);
             break;
+        case "member":
+            memberDetails($_GET['id']);
+            break;
         case "createAGroup":
             createAGroup($_POST);
             break;

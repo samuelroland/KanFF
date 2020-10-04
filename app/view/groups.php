@@ -50,7 +50,7 @@ echo $result;
                     <?php } ?>
                     <?php if (is_null($group['creator_initials']) == false) { ?>
                         <div class="box-verticalaligncenter">
-                            <a href="/?action=user&id=<?= $group['creator_id'] ?>" class="linkExternal"><img src="view/medias/icons/user.png" alt="email logo" class="icon-simple">
+                            <a href="/?action=member&id=<?= $group['creator_id'] ?>" class="linkExternal"><img src="view/medias/icons/user.png" alt="email logo" class="icon-simple">
                             <span class="verticalalign"><?= $group['creator_initials'] ?></span></a>
                         </div>
                     <?php } ?>
