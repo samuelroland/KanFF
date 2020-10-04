@@ -31,6 +31,10 @@ function editAccount($post)
             $editUser['biography'] = trimIt($post['biography']);
             $editUser['status'] = trimIt($post['status']);
 
+            //Onbreak management:
+            $editUser['on_break'] = chkToTinyint($post['on_break']);   //on break value from checkbox
+
+            //TODO: check that the 2 passwords are equal that the current one is right, before make the change
             $password1 = $post['newpassword'];
             $password2 = $post['newpasswordc'];
 

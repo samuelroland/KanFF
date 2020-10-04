@@ -72,7 +72,7 @@ ob_start();
 
                     <div class="<?= $cssForDivField ?>">
                         <span class=" <?= $cssForSpan ?>">Etat du compte </span>
-                        <input class="<?= $cssForInput ?>" type="text" readonly
+                        <input class="<?= $cssForInput ?>" type="text" readonly disabled
                                value="<?= convertUserState($user['state']) ?>"/>
                         <img title="Cet état peut être non aprouvé, aprouvé, archivé ou admin"
                              src="view/medias/icons/point.png" alt="question sign" width="35" height="35" class="">

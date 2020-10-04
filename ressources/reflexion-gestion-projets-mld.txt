@@ -281,7 +281,7 @@ Permissions:
 - Qui peut gérer un compte de membre ?
 	- Créer: Public
 	- Modifier infos: Membre uniquement
-	- Modifier état: Autres admins uniquement
+	- Modifier état: Admins uniquement sur soi-même ou sur d'autres membres
 	- Supprimer: Membre uniquement
 	- Définir état en pause: Membre et admin.
 - Qui peut gérer un groupe ?
