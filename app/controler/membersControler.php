@@ -46,6 +46,12 @@ function members($option)
                     unset($members[$member['id']]);
                 }
                 break;
+            case "6":
+                //Banned members
+                if ($state != USER_STATE_BANNED) {
+                    unset($members[$member['id']]);
+                }
+                break;
             default:    //option 1 by default
                 //Active members (approved, admin, no other states and not onbreak):
                 if ($state != USER_STATE_ADMIN && $state != USER_STATE_APPROVED) {

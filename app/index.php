@@ -85,7 +85,7 @@ if (!isset($_SESSION['user'])) {
             break;
         case "members":
             $option = $_GET['option'];
-            if ($isAdmin == false && $option == 5) {
+            if ($isAdmin == false && ($option == 5 || $option == 6)) {
                 $option = 1;
             }
             members($option);

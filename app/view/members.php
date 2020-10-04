@@ -25,6 +25,9 @@ $isAdmin = checkAdmin();
                         class="clickable btn <?= ($option == 5) ? 'active' : 'btn-info' ?>">Non approuvé
                     (<strong><?= $nbUnapprovedUsers ?></strong>)
                 </button>
+                <button data-href="?action=members&option=6"
+                        class="clickable btn <?= ($option == 6) ? 'active' : 'btn-info' ?>">Banni
+                </button>
                 <?php
             }
             ?>
@@ -54,8 +57,7 @@ $isAdmin = checkAdmin();
                 <th>Inscription</th>
                 <?php
                 if ($isAdmin) {
-                    echo "<th>Etat du<br> compte</th>
-                <th>Supprimer</th>";
+                    echo "<th>Etat du<br> compte</th>";
                 }
                 ?>
                 <?= ($isAdmin == false && ($option == 1 || $option == 2)) ? "" : "<th>En<br>pause</th>" ?>
@@ -74,14 +76,12 @@ $isAdmin = checkAdmin();
                     <td><?= $member['firstname'] . " <strong>" . $member['lastname'] . "</strong>" ?></td>
                     <td><?= "<em>" . substrText($member['status'], 77) . "</em>" ?></td>
                     <td><?= DTToHumanDate($member['inscription'], "simpleday") ?></td>
-                    <?php //State account and delete cell:
+                    <?php //State account cell
                     if ($isAdmin) {
                         echo "<th><select name='' id='' class='sltAccountState' disabled>";
                         foreach (USER_LIST_STATE as $onestate) {
                             echo "<option value='$onestate'" . (($member['state'] == $onestate) ? "selected" : '') . ">" . convertUserState($onestate) . "</option>";
                         }
-                        echo "</select></th>
-                <th class='imgTrash justify-content-center flexdiv'><img src='view/medias/icons/trash.png' class='icon-small' alt='trash icon' data-userid='{$member['id']}' ></th>";
                     }
                     ?>
                     <?php //On break cell:
