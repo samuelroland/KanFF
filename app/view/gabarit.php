@@ -63,7 +63,7 @@ Y,                    `\"8bd888b,             ,P
 ?>
 
 <!-- The full header -->
-<header class="bg-header <?= ($debug == false) ? "header-fixed" : "" //the header is not fixed in debug mode because else devs can't see var_dump() results printed under the menu.                       ?>">
+<header class="bg-header <?= ($debug == false) ? "header-fixed" : "" //the header is not fixed in debug mode because else devs can't see var_dump() results printed under the menu.                        ?>">
 
     <!-- Zone Logo with logo image + version texts -->
     <div class="divZoneLogo flexdiv">
@@ -76,7 +76,7 @@ Y,                    `\"8bd888b,             ,P
             </div>
         </div>
         <div data-href="?action=about"
-             class="flex-3 collectivename flexdiv overflow-hidden borderleftorange borderrightorange clickable <?= ($action == "about") ? 'active' : '' //button active or not                       ?>">
+             class="flex-3 collectivename flexdiv overflow-hidden borderleftorange borderrightorange clickable <?= ($action == "about") ? 'active' : '' //button active or not                        ?>">
             <div class="align-items-center flexdiv"><?= $instanceinfos['collective']['name'] ?></div>
         </div>
     </div>
@@ -85,10 +85,10 @@ Y,                    `\"8bd888b,             ,P
     <?php if (isset($_SESSION['user'])) { //if user is logged?>
         <div class="borderleftorange user row justify-content-end flexdiv borderrightorange">
             <!-- The bell and the fullname-->
-            <div class="pr-3 box-verticalaligncenter"><img src="view/medias/icons/bell.png" class="bell"
-                                                           alt="bell icon">
+            <div class="pr-2 pl-2 box-verticalaligncenter"><img src="view/medias/icons/bell.png" class="bell"
+                                                                alt="bell icon">
             </div>
-            <div class="fullname alignright pr-2 justify-content-end box-verticalaligncenter">
+            <div class="fullname alignright pr-2 pl-2 justify-content-end box-verticalaligncenter">
                 <?= $_SESSION['user']['firstname'] ?> <?= $_SESSION['user']['lastname'] ?>
             </div>
 
