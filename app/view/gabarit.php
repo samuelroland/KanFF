@@ -99,7 +99,7 @@ Y,                    `\"8bd888b,             ,P
                         <form action="">
                             <!-- form tag ? -> thanks to https://stackoverflow.com/questions/25089297/avoid-dropdown-menu-close-on-click-inside#answer-34216265 -->
                             <!-- The circle -->
-                            <div class="circle-usericon cursorpointer <?= ($_SESSION['user']['state'] == USER_STATE_ADMIN) ? "innerbordercircle" : "" ?>"
+                            <div class="circle-usericon cursorpointer <?= (checkAdmin()) ? "innerbordercircle" : "" ?>"
                                  data-toggle="dropdown" aria-expanded="false">
                                 <p class="marginauto"><?= $_SESSION['user']['initials'] ?></p>
                             </div>
