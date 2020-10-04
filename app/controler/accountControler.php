@@ -78,6 +78,10 @@ function editAccount($post)
         }
 
     } else {    //if no data, load the page as normal
+        $user = getUserById($_SESSION['user']['id']);
+        if ($user['state_modifier_id'] != null) {
+            $user['state_modifier'] = getUserById($user['state_modifier_id']);  //get the user modifier
+        }
         require "view/editAccount.php";
     }
 }
