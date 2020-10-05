@@ -46,10 +46,17 @@ function createAProject($newProject)
     }
 }
 
-function projectDetails($id)
+function projectDetails($id, $option)
 {
+    if ($option == null) {
+        $option = 2;
+    }
     $project = getOneProject($id);
+    $users = getAllUsers();
     $logs = getAllLogs($project['id']);
+    foreach ($logs as $key => $log) {
+        $logs[$key]['user'] = $users[$log['user_id']];
+    }
     require_once "view/project.php";
 }
 

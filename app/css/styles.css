@@ -451,3 +451,8 @@ tr {
     padding-right: 15px;
     padding-left: 15px;
 }
+
+.hrgrey{
+    border: #929292 1px solid;
+    border-radius: 5px;
+}

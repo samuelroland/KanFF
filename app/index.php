@@ -104,7 +104,7 @@ if (!isset($_SESSION['user'])) {
             projects();
             break;
         case "project":
-            projectDetails($_GET['id']);
+            projectDetails($_GET['id'], $_GET['option']);
             break;
         case "calendar":
             calendar();

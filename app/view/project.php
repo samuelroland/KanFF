@@ -70,12 +70,68 @@ if ($project['archived'] == 1) {
     </div>
 
     <div>
-        <h3>Journal de bord</h3>
-        <?php if ($project['logbook_visible']) { ?>
+        <h3 id="logs">Journal de bord</h3>
+        <?php
+        displaydebug($logs);
+        if ($project['logbook_visible']) { ?>
             <div><?= $project['logbook_content'] ?></div>
-        <?php } else { ?>
+            <hr class="hrgrey">
+            <span>Options d'affichage:</span>
+            <div class="headView flexdiv">
+                <div class="flex-4">
+                    <button data-href="?action=project&id=<?= $project['id'] ?>&option=1#logs"
+                            class="clickable btn <?= ($option == 1) ? 'active' : 'btn-info' ?>" title="Date, titre et initiales">Aperçu
+                    </button>
+                    <button data-href="?action=project&id=<?= $project['id'] ?>&option=2#logs"
+                            class="clickable btn <?= ($option == 2) ? 'active' : 'btn-info' ?>" title="Date, titre, description raccourcie initiales.">Résumé
+                    </button>
+                    <button data-href="?action=project&id=<?= $project['id'] ?>&option=3#logs"
+                            class="clickable btn <?= ($option == 3) ? 'active' : 'btn-info' ?>" title="Date, titre et initiales">Étendu
+                    </button>
+                    <?php
+                    if ($isAdmin) { ?>
+                        <button data-href="?action=members&option=5"
+                                class="clickable btn <?= ($option == 5) ? 'active' : 'btn-info' ?>">Non approuvé
+                            (<strong><?= $nbUnapprovedUsers ?></strong>)
+                        </button>
+                        <button data-href="?action=members&option=6"
+                                class="clickable btn <?= ($option == 6) ? 'active' : 'btn-info' ?>">Banni
+                        </button>
+                        <?php
+                    }
+                    ?>
+                </div>
+                <div class="box-alignright flex-1">
+                    <?php if ($isAdmin) { ?>
+                        <button class="btn btn-primary" id="btnEditMode">Mode édition</button>
+                    <?php } ?>
+                </div>
+            </div>
+            <?php
+
+            if (empty($logs)) {
+                echo "Aucun enregistrement dans le journal de bord...";
+            } else {
+                foreach ($logs as $log) { ?>
+                    <div class="oneLog">
+                        <div class="logfirstline mt-4 mb-2 flexdiv">
+                            <strong class="flex-2"><?= DTToHumanDate($log['date'], "simpleday") . " - " . $log['title'] ?></strong>
+                            <span class="flex-1 alignright">Créé le <?= DTToHumanDate($log['creation_date'], "simpleday") . " par " . mentionUser($log['user']) ?></span>
+
+                        </div>
+                        <div class="logInner pl-4">
+                            <em><?= $log['description'] ?></em>
+                        </div>
+                    </div>
+                <?php }
+            }
+            ?>
+            <?php
+        } else { ?>
             Le journal de bord n'est pas visible pour les personnes extérieures au projet.
-        <?php } ?>
+            <?php
+        }
+        ?>
     </div>
 <?php
 displaydebug($project);

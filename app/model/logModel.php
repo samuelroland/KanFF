@@ -10,7 +10,7 @@
 function getAllLogs($projectId)
 {
     $query = "SELECT * FROM log
-where project_id = :id
+where log.project_id = :id
 order by date;";
     return indexAnArrayById(Query($query, ["id" => $projectId], true));
 }
