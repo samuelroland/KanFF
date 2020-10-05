@@ -24,6 +24,9 @@ require ".const.php";
     <!-- CSS files -->
     <link href="css/styles.css" rel="stylesheet">
     <link href="css/groups.css" rel="stylesheet">
+    <link href="css/projects.css" rel="stylesheet">
+    <link href="css/members.css" rel="stylesheet">
+
     <!-- Js files  -->
     <script src="js/global.js"></script>
     <script src="js/groups.js"></script>

@@ -102,6 +102,9 @@ if (!isset($_SESSION['user'])) {
         case "projects":
             projects();
             break;
+        case "project":
+            projectDetails($_GET['id']);
+            break;
         case "calendar":
             calendar();
             break;

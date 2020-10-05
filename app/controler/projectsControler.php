@@ -46,4 +46,10 @@ function createAProject($newProject)
     }
 }
 
+function projectDetails($id){
+    $project = getOneProject($id);
+    
+    require_once "view/project.php";
+}
+
 ?>

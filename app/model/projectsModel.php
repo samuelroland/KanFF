@@ -9,7 +9,7 @@
 //Get one projects with his id
 function getOneProject($id)
 {
-    require getOne("projects", $id);
+    return getOne("projects", $id);
 }
 
 //Get all projects
