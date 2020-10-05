@@ -116,20 +116,23 @@ if ($project['archived'] == 1) {
                 echo "Aucun enregistrement dans le journal de bord...";
             } else {
                 foreach ($logs as $log) { ?>
-                    <div class="oneLog mt-1 pb-2">
+                    <div class="oneLog mt-1 pb-2" id="log-<?= $log['id'] ?>"
+                         data-open="<?= ($option == 3) ? "true" : "false" ?>">
                         <div class="logfirstline flexdiv">
                             <strong class="flex-2"><?= DTToHumanDate($log['date'], "simpleday") . " - " . $log['title'] ?></strong>
                             <?php if ($option == 2) {
-                                echo "<em class='flex-3'>" . substrText($log['description'], 100) . "</em>";
+                                echo "<em class='flex-3 shortdescription'>" . substrText($log['description'], 100) . "</em>";
                             } ?>
                             <span class="flex-1 alignright">
                                 <img src="view/medias/icons/trianglebottom.png" alt="triangle bottom"
-                                     class="icon-xsmal">
+                                     class="icon-xsmall trianglebottom" hidden>
+                                <img src="view/medias/icons/triangletop.png" alt="triangle top"
+                                     class="icon-xsmall triangletop" hidden>
                                 <span>Créé le <?= DTToHumanDate($log['creation_date'], "simpleday") . " par " . mentionUser($log['user']) ?></span>
                             </span>
 
                         </div>
-                        <div class="logInner pl-4" <?php if ($option != 3) {
+                        <div class="logInner pl-4 longdescription" <?php if ($option != 3) {
                             echo "hidden";
                         } ?>>
                             <em><?= $log['description'] ?></em>
