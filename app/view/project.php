@@ -80,13 +80,16 @@ if ($project['archived'] == 1) {
             <div class="headView flexdiv">
                 <div class="flex-4">
                     <button data-href="?action=project&id=<?= $project['id'] ?>&option=1#logs"
-                            class="clickable btn <?= ($option == 1) ? 'active' : 'btn-info' ?>" title="Date, titre et initiales">Aperçu
+                            class="clickable btn <?= ($option == 1) ? 'active' : 'btn-info' ?>"
+                            title="Date, titre et initiales">Aperçu
                     </button>
                     <button data-href="?action=project&id=<?= $project['id'] ?>&option=2#logs"
-                            class="clickable btn <?= ($option == 2) ? 'active' : 'btn-info' ?>" title="Date, titre, description raccourcie initiales.">Résumé
+                            class="clickable btn <?= ($option == 2) ? 'active' : 'btn-info' ?>"
+                            title="Date, titre, description raccourcie initiales.">Résumé
                     </button>
                     <button data-href="?action=project&id=<?= $project['id'] ?>&option=3#logs"
-                            class="clickable btn <?= ($option == 3) ? 'active' : 'btn-info' ?>" title="Date, titre et initiales">Étendu
+                            class="clickable btn <?= ($option == 3) ? 'active' : 'btn-info' ?>"
+                            title="Date, titre et initiales">Étendu
                     </button>
                     <?php
                     if ($isAdmin) { ?>
@@ -113,13 +116,22 @@ if ($project['archived'] == 1) {
                 echo "Aucun enregistrement dans le journal de bord...";
             } else {
                 foreach ($logs as $log) { ?>
-                    <div class="oneLog">
-                        <div class="logfirstline mt-4 mb-2 flexdiv">
+                    <div class="oneLog mt-1 pb-2">
+                        <div class="logfirstline flexdiv">
                             <strong class="flex-2"><?= DTToHumanDate($log['date'], "simpleday") . " - " . $log['title'] ?></strong>
-                            <span class="flex-1 alignright">Créé le <?= DTToHumanDate($log['creation_date'], "simpleday") . " par " . mentionUser($log['user']) ?></span>
+                            <?php if ($option == 2) {
+                                echo "<em class='flex-3'>" . substrText($log['description'], 100) . "</em>";
+                            } ?>
+                            <span class="flex-1 alignright">
+                                <img src="view/medias/icons/trianglebottom.png" alt="triangle bottom"
+                                     class="icon-xsmal">
+                                <span>Créé le <?= DTToHumanDate($log['creation_date'], "simpleday") . " par " . mentionUser($log['user']) ?></span>
+                            </span>
 
                         </div>
-                        <div class="logInner pl-4">
+                        <div class="logInner pl-4" <?php if ($option != 3) {
+                            echo "hidden";
+                        } ?>>
                             <em><?= $log['description'] ?></em>
                         </div>
                     </div>

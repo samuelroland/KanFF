@@ -283,6 +283,11 @@ label {
     margin: 5px;
 }
 
+.icon-xsmal {
+    width: 25px;
+    margin: 3px;
+}
+
 
 .linkExternal {
     text-decoration: none;
@@ -452,7 +457,7 @@ tr {
     padding-left: 15px;
 }
 
-.hrgrey{
+.hrgrey {
     border: #929292 1px solid;
     border-radius: 5px;
 }
