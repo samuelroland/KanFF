@@ -18,6 +18,7 @@ require "controler/dashboardControler.php"; // controler for the dashboard page
 require "controler/groupsControler.php"; // controler for the groups
 require "controler/membersControler.php"; // controler for the members
 require "controler/projectsControler.php"; // controler for the projects
+require "controler/logControler.php"; // controler for the projects
 require "controler/tasksControler.php"; // controler for the projects
 require "controler/worksControler.php"; // controler for the projects
 require "controler/eventsControler.php"; // controler for the projects

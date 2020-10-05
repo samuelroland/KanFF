@@ -46,9 +46,10 @@ function createAProject($newProject)
     }
 }
 
-function projectDetails($id){
+function projectDetails($id)
+{
     $project = getOneProject($id);
-    
+    $logs = getAllLogs($project['id']);
     require_once "view/project.php";
 }
 
