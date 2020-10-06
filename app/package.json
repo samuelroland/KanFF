@@ -1,8 +1,8 @@
 {
   "name": "kanff",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "KanFF dependencies",
-  "main": "index.js",
+  "main": "index.php",
   "dependencies": {
     "bootstrap": "^4.5.2",
     "jquery": "^3.4.1"
