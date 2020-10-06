@@ -8,10 +8,8 @@
 
 
 require_once 'model/CRUDModel.php';
-function displaydebug($var)
-{
-//do nothing
-}
+require_once 'controler/help.php';
+require_once 'view/helpers.php';
 
 
 //Get all elements of one Table
@@ -23,7 +21,8 @@ function test_getAll()
     } else {
         echo "    BUG     ";
     }
-    echo "getAll: get all users (100) ";
+    echo "getAll: get all users (100) 
+    ";
 }
 
 //Create all users i need below
@@ -32,31 +31,32 @@ function createAllUser()
 //first user
 
     $user1 = "INSERT INTO `users` 
-(username, initials, firstname, lastname, password, chat_link, email, phonenumber, biography, inscription, status, state)
- VALUES ('Username', '666', 'Rrenom','Rom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 16666654,NULL, '2020-09-17 06:12:47', null, 3);";
+(username, initials, firstname, lastname, password, chat_link, email, phonenumber, biography, inscription, status, state, on_break)
+ VALUES ('Username', '666', 'Rrenom','Rom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 16666654,NULL, '2020-09-17 06:12:47', null, 3, 0);";
     $user2 = "INSERT INTO `users` 
-(username, initials, firstname, lastname, password, chat_link, email, phonenumber, biography, inscription, status, state)
- VALUES ('Username2', '667', 'Rrenom','Rom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 16666654,NULL, '2020-09-17 06:12:47', null, 3);";
+(username, initials, firstname, lastname, password, chat_link, email, phonenumber, biography, inscription, status, state, on_break)
+ VALUES ('Username2', '667', 'Rrenom','Rom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 16666654,NULL, '2020-09-17 06:12:47', null, 3, 0);";
     $user3 = "INSERT INTO `users` 
-(username, initials, firstname, lastname, password, chat_link, email, phonenumber, biography, inscription, status, state)
- VALUES ('Username4', '668', 'Rrenom','Rom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 16666654,NULL, '2020-09-17 06:12:47', null, 3);";
+(username, initials, firstname, lastname, password, chat_link, email, phonenumber, biography, inscription, status, state, on_break)
+ VALUES ('Username4', '668', 'Rrenom','Rom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 16666654,NULL, '2020-09-17 06:12:47', null, 3, 0);";
     $user4 = "INSERT INTO `users` 
-(username, initials, firstname, lastname, password, chat_link, email, phonenumber, biography, inscription, status, state)
- VALUES ('Username3', '669', 'Rrenom','Rom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 16666654,NULL, '2020-09-17 06:12:47', null, 3);";
-    Query($user1, null, false);
+(username, initials, firstname, lastname, password, chat_link, email, phonenumber, biography, inscription, status, state, on_break)
+ VALUES ('Username3', '669', 'Rrenom','Rom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 16666654,NULL, '2020-09-17 06:12:47', null, 3, 0);";
+    $idUser1 = Query($user1, null, false);
     Query($user2, null, false);
     Query($user3, null, false);
     Query($user4, null, false);
+    return $idUser1;
 }
 
 //Get one element by his id
-function test_getOne()
+function test_getOne($idUser1)
 {
-    $array = getOne("users", 1);
+    $array = getOne("users", $idUser1);
     if ($array['initials'] == "666") {
-        echo "    OK     ";
+        echo "OK     ";
     } else {
-        echo "    BUG     ";
+        echo "BUG     ";
         if (isset($array)) {
             echo "A!=0    ";
         } else {
@@ -255,8 +255,8 @@ function deleteAllCreatedUser(){
 function StartTests(){
     $_SESSION["debugUnitTests"]="BugRelou";
     test_getAll();
-    createAllUser();
-    test_getOne();
+    $idUser1 = createAllUser();
+    test_getOne($idUser1);
     test_getOneByCondition();
     test_getAllByCondition();
     test_createOneCompetences();
