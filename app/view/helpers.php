@@ -276,7 +276,13 @@ function setFirstCharToUpperCase($string)
 function mentionUser($basicUser)
 {
     //TODO: add tooltip on initials hover with full name (and username?)
-    $mention = "<span class='clickable cursorpointer text-info d-inline' data-href='?action=member&id={$basicUser['id']}'>{$basicUser['initials']} </span>";
+    //TODO: remove link if user has limited access
+    if (checkLimitedAccess()) {
+        $mention = "<span class='cursorpointer text-info d-inline' data-fallbackPlacement='flip' data-toggle='tooltip' data-title='" . $basicUser['firstname'] . " " . $basicUser['lastname'] . " " . (($basicUser['username'] != "") ? "(" . $basicUser['username'] . ")" : "") . "' data-placement='top' data-delay='1'>{$basicUser['initials']}</span>";
+    } else {
+        $mention = "<span class='cursorpointer clickable text-info d-inline' data-fallbackPlacement='flip' data-toggle='tooltip' data-title='" . $basicUser['firstname'] . " " . $basicUser['lastname'] . " " . (($basicUser['username'] != "") ? "(" . $basicUser['username'] . ")" : "") . "' data-placement='top' data-delay='1' data-href='?action=member&id={$basicUser['id']}'>{$basicUser['initials']}</span>";
+    }
+
     return $mention;
 }
 

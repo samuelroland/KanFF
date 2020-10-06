@@ -12,6 +12,10 @@ $(document).ready(function () {
     $(".textFieldToCheck").on("keyup", function (txt) { //on event keyup on a input with class .textFieldToCheck
         checkTextFieldToCheck()
     })
+    //Init tooltip in the page:
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
 })
 
 //Reload the counter, for input text and textarea with class .textFieldToCheck and a associated counter
