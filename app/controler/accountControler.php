@@ -188,3 +188,24 @@ function getUniqueInitials($firstname, $lastname)
     }
     return $choosedInitials;
 }
+
+function limitedAccessInfo()
+{
+    $state = $_SESSION['user']['state'];
+    $user = $_SESSION['user'];
+    switch ($state) {
+        case USER_STATE_UNAPPROVED:
+            $message = "Votre compte a été créé mais n'est pas encore approuvé et vous n'avez donc pas encore accès aux informations internes. Veuillez contacter un.e admin afin de vous faire approuver.";
+            break;
+        case USER_STATE_BANNED:
+            $message = "Votre compte a été banni de ce collectif par un.e admin. Vous n'avez plus accès aux informations internes.";
+            break;
+        case USER_STATE_ARCHIVED:
+            $message = "Votre compte est archivé (vous l'avez défini vous même ou alors un.e admin l'a défini). Pour désarchiver votre compte (et retrouver l'accès aux données internes), veuillez contacter un.e admin afin que votre compte soit désarchivé.";
+            break;
+    }
+    if ($user['state_modifier_id'] != null) {
+        $user['state_modifier'] = getUserById($user['state_modifier_id']);  //get the user modifier
+    }
+    require_once "view/limitedAccess.php";
+}

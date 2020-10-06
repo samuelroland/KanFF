@@ -22,7 +22,12 @@ function login($infoLogin, $password)
             unset($UserLog['password']);    // Unset password to not save it in the session
             $_SESSION['user'] = $UserLog;   // Save all informations of the users in the session
             displaydebug($_SESSION);    // Function that will display a var_dump if the debug mode is active
-            require_once 'view/home.php';
+            if (checkLimitedAccess()) {
+                limitedAccessInfo();    //go directly to limited access info page
+            } else {
+                dashboard();    //go to default page if has no limitation of access
+            }
+
         } else {
             flshmsg(1);
             require_once 'view/login.php';

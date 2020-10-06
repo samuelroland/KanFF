@@ -56,7 +56,7 @@ function DTToHumanDate($datetime, $mode = "simpleday", $isTimestamp = false)
             return date("d.m.Y", $timestamp);
             break;
         case "simpletime":
-            return date("d.M.Y à H:i", $timestamp);
+            return date("d.m.Y à H:i", $timestamp);
             break;
         case "completeday":
             return date("j F Y", $timestamp);
@@ -135,14 +135,33 @@ function indexAnArrayById($array)
     return $newarray;
 }
 
-//Return true or false if the user logged is an admin or not.
+//Return true or false if the user logged is an admin
 function checkAdmin()
 {
     $isAdmin = false;
+
+    //Update session with data informations to reload admin field:
+    $uptodateUser = getUserById($_SESSION['user']['id']);
+    unset($uptodateUser['password']);
+    $_SESSION['user'] = $uptodateUser;
+    //TODO: check efficiency with all fields instead of just admin
+
     if ($_SESSION['user']['state'] == USER_STATE_ADMIN) {
         $isAdmin = true;
     }
     return $isAdmin;
+}
+
+//Return true or false if the user has limited access (because the state is not approved or is not admin)
+function checkLimitedAccess()
+{
+    $hasLimitedAccess = false;
+
+    $state = $_SESSION['user']['state'];
+    if ($state != USER_STATE_APPROVED && $state != USER_STATE_ADMIN) {  //if not authorized to access to internal data:
+        $hasLimitedAccess = true;   //has a limited access
+    }
+    return $hasLimitedAccess;
 }
 
 //Check that each key of an simple array is not empty (useful to check that all not null fields have been sent):

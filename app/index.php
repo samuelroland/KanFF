@@ -50,7 +50,7 @@ if (isset($_POST)) {
 }
 
 //If user is not logged, actions authorized are login and signin.
-if (!isset($_SESSION['user'])) {
+if (!isset($_SESSION['user']['id'])) {
     // Depending on the chosen action
     switch ($action) {
         // try login using the infomations given
@@ -70,60 +70,72 @@ if (!isset($_SESSION['user'])) {
             break;
     }
 } else {    //if user is logged
-    // Depending on the chosen action
-    switch ($action) {
-        case"logout":
-            logout();
-            break;
-        //This function test the good working of CrudModel
-        case "testCRUD":
-            testCRUD();
-        case "editAccount":
-            editAccount($_POST);
-            break;
-        case "groups":
-            groups();
-            break;
-        case "members":
-            $option = $_GET['option'];
-            if ($isAdmin == false && ($option == 5 || $option == 6)) {
-                $option = 1;
-            }
-            members($option);
-            break;
-        case "member":
-            memberDetails($_GET['id']);
-            break;
-        case "createAGroup":
-            createAGroup($_POST);
-            break;
-        case "createAProject":
-            createAProject($_POST);
-            break;
-        case "projects":
-            projects();
-            break;
-        case "project":
-            projectDetails($_GET['id'], $_GET['option']);
-            break;
-        case "calendar":
-            calendar();
-            break;
-        case "tasks":
-            tasks();
-            break;
-        case "about":
-            about();
-            break;
-        case "":    //if no action it's the dashboard
-            dashboard();
-            break;
-        default: // if action is unknown, return back to the dashboard
-            if ($action != "signin" && $action != "login") {    //signin et login doesn't make sense when the user is logged but it's not unknown actions so the message is not displayed.
-                flshmsg(0);
-            }
-            dashboard();
-            break;
+    if (checkLimitedAccess()) {  //if not authorized to access to internal data:
+        switch ($action) {
+            case"logout":
+                logout();
+                break;
+            case "editAccount":
+                editAccount($_POST);
+                break;
+            case "about":
+                about();
+                break;
+            default:
+                limitedAccessInfo();
+        }
+    } else {    //if there is no access limitation, then all actions (made as logged user) can be started
+        switch ($action) {
+            case"logout":
+                logout();
+                break;
+            case "editAccount":
+                editAccount($_POST);
+                break;
+            case "groups":
+                groups();
+                break;
+            case "members":
+                $option = $_GET['option'];
+                if ($isAdmin == false && ($option == 5 || $option == 6)) {
+                    $option = 1;
+                }
+                members($option);
+                break;
+            case "member":
+                memberDetails($_GET['id']);
+                break;
+            case "createAGroup":
+                createAGroup($_POST);
+                break;
+            case "createAProject":
+                createAProject($_POST);
+                break;
+            case "projects":
+                projects();
+                break;
+            case "project":
+                projectDetails($_GET['id'], $_GET['option']);
+                break;
+            case "calendar":
+                calendar();
+                break;
+            case "tasks":
+                tasks();
+                break;
+            case "about":
+                about();
+                break;
+            case "":    //if no action it's the dashboard
+                dashboard();
+                break;
+            default: // if action is unknown, return back to the dashboard
+                if ($action != "signin" && $action != "login") {    //signin et login doesn't make sense when the user is logged but it's not unknown actions so the message is not displayed.
+                    flshmsg(0);
+                }
+                dashboard();
+                break;
+        }
     }
 }
 
