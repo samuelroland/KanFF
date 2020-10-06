@@ -6,31 +6,17 @@
  *  Creation date: 04/05/2020
  */
 
+//Get a PDO object containing a database connexion
 function getPDO()
 {
     require ".const.php";
 
     $res = new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname, $user, $pass);
-    $res->exec("set names utf8");
+    $res->exec("set names utf8");   //to be able to display accented characters
     return $res;
 }
 
-/**
- *
- *
- *
- *
- *
- *
- * SELECT LAST_INSERT_ID(); In SQL
- *
- *
- *
- *
- *
- *
- *
- */
+//Do a SQL query with parameters and with many records expected or not
 function Query($query, $params, $manyrecords)
 {
     try {
@@ -117,13 +103,7 @@ function createOne($table, $params)
     //$table = "users" OR "competences" ...
     //$params = ["name"=>$name,"NPA"=>94654]
 
-    //If $debug = true the id won't be changed
-    if (isset($_SESSION["debugUnitTests"])) {
-        $debug = false;
-    }
-    if ($debug == false) {
-        unset($params["id"]);
-    }
+    unset($params["id"]);   //destroy id because create an item with a choosen id is prohibited
     $query = "INSERT INTO `$table` " . buildStringForInsertValues($params);
     displaydebug($query);
     displaydebug($params);
@@ -161,6 +141,7 @@ function buildStringForUpdateValues($values)
     return implode(", ", $keys);
 }
 
+//TODO: think about utility or not of this function for security reasons and use it or not
 //Check that each char of every key of the array (that are names of MLD fields) is alphabetical or - or _ (for sql parameters)
 //Ex: ["firstname" => "test", ...] will be converted to "... :firstname" so firstname must be trusted.
 //If: ["firstname; DELETE * FROM users;--" => "test", ...] will be converted to "firstname; DELETE * FROM users;--, ..."
@@ -176,5 +157,4 @@ function checkIfEachKeyIsAlphabetical($array)
     }
     return true;
 }
-
 ?>
