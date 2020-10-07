@@ -11,7 +11,7 @@ require_once 'model/CRUDModel.php';
 require_once 'controler/help.php';
 require_once 'view/helpers.php';
 
-
+echo "Unit tests for CRUDModel.php functions:\n\n";
 //Get all elements of one Table
 function test_getAll()
 {
@@ -21,27 +21,27 @@ function test_getAll()
     } else {
         echo "    BUG     ";
     }
-    echo "getAll: get all users (100) 
+    echo "getAll() - take all items of a table: then count items in the users array must be 100 
     ";
 }
 
-//Create all users i need below
+//Create 4 users to have known data to test
 function createAllUser()
 {
 //first user
 
     $user1 = "INSERT INTO `users` 
-(username, initials, firstname, lastname, password, chat_link, email, phonenumber, biography, inscription, status, state, on_break)
- VALUES ('Username', '666', 'Rrenom','Rom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 16666654,NULL, '2020-09-17 06:12:47', null, 3, 0);";
+(username, initials, firstname, lastname, password, chat_link, email, phonenumber, biography, inscription, status, state, on_break, state_modifier_id, state_modification_date)
+ VALUES ('Username', '666', 'Rrenom','Rom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 16666654,NULL, '2020-09-17 06:12:47', null, 3, 0, null , null );";
     $user2 = "INSERT INTO `users` 
-(username, initials, firstname, lastname, password, chat_link, email, phonenumber, biography, inscription, status, state, on_break)
- VALUES ('Username2', '667', 'Rrenom','Rom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 16666654,NULL, '2020-09-17 06:12:47', null, 3, 0);";
+(username, initials, firstname, lastname, password, chat_link, email, phonenumber, biography, inscription, status, state, on_break, state_modifier_id, state_modification_date)
+ VALUES ('Username2', '667', 'Rrenom','Rom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 16666654,NULL, '2020-09-17 06:12:47', null, 3, 0, null , null );";
     $user3 = "INSERT INTO `users` 
-(username, initials, firstname, lastname, password, chat_link, email, phonenumber, biography, inscription, status, state, on_break)
- VALUES ('Username4', '668', 'Rrenom','Rom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 16666654,NULL, '2020-09-17 06:12:47', null, 3, 0);";
+(username, initials, firstname, lastname, password, chat_link, email, phonenumber, biography, inscription, status, state, on_break, state_modifier_id, state_modification_date)
+ VALUES ('Username4', '668', 'Rrenom','Rom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 16666654,NULL, '2020-09-17 06:12:47', null, 3, 0, null , null );";
     $user4 = "INSERT INTO `users` 
-(username, initials, firstname, lastname, password, chat_link, email, phonenumber, biography, inscription, status, state, on_break)
- VALUES ('Username3', '669', 'Rrenom','Rom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 16666654,NULL, '2020-09-17 06:12:47', null, 3, 0);";
+(username, initials, firstname, lastname, password, chat_link, email, phonenumber, biography, inscription, status, state, on_break, state_modifier_id, state_modification_date)
+ VALUES ('Username3', '669', 'Rrenom','Rom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 16666654,NULL, '2020-09-17 06:12:47', null, 3, 0, null , null );";
     $idUser1 = Query($user1, null, false);
     Query($user2, null, false);
     Query($user3, null, false);
@@ -52,18 +52,37 @@ function createAllUser()
 //Get one element by his id
 function test_getOne($idUser1)
 {
+//    'Username', '666', 'Rrenom','Rom', '$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta', null , null, 16666654,NULL, '2020-09-17 06:12:47', null, 3, 0);";
+    $userCreatedBefore = [
+        "id" => $idUser1,
+        "username" => "Username",
+        "initials" => "666",
+        "firstname" => "Rrenom",
+        "lastname" => "Rom",
+        "password" => "$2y$10\$oVjU8nF3fDyx0LfLyoj.h.SIekzNWTJ3whFw/yDFfTkpPBGnQD0Ta",
+        "chat_link" => null,
+        "email" => null,
+        "phonenumber" => "16666654",
+        "biography" => null,
+        "inscription" => "2020-09-17 06:12:47",
+        "status" => null,
+        "state" => 3,
+        "on_break" => 0,
+        "state_modifier_id" => null,
+        "state_modification_date" => null
+    ];
     $array = getOne("users", $idUser1);
-    if ($array['initials'] == "666") {
+    if ($array['initials'] == "666" && empty(array_diff($array, $userCreatedBefore)) == true) {
         echo "OK     ";
     } else {
-        echo "BUG     ";
+        echo "BUG    ";
         if (isset($array)) {
             echo "A!=0    ";
         } else {
             echo "A=0    ";
         }
     }
-    echo " getOne: get one items from users with his id, Initials = '666' 
+    echo "getOne() - by id: get one item from users with his id, then check that Initials = '666' 
     ";
 
     $array = getOne("users", 600);
@@ -77,14 +96,13 @@ function test_getOne($idUser1)
             echo "A=0    ";
         }
     }
-    echo "getOneEmpty: get one users with a wrong id, ids goes from 0 to 100, test with 600 
+    echo "getOne() - by inexistant id (should return null): get one user with a wrong id, ids goes from 1 to 100, test with id=600 
     ";
-}//OK     
+}
 
 //Get some specific elements of one Table
 function test_getAllByCondition()
 {
-
     $criterions = '	phonenumber LIKE	"166666%"
 	AND firstname LIKE "R%" 
 	OR
@@ -93,7 +111,7 @@ function test_getAllByCondition()
     $params = null;
     $array = getByCondition("users", $params, $criterions, true);
 
-    if (count($array)==4) {
+    if (count($array) == 4) {
         echo "OK    ";
     } else {
         echo "BUG    ";
@@ -104,7 +122,7 @@ function test_getAllByCondition()
             echo "A=0    ";
         }
     }
-    echo " getAllByCriterion: get all items where phonenumber begins with 1 AND firstname OR lastname begins with R 
+    echo " getByCondition() - Severals elements expected: get all items where phonenumber begins with 166666 AND firstname OR lastname begins with R
     ";
 }
 
@@ -125,7 +143,7 @@ function test_getOneByCondition()
             echo "A=0    ";
         }
     }
-    echo "getOneByCriterion: get one item whith the \"666\" initials 
+    echo "getByCondition() - One element expected: get one item whith the \"666\" initials 
     ";
     return $array["id"];
 }
@@ -133,15 +151,18 @@ function test_getOneByCondition()
 //Create one element
 function test_createOneCompetences()
 {
+    $countbefore = count(getAll("competences"));
+    $tryId = 1000000000;
+    $name = "Lire très vite";
+    $category = "Littérature";
+    $params = ['id' => $tryId, 'name' => $name, "category" => $category];
+    $id = createOne("competences", $params);
 
-    $name = "Test";
-    $params = ['name' => $name];
-    createOne("competences", $params);
-    $criterions = ' name = "Test" ';
-    $params = null;
-    $array = getByCondition("competences", $params, $criterions, false);
+    $array = getOne("competences", $id);
 
-    if ($array['name'] == "Test") {
+    $countafter = count(getAll("competences"));
+
+    if ($array['category'] == $category && $array['name'] == $name && $countbefore + 1 == $countafter && $id != $tryId) {
         echo "OK     ";
     } else {
         echo "BUG     ";
@@ -152,28 +173,20 @@ function test_createOneCompetences()
             echo "A=0    ";
         }
     }
-    echo "crateOne: create one competences whith name=>\"Test\" 
+    echo "createOne() - create one competence (2 fields): create one competence (values: $tryId, $name and $category), then check: id has been unset, read the item fields and countbefore + 1 = countafter 
     ";
-
+    return $id;
 }
 
 //Update one element
-function test_updateOne()
+function test_updateOne($id)
 {
-
-    $criterions = ' name = "Test" ';
-    $params = null;
-    $element = getByCondition("competences", $params, $criterions, false);
-
     $name = "Updated-Test";
     $params = ['name' => $name];
-    updateOne("competences", $element["id"], $params);
+    updateOne("competences", $id, $params);
+    $array = getOne("competences", $id);
 
-    $criterions = ' name = "' . $name . '" ';
-    $params = null;
-    $array = getByCondition("competences", $params, $criterions, false);
-
-    if ($array['name'] == $name) {
+    if ($array['name'] == $name && $array['category'] == "Littérature") {
         echo "OK     ";
     } else {
         echo "BUG     ";
@@ -183,18 +196,14 @@ function test_updateOne()
             echo "A=0    ";
         }
     }
-    echo "updateOne: update one items where name =\"Test\", replace name by \"Updated-Test\"
+    echo "updateOne() - update the name only: update one item with a new name: \"Updated-Test\"
     ";
-    $criterions = ' name = "Updated-Test" ';
-    $params = null;
-    $element = getByCondition("competences", $params, $criterions, false);
 
-    $name = 1000000;
-    $params = ['id' => $name];
-    updateOne("competences", $element["id"], $params);
-
-
-    if ($array['id'] == $element["id"]) {
+    $newId = 1000000;
+    $params = ['id' => $newId];
+    updateOne("competences", $id, $params);
+    $array = Query("Select * from competences where name='$name'", [], false);
+    if ($array['id'] == $id) {
         echo "OK     ";
     } else {
         echo "BUG     ";
@@ -204,26 +213,20 @@ function test_updateOne()
             echo "A=0    ";
         }
     }
-    echo "updateOneID: trying to update an id with the \$debug = \"false\",the id should not be updated
+    echo "updateOne() - try to update an id (fail expected): update the id of the competence to $newId. the id must not be updated.
     ";
-
 }
 
 //Detlete one element by his id
-function test_deleteOne()
+function test_deleteOne($id)
 {
-    $criterions = ' name = "Updated-Test" ';
-    $params = null;
-    $element = getByCondition("competences", $params, $criterions, false);
+    $countbefore = count(getAll("competences"));
 
-    $total = count(getAll("competences"));
+    deleteOne("competences", $id);
 
-    deleteOne("competences", $element["id"]);
+    $test = getOne("competences", $id);
 
-    $test = getOne("competences", $element["id"]);
-
-    if ((empty($test)) && ($total == count(getAll("competences")) + 1)) {
-
+    if ($countbefore == count(getAll("competences")) + 1 && getOne("competences", $id) == null) {
         echo "OK     ";
     } else {
         echo "BUG     ";
@@ -233,37 +236,39 @@ function test_deleteOne()
             echo "A=0    ";
         }
     }
-    echo "delteOne: delete one item whith name = \"Updated-Test\", if item is deleted, the test return OK      
+    echo "deleteOne() - delete one competence, then check if there is one element less than before deletion and that getOne with id return empty
     ";
-
 }
 
 //Delete all created users in this file for testing function
-function deleteAllCreatedUser(){
+function deleteAllCreatedUser()
+{
     $user1 = getByCondition("users", null, ' initials = "666" ', false);
     $user2 = getByCondition("users", null, ' initials = "667" ', false);
     $user3 = getByCondition("users", null, ' initials = "668" ', false);
     $user4 = getByCondition("users", null, ' initials = "669" ', false);
 
-    deleteOne("users",$user1["id"]);
-    deleteOne("users",$user2["id"]);
-    deleteOne("users",$user3["id"]);
-    deleteOne("users",$user4["id"]);
+    deleteOne("users", $user1["id"]);
+    deleteOne("users", $user2["id"]);
+    deleteOne("users", $user3["id"]);
+    deleteOne("users", $user4["id"]);
 }
 
-//Lunch all tests
-function StartTests(){
-    $_SESSION["debugUnitTests"]="BugRelou";
+//Launch all tests
+function StartTests()
+{
+    $_SESSION["debugUnitTests"] = "BugRelou";
     test_getAll();
     $idUser1 = createAllUser();
     test_getOne($idUser1);
     test_getOneByCondition();
     test_getAllByCondition();
-    test_createOneCompetences();
-    test_updateOne();
-    test_deleteOne();
+    $id = test_createOneCompetences();
+    test_updateOne($id);
+    test_deleteOne($id);
     deleteAllCreatedUser();
 }
-//cd C:\Users\benoit.pierrehumbert\Documents\GitHub\KanFF\app |cls | php -f .\unitTests\testCRUDmodel.php
+
+//CMD INFO: go in the app folder in a shell, then type "php -f .\unitTests\testCRUDmodel.php"
 StartTests();
 ?>
