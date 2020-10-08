@@ -23,14 +23,14 @@ $cssForDivField = "row pt-1";
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Prénom</span>
                 <input id="inpFirstname" class="<?= $cssForInput ?> textFieldToCheck trimItOnChange" minlength="2"
-                       maxlength="100" type="text"
+                       maxlength="75" type="text"
                        name="firstname" placeholder="Josette" required value="<?= $post['firstname'] ?>"/>
                 <p id="pCounterFirstname" class="m-2"></p>
             </div>
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Nom</span>
                 <input id="inpLastname" class="<?= $cssForInput ?> textFieldToCheck trimItOnChange" minlength="2"
-                       maxlength="100" type="text"
+                       maxlength="75" type="text"
                        name="lastname"
                        placeholder="Richard" required value="<?= $post['lastname'] ?>"/>
                 <p id="pCounterLastname" class="m-2"></p>

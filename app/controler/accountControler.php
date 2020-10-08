@@ -8,6 +8,8 @@
 
 function editAccount($post)
 {
+
+
     if (empty($post) == false) {    //if data have been sent
         $error = false; //no error by default
 
@@ -89,6 +91,9 @@ function editAccount($post)
         require "view/editAccount.php";
     }
 }
+
+
+
 
 //This funtion will redirect to the signin page or redirect to the signin page
 function signin($post)
