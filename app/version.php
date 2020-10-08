@@ -38,6 +38,21 @@ $versions = [
 - Lots of reflexion have been made on the big feature \"Project management\". Next release will contain project management stories.
 - Work on **technical documentation** have started. Some stories (like Groups page or Create a group) are just on break and not finished unfortunately. This is not our priority now.
         "
+    ],
+    [
+        "version" => "v1.2-beta",
+        "date" => "2020-10-08",
+        "changelog" => "- **Limited access** enabled for users not approved or not admin, so the users with state non-approved, archived or banned don't have access to internal data.
+\n- **Model CRUD general** is finished ! Units tests are well written and all tests return \"Success\" without PHP errors.
+\n- **Model CRUD for projects** is done too. Basic and advanced model functions on projects are available.
+\n
+\n**Others:**
+\n- **MCD and MLD v1.3** published. Contains a lot of adjustments for project management, users and groups.
+\n- **Database updated** with a new pack of cleverly generated data. For tables: projects, works, log and participate.
+\n- **Page My account** is work in progress... design of the view fixed.
+\n- **Details of a projet** is in progress. Logbook display is pretty advanced.
+\n- **Create a project** and **Page projects** are in progress.
+\n- ..."
     ]
 ];
 
