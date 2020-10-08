@@ -6,7 +6,7 @@
  *  Creation date: 22.07.2020
  */
 
-//require_once "model/projectsModel.php";
+require_once "model/tasksModel.php";
 
 //display the page groups
 function tasks()

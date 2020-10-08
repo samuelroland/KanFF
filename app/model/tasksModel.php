@@ -28,7 +28,26 @@ function getAllByConditionTasks($conditions,$params){
     return getByCondition("tasks", $params, $conditions, true);
 }
 
+function getAllTasksByWorks($idWorks){
+    $query="SELECT tasks.* FROM	tasks
+INNER join works ON tasks.work_id = works.id
+WHERE	works.id = 12";
+    $params = ['id' => $idWorks];
+    return Query($query,$params,true);
+}
 
+function getTasksNextUniqueNumber(){
+    $tasks=getAllTasks();
+    $uniquenumber=0;
+    if (isset($tasks)){
+        foreach ($tasks as $task) {
+            if ($uniquenumber<$task["number"]){
+                $uniquenumber=$task["number"];
+            }
+        }
+    }
+    return $uniquenumber+1;
+}
 
 //Create Work
 function createTasks($Work)
