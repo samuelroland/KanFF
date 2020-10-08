@@ -39,7 +39,7 @@ $title = "A propos";
 <p><strong>Gérer des projets et des tâches ? C'est quoi et comment ?</strong></p>
 
 <p>Il existe <strong>un petit mode d'emploi</strong> explicant de manière large et simple ce qu'on peut faire sur KanFF. Cette documentation se trouve ici. [ADD LINK]. Vous apprendrez également la signification des termes moins connus et largement utilisés dans l'application (comme kanban, travail, supertâche, ...). Le tout est illustré d'images afin de rendre les explications plus concrètes.
-    <br> La 2ème partie explique plus en détail certaines parties et s'adresse aux personnes les plus intéressé.e.s...</p>
+    <br> La 2ème partie explique plus en détail certaines parties et s'adresse aux personnes les plus intéressé·e·s...</p>
 <?php
 $contenttype = "restricted";
 $content = ob_get_clean();
