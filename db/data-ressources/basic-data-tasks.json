@@ -152,31 +152,61 @@
   {
     "name": "Liste du matériel à disposition",
     "description": "empty",
-    "state": 1,
+    "state": 2,
     "work_id": 3
   },
   {
     "name": "Demande d'interview avec une artiste de 2019",
     "description": "empty",
-    "state": 1,
+    "state": 2,
     "work_id": 3
   },
   {
-    "name": "empty",
+    "name": "Demander images à Line",
     "description": "empty",
-    "state": 1,
+    "state": 3,
     "work_id": 3
   },
   {
-    "name": "empty",
+    "name": "Recherche des archives du festival 2019",
     "description": "empty",
-    "state": 1,
+    "state": 3,
     "work_id": 3
   },
   {
-    "name": "empty",
+    "name": "Brainstorm contenu",
     "description": "empty",
-    "state": 1,
+    "state": 3,
+    "work_id": 3
+  },
+  {
+    "name": "Trouver une personne pour le montage",
+    "description": "empty",
+    "state": 3,
+    "work_id": 3
+  },
+  {
+    "name": "",
+    "description": "empty",
+    "state": 3,
+    "work_id": 3
+  },
+  {
+    "name": "Brainstorm contenu",
+    "description": "empty",
+    "state": 3,
+    "work_id": 3
+  },
+  {
+    "name": "Brainstorm contenu",
+    "description": "empty",
+    "state": 3,
+    "work_id": 3
+  },
+  {
+    "name": "Brainstorm contenu",
+    "description": "empty",
+    "state": 3,
     "work_id": 3
   }
 ]
