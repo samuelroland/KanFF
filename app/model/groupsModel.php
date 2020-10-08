@@ -32,6 +32,16 @@ ORDER BY `groups`.creation_date DESC";
 
 }
 
+//Get all groups for one user
+function getAllGroupsByUser($id){
+    $query="SELECT `groups`.* FROM	`groups`
+INNER join `join` ON `join`.group_id = `groups`.id
+INNER join users ON users.id = `join`.user_id
+WHERE	users.id = :id";
+    $params = ['id' => $id];
+    return Query($query,$params,true);
+}
+
 //Create group
 function createGroup($group)
 {
