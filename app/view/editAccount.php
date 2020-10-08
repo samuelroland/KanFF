@@ -59,6 +59,8 @@ ob_start();
                         <span class="<?= $cssForSpan ?>">Nom d'utilisateur/trice</span>
                         <input class="<?= $cssForInput ?>" minlength="4" maxlength="20" type="text" name="user"
                                value="<?= $user['username'] ?>" required/>
+                        <img title="Cet état peut être non aprouvé, aprouvé, archivé ou admin"
+                             src="view/medias/icons/point.png" alt="question sign" width="35" height="35" class="">
                     </div>
 
                     <div class="<?= $cssForDivField ?>">
