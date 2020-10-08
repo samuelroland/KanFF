@@ -115,7 +115,7 @@ function getAllItems($tablename)
 
 function getLoremIpsum($length = 100)
 {
-    return substr(file_get_contents("https://loripsum.net/api/short/1/long/plaintext"), 0, $length - 2);
+    return substr(file_get_contents("http://loripsum.net/api/short/1/long/plaintext"), 0, $length - 2);
 }
 
 /// ----------------------------
@@ -720,6 +720,40 @@ function dataWorks()
     importTableData("works", array_merge($works, $inboxWorks)); //import the 2 arrays in the database
 }
 
+function dataTasks()
+{
+    $works = getAllItems("works");
+    //$logsres = json_decode(file_get_contents("data-ressources/basic-data-log.json"), true);
+
+    echo "\n-----------------------------\n Generating Tasks \n-----------------------------\n ";
+    $logs = [];    //array for the users generated
+    //For each log generate the other data
+    //foreach ($logsres as $ressource) {
+    for ($id = 0; $id < 200; $id++) {
+        //$task = $ressource;
+
+        //Convert date in datetime format:
+        $task['id'] = $id;
+        $task['number'] = $id;
+        $task['name'] = getLoremIpsum(rand(10, 50));
+        $task['description'] = getLoremIpsum(1000);
+        $task['deadline'] = getRandomDateFormated();
+        $task['state'] = rand(0, 1);
+        $task['urgency'] = rand(1, 5);
+        $task['type'] = rand(1, 5);
+        $task['link'] = "https://asdfsdafsda.casdfsdaf/" . getLoremIpsum(1000);
+        $task['completion_date'] = getRandomDateFormated();
+        $task['responsible_id'] = rand(1, 100);
+        $task['creator_id'] = rand(1, 100);
+        $task['work_id'] = $works[rand(1, count((array)$works))]['id'];
+        echo "\n".$task['name'];
+
+        $tasks[] = $task;
+    }
+
+    importTableData("tasks", $tasks);
+}
+
 //Source: https://stackoverflow.com/questions/4356289/php-random-string-generator#answer-4356295
 function generateRandomString($length = 10)
 {
@@ -742,7 +776,7 @@ function printAllChoosenFields($array, $fieldname)
 }
 
 //EXECUTION - Here is the code and functions that will be started:
-define("CREATE_DB_BEFORE_INSERTION", true);    //if can recreate the db before insertion or not
+define("CREATE_DB_BEFORE_INSERTION", false);    //if can recreate the db before insertion or not
 
 if (CREATE_DB_BEFORE_INSERTION) {
 //Total creation of the database before insertion. (drop database before the creation)
@@ -756,11 +790,12 @@ if (CREATE_DB_BEFORE_INSERTION) {
 }
 
 //Comment or uncomment the functions that you need (be aware of foreign keys and if the creation of db before insertion is enabled):
-dataUsers();
-dataGroups();
-data_join();
-dataProjects();
-dataParticipate();
-dataLog();
-dataWorks();
+//dataUsers();
+//dataGroups();
+//data_join();
+//dataProjects();
+//dataParticipate();
+//dataLog();
+//dataWorks();
+dataTasks();
 ?>

@@ -8,6 +8,9 @@
 //========= Counter management =========
 
 //Declare event keyup for start reload counter
+
+
+
 $(document).ready(function () {
     $(".textFieldToCheck").on("keyup", function (txt) { //on event keyup on a input with class .textFieldToCheck
         checkTextFieldToCheck()

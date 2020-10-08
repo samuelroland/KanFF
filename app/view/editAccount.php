@@ -14,6 +14,7 @@ $cssForDivField = "row pt-1";
 $title = "Mon compte";
 ob_start();
 ?>
+
     <div class="">
         <div class="flexdiv">
             <h1 class="flex-1"><?= $title ?></h1>
@@ -31,14 +32,24 @@ ob_start();
                 <div class="<?= $cssForDivZone ?>">
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Prénom</span>
-                        <input class="<?= $cssForInput ?>" minlength="2" maxlength="254" type="text" name="name"
-                               value="<?= $user['firstname'] ?>"
-                               required/>
+                            <input id="inpFirstname" class="<?= $cssForInput ?> textFieldToCheck trimItOnChange" minlength="2"
+                                   maxlength="75" type="text"
+                                   name="firstname" placeholder="Josette" required value="<?= $user['firstname'] ?>"/>
+                            <p id="pCounterFirstname" class="m-2"></p>
+                        </div>
+
+
+
+
+
                     </div>
                     <div class=" <?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Nom</span>
-                        <input class="<?= $cssForInput ?>" minlength="2" maxlength="254" type="text" name="surname"
-                               value="<?= $user['lastname'] ?>" required/>
+                        <input id="inpLastname" class="<?= $cssForInput ?> textFieldToCheck trimItOnChange" minlength="2"
+                               maxlength="75" type="text"
+                               name="lastname"
+                               placeholder="Richard" required value="<?= $user['lastname'] ?>"/>
+                        <p id="pCounterLastname" class="m-2"></p>
                     </div>
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Initiales </span>
@@ -57,19 +68,27 @@ ob_start();
 
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Nom d'utilisateur/trice</span>
-                        <input class="<?= $cssForInput ?>" minlength="4" maxlength="20" type="text" name="user"
-                               value="<?= $user['username'] ?>" required/>
+                        <input id="inpUsername" class="<?= $cssForInput ?> textFieldToCheck removeSpaceInRT trimItOnChange"
+                               minlength="4"
+                               maxlength="15" type="text"
+                               name="username" pattern="^[a-zA-Z0-9_]*$"
+                               placeholder="josette27" required value="<?= $user['username'] ?>"/>
+                        <p id="pCounterUsername" class="m-2"></p>
                         <img title="Cet état peut être non aprouvé, aprouvé, archivé ou admin"
                              src="view/medias/icons/point.png" alt="question sign" width="35" height="35" class="">
                     </div>
 
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Statut</span>
-                        <span class="spanTextArea"><textarea name="Statut" id="txtStatut" rows="2" placeholder="tbd"
-                                                             class="form-control"
-                                                             title="Votre Statut"><?= $user['status'] ?></textarea></span>
+                        <span class="spanTextArea"><textarea name="Statut" id="txtStatut" rows="2" placeholder="tbd" maxlength="200"
+                                                             class=" fullwidth form-control textFieldToCheck trimItOnChange"
+                                                             title="Votre Statut"><?= $user['status'] ?></textarea>
+                        <p id="pCounterStatut" class="mt-2 mb-2 col-lg-12"></p>
+                        </span>
 
                     </div>
+
+
 
 
                     <div class="<?= $cssForDivField ?>">
@@ -158,9 +177,12 @@ Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard"
 
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Biographie</span>
-                        <span class="spanTextArea"><textarea id="txtBiography" rows="5" placeholder="tbd"
-                                                             class="fullwidth form-control "
-                                                             title="Votre biographie"><?= $user['biography'] ?></textarea></span>
+                        <span class="spanTextArea">    <textarea name="biography" id="txtBiography" rows="4" maxlength="2000"
+                                                                 placeholder="Dans le milieu associatif, depuis 10 ans déjà, je suis à dans Assoc depuis 2015 et j'aide plusieurs heures par semaines. La partie contact médias m'intéresse beaucoup. Je suis photographe de métier, mais aussi céramiste et je cultive un petit potager..."
+                                                                 class="fullwidth form-control textFieldToCheck trimItOnChange"
+                                                                 title="Votre biographie"><?= $user['biography'] ?></textarea>
+                            <p id="pCounterBiography" class="mt-2 mb-2 col-lg-12"></p>
+                        </span>
 
                         <?= flashMessage(); ?>
                     </div>
