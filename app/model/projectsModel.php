@@ -20,15 +20,15 @@ function getAllProjects()
 }
 
 //Get one projects whith conditions
-function getOneByConditionProject($criterions, $params)
+function getOneByConditionProject($conditions, $params)
 {
-    return getByCondition("projects", $params, $criterions, false);
+    return getByCondition("projects", $params, $conditions, false);
 }
 
 //Get more than one projects whith conditions
-function getAllByConditionProjects($criterions, $params)
+function getAllByConditionProjects($conditions, $params)
 {
-    return getByCondition("projects", $params, $criterions, true);
+    return getByCondition("projects", $params, $conditions, true);
 }
 
 //Create projects
@@ -83,7 +83,7 @@ function getAllProjectsContributed($id){
     $query = "SELECT projects.* FROM	projects
 INNER join works ON works.project_id = projects.id
 INNER	join tasks ON tasks.work_id = works.id
-WHERE	tasks.user_id = :id AND tasks.state = :state
+WHERE	tasks.responsible_id = :id AND tasks.state = :state
 GROUP BY projects.name;";
     $params = ["id" => $id,"state" => TASK_STATE_DONE];
     return Query($query, $params, true);

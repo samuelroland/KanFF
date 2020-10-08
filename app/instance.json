@@ -2,7 +2,7 @@
   "collective": {
     "name": "Collectif Assoc Vaud",
     "description": "Le collectif Assoc Vaud est le groupe régional vaud de Assoc en Romandie. Il inclut un groupe de personnes venant de différents horizons militants et qui organise des événements et actions tentant de réunir diverses luttes.",
-    "msg": "Bienvenue membre ou futur.e membre! Vous êtes sur l'instance Blason, l'instance KanFF destinée à Assoc pour toute la Romandie.",
+    "msg": "Bienvenue membre ou futur·e membre! Vous êtes sur l'instance Blason, l'instance KanFF destinée à Assoc pour toute la Romandie.",
     "waitofapprovation": "Tous nouveaux comptes doit être approuvé par un.e admin déjà membre. Une fois votre compte créé, contactez un membre afin de demander à être moderé. Si vous ne demandez pas, vous ne serez pas approuvé.",
     "type": "Collectif"
   },
@@ -10,7 +10,7 @@
     "url": "localhost:80",
     "name": "Blason",
     "about": "Créé début 2019, cette instance accueille et permet la collaboration des membres de Assoc à l'échelle cantonale et aussi régional (sur la Romandie).",
-    "aboutnewcollectives": "Cette instance est gérée par des membres d'Assoc. Elle n'est malheureusement destinée que à Assoc. Si vous êtes intéressé.e.s par l'application KanFF, installez là sur une autre instance! Je refuserai donc toute demande de création de collectif extérieure à Assoc, sur cette instance...",
+    "aboutnewcollectives": "Cette instance est gérée par des membres d'Assoc. Elle n'est malheureusement destinée que à Assoc. Si vous êtes intéressé·e·s par l'application KanFF, installez là sur une autre instance! Je refuserai donc toute demande de création de collectif extérieure à Assoc, sur cette instance...",
     "admin": "Lila Kobin, informaticienne CFC (dans l'informatique depuis 6 ans)",
     "contact": "blason@example.com",
     "adminmsg": "En espérant que les membres de Assoc pourront agréalement travailler sur cette instance. En cas de problème, contactez-moi par email. Je vous réponds dans la journée ou le lendemain..."

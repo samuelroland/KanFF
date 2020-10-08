@@ -20,13 +20,13 @@ function getAllWorks()
 }
 
 //Get one work whith conditions
-function getOneByConditionWorks($criterions,$params){
-    return getByCondition("works", $params, $criterions, false);
+function getOneByConditionWorks($conditions,$params){
+    return getByCondition("works", $params, $conditions, false);
 }
 
 //Get more than one work whith conditions
-function getAllByConditionWorks($criterions,$params){
-    return getByCondition("works", $params, $criterions, true);
+function getAllByConditionWorks($conditions,$params){
+    return getByCondition("works", $params, $conditions, true);
 }
 
 //Get all works of one sepcific project
