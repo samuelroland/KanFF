@@ -1,0 +1,182 @@
+[
+  {
+    "name": "Comment donner sans passer par la plateforme ?",
+    "description": "Beaucoup de monde nous demande par email comment elles peuvent payer en payant par bulletin de versement ou d'autre plateforme de crowdfunding.",
+    "state": 1,
+    "work_id": 11
+  },
+  {
+    "name": "Ajouter lien du site web en description du crowdfunding",
+    "description": "",
+    "state": 1,
+    "work_id": 11
+  },
+  {
+    "name": "Est-ce qu'on répond à tous les gens qui nous écrivent des emails ?",
+    "description": "On répond jamais, à une partie ou à tous ? dépend du temps à disposition ?",
+    "state": 2,
+    "work_id": 11
+  },
+  {
+    "name": "Vérification validité du lien",
+    "description": "empty",
+    "state": 2,
+    "work_id": 11
+  },
+  {
+    "name": "Envoyer images stands à Michel",
+    "description": "pour traiter les images",
+    "state": 3,
+    "work_id": 11
+  },
+  {
+    "name": "Remplir formulaire pour créer un CF",
+    "description": "empty",
+    "state": 1,
+    "work_id": 1
+  },
+  {
+    "name": "Chiosir les paramètres de visibilité et de confidentialité",
+    "description": "empty",
+    "state": 1,
+    "work_id": 1
+  },
+  {
+    "name": "Choisir et importer images d'arrière fond",
+    "description": "empty",
+    "state": 1,
+    "work_id": 1
+  },
+  {
+    "name": "Demander des retours sur la présentation de la page et des images",
+    "description": "empty",
+    "state": 1,
+    "work_id": 1
+  },
+  {
+    "name": "Regarder les limites pour le texte, la vidéo et les informations liées.",
+    "description": "empty",
+    "state": 1,
+    "work_id": 1
+  },
+  {
+    "name": "Choisir email de moyen de contact",
+    "description": "empty",
+    "state": 1,
+    "work_id": 1
+  },
+  {
+    "name": "Création du compte",
+    "description": "",
+    "state": 2,
+    "work_id": 1
+  },
+  {
+    "name": "Lire le manuel pour créer une page complète",
+    "description": "empty",
+    "state": 2,
+    "work_id": 1
+  },
+  {
+    "name": "Lire les conditions et règles de crof.com",
+    "description": "empty",
+    "state": 3,
+    "work_id": 1
+  },
+  {
+    "name": "Choisir la plateforme de crowdfunding",
+    "description": "empty",
+    "state": 3,
+    "work_id": 1
+  },
+  {
+    "name": "Comparer les plateformes de CF",
+    "description": "parmi la liste suivantes:\ncrofit.com\ncrowdtogether.org\ncf.uk",
+    "state": 3,
+    "work_id": 1
+  },
+  {
+    "name": "Choisir un extrait de la vidéo à marquer tout en haut.",
+    "description": "empty",
+    "state": 1,
+    "work_id": 2
+  },
+  {
+    "name": "Demander des retours à des gens extérieurs",
+    "description": "empty",
+    "state": 1,
+    "work_id": 2
+  },
+  {
+    "name": "Développer partie détails de l'estimation du montant visé",
+    "description": "empty",
+    "state": 2,
+    "work_id": 2
+  },
+  {
+    "name": "Ecrire différentes versions de la description du projet",
+    "description": "empty",
+    "state": 2,
+    "work_id": 2
+  },
+  {
+    "name": "Brainstorm contenu",
+    "description": "empty",
+    "state": 3,
+    "work_id": 2
+  },
+  {
+    "name": "Rédiger les questions pour l'interview",
+    "description": "empty",
+    "state": 1,
+    "work_id": 3
+  },
+  {
+    "name": "Rédiger le script de la vidéo",
+    "description": "empty",
+    "state": 1,
+    "work_id": 3
+  },
+  {
+    "name": "Monter premiers plan existants",
+    "description": "empty",
+    "state": 1,
+    "work_id": 3
+  },
+  {
+    "name": "Créer projet montage",
+    "description": "empty",
+    "state": 1,
+    "work_id": 3
+  },
+  {
+    "name": "Liste du matériel à disposition",
+    "description": "empty",
+    "state": 1,
+    "work_id": 3
+  },
+  {
+    "name": "Demande d'interview avec une artiste de 2019",
+    "description": "empty",
+    "state": 1,
+    "work_id": 3
+  },
+  {
+    "name": "empty",
+    "description": "empty",
+    "state": 1,
+    "work_id": 3
+  },
+  {
+    "name": "empty",
+    "description": "empty",
+    "state": 1,
+    "work_id": 3
+  },
+  {
+    "name": "empty",
+    "description": "empty",
+    "state": 1,
+    "work_id": 3
+  }
+]
