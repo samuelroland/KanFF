@@ -24,6 +24,7 @@ function projects()
 function createAProject($newProject)
 {
     $groups = getAllGroups();
+    displaydebug($groups);
     if (empty($newProject) == false) {
         $error = false;
         $newProject['name'] = trimIt($newProject['name']);
