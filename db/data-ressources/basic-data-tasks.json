@@ -187,24 +187,30 @@
   },
   {
     "name": "",
+    "description": "Choix du format",
+    "state": 3,
+    "work_id": 3
+  },
+  {
+    "name": "Choix de la qualité",
     "description": "empty",
     "state": 3,
     "work_id": 3
   },
   {
-    "name": "Brainstorm contenu",
+    "name": "Partage du travail et des responsabilités",
     "description": "empty",
     "state": 3,
     "work_id": 3
   },
   {
-    "name": "Brainstorm contenu",
+    "name": "Récolte d'idées introduction video",
     "description": "empty",
     "state": 3,
     "work_id": 3
-  },
+  },  
   {
-    "name": "Brainstorm contenu",
+    "name": "Récolte musiques utilisables",
     "description": "empty",
     "state": 3,
     "work_id": 3
