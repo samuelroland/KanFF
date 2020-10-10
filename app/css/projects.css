@@ -13,3 +13,18 @@
 .oneLog:hover{
     background-color: #cbcbcb;
 }
+
+.divParticipate{
+
+}
+
+.divProject {
+    padding: 15px;
+    width: auto;
+    min-width: 600px;
+    flex: 1;
+    margin: 5px;
+    position: relative; /*to keep the button "See" in the div*/
+    max-width: 850px;
+    max-height: 250px;
+}

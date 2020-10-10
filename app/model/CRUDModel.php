@@ -57,7 +57,7 @@ function getAll($table)
     //$table = "users" OR "competences" ...
     $query = "SELECT * FROM `$table`";
     $params = null;
-    return Query($query, $params, true);
+    return indexAnArrayById(Query($query, $params, true));
 }
 
 //Get one element by his id

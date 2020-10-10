@@ -156,12 +156,12 @@ Y,                    `\"8bd888b,             ,P
             if (isset($_SESSION['user']['id']) && checkLimitedAccess() == false){  //display the buttons only if the user is logged
             ?>
             <li><a class="<?= ($action == null) ? 'active' : '' ?>" href="/">Dashboard</a></li>
-            <li><a class="<?= ($action == "tasks") ? 'active' : '' ?>" href="/?action=tasks">Tâches</a></li>
-            <li><a class="<?= ($action == "projects") ? 'active' : '' ?>" href="/?action=projects">Projets</a></li>
+            <!--<li><a class="<?= ($action == "tasks") ? 'active' : '' ?>" href="/?action=tasks">Tâches</a></li>
+            --><li><a class="<?= ($action == "projects") ? 'active' : '' ?>" href="/?action=projects">Projets</a></li>
             <li><a class="<?= ($action == "groups") ? 'active' : '' ?>" href="/?action=groups">Groupes</a></li>
             <li><a class="<?= ($action == "members") ? 'active' : '' ?>" href="/?action=members">Membres</a></li>
-            <li><a class="<?= ($action == "calendar") ? 'active' : '' ?>" href="/?action=calendar">Calendrier</a>
-            </li>
+            <!--<li><a class="<?= ($action == "calendar") ? 'active' : '' ?>" href="/?action=calendar">Calendrier</a>
+            --></li>
         </ul>
         <?php
         }

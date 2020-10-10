@@ -1,10 +1,7 @@
 <?php
 ob_start();
-$title = "Project";
-//$test = "Rassemblement des personnes créatives de l'association.";
-//$result = (htmlentities($test, ENT_QUOTES));
-
-echo $result;
+$title = "Projets";
+echo substrText("Réfléxion hiérarchie + égalité des genres", 43, true, true)
 ?>
     <h1><?= $title ?></h1>
     <div class="headView flexdiv">
@@ -23,24 +20,29 @@ echo $result;
         <?php
         $test = 0;
         foreach ($projects as $project) {
-
             ?>
-            <div class="divGroup thinBorder">
+            <div class="divProject thinBorder">
                 <div class="">
+                    <h3><?= htmlentities(substrText($project['name'], 43, true)) ?></h3>
+                    <div class="flexdiv">
+                        <div class="flex-2 divParticipate mb-4">
+                            <?php
+                            echo "<strong>Réalisé par:</strong><br>";
+                            foreach ($project['participate'] as $participate) {
+                                echo "<span class='clickable linkInternal cursorpointer ' data-href='?action=group&id={$participate['group']['id']}'>".$participate['group']['name'] . "</span><br>";
+                            }
 
-                        <h3><?= $project['name'] ?></h3>
-                    <h5><?= $project[''] ?></h5>
-                    <div class="groupInfo ">
-                        <p title="<?= $project['description'] ?>"><?= $project['description'] ?></p>
-                        <p title="<?= $project['context'] ?>"><?= $project['context'] ?></p>
-                        <p title="<?= $project['state'] ?>"><?= $project['state'] ?></p>
+                            ?>
+                        </div>
+                        <div class="flex-4">
+                            <p title="<?= $project['description'] ?>"><?= substrText($project['description'], 250) ?></p>
+                            <p title="<?= $project['context'] ?>"><?= $project['context'] ?></p>
+
+                        </div>
                     </div>
                 </div>
-                <div class="groupDetails ">
-
-
-                    <div class="box-verticalaligncenter">
-
+                <div class="flexdiv fullwidth ">
+                    <div class="box-verticalaligncenter flex-1">
                         <div class="position-bottom-left">
                             <img src="view/medias/icons/PointDexcalamtion.jpg" alt="email logo" class="icon-simple">
                             <span title="<?= $project['importance'] ?>"><?= $project['importance'] ?></span>
@@ -49,12 +51,17 @@ echo $result;
                             <img src="view/medias/icons/IconMontre.png" alt="email logo" class="icon-simple">
                             <span title="<?= $project['urgency'] ?>"><?= $project['urgency'] ?></span>
                         </div>
-                        </div>
 
+                    </div>
+                    <div class="flex-3">
+                        <p title="<?= $project['state'] ?>">Etat: <?= convertProjectState($project['state']) ?></p>
+                    </div>
 
                 </div>
                 <div class="position-bottom-right">
-                    <button class="btn btn-info">Détails</button>
+                    <button class="btn btn-info clickable" data-href="?action=project&id=<?= $project['id'] ?>">
+                        Détails
+                    </button>
                 </div>
             </div>
         <?php } ?>

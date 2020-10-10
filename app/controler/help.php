@@ -109,7 +109,12 @@ function substrText($text, $max, $nospace = false, $points = true)
     }
 
     if ($points) {  //if points enabled, add 3 little points
-        $text .= " ...";
+        if ($nospace) {
+            $text .= "...";
+        } else {
+            $text .= " ...";
+        }
+
     }
     return $text;
 }

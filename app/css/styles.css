@@ -298,6 +298,16 @@ label {
     color: #0097ba;
 }
 
+.linkInternal {
+    text-decoration: none;
+    color: #165eab;
+}
+
+.linkInternal:hover {
+    text-decoration: none;
+    color: #000837;
+}
+
 /*classes for background and text color with colors of the logo. see colors.txt for more details.*/
 .darkbluelogo {
     background-color: #38417f;

@@ -13,9 +13,20 @@ function projects()
 {
 
     $projects = getAllProjects();
-    $fieldsToConvert = ["name", "description", "start", "end", "state", "value", "effort", "visible", "project_id", "creator_id", "creation_date"];
-    $projects = specialCharsConvertFromAnArray($projects, $fieldsToConvert);
-    displaydebug($projects);
+    $groups = indexAnArrayById(getAllGroups());
+    foreach ($projects as $key => $project) {
+        $participates = getByCondition("participate",["id"=> $project['id']], "participate.project_id=:id and participate.state in (2, 3) order by participate.state desc", true);
+        foreach ($participates as $key => $participate) {
+            $participates[$key]['group'] = $groups[$participate['group_id']];
+        }
+        $projects[$key]['participate'] = $participates;
+    }
+
+    //TODO: fix bug with substrText() after specialCharsConvertFromAnArray() ...
+    //$fieldsToConvert = ["name", "description", "start", "end", "state", "value", "effort", "visible", "project_id", "creator_id", "creation_date"];
+    //$projects = specialCharsConvertFromAnArray($projects, $fieldsToConvert);
+    displaydebug($projects[6], true);
+    displaydebug($projects[6]['name'], true);
 
     require_once "view/projects.php";
 }
