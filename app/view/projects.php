@@ -23,26 +23,32 @@ echo substrText("Réfléxion hiérarchie + égalité des genres", 43, true, true
             ?>
             <div class="divProject thinBorder">
                 <div class="">
-                    <h3><?= htmlentities(substrText($project['name'], 43, true)) ?></h3>
+                    <h3 title="<?= $project['name'] ?>"><?php
+                        if (strlen($project['name']) > 43) {
+                            echo createToolTip(createElementWithFixedLines($project['name'], 1), $project['name']);
+                            }else{
+                            echo htmlentities($project['name']);
+                        }
+                        ?></h3>
                     <div class="flexdiv">
                         <div class="flex-2 divParticipate mb-4">
                             <?php
                             echo "<strong>Réalisé par:</strong><br>";
                             foreach ($project['participate'] as $participate) {
-                                echo "<span class='clickable linkInternal cursorpointer ' data-href='?action=group&id={$participate['group']['id']}'>".$participate['group']['name'] . "</span><br>";
+                                echo "<span class='clickable linkInternal cursorpointer ' data-href='?action=group&id={$participate['group']['id']}'>" . $participate['group']['name'] . "</span><br>";
                             }
 
                             ?>
                         </div>
                         <div class="flex-4">
-                            <p title="<?= $project['description'] ?>"><?= substrText($project['description'], 250) ?></p>
+                            <p title="<?= $project['description'] ?>"><?= createElementWithFixedLines($project['description'], 5) ?></p>
                             <p title="<?= $project['context'] ?>"><?= $project['context'] ?></p>
 
                         </div>
                     </div>
                 </div>
-                <div class="flexdiv fullwidth ">
-                    <div class="box-verticalaligncenter flex-1">
+                <div class="flexdiv fullwidth">
+                    <div class="box-verticalaligncenter flex-2">
                         <div class="position-bottom-left">
                             <img src="view/medias/icons/PointDexcalamtion.jpg" alt="email logo" class="icon-simple">
                             <span title="<?= $project['importance'] ?>"><?= $project['importance'] ?></span>
@@ -53,7 +59,7 @@ echo substrText("Réfléxion hiérarchie + égalité des genres", 43, true, true
                         </div>
 
                     </div>
-                    <div class="flex-3">
+                    <div class="flex-4">
                         <p title="<?= $project['state'] ?>">Etat: <?= convertProjectState($project['state']) ?></p>
                     </div>
 
