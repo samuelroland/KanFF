@@ -62,18 +62,19 @@ WHERE `groups`.id = :id" . (($isMember == false) ? " AND projects.visible = 1;" 
 
 //Get all visible groups by the logged user's id
 function getAllProjectsVisible($id){
-    $query = "SELECT projects.* FROM projects 
+    $query = "SELECT (importance*2+urgency) as priority, projects.* FROM projects 
 INNER	join participate ON projects.id = participate.project_id
 INNER	join `groups` ON `groups`.id = participate.group_id
 INNER join `join` ON join.group_id = `groups`.id
 INNER	join users ON users.id = join.user_id
-WHERE	users.id = :id
+WHERE	users.id = 1 AND participate.state IN (2, 3)
 UNION	
-SELECT projects.* FROM projects 
+SELECT (importance*2+urgency) as priority, projects.* FROM projects 
 INNER	join participate ON projects.id = participate.project_id
 INNER	join `groups` ON `groups`.id = participate.group_id
 INNER join `join` ON join.group_id = `groups`.id
-WHERE	projects.visible = 1;";
+WHERE	projects.visible = 1
+ORDER BY (importance*2+urgency) desc, importance desc, urgency DESC, end;";
     $params = ["id" => $id];
     return Query($query, $params, true);
 }

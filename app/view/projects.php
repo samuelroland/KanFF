@@ -86,13 +86,13 @@ $title = "Projets";
         </div>
         <div class="box-alignright flex-1">
             <a href="?action=createAProject">
-                <button class="btn btn-primary newproject">Nouveau Project</button>
+                <button class="btn btn-primary newproject">Nouveau projet</button>
             </a>
         </div>
     </div>
-    <div class="pt-3">
+    <div class="">
         <?php
-        echo '<h2>En cours</h2>
+        echo '<h2 class="mt-3">En cours</h2>
         <div class="divGroups margin-5px">';
         foreach ($projects as $project) {
             if (isAtLeastEqual($project['state'], [PROJECT_STATE_SEMIACTIVEWORK, PROJECT_STATE_ACTIVEWORK, PROJECT_STATE_UNDERREFLECTION, PROJECT_STATE_UNDERPLANNING])) {
@@ -102,7 +102,7 @@ $title = "Projets";
         }
         echo "</div>";
 
-        echo '<h2>En pause</h2>
+        echo '<h2 class="mt-3">En pause</h2>
         <div class="divGroups margin-5px">';
         foreach ($projects as $project) {
             if (isAtLeastEqual($project['state'], [PROJECT_STATE_ONBREAK, PROJECT_STATE_REPORTED])) {
@@ -111,7 +111,7 @@ $title = "Projets";
         }
         echo "</div>";
 
-        echo '<h2>Terminés</h2>
+        echo '<h2 class="mt-3">Terminés</h2>
         <div class="divGroups margin-5px">';
         foreach ($projects as $project) {
             if (isAtLeastEqual($project['state'], [PROJECT_STATE_DONE])) {
@@ -120,7 +120,7 @@ $title = "Projets";
         }
         echo "</div>";
 
-        echo '<h2>Autres</h2>
+        echo '<h2 class="mt-3">Autres</h2>
         <div class="divGroups margin-5px">';
         foreach ($projects as $project) {
             if (isAtLeastEqual($project['state'], [PROJECT_STATE_ABANDONNED, PROJECT_STATE_CANCELLED])) {
