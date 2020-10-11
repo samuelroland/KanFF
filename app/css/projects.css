@@ -5,16 +5,16 @@
  *  Creation date: 05.10.2020
  */
 
-.statebanner{
+.statebanner {
     background-color: #0097ba;
     padding: 5px;
 }
 
-.oneLog:hover{
+.oneLog:hover {
     background-color: #cbcbcb;
 }
 
-.divParticipate{
+.divParticipate {
 
 }
 
@@ -27,6 +27,16 @@
     position: relative; /*to keep the button "See" in the div*/
     max-width: 850px;
     max-height: 250px;
+    display: flex;
+    flex-wrap: inherit;
+}
+
+.divProjectFirstLine {
+    height: 175px;
+}
+
+.divProjectLastLine {
+    height: 55px;
 }
 
 .txtFixedLines {

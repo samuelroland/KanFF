@@ -22,7 +22,7 @@ echo substrText("Réfléxion hiérarchie + égalité des genres", 43, true, true
         foreach ($projects as $project) {
             ?>
             <div class="divProject thinBorder">
-                <div class="">
+                <div class="divProjectFirstLine">
                     <h3 title="<?= $project['name'] ?>"><?php
                         if (strlen($project['name']) > 43) {
                             echo createToolTip(createElementWithFixedLines($project['name'], 1), $project['name']);
@@ -47,7 +47,7 @@ echo substrText("Réfléxion hiérarchie + égalité des genres", 43, true, true
                         </div>
                     </div>
                 </div>
-                <div class="flexdiv fullwidth">
+                <div class="flexdiv fullwidth divProjectLastLine">
                     <div class="box-verticalaligncenter flex-2">
                         <div class="position-bottom-left">
                             <img src="view/medias/icons/PointDexcalamtion.jpg" alt="email logo" class="icon-simple">
