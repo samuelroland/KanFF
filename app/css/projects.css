@@ -28,3 +28,11 @@
     max-width: 850px;
     max-height: 250px;
 }
+
+.txtFixedLines {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}

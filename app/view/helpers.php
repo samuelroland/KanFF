@@ -97,9 +97,9 @@ function displaydebug($var, $needPrint_r = false)
         if (substr($_SERVER['SERVER_SOFTWARE'], 0, 7) != "PHP 7.3") {  //if version is not 7.3 (var_dump() don't have the same design)
             echo "<pre><small>" . print_r($var, true) . "</small></pre>";   //print with line break and style of <pre>
         } else {
-            if ($needPrint_r==false) {
+            if ($needPrint_r == false) {
                 var_dump($var); //else to a simple var_dump() of PHP 7.3
-            }else{
+            } else {
                 echo "<pre><small>" . print_r($var, true) . "</small></pre>";
             }
 
@@ -289,6 +289,19 @@ function mentionUser($basicUser)
     }
 
     return $mention;
+}
+
+//Get HTML code to create a tooltip with or without a link
+function createToolTip($innerText, $tooltipText, $link = false, $type = "top")
+{
+    $html = "<span class=' d-inline " . (($link != false) ? "linkInternal clickable cursorpointer" : "") . "' data-fallbackPlacement='flip' data-toggle='tooltip' data-title='" . $tooltipText . "' data-placement='$type' data-delay='1' " . (($link != false) ? "data-href='$link'" : "") . ">{$innerText}</span>";
+    return $html;
+}
+
+function createElementWithFixedLines($text, $nbLines)
+{
+    $html = "<span class='txtFixedLines' style='-webkit-line-clamp: $nbLines;'>$text</span>";
+    return $html;
 }
 
 //tasks too or identical to works.state ?
