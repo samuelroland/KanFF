@@ -38,11 +38,6 @@
     border-radius: 5px;
 }
 
-.thinBorder {
-    border: solid #8d8d8d 2px;
-    border-radius: 5px;
-}
-
 .position-bottom-right {
     position: absolute;
     bottom: 10px;

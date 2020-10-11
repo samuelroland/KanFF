@@ -11,13 +11,12 @@ require_once "model/projectsModel.php";
 // Display the page groups
 function projects()
 {
-
-    $projects = getAllProjects();
-    $groups = indexAnArrayById(getAllGroups());
+    $projects = getAllProjectsVisible($_SESSION['user']['id']);
+    $groups = indexAnArrayById(getAll("groups"));
     foreach ($projects as $key => $project) {
         $participates = getByCondition("participate",["id"=> $project['id']], "participate.project_id=:id and participate.state in (2, 3) order by participate.state desc", true);
-        foreach ($participates as $key => $participate) {
-            $participates[$key]['group'] = $groups[$participate['group_id']];
+        foreach ($participates as $key2 => $participate) {
+            $participates[$key2]['group'] = $groups[$participate['group_id']];
         }
         $projects[$key]['participate'] = $participates;
     }
@@ -25,8 +24,6 @@ function projects()
     //TODO: fix bug with substrText() after specialCharsConvertFromAnArray() ...
     //$fieldsToConvert = ["name", "description", "start", "end", "state", "value", "effort", "visible", "project_id", "creator_id", "creation_date"];
     //$projects = specialCharsConvertFromAnArray($projects, $fieldsToConvert);
-    displaydebug($projects[6], true);
-    displaydebug($projects[6]['name'], true);
 
     require_once "view/projects.php";
 }

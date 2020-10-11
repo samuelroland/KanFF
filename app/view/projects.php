@@ -1,7 +1,6 @@
 <?php
 ob_start();
 $title = "Projets";
-echo substrText("Réfléxion hiérarchie + égalité des genres", 43, true, true)
 ?>
     <h1><?= $title ?></h1>
     <div class="headView flexdiv">
@@ -26,18 +25,30 @@ echo substrText("Réfléxion hiérarchie + égalité des genres", 43, true, true
                     <h3 title="<?= $project['name'] ?>"><?php
                         if (strlen($project['name']) > 43) {
                             echo createToolTip(createElementWithFixedLines($project['name'], 1), $project['name']);
-                            }else{
+                        } else {
                             echo htmlentities($project['name']);
                         }
                         ?></h3>
                     <div class="flexdiv">
                         <div class="flex-2 divParticipate mb-4">
                             <?php
-                            echo "<strong>Réalisé par:</strong><br>";
+                            $listOfGroups = "";
+                            $nbGroups = 0;
+                            $notAllDisplayed = false;
                             foreach ($project['participate'] as $participate) {
-                                echo "<span class='clickable linkInternal cursorpointer ' data-href='?action=group&id={$participate['group']['id']}'>" . $participate['group']['name'] . "</span><br>";
+                                if ($nbGroups < 4) {
+                                    $listOfGroups .= "<br><span class='clickable linkInternal cursorpointer ' data-href='?action=group&id={$participate['group']['id']}'>" . $participate['group']['name'] . "</span>";
+                                } else {
+                                    $notAllDisplayed = true;
+                                }
+                                $listOfGroupsRawText .= " - " . $participate['group']['name'];
+                                $nbGroups++;
                             }
-
+                            echo "<span title='" . htmlentities($listOfGroupsRawText) . "'><strong>Réalisé par:</strong></span>";
+                            echo $listOfGroups;
+                            if ($notAllDisplayed) {
+                                echo "...";
+                            }
                             ?>
                         </div>
                         <div class="flex-4">

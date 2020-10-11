@@ -474,3 +474,8 @@ tr {
 .margin-5px{
     margin: -5px;
 }
+
+.thinBorder {
+    border: solid #ffb400ab 2px;
+    border-radius: 5px;
+}
