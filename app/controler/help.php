@@ -180,4 +180,14 @@ function checkThatEachKeyIsNotEmpty($array)
     return true;
 }
 
+function isAtLeastEqual($value, $possibilities)
+{
+    foreach ($possibilities as $possibility) {
+        if ($value == $possibility) {
+            return true;
+        }
+    }
+    return false;
+}
+
 ?>

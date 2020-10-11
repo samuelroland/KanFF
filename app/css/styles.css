@@ -479,3 +479,7 @@ tr {
     border: solid #ffb400ab 2px;
     border-radius: 5px;
 }
+
+.notVisibleToAll{
+    background-color: #d9dadb;
+}

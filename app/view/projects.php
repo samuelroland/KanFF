@@ -1,6 +1,82 @@
 <?php
+function printAProject($project)
+{
+    ob_start();
+    ?>
+    <div class="divProject thinBorder <?= (($project['visible'] == 0) ? "notVisibleToAll" : "") ?>">
+        <div class="divProjectFirstLine">
+            <h3 title="<?= $project['name'] ?>"><?php
+                if (strlen($project['name']) > 43) {
+                    echo createToolTip(createElementWithFixedLines($project['name'], 1), $project['name']);
+                } else {
+                    echo htmlentities($project['name']);
+                }
+                ?></h3>
+            <div class="flexdiv">
+                <div class="flex-2 divParticipate mb-4">
+                    <?php
+                    $listOfGroups = "";
+                    $nbGroups = 0;
+                    $notAllDisplayed = false;
+                    foreach ($project['participate'] as $participate) {
+                        if ($nbGroups < 4) {
+                            $listOfGroups .= "<br><span class='clickable linkInternal cursorpointer ' data-href='?action=group&id={$participate['group']['id']}'>" . $participate['group']['name'] . "</span>";
+                        } else {
+                            $notAllDisplayed = true;
+                        }
+                        $listOfGroupsRawText .= " - " . $participate['group']['name'];
+                        $nbGroups++;
+                    }
+                    echo "<span title='" . htmlentities($listOfGroupsRawText) . "'><strong>Réalisé par:</strong></span>";
+                    echo $listOfGroups;
+                    if ($notAllDisplayed) {
+                        echo "...";
+                    }
+                    ?>
+                </div>
+                <div class="flex-4">
+                    <p title="<?= $project['description'] ?>"><?= createElementWithFixedLines($project['description'], 5) ?></p>
+                    <p title="<?= $project['context'] ?>"><?= $project['context'] ?></p>
+
+                </div>
+            </div>
+        </div>
+        <div class="flexdiv fullwidth divProjectLastLine">
+            <div class="box-verticalaligncenter flex-2">
+                <div class="position-bottom-left">
+                    <img src="view/medias/icons/PointDexcalamtion.jpg" alt="email logo" class="icon-simple">
+                    <span title="<?= $project['importance'] ?>" class="pr-2"><?= $project['importance'] ?></span>
+                </div>
+                <div class="position-bottom-left">
+                    <img src="view/medias/icons/IconMontre.png" alt="email logo" class="icon-simple">
+                    <span title="<?= $project['urgency'] ?>" class="pr-2"><?= $project['urgency'] ?></span>
+                </div>
+                <?php if ($project['visible'] == 0) { ?>
+                    <div class="position-bottom-left">
+                        <img title="Ce projet est invisible pour les personnes extérieures au projet" src="view/medias/icons/hiddeneye.png" alt="email logo" class="icon-simple">
+                    </div>
+                <?php } ?>
+
+            </div>
+            <div class="flex-4 box-verticalaligncenter">
+                <span title="<?= $project['state'] ?>">Etat: <?= convertProjectState($project['state']) ?></span>
+            </div>
+
+        </div>
+        <div class="position-bottom-right">
+            <button class="btn btn-info clickable" data-href="?action=project&id=<?= $project['id'] ?>">
+                Détails
+            </button>
+        </div>
+    </div>
+    <?php
+    echo ob_get_clean();
+}
+
+//Start of the view:
 ob_start();
 $title = "Projets";
+
 ?>
     <h1><?= $title ?></h1>
     <div class="headView flexdiv">
@@ -14,74 +90,45 @@ $title = "Projets";
             </a>
         </div>
     </div>
-    <H3>En cours</H3>
-    <div class="divGroups margin-5px pt-3">
+    <div class="pt-3">
         <?php
-        $test = 0;
+        echo '<h2>En cours</h2>
+        <div class="divGroups margin-5px">';
         foreach ($projects as $project) {
-            ?>
-            <div class="divProject thinBorder">
-                <div class="divProjectFirstLine">
-                    <h3 title="<?= $project['name'] ?>"><?php
-                        if (strlen($project['name']) > 43) {
-                            echo createToolTip(createElementWithFixedLines($project['name'], 1), $project['name']);
-                        } else {
-                            echo htmlentities($project['name']);
-                        }
-                        ?></h3>
-                    <div class="flexdiv">
-                        <div class="flex-2 divParticipate mb-4">
-                            <?php
-                            $listOfGroups = "";
-                            $nbGroups = 0;
-                            $notAllDisplayed = false;
-                            foreach ($project['participate'] as $participate) {
-                                if ($nbGroups < 4) {
-                                    $listOfGroups .= "<br><span class='clickable linkInternal cursorpointer ' data-href='?action=group&id={$participate['group']['id']}'>" . $participate['group']['name'] . "</span>";
-                                } else {
-                                    $notAllDisplayed = true;
-                                }
-                                $listOfGroupsRawText .= " - " . $participate['group']['name'];
-                                $nbGroups++;
-                            }
-                            echo "<span title='" . htmlentities($listOfGroupsRawText) . "'><strong>Réalisé par:</strong></span>";
-                            echo $listOfGroups;
-                            if ($notAllDisplayed) {
-                                echo "...";
-                            }
-                            ?>
-                        </div>
-                        <div class="flex-4">
-                            <p title="<?= $project['description'] ?>"><?= createElementWithFixedLines($project['description'], 5) ?></p>
-                            <p title="<?= $project['context'] ?>"><?= $project['context'] ?></p>
+            if (isAtLeastEqual($project['state'], [PROJECT_STATE_SEMIACTIVEWORK, PROJECT_STATE_ACTIVEWORK, PROJECT_STATE_UNDERREFLECTION, PROJECT_STATE_UNDERPLANNING])) {
+                printAProject($project);
+            }
 
-                        </div>
-                    </div>
-                </div>
-                <div class="flexdiv fullwidth divProjectLastLine">
-                    <div class="box-verticalaligncenter flex-2">
-                        <div class="position-bottom-left">
-                            <img src="view/medias/icons/PointDexcalamtion.jpg" alt="email logo" class="icon-simple">
-                            <span title="<?= $project['importance'] ?>"><?= $project['importance'] ?></span>
-                        </div>
-                        <div class="position-bottom-left">
-                            <img src="view/medias/icons/IconMontre.png" alt="email logo" class="icon-simple">
-                            <span title="<?= $project['urgency'] ?>"><?= $project['urgency'] ?></span>
-                        </div>
+        }
+        echo "</div>";
 
-                    </div>
-                    <div class="flex-4 box-verticalaligncenter">
-                        <span title="<?= $project['state'] ?>">Etat: <?= convertProjectState($project['state']) ?></span>
-                    </div>
+        echo '<h2>En pause</h2>
+        <div class="divGroups margin-5px">';
+        foreach ($projects as $project) {
+            if (isAtLeastEqual($project['state'], [PROJECT_STATE_ONBREAK, PROJECT_STATE_REPORTED])) {
+                printAProject($project);
+            }
+        }
+        echo "</div>";
 
-                </div>
-                <div class="position-bottom-right">
-                    <button class="btn btn-info clickable" data-href="?action=project&id=<?= $project['id'] ?>">
-                        Détails
-                    </button>
-                </div>
-            </div>
-        <?php } ?>
+        echo '<h2>Terminés</h2>
+        <div class="divGroups margin-5px">';
+        foreach ($projects as $project) {
+            if (isAtLeastEqual($project['state'], [PROJECT_STATE_DONE])) {
+                printAProject($project);
+            }
+        }
+        echo "</div>";
+
+        echo '<h2>Autres</h2>
+        <div class="divGroups margin-5px">';
+        foreach ($projects as $project) {
+            if (isAtLeastEqual($project['state'], [PROJECT_STATE_ABANDONNED, PROJECT_STATE_CANCELLED])) {
+                printAProject($project);
+            }
+        }
+        echo "</div>";
+        ?>
     </div>
 <?php
 $contenttype = "large";
