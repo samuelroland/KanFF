@@ -19,7 +19,7 @@ echo $result;
         </div>
     </div>
 
-    <div class="divGroups row pt-3">
+    <div class="divGroups margin-5px pt-3">
         <?php
         $test = 0;
         foreach ($groups as $group) {

@@ -16,7 +16,7 @@ echo substrText("Réfléxion hiérarchie + égalité des genres", 43, true, true
         </div>
     </div>
     <H3>En cours</H3>
-    <div class="divGroups row pt-3">
+    <div class="divGroups margin-5px pt-3">
         <?php
         $test = 0;
         foreach ($projects as $project) {
@@ -59,8 +59,8 @@ echo substrText("Réfléxion hiérarchie + égalité des genres", 43, true, true
                         </div>
 
                     </div>
-                    <div class="flex-4">
-                        <p title="<?= $project['state'] ?>">Etat: <?= convertProjectState($project['state']) ?></p>
+                    <div class="flex-4 box-verticalaligncenter">
+                        <span title="<?= $project['state'] ?>">Etat: <?= convertProjectState($project['state']) ?></span>
                     </div>
 
                 </div>

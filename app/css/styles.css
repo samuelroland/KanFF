@@ -470,3 +470,7 @@ tr {
     border: #929292 1px solid;
     border-radius: 5px;
 }
+
+.margin-5px{
+    margin: -5px;
+}
