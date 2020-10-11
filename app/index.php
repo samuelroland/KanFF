@@ -112,7 +112,11 @@ if (!isset($_SESSION['user']['id'])) {
                 createAProject($_POST);
                 break;
             case "projects":
-                projects();
+                $option = $_GET['option'];
+                if ($option == null || isAtLeastEqual($option, [1, 2]) == false) {
+                    $option = 1;
+                }
+                projects($option);
                 break;
             case "project":
                 projectDetails($_GET['id'], $_GET['option']);

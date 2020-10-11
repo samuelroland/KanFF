@@ -9,9 +9,17 @@
 require_once "model/projectsModel.php";
 
 // Display the page groups
-function projects()
+function projects($option)
 {
-    $projects = getAllProjectsVisible($_SESSION['user']['id']);
+    switch ($option){
+        case 1:
+            $projects = getAllProjectsVisible($_SESSION['user']['id']);
+            break;
+        case 2:
+            $projects = getAllProjectsContributed($_SESSION['user']['id']);
+            break;
+    }
+
     $groups = indexAnArrayById(getAll("groups"));
     foreach ($projects as $key => $project) {
         $participates = getByCondition("participate",["id"=> $project['id']], "participate.project_id=:id and participate.state in (2, 3) order by participate.state desc", true);

@@ -6,10 +6,10 @@ function printAProject($project)
     <div class="divProject thinBorder <?= (($project['visible'] == 0) ? "notVisibleToAll" : "") ?>">
         <div class="divProjectFirstLine">
             <h3 title="<?= $project['name'] ?>"><?php
-                if (strlen($project['name']) > 43) {
+                if (strlen($project['name']) > 26) {
                     echo createToolTip(createElementWithFixedLines($project['name'], 1), $project['name']);
                 } else {
-                    echo htmlentities($project['name']);
+                    echo(createElementWithFixedLines($project['name'], 1));
                 }
                 ?></h3>
             <div class="flexdiv">
@@ -36,8 +36,6 @@ function printAProject($project)
                 </div>
                 <div class="flex-4">
                     <p title="<?= $project['description'] ?>"><?= createElementWithFixedLines($project['description'], 5) ?></p>
-                    <p title="<?= $project['context'] ?>"><?= $project['context'] ?></p>
-
                 </div>
             </div>
         </div>
@@ -53,7 +51,8 @@ function printAProject($project)
                 </div>
                 <?php if ($project['visible'] == 0) { ?>
                     <div class="position-bottom-left">
-                        <img title="Ce projet est invisible pour les personnes extérieures au projet" src="view/medias/icons/hiddeneye.png" alt="email logo" class="icon-simple">
+                        <img title="Ce projet est invisible pour les personnes extérieures au projet"
+                             src="view/medias/icons/hiddeneye.png" alt="email logo" class="icon-simple">
                     </div>
                 <?php } ?>
 
@@ -81,8 +80,12 @@ $title = "Projets";
     <h1><?= $title ?></h1>
     <div class="headView flexdiv">
         <div class="flex-1">
-            <button class="btn active">Tous</button>
-            <button class="btn btn-info">Contribués</button>
+            <button data-href="?action=projects&option=1"
+                    class="clickable btn <?= ($option == 1) ? 'active' : 'btn-info' ?>">Tous
+            </button>
+            <button data-href="?action=projects&option=2"
+                    class="clickable btn <?= ($option == 2) ? 'active' : 'btn-info' ?>">Contribués
+            </button>
         </div>
         <div class="box-alignright flex-1">
             <a href="?action=createAProject">
@@ -92,40 +95,59 @@ $title = "Projets";
     </div>
     <div class="">
         <?php
+        $noProjectDisplayed = true;
         echo '<h2 class="mt-3">En cours</h2>
         <div class="divGroups margin-5px">';
         foreach ($projects as $project) {
             if (isAtLeastEqual($project['state'], [PROJECT_STATE_SEMIACTIVEWORK, PROJECT_STATE_ACTIVEWORK, PROJECT_STATE_UNDERREFLECTION, PROJECT_STATE_UNDERPLANNING])) {
                 printAProject($project);
+                $noProjectDisplayed = false;
             }
-
+        }
+        if ($noProjectDisplayed) {
+            echo "Aucun projet de cette catégorie...";
         }
         echo "</div>";
 
+        $noProjectDisplayed = true;
         echo '<h2 class="mt-3">En pause</h2>
         <div class="divGroups margin-5px">';
         foreach ($projects as $project) {
             if (isAtLeastEqual($project['state'], [PROJECT_STATE_ONBREAK, PROJECT_STATE_REPORTED])) {
                 printAProject($project);
+                $noProjectDisplayed = false;
             }
+        }
+        if ($noProjectDisplayed) {
+            echo "Aucun projet de cette catégorie...";
         }
         echo "</div>";
 
+        $noProjectDisplayed = true;
         echo '<h2 class="mt-3">Terminés</h2>
         <div class="divGroups margin-5px">';
         foreach ($projects as $project) {
             if (isAtLeastEqual($project['state'], [PROJECT_STATE_DONE])) {
                 printAProject($project);
+                $noProjectDisplayed = false;
             }
+        }
+        if ($noProjectDisplayed) {
+            echo "Aucun projet de cette catégorie...";
         }
         echo "</div>";
 
+        $noProjectDisplayed = true;
         echo '<h2 class="mt-3">Autres</h2>
         <div class="divGroups margin-5px">';
         foreach ($projects as $project) {
             if (isAtLeastEqual($project['state'], [PROJECT_STATE_ABANDONNED, PROJECT_STATE_CANCELLED])) {
                 printAProject($project);
+                $noProjectDisplayed = false;
             }
+        }
+        if ($noProjectDisplayed) {
+            echo "Aucun projet de cette catégorie...";
         }
         echo "</div>";
         ?>
