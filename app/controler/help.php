@@ -190,4 +190,23 @@ function isAtLeastEqual($value, $possibilities)
     return false;
 }
 
+//Compare 2 dates (datetime format) with day precision and return -1, 0 or 1
+function compare2DatesWithDayPrecision($date1, $date2)
+{
+    //Set dates in timestamp with day precisions (at the end, no difference between "2020-05-01 05:06:08" et "2020-05-01 10:15:00"
+    $date1 = strtotime(date("Y-m-d", strtotime($date1)));
+    $date2 = strtotime(date("Y-m-d", strtotime($date2)));
+
+    if ($date1 == -1 || $date2 == -1) {
+        die("compare2DatesWithDayPrecision: Error of conversion.");
+    }
+    if ($date1 == $date2) {
+        return 0;
+    } else if ($date1 < $date2) {
+        return -1;
+    } else {
+        return 1;
+    }
+}
+
 ?>

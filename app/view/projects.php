@@ -62,6 +62,8 @@ function printAProject($project)
                     <span>État: <strong><?= convertProjectState($project['state']) ?></strong></span><br>
                     <?php if ($project['state'] == PROJECT_STATE_DONE) { ?>
                         <span>Date fin: <strong><?= DTToHumanDate($project['end']) ?></strong></span>
+                    <?php } else if (compare2DatesWithDayPrecision($project['start'], timeToDT(time())) == 1) { ?>
+                        <span>Date début: <strong><?= DTToHumanDate($project['start']) ?></strong></span>
                     <?php } ?>
                 </div>
             </div>
