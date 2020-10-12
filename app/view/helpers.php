@@ -108,161 +108,220 @@ function displaydebug($var, $needPrint_r = false)
 }
 
 //Convert the user state in french
-function convertUserState($int)
+function convertUserState($int, $needFirstCharToUpper = false)
 {
     switch ($int) {
         case USER_STATE_UNAPPROVED:
-            return "non approuvé";
+            $txt = "non approuvé";
+            break;
         case USER_STATE_APPROVED:
-            return "approuvé";
+            $txt = "approuvé";
+            break;
         case USER_STATE_ARCHIVED:
-            return "archivé";
+            $txt = "archivé";
+            break;
         case USER_STATE_BANNED:
-            return "banni";
+            $txt = "banni";
+            break;
         case USER_STATE_ADMIN:
-            return "admin";
+            $txt = "admin";
+            break;
         default:
-            return "ERROR UNKNOWN STATE";
+            $txt = "ERROR UNKNOWN STATE";
     }
+    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
+    return $txt;
 }
 
 //Convert the user state in french
-function convertJoinState($int)
+function convertJoinState($int, $needFirstCharToUpper = false)
 {
     switch ($int) {
         case JOIN_STATE_UNAPPROVED:
-            return "non approuvé";
+            $txt = "non approuvé";
+            break;
         case JOIN_STATE_REFUSED:
-            return "refusé";
+            $txt = "refusé";
+            break;
         case JOIN_STATE_INVITATION:
-            return "invitation";
+            $txt = "invitation";
+            break;
         case JOIN_STATE_LEFT:
-            return "quitté";
+            $txt = "quitté";
+            break;
         case JOIN_STATE_INVITATION_REFUSED:
-            return "invitation refusée";
+            $txt = "invitation refusée";
+            break;
         case JOIN_STATE_BANNED:
-            return "banni";
+            $txt = "banni";
+            break;
         case JOIN_STATE_INVITATION_ACCEPTED:
-            return "invitation acceptée";
+            $txt = "invitation acceptée";
+            break;
         case JOIN_STATE_APPROVED:
-            return "approuvé";
+            $txt = "approuvé";
+            break;
         default:
-            return "ERROR UNKNOWN STATE";
+            $txt = "ERROR UNKNOWN STATE";
     }
+    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
+    return $txt;
 }
 
 //Convert the group state in french
-function convertGroupState($int)
+function convertGroupState($int, $needFirstCharToUpper = false)
 {
     switch ($int) {
         case GROUP_STATE_ONSTARTUP:
-            return "en démarrage";
+            $txt = "en démarrage";
+            break;
         case GROUP_STATE_ACTIVE:
-            return "actif";
+            $txt = "actif";
+            break;
         case GROUP_STATE_ONBREAK:
-            return "en pause";
+            $txt = "en pause";
+            break;
         case GROUP_STATE_ARCHIVED:
-            return "archivé";
+            $txt = "archivé";
+            break;
         default:
-            return "ERROR UNKNOWN STATE";
+            $txt = "ERROR UNKNOWN STATE";
     }
+    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
+    return $txt;
 }
 
 //Convert the group visibility in french
-function convertGroupVisibility($int)
+function convertGroupVisibility($int, $needFirstCharToUpper = false)
 {
     switch ($int) {
         case GROUP_VISIBILITY_INVISIBLE:
-            return "Invisible";
+            $txt = "Invisible";
+            break;
         case GROUP_VISIBILITY_TITLE:
-            return "Titre uniquement";
+            $txt = "Titre uniquement";
+            break;
         case GROUP_VISIBILITY_STANDARD:
-            return "Standard";
+            $txt = "Standard";
+            break;
         case GROUP_VISIBILITY_TOTAL:
-            return "Totalement visible";
+            $txt = "Totalement visible";
+            break;
         default:
-            return "ERROR UNKNOWN STATE";
+            $txt = "ERROR UNKNOWN STATE";
     }
+    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
+    return $txt;
 }
 
 //Convert the project state in french
-function convertProjectState($int)
+function convertProjectState($int, $needFirstCharToUpper = false)
 {
     switch ($int) {
         case PROJECT_STATE_UNDERREFLECTION:
-            return "en cours de réflexion";
+            $txt = "en cours de réflexion";
+            break;
         case PROJECT_STATE_UNDERPLANNING:
-            return "en planification";
+            $txt = "en planification";
+            break;
         case PROJECT_STATE_SEMIACTIVEWORK:
-            return "travail semi-actif";
+            $txt = "travail semi-actif";
+            break;
         case PROJECT_STATE_ACTIVEWORK:
-            return "travail actif";
+            $txt = "travail actif";
+            break;
         case PROJECT_STATE_ONBREAK:
-            return "travail en pause";
+            $txt = "travail en pause";
+            break;
         case PROJECT_STATE_REPORTED:
-            return "reporté";
+            $txt = "reporté";
+            break;
         case PROJECT_STATE_ABANDONNED:
-            return "abandonné";
+            $txt = "abandonné";
+            break;
         case PROJECT_STATE_CANCELLED:
-            return "annulé";
+            $txt = "annulé";
+            break;
         case PROJECT_STATE_DONE:
-            return "terminé";
+            $txt = "terminé";
+            break;
         default:
-            return "ERROR UNKNOWN STATE";
+            $txt = "ERROR UNKNOWN STATE";
     }
+    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
+    return $txt;
 }
 
 //Convert the participate state in french
-function convertParticipateState($int)
+function convertParticipateState($int, $needFirstCharToUpper = false)
 {
     switch ($int) {
         case PARTICIPATE_STATE_INVITATION:
-            return "invitation";
+            $txt = "invitation";
+            break;
         case PARTICIPATE_STATE_INVITATION_ACCEPTED:
-            return "invitation acceptée";
+            $txt = "invitation acceptée";
+            break;
         case PARTICIPATE_STATE_CREATOR:
-            return "créateur";
+            $txt = "créateur";
+            break;
         case PARTICIPATE_STATE_LEFT:
-            return "quitté";
+            $txt = "quitté";
+            break;
         case PARTICIPATE_STATE_INVITATION_REFUSED:
-            return "invitation refusée";
+            $txt = "invitation refusée";
+            break;
         case PARTICIPATE_STATE_BANNED:
-            return "banni";
+            $txt = "banni";
+            break;
         default:
-            return "ERROR UNKNOWN STATE";
+            $txt = "ERROR UNKNOWN STATE";
     }
+    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
+    return $txt;
 }
 
 //Convert the work state in french
-function convertWorkState($int)
+function convertWorkState($int, $needFirstCharToUpper = false)
 {
     switch ($int) {
         case WORK_STATE_TODO:
-            return "à faire";
+            $txt = "à faire";
+            break;
         case WORK_STATE_INRUN:
-            return "en cours";
+            $txt = "en cours";
+            break;
         case WORK_STATE_ONBREAK:
-            return "en pause";
+            $txt = "en pause";
+            break;
         case WORK_STATE_DONE:
-            return "terminé";   //ou fini ??
+            $txt = "terminé";   //ou fini ??
+            break;
         default:
-            return "ERROR UNKNOWN STATE";
+            $txt = "ERROR UNKNOWN STATE";
     }
+    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
+    return $txt;
 }
 
 //Convert the task state in french
-function convertTaskState($int)
+function convertTaskState($int, $needFirstCharToUpper = false)
 {
     switch ($int) {
         case TASK_STATE_TODO:
-            return "à faire";
+            $txt = "à faire";
+            break;
         case TASK_STATE_INRUN:
-            return "en cours";
+            $txt = "en cours";
+            break;
         case TASK_STATE_DONE:
-            return "terminé";   //ou fini ??
+            $txt = "terminé";   //ou fini ??
+            break;
         default:
-            return "ERROR UNKNOWN STATE";
+            $txt = "ERROR UNKNOWN STATE";
     }
+    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
+    return $txt;
 }
 
 //Done you can use it
@@ -275,6 +334,16 @@ function setFirstCharToUpperCase($string)
             substr($string, 0, 2)
         ) . substr($string, 2);
     return $string;
+}
+
+//Apply (or not) the first char function (to avoid this comparison on each "convert" function.
+function manageIfApplyOnFirstChar($txt, $needFirstCharToUpper)
+{
+    if ($needFirstCharToUpper == false) {
+        return $txt;
+    } else {
+        return setFirstCharToUpperCase($txt);
+    }
 }
 
 //Get HTML code to mention an user with initials clickable (for user details) and with a tooltip to show full name:
