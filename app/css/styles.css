@@ -476,8 +476,11 @@ tr {
     border-radius: 5px;
 }
 
-.margin-5px{
+.margin-5px {
     margin: -5px;
+}
+.marginplus5px {
+    margin: 5px;
 }
 
 .thinBorder {
@@ -485,11 +488,15 @@ tr {
     border-radius: 5px;
 }
 
-.notVisibleToAll{
+.notVisibleToAll {
     background-color: #d9dadb;
 }
 
-.breakword{
+.breakword {
     word-break: break-word;
     word-wrap: break-word;
+}
+
+.bigvalue {
+    font-size: 1.5em;
 }

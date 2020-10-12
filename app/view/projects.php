@@ -20,7 +20,7 @@ function printAProject($project)
                     $notAllDisplayed = false;
                     foreach ($project['participate'] as $participate) {
                         if ($nbGroups < 4) {
-                            $listOfGroups .= "<br><span class='clickable linkInternal cursorpointer ' data-href='?action=group&id={$participate['group']['id']}'>" . $participate['group']['name'] . "</span>";
+                            $listOfGroups .= "· <span class='clickable linkInternal cursorpointer ' data-href='?action=group&id={$participate['group']['id']}' title='{$participate['group']['name']}'>" . $participate['group']['name'] . "</span><br>";
                         } else {
                             $notAllDisplayed = true;
                         }
@@ -28,29 +28,29 @@ function printAProject($project)
                         $nbGroups++;
                     }
                     echo "<span title='" . htmlentities($listOfGroupsRawText) . "'><strong>Réalisé par:</strong></span>";
-                    echo $listOfGroups;
+                    echo createElementWithFixedLines($listOfGroups, 4);
                     if ($notAllDisplayed) {
                         echo "...";
                     }
                     ?>
                 </div>
-                <div class="flex-4">
+                <div class="flex-4 pl-2">
                     <p title="<?= $project['description'] ?>"><?= createElementWithFixedLines($project['description'], 5) ?></p>
                 </div>
             </div>
         </div>
         <div class="flexdiv fullwidth divProjectLastLine">
             <div class="box-verticalaligncenter flex-2">
-                <div class="position-bottom-left">
-                    <img src="view/medias/icons/exclamationmark.png" alt="email logo" class="icon-simple">
-                    <span title="<?= $project['importance'] ?>" class="pr-2"><?= $project['importance'] ?></span>
+                <div class="box-verticalaligncenter">
+                    <img src="view/medias/icons/exclamationmark.png" alt="email logo" class="icon-simple nomargin">
+                    <span title="<?= $project['importance'] ?>" class="pr-2 bigvalue"><?= $project['importance'] ?></span>
                 </div>
-                <div class="position-bottom-left">
-                    <img src="view/medias/icons/clock.png" alt="email logo" class="icon-simple">
-                    <span title="<?= $project['urgency'] ?>" class="pr-2"><?= $project['urgency'] ?></span>
+                <div class="box-verticalaligncenter">
+                    <img src="view/medias/icons/clock.png" alt="email logo" class="icon-simple nomargin">
+                    <span title="<?= $project['urgency'] ?>" class="pl-2 pr-2 bigvalue"><?= $project['urgency'] ?></span>
                 </div>
                 <?php if ($project['visible'] == 0) { ?>
-                    <div class="position-bottom-left">
+                    <div class="box-verticalaligncenter">
                         <img title="Ce projet est invisible pour les personnes extérieures au projet"
                              src="view/medias/icons/hiddeneye.png" alt="email logo" class="icon-simple">
                     </div>
@@ -58,7 +58,7 @@ function printAProject($project)
 
             </div>
             <div class="flex-4 box-verticalaligncenter">
-                <span title="<?= $project['state'] ?>">Etat: <?= convertProjectState($project['state']) ?></span>
+                <span title="<?= $project['state'] ?>">Etat: <strong><?= convertProjectState($project['state']) ?></strong></span>
             </div>
 
         </div>
@@ -105,7 +105,7 @@ $title = "Projets";
             }
         }
         if ($noProjectDisplayed) {
-            echo "Aucun projet de cette catégorie...";
+            echo "<p class='marginplus5px'>Aucun projet de cette catégorie...</p>";
         }
         echo "</div>";
 
@@ -120,7 +120,7 @@ $title = "Projets";
             }
         }
         if ($noProjectDisplayed) {
-            echo "Aucun projet de cette catégorie...";
+            echo "<p class='marginplus5px'>Aucun projet de cette catégorie...</p>";
         }
         echo "</div>";
 
@@ -135,7 +135,7 @@ $title = "Projets";
             }
         }
         if ($noProjectDisplayed) {
-            echo "Aucun projet de cette catégorie...";
+            echo "<p class='marginplus5px'>Aucun projet de cette catégorie...</p>";
         }
         echo "</div>";
 
@@ -150,7 +150,7 @@ $title = "Projets";
             }
         }
         if ($noProjectDisplayed) {
-            echo "Aucun projet de cette catégorie...";
+            echo "<p class='marginplus5px'>Aucun projet de cette catégorie...</p>";
         }
         echo "</div>";
         ?>
