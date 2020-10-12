@@ -41,13 +41,13 @@ function printAProject($project)
         </div>
         <div class="flexdiv fullwidth divProjectLastLine">
             <div class="box-verticalaligncenter flex-2">
-                <div class="box-verticalaligncenter">
-                    <img src="view/medias/icons/exclamationmark.png" alt="email logo" class="icon-simple nomargin">
-                    <span title="<?= $project['importance'] ?>" class="pr-2 bigvalue"><?= $project['importance'] ?></span>
+                <div class="box-verticalaligncenter" title="Importance du projet (1 à 5)">
+                    <img src="view/medias/icons/exclamationmark.png" alt="email logo" class="icon-small nomargin">
+                    <span class="pr-2 bigvalue"><?= $project['importance'] ?></span>
                 </div>
-                <div class="box-verticalaligncenter">
-                    <img src="view/medias/icons/clock.png" alt="email logo" class="icon-simple nomargin">
-                    <span title="<?= $project['urgency'] ?>" class="pl-2 pr-2 bigvalue"><?= $project['urgency'] ?></span>
+                <div class="box-verticalaligncenter" title="Urgence du projet (1 à 5)">
+                    <img src="view/medias/icons/clock.png" alt="email logo" class="icon-small nomargin">
+                    <span class="pl-2 pr-1 bigvalue"><?= $project['urgency'] ?></span>
                 </div>
                 <?php if ($project['visible'] == 0) { ?>
                     <div class="box-verticalaligncenter">
@@ -58,7 +58,7 @@ function printAProject($project)
 
             </div>
             <div class="flex-4 box-verticalaligncenter">
-                <span title="<?= $project['state'] ?>">Etat: <strong><?= convertProjectState($project['state']) ?></strong></span>
+                <span>État: <strong><?= convertProjectState($project['state']) ?></strong></span>
             </div>
 
         </div>
