@@ -89,9 +89,7 @@ function printAProject($project)
 
         </div>
         <div class="position-bottom-right">
-            <button class="btn btn-info clickable" data-href="?action=project&id=<?= $project['id'] ?>">
-                Détails
-            </button>
+            <button class="btn btn-info clickable" data-href="?action=project&id=<?= $project['id'] ?>">Détails</button>
         </div>
     </div>
     <?php
