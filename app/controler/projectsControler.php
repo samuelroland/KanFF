@@ -18,6 +18,8 @@ function projects($option)
         case 2:
             $projects = getAllProjectsContributed($_SESSION['user']['id']);
             break;
+        case 3:
+            $projects = getAllArchivedProjects($_SESSION['user']['id']);
     }
 
     $groups = indexAnArrayById(getAll("groups"));

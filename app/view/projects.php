@@ -1,4 +1,5 @@
 <?php
+//Print a project with all its informations
 function printAProject($project)
 {
     ob_start();
@@ -59,7 +60,7 @@ function printAProject($project)
             </div>
             <div class="flex-4 box-verticalaligncenter">
                 <div>
-                    <span>État: <strong><?= convertProjectState($project['state']) ?></strong></span><br>
+                    <span>État: <strong><?= convertProjectState($project['state'], true) ?></strong></span><br>
                     <?php if ($project['state'] == PROJECT_STATE_DONE) { ?>
                         <span>Date fin: <strong><?= DTToHumanDate($project['end']) ?></strong></span>
                     <?php } else if (compare2DatesWithDayPrecision($project['start'], timeToDT(time())) == 1) { ?>
@@ -79,6 +80,33 @@ function printAProject($project)
     echo ob_get_clean();
 }
 
+//Print the category HTML and filter projects depeding on the category (states and archived or not)
+function printACategoryOfProjects($name, $projects, $authorizedStates, $archivedProjectsAuthorized = false)
+{
+    $noProjectDisplayed = true; //default value
+    echo '<h2 class="mt-4">' . $name . '</h2>
+        <div class="divGroups margin-5px">';    //name of category and start of div
+    foreach ($projects as $project) {
+        if (isAtLeastEqual($project['state'], $authorizedStates)) { //accept only project with states authorized by the category
+            if ($project['archived'] == 1) {    //if project is archived
+                if ($archivedProjectsAuthorized) {  //display only if authorized
+                    printAProject($project);
+                }
+            } else {
+                printAProject($project);
+            }
+            $noProjectDisplayed = false;    //at least one project has been display (so no msg to say "no project in this category")
+        }
+    }
+    //If no project has been displayed, display a information message
+    if ($noProjectDisplayed) {
+        echo "<p class='marginplus5px'>Aucun projet de cette catégorie...</p>";
+    }
+
+    echo "</div>";
+    echo "<hr class='hryellowproject'>";    //horizontal separator line
+}
+
 //Start of the view:
 ob_start();
 $title = "Projets";
@@ -93,6 +121,9 @@ $title = "Projets";
             <button data-href="?action=projects&option=2"
                     class="clickable btn <?= ($option == 2) ? 'active' : 'btn-info' ?>">Contribués
             </button>
+            <button data-href="?action=projects&option=3"
+                    class="clickable btn <?= ($option == 3) ? 'active' : 'btn-info' ?>">Archivés
+            </button>
         </div>
         <div class="box-alignright flex-1">
             <a href="?action=createAProject">
@@ -100,66 +131,14 @@ $title = "Projets";
             </a>
         </div>
     </div>
-    <div class="">
+    <div class="divProjectCategory">
         <?php
-        $noProjectDisplayed = true;
-        echo '<h2 class="mt-3">En cours</h2>
-        <div class="divGroups margin-5px">';
-        foreach ($projects as $project) {
-            if (isAtLeastEqual($project['state'], [PROJECT_STATE_SEMIACTIVEWORK, PROJECT_STATE_ACTIVEWORK, PROJECT_STATE_UNDERREFLECTION, PROJECT_STATE_UNDERPLANNING])) {
-                printAProject($project);
-                $noProjectDisplayed = false;
-            }
+        if ($option != 3) { //not display in run and on break category for option 3 (archived projects)
+            printACategoryOfProjects("En cours", $projects, [PROJECT_STATE_SEMIACTIVEWORK, PROJECT_STATE_ACTIVEWORK, PROJECT_STATE_UNDERREFLECTION, PROJECT_STATE_UNDERPLANNING]);
+            printACategoryOfProjects("En pause", $projects, [PROJECT_STATE_ONBREAK, PROJECT_STATE_REPORTED]);
         }
-        if ($noProjectDisplayed) {
-            echo "<p class='marginplus5px'>Aucun projet de cette catégorie...</p>";
-        }
-        echo "</div>";
-
-        $noProjectDisplayed = true;
-        echo "<hr class='hryellowproject'>";
-        echo '<h2 class="mt-3">En pause</h2>
-        <div class="divGroups margin-5px">';
-        foreach ($projects as $project) {
-            if (isAtLeastEqual($project['state'], [PROJECT_STATE_ONBREAK, PROJECT_STATE_REPORTED])) {
-                printAProject($project);
-                $noProjectDisplayed = false;
-            }
-        }
-        if ($noProjectDisplayed) {
-            echo "<p class='marginplus5px'>Aucun projet de cette catégorie...</p>";
-        }
-        echo "</div>";
-
-        $noProjectDisplayed = true;
-        echo "<hr class='hryellowproject'>";
-        echo '<h2 class="mt-3">Terminés</h2>
-        <div class="divGroups margin-5px">';
-        foreach ($projects as $project) {
-            if (isAtLeastEqual($project['state'], [PROJECT_STATE_DONE])) {
-                printAProject($project);
-                $noProjectDisplayed = false;
-            }
-        }
-        if ($noProjectDisplayed) {
-            echo "<p class='marginplus5px'>Aucun projet de cette catégorie...</p>";
-        }
-        echo "</div>";
-
-        $noProjectDisplayed = true;
-        echo "<hr class='hryellowproject'>";
-        echo '<h2 class="mt-3">Autres</h2>
-        <div class="divGroups margin-5px">';
-        foreach ($projects as $project) {
-            if (isAtLeastEqual($project['state'], [PROJECT_STATE_ABANDONNED, PROJECT_STATE_CANCELLED])) {
-                printAProject($project);
-                $noProjectDisplayed = false;
-            }
-        }
-        if ($noProjectDisplayed) {
-            echo "<p class='marginplus5px'>Aucun projet de cette catégorie...</p>";
-        }
-        echo "</div>";
+        printACategoryOfProjects("Terminés", $projects, [PROJECT_STATE_DONE], (isAtLeastEqual($option, [2, 3])));   //archived projects are visible in contributed and archived projects options
+        printACategoryOfProjects("Autres", $projects, [PROJECT_STATE_ABANDONNED, PROJECT_STATE_CANCELLED], (isAtLeastEqual($option, [2, 3])));  //archived projects are visible in contributed and archived projects options
         ?>
     </div>
 <?php

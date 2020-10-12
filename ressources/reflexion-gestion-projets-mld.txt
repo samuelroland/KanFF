@@ -4,7 +4,7 @@ Réflexion en cours sur les projets/travaux/tâches:
 Projets:
 - logbook content: oui tout simple et très utile.
 - archivage: utile si beaucoup de projets. archivé possible ou pas selon état??
-	--> possible uniquement si annulé, reporté ou terminé.
+	--> possible uniquement si annulé, abandonné ou terminé.
 - états: travail actif et semi actif ? autre champ à la place ? oui on inclut ces 2 états pour avoir une meilleure idée de ce qui se passe.
 
 - lien wiki ? Non. peu utile.

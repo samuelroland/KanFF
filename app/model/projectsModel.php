@@ -61,18 +61,19 @@ WHERE `groups`.id = :id" . (($isMember == false) ? " AND projects.visible = 1;" 
 }
 
 //Get all visible groups by the logged user's id
-function getAllProjectsVisible($id){
+function getAllProjectsVisible($id)
+{
     $query = "SELECT (importance*2+urgency) as priority, projects.* FROM projects 
 INNER	join participate ON projects.id = participate.project_id
 INNER	join `groups` ON `groups`.id = participate.group_id
-INNER join `join` ON join.group_id = `groups`.id
-INNER	join users ON users.id = join.user_id
+INNER join `join` ON `join`.group_id = `groups`.id
+INNER	join users ON users.id = `join`.user_id
 WHERE	users.id = 1 AND participate.state IN (2, 3)
 UNION	
 SELECT (importance*2+urgency) as priority, projects.* FROM projects 
 INNER	join participate ON projects.id = participate.project_id
 INNER	join `groups` ON `groups`.id = participate.group_id
-INNER join `join` ON join.group_id = `groups`.id
+INNER join `join` ON `join`.group_id = `groups`.id
 WHERE	projects.visible = 1
 ORDER BY (importance*2+urgency) desc, importance desc, urgency DESC, end;";
     $params = ["id" => $id];
@@ -80,14 +81,26 @@ ORDER BY (importance*2+urgency) desc, importance desc, urgency DESC, end;";
 }
 
 //Get all projects where the logged user has finish a task
-function getAllProjectsContributed($id){
+function getAllProjectsContributed($id)
+{
     $query = "SELECT projects.* FROM	projects
 INNER join works ON works.project_id = projects.id
 INNER	join tasks ON tasks.work_id = works.id
 WHERE	tasks.responsible_id = :id AND tasks.state = :state
 GROUP BY projects.name;";
-    $params = ["id" => $id,"state" => TASK_STATE_DONE];
+    $params = ["id" => $id, "state" => TASK_STATE_DONE];
     return Query($query, $params, true);
+}
+
+function getAllArchivedProjects($id)
+{
+    $projects = getAllProjectsVisible($id);
+    foreach ($projects as $key => $project) {
+        if ($project['archived'] != 1) {
+            unset($projects[$key]);
+        }
+    }
+    return $projects;
 }
 
 ?>

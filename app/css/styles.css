@@ -479,6 +479,7 @@ tr {
 .margin-5px {
     margin: -5px;
 }
+
 .marginplus5px {
     margin: 5px;
 }
@@ -499,4 +500,8 @@ tr {
 
 .bigvalue {
     font-size: 1.5em;
+}
+
+hr {
+    margin-top: 10px !important;
 }

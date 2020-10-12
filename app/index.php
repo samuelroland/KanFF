@@ -113,7 +113,7 @@ if (!isset($_SESSION['user']['id'])) {
                 break;
             case "projects":
                 $option = $_GET['option'];
-                if ($option == null || isAtLeastEqual($option, [1, 2]) == false) {
+                if ($option == null || isAtLeastEqual($option, [1, 2, 3]) == false) {
                     $option = 1;
                 }
                 projects($option);
