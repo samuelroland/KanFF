@@ -142,8 +142,10 @@ $title = "Projets";
             <button data-href="?action=projects&option=3"
                     class="clickable btn <?= ($option == 3) ? 'active' : 'btn-info' ?>">Archivés
             </button>
+            <p class="pt-2 nomargin"><?= $description ?></p>
         </div>
-        <div class="box-alignright flex-1">
+
+        <div class="box-alignright">
             <a href="?action=createAProject">
                 <button class="btn btn-primary newproject">Nouveau projet</button>
             </a>

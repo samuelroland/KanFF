@@ -11,20 +11,24 @@ require_once "model/projectsModel.php";
 // Display the page groups
 function projects($option)
 {
-    switch ($option){
+    switch ($option) {
         case 1:
             $projects = getAllProjectsVisible($_SESSION['user']['id']);
+            $description = "Tous les projets actuels (non-archivés) du collectif qui sont visibles pour vous.";
             break;
         case 2:
             $projects = getAllProjectsContributed($_SESSION['user']['id']);
+            $description = "Tous les projets auxquels vous avez contribué dans ce collectif et qui sont visibles pour vous. (Contribué signifie techniquement que vous avez effectué au moins une tâche).";
             break;
         case 3:
             $projects = getAllArchivedProjects($_SESSION['user']['id']);
+            $description = "Tous les projets archivés du collectif qui sont visibles pour vous. Ils ont été archivés parce qu'il n'était plus d'actualité (et qu'ils étaient terminés, abandonnés ou annulés).";
+            break;
     }
 
     $groups = indexAnArrayById(getAll("groups"));
     foreach ($projects as $key => $project) {
-        $participates = getByCondition("participate",["id"=> $project['id']], "participate.project_id=:id and participate.state in (2, 3) order by participate.state desc", true);
+        $participates = getByCondition("participate", ["id" => $project['id']], "participate.project_id=:id and participate.state in (2, 3) order by participate.state desc", true);
         foreach ($participates as $key2 => $participate) {
             $participates[$key2]['group'] = $groups[$participate['group_id']];
         }
