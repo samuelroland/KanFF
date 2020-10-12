@@ -6,13 +6,36 @@ function printAProject($project)
     ?>
     <div class="divProject breakword thinBorder <?= (($project['visible'] == 0) ? "notVisibleToAll" : "") ?>">
         <div class="divProjectFirstLine">
-            <h3 title="<?= $project['name'] ?>"><?php
-                if (strlen($project['name']) > 26) {
-                    echo createToolTip(createElementWithFixedLines($project['name'], 1), $project['name']);
-                } else {
-                    echo(createElementWithFixedLines($project['name'], 1));
+            <div class="divProjectTitleLine flexdiv">
+                <h3 title="<?= $project['name'] ?>" class="flex-1"><?php
+                    if (strlen($project['name']) > 26) {
+                        echo createToolTip(createElementWithFixedLines($project['name'], 1), $project['name']);
+                    } else {
+                        echo(createElementWithFixedLines($project['name'], 1));
+                    }
+                    ?>
+                </h3>
+
+                <?php
+                //divIcons management (display or not, and the content):
+                $divIconsIsDisplayed = false;
+                if (isAtLeastEqual(1, [$project['archived'], $project['visible'] + 1])) {   //if at least one icon will be displayed
+                    echo "<div class='ml-3 divIcons box-alignright'>";  //create the div
+                    $divIconsIsDisplayed = true;
                 }
-                ?></h3>
+                //Display the archive icon if the project is archived
+                if ($project['archived'] == 1) { ?>
+                    <img title="Projet archivé" class="icon-small" src="view/medias/icons/archive.png"
+                         alt="archive icon">
+                <?php }
+                //Display the invisible icon if the project is invisible
+                if ($project['visible'] == 0) { ?>
+                    <img title="Ce projet est invisible pour les personnes extérieures au projet"
+                         src="view/medias/icons/hiddeneye.png" alt="email logo" class="icon-simple">
+                <?php }
+                if ($divIconsIsDisplayed) echo "</div>";    //close divIcons if previously created
+                ?>
+            </div>
             <div class="flexdiv">
                 <div class="flex-2 divParticipate mb-4">
                     <?php
@@ -50,13 +73,6 @@ function printAProject($project)
                     <img src="view/medias/icons/clock.png" alt="email logo" class="icon-small nomargin">
                     <span class="pl-2 pr-1 bigvalue"><?= $project['urgency'] ?></span>
                 </div>
-                <?php if ($project['visible'] == 0) { ?>
-                    <div class="box-verticalaligncenter">
-                        <img title="Ce projet est invisible pour les personnes extérieures au projet"
-                             src="view/medias/icons/hiddeneye.png" alt="email logo" class="icon-simple">
-                    </div>
-                <?php } ?>
-
             </div>
             <div class="flex-4 box-verticalaligncenter">
                 <div>
@@ -116,7 +132,7 @@ $title = "Projets";
     <div class="headView flexdiv">
         <div class="flex-1">
             <button data-href="?action=projects&option=1"
-                    class="clickable btn <?= ($option == 1) ? 'active' : 'btn-info' ?>">Tous
+                    class="clickable btn <?= ($option == 1) ? 'active' : 'btn-info' ?>">Actuels
             </button>
             <button data-href="?action=projects&option=2"
                     class="clickable btn <?= ($option == 2) ? 'active' : 'btn-info' ?>">Contribués
