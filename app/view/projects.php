@@ -42,12 +42,14 @@ function printAProject($project)
                     $listOfGroups = "";
                     $nbGroups = 0;
                     $notAllDisplayed = false;
+                    $listOfGroupsRawText = "";  //initialize as empty
                     foreach ($project['participate'] as $participate) {
-                        if ($nbGroups < 4) {
-                            $listOfGroups .= "· <span class='clickable linkInternal cursorpointer ' data-href='?action=group&id={$participate['group']['id']}' title='{$participate['group']['name']}'>" . $participate['group']['name'] . "</span><br>";
-                        } else {
-                            $notAllDisplayed = true;
-                        }
+                        //Define em markup or not, depending on the manager group (project.manager_id):
+                        $emOrNotStart = (($project['manager_id'] == $participate['group']['id'] && count($project['participate']) > 1) ? "<em>" : "");
+                        $emOrNotEnd = (($project['manager_id'] == $participate['group']['id'] && count($project['participate']) > 1) ? "</em>" : "");
+
+                        $listOfGroups .= "· <span class='clickable linkInternal cursorpointer ' data-href='?action=group&id={$participate['group']['id']}' title='{$participate['group']['name']}'>$emOrNotStart" . $participate['group']['name'] . "$emOrNotEnd</span><br>";   //add a group to the list
+
                         $listOfGroupsRawText .= " - " . $participate['group']['name'];
                         $nbGroups++;
                     }
