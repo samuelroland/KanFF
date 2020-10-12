@@ -3,7 +3,7 @@ function printAProject($project)
 {
     ob_start();
     ?>
-    <div class="divProject thinBorder <?= (($project['visible'] == 0) ? "notVisibleToAll" : "") ?>">
+    <div class="divProject breakword thinBorder <?= (($project['visible'] == 0) ? "notVisibleToAll" : "") ?>">
         <div class="divProjectFirstLine">
             <h3 title="<?= $project['name'] ?>"><?php
                 if (strlen($project['name']) > 26) {
@@ -42,11 +42,11 @@ function printAProject($project)
         <div class="flexdiv fullwidth divProjectLastLine">
             <div class="box-verticalaligncenter flex-2">
                 <div class="position-bottom-left">
-                    <img src="view/medias/icons/PointDexcalamtion.jpg" alt="email logo" class="icon-simple">
+                    <img src="view/medias/icons/exclamationmark.png" alt="email logo" class="icon-simple">
                     <span title="<?= $project['importance'] ?>" class="pr-2"><?= $project['importance'] ?></span>
                 </div>
                 <div class="position-bottom-left">
-                    <img src="view/medias/icons/IconMontre.png" alt="email logo" class="icon-simple">
+                    <img src="view/medias/icons/clock.png" alt="email logo" class="icon-simple">
                     <span title="<?= $project['urgency'] ?>" class="pr-2"><?= $project['urgency'] ?></span>
                 </div>
                 <?php if ($project['visible'] == 0) { ?>
@@ -110,6 +110,7 @@ $title = "Projets";
         echo "</div>";
 
         $noProjectDisplayed = true;
+        echo "<hr class='hryellowproject'>";
         echo '<h2 class="mt-3">En pause</h2>
         <div class="divGroups margin-5px">';
         foreach ($projects as $project) {
@@ -124,6 +125,7 @@ $title = "Projets";
         echo "</div>";
 
         $noProjectDisplayed = true;
+        echo "<hr class='hryellowproject'>";
         echo '<h2 class="mt-3">Terminés</h2>
         <div class="divGroups margin-5px">';
         foreach ($projects as $project) {
@@ -138,6 +140,7 @@ $title = "Projets";
         echo "</div>";
 
         $noProjectDisplayed = true;
+        echo "<hr class='hryellowproject'>";
         echo '<h2 class="mt-3">Autres</h2>
         <div class="divGroups margin-5px">';
         foreach ($projects as $project) {

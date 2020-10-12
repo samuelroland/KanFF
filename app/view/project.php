@@ -37,9 +37,9 @@ if ($project['archived'] == 1) {
 
         <h4>Importance - Urgence</h4>
         <?php
-        echo "<img src='view/medias/icons/IconPointExclamation.png' class='icon-small' />";
+        echo "<img src='view/medias/icons/exclamationmark.png' class='icon-small' />";
         echo $project['importance'];
-        echo "<img src='view/medias/icons/IconMontre.png' class='icon-small' />";
+        echo "<img src='view/medias/icons/clock.png' class='icon-small' />";
         echo $project['urgency']
 
         ?>

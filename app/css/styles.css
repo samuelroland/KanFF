@@ -471,6 +471,11 @@ tr {
     border-radius: 5px;
 }
 
+.hryellowproject {
+    border: #a27200 1px solid;
+    border-radius: 5px;
+}
+
 .margin-5px{
     margin: -5px;
 }
@@ -482,4 +487,9 @@ tr {
 
 .notVisibleToAll{
     background-color: #d9dadb;
+}
+
+.breakword{
+    word-break: break-word;
+    word-wrap: break-word;
 }
