@@ -36,6 +36,17 @@ WHERE	works.id = 12";
     return Query($query,$params,true);
 }
 
+//Get all the tasks by project id
+function getAllTasksByProject($id)
+{
+    $query = "SELECT tasks.`*` FROM tasks
+INNER join works ON works.id = tasks.work_id
+INNER join projects ON projects.id = works.project_id
+WHERE projects.id = :id";
+    $params = ['id' => $id];
+    return Query($query, $params, true);
+}
+
 function getTasksNextUniqueNumber(){
     $tasks=getAllTasks();
     $uniquenumber=0;
