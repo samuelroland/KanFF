@@ -58,7 +58,12 @@ function printAProject($project)
 
             </div>
             <div class="flex-4 box-verticalaligncenter">
-                <span>État: <strong><?= convertProjectState($project['state']) ?></strong></span>
+                <div>
+                    <span>État: <strong><?= convertProjectState($project['state']) ?></strong></span><br>
+                    <?php if ($project['state'] == PROJECT_STATE_DONE) { ?>
+                        <span>Date fin: <strong><?= DTToHumanDate($project['end']) ?></strong></span>
+                    <?php } ?>
+                </div>
             </div>
 
         </div>
