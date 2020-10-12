@@ -46,3 +46,21 @@
     text-overflow: ellipsis;
     word-wrap: break-word;
 }
+
+/*Kanban styles */
+
+.divKanbanHeaderColumns {
+    height: 40px;
+}
+
+.leftcolumn {
+
+}
+
+.middlecolumn {
+    background-color: lightgrey;
+}
+
+.rightcolumn {
+
+}

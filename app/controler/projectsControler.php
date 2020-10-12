@@ -83,8 +83,16 @@ function projectDetails($id, $option)
     require_once "view/project.php";
 }
 
-function kanban($id){
+function kanban($id)
+{
     $project = getOneProject($id);
+    $works = indexAnArrayById(getAllWorksByProject($id));
+    $tasks = getAllTasksByProject($id);
+    foreach ($tasks as $task) {
+        $works[$task['work_id']]['tasks'][] = $task;
+    }
+    $project['works'] = $works;
     require_once "view/kanban.php";
 }
+
 ?>

@@ -6,7 +6,7 @@
  *  Creation date: 22.07.2020
  */
 
-//require_once "model/worksModel.php";
+require_once "model/worksModel.php";
 
 //display the page groups
 function works()

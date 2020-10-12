@@ -1,0 +1,18 @@
+/**
+ *  Project: KanFF
+ *  File: works.css css file for work view in projects pages
+ *  Author: Team
+ *  Creation date: 12.10.2020
+ */
+
+.divWorkHeader{
+    height: 40px;
+    background-color: aliceblue;
+    padding: 5px;
+    margin-bottom: 2px;
+}
+
+.divWork{
+    height: 150px;
+    background-color: aquamarine;
+}
