@@ -121,6 +121,9 @@ if (!isset($_SESSION['user']['id'])) {
             case "project":
                 projectDetails($_GET['id'], $_GET['option']);
                 break;
+            case "kanban":
+                kanban($_GET['id']);
+                break;
             case "calendar":
                 calendar();
                 break;

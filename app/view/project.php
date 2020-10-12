@@ -1,14 +1,21 @@
 <?php
 /**
  *  Project: KanFF
- *  File: home.php firstpage of the website
+ *  File: project.php view for the details of a project
  *  Author: Samuel Roland
- *  Creation date: 25.05.2020
+ *  Creation date: 06.10.2020
  */
 $title = "Détails de " . $project['name'];
 ob_start();
 ?>
-    <h1><?= $title ?></h1>
+    <div class="flexdiv">
+        <h1 class="flex-1"><?= $title ?></h1>
+        <div class="">
+            <button class="clickable btn btn-primary" data-href="?action=kanban&id=<?= $project['id'] ?>">
+                Kanban
+            </button>
+        </div>
+    </div>
     Page en construction.
     <p>Voici les informations du projet <?= $project['name'] ?>, les groupes réalisant ce projet, le journal de bord et
         la gestion des travaux.</p>

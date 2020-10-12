@@ -83,4 +83,8 @@ function projectDetails($id, $option)
     require_once "view/project.php";
 }
 
+function kanban($id){
+    $project = getOneProject($id);
+    require_once "view/kanban.php";
+}
 ?>
