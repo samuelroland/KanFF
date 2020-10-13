@@ -29,11 +29,14 @@ function printAWork($work)
             $color = "green";
             break;
     }
+    if ($work['inbox'] == 1) {
+        $color = "grey";
+    }
     ?>
     <div class="divWork" style="border: 2px solid <?= $color ?>; border-radius: 5px;">
         <div class="divWorkHeader box-verticalaligncenter">
             <div class="flex-1 flexdiv box-verticalaligncenter">
-                <h5 class="nomargin pr-2"><?= $work['name'] ?></h5>
+                <h5 class="nomargin pr-2 pl-2"><?= $work['name'] ?></h5>
                 <div class="divWorkIconsLeft flexdiv box-verticalaligncenter">
                     <?php
                     if ($work['inbox'] != 1) {
@@ -104,9 +107,15 @@ ob_start();
 
     <!-- List of works -->
 <?php foreach ($works as $work) {
-    if ($work['state'] != WORK_STATE_TODO)
+    if ($work['state'] != WORK_STATE_TODO) {
         printAWork($work);
-} ?>
+    }
+}
+
+if (count($works) == 1) {
+    echo "<div class='statebanner bg-transparent mt-2 mb-2'>Tous les travaux sont 'A faire'</div>";
+}
+?>
     <hr class="hryellowproject nomargin">
 <?php
 displaydebug($project);
