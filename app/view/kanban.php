@@ -21,12 +21,15 @@ function printAWork($work)
     switch ($work['state']) {
         case WORK_STATE_INRUN:
             $color = "lightgrey";
+            $bgCssClass = "";
             break;
         case WORK_STATE_ONBREAK:
             $color = "orange";
+            $bgCssClass = "lightorange";
             break;
         case WORK_STATE_DONE:
             $color = "green";
+            $bgCssClass = "lightgreen";
             break;
     }
     if ($work['inbox'] == 1) {
@@ -34,7 +37,7 @@ function printAWork($work)
     }
     ?>
     <div class="divWork" style="border: 2px solid <?= $color ?>; border-radius: 5px;">
-        <div class="divWorkHeader box-verticalaligncenter">
+        <div class="divWorkHeader bg<?= $bgCssClass ?> box-verticalaligncenter">
             <div class="flex-1 flexdiv box-verticalaligncenter">
                 <h5 class="nomargin pr-2 pl-2"><?= $work['name'] ?></h5>
                 <div class="divWorkIconsLeft flexdiv box-verticalaligncenter">
@@ -70,8 +73,10 @@ function printAWork($work)
                 ?>
             </div>
         </div>
-        <div class="divWorkContent">
-
+        <div class="divWorkContent flexdiv">
+            <div class="flex-1 leftcolumn "></div>
+            <div class="flex-1 middlecolumn"></div>
+            <div class="flex-1 rightcolumn"></div>
         </div>
     </div>
 

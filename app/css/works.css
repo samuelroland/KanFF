@@ -5,15 +5,18 @@
  *  Creation date: 12.10.2020
  */
 
-.divWorkHeader{
+.divWorkHeader {
     height: 40px;
-    background-color: aliceblue;
+    background-color: #e3e4e6;
     padding: 5px;
-    margin-bottom: 2px;
 }
 
-.divWork{
+.divWork {
     height: 200px;
     margin-top: 5px;
     background-color: transparent;
+}
+
+.divWorkContent {
+    min-height: 150px;
 }
