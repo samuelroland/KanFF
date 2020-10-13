@@ -13,6 +13,7 @@
 }
 
 .divWork{
-    height: 150px;
-    background-color: aquamarine;
+    height: 200px;
+    margin-top: 5px;
+    background-color: transparent;
 }

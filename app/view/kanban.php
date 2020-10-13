@@ -12,44 +12,56 @@
 
 function printWorkIcon($iconname, $title, $alt)
 {
-    echo "<img title='$title class='icon-small' src='view/medias/icons/$iconname' alt='$alt'>";
+    echo "<img title=\"" . $title . "\" class='icon-small ml-2 mr-2' src='view/medias/icons/$iconname' alt='$alt'>";
 }
 
 function printAWork($work)
 {
     ob_start();
+    switch ($work['state']) {
+        case WORK_STATE_INRUN:
+            $color = "lightgrey";
+            break;
+        case WORK_STATE_ONBREAK:
+            $color = "orange";
+            break;
+        case WORK_STATE_DONE:
+            $color = "green";
+            break;
+    }
     ?>
-    <div class="divWork">
+    <div class="divWork" style="border: 2px solid <?= $color ?>; border-radius: 5px;">
         <div class="divWorkHeader box-verticalaligncenter">
-            <div class="flex-1 flexdiv">
+            <div class="flex-1 flexdiv box-verticalaligncenter">
                 <h5 class="nomargin pr-2"><?= $work['name'] ?></h5>
-                <div class="divWorkIconsLeft">
+                <div class="divWorkIconsLeft flexdiv box-verticalaligncenter">
                     <?php
                     if ($work['inbox'] != 1) {
-                        echo "<span class='ml-4'>" . convertWorkState($work['state'], true) . "</span>";
-                    }
-                    //TODO: display icons of the work
-
-                    //divIcons management (display or not, and the content):
-                    $divIconsIsDisplayed = false;
-                    if (isAtLeastEqual(1, [$project['archived'], $project['visible'] + 1])) {   //if at least one icon will be displayed
-                        echo "<div class='ml-3 divIcons box-alignright'>";  //create the div
-                        $divIconsIsDisplayed = true;
+                        echo "<span class='ml-4 mr-5'>" . getHTMLPastille($color) . "<strong>" . convertWorkState($work['state'], true) . "</strong></span>";
                     }
                     //Display the archive icon if the project is archived
-                    if ($project['open'] == 1) {
-                        printWorkIcon("open.png", "Ce travail est ouvert (accessible en écriture aux personnes extérieures au projet", "padlock icon");
+                    if ($work['open'] == 1) {
+                        printWorkIcon("open.png", "Ce travail est ouvert (accessible en modification aux personnes extérieures au projet", "padlock icon");
                     }
                     //Display the invisible icon if the project is invisible
-                    if ($project['visible'] == 0) { ?>
-
-                    <?php }
-                    if ($divIconsIsDisplayed) echo "</div>";    //close divIcons if previously created
+                    if ($work['visible'] == 0) {
+                        printWorkIcon("hiddeneye.png", "Ce travail est invisible pour les personnes extérieures au projet", "hidden eye icon");
+                        echo "<span class='text-info mr-2'>Invisible</span>";
+                    }
+                    if ($work['need_help'] == 1) {
+                        //TODO: display differents icons depending on the level of need help
+                        printWorkIcon("help_orange.png", "Ce travail a besoin d'aide. WIP", "H letter for help icon");
+                        echo "<span class='text-danger mr-2'>Besoin d'aide</span>";
+                    }
+                    if ($work['repetitive'] == 1) {
+                        printWorkIcon("repetitive.png", "Ce travail est répétitif", "arrows in circle repetitive icon");
+                    }
                     ?>
-
                 </div>
             </div>
-            <div class="divWorkIconsRight">
+            <div class="divWorkIconsRight box-verticalaligncenter">
+                <span class="ml-3 mr-3">Effort: <?= $work['effort'] ?> - Valeur: <?= $work['value'] ?></span>
+                <span class="ml-3 mr-3"><?= DTToHumanDate($work['start']) ?> - <?= DTToHumanDate($work['end']) ?></span>
                 <?php
                 //TODO: display icons of the work
                 ?>
@@ -92,7 +104,8 @@ ob_start();
 
     <!-- List of works -->
 <?php foreach ($works as $work) {
-    printAWork($work);
+    if ($work['state'] != WORK_STATE_TODO)
+        printAWork($work);
 } ?>
     <hr class="hryellowproject nomargin">
 <?php

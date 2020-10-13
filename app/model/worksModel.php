@@ -35,7 +35,7 @@ function getAllByConditionWorks($conditions, $params)
 function getAllWorksByProject($project_id)
 {
     $query = "SELECT * FROM works WHERE works.project_id =:id
-    Order By works.inbox desc, works.start, works.end;";
+    Order By works.inbox desc, works.state, works.start, works.end;";
     $params = ['id' => $project_id];
     return Query($query, $params, true);
 }

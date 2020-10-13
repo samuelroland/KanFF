@@ -132,9 +132,9 @@ if ($project['archived'] == 1) {
                             } ?>
                             <span class="flex-1 alignright">
                                 <img src="view/medias/icons/trianglebottom.png" alt="triangle bottom"
-                                     class="icon-xsmall trianglebottom" hidden>
+                                     class="icon-triangle trianglebottom" hidden>
                                 <img src="view/medias/icons/triangletop.png" alt="triangle top"
-                                     class="icon-xsmall triangletop" hidden>
+                                     class="icon-triangle triangletop" hidden>
                                 <span>Créé le <?= DTToHumanDate($log['creation_date'], "simpleday") . " par " . mentionUser($log['user']) ?></span>
                             </span>
 

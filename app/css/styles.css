@@ -285,8 +285,12 @@ label {
 
 .icon-xsmall {
     width: 20px;
+    margin: 2px;
 }
 
+.icon-triangle {
+    width: 20px;
+}
 
 .linkExternal {
     text-decoration: none;
@@ -504,4 +508,31 @@ tr {
 
 hr {
     margin-top: 10px !important;
+}
+
+.pastillecirclegreen {
+    width: 10px;
+    height: 10px;
+    border-radius: 100px;
+    background-color: green;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.pastillecirclelightgrey {
+    width: 10px;
+    height: 10px;
+    border-radius: 100px;
+    background-color: lightgrey;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.pastillecircleorange {
+    width: 10px;
+    height: 10px;
+    border-radius: 100px;
+    background-color: orange;
+    margin-right: 5px;
+    display: inline-block;
 }
