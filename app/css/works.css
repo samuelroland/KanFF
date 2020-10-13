@@ -12,11 +12,20 @@
 }
 
 .divWork {
-    height: 200px;
+    min-height: 200px;
     margin-top: 5px;
     background-color: transparent;
 }
 
 .divWorkContent {
     min-height: 150px;
+}
+
+.divWorkOneState {
+    min-height: 150px;
+    max-width: 630px;
+    display: flex;
+    align-items: start;
+    flex-wrap: wrap;
+    align-content: baseline;
 }

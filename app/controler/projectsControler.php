@@ -85,10 +85,12 @@ function projectDetails($id, $option)
 
 function kanban($id)
 {
+    $users = getAllUsers();
     $project = getOneProject($id);
     $works = indexAnArrayById(getAllWorksByProject($id));
     $tasks = getAllTasksByProject($id);
     foreach ($tasks as $task) {
+        $task['responsible'] = $users[$task['responsible_id']];
         $works[$task['work_id']]['tasks'][] = $task;
     }
     $project['works'] = $works;

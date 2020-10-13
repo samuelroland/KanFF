@@ -74,12 +74,55 @@ function printAWork($work)
             </div>
         </div>
         <div class="divWorkContent flexdiv">
-            <div class="flex-1 leftcolumn "></div>
-            <div class="flex-1 middlecolumn"></div>
-            <div class="flex-1 rightcolumn"></div>
+            <div class="flex-1 leftcolumn divWorkOneState">
+                <?php
+                foreach ($work['tasks'] as $task) {
+                    if ($task['state'] == TASK_STATE_TODO) {
+                        printATask($task);
+                    }
+                }
+                ?>
+            </div>
+            <div class="flex-1 middlecolumn divWorkOneState">
+                <?php
+                foreach ($work['tasks'] as $task) {
+                    if ($task['state'] == TASK_STATE_INRUN) {
+                        printATask($task);
+                    }
+                }
+                ?>
+            </div>
+            <div class="flex-1 rightcolumn divWorkOneState">
+                <?php
+                foreach ($work['tasks'] as $task) {
+                    if ($task['state'] == TASK_STATE_DONE) {
+                        printATask($task);
+                    }
+                }
+                ?>
+            </div>
         </div>
     </div>
 
+    <?php
+    echo ob_get_clean();
+}
+
+function printATask($task)
+{
+    ob_start();
+    switch ($task['state']){
+        case 1:
+            $color = "green";
+            break;
+            //TODO: choose the right color depending on the state
+    }
+    ?>
+    <div class="divTask">
+        <span><strong><?= $task['number'] ?></strong></span>
+        <span><?= createElementWithFixedLines($task['name'], 3) ?></span>
+        <span class="alignright"><?= mentionUser($task['responsible']) ?></span>
+    </div>
     <?php
     echo ob_get_clean();
 }

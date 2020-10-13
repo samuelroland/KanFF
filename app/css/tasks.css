@@ -4,3 +4,14 @@
  *  Author: Team
  *  Creation date: 12.10.2020
  */
+
+.divTask{
+    height: 120px;
+    width: 120px;
+    margin: 5px;
+    padding: 5px;
+    background-color: #ffc437e3;
+    flex-wrap: inherit;
+    font-size: 0.8em;
+    border-radius: 5px;
+}
