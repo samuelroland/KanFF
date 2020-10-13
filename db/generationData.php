@@ -86,9 +86,12 @@ function Query($query, $params, $manyrecords)
 }
 
 //Generate a date between 01.01.2019 (as default, or the date given if parameter exists) and today formatted in DATETIME format ("Y-m-d H:i:s")
-function getRandomDateFormated($start = 1546300800)
+function getRandomDateFormated($start = 1546300800, $end = null)
 {
-    return date("Y-m-d H:i:s", rand($start, time()));
+    if ($end == null) {
+        $end = time();
+    }
+    return date("Y-m-d H:i:s", rand($start, $end));
 }
 
 //Get all the items of a table with the table name
@@ -105,7 +108,7 @@ function getAllItems($tablename)
         if (empty($items)) { //$items can never be empty (else there is an error with importating before or database has been deleted and not all tables linked are presents)
             die("\n\n----- ERROR getAllItems() return empty ---- CREATE_DB_BEFORE_INSERTION=" . CREATE_DB_BEFORE_INSERTION . " is it right ? Be aware of foregin keys linked with id in tables deleted at start of this script...\n\n\n");
         }
-
+        $items = indexAnArrayById($items);
         return $items;
     } catch (PDOException $e) {
         print "Error!: " . $e->getMessage() . "<br/>";
@@ -720,34 +723,80 @@ function dataWorks()
     importTableData("works", array_merge($works, $inboxWorks)); //import the 2 arrays in the database
 }
 
+function extraDataForOneTask($task, $work)
+{
+    $task['deadline'] = getRandomDateFormated(strtotime($work['start']), strtotime($work['end']));
+
+    $task['urgency'] = rand(1, 5);
+
+    if (rand(1, 8)) {
+        $task['type'] = rand(1, 5);
+    } else {
+        $task['type'] = null;
+    }
+
+    if (rand(1, 20)) {
+        $task['link'] = "https://" . generateRandomString(rand(6, 25)) . "/" . getLoremIpsum(rand(15, 2000));
+        $task['link'] = substr($task['link'], 0, 2000); //substring to 2000 chars
+    }
+
+    $task['completion_date'] = null;    //default value
+    if ($task['state'] == TASK_STATE_TODO) {
+        if (rand(1, 4) == 1) {
+            $task['responsible_id'] = rand(1, 100);
+        } else {
+            $task['responsible_id'] = null;
+        }
+    } else {
+        if ($task['state'] == TASK_STATE_DONE) {
+            $task['completion_date'] = getRandomDateFormated(strtotime($work['start']));
+        }
+        $task['responsible_id'] = rand(1, 100);
+    }
+
+    $task['creator_id'] = rand(1, 100);
+
+    return $task;
+}
+
 function dataTasks()
 {
+    define("NB_RANDOM_TASKS_TO_GENERATE", 300);  //nb of randoms tasks to generate (with lorem ipsum).
     $works = getAllItems("works");
-    //$logsres = json_decode(file_get_contents("data-ressources/basic-data-log.json"), true);
+    $taskres = json_decode(file_get_contents("data-ressources/basic-data-tasks.json"), true);
 
     echo "\n-----------------------------\n Generating Tasks \n-----------------------------\n ";
-    $logs = [];    //array for the users generated
-    //For each log generate the other data
-    //foreach ($logsres as $ressource) {
-    for ($id = 0; $id < 200; $id++) {
-        //$task = $ressource;
+    $tasks = [];    //array for the users generated
+    //For each task generate the other data
+    $nbtasks = 0;
+    foreach ($taskres as $ressource) {
+        $task = $ressource;
+        $nbtasks++;
+        $task['id'] = $nbtasks;
+        $task['number'] = $task['id'];
+        $task = extraDataForOneTask($task, $works[$task['work_id']]);
+        $tasks[] = $task;
+    }
+
+    $nbNotRandomTasks = count($tasks);
+
+    //Generate random data:
+    $lastnumber = $tasks[count($tasks)-1]['number'];
+    for ($i = 1; $i <= NB_RANDOM_TASKS_TO_GENERATE; $i++) {
 
         //Convert date in datetime format:
-        $task['id'] = $id;
-        $task['number'] = $id;
-        $task['name'] = getLoremIpsum(rand(10, 50));
-        $task['description'] = getLoremIpsum(1000);
-        $task['deadline'] = getRandomDateFormated();
-        $task['state'] = rand(0, 1);
-        $task['urgency'] = rand(1, 5);
-        $task['type'] = rand(1, 5);
-        $task['link'] = "https://asdfsdafsda.casdfsdaf/" . getLoremIpsum(1000);
-        $task['completion_date'] = getRandomDateFormated();
-        $task['responsible_id'] = rand(1, 100);
-        $task['creator_id'] = rand(1, 100);
-        $task['work_id'] = $works[rand(1, count((array)$works))]['id'];
-        echo "\n".$task['name'];
+        $task['id'] = $i + $nbNotRandomTasks;   //id followings than id already used
+        $nextnumber = $lastnumber + rand(1, 3);
+        $lastnumber = $nextnumber;
+        $task['number'] = $nextnumber;
 
+        $task['name'] = getLoremIpsum(rand(4, 50));
+        $task['description'] = getLoremIpsum(1000);
+        $task['state'] = rand(1, 3);
+
+        $task['work_id'] = $works[rand(1, count((array)$works))]['id'];
+        echo "\n" . $task['name'] . " - work_id: " . $task['work_id'];
+        $task = extraDataForOneTask($task, $works[$task['work_id']]);
         $tasks[] = $task;
     }
 
