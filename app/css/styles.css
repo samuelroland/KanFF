@@ -432,6 +432,10 @@ tr {
     cursor: pointer;
 }
 
+.cursorgrab {
+    cursor: grab;
+}
+
 
 .divVersion {
     height: 10px;

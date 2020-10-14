@@ -5,13 +5,49 @@
  *  Creation date: 12.10.2020
  */
 
-.divTask{
+.divTask {
     height: 120px;
     width: 120px;
     margin: 5px;
     padding: 5px;
     background-color: #ffc437e3;
     flex-wrap: inherit;
-    font-size: 0.8em;
+    font-size: 0.75rem;
     border-radius: 5px;
+    border: 1px solid #0000003d;
+}
+
+.divTask:hover {
+    background-color: #ffb400f0;
+}
+
+.divTaskNumber {
+    height: 15px;
+}
+
+.divTaskName {
+    height: 70px;
+}
+
+.divTaskBottomLine {
+    height: 25px;
+    padding-top: 5px;
+}
+
+.icon-task {
+    width: 12px;
+    height: 12px;
+    margin: 2px;
+}
+
+.divTaskPlusButton {
+    min-height: 46px;
+    min-width: 46px;
+    max-width: 120px;
+    max-height: 120px;
+    width: -moz-available;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

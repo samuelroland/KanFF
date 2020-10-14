@@ -10,9 +10,9 @@
  * Function to display a work:
  * */
 
-function printWorkIcon($iconname, $title, $alt)
+function printAnIcon($iconname, $title, $alt, $defaultClasses = "icon-small ml-2 mr-2")
 {
-    echo "<img title=\"" . $title . "\" class='icon-small ml-2 mr-2' src='view/medias/icons/$iconname' alt='$alt'>";
+    echo "<img title=\"" . $title . "\" class='$defaultClasses' src='view/medias/icons/$iconname' alt='$alt'>";
 }
 
 function printAWork($work)
@@ -47,20 +47,20 @@ function printAWork($work)
                     }
                     //Display the archive icon if the project is archived
                     if ($work['open'] == 1) {
-                        printWorkIcon("open.png", "Ce travail est ouvert (accessible en modification aux personnes extérieures au projet", "padlock icon");
+                        printAnIcon("open.png", "Ce travail est ouvert (accessible en modification aux personnes extérieures au projet", "padlock icon");
                     }
                     //Display the invisible icon if the project is invisible
                     if ($work['visible'] == 0) {
-                        printWorkIcon("hiddeneye.png", "Ce travail est invisible pour les personnes extérieures au projet", "hidden eye icon");
+                        printAnIcon("hiddeneye.png", "Ce travail est invisible pour les personnes extérieures au projet", "hidden eye icon");
                         echo "<span class='text-info mr-2'>Invisible</span>";
                     }
                     if ($work['need_help'] == 1) {
                         //TODO: display differents icons depending on the level of need help
-                        printWorkIcon("help_orange.png", "Ce travail a besoin d'aide. WIP", "H letter for help icon");
+                        printAnIcon("help_orange.png", "Ce travail a besoin d'aide. WIP", "H letter for help icon");
                         echo "<span class='text-danger mr-2'>Besoin d'aide</span>";
                     }
                     if ($work['repetitive'] == 1) {
-                        printWorkIcon("repetitive.png", "Ce travail est répétitif", "arrows in circle repetitive icon");
+                        printAnIcon("repetitive.png", "Ce travail est répétitif", "arrows in circle repetitive icon");
                     }
                     ?>
                 </div>
@@ -81,6 +81,11 @@ function printAWork($work)
                         printATask($task);
                     }
                 }
+                ?>
+                <?php
+                echo "<div class='divTaskPlusButton'>";
+                printAnIcon("plus.png", "Créer une tâche", "plus icon");
+                echo "</div>";
                 ?>
             </div>
             <div class="flex-1 middlecolumn divWorkOneState">
@@ -111,17 +116,27 @@ function printAWork($work)
 function printATask($task)
 {
     ob_start();
-    switch ($task['state']){
+    switch ($task['type']) {
         case 1:
             $color = "green";
             break;
-            //TODO: choose the right color depending on the state
+        //TODO: choose the right color depending on the type
     }
     ?>
-    <div class="divTask">
-        <span><strong><?= $task['number'] ?></strong></span>
-        <span><?= createElementWithFixedLines($task['name'], 3) ?></span>
-        <span class="alignright"><?= mentionUser($task['responsible']) ?></span>
+    <div class="divTask cursorgrab">
+        <div class="alignright divTaskNumber"><em><?= $task['number'] ?></em></div>
+        <div class="divTaskName"><strong><?= createElementWithFixedLines($task['name'], 4) ?></strong></div>
+        <div class="divTaskBottomLine flexdiv">
+            <span class="flex-1"><?php
+                if ($task['responsible_id'] != null) {
+                    echo mentionUser($task['responsible']);
+                } else {
+                    printAnIcon("adduser2.png", "Options supplémentaires", "triangle bottom icon", "icon-task");
+                }
+                ?></span>
+            <?php printAnIcon("chat.png", "Options supplémentaires", "triangle bottom icon", "icon-task"); ?>
+            <?php printAnIcon("trianglebottom.png", "Options supplémentaires", "triangle bottom icon", "icon-task"); ?>
+        </div>
     </div>
     <?php
     echo ob_get_clean();
