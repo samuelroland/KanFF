@@ -123,7 +123,7 @@ function printATask($task)
         //TODO: choose the right color depending on the type
     }
     ?>
-    <div class="divTask cursorgrab" id="divTask-<?= $task['id'] ?>">
+    <div class="divTask cursorgrab" id="divTask-<?= $task['id'] ?>" data-id="<?= $task['id'] ?>">
         <div class="flexdiv divTaskNumber">
             <div class="flex-1"><?php if ($task['responsible_id'] != null) {
                     echo "<span class='divTaskUserMentionEllipsis'>" . mentionUser($task['responsible'], "txtMentionOnTask") . "</span>";
@@ -135,7 +135,7 @@ function printATask($task)
             <span class="flex-1 box-verticalaligncenter">
                 <span>
                 <?php
-                if ($task['responsible_id'] != null && $task['responsible_id']==$_SESSION['user']['id']) {
+                if ($task['responsible_id'] != null && $task['responsible_id'] == $_SESSION['user']['id']) {
                     printAnIcon("removeuser.png", "Relâcher la tache", "remove user icon", "icon-task cursorpointer");
                 } else {
                     printAnIcon("adduser3.png", "Prendre la tâche", "add user icon", "icon-task cursorpointer");
@@ -147,10 +147,17 @@ function printATask($task)
             //No comments on tasks for v1.0 so the icon is not displayed:
             //printAnIcon("chat.png", "x Commentaires", "triangle bottom icon", "icon-task");
             ?>
-            <span class="">
-                <span class=''>
+            <span class="dropdown">
+                <span class='' data-toggle="dropdown">
                     <?php printAnIcon("trianglebottom.png", "Options supplémentaires", "triangle bottom icon", "icon-task-triangle cursorpointer"); ?>
                 </span>
+                <div class="dropdown-menu dropdown-menu-right divTaskDropdownOptions">
+                <span class="dropdown-item divTaskDropdownOption">Détails</span>
+                <span class="dropdown-item divTaskDropdownOption">Prendre</span>
+                <span class="dropdown-item divTaskDropdownOption">Passer à En cours</span>
+                <span class="dropdown-item divTaskDropdownOption">Passer à Fini</span>
+                <span class="dropdown-item divTaskDropdownOption text-danger">Supprimer</span>
+                </div>
             </span>
 
         </div>

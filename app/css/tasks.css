@@ -85,3 +85,17 @@
 .txtMentionOnTask {
     color: white;
 }
+
+.divTaskDropdownOptions{
+    width: 200px;
+    background-color: #e2e7f0   ;
+}
+
+.divTaskDropdownOption{
+    cursor: pointer;
+}
+
+.divTaskDropdownOption:hover, .divTaskDropdownOption:active{
+    background-color: #d5d6d7;
+    color: black;
+}
