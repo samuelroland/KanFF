@@ -45,18 +45,9 @@ $(document).ready(function () {
             trianglebottom.hidden = false
         }
     })
-    $(".oneLog").on("mouseout", function (sender) {
-        parent = sender.target
-        while (parent.id == "" || parent.id == null) {
-            parent = parent.parentNode
-        }
-
-        //Hide all triangles:
-        trianglebottom = parent.querySelector(".trianglebottom")
-        triangletop = parent.querySelector(".triangletop")
-        trianglebottom.hidden = true
-        triangletop.hidden = true
-    })
+    //One mouse out hide the 2 triangles:
+    declareChangeHiddenStateOnOneElementOnHover("oneLog", "mouseout", "trianglebottom", true)
+    declareChangeHiddenStateOnOneElementOnHover("oneLog", "mouseout", "triangletop", true)
 })
 
 function changeState(state) {

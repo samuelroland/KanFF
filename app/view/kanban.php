@@ -145,7 +145,7 @@ function printATask($task)
             </span>
             <?php
             //No comments on tasks for v1.0 so the icon is not displayed:
-            //printAnIcon("chat.png", "Options supplémentaires", "triangle bottom icon", "icon-task");
+            //printAnIcon("chat.png", "x Commentaires", "triangle bottom icon", "icon-task");
             ?>
             <span class="">
                 <span class=''>
