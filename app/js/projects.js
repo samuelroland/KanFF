@@ -8,41 +8,46 @@
 $(document).ready(function () {
     //Declare events:
     $(".oneLog").on("click", function (sender) {
-        parent.setAttribute("data-open", changeState(parent.getAttribute("data-open")))
+        //On click, invert the state of data-open attribute and invert the description visible
+        parent.setAttribute("data-open", getInvertState(parent.getAttribute("data-open")))
         logLoadVisibility(sender.target.id)
     })
 
     //Declare on event click hidden management for 2 triangles depending on if log is opened or not
-    declareChangeHiddenStateOnOneElementOnHoverOnConditionWithAttribute("oneLog", "click", "triangletop", "data-open", "true", false)
-    declareChangeHiddenStateOnOneElementOnHoverOnConditionWithAttribute("oneLog", "click", "trianglebottom", "data-open", "true", true)
+    declareChangeHiddenStateOnOneChildOnParentHover("oneLog", "click", "triangletop", false, "data-open", "true")
+    declareChangeHiddenStateOnOneChildOnParentHover("oneLog", "click", "trianglebottom", true, "data-open", "true")
 
     //Declare on event mouseover hidden management for 2 triangles depending on if log is opened or not
-    declareChangeHiddenStateOnOneElementOnHoverOnConditionWithAttribute("oneLog", "mouseover", "triangletop", "data-open", "true", false)
-    declareChangeHiddenStateOnOneElementOnHoverOnConditionWithAttribute("oneLog", "mouseover", "trianglebottom", "data-open", "true", true)
+    declareChangeHiddenStateOnOneChildOnParentHover("oneLog", "mouseover", "triangletop", false, "data-open", "true")
+    declareChangeHiddenStateOnOneChildOnParentHover("oneLog", "mouseover", "trianglebottom", true, "data-open", "true")
 
     //One mouse out hide the 2 triangles in all cases
-    declareChangeHiddenStateOnOneElementOnHover("oneLog", "mouseout", "trianglebottom", true)
-    declareChangeHiddenStateOnOneElementOnHover("oneLog", "mouseout", "triangletop", true)
+    declareChangeHiddenStateOnOneChildOnParentHover("oneLog", "mouseout", "trianglebottom", true)
+    declareChangeHiddenStateOnOneChildOnParentHover("oneLog", "mouseout", "triangletop", true)
 })
 
-//Declare events on a parent, to manage hidden state of a child of this parent
-function declareChangeHiddenStateOnOneElementOnHoverOnConditionWithAttribute(parentclassname, eventname, childname, attributename, valueofattribute, hiddenAtThisEventAndCondition) {
-    $("." + parentclassname).on(eventname, function (sender) {
-        parent = sender.target
-        while (parent.id == "" || parent.id == null) {
+//Declare eventlistener on a parent, to manage hidden state of a child of this parent, with a condition on an attribute or not
+function declareChangeHiddenStateOnOneChildOnParentHover(parentclassname, eventname, childname, hiddenvalue, attributename = null, valueofattribute = null) {
+    $("." + parentclassname).on(eventname, function (event) {
+        parent = event.target
+        while (parent.id == "" || parent.id == null) {  //get the real parent (event can be produced on childrens and not on the parent directly. The parent must have an id.
             parent = parent.parentNode
         }
-        child = parent.querySelector("." + childname);
-        if (parent.getAttribute(attributename) == valueofattribute) {
-            child.hidden = hiddenAtThisEventAndCondition
-        } else {
-            child.hidden = !hiddenAtThisEventAndCondition
+        child = parent.querySelector("." + childname);  //select the only child inside this parent with its class name
+        if (attributename != null) {   //if attribute name is not null, then the use of the condition is asked
+            if (parent.getAttribute(attributename) == valueofattribute) {
+                child.hidden = hiddenvalue
+            } else {
+                child.hidden = !hiddenvalue
+            }
+        } else {  //no condition, so apply value in all cases
+            child.hidden = hiddenvalue;
         }
     })
 }
 
-
-function changeState(state) {
+//Get the invert state of a pseudo boolean value (!value doesn't work with attribute)
+function getInvertState(state) {
     if (state == "false") {
         return true
     } else {
@@ -50,6 +55,7 @@ function changeState(state) {
     }
 }
 
+//Invert the visibility of the 2 descriptions (one short and one long) of a log. One is hidden and one is displayed.
 function logLoadVisibility(idParent) {
     //parent = document.getElementById(idParent)
     shortDesc = parent.querySelector(".shortdescription")

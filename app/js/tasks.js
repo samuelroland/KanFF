@@ -5,20 +5,9 @@
  *  Creation date: 15.10.2020
  */
 
-//Declare events on a parent, to manage hidden state of a child of this parent
-function declareChangeHiddenStateOnOneElementOnHover(parentclassname, eventname, childname, hiddenatthisevent) {
-    $("." + parentclassname).on(eventname, function (sender) {
-        parent = sender.target
-        while (parent.id == "" || parent.id == null) {
-            parent = parent.parentNode
-        }
-        child = parent.querySelector("." + childname);
-        child.hidden = hiddenatthisevent;
-    })
-}
-
 //After the DOM has been loaded:
 $(document).ready(function () {
-    declareChangeHiddenStateOnOneElementOnHover("divTask", "mouseover", "divTaskBottomLine", false)
-    declareChangeHiddenStateOnOneElementOnHover("divTask", "mouseout", "divTaskBottomLine", true)
+    //bottom line of divTask have to be hidden if divTask is not on hover and displayed if on hover
+    declareChangeHiddenStateOnOneChildOnParentHover("divTask", "mouseover", "divTaskBottomLine", false)
+    declareChangeHiddenStateOnOneChildOnParentHover("divTask", "mouseout", "divTaskBottomLine", true)
 })
