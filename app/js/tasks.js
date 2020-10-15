@@ -22,16 +22,3 @@ $(document).ready(function () {
     declareChangeHiddenStateOnOneElementOnHover("divTask", "mouseover", "divTaskBottomLine", false)
     declareChangeHiddenStateOnOneElementOnHover("divTask", "mouseout", "divTaskBottomLine", true)
 })
-
-function logLoadVisibility(idParent) {
-    //parent = document.getElementById(idParent)
-    shortDesc = parent.querySelector(".shortdescription")
-    longDesc = parent.querySelector(".longdescription")
-    if (shortDesc.hidden === false) {
-        shortDesc.hidden = true
-        longDesc.hidden = false
-    } else {
-        shortDesc.hidden = false
-        longDesc.hidden = true
-    }
-}

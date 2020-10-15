@@ -8,47 +8,39 @@
 $(document).ready(function () {
     //Declare events:
     $(".oneLog").on("click", function (sender) {
-        parent = sender.target
-        while (parent.id == "" || parent.id == null) {
-            parent = parent.parentNode
-        }
-        console.log(parent.getAttribute("data-open"))
-        console.log(!(parent.getAttribute("data-open")))
-        console.log(parent)
         parent.setAttribute("data-open", changeState(parent.getAttribute("data-open")))
-        if (parent.getAttribute("data-open") == "true") {
-            //alert("hey")
-            triangletop.hidden = false
-            trianglebottom.hidden = true
-        } else {
-            //alert("hey2")
-            triangletop.hidden = true
-            trianglebottom.hidden = false
-        }
         logLoadVisibility(sender.target.id)
     })
-    $(".oneLog").on("mouseover", function (sender) {
-        parent = sender.target
-        while (parent.id == "" || parent.id == null) {
-            parent = parent.parentNode
-        }
 
-        trianglebottom = parent.querySelector(".trianglebottom")
-        triangletop = parent.querySelector(".triangletop")
-        if (parent.getAttribute("data-open") == "true") {
-            //alert("hey4")
-            triangletop.hidden = false
-            trianglebottom.hidden = true
-        } else {
-            //alert("hey3")
-            triangletop.hidden = true
-            trianglebottom.hidden = false
-        }
-    })
-    //One mouse out hide the 2 triangles:
+    //Declare on event click hidden management for 2 triangles depending on if log is opened or not
+    declareChangeHiddenStateOnOneElementOnHoverOnConditionWithAttribute("oneLog", "click", "triangletop", "data-open", "true", false)
+    declareChangeHiddenStateOnOneElementOnHoverOnConditionWithAttribute("oneLog", "click", "trianglebottom", "data-open", "true", true)
+
+    //Declare on event mouseover hidden management for 2 triangles depending on if log is opened or not
+    declareChangeHiddenStateOnOneElementOnHoverOnConditionWithAttribute("oneLog", "mouseover", "triangletop", "data-open", "true", false)
+    declareChangeHiddenStateOnOneElementOnHoverOnConditionWithAttribute("oneLog", "mouseover", "trianglebottom", "data-open", "true", true)
+
+    //One mouse out hide the 2 triangles in all cases
     declareChangeHiddenStateOnOneElementOnHover("oneLog", "mouseout", "trianglebottom", true)
     declareChangeHiddenStateOnOneElementOnHover("oneLog", "mouseout", "triangletop", true)
 })
+
+//Declare events on a parent, to manage hidden state of a child of this parent
+function declareChangeHiddenStateOnOneElementOnHoverOnConditionWithAttribute(parentclassname, eventname, childname, attributename, valueofattribute, hiddenAtThisEventAndCondition) {
+    $("." + parentclassname).on(eventname, function (sender) {
+        parent = sender.target
+        while (parent.id == "" || parent.id == null) {
+            parent = parent.parentNode
+        }
+        child = parent.querySelector("." + childname);
+        if (parent.getAttribute(attributename) == valueofattribute) {
+            child.hidden = hiddenAtThisEventAndCondition
+        } else {
+            child.hidden = !hiddenAtThisEventAndCondition
+        }
+    })
+}
+
 
 function changeState(state) {
     if (state == "false") {
