@@ -34,6 +34,7 @@ require ".const.php";
     <script src="js/groups.js"></script>
     <script src="js/users.js"></script>
     <script src="js/projects.js"></script>
+    <script src="js/tasks.js"></script>
 
 </head>
 <body>

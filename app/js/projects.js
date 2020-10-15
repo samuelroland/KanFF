@@ -1,6 +1,6 @@
 /**
  *  Project: KanFF
- *  File: users.js for pages about users
+ *  File: projects.js for pages about projects
  *  Author: Samuel Roland
  *  Creation date: 08.09.2020
  */
