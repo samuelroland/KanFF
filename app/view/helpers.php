@@ -347,14 +347,14 @@ function manageIfApplyOnFirstChar($txt, $needFirstCharToUpper)
 }
 
 //Get HTML code to mention an user with initials clickable (for user details) and with a tooltip to show full name:
-function mentionUser($basicUser)
+function mentionUser($basicUser, $css = "text-info")
 {
     //TODO: add tooltip on initials hover with full name (and username?)
     //TODO: remove link if user has limited access
     if (checkLimitedAccess()) {
-        $mention = "<span class='cursorpointer text-info d-inline' data-fallbackPlacement='flip' data-toggle='tooltip' data-title='" . $basicUser['firstname'] . " " . $basicUser['lastname'] . " " . (($basicUser['username'] != "") ? "(" . $basicUser['username'] . ")" : "") . "' data-placement='top' data-delay='1'>{$basicUser['initials']}</span>";
+        $mention = "<span class='cursorpointer $css d-inline' data-fallbackPlacement='flip' data-toggle='tooltip' data-title='" . $basicUser['firstname'] . " " . $basicUser['lastname'] . " " . (($basicUser['username'] != "") ? "(" . $basicUser['username'] . ")" : "") . "' data-placement='top' data-delay='1'>{$basicUser['initials']}</span>";
     } else {
-        $mention = "<span class='cursorpointer clickable text-info d-inline' data-fallbackPlacement='flip' data-toggle='tooltip' data-title='" . $basicUser['firstname'] . " " . $basicUser['lastname'] . " " . (($basicUser['username'] != "") ? "(" . $basicUser['username'] . ")" : "") . "' data-placement='top' data-delay='1' data-href='?action=member&id={$basicUser['id']}'>{$basicUser['initials']}</span>";
+        $mention = "<span class='cursorpointer clickable $css d-inline' data-fallbackPlacement='flip' data-toggle='tooltip' data-title='" . $basicUser['firstname'] . " " . $basicUser['lastname'] . " " . (($basicUser['username'] != "") ? "(" . $basicUser['username'] . ")" : "") . "' data-placement='top' data-delay='1' data-href='?action=member&id={$basicUser['id']}'>{$basicUser['initials']}</span>";
     }
 
     return $mention;

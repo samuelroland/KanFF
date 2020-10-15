@@ -22,7 +22,7 @@
 }
 
 .divTaskNumber {
-    height: 15px;
+    height: 20px;
 }
 
 .divTaskName {
@@ -30,24 +30,57 @@
 }
 
 .divTaskBottomLine {
-    height: 25px;
-    padding-top: 5px;
+    height: 20px;
+    padding-top: 0px;
 }
 
 .icon-task {
-    width: 12px;
-    height: 12px;
-    margin: 2px;
+    width: 17px;
+    height: 17px;
+    margin: 1px;
+}
+
+.icon-task-triangle {
+    width: 13px;
+    height: 13px;
+    margin: 1px;
 }
 
 .divTaskPlusButton {
     min-height: 46px;
     min-width: 46px;
-    max-width: 120px;
-    max-height: 120px;
-    width: -moz-available;
+    height: 120px;
+    width: 120px;
     margin: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 1px solid #0000003d;
+}
+
+.divTaskPlusButton:hover{
+    background-color: #d9dbdf;
+    border: 1px solid rgba(0, 0, 0, 0.24);
+}
+
+.divTaskPlusButtonIcon{
+    height: 23px;
+    width: 23px;
+}
+
+.divTaskUserMentionEllipsis {
+    font-family: Consolas, Sans-serif, fantasy;
+    font-size: 1.2em;
+    background: #d59500;
+    border-radius: 50px;
+    display: inline-block;
+    height: 20px;
+    text-align: center;
+    width: 31px;
+    padding-right: 3px;
+    padding-left: 3px;
+}
+
+.txtMentionOnTask {
+    color: white;
 }

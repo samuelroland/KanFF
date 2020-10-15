@@ -83,8 +83,8 @@ function printAWork($work)
                 }
                 ?>
                 <?php
-                echo "<div class='divTaskPlusButton'>";
-                printAnIcon("plus.png", "Créer une tâche", "plus icon");
+                echo "<div class='divTaskPlusButton cursorpointer'>";
+                printAnIcon("plus.png", "Créer une tâche", "plus icon", "divTaskPlusButtonIcon");
                 echo "</div>";
                 ?>
             </div>
@@ -123,19 +123,36 @@ function printATask($task)
         //TODO: choose the right color depending on the type
     }
     ?>
-    <div class="divTask cursorgrab">
-        <div class="alignright divTaskNumber"><em><?= $task['number'] ?></em></div>
+    <div class="divTask cursorgrab" id="divTask-<?= $task['id'] ?>">
+        <div class="flexdiv divTaskNumber">
+            <div class="flex-1"><?php if ($task['responsible_id'] != null) {
+                    echo "<span class='divTaskUserMentionEllipsis'>" . mentionUser($task['responsible'], "txtMentionOnTask") . "</span>";
+                } ?></div>
+            <div class=""><em><?= $task['number'] ?></em></div>
+        </div>
         <div class="divTaskName"><strong><?= createElementWithFixedLines($task['name'], 4) ?></strong></div>
-        <div class="divTaskBottomLine flexdiv">
-            <span class="flex-1"><?php
-                if ($task['responsible_id'] != null) {
-                    echo mentionUser($task['responsible']);
+        <div class="divTaskBottomLine flexdiv" hidden>
+            <span class="flex-1 box-verticalaligncenter">
+                <span>
+                <?php
+                if ($task['responsible_id'] != null && $task['responsible_id']==$_SESSION['user']['id']) {
+                    printAnIcon("removeuser.png", "Relâcher la tache", "remove user icon", "icon-task cursorpointer");
                 } else {
-                    printAnIcon("adduser2.png", "Options supplémentaires", "triangle bottom icon", "icon-task");
+                    printAnIcon("adduser3.png", "Prendre la tâche", "add user icon", "icon-task cursorpointer");
                 }
-                ?></span>
-            <?php printAnIcon("chat.png", "Options supplémentaires", "triangle bottom icon", "icon-task"); ?>
-            <?php printAnIcon("trianglebottom.png", "Options supplémentaires", "triangle bottom icon", "icon-task"); ?>
+                ?>
+                </span>
+            </span>
+            <?php
+            //No comments on tasks for v1.0 so the icon is not displayed:
+            //printAnIcon("chat.png", "Options supplémentaires", "triangle bottom icon", "icon-task");
+            ?>
+            <span class="">
+                <span class=''>
+                    <?php printAnIcon("trianglebottom.png", "Options supplémentaires", "triangle bottom icon", "icon-task-triangle cursorpointer"); ?>
+                </span>
+            </span>
+
         </div>
     </div>
     <?php
