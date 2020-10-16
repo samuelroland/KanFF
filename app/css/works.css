@@ -12,17 +12,16 @@
 }
 
 .divWork {
-    min-height: 200px;
+    min-height: 60px;
     margin-top: 5px;
     background-color: transparent;
 }
 
 .divWorkContent {
-    min-height: 150px;
+    min-height: 140px;  /*if there is only one line of task, then there is a very little padding at the bottom*/
 }
 
 .divWorkOneState {
-    min-height: 150px;
     max-width: 630px;
     display: flex;
     align-items: start;

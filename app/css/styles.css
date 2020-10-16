@@ -514,29 +514,10 @@ hr {
     margin-top: 10px !important;
 }
 
-.pastillecirclegreen {
+.pastillecircle {
     width: 10px;
     height: 10px;
     border-radius: 100px;
-    background-color: green;
-    margin-right: 5px;
-    display: inline-block;
-}
-
-.pastillecirclelightgrey {
-    width: 10px;
-    height: 10px;
-    border-radius: 100px;
-    background-color: lightgrey;
-    margin-right: 5px;
-    display: inline-block;
-}
-
-.pastillecircleorange {
-    width: 10px;
-    height: 10px;
-    border-radius: 100px;
-    background-color: orange;
     margin-right: 5px;
     display: inline-block;
 }

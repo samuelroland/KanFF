@@ -20,30 +20,31 @@ function printAWork($work)
     ob_start();
     switch ($work['state']) {
         case WORK_STATE_INRUN:
-            $color = "lightgrey";
-            $bgCssClass = "";
+            $borderAndPastilleColor = "#00b7ffaa;";//default x with transparent
+            $bgCssColor = "#00b7ff12";
             break;
         case WORK_STATE_ONBREAK:
-            $color = "orange";
-            $bgCssClass = "lightorange";
+            $borderAndPastilleColor = "#ffa500aa";//default orange with transparent
+            $bgCssColor = "#ffa50012";
             break;
         case WORK_STATE_DONE:
-            $color = "green";
-            $bgCssClass = "lightgreen";
+            $borderAndPastilleColor = "#008000aa";   //default green with transparent
+            $bgCssColor = "#00800012";
             break;
     }
     if ($work['inbox'] == 1) {
-        $color = "grey";
+        $borderAndPastilleColor = "lightgrey";
+        $bgCssColor = "";
     }
     ?>
-    <div class="divWork" style="border: 2px solid <?= $color ?>; border-radius: 5px;">
-        <div class="divWorkHeader bg<?= $bgCssClass ?> box-verticalaligncenter">
+    <div class="divWork" style="border: 2px solid <?= $borderAndPastilleColor ?>; border-radius: 5px;">
+        <div class="divWorkHeader box-verticalaligncenter" style="background-color: <?= $bgCssColor ?> !important;">
             <div class="flex-1 flexdiv box-verticalaligncenter">
                 <h5 class="nomargin pr-2 pl-2"><?= $work['name'] ?></h5>
                 <div class="divWorkIconsLeft flexdiv box-verticalaligncenter">
                     <?php
                     if ($work['inbox'] != 1) {
-                        echo "<span class='ml-4 mr-5'>" . getHTMLPastille($color) . "<strong>" . convertWorkState($work['state'], true) . "</strong></span>";
+                        echo "<span class='ml-4 mr-5'>" . getHTMLPastille($borderAndPastilleColor) . "<strong>" . convertWorkState($work['state'], true) . "</strong></span>";
                     }
                     //Display the archive icon if the project is archived
                     if ($work['open'] == 1) {
@@ -73,7 +74,7 @@ function printAWork($work)
                 ?>
             </div>
         </div>
-        <div class="divWorkContent flexdiv">
+        <div class="divWorkContent flexdiv" <?= ($work['state'] == WORK_STATE_DONE) ? "hidden" : "" ?>>
             <div class="flex-1 leftcolumn divWorkOneState">
                 <?php
                 foreach ($work['tasks'] as $task) {

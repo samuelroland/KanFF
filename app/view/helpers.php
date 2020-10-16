@@ -373,9 +373,10 @@ function createElementWithFixedLines($text, $nbLines)
     return $html;
 }
 
-function getHTMLPastille($color)
+function getHTMLPastille($cssColor)
 {
-    return "<div class='pastillecircle" . $color . "'></div>";
+    return "<div class='pastillecircle' style='
+    background-color: $cssColor;'></div>";
 }
 
 //tasks too or identical to works.state ?
