@@ -85,6 +85,7 @@ function projectDetails($id, $option)
 
 function kanban($id)
 {
+    $isInsideTheProject = isAUserInsideAProject($id, $_SESSION['user']['id']);
     $users = getAllUsers();
     $project = getOneProject($id);
     $works = indexAnArrayById(getAllWorksByProject($id));
@@ -93,8 +94,40 @@ function kanban($id)
         $task['responsible'] = $users[$task['responsible_id']];
         $works[$task['work_id']]['tasks'][] = $task;
     }
+
+    foreach ($works as $key => $work) {
+        $works[$key]['hasWritingRightOnTasks'] = hasWritingRightOnTasksOfAWork($isInsideTheProject, $work);
+    }
     $project['works'] = $works;
     require_once "view/kanban.php";
+}
+
+//return true or false, if the user is inside the project (inside groups that participate to the project)
+function isAUserInsideAProject($projectid, $userid)
+{
+    $result = getGroupsParticipatingToAProjectByMember($projectid, $userid);
+    if (count($result) >= 1) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+//Return true or false, if the user has writing right on tasks of a work depending on the settings of the work
+function hasWritingRightOnTasksOfAWork($isInTheProject, $work)
+{
+    $open = $work['open'];
+    $visible = $work['visible'];
+
+    if ($isInTheProject) {
+        return true;
+    }
+    if ($visible == 1) {
+        if ($open == 1) {
+            return true;
+        }
+    }
+    return false;
 }
 
 ?>

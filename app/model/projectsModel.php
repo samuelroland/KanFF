@@ -103,4 +103,18 @@ function getAllArchivedProjects($id)
     return $projects;
 }
 
+//Get all groups participations to a project where the groups are joined by the member
+function getGroupsParticipatingToAProjectByMember($projectid, $userid)
+{
+    $query = "SELECT participate.`*` FROM projects
+INNER join participate ON participate.project_id = projects.id
+INNER join `groups` ON participate.group_id = `groups`.id
+INNER join `join` ON `join`.group_id = `groups`.id
+INNER join users ON `join`.user_id = users.id
+WHERE users.id = :userid AND participate.state IN (" . PARTICIPATE_STATE_INVITATION_ACCEPTED . "," . PARTICIPATE_STATE_CREATOR . ") AND `join`.state IN (7, 8) AND projects.id = :projectid";
+
+    $params = ["userid" => $userid, "projectid" => $projectid];
+    return Query($query, $params, true);
+}
+
 ?>

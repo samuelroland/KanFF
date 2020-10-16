@@ -79,21 +79,24 @@ function printAWork($work)
                 <?php
                 foreach ($work['tasks'] as $task) {
                     if ($task['state'] == TASK_STATE_TODO) {
-                        printATask($task);
+                        printATask($task, $work['hasWritingRightOnTasks']);
                     }
                 }
                 ?>
                 <?php
-                echo "<div class='divTaskPlusButton cursorpointer'>";
-                printAnIcon("plus.png", "Créer une tâche", "plus icon", "divTaskPlusButtonIcon");
-                echo "</div>";
+                displaydebug($work['hasWritingRightOnTasks']);
+                if ($work['hasWritingRightOnTasks']) {
+                    echo "<div class='divTaskPlusButton cursorpointer'>";
+                    printAnIcon("plus.png", "Créer une tâche", "plus icon", "divTaskPlusButtonIcon");
+                    echo "</div>";
+                }
                 ?>
             </div>
             <div class="flex-1 middlecolumn divWorkOneState">
                 <?php
                 foreach ($work['tasks'] as $task) {
                     if ($task['state'] == TASK_STATE_INRUN) {
-                        printATask($task);
+                        printATask($task, $work['hasWritingRightOnTasks']);
                     }
                 }
                 ?>
@@ -102,7 +105,7 @@ function printAWork($work)
                 <?php
                 foreach ($work['tasks'] as $task) {
                     if ($task['state'] == TASK_STATE_DONE) {
-                        printATask($task);
+                        printATask($task, $work['hasWritingRightOnTasks']);
                     }
                 }
                 ?>
@@ -114,7 +117,7 @@ function printAWork($work)
     echo ob_get_clean();
 }
 
-function printATask($task)
+function printATask($task, $hasWritingRightOnTasks)
 {
     ob_start();
     switch ($task['type']) {
@@ -124,7 +127,8 @@ function printATask($task)
         //TODO: choose the right color depending on the type
     }
     ?>
-    <div class="divTask cursorgrab" id="divTask-<?= $task['id'] ?>" data-id="<?= $task['id'] ?>">
+    <div class="divTask <?= (($hasWritingRightOnTasks) ? "cursorgrab" : "") ?>" id="divTask-<?= $task['id'] ?>"
+         data-id="<?= $task['id'] ?>">
         <div class="flexdiv divTaskNumber">
             <div class="flex-1"><?php if ($task['responsible_id'] != null) {
                     echo "<span class='divTaskUserMentionEllipsis'>" . mentionUser($task['responsible'], "txtMentionOnTask") . "</span>";
@@ -136,10 +140,12 @@ function printATask($task)
             <span class="flex-1 box-verticalaligncenter">
                 <span>
                 <?php
-                if ($task['responsible_id'] != null && $task['responsible_id'] == $_SESSION['user']['id']) {
-                    printAnIcon("removeuser.png", "Relâcher la tache", "remove user icon", "icon-task cursorpointer");
-                } else {
-                    printAnIcon("adduser3.png", "Prendre la tâche", "add user icon", "icon-task cursorpointer");
+                if ($hasWritingRightOnTasks) {
+                    if ($task['responsible_id'] != null && $task['responsible_id'] == $_SESSION['user']['id']) {
+                        printAnIcon("removeuser.png", "Relâcher la tache", "remove user icon", "icon-task " . (($hasWritingRightOnTasks) ? "cursorpointer" : ""));
+                    } else {
+                        printAnIcon("adduser3.png", "Prendre la tâche", "add user icon", "icon-task " . (($hasWritingRightOnTasks) ? "cursorpointer" : ""));
+                    }
                 }
                 ?>
                 </span>
@@ -154,10 +160,27 @@ function printATask($task)
                 </span>
                 <div class="dropdown-menu dropdown-menu-right divTaskDropdownOptions">
                 <span class="dropdown-item divTaskDropdownOption">Détails</span>
-                <span class="dropdown-item divTaskDropdownOption">Prendre</span>
-                <span class="dropdown-item divTaskDropdownOption">Passer à En cours</span>
-                <span class="dropdown-item divTaskDropdownOption">Passer à Fini</span>
-                <span class="dropdown-item divTaskDropdownOption text-danger">Supprimer</span>
+                    <?php if ($hasWritingRightOnTasks) { ?>
+                        <span class="dropdown-item divTaskDropdownOption">Prendre</span>
+                        <?php
+                        $optionsToChangeState = [];
+                        switch ($task['state']) {
+                            case TASK_STATE_TODO:
+                                $optionsToChangeState = [TASK_STATE_INRUN, TASK_STATE_DONE];
+                                break;
+                            case TASK_STATE_INRUN:
+                                $optionsToChangeState = [TASK_STATE_DONE, TASK_STATE_TODO];
+                                break;
+                            case TASK_STATE_DONE:
+                                $optionsToChangeState = [TASK_STATE_INRUN];
+                                break;
+                        }
+                        foreach ($optionsToChangeState as $option) {
+                            echo "<span class='dropdown-item divTaskDropdownOption'>Passer à " . convertTaskState($option, true) . "</span>";
+                        }
+                        ?>
+                        <span class="dropdown-item divTaskDropdownOption text-danger">Supprimer</span>
+                    <?php } ?>
                 </div>
             </span>
 
@@ -191,13 +214,16 @@ ob_start();
         <div class="flex-1 box-verticalaligncenter justify-content-center rightcolumn"><h4 class="nomargin">Fini</h4>
         </div>
     </div>
-    <hr class="hryellowproject nomargin">
+    <hr class="hrgrey nomargin">
 
     <!-- List of works -->
-<?php foreach ($works as $work) {
+<?php
+foreach ($project['works'] as $work) {
     if ($work['state'] != WORK_STATE_TODO) {
         printAWork($work);
     }
+    displaydebug($work['name']);
+    displaydebug($work['hasWritingRightOnTasks']);
 }
 
 if (count($works) == 1) {
