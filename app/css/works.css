@@ -18,7 +18,7 @@
 }
 
 .divWorkContent {
-    min-height: 140px;  /*if there is only one line of task, then there is a very little padding at the bottom*/
+    min-height: 140px; /*if there is only one line of task, then there is a very little padding at the bottom*/
 }
 
 .divWorkOneState {
@@ -27,4 +27,9 @@
     align-items: start;
     flex-wrap: wrap;
     align-content: baseline;
+}
+
+.icon-inbox {
+    height: 25px;
+    margin: 5px;
 }

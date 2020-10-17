@@ -46,6 +46,8 @@ function printAWork($work, $isInsideTheProject)
                     <?php
                     if ($work['inbox'] != 1) {
                         echo "<span class='ml-4 mr-5'>" . getHTMLPastille($borderAndPastilleColor) . "<strong>" . convertWorkState($work['state'], true) . "</strong></span>";
+                    } else {
+                        printAnIcon("inbox.png", "Ce travail est la boîte de réception du projet", "inbox icon", "icon-inbox ml-4 mr-5");
                     }
                     //Display the archive icon if the project is archived
                     if ($work['open'] == 1) {
