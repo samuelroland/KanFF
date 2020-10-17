@@ -8,9 +8,18 @@
 $(document).ready(function () {
     //Declare events:
     $(".oneLog").on("click", function (sender) {
+        parent = getRealParentHavingId(sender.target)
+
         //On click, invert the state of data-open attribute and invert the description visible
         parent.setAttribute("data-open", getInvertState(parent.getAttribute("data-open")))
-        logLoadVisibility(sender.target.id)
+        invertHiddenState(parent, "shortdescription")
+        invertHiddenState(parent, "longdescription")
+    })
+
+    $(".btnSeeMoreOrLessWorks").on("click", function (event) {
+        parent = getRealParentHavingId(event.target)
+        window.location.hash = "#" + parent.id
+        invertHiddenState(parent, "divWorkContent")
     })
 
     //Declare on event click hidden management for 2 triangles depending on if log is opened or not
@@ -52,19 +61,11 @@ function getInvertState(state) {
     }
 }
 
-//Invert the visibility of the 2 descriptions (one short and one long) of a log. One is hidden and one is displayed.
-function logLoadVisibility(idParent) {
-    //parent = document.getElementById(idParent)
-    shortDesc = parent.querySelector(".shortdescription")
-    longDesc = parent.querySelector(".longdescription")
-    if (shortDesc.hidden === false) {
-        shortDesc.hidden = true
-        longDesc.hidden = false
-    } else {
-        shortDesc.hidden = false
-        longDesc.hidden = true
-    }
+function invertHiddenState(parent, classNameOfChild) {
+    obj = parent.querySelector("." + classNameOfChild)
+    obj.hidden = !obj.hidden
 }
+
 
 //Get the real parent (event can be produced on childrens and not on the parent directly. The parent is the first parentNode that have an id.)
 function getRealParentHavingId(parent) {

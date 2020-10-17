@@ -94,11 +94,9 @@ function printAWork($work, $isInsideTheProject)
                 </div>
             </div>
             <div class="divWorkIconsRight box-verticalaligncenter">
+                <?= ($work['state'] == WORK_STATE_DONE) ? "<button class='btnSeeMoreOrLessWorks borderformodifiabletask'>Voir contenu</button>" : "__" ?>
                 <span class="ml-3 mr-3">Effort: <?= $work['effort'] ?> - Valeur: <?= $work['value'] ?></span>
                 <span class="ml-3 mr-3"><?= DTToHumanDate($work['start']) ?> - <?= DTToHumanDate($work['end']) ?></span>
-                <?php
-                //TODO: display icons of the work
-                ?>
             </div>
         </div>
         <div class="divWorkContent flexdiv" <?= ($work['state'] == WORK_STATE_DONE) ? "hidden" : "" ?>>
@@ -198,7 +196,9 @@ function printATask($task, $hasWritingRightOnTasks, $hidden = false)
                 <div class="dropdown-menu dropdown-menu-right divTaskDropdownOptions">
                 <span class="dropdown-item divTaskDropdownOption">Détails</span>
                     <?php if ($hasWritingRightOnTasks) { ?>
-                        <span class="dropdown-item divTaskDropdownOption">Prendre</span>
+                        <?php if ($task['state'] != TASK_STATE_DONE) { ?>
+                            <span class="dropdown-item divTaskDropdownOption">Prendre</span>
+                        <?php } ?>
                         <?php
                         $optionsToChangeState = [];
                         switch ($task['state']) {

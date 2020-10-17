@@ -103,7 +103,7 @@
     color: black;
 }
 
-.divSeeMoreOrLessTasks{
+.divSeeMoreOrLessTasks {
     height: 120px;
     width: 120px;
     margin: 5px;
@@ -112,4 +112,9 @@
 .btnSeeMoreOrLessTasks {
     background: transparent;
     padding: 5px;
+}
+
+.btnSeeMoreOrLessWorks{
+    background: transparent;
+    padding: 3px;
 }
