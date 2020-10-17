@@ -18,8 +18,11 @@ $(document).ready(function () {
 
     $(".btnSeeMoreOrLessWorks").on("click", function (event) {
         parent = getRealParentHavingId(event.target)
-        window.location.hash = "#" + parent.id
+        if (event.target.innerText === "Afficher contenu") {    //if the user want to display content
+            window.location.hash = "#" + parent.id  //go to work anchor
+        }
         invertHiddenState(parent, "divWorkContent")
+        invertInnerText(event.target, "Afficher contenu", "Masquer contenu")
     })
 
     //Declare on event click hidden management for 2 triangles depending on if log is opened or not
