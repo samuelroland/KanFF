@@ -17,13 +17,8 @@ $(document).ready(function () {
 function declareSeeMoreOrLessButtonsEvents() {
     $(".btnSeeMoreOrLessTasks").on("click", function (event) {
         btn = event.target
-        if (btn.innerText === "Voir plus") {
-            btn.innerText = "Voir moins"
-            manageVisibilityTasks(btn, true)    //display the end part of tasks
-        } else {
-            btn.innerText = "Voir plus"
-            manageVisibilityTasks(btn, false)   //hide the end part of tasks
-        }
+        manageVisibilityTasks(btn, (btn.innerText === "Voir plus"))    //display or hide the end part of tasks depending on the current text on the button
+        invertInnerText(btn, "Voir plus", "Voir moins")
     })
 }
 

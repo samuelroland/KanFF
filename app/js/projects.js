@@ -52,7 +52,7 @@ function declareChangeHiddenStateOnOneChildOnParentHover(parentclassname, eventn
     })
 }
 
-//Get the invert state of a pseudo boolean value (!value doesn't work with attribute)
+//Get the invert state of a pseudo boolean value (!value doesn't work with attribute) from an data-* attribute
 function getInvertState(state) {
     if (state == "false") {
         return true
@@ -61,11 +61,20 @@ function getInvertState(state) {
     }
 }
 
+//Invert hidden state of a child element
 function invertHiddenState(parent, classNameOfChild) {
     obj = parent.querySelector("." + classNameOfChild)
     obj.hidden = !obj.hidden
 }
 
+//Invert the inner text of an element (if one is set, set the other one)
+function invertInnerText(obj, firsttext, secondtext) {
+    if (obj.innerText === firsttext) {
+        obj.innerText = secondtext;
+    } else {
+        obj.innerText = firsttext
+    }
+}
 
 //Get the real parent (event can be produced on childrens and not on the parent directly. The parent is the first parentNode that have an id.)
 function getRealParentHavingId(parent) {
