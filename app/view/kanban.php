@@ -37,7 +37,8 @@ function printAWork($work, $isInsideTheProject)
         $bgCssColor = "";
     }
     ?>
-    <div class="divWork" style="border: 2px solid <?= $borderAndPastilleColor ?>; border-radius: 5px;">
+    <div class="divWork" style="border: 2px solid <?= $borderAndPastilleColor ?>; border-radius: 5px;"
+         data-id="<?= $work['id'] ?>" id="divWork-<?= $work['id'] ?>">
         <div class="divWorkHeader box-verticalaligncenter" style="background-color: <?= $bgCssColor ?> !important;">
             <div class="flex-1 flexdiv box-verticalaligncenter">
                 <h5 class="nomargin pr-2 pl-2"><?= $work['name'] ?></h5>
@@ -110,7 +111,7 @@ function printAWork($work, $isInsideTheProject)
                 <?php
                 displaydebug($work['hasWritingRightOnTasks']);
                 if ($work['hasWritingRightOnTasks']) {
-                    echo "<div class='divTaskPlusButton cursorpointer'>";
+                    echo "<div class='divTaskPlusButton borderformodifiabletask cursorpointer'>";
                     printAnIcon("plus.png", "Créer une tâche", "plus icon", "divTaskPlusButtonIcon");
                     echo "</div>";
                 }
@@ -127,10 +128,19 @@ function printAWork($work, $isInsideTheProject)
             </div>
             <div class="flex-1 rightcolumn divWorkOneState">
                 <?php
+                $nbtasks = 0;
                 foreach ($work['tasks'] as $task) {
                     if ($task['state'] == TASK_STATE_DONE) {
-                        printATask($task, $work['hasWritingRightOnTasks']);
+                        $nbtasks++;
+                        if ($nbtasks <= 6) {
+                            printATask($task, $work['hasWritingRightOnTasks']);
+                        } else {
+                            printATask($task, $work['hasWritingRightOnTasks'], true);
+                        }
                     }
+                }
+                if ($nbtasks > 6) {
+                    echo "<div class='divSeeMoreOrLessTasks box-verticalaligncenter box-aligncenter'><button class='btnSeeMoreOrLessTasks borderformodifiabletask' >Voir plus</button></div>";
                 }
                 ?>
             </div>
@@ -141,7 +151,7 @@ function printAWork($work, $isInsideTheProject)
     echo ob_get_clean();
 }
 
-function printATask($task, $hasWritingRightOnTasks)
+function printATask($task, $hasWritingRightOnTasks, $hidden = false)
 {
     ob_start();
     switch ($task['type']) {
@@ -151,8 +161,9 @@ function printATask($task, $hasWritingRightOnTasks)
         //TODO: choose the right color depending on the type
     }
     ?>
-    <div class="divTask <?= (($hasWritingRightOnTasks) ? "cursorgrab borderformodifiabletask" : "") ?>" id="divTask-<?= $task['id'] ?>"
-         data-id="<?= $task['id'] ?>">
+    <div class="divTask <?= (($hasWritingRightOnTasks) ? "cursorgrab borderformodifiabletask" : "") ?>"
+         id="divTask-<?= $task['id'] ?>"
+         data-id="<?= $task['id'] ?>" <?= ($hidden) ? "hidden" : "" ?>>
         <div class="flexdiv divTaskNumber">
             <div class="flex-1"><?php if ($task['responsible_id'] != null) {
                     echo "<span class='divTaskUserMentionEllipsis'>" . mentionUser($task['responsible'], "txtMentionOnTask") . "</span>";

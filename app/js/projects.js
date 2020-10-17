@@ -29,10 +29,7 @@ $(document).ready(function () {
 //Declare eventlistener on a parent, to manage hidden state of a child of this parent, with a condition on an attribute or not
 function declareChangeHiddenStateOnOneChildOnParentHover(parentclassname, eventname, childname, hiddenvalue, attributename = null, valueofattribute = null) {
     $("." + parentclassname).on(eventname, function (event) {
-        parent = event.target
-        while (parent.id == "" || parent.id == null) {  //get the real parent (event can be produced on childrens and not on the parent directly. The parent must have an id.
-            parent = parent.parentNode
-        }
+        parent = getRealParentHavingId(event.target)
         child = parent.querySelector("." + childname);  //select the only child inside this parent with its class name
         if (attributename != null) {   //if attribute name is not null, then the use of the condition is asked
             if (parent.getAttribute(attributename) == valueofattribute) {
@@ -67,4 +64,12 @@ function logLoadVisibility(idParent) {
         shortDesc.hidden = false
         longDesc.hidden = true
     }
+}
+
+//Get the real parent (event can be produced on childrens and not on the parent directly. The parent is the first parentNode that have an id.)
+function getRealParentHavingId(parent) {
+    while (parent.id == "" || parent.id == null) {
+        parent = parent.parentNode
+    }
+    return parent
 }

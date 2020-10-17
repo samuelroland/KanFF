@@ -17,8 +17,8 @@
     border: 1px solid #ffc437e3;
 }
 
-.borderformodifiabletask{
-    border: 1px solid #0000003d;
+.borderformodifiabletask {
+    border: 1px solid #0000003d !important;
     border-radius: 5px;
 }
 
@@ -60,16 +60,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 5px;
-    border: 1px solid #0000003d;
 }
 
-.divTaskPlusButton:hover{
+.divTaskPlusButton:hover {
     background-color: #d9dbdf;
     border: 1px solid rgba(0, 0, 0, 0.24);
 }
 
-.divTaskPlusButtonIcon{
+.divTaskPlusButtonIcon {
     height: 23px;
     width: 23px;
 }
@@ -91,16 +89,27 @@
     color: white;
 }
 
-.divTaskDropdownOptions{
+.divTaskDropdownOptions {
     width: 200px;
-    background-color: #e2e7f0   ;
+    background-color: #e2e7f0;
 }
 
-.divTaskDropdownOption{
+.divTaskDropdownOption {
     cursor: pointer;
 }
 
-.divTaskDropdownOption:hover, .divTaskDropdownOption:active{
+.divTaskDropdownOption:hover, .divTaskDropdownOption:active {
     background-color: #d5d6d7;
     color: black;
+}
+
+.divSeeMoreOrLessTasks{
+    height: 120px;
+    width: 120px;
+    margin: 5px;
+}
+
+.btnSeeMoreOrLessTasks {
+    background: transparent;
+    padding: 5px;
 }
