@@ -13,8 +13,13 @@
     background-color: #ffc437e3;
     flex-wrap: inherit;
     font-size: 0.75rem;
-    border-radius: 5px;
+    border-radius: 2px;
+    border: 1px solid #ffc437e3;
+}
+
+.borderformodifiabletask{
     border: 1px solid #0000003d;
+    border-radius: 5px;
 }
 
 .divTask:hover {

@@ -15,7 +15,7 @@ function printAnIcon($iconname, $title, $alt, $defaultClasses = "icon-small ml-2
     echo "<img title=\"" . $title . "\" class='$defaultClasses' src='view/medias/icons/$iconname' alt='$alt'>";
 }
 
-function printAWork($work)
+function printAWork($work, $isInsideTheProject)
 {
     ob_start();
     switch ($work['state']) {
@@ -48,17 +48,41 @@ function printAWork($work)
                     }
                     //Display the archive icon if the project is archived
                     if ($work['open'] == 1) {
-                        printAnIcon("open.png", "Ce travail est ouvert (accessible en modification aux personnes extérieures au projet", "padlock icon");
+                        printAnIcon("padlock2.png", "Ce travail est ouvert (accessible en modification aux personnes extérieures au projet", "padlock icon");
                     }
                     //Display the invisible icon if the project is invisible
                     if ($work['visible'] == 0) {
                         printAnIcon("hiddeneye.png", "Ce travail est invisible pour les personnes extérieures au projet", "hidden eye icon");
                         echo "<span class='text-info mr-2'>Invisible</span>";
                     }
-                    if ($work['need_help'] == 1) {
-                        //TODO: display differents icons depending on the level of need help
-                        printAnIcon("help_orange.png", "Ce travail a besoin d'aide. WIP", "H letter for help icon");
-                        echo "<span class='text-danger mr-2'>Besoin d'aide</span>";
+                    if ($work['need_help'] != 0) {
+                        $iconname = "help_orange.png";
+                        $icontitle = "Ce travail a besoin d'aide. (Voir si interne et/ou externe).";
+                        $description = "Besoin d'aide";
+                        switch ($work['need_help']) {
+                            case 1:
+                                $iconname = "help_orange.png";
+                                $description = "Besoin d'aide interne";
+                                break;
+                            case 2:
+                                $iconname = "help_yellow.png";
+                                $description = "Besoin d'aide externe";
+                                break;
+                            case 3:
+                                $iconname = "help_orangeyellow.png";
+                                $description = "Besoin d'aide interne et externe";
+                                break;
+                        }
+                        if ($isInsideTheProject) {  //inside the project, the icon is in all cases displayed (even if don't need help from members inside the project)
+                            printAnIcon($iconname, $icontitle, "H letter for help icon");
+                            echo "<span class=' mr-2'>$description</span>";
+                        } else {
+                            if (isAtLeastEqual($work['need_help'], [2, 3])) {   //icon is displayed only if visible by outside members
+                                printAnIcon($iconname, $icontitle, "H letter for help icon");
+                                echo "<span class='text-danger mr-2'>$description</span>";
+                            }
+                        }
+
                     }
                     if ($work['repetitive'] == 1) {
                         printAnIcon("repetitive.png", "Ce travail est répétitif", "arrows in circle repetitive icon");
@@ -127,7 +151,7 @@ function printATask($task, $hasWritingRightOnTasks)
         //TODO: choose the right color depending on the type
     }
     ?>
-    <div class="divTask <?= (($hasWritingRightOnTasks) ? "cursorgrab" : "") ?>" id="divTask-<?= $task['id'] ?>"
+    <div class="divTask <?= (($hasWritingRightOnTasks) ? "cursorgrab borderformodifiabletask" : "") ?>" id="divTask-<?= $task['id'] ?>"
          data-id="<?= $task['id'] ?>">
         <div class="flexdiv divTaskNumber">
             <div class="flex-1"><?php if ($task['responsible_id'] != null) {
@@ -207,11 +231,14 @@ ob_start();
     <hr class="hryellowproject nomargin">
 
     <div class="divKanbanHeaderColumns flexdiv">
-        <div class="flex-1 box-verticalaligncenter justify-content-center leftcolumn"><h4 class="nomargin">A faire</h4>
+        <div class="flex-1 box-verticalaligncenter justify-content-center leftcolumn">
+            <h4 class="nomargin"><?= convertTaskState(TASK_STATE_TODO, true) ?></h4>
         </div>
-        <div class="flex-1 box-verticalaligncenter justify-content-center middlecolumn"><h4 class="nomargin">En
-                cours</h4></div>
-        <div class="flex-1 box-verticalaligncenter justify-content-center rightcolumn"><h4 class="nomargin">Fini</h4>
+        <div class="flex-1 box-verticalaligncenter justify-content-center middlecolumn">
+            <h4 class="nomargin"><?= convertTaskState(TASK_STATE_INRUN, true) ?></h4>
+        </div>
+        <div class="flex-1 box-verticalaligncenter justify-content-center rightcolumn">
+            <h4 class="nomargin"><?= convertTaskState(TASK_STATE_DONE, true) ?></h4>
         </div>
     </div>
     <hr class="hrgrey nomargin">
@@ -220,14 +247,21 @@ ob_start();
 <?php
 foreach ($project['works'] as $work) {
     if ($work['state'] != WORK_STATE_TODO) {
-        printAWork($work);
+        if ($isInsideTheProject) {
+            printAWork($work, $isInsideTheProject);
+        } else {    //if user in not in the project
+            //Display the work only if it is visible
+            if ($work['visible'] == 1) {
+                printAWork($work, $isInsideTheProject);
+            }
+        }
     }
     displaydebug($work['name']);
     displaydebug($work['hasWritingRightOnTasks']);
 }
 
 if (count($works) == 1) {
-    echo "<div class='statebanner bg-transparent mt-2 mb-2'>Tous les travaux sont 'A faire'</div>";
+    echo "<div class='statebanner bg-transparent mt-2 mb-2'>Tous les travaux sont '" . convertWorkState(WORK_STATE_DONE) . "'</div>";
 }
 ?>
     <hr class="hryellowproject nomargin">
