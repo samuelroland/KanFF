@@ -130,4 +130,20 @@ function hasWritingRightOnTasksOfAWork($isInTheProject, $work)
     return false;
 }
 
+//Ajax call to get one task in JSON
+function getTask($id)
+{
+    //TODO: check permissions (if the project is visible) before send the task
+    //TODO: return error or empty if task is not found
+    $task = getOneTask($id);
+    $task['work'] = getOneWork($task['work_id']);
+    if ($task['responsible_id'] != null) {
+        $task['responsible'] = unsetPasswordsInArrayOn2Dimensions(getUserById($task['responsible_id']));
+    }
+    if ($task['creator_id'] != null) {
+        $task['creator'] = unsetPasswordsInArrayOn2Dimensions(getUserById($task['creator_id']));
+    }
+    echo json_encode($task);
+}
+
 ?>

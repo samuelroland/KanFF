@@ -134,3 +134,17 @@
     width: 14px;
     margin: 8px;
 }
+
+.circle-responsible {
+    font-weight: bold;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-size: 1em;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: #1587ff;
+    display: flex;
+}
+.divResponsible{
+    height: 45px;
+}

@@ -44,3 +44,65 @@ function manageVisibilityTasks(btn, display) {
         }
     })
 }
+
+//Events click on tasks will display the details and get the complete informations with an Ajax call
+function onClickDisplayDetails() {
+    $(".divTask").on("click", function (event) {
+        task = getRealParentHavingId(event.target)
+        id = task.getAttribute("data-id")
+
+        testa = new XMLHttpRequest()
+        testa.onreadystatechange = function () {
+            if (testa.readyState == XMLHttpRequest.DONE && testa.status == 200) {
+                response = JSON.parse(testa.responseText)
+                loadTaskDetailsWithData(response)   //load data in the divDetails
+                manageDivDetails(true)  //display when ajax call is finished and data has been loaded
+            }
+        }
+        testa.open("GET", "?action=getTask&id=" + id)
+        testa.send()
+    })
+}
+
+//load the divDetails form with the array of data task
+function loadTaskDetailsWithData(task) {
+    number.innerText = task.number
+    log(task)
+    inputname.value = task.name
+    spanname.innerText = task.name
+    description.innerText = task.description
+    type.options.selectedIndex = task.type
+    urgency.value = task.urgency
+    deadline.value = task.deadline.substr(0, task.deadline.indexOf(" "))
+    if (task.hasOwnProperty("responsible")) {
+        responsible.value = buildFullNameWithUser(task.responsible)
+        initials.innerText = task.responsible.initials
+    } else {
+        responsible.value = ""
+        initials.innerText = "?"
+    }
+
+    if (task.hasOwnProperty("creator")) {
+        creator.innerText = "Tâche créé par " + buildFullNameWithUser(task.creator)
+    } else {
+        creator.innerText = ""
+    }
+
+    link.value = task.link
+    workname.value = task.work.name
+
+}
+
+//Just log text in the console
+function log(text) {
+    console.log(text)
+}
+
+//build the fullname string with firstname and lastname of a user
+function buildFullNameWithUser(user) {
+    fullname = ""
+    if (user.hasOwnProperty("firstname") && user.hasOwnProperty("lastname")) {
+        fullname = user.firstname + " " + user.lastname
+    }
+    return fullname
+}

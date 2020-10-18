@@ -130,6 +130,9 @@ if (!isset($_SESSION['user']['id'])) {
             case "tasks":
                 tasks();
                 break;
+            case "getTask": //Ajax call to get one task
+                getTask($_GET['id']);
+                break;
             case "about":
                 about();
                 break;

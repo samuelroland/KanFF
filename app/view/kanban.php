@@ -290,12 +290,13 @@ ob_start();
             ?>
             <div class="divDetailsHeader flexdiv box-verticalaligncenter middlecolumn">
                 <span class="flex-1">Détails tâche n. <strong><span id="number">1693</span></strong></span>
-                <span ><?= createToolTip("Terminé", "JS TBD") ?></span>
+                <span><?= createToolTip("Terminé", "JS TBD") ?></span>
                 <span class="circle-redcross onclickCloseDetails"><?php printAnIcon("redcross.png", "Fermer le panneau de détails", "red cross icon", "icon-redcross") ?></span>
             </div>
             <div class="divDetailsContent" id="divDetailsContent">
                 <div class="divDetailsFirstLine flexdiv box-verticalaligncenter">
-                    <h5 id="name" class="flex-1 nomargin">Est-ce qu'on répond à tous les gens qui nous écrivent des emails ?</h5>
+                    <h5 id="spanname" class="flex-1 nomargin">Est-ce qu'on répond à tous les gens qui nous écrivent des
+                        emails ?</h5>
                     <?php printAnIcon("chevrondown.png", "Options", "chevron down icon"); ?>
                 </div>
                 <hr class="hrgrey nomargin">
@@ -303,8 +304,8 @@ ob_start();
                     <div class="flexdiv  <?= $divCSS ?>">
                         <div class="flex-2">
                             <span class="<?= $spanCSS ?>">Nom:</span>
-                            <input type="text" class="form-control"
-                                   value="Créer du contenu pour la video">
+                            <input id="inputname" type="text" class="form-control"
+                                   value="Est-ce qu'on répond à tous les gens qui nous écrivent des emails ?">
                         </div>
                         <div class="flex-1 ml-2">
                             <span class="<?= $spanCSS ?>">Travail:</span>
@@ -314,13 +315,13 @@ ob_start();
                     </div>
                     <div class=" <?= $divCSS ?>">
                         <span class="<?= $spanCSS ?>">Description:</span>
-                        <textarea type="text" rows="4" class="form-control">ajsfkdl jsaklf jskldfjsk wer</textarea>
+                        <textarea id="description" type="text" rows="4" class="form-control">ajsfkdl jsaklf jskldfjsk wer</textarea>
                         <div class="alignright"><span class="pCounterDescription">230/1000</span></div>
                     </div>
                     <div class="flexdiv <?= $divCSS ?>">
                         <div class="">
                             <span class="<?= $spanCSS ?>">Type:</span>
-                            <select class="form-control" name="type">
+                            <select class="form-control" name="type" id="type">
                                 <option value="null" selected>(Aucun)</option>
                                 <option value="1">Question</option>
                                 <option value="2">Information</option>
@@ -331,14 +332,20 @@ ob_start();
                         </div>
                         <div class="flex-1 ml-3">
                             <span class="<?= $spanCSS ?>">Responsable:</span>
-                            <input type="text" id="responsible" class="form-control"
-                                   value="Josette R" disabled readonly>
+                            <div class="flexdiv divResponsible box-verticalaligncenter">
+                                <div class="circle-responsible mr-2">
+                                    <p class="marginauto" id="initials">JRD</p>
+                                </div>
+                                <input type="text" id="responsible" class="form-control"
+                                       value="Josette R" disabled readonly>
+                            </div>
+                            <div class="alignright smallinfotext"><span id="creator">jakslfd</span></div>
                         </div>
                     </div>
                     <div class="flexdiv <?= $divCSS ?>">
                         <div class="">
                             <span class="<?= $spanCSS ?>">Date limite:</span>
-                            <input type="date" value="10.10.2020" name="deadline" class="form-control">
+                            <input id="deadline" type="date" value="10.10.2020" name="deadline" class="form-control">
                         </div>
                         <div class=" ml-3">
                             <span class="<?= $spanCSS ?>">Urgence:</span>
@@ -346,20 +353,18 @@ ob_start();
                                    value="0" min="0" max="5">
                             <span class="smallinfotext">Notez l'urgence de la tâche de 0 à 5 (0 = aucun, 1 = min et 5 = max)</span>
                         </div>
-                        <div class="flex-">
-
-                        </div>
                     </div>
                     <div class="<?= $divCSS ?>">
                         <div class="flexdiv">
                             <span class="flex-1">Lien:</span>
                             <span class="alignright">Ouvrir le lien</span>
                         </div>
-                        <input type="text" value="mail.assoc/inbox ...." name="link" class="form-control">
+                        <input type="text" value="mail.assoc/inbox ...." name="link" id="link" class="form-control">
                     </div>
                     <div class="<?= $divCSS ?>">
                         <span class="<?= $spanCSS ?>">Projet:</span>
-                        <input type="text" value="<?= $project['name'] ?>" class="form-control" disabled readonly>
+                        <input id="projectname" type="text" value="<?= $project['name'] ?>" class="form-control"
+                               disabled readonly>
                     </div>
                 </div>
 
