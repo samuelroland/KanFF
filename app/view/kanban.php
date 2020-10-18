@@ -241,7 +241,7 @@ ob_start();
             <button class="btn btn-info clickable" data-href="?action=project&id=<?= $project['id'] ?>">Détails</button>
         </div>
     </div>
-    <div class="divKanban flexdiv">
+    <div class="divKanban flexdiv withoutdetails" id="divKanban">
         <div class="divKanbanHeaderAndContent flex-1">
             <div class="divKanbanHeader flexdiv">
                 <div class="flex-1 box-verticalaligncenter justify-content-center leftcolumn">
@@ -283,7 +283,7 @@ ob_start();
                 </div>
             </div>
         </div>
-        <div class="divDetails">
+        <div class="divDetails" id="divDetails" hidden>
             <?php
             $spanCSS = "mt-5";
             $divCSS = "mt-2";

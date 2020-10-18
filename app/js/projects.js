@@ -86,3 +86,13 @@ function getRealParentHavingId(parent) {
     }
     return parent
 }
+
+//Manage (display or hide) divDetails
+function manageDivDetails(display) {
+    divDetails.hidden = !display
+    if (display) {
+        divKanban.classList.remove("withoutdetails")
+    } else {
+        divKanban.classList.add("withoutdetails")
+    }
+}
