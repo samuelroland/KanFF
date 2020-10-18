@@ -49,8 +49,29 @@
 
 /*Kanban styles */
 
-.divKanbanHeaderColumns {
+.divHeader {
+    position: fixed;
+    width: 100%;
+    background-color: #e2e7f0;
+    z-index: 10;
+    top: 75px;
+    box-shadow: 0px 1px 5px 2px #00000061;
+    margin-left: -.25rem !important;
+    margin-right: -.25rem !important;
+}
+
+.divKanban {
+    margin-top: 52px;
+    width: 70%;
+    padding-right: 5px;
+}
+
+.divKanbanHeader {
     height: 40px;
+}
+
+.divKanbanHeaderAndContent{
+margin-top: 4px;
 }
 
 .leftcolumn {
@@ -63,4 +84,21 @@
 
 .rightcolumn {
 
+}
+
+.divDetails {
+    width: 30%;
+    border-left: 2px solid lightgrey;
+    padding: 0 20px;
+    height: 100%;
+background-color: #e2e7f0;
+    right: 0;
+    position: fixed;
+    box-shadow: -2px 0px 10px #000000b3;
+    z-index: 5;
+}
+
+.divDetailsHeader {
+    height: 40px;
+    background-color: aquamarine;
 }

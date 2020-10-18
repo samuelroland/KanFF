@@ -9,7 +9,7 @@
 //Get one task with his id
 function getOneTasks($id)
 {
-    require getOne("tasks", $id);
+    return getOne("tasks", $id);
 }
 
 //Get all tasks

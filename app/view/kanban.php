@@ -230,7 +230,7 @@ function printATask($task, $hasWritingRightOnTasks, $hidden = false)
 $title = "Kanban de " . $project['name'];
 ob_start();
 ?>
-    <div class="divKanbanHeader flexdiv p-3">
+    <div class="divHeader flexdiv p-1 pr-2 pl-2">
         <div class="flex-1 flexdiv box-verticalaligncenter">
             <h1 class="nomargin"><?= $project['name'] ?></h1>
             <h4 class="pl-5 pr-2 nomargin"><?= convertProjectState($project['state'], true) ?></h4>
@@ -241,43 +241,74 @@ ob_start();
             <button class="btn btn-info clickable" data-href="?action=project&id=<?= $project['id'] ?>">Détails</button>
         </div>
     </div>
-    <hr class="hryellowproject nomargin">
+    <div class="divKanban flexdiv">
+        <div class="divKanbanHeaderAndContent flex-1">
+            <hr class="hryellowproject nomargin">
+            <div class="divKanbanHeader flexdiv">
+                <div class="flex-1 box-verticalaligncenter justify-content-center leftcolumn">
+                    <h4 class="nomargin"><?= convertTaskState(TASK_STATE_TODO, true) ?></h4>
+                </div>
+                <div class="flex-1 box-verticalaligncenter justify-content-center middlecolumn">
+                    <h4 class="nomargin"><?= convertTaskState(TASK_STATE_INRUN, true) ?></h4>
+                </div>
+                <div class="flex-1 box-verticalaligncenter justify-content-center rightcolumn">
+                    <h4 class="nomargin"><?= convertTaskState(TASK_STATE_DONE, true) ?></h4>
+                </div>
+            </div>
+            <hr class="hrgrey nomargin">
 
-    <div class="divKanbanHeaderColumns flexdiv">
-        <div class="flex-1 box-verticalaligncenter justify-content-center leftcolumn">
-            <h4 class="nomargin"><?= convertTaskState(TASK_STATE_TODO, true) ?></h4>
+            <div class="divKanbanContent flexdiv">
+                <div class="divWorks flex-1">
+                    <!-- List of works -->
+                    <?php
+                    foreach ($project['works'] as $work) {
+                        if ($work['state'] != WORK_STATE_TODO) {
+                            if ($isInsideTheProject) {
+                                printAWork($work, $isInsideTheProject);
+                            } else {    //if user in not in the project
+                                //Display the work only if it is visible
+                                if ($work['visible'] == 1) {
+                                    printAWork($work, $isInsideTheProject);
+                                }
+                            }
+                        }
+                        displaydebug($work['name']);
+                        displaydebug($work['hasWritingRightOnTasks']);
+                    }
+
+                    if (count($works) == 1) {
+                        echo "<div class='statebanner bg-transparent mt-2 mb-2'>Tous les travaux sont '" . convertWorkState(WORK_STATE_DONE) . "'</div>";
+                    }
+                    ?>
+                    <hr class="hryellowproject nomargin">
+                </div>
+            </div>
         </div>
-        <div class="flex-1 box-verticalaligncenter justify-content-center middlecolumn">
-            <h4 class="nomargin"><?= convertTaskState(TASK_STATE_INRUN, true) ?></h4>
-        </div>
-        <div class="flex-1 box-verticalaligncenter justify-content-center rightcolumn">
-            <h4 class="nomargin"><?= convertTaskState(TASK_STATE_DONE, true) ?></h4>
+        <div class="divDetails">
+            <div class="divDetailsHeader">entete</div>
+            <div class="divDetailsContent" id="divDetailsContent">
+                <div class="divDetailsFirstLine flexdiv">
+                    <span class="mr-2" id="number">465</span><h5 id="name">Créer du contenu pour la video</h5>
+                </div>
+                <div class="divDetailsInformations">
+                    <label for="name">Nom:</label>
+                    <input type="text" class="form-control d-inline-block" value="Créer du contenu pour la video">
+                    <label for="name">Description:</label>
+                    <textarea type="text" rows="3" class="form-control d-inline-block">ajsfkdl jsaklf jskldfjskldaf jklsdajf klsdafjklsa fjklsdajfksdakfjsklfjklsdjfklsdajfklsjdafklsjdfklsjkljsklfjklsjfklsajlwerwe we rwe rwe rwe rwe wer wer wer</textarea>
+                    <label for="name">Type:</label>
+                    <select class="form-control d-inline-block" name="type">
+                        <option value="null" selected>(Aucun)</option>
+                        <option value="1">Question</option>
+                        <option value="2">Information</option>
+                        <option value="3">Proposition</option>
+                        <option value="4">Idée</option>
+                        <option value="5">Réflexion</option>
+                    </select>
+                </div>
+
+            </div>
         </div>
     </div>
-    <hr class="hrgrey nomargin">
-
-    <!-- List of works -->
-<?php
-foreach ($project['works'] as $work) {
-    if ($work['state'] != WORK_STATE_TODO) {
-        if ($isInsideTheProject) {
-            printAWork($work, $isInsideTheProject);
-        } else {    //if user in not in the project
-            //Display the work only if it is visible
-            if ($work['visible'] == 1) {
-                printAWork($work, $isInsideTheProject);
-            }
-        }
-    }
-    displaydebug($work['name']);
-    displaydebug($work['hasWritingRightOnTasks']);
-}
-
-if (count($works) == 1) {
-    echo "<div class='statebanner bg-transparent mt-2 mb-2'>Tous les travaux sont '" . convertWorkState(WORK_STATE_DONE) . "'</div>";
-}
-?>
-    <hr class="hryellowproject nomargin">
 <?php
 displaydebug($project);
 $contenttype = "full";
