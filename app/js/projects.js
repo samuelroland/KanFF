@@ -94,5 +94,6 @@ function manageDivDetails(display) {
         divKanban.classList.remove("withoutdetails")
     } else {
         divKanban.classList.add("withoutdetails")
+        task.classList.remove("activeTask")
     }
 }

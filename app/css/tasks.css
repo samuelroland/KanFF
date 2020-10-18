@@ -118,3 +118,7 @@
     background: transparent;
     padding: 3px 10px;
 }
+
+.activeTask {
+    box-shadow: 2px 2px 9px 9px rgba(134, 98, 0, 0.70);
+}

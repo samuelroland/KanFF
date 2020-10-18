@@ -136,6 +136,7 @@ function getTask($id)
     //TODO: check permissions (if the project is visible) before send the task
     //TODO: return error or empty if task is not found
     $task = getOneTask($id);
+    $task['statename'] = convertTaskState($task['state'], true);
     $task['work'] = getOneWork($task['work_id']);
     if ($task['responsible_id'] != null) {
         $task['responsible'] = unsetPasswordsInArrayOn2Dimensions(getUserById($task['responsible_id']));

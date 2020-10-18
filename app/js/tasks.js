@@ -16,6 +16,7 @@ $(document).ready(function () {
     //.onclickCloseDetails object can close divDetails on click event
     $(".onclickCloseDetails").on("click", function (event) {
         manageDivDetails(false)
+        manageActiveTasks(null)     //unactive all tasks
     })
 })
 
@@ -50,13 +51,14 @@ function onClickDisplayDetails() {
     $(".divTask").on("click", function (event) {
         task = getRealParentHavingId(event.target)
         id = task.getAttribute("data-id")
-
         testa = new XMLHttpRequest()
         testa.onreadystatechange = function () {
             if (testa.readyState == XMLHttpRequest.DONE && testa.status == 200) {
                 response = JSON.parse(testa.responseText)
                 loadTaskDetailsWithData(response)   //load data in the divDetails
                 manageDivDetails(true)  //display when ajax call is finished and data has been loaded
+                manageActiveTasks(null)     //unactive all tasks
+                manageActiveTasks(task)     //active the clicked task
             }
         }
         testa.open("GET", "?action=getTask&id=" + id)
@@ -89,6 +91,7 @@ function loadTaskDetailsWithData(task) {
     }
 
     link.value = task.link
+    state.innerText = task.statename
     workname.value = task.work.name
 
 }
@@ -105,4 +108,16 @@ function buildFullNameWithUser(user) {
         fullname = user.firstname + " " + user.lastname
     }
     return fullname
+}
+
+//Manage (display or hide) active task(s). If null all tasks will be unactived, else the task element will be active (with adding .activeTask css class)
+function manageActiveTasks(taskToActive) {
+    if (taskToActive == null) {
+        var els = document.getElementsByClassName("divTask");
+        Array.prototype.forEach.call(els, function (onetask) {
+            onetask.classList.remove("activeTask")
+        })
+    } else {
+        taskToActive.classList.add("activeTask")
+    }
 }

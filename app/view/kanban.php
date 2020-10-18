@@ -161,7 +161,7 @@ function printATask($task, $hasWritingRightOnTasks, $hidden = false)
         //TODO: choose the right color depending on the type
     }
     ?>
-    <div class="divTask <?= (($hasWritingRightOnTasks) ? "cursorgrab borderformodifiabletask" : "") ?>"
+    <div class="divTask <?= (($hasWritingRightOnTasks) ? "cursorgrab borderformodifiabletask " : "") ?>"
          id="divTask-<?= $task['id'] ?>"
          data-id="<?= $task['id'] ?>" <?= ($hidden) ? "hidden" : "" ?>>
         <div class="flexdiv divTaskNumber">
@@ -289,14 +289,13 @@ ob_start();
             $divCSS = "mt-2";
             ?>
             <div class="divDetailsHeader flexdiv box-verticalaligncenter middlecolumn">
-                <span class="flex-1">Détails tâche n. <strong><span id="number">1693</span></strong></span>
-                <span><?= createToolTip("Terminé", "JS TBD") ?></span>
+                <span class="flex-1">Détails tâche n. <strong><span id="number"></span></strong></span>
+                <span id="state" class="mr-3 alignright"></span>
                 <span class="circle-redcross onclickCloseDetails"><?php printAnIcon("redcross.png", "Fermer le panneau de détails", "red cross icon", "icon-redcross") ?></span>
             </div>
             <div class="divDetailsContent" id="divDetailsContent">
                 <div class="divDetailsFirstLine flexdiv box-verticalaligncenter">
-                    <h5 id="spanname" class="flex-1 nomargin">Est-ce qu'on répond à tous les gens qui nous écrivent des
-                        emails ?</h5>
+                    <h5 id="spanname" class="flex-1 nomargin"></h5>
                     <?php printAnIcon("chevrondown.png", "Options", "chevron down icon"); ?>
                 </div>
                 <hr class="hrgrey nomargin">
@@ -304,25 +303,23 @@ ob_start();
                     <div class="flexdiv  <?= $divCSS ?>">
                         <div class="flex-2">
                             <span class="<?= $spanCSS ?>">Nom:</span>
-                            <input id="inputname" type="text" class="form-control"
-                                   value="Est-ce qu'on répond à tous les gens qui nous écrivent des emails ?">
+                            <input id="inputname" type="text" class="form-control" placeholder="Nom de la tâche">
                         </div>
                         <div class="flex-1 ml-2">
                             <span class="<?= $spanCSS ?>">Travail:</span>
-                            <input type="text" id="workname" class="form-control"
-                                   value="xx" disabled readonly>
+                            <input type="text" id="workname" class="form-control" disabled readonly>
                         </div>
                     </div>
                     <div class=" <?= $divCSS ?>">
                         <span class="<?= $spanCSS ?>">Description:</span>
-                        <textarea id="description" type="text" rows="4" class="form-control">ajsfkdl jsaklf jskldfjsk wer</textarea>
-                        <div class="alignright"><span class="pCounterDescription">230/1000</span></div>
+                        <textarea id="description" name="description" type="text" rows="4" class="form-control" placeholder="Description de la tâche"></textarea>
+                        <div class="alignright"><span class="pCounterDescription">0/1000</span></div>
                     </div>
                     <div class="flexdiv <?= $divCSS ?>">
                         <div class="">
                             <span class="<?= $spanCSS ?>">Type:</span>
                             <select class="form-control" name="type" id="type">
-                                <option value="null" selected>(Aucun)</option>
+                                <option value="null">(Aucun)</option>
                                 <option value="1">Question</option>
                                 <option value="2">Information</option>
                                 <option value="3">Proposition</option>
@@ -334,23 +331,23 @@ ob_start();
                             <span class="<?= $spanCSS ?>">Responsable:</span>
                             <div class="flexdiv divResponsible box-verticalaligncenter">
                                 <div class="circle-responsible mr-2">
-                                    <p class="marginauto" id="initials">JRD</p>
+                                    <p class="marginauto" id="initials"></p>
                                 </div>
                                 <input type="text" id="responsible" class="form-control"
-                                       value="Josette R" disabled readonly>
+                                       value="" disabled readonly>
                             </div>
-                            <div class="alignright smallinfotext"><span id="creator">jakslfd</span></div>
+                            <div class="alignright smallinfotext"><span id="creator"></span></div>
                         </div>
                     </div>
                     <div class="flexdiv <?= $divCSS ?>">
                         <div class="">
                             <span class="<?= $spanCSS ?>">Date limite:</span>
-                            <input id="deadline" type="date" value="10.10.2020" name="deadline" class="form-control">
+                            <input id="deadline" type="date" value="" name="deadline" class="form-control">
                         </div>
-                        <div class=" ml-3">
+                        <div class="ml-3">
                             <span class="<?= $spanCSS ?>">Urgence:</span>
                             <input type="number" id="urgency" class="form-control"
-                                   value="0" min="0" max="5">
+                                   value="" min="0" max="5">
                             <span class="smallinfotext">Notez l'urgence de la tâche de 0 à 5 (0 = aucun, 1 = min et 5 = max)</span>
                         </div>
                     </div>
@@ -359,7 +356,7 @@ ob_start();
                             <span class="flex-1">Lien:</span>
                             <span class="alignright">Ouvrir le lien</span>
                         </div>
-                        <input type="text" value="mail.assoc/inbox ...." name="link" id="link" class="form-control">
+                        <input type="text" placeholder="Lien relatif à la tâche" name="link" id="link" class="form-control">
                     </div>
                     <div class="<?= $divCSS ?>">
                         <span class="<?= $spanCSS ?>">Projet:</span>
