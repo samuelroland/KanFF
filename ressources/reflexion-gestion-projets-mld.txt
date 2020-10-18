@@ -405,10 +405,21 @@ participate:
 		5 = invitation refused
 		6 = banned
 	
-	Quels groupes peuvent gérer les participants ? (actions à grandes conséquences)
+	Quels groupes peuvent gérer les participants ? (actions importantes)
 		- donc qui peut faire une invitation à un autre groupe, bannir un groupe ?
 		--> Le groupe "admin" enfin qui gére les participants. -> on rajoute un champ manager_id qui est l'id du groupe qui gère les participants.
 		----> Dans ce groupe seulement les admins peuvent effectuer ces actions.
 		-> manager_id int
 	
 	- Chaque groupe externe au projet peut accepter l'invitation ou la refuser, et chaque groupe interne au projet peut quitter lui-même.
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------
+Réflexion après publication MCD et MLD v1.3:
+--> réflexion axée principalement sur le comportement et les permissions (qui n'implique donc pas de rajout d'information dans la db)
+
+----- tasks -----
+- attribuer la tâche à qqun.e d'autre ? si oui qui peut le faire ?
