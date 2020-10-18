@@ -70,8 +70,8 @@
     height: 40px;
 }
 
-.divKanbanHeaderAndContent{
-margin-top: 4px;
+.divKanbanHeaderAndContent {
+    margin-top: 4px;
 }
 
 .leftcolumn {
@@ -89,16 +89,43 @@ margin-top: 4px;
 .divDetails {
     width: 30%;
     border-left: 2px solid lightgrey;
-    padding: 0 20px;
+    padding: 0px 5px 0px 5px;
     height: 100%;
-background-color: #e2e7f0;
+    background-color: #e2e7f0;
     right: 0;
     position: fixed;
-    box-shadow: -2px 0px 10px #000000b3;
+    box-shadow: -2px 0px 10px #000000ed;
     z-index: 5;
+
 }
 
 .divDetailsHeader {
-    height: 40px;
-    background-color: aquamarine;
+    padding-top: 6px;
+    height: 46px;
+    margin-right: -5px;
+    margin-left: -5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    border-bottom: #929292 1px solid;
+}
+
+.divDetailsFirstLine {
+    height: 65px;
+}
+
+
+.circle-redcross {
+    border: 1px solid red;
+    border-radius: 100px;
+    margin: 5px;
+}
+
+.circle-redcross:hover {
+    background-color: #ffdd00;
+}
+
+.icon-redcross {
+    height: 14px;
+    width: 14px;
+    margin: 8px;
 }

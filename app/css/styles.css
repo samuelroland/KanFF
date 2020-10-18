@@ -157,6 +157,12 @@ body {
     font-family: Arial, serif;
 }
 
+.smallinfotext{
+    color: #1d1919;
+    font-size: 0.8em;
+    font-style: italic;
+}
+
 .rowtest {
     display: -ms-flexbox;
     display: flex;
