@@ -11,6 +11,12 @@ $(document).ready(function () {
     declareChangeHiddenStateOnOneChildOnParentHover("divTask", "mouseover", "divTaskBottomLine", false)
     declareChangeHiddenStateOnOneChildOnParentHover("divTask", "mouseout", "divTaskBottomLine", true)
     declareSeeMoreOrLessButtonsEvents()
+    onClickDisplayDetails()
+
+    //.onclickCloseDetails object can close divDetails on click event
+    $(".onclickCloseDetails").on("click", function (event) {
+        manageDivDetails(false)
+    })
 })
 
 //Declare click event for btnSeeMoreOrLessTasks to change the text and start function manageVisibilityTasks()

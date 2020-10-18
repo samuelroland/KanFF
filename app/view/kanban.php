@@ -291,7 +291,7 @@ ob_start();
             <div class="divDetailsHeader flexdiv box-verticalaligncenter middlecolumn">
                 <span class="flex-1">Détails tâche n. <strong><span id="number">1693</span></strong></span>
                 <span ><?= createToolTip("Terminé", "JS TBD") ?></span>
-                <span class="circle-redcross"><?php printAnIcon("redcross.png", "Fermer le panneau de détails", "red cross icon", "icon-redcross") ?></span>
+                <span class="circle-redcross onclickCloseDetails"><?php printAnIcon("redcross.png", "Fermer le panneau de détails", "red cross icon", "icon-redcross") ?></span>
             </div>
             <div class="divDetailsContent" id="divDetailsContent">
                 <div class="divDetailsFirstLine flexdiv box-verticalaligncenter">
