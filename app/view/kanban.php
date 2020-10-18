@@ -285,25 +285,83 @@ ob_start();
             </div>
         </div>
         <div class="divDetails">
-            <div class="divDetailsHeader">entete</div>
+            <?php
+            $spanCSS = "mt-5";
+            $divCSS = "mt-2";
+            ?>
+            <div class="divDetailsHeader flexdiv box-verticalaligncenter">
+                <span class="flex-1">Détails tâche n. <span id="number"></span></span>
+                <span>En cours Tooltip</span>
+                <span><?php printAnIcon("redcross.png", "Fermer le panneau de détails", "red cross icon", "icon-xsmall m-2") ?></span>
+            </div>
+            <hr class="hrgrey">
             <div class="divDetailsContent" id="divDetailsContent">
-                <div class="divDetailsFirstLine flexdiv">
-                    <span class="mr-2" id="number">465</span><h5 id="name">Créer du contenu pour la video</h5>
+                <div class="divDetailsFirstLine flexdiv box-verticalaligncenter">
+                    <h5 id="name" class="flex-1">Créer du contenu pour la video</h5>
+                    <?php printAnIcon("chevrondown.png", "Options", "chevron down icon"); ?>
                 </div>
+                <hr class="hrgrey">
                 <div class="divDetailsInformations">
-                    <label for="name">Nom:</label>
-                    <input type="text" class="form-control d-inline-block" value="Créer du contenu pour la video">
-                    <label for="name">Description:</label>
-                    <textarea type="text" rows="3" class="form-control d-inline-block">ajsfkdl jsaklf jskldfjskldaf jklsdajf klsdafjklsa fjklsdajfksdakfjsklfjklsdjfklsdajfklsjdafklsjdfklsjkljsklfjklsjfklsajlwerwe we rwe rwe rwe rwe wer wer wer</textarea>
-                    <label for="name">Type:</label>
-                    <select class="form-control d-inline-block" name="type">
-                        <option value="null" selected>(Aucun)</option>
-                        <option value="1">Question</option>
-                        <option value="2">Information</option>
-                        <option value="3">Proposition</option>
-                        <option value="4">Idée</option>
-                        <option value="5">Réflexion</option>
-                    </select>
+                    <div class="flexdiv  <?= $divCSS ?>">
+                        <div class="flex-2">
+                            <span class="<?= $spanCSS ?>">Nom:</span>
+                            <input type="text" class="form-control"
+                                   value="Créer du contenu pour la video">
+                        </div>
+                        <div class="flex-1">
+                            <span class="<?= $spanCSS ?>">Travail:</span>
+                            <input type="text" id="workname" class="form-control"
+                                   value="xx" disabled readonly>
+                        </div>
+                    </div>
+                    <div class=" <?= $divCSS ?>">
+                        <span class="<?= $spanCSS ?>">Description:</span>
+                        <textarea type="text" rows="4" class="form-control">ajsfkdl jsaklf jskldfjsk wer</textarea>
+                        <div class="alignright"><span class="pCounterDescription">230/1000</span></div>
+                    </div>
+                    <div class="flexdiv <?= $divCSS ?>">
+                        <div class="flex-1">
+                            <span class="<?= $spanCSS ?>">Type:</span>
+                            <select class="form-control" name="type">
+                                <option value="null" selected>(Aucun)</option>
+                                <option value="1">Question</option>
+                                <option value="2">Information</option>
+                                <option value="3">Proposition</option>
+                                <option value="4">Idée</option>
+                                <option value="5">Réflexion</option>
+                            </select>
+                        </div>
+                        <div class="flex-2">
+                            <span class="<?= $spanCSS ?>">Responsable:</span>
+                            <input type="text" id="responsible" class="form-control"
+                                   value="Josette R" disabled readonly>
+                        </div>
+                    </div>
+                    <div class="flexdiv <?= $divCSS ?>">
+                        <div class="flex-1">
+                            <span class="<?= $spanCSS ?>">Date limite:</span>
+                            <input type="date" value="10.10.2020" name="deadline" class="form-control">
+                        </div>
+                        <div class="flex-1">
+                            <span class="<?= $spanCSS ?>">Urgence:</span>
+                            <input type="number" id="urgency" class="form-control"
+                                   value="0" min="0" max="5">
+                        </div>
+                        <div class="flex-1">
+                            <span>Notez l'urgence de la tâche de 0 à 5 (0=aucun, 1 = min et 5 = max)</span>
+                        </div>
+                    </div>
+                    <div class="<?= $divCSS ?>">
+                        <div class="flexdiv">
+                            <span class="flex-1">Lien:</span>
+                            <span class="alignright">Ouvrir le lien</span>
+                        </div>
+                        <input type="text" value="mail.assoc/inbox ...." name="link" class="form-control">
+                    </div>
+                    <div class="<?= $divCSS ?>">
+                        <span class="<?= $spanCSS ?>">Projet:</span>
+                        <input type="text" value="<?= $project['name'] ?>" class="form-control">
+                    </div>
                 </div>
 
             </div>
