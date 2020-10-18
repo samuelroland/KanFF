@@ -9,7 +9,7 @@
 //Get one group with his id
 function getOneGroup($id)
 {
-    require getOne("groups", $id);
+    return getOne("groups", $id);
 }
 
 //Get all groups that are: visible and ordered by creation_date

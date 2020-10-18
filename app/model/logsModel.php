@@ -9,7 +9,7 @@
 //Get one log with his id
 function getOnelog($id)
 {
-    require getOne("logs", $id);
+    return getOne("logs", $id);
 }
 
 //Get all logs

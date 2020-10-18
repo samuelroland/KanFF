@@ -7,7 +7,7 @@
  */
 
 //Get one task with his id
-function getOneTasks($id)
+function getOneTask($id)
 {
     return getOne("tasks", $id);
 }

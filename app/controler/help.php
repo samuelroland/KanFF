@@ -209,4 +209,19 @@ function compare2DatesWithDayPrecision($date1, $date2)
     }
 }
 
+//Unset password in an array on 2 dimensions (1st: $array['password'] and 2nd: $array[$key]['password'])
+function unsetPasswordsInArrayOn2Dimensions($array)
+{
+    if (isset($array['password'])) {
+        unset($array['password']);
+    }
+    foreach ($array as $key => $item) {
+        if (isset($item['password'])) {
+            unset($item['password']);
+        }
+        $array[$key] = $item;
+    }
+    return $array;
+}
+
 ?>

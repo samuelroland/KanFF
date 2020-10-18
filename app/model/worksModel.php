@@ -9,7 +9,7 @@
 //Get one Work with his id
 function getOneWork($id)
 {
-    require getOne("works", $id);
+    return getOne("works", $id);
 }
 
 //Get all Works
