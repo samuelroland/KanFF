@@ -288,113 +288,116 @@ ob_start();
                 </div>
             </div>
         </div>
-        <div class="divDetails" id="divDetails" <?= ($opt == 1) ? "" : "hidden" ?>>
+        <div class="divRightPanel" id="divRightPanel" <?= ($opt == 1) ? "" : "hidden" ?>>
             <?php
             $spanCSS = "";
             $divCSS = "mt-2";
             ?>
-            <div class="divDetailsHeader flexdiv box-verticalaligncenter middlecolumn">
-                <span class="flex-1">Détails tâche n. <strong><span id="number"></span></strong></span>
-                <div class="mr-3">
-                    <div id="state" class="alignright fullwidth font-weight-bold"></div>
-                    <div class="smallinfotext alignright" id="spancompletion"></div>
-                </div>
-                <span class="circle-redcross onclickCloseDetails"><?php printAnIcon("redcross.png", "Fermer le panneau de détails", "red cross icon", "icon-redcross") ?></span>
-            </div>
-            <div class="divDetailsContent" id="divDetailsContent">
-                <div class="divDetailsFirstLine flexdiv box-verticalaligncenter">
-                    <h5 id="spanname" class="flex-1 nomargin"></h5>
-                    <?php printAnIcon("chevrondown.png", "Options", "chevron down icon"); ?>
-                </div>
-                <hr class="hrgrey nomargin">
-                <div class="divDetailsInformations">
-                    <div class="flexdiv  <?= $divCSS ?>">
-                        <div class="flex-2">
-                            <div class="flexdiv">
-                                <span class="flex-1 <?= $spanCSS ?>">Nom:</span>
-                                <span id="pCounterName"></span>
-                            </div>
-                            <input id="inputname" name="name" type="text"
-                                   class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength"
-                                   placeholder="Nom de la tâche" maxlength="100">
-                        </div>
-                        <div class="flex-1 ml-2">
-                            <span class="<?= $spanCSS ?>">Travail:</span>
-                            <input type="text" id="workname" class="form-control" disabled readonly>
-                        </div>
+            <div class="divTaskDetails divInRightPanel">
+                <div class="divTaskDetailsHeader flexdiv box-verticalaligncenter middlecolumn">
+                    <span class="flex-1">Détails tâche n. <strong><span id="number"></span></strong></span>
+                    <div class="mr-3">
+                        <div id="state" class="alignright fullwidth font-weight-bold"></div>
+                        <div class="smallinfotext alignright" id="spancompletion"></div>
                     </div>
-                    <div class=" <?= $divCSS ?>">
-                        <span class="<?= $spanCSS ?>">Description:</span>
-                        <textarea id="description" name="description" type="text" rows="4"
-                                  class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength"
-                                  placeholder="Description de la tâche" maxlength="2000"></textarea>
-                        <div class="alignright"><span id="pCounterDescription"></span></div>
+                    <span class="circle-redcross onclickCloseDetails"><?php printAnIcon("redcross.png", "Fermer le panneau de détails", "red cross icon", "icon-redcross") ?></span>
+                </div>
+                <div class="divTaskDetailsContent" id="divTaskDetailsContent">
+                    <div class="divTaskDetailsFirstLine flexdiv box-verticalaligncenter">
+                        <h5 id="spanname" class="flex-1 nomargin"></h5>
+                        <?php printAnIcon("chevrondown.png", "Options", "chevron down icon"); ?>
                     </div>
-                    <div class="flexdiv <?= $divCSS ?>">
-                        <div class="">
-                            <span class="<?= $spanCSS ?>">Type:</span>
-                            <select class="form-control" name="type" id="type">
-                                <option value="null">(Aucun)</option>
-                                <option value="1">Question</option>
-                                <option value="2">Information</option>
-                                <option value="3">Proposition</option>
-                                <option value="4">Idée</option>
-                                <option value="5">Réflexion</option>
-                            </select>
-                        </div>
-                        <div class="flex-1 ml-3">
-                            <span class="<?= $spanCSS ?>">Responsable:</span>
-                            <div class="flexdiv divResponsible box-verticalaligncenter">
-                                <div class="circle-responsible mr-2">
-                                    <p class="marginauto" id="initials"></p>
+                    <hr class="hrgrey nomargin">
+                    <div class="divTaskDetailsInformations">
+                        <div class="flexdiv  <?= $divCSS ?>">
+                            <div class="flex-2">
+                                <div class="flexdiv">
+                                    <span class="flex-1 <?= $spanCSS ?>">Nom:</span>
+                                    <span id="pCounterName"></span>
                                 </div>
-                                <input type="text" id="responsible" class="form-control"
-                                       value="" disabled readonly>
+                                <input id="inputname" name="name" type="text"
+                                       class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength"
+                                       placeholder="Nom de la tâche" maxlength="100">
                             </div>
-                            <div class="alignright smallinfotext"><span id="creator"></span></div>
-                        </div>
-                    </div>
-                    <div class="flexdiv <?= $divCSS ?>">
-                        <div class="flex-1">
-                            <span class="<?= $spanCSS ?>">Date limite:</span>
-                            <input id="deadline" type="date" value="" name="deadline"
-                                   class="form-control inputtypedate">
-                        </div>
-                        <div class="flex-1 flexdiv">
-                            <div class="ml-3">
-                                <span class="<?= $spanCSS ?>">Urgence:</span>
-                                <input type="number" id="urgency" class="form-control inputtypenumber"
-                                       value="" min="0" max="5">
-                            </div>
-                            <div class="mt-4">
-                                <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-xsmall m-2", false), "Notez l'urgence de la tâche de 0 à 5 (0 = aucun, 1 = min et 5 = max)", false) ?>
+                            <div class="flex-1 ml-2">
+                                <span class="<?= $spanCSS ?>">Travail:</span>
+                                <input type="text" id="workname" class="form-control" disabled readonly>
                             </div>
                         </div>
-                    </div>
-                    <div class="<?= $divCSS ?>">
-                        <div class="flexdiv">
-                            <span class="flex-1">Lien:</span>
-                            <span class="alignright">Ouvrir le lien</span>
+                        <div class=" <?= $divCSS ?>">
+                            <span class="<?= $spanCSS ?>">Description:</span>
+                            <textarea id="description" name="description" type="text" rows="4"
+                                      class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength"
+                                      placeholder="Description de la tâche" maxlength="2000"></textarea>
+                            <div class="alignright"><span id="pCounterDescription"></span></div>
                         </div>
-                        <input type="text" placeholder="Lien relatif à la tâche" name="link" id="link"
-                               class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength" maxlength="2000">
-                        <div class="alignright">
-                            <span id="pCounterLink">asfd</span>
+                        <div class="flexdiv <?= $divCSS ?>">
+                            <div class="">
+                                <span class="<?= $spanCSS ?>">Type:</span>
+                                <select class="form-control" name="type" id="type">
+                                    <option value="null">(Aucun)</option>
+                                    <option value="1">Question</option>
+                                    <option value="2">Information</option>
+                                    <option value="3">Proposition</option>
+                                    <option value="4">Idée</option>
+                                    <option value="5">Réflexion</option>
+                                </select>
+                            </div>
+                            <div class="flex-1 ml-3">
+                                <span class="<?= $spanCSS ?>">Responsable:</span>
+                                <div class="flexdiv divResponsible box-verticalaligncenter">
+                                    <div class="circle-responsible mr-2">
+                                        <p class="marginauto" id="initials"></p>
+                                    </div>
+                                    <input type="text" id="responsible" class="form-control"
+                                           value="" disabled readonly>
+                                </div>
+                                <div class="alignright smallinfotext"><span id="creator"></span></div>
+                            </div>
+                        </div>
+                        <div class="flexdiv <?= $divCSS ?>">
+                            <div class="flex-1">
+                                <span class="<?= $spanCSS ?>">Date limite:</span>
+                                <input id="deadline" type="date" value="" name="deadline"
+                                       class="form-control inputtypedate">
+                            </div>
+                            <div class="flex-1 flexdiv">
+                                <div class="ml-3">
+                                    <span class="<?= $spanCSS ?>">Urgence:</span>
+                                    <input type="number" id="urgency" class="form-control inputtypenumber"
+                                           value="" min="0" max="5">
+                                </div>
+                                <div class="mt-4">
+                                    <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-xsmall m-2", false), "Notez l'urgence de la tâche de 0 à 5 (0 = aucun, 1 = min et 5 = max)", false) ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="<?= $divCSS ?>">
+                            <div class="flexdiv">
+                                <span class="flex-1">Lien:</span>
+                                <span class="alignright">Ouvrir le lien</span>
+                            </div>
+                            <input type="text" placeholder="Lien relatif à la tâche" name="link" id="link"
+                                   class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength"
+                                   maxlength="2000">
+                            <div class="alignright">
+                                <span id="pCounterLink">asfd</span>
+                            </div>
+                        </div>
+                        <div class="<?= $divCSS ?>">
+                            <span class="<?= $spanCSS ?>">Projet:</span>
+                            <input id="projectname" type="text" value="<?= $project['name'] ?>" class="form-control"
+                                   disabled readonly>
+                        </div>
+                        <div class="divTaskDetailsBottomLine ">
+                            <div class="flexdiv">
+                                <button class="btnSaveCancel btn colorCancel">Annuler</button>
+                                <button class="btnSaveCancel btn colorSave">Enregistrer</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="<?= $divCSS ?>">
-                        <span class="<?= $spanCSS ?>">Projet:</span>
-                        <input id="projectname" type="text" value="<?= $project['name'] ?>" class="form-control"
-                               disabled readonly>
-                    </div>
-                    <div class="divDetailsBottomLine ">
-                        <div class="flexdiv">
-                            <button class="btnSaveCancel btn colorCancel">Annuler</button>
-                            <button class="btnSaveCancel btn colorSave">Enregistrer</button>
-                        </div>
-                    </div>
-                </div>
 
+                </div>
             </div>
         </div>
     </div>

@@ -87,9 +87,9 @@ function getRealParentHavingId(parent) {
     return parent
 }
 
-//Manage (display or hide) divDetails
-function manageDivDetails(display) {
-    divDetails.hidden = !display
+//Manage (display or hide) divRightPanel
+function managedivRightPanel(display) {
+    divRightPanel.hidden = !display
     if (display) {
         window.history.replaceState({}, "", window.location.toString().replace("opt=0", "opt=1"));  //change opt to 1 (details open) in the url without refresh page
         divKanban.classList.remove("withoutdetails")

@@ -26,18 +26,18 @@ $(document).ready(function () {
             displayTaskDetails(task)
             manageActiveTasks(task)
         } else {
-            manageDivDetails(false)     //close details because there is no task to display
+            managedivRightPanel(false)     //close details because there is no task to display
             manageActiveTasks(null)
             window.location.hash = ""   //remove the bad hash with the unknown id
         }
     } else {
-        manageDivDetails(false)
+        managedivRightPanel(false)
         manageActiveTasks(null)
     }
 
-    //.onclickCloseDetails object can close divDetails on click event
+    //.onclickCloseDetails object can close divRightPanel on click event
     $(".onclickCloseDetails").on("click", function (event) {
-        manageDivDetails(false)
+        managedivRightPanel(false)
         manageActiveTasks(null)     //unactive all tasks
     })
 })
@@ -79,8 +79,8 @@ function displayTaskDetails(task) {
         testa.onreadystatechange = function () {
             if (testa.readyState == XMLHttpRequest.DONE && testa.status == 200) {
                 response = JSON.parse(testa.responseText)
-                loadTaskDetailsWithData(response)   //load data in the divDetails
-                manageDivDetails(true)  //display when ajax call is finished and data has been loaded
+                loadTaskDetailsWithData(response)   //load data in the divRightPanel
+                managedivRightPanel(true)  //display when ajax call is finished and data has been loaded
                 checkTextFieldToCheck()
                 manageActiveTasks(null)     //unactive all tasks
                 manageActiveTasks(task)     //active the clicked task
@@ -93,7 +93,7 @@ function displayTaskDetails(task) {
     }
 }
 
-//load the divDetails form with the array of data task
+//load the divRightPanel form with the array of data task
 function loadTaskDetailsWithData(task) {
     number.innerText = task.number
     log(task)

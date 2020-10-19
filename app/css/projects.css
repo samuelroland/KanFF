@@ -91,20 +91,18 @@
 
 }
 
-.divDetails {
+.divTaskDetails {
     width: 30%;
     border-left: 2px solid lightgrey;
-    padding: 0px 5px 0px 5px;
     height: 100%;
     background-color: #e2e7f0;
     right: 0;
     position: fixed;
     box-shadow: -2px 0px 10px #000000ed;
     z-index: 5;
-
 }
 
-.divDetailsHeader {
+.divTaskDetailsHeader {
     padding-top: 6px;
     height: 46px;
     margin-right: -5px;
@@ -114,11 +112,11 @@
     border-bottom: #929292 1px solid;
 }
 
-.divDetailsFirstLine {
+.divTaskDetailsFirstLine {
     height: 65px;
 }
 
-.divDetailsBottomLine {
+.divTaskDetailsBottomLine {
     position: fixed;
     bottom: 0;
     right: 0;
@@ -179,4 +177,8 @@
 .colorSave:hover {
     background-color: #2ad92a;
 
+}
+
+.divInRightPanel {
+    padding: 0px 5px 0px 5px;
 }
