@@ -5,7 +5,7 @@
  *  Author: Samuel Roland
  *  Creation date: 12.10.2020
  */
-$panelRight = 2;    //for dev
+$panelRight = 1;    //for dev: which main div is displayed in the panelRight ? 1 = task details and 2 = create a task
 /*
  * Function to display a work:
  * */
