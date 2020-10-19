@@ -75,7 +75,9 @@ function loadTaskDetailsWithData(task) {
     description.innerText = task.description
     type.options.selectedIndex = task.type
     urgency.value = task.urgency
-    deadline.value = task.deadline.substr(0, task.deadline.indexOf(" "))
+    deadline.value = task.deadline.substr(0, task.deadline.indexOf(" "))    //remove H:i:s part
+
+    //Responsible and creator fullnames if set
     if (task.hasOwnProperty("responsible")) {
         responsible.value = buildFullNameWithUser(task.responsible)
         initials.innerText = task.responsible.initials
@@ -94,6 +96,12 @@ function loadTaskDetailsWithData(task) {
     state.innerText = task.statename
     workname.value = task.work.name
 
+    //Completion date if exists and if task is done
+    if (task.completion_date != null && task.state == 3) {
+        spancompletion.innerText = "Terminé le " + task.completion
+    } else {
+        spancompletion.innerText = ""
+    }
 }
 
 //Just log text in the console

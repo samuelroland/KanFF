@@ -144,6 +144,9 @@ function getTask($id)
     if ($task['creator_id'] != null) {
         $task['creator'] = unsetPasswordsInArrayOn2Dimensions(getUserById($task['creator_id']));
     }
+    if ($task['completion_date'] != null) {
+        $task['completion'] = DTToHumanDate($task['completion_date'], "simpletime");
+    }
     echo json_encode($task);
 }
 

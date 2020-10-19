@@ -290,7 +290,10 @@ ob_start();
             ?>
             <div class="divDetailsHeader flexdiv box-verticalaligncenter middlecolumn">
                 <span class="flex-1">Détails tâche n. <strong><span id="number"></span></strong></span>
-                <span id="state" class="mr-3 alignright"></span>
+                <div class="mr-3">
+                    <div id="state" class="alignright fullwidth font-weight-bold"></div>
+                    <div class="smallinfotext alignright" id="spancompletion"></div>
+                </div>
                 <span class="circle-redcross onclickCloseDetails"><?php printAnIcon("redcross.png", "Fermer le panneau de détails", "red cross icon", "icon-redcross") ?></span>
             </div>
             <div class="divDetailsContent" id="divDetailsContent">
@@ -312,7 +315,8 @@ ob_start();
                     </div>
                     <div class=" <?= $divCSS ?>">
                         <span class="<?= $spanCSS ?>">Description:</span>
-                        <textarea id="description" name="description" type="text" rows="4" class="form-control" placeholder="Description de la tâche"></textarea>
+                        <textarea id="description" name="description" type="text" rows="4" class="form-control"
+                                  placeholder="Description de la tâche"></textarea>
                         <div class="alignright"><span class="pCounterDescription">0/1000</span></div>
                     </div>
                     <div class="flexdiv <?= $divCSS ?>">
@@ -356,7 +360,8 @@ ob_start();
                             <span class="flex-1">Lien:</span>
                             <span class="alignright">Ouvrir le lien</span>
                         </div>
-                        <input type="text" placeholder="Lien relatif à la tâche" name="link" id="link" class="form-control">
+                        <input type="text" placeholder="Lien relatif à la tâche" name="link" id="link"
+                               class="form-control">
                     </div>
                     <div class="<?= $divCSS ?>">
                         <span class="<?= $spanCSS ?>">Projet:</span>
