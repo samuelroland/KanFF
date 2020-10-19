@@ -5,7 +5,7 @@
  *  Author: Samuel Roland
  *  Creation date: 12.10.2020
  */
-
+$panelRight = 2;    //for dev
 /*
  * Function to display a work:
  * */
@@ -293,8 +293,9 @@ ob_start();
             $spanCSS = "";
             $divCSS = "mt-2";
             ?>
-            <div class="divTaskDetails divInRightPanel">
-                <div class="divTaskDetailsHeader flexdiv box-verticalaligncenter middlecolumn">
+            <!-- divTaskDetails Details of a task -->
+            <div id="divTaskDetails" class="divInRightPanel" <?= ($panelRight == 1) ? "" : "hidden" ?>>
+                <div class="panelRightStandardHeader flexdiv box-verticalaligncenter middlecolumn">
                     <span class="flex-1">Détails tâche n. <strong><span id="number"></span></strong></span>
                     <div class="mr-3">
                         <div id="state" class="alignright fullwidth font-weight-bold"></div>
@@ -389,8 +390,8 @@ ob_start();
                             <input id="projectname" type="text" value="<?= $project['name'] ?>" class="form-control"
                                    disabled readonly>
                         </div>
-                        <div class="divTaskDetailsBottomLine ">
-                            <div class="flexdiv">
+                        <div class="panelRightStandardBottomLine">
+                            <div class="flexdiv box-alignright">
                                 <button class="btnSaveCancel btn colorCancel">Annuler</button>
                                 <button class="btnSaveCancel btn colorSave">Enregistrer</button>
                             </div>
@@ -399,6 +400,77 @@ ob_start();
 
                 </div>
             </div>
+
+            <!-- divTaskCreate Form to create a task -->
+            <div id="divTaskCreate" class="divInRightPanel" <?= ($panelRight == 2) ? "" : "hidden" ?>>
+                <div class="panelRightStandardHeader flexdiv box-verticalaligncenter middlecolumn">
+                    <span class="flex-1">Créer une tâche</span>
+                    <span class="circle-redcross onclickCloseDetails"><?php printAnIcon("redcross.png", "Fermer le panneau de détails", "red cross icon", "icon-redcross") ?></span>
+                </div>
+                <div class="" id="divTaskCreateContent">
+                    <div class="divTaskDetailsFirstLine flexdiv box-verticalaligncenter">
+                        <h5 id="spanname" class="flex-1 nomargin">asdfsadfsdaf</h5>
+                    </div>
+                    <hr class="hrgrey nomargin">
+                    <span class="smallinfotext">Une tâche est une activité courte réalisée par une personne parmi d'autres tâches dans le but d'effectuer entièrement le travail. </span>
+                    <div class="flexdiv mt-2">
+                        <div class="flex-1">
+                            <div class="flexdiv">
+                                <span class="flex-1">Nom:</span>
+                                <span class="" id="pCounterName">0/1212</span>
+                            </div>
+                            <input type="text" id="inputname" name="name" autofocus class="form-control">
+                        </div>
+                        <div class="ml-2 ">
+                            <span class="">Type:</span>
+                            <select class="form-control" name="type" id="type">
+                                <option value="null">(Aucun)</option>
+                                <option value="1">Question</option>
+                                <option value="2">Information</option>
+                                <option value="3">Proposition</option>
+                                <option value="4">Idée</option>
+                                <option value="5">Réflexion</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <span class="">Travail:</span>
+                        <select class="form-control" name="work" id="work">
+                            <?php
+                            //TODO: add conditions to not include invisible and done, and sort the list cleverly
+                            foreach ($works as $work) { ?>
+                                <option value="<?= $work['id'] ?>"><?= $work['name'] ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="mt-3">
+                        <input type="checkbox" id="chkSerialCreation"><label for="chkSerialCreation" class="ml-2">Mode
+                            Création en série</label><br>
+                        <span class="smallinfotext">Ce mode vous permet de créer plusieurs tâches à la suite en restant sur ce formulaire. <br>Par défaut quand le mode est désactivé, les détails de la tâche apparaissent directement après la création.</span>
+                    </div>
+                    <div class="mt-5">
+                        <span class="smallinfotext">Les autres informations de la tâche peuvent être complété par la suite...</span>
+                    </div>
+                    <div class="panelRightStandardBottomLine ">
+                        <div class="flexdiv mb-3">
+                            <div class="box-verticalaligncenter">
+                                <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-xsmall m-2", false), "Notez l'urgence de la tâche de 0 à 5 (0 = aucun, 1 = min et 5 = max)", false) ?>
+                            </div>
+                            <div class="smallinfotext text-decoration-none">
+                                Astuce: <br>
+                                Pour rentrer les informations plus rapidement, utilisez les touches Tab et Maj+Tab pour
+                                changer de champ, les flèches du clavier pour choisir un type, ainsi que la touche Enter
+                                (pour créer la tâche). Vous n'avez donc pas besoin de la souris.
+                            </div>
+                        </div>
+                        <div class="flexdiv box-alignright">
+                            <button class="btnSaveCancel btn colorCancel">Annuler</button>
+                            <button class="btnSaveCancel btn colorSave">Créer la tâche</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 <?php
