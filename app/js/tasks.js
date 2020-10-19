@@ -11,7 +11,12 @@ $(document).ready(function () {
     declareChangeHiddenStateOnOneChildOnParentHover("divTask", "mouseover", "divTaskBottomLine", false)
     declareChangeHiddenStateOnOneChildOnParentHover("divTask", "mouseout", "divTaskBottomLine", true)
     declareSeeMoreOrLessButtonsEvents()
-    onClickDisplayDetails()
+
+    //On click on .divTask display the task details
+    $(".divTask").on("click", function (event) {
+        displayTaskDetails(event.target)
+    })
+
 
     //.onclickCloseDetails object can close divDetails on click event
     $(".onclickCloseDetails").on("click", function (event) {
@@ -46,10 +51,11 @@ function manageVisibilityTasks(btn, display) {
     })
 }
 
-//Events click on tasks will display the details and get the complete informations with an Ajax call
-function onClickDisplayDetails() {
-    $(".divTask").on("click", function (event) {
-        task = getRealParentHavingId(event.target)
+
+function displayTaskDetails(task) {
+    task = getRealParentHavingId(task)
+    if (task != null) {
+        this.task = task
         id = task.getAttribute("data-id")
         testa = new XMLHttpRequest()
         testa.onreadystatechange = function () {
@@ -64,7 +70,7 @@ function onClickDisplayDetails() {
         }
         testa.open("GET", "?action=getTask&id=" + id)
         testa.send()
-    })
+    }
 }
 
 //load the divDetails form with the array of data task
@@ -121,6 +127,7 @@ function buildFullNameWithUser(user) {
 
 //Manage (display or hide) active task(s). If null all tasks will be unactived, else the task element will be active (with adding .activeTask css class)
 function manageActiveTasks(taskToActive) {
+    log("hide all tasks")
     if (taskToActive == null) {
         var els = document.getElementsByClassName("divTask");
         Array.prototype.forEach.call(els, function (onetask) {
