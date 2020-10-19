@@ -157,7 +157,7 @@ body {
     font-family: Arial, serif;
 }
 
-.smallinfotext{
+.smallinfotext {
     color: #1d1919;
     font-size: 0.8em;
     font-style: italic;
@@ -528,18 +528,18 @@ hr {
     display: inline-block;
 }
 
-.height-min-content{
+.height-min-content {
     height: min-content;
 }
 
-.width-min-content{
+.width-min-content {
     width: min-content;
 }
 
-.inputtypenumber{
+.inputtypenumber {
     max-width: 100px;
 }
 
-.inputtypedate{
+.inputtypedate {
     max-width: 170px;
 }

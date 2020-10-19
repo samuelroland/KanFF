@@ -14,7 +14,7 @@
     max-height: 190px;
 }
 
-.divGroups{
+.divGroups {
     display: flex;
     flex-wrap: wrap;
     justify-content: start;

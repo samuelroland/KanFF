@@ -10,13 +10,12 @@
 //Declare event keyup for start reload counter
 
 
-
 $(document).ready(function () {
     $(".textFieldToCheck").on("keyup", function (txt) { //on event keyup on a input with class .textFieldToCheck
         checkTextFieldToCheck()
     })
     //Init tooltip in the page:
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
 })
@@ -34,13 +33,13 @@ function checkTextFieldToCheck() {
 
         p.innerText = nblength + "/" + thefield.maxLength   //Change the content of the counter with the new length
         if (thefield.maxLength - nblength < thefield.maxLength / 5) {   //if the difference is lower than the fifth of the maxlength:
-            if (thefield.classList.contains("counterVisibleOnlyIfFastMaxLength")){
+            if (thefield.classList.contains("counterVisibleOnlyIfFastMaxLength")) {
                 p.hidden = false;
             }
             p.classList.add("redCounter")   //put the counter in red
         } else {
             p.classList.remove("redCounter")    //remove the red of the counter
-            if (thefield.classList.contains("counterVisibleOnlyIfFastMaxLength")){
+            if (thefield.classList.contains("counterVisibleOnlyIfFastMaxLength")) {
                 p.hidden = true;
             }
         }
