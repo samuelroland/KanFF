@@ -83,7 +83,7 @@ function projectDetails($id, $option)
     require_once "view/project.php";
 }
 
-function kanban($id)
+function kanban($id, $opt)
 {
     $isInsideTheProject = isAUserInsideAProject($id, $_SESSION['user']['id']);
     $users = getAllUsers();

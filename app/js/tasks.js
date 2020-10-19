@@ -17,6 +17,23 @@ $(document).ready(function () {
         displayTaskDetails(event.target)
     })
 
+    //Display detail if task is displayed (see in # in window.location):
+    if (window.location.hash != "" && window.location.toString().indexOf("action=kanban") != -1 && window.location.hash.startsWith("#t-") && window.location.toString().indexOf("opt=1") != -1) {
+        hash = window.location.hash.toString()
+        task = document.getElementById("Task-" + hash.substr(hash.indexOf("#t-") + 3, hash.length)) //get the element with his id ("Task-"+ task.id) with id in the hash
+        log(task)
+        if (task != null) {    //if task found with the id in the hash
+            displayTaskDetails(task)
+            manageActiveTasks(task)
+        } else {
+            manageDivDetails(false)     //close details because there is no task to display
+            manageActiveTasks(null)
+            window.location.hash = ""   //remove the bad hash with the unknown id
+        }
+    } else {
+        manageDivDetails(false)
+        manageActiveTasks(null)
+    }
 
     //.onclickCloseDetails object can close divDetails on click event
     $(".onclickCloseDetails").on("click", function (event) {
@@ -57,6 +74,7 @@ function displayTaskDetails(task) {
     if (task != null) {
         this.task = task
         id = task.getAttribute("data-id")
+        window.location.hash = "t-" + id
         testa = new XMLHttpRequest()
         testa.onreadystatechange = function () {
             if (testa.readyState == XMLHttpRequest.DONE && testa.status == 200) {
@@ -70,6 +88,8 @@ function displayTaskDetails(task) {
         }
         testa.open("GET", "?action=getTask&id=" + id)
         testa.send()
+    } else {
+        window.location.hash = ""
     }
 }
 

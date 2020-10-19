@@ -11,7 +11,7 @@ ob_start();
     <div class="flexdiv">
         <h1 class="flex-1"><?= $title ?></h1>
         <div class="">
-            <button class="clickable btn btn-primary" data-href="?action=kanban&id=<?= $project['id'] ?>">
+            <button class="clickable btn btn-primary" data-href="?action=kanban&id=<?= $project['id'] ?>&opt=0">
                 Kanban
             </button>
         </div>

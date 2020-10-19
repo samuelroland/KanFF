@@ -122,7 +122,7 @@ if (!isset($_SESSION['user']['id'])) {
                 projectDetails($_GET['id'], $_GET['option']);
                 break;
             case "kanban":
-                kanban($_GET['id']);
+                kanban($_GET['id'], $_GET['opt']);
                 break;
             case "calendar":
                 calendar();

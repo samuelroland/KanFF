@@ -167,7 +167,7 @@ function printATask($task, $hasWritingRightOnTasks, $hidden = false)
     }
     ?>
     <div class="divTask <?= (($hasWritingRightOnTasks) ? "cursorgrab borderformodifiabletask " : "") ?>"
-         id="divTask-<?= $task['id'] ?>"
+         id="Task-<?= $task['id'] ?>"
          data-id="<?= $task['id'] ?>" <?= ($hidden) ? "hidden" : "" ?>>
         <div class="flexdiv divTaskNumber">
             <div class="flex-1"><?php if ($task['responsible_id'] != null) {
@@ -246,7 +246,7 @@ ob_start();
             <button class="btn btn-info clickable" data-href="?action=project&id=<?= $project['id'] ?>">Détails</button>
         </div>
     </div>
-    <div class="divKanban flexdiv withoutdetails" id="divKanban">
+    <div class="divKanban flexdiv <?= ($opt == 1) ? "" : "withoutdetails" ?>" id="divKanban">
         <div class="divKanbanHeaderAndContent flex-1">
             <div class="divKanbanHeader flexdiv">
                 <div class="flex-1 box-verticalaligncenter justify-content-center leftcolumn">
@@ -288,7 +288,7 @@ ob_start();
                 </div>
             </div>
         </div>
-        <div class="divDetails" id="divDetails" hidden>
+        <div class="divDetails" id="divDetails" <?= ($opt == 1) ? "" : "hidden" ?>>
             <?php
             $spanCSS = "";
             $divCSS = "mt-2";
