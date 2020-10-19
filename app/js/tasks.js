@@ -99,7 +99,7 @@ function loadTaskDetailsWithData(task) {
 
     //Completion date if exists and if task is done
     if (task.completion_date != null && task.state == 3) {
-        spancompletion.innerText = "Terminé le " + task.completion
+        spancompletion.innerText = "le " + task.completion
     } else {
         spancompletion.innerText = ""
     }

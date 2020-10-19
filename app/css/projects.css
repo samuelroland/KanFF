@@ -118,6 +118,13 @@
     height: 65px;
 }
 
+.divDetailsBottomLine {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding-bottom: 10px;
+}
+
 
 .circle-redcross {
     border: 1px solid red;
@@ -147,4 +154,26 @@
 }
 .divResponsible{
     height: 45px;
+}
+
+.btnSaveCancel{
+    width: 150px;
+    height: 40px;
+    border: 1px grey solid;
+    margin: 0px 5px;
+}
+
+.colorCancel{
+    background-color: floralwhite;
+}
+.colorCancel:hover{
+    background-color: #f6ebb6;
+}
+
+.colorSave{
+    background-color: #74f674;
+}
+.colorSave:hover{
+    background-color: #2ad92a;
+
 }

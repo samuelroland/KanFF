@@ -10,9 +10,14 @@
  * Function to display a work:
  * */
 
-function printAnIcon($iconname, $title, $alt, $defaultClasses = "icon-small ml-2 mr-2")
+function printAnIcon($iconname, $title, $alt, $defaultClasses = "icon-small ml-2 mr-2", $echo = true)
 {
-    echo "<img title=\"" . $title . "\" class='$defaultClasses' src='view/medias/icons/$iconname' alt='$alt'>";
+    $html = "<img title=\"" . $title . "\" class='$defaultClasses' src='view/medias/icons/$iconname' alt='$alt'>";
+    if ($echo) {
+        echo $html;
+    } else {
+        return $html;
+    }
 }
 
 function printAWork($work, $isInsideTheProject)
@@ -309,7 +314,9 @@ ob_start();
                                 <span class="flex-1 <?= $spanCSS ?>">Nom:</span>
                                 <span id="pCounterName"></span>
                             </div>
-                            <input id="inputname" name="name" type="text" class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength" placeholder="Nom de la tâche" maxlength="100">
+                            <input id="inputname" name="name" type="text"
+                                   class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength"
+                                   placeholder="Nom de la tâche" maxlength="100">
                         </div>
                         <div class="flex-1 ml-2">
                             <span class="<?= $spanCSS ?>">Travail:</span>
@@ -318,7 +325,8 @@ ob_start();
                     </div>
                     <div class=" <?= $divCSS ?>">
                         <span class="<?= $spanCSS ?>">Description:</span>
-                        <textarea id="description" name="description" type="text" rows="4" class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength"
+                        <textarea id="description" name="description" type="text" rows="4"
+                                  class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength"
                                   placeholder="Description de la tâche" maxlength="2000"></textarea>
                         <div class="alignright"><span id="pCounterDescription"></span></div>
                     </div>
@@ -347,15 +355,20 @@ ob_start();
                         </div>
                     </div>
                     <div class="flexdiv <?= $divCSS ?>">
-                        <div class="">
+                        <div class="flex-1">
                             <span class="<?= $spanCSS ?>">Date limite:</span>
-                            <input id="deadline" type="date" value="" name="deadline" class="form-control">
+                            <input id="deadline" type="date" value="" name="deadline"
+                                   class="form-control inputtypedate">
                         </div>
-                        <div class="ml-3">
-                            <span class="<?= $spanCSS ?>">Urgence:</span>
-                            <input type="number" id="urgency" class="form-control"
-                                   value="" min="0" max="5">
-                            <span class="smallinfotext">Notez l'urgence de la tâche de 0 à 5 (0 = aucun, 1 = min et 5 = max)</span>
+                        <div class="flex-1 flexdiv">
+                            <div class="ml-3">
+                                <span class="<?= $spanCSS ?>">Urgence:</span>
+                                <input type="number" id="urgency" class="form-control inputtypenumber"
+                                       value="" min="0" max="5">
+                            </div>
+                            <div class="mt-4">
+                                <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-xsmall m-2", false), "Notez l'urgence de la tâche de 0 à 5 (0 = aucun, 1 = min et 5 = max)", false) ?>
+                            </div>
                         </div>
                     </div>
                     <div class="<?= $divCSS ?>">
@@ -373,6 +386,12 @@ ob_start();
                         <span class="<?= $spanCSS ?>">Projet:</span>
                         <input id="projectname" type="text" value="<?= $project['name'] ?>" class="form-control"
                                disabled readonly>
+                    </div>
+                    <div class="divDetailsBottomLine ">
+                        <div class="flexdiv">
+                            <button class="btnSaveCancel btn colorCancel">Annuler</button>
+                            <button class="btnSaveCancel btn colorSave">Enregistrer</button>
+                        </div>
                     </div>
                 </div>
 

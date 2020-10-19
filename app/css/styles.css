@@ -527,3 +527,19 @@ hr {
     margin-right: 5px;
     display: inline-block;
 }
+
+.height-min-content{
+    height: min-content;
+}
+
+.width-min-content{
+    width: min-content;
+}
+
+.inputtypenumber{
+    max-width: 100px;
+}
+
+.inputtypedate{
+    max-width: 170px;
+}

@@ -363,7 +363,7 @@ function mentionUser($basicUser, $css = "text-info")
 //Get HTML code to create a tooltip with or without a link
 function createToolTip($innerText, $tooltipText, $link = false, $type = "top")
 {
-    $html = "<span class=' d-inline " . (($link != false) ? "linkInternal clickable cursorpointer" : "") . "' data-fallbackPlacement='flip' data-toggle='tooltip' data-title='" . $tooltipText . "' data-placement='$type' data-delay='1' " . (($link != false) ? "data-href='$link'" : "") . ">{$innerText}</span>";
+    $html = "<span class=' d-inline " . (($link != false) ? "linkInternal clickable cursorpointer" : "") . "' data-fallbackPlacement='flip' data-toggle='tooltip' data-title=\"" . $tooltipText . "\" data-placement='$type' data-delay='1' " . (($link != false) ? "data-href='$link'" : "") . ">{$innerText}</span>";
     return $html;
 }
 
