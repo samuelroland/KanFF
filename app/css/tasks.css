@@ -120,5 +120,6 @@
 }
 
 .activeTask {
-    box-shadow: 2px 2px 9px 9px rgba(134, 98, 0, 0.70);
+    background-color: #ffb400f0;
+    box-shadow: 0px 0px 8px 8px rgba(134, 98, 0, 0.70);
 }

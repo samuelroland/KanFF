@@ -57,6 +57,7 @@ function onClickDisplayDetails() {
                 response = JSON.parse(testa.responseText)
                 loadTaskDetailsWithData(response)   //load data in the divDetails
                 manageDivDetails(true)  //display when ajax call is finished and data has been loaded
+                checkTextFieldToCheck()
                 manageActiveTasks(null)     //unactive all tasks
                 manageActiveTasks(task)     //active the clicked task
             }
@@ -72,7 +73,7 @@ function loadTaskDetailsWithData(task) {
     log(task)
     inputname.value = task.name
     spanname.innerText = task.name
-    description.innerText = task.description
+    description.value = task.description
     type.options.selectedIndex = task.type
     urgency.value = task.urgency
     deadline.value = task.deadline.substr(0, task.deadline.indexOf(" "))    //remove H:i:s part

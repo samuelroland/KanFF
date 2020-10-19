@@ -34,9 +34,15 @@ function checkTextFieldToCheck() {
 
         p.innerText = nblength + "/" + thefield.maxLength   //Change the content of the counter with the new length
         if (thefield.maxLength - nblength < thefield.maxLength / 5) {   //if the difference is lower than the fifth of the maxlength:
+            if (thefield.classList.contains("counterVisibleOnlyIfFastMaxLength")){
+                p.hidden = false;
+            }
             p.classList.add("redCounter")   //put the counter in red
         } else {
             p.classList.remove("redCounter")    //remove the red of the counter
+            if (thefield.classList.contains("counterVisibleOnlyIfFastMaxLength")){
+                p.hidden = true;
+            }
         }
     })
 }

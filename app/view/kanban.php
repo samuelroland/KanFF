@@ -285,7 +285,7 @@ ob_start();
         </div>
         <div class="divDetails" id="divDetails" hidden>
             <?php
-            $spanCSS = "mt-5";
+            $spanCSS = "";
             $divCSS = "mt-2";
             ?>
             <div class="divDetailsHeader flexdiv box-verticalaligncenter middlecolumn">
@@ -305,8 +305,11 @@ ob_start();
                 <div class="divDetailsInformations">
                     <div class="flexdiv  <?= $divCSS ?>">
                         <div class="flex-2">
-                            <span class="<?= $spanCSS ?>">Nom:</span>
-                            <input id="inputname" type="text" class="form-control" placeholder="Nom de la tâche">
+                            <div class="flexdiv">
+                                <span class="flex-1 <?= $spanCSS ?>">Nom:</span>
+                                <span id="pCounterName"></span>
+                            </div>
+                            <input id="inputname" name="name" type="text" class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength" placeholder="Nom de la tâche" maxlength="100">
                         </div>
                         <div class="flex-1 ml-2">
                             <span class="<?= $spanCSS ?>">Travail:</span>
@@ -315,9 +318,9 @@ ob_start();
                     </div>
                     <div class=" <?= $divCSS ?>">
                         <span class="<?= $spanCSS ?>">Description:</span>
-                        <textarea id="description" name="description" type="text" rows="4" class="form-control"
-                                  placeholder="Description de la tâche"></textarea>
-                        <div class="alignright"><span class="pCounterDescription">0/1000</span></div>
+                        <textarea id="description" name="description" type="text" rows="4" class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength"
+                                  placeholder="Description de la tâche" maxlength="2000"></textarea>
+                        <div class="alignright"><span id="pCounterDescription"></span></div>
                     </div>
                     <div class="flexdiv <?= $divCSS ?>">
                         <div class="">
@@ -361,7 +364,10 @@ ob_start();
                             <span class="alignright">Ouvrir le lien</span>
                         </div>
                         <input type="text" placeholder="Lien relatif à la tâche" name="link" id="link"
-                               class="form-control">
+                               class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength" maxlength="2000">
+                        <div class="alignright">
+                            <span id="pCounterLink">asfd</span>
+                        </div>
                     </div>
                     <div class="<?= $divCSS ?>">
                         <span class="<?= $spanCSS ?>">Projet:</span>
