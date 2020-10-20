@@ -267,14 +267,7 @@ ob_start();
                     <?php
                     foreach ($project['works'] as $work) {
                         if ($work['state'] != WORK_STATE_TODO) {
-                            if ($isInsideTheProject) {
-                                printAWork($work, $isInsideTheProject);
-                            } else {    //if user in not in the project
-                                //Display the work only if it is visible
-                                if ($work['visible'] == 1) {
-                                    printAWork($work, $isInsideTheProject);
-                                }
-                            }
+                            printAWork($work, $isInsideTheProject);
                         }
                         displaydebug($work['name']);
                         displaydebug($work['hasWritingRightOnTasks']);
@@ -420,7 +413,8 @@ ob_start();
                                 <span class="" id="pCounterName2"></span>
                             </div>
                             <input type="text" id="inputnamecreate" name="name2" maxlength="100" autofocus
-                                   class="textFieldToCheck counterVisibleOnlyIfFastMaxLength form-control" placeholder="Nom de la tâche">
+                                   class="textFieldToCheck counterVisibleOnlyIfFastMaxLength form-control"
+                                   placeholder="Nom de la tâche">
                         </div>
                         <div class="ml-2 ">
                             <span class="">Type:</span>
@@ -439,9 +433,13 @@ ob_start();
                         <select class="form-control" name="work" id="work">
                             <?php
                             //TODO: add conditions to not include invisible and done, and sort the list cleverly
-                            foreach ($works as $work) { ?>
-                                <option value="<?= $work['id'] ?>"><?= $work['name'] ?></option>
-                            <?php } ?>
+                            foreach ($project['works'] as $work) {
+                                if ($work['state'] != WORK_STATE_DONE && $work['hasWritingRightOnTasks']) {
+                                    ?>
+                                    <option class="" value="<?= $work['id'] ?>" data-work="<?= $work['id'] ?>"><?= $work['name'] ?><?php echo ($work['inbox'] != 1) ? " (".convertWorkState($work['state'], true).")" : "" ?>
+                                    </option>
+                                <?php }
+                            } ?>
                         </select>
                     </div>
                     <div class="mt-2">

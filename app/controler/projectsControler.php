@@ -97,7 +97,15 @@ function kanban($id, $opt)
 
     foreach ($works as $key => $work) {
         $works[$key]['hasWritingRightOnTasks'] = hasWritingRightOnTasksOfAWork($isInsideTheProject, $work);
+        if ($isInsideTheProject != true) {  //if is not inside the project, the filter apply, else no filter
+            if ($work['visible'] != 1) {    //unset the work is not visible
+                unset($works[$key]);
+            }
+        }
     }
+    displaydebug($isInsideTheProject);
+    displaydebug($works);
+
     $project['works'] = $works;
     require_once "view/kanban.php";
 }
