@@ -115,8 +115,8 @@ function printAWork($work, $isInsideTheProject)
                 ?>
                 <?php
                 displaydebug($work['hasWritingRightOnTasks']);
-                if ($work['hasWritingRightOnTasks']) {
-                    echo "<div class='divTaskPlusButton borderformodifiabletask cursorpointer'>";
+                if ($work['hasWritingRightOnTasks'] && $work['state']!= WORK_STATE_DONE) {
+                    echo "<div id='divTaskPlusButton' class='divTaskPlusButton borderformodifiabletask cursorpointer' data-work='{$work['id']}'>";
                     printAnIcon("plus.png", "Créer une tâche", "plus icon", "divTaskPlusButtonIcon");
                     echo "</div>";
                 }
@@ -287,7 +287,7 @@ ob_start();
             $divCSS = "mt-2";
             ?>
             <!-- divTaskDetails Details of a task -->
-            <div id="divTaskDetails" class="divInRightPanel" <?= ($panelRight == 1) ? "" : "hidden" ?>>
+            <div id="divTaskDetails" class="divInRightPanel">
                 <div class="panelRightStandardHeader flexdiv box-verticalaligncenter middlecolumn">
                     <span class="flex-1">Détails tâche n. <strong><span id="number"></span></strong></span>
                     <div class="mr-3">
@@ -395,7 +395,7 @@ ob_start();
             </div>
 
             <!-- divTaskCreate Form to create a task -->
-            <div id="divTaskCreate" class="divInRightPanel" <?= ($panelRight == 2) ? "" : "hidden" ?>>
+            <div id="divTaskCreate" class="divInRightPanel">
                 <div class="panelRightStandardHeader flexdiv box-verticalaligncenter middlecolumn">
                     <span class="flex-1">Créer une tâche</span>
                     <span class="circle-redcross onclickCloseDetails"><?php printAnIcon("redcross.png", "Fermer le panneau de détails", "red cross icon", "icon-redcross") ?></span>

@@ -36,6 +36,19 @@ $(document).ready(function () {
     //One mouse out hide the 2 triangles in all cases
     declareChangeHiddenStateOnOneChildOnParentHover("oneLog", "mouseout", "trianglebottom", true)
     declareChangeHiddenStateOnOneChildOnParentHover("oneLog", "mouseout", "triangletop", true)
+
+    $(".divTaskPlusButton").on("click", function (sender) {
+        parent = getRealParentHavingId(sender.target)
+
+        //Open rightPanel and display the Create task form
+        managedivRightPanel(true, 2)
+        inputnamecreate.focus() //focus on the name field to be ready to start typing
+
+        //Select on #work the same work (with the value equal to the id of a work)
+        idwork = parent.getAttribute("data-work")
+        work.value = $("#work option[data-work='" + idwork + "']").val()
+    })
+
 })
 
 //Declare eventlistener on a parent, to manage hidden state of a child of this parent, with a condition on an attribute or not
@@ -88,7 +101,25 @@ function getRealParentHavingId(parent) {
 }
 
 //Manage (display or hide) divRightPanel
-function managedivRightPanel(display) {
+function managedivRightPanel(display, idFormToDisplay = 1) {
+    switch (idFormToDisplay) {
+        case 1:
+            formToDisplay = "divTaskDetails"
+            break;
+        case 2:
+            formToDisplay = "divTaskCreate"
+            break;
+        case 3:
+            formToDisplay = "divWorkDetails"
+            break;
+    }
+
+    //hide or display the wanted child (task details, work details or create a task):
+    $("#divRightPanel").children().hide()    //hide all
+    $("#" + formToDisplay.toString()).show()
+    log(idFormToDisplay)
+    log(divRightPanel.children[idFormToDisplay - 1])
+
     divRightPanel.hidden = !display
     if (display) {
         window.history.replaceState({}, "", window.location.toString().replace("opt=0", "opt=1"));  //change opt to 1 (details open) in the url without refresh page

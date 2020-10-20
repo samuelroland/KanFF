@@ -93,7 +93,7 @@ function displayTaskDetails(task) {
             if (testa.readyState == XMLHttpRequest.DONE && testa.status == 200) {
                 response = JSON.parse(testa.responseText)
                 loadTaskDetailsWithData(response)   //load data in the divRightPanel
-                managedivRightPanel(true)  //display when ajax call is finished and data has been loaded
+                managedivRightPanel(true, 1)  //display when ajax call is finished and data has been loaded
                 checkTextFieldToCheck()
                 manageActiveTasks(null)     //unactive all tasks
                 manageActiveTasks(task)     //active the clicked task

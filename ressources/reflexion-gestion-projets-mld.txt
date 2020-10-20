@@ -425,3 +425,4 @@ Réflexion après publication MCD et MLD v1.3:
 - attribuer la tâche à qqun.e d'autre ? si oui qui peut le faire ?
 - numéro de tâche: unique sur le projet ou pour tous les projets du collectif ?
 - nom du type "sans type" ? "Standard"? "(Aucun)" ? Il faut être clair rapidement pour ne pas créer la confusion.
+- peut-on gérer les tâches dans un travail terminé ?
