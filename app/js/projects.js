@@ -116,9 +116,10 @@ function managedivRightPanel(display, idFormToDisplay = 1) {
 
     //hide or display the wanted child (task details, work details or create a task):
     $("#divRightPanel").children().hide()    //hide all
-    $("#" + formToDisplay.toString()).show()
-    log(idFormToDisplay)
-    log(divRightPanel.children[idFormToDisplay - 1])
+    $("#" + formToDisplay.toString()).show()    //show the form to display
+
+    inputnamecreate.value = ""  //clear name input
+    loadTaskNameForCreate()
 
     divRightPanel.hidden = !display
     if (display) {

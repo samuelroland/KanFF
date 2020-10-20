@@ -287,7 +287,7 @@ ob_start();
             $divCSS = "mt-2";
             ?>
             <!-- divTaskDetails Details of a task -->
-            <div id="divTaskDetails" class="divInRightPanel">
+            <div id="divTaskDetails" class="divInRightPanel" style="display: none;" >
                 <div class="panelRightStandardHeader flexdiv box-verticalaligncenter middlecolumn">
                     <span class="flex-1">Détails tâche n. <strong><span id="number"></span></strong></span>
                     <div class="mr-3">
@@ -395,9 +395,9 @@ ob_start();
             </div>
 
             <!-- divTaskCreate Form to create a task -->
-            <div id="divTaskCreate" class="divInRightPanel">
+            <div id="divTaskCreate" class="divInRightPanel" style="display: none;">
                 <div class="panelRightStandardHeader flexdiv box-verticalaligncenter middlecolumn">
-                    <span class="flex-1">Créer une tâche</span>
+                    <span class="flex-1"><strong>Créer une tâche</strong></span>
                     <span class="circle-redcross onclickCloseDetails"><?php printAnIcon("redcross.png", "Fermer le panneau de détails", "red cross icon", "icon-redcross") ?></span>
                 </div>
                 <div class="" id="divTaskCreateContent">
