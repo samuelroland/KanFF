@@ -5,7 +5,7 @@
  *  Author: Samuel Roland
  *  Creation date: 12.10.2020
  */
-$panelRight = 1;    //for dev: which main div is displayed in the panelRight ? 1 = task details and 2 = create a task
+$panelRight = 2;    //for dev: which main div is displayed in the panelRight ? 1 = task details and 2 = create a task
 /*
  * Function to display a work:
  * */
@@ -409,7 +409,7 @@ ob_start();
                 </div>
                 <div class="" id="divTaskCreateContent">
                     <div class="divTaskDetailsFirstLine flexdiv box-verticalaligncenter">
-                        <h5 id="spanname" class="flex-1 nomargin">asdfsadfsdaf</h5>
+                        <h5 id="spannamecreate" class="flex-1 nomargin"></h5>
                     </div>
                     <hr class="hrgrey nomargin">
                     <span class="smallinfotext">Une tâche est une activité courte réalisée par une personne parmi d'autres tâches dans le but d'effectuer entièrement le travail. </span>
@@ -417,9 +417,10 @@ ob_start();
                         <div class="flex-1">
                             <div class="flexdiv">
                                 <span class="flex-1">Nom:</span>
-                                <span class="" id="pCounterName">0/1212</span>
+                                <span class="" id="pCounterName2"></span>
                             </div>
-                            <input type="text" id="inputname" name="name" autofocus class="form-control">
+                            <input type="text" id="inputnamecreate" name="name2" maxlength="100" autofocus
+                                   class="textFieldToCheck counterVisibleOnlyIfFastMaxLength form-control" placeholder="Nom de la tâche">
                         </div>
                         <div class="ml-2 ">
                             <span class="">Type:</span>
@@ -443,24 +444,28 @@ ob_start();
                             <?php } ?>
                         </select>
                     </div>
-                    <div class="mt-3">
-                        <input type="checkbox" id="chkSerialCreation"><label for="chkSerialCreation" class="ml-2">Mode
-                            Création en série</label><br>
-                        <span class="smallinfotext">Ce mode vous permet de créer plusieurs tâches à la suite en restant sur ce formulaire. <br>Par défaut quand le mode est désactivé, les détails de la tâche apparaissent directement après la création.</span>
-                    </div>
-                    <div class="mt-5">
+                    <div class="mt-2">
                         <span class="smallinfotext">Les autres informations de la tâche peuvent être complété par la suite...</span>
+                    </div>
+                    <div class="mt-2 flexdiv">
+                        <div class="flex-1 box-verticalaligncenter">
+                            <input type="checkbox" id="chkSerialCreation">
+                            <label for="chkSerialCreation" class="ml-2 noverticalmargin">Mode Création en série</label>
+                        </div>
+                        <div class="box-alignright">
+                            <span><?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-xsmall m-2", false), "Ce mode vous permet de créer plusieurs tâches à la suite en restant sur ce formulaire. Par défaut quand le mode est désactivé, les détails de la tâche apparaissent directement après la création.", false, "bottom") ?></span>
+                        </div>
                     </div>
                     <div class="panelRightStandardBottomLine ">
                         <div class="flexdiv mb-3">
                             <div class="box-verticalaligncenter">
-                                <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-xsmall m-2", false), "Notez l'urgence de la tâche de 0 à 5 (0 = aucun, 1 = min et 5 = max)", false) ?>
+                                <?= printAnIcon("point.png", "", "question mark icon", "icon-xsmall m-2", false) ?>
                             </div>
                             <div class="smallinfotext text-decoration-none">
-                                Astuce: <br>
+                                <strong>Astuce: </strong><br>
                                 Pour rentrer les informations plus rapidement, utilisez les touches Tab et Maj+Tab pour
                                 changer de champ, les flèches du clavier pour choisir un type, ainsi que la touche Enter
-                                (pour créer la tâche). Vous n'avez donc pas besoin de la souris.
+                                (pour créer la tâche).<br>Vous n'avez donc pas besoin de la souris.
                             </div>
                         </div>
                         <div class="flexdiv box-alignright">

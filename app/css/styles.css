@@ -41,6 +41,7 @@
 }
 
 .divLogo {
+    width: 150px;
     padding: 3px 5px;
     margin-right: 5px;
 }
@@ -542,4 +543,9 @@ hr {
 
 .inputtypedate {
     max-width: 170px;
+}
+
+.noverticalmargin {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
 }

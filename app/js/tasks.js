@@ -40,7 +40,20 @@ $(document).ready(function () {
         managedivRightPanel(false)
         manageActiveTasks(null)     //unactive all tasks
     })
+
+
+    //On keyup on #inputnamecreate the task name is loaded
+    $("#inputnamecreate").on("keyup", function (event) {
+        loadTaskNameForCreate()
+    })
+    loadTaskNameForCreate()
+
 })
+
+//load task name from #inputnamecreat to spannamecreate
+function loadTaskNameForCreate(){
+    spannamecreate.innerText = inputnamecreate.value
+}
 
 //Declare click event for btnSeeMoreOrLessTasks to change the text and start function manageVisibilityTasks()
 function declareSeeMoreOrLessButtonsEvents() {
