@@ -17,22 +17,40 @@ $(document).ready(function () {
         displayTaskDetails(event.target)
     })
 
-    //Display detail if task is displayed (see in # in window.location):
-    if (window.location.hash != "" && window.location.toString().indexOf("action=kanban") != -1 && window.location.hash.startsWith("#t-") && window.location.toString().indexOf("opt=1") != -1) {
-        hash = window.location.hash.toString()
-        task = document.getElementById("Task-" + hash.substr(hash.indexOf("#t-") + 3, hash.length)) //get the element with his id ("Task-"+ task.id) with id in the hash
-        log(task)
-        if (task != null) {    //if task found with the id in the hash
-            displayTaskDetails(task)
-            manageActiveTasks(task)
-        } else {
-            managedivRightPanel(false)     //close details because there is no task to display
-            manageActiveTasks(null)
-            window.location.hash = ""   //remove the bad hash with the unknown id
+    //Extract value from url:
+    url = window.location.toString()
+    opt = url.substr(url.indexOf("opt=") + 4, 1)
+    hash = window.location.hash.toString()
+
+    //if url is correctly build (hash not empty. action=kanban, hash start with #t- or #w- and and if opt is not), then display right panel with the right form (in opt)
+    if (hash != "" && url.indexOf("action=kanban") != -1 && (hash.startsWith("#t-") || hash.startsWith("#w-")) && url.indexOf("opt=0") == -1) {
+        switch (opt) {
+            case "1":   //opt 1 = idFormToDisplay => divTaskDetails
+                task = document.getElementById("Task-" + hash.substr(hash.indexOf("#t-") + 3, hash.length)) //get the element ("Task-"+ task.id) with its id in the hash
+                log(task)
+                if (task != null) {    //if task found with the id in the hash
+                    displayTaskDetails(task)
+                    manageActiveTasks(task)
+                } else {
+                    managedivRightPanel(false)     //close details because there is no task to display
+                    manageActiveTasks(null)
+                    window.location.hash = ""   //remove the bad hash with the unknown id
+                }
+                break;
+            case "2":   //opt 1 = idFormToDisplay => divTaskCreate
+                work = document.getElementById("Work-" + hash.substr(hash.indexOf("#w-") + 3)) //get the element ("Work-"+ task.id) with its id in the hash
+                log(work)
+                if (work != null) {    //if work found with the id in the hash
+                    loadTaskCreateForm(work.getAttribute("data-id"))
+                } else {
+                    managedivRightPanel(false)     //close details because there is no work to display
+                    window.location.hash = ""   //remove the bad hash with the unknown id
+                }
+                break;
         }
+
     } else {
         managedivRightPanel(false)
-        manageActiveTasks(null)
     }
 
     //.onclickCloseDetails object can close divRightPanel on click event
@@ -51,7 +69,7 @@ $(document).ready(function () {
 })
 
 //load task name from #inputnamecreat to spannamecreate
-function loadTaskNameForCreate(){
+function loadTaskNameForCreate() {
     spannamecreate.innerText = inputnamecreate.value
 }
 
@@ -88,6 +106,7 @@ function displayTaskDetails(task) {
         this.task = task
         id = task.getAttribute("data-id")
         window.location.hash = "t-" + id
+        changeOptInUrl(1)   //change opt in the url
         testa = new XMLHttpRequest()
         testa.onreadystatechange = function () {
             if (testa.readyState == XMLHttpRequest.DONE && testa.status == 200) {

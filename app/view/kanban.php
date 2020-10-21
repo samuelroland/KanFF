@@ -43,7 +43,7 @@ function printAWork($work, $isInsideTheProject)
     }
     ?>
     <div class="divWork" style="border: 2px solid <?= $borderAndPastilleColor ?>; border-radius: 5px;"
-         data-id="<?= $work['id'] ?>" id="divWork-<?= $work['id'] ?>">
+         data-id="<?= $work['id'] ?>" id="Work-<?= $work['id'] ?>">
         <div class="divWorkHeader box-verticalaligncenter" style="background-color: <?= $bgCssColor ?> !important;">
             <div class="flex-1 flexdiv box-verticalaligncenter">
                 <h5 class="nomargin pr-2 pl-2"><?= $work['name'] ?></h5>
@@ -246,7 +246,7 @@ ob_start();
             <button class="btn btn-info clickable" data-href="?action=project&id=<?= $project['id'] ?>">Détails</button>
         </div>
     </div>
-    <div class="divKanban flexdiv <?= ($opt == 1) ? "" : "withoutdetails" ?>" id="divKanban">
+    <div class="divKanban flexdiv <?= (isAtLeastEqual($opt, ["1", "2"])) ? "" : "withoutdetails" ?>" id="divKanban">
         <div class="divKanbanHeaderAndContent flex-1">
             <div class="divKanbanHeader flexdiv">
                 <div class="flex-1 box-verticalaligncenter justify-content-center leftcolumn">
@@ -281,7 +281,7 @@ ob_start();
                 </div>
             </div>
         </div>
-        <div class="divRightPanel" id="divRightPanel" <?= ($opt == 1) ? "" : "hidden" ?>>
+        <div class="divRightPanel" id="divRightPanel" <?= (isAtLeastEqual($opt, ["1", "2"])) ? "" : "hidden" ?>>
             <?php
             $spanCSS = "";
             $divCSS = "mt-2";

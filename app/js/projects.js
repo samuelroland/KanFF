@@ -38,15 +38,8 @@ $(document).ready(function () {
     declareChangeHiddenStateOnOneChildOnParentHover("oneLog", "mouseout", "triangletop", true)
 
     $(".divTaskPlusButton").on("click", function (sender) {
-        parent = getRealParentHavingId(sender.target)
-
-        //Open rightPanel and display the Create task form
-        managedivRightPanel(true, 2)
-        inputnamecreate.focus() //focus on the name field to be ready to start typing
-
-        //Select on #work the same work (with the value equal to the id of a work)
-        idwork = parent.getAttribute("data-work")
-        work.value = $("#work option[data-work='" + idwork + "']").val()
+        parent = getRealParentHavingId(sender.target)   //get the plus button div (parent of the icon)
+        loadTaskCreateForm(parent.getAttribute("data-work"))    //load the form with the id in the attribute data-work in the div button
     })
 
 })
@@ -119,14 +112,40 @@ function managedivRightPanel(display, idFormToDisplay = 1) {
     $("#" + formToDisplay.toString()).show()    //show the form to display
 
     inputnamecreate.value = ""  //clear name input
-    loadTaskNameForCreate()
+    loadTaskNameForCreate() //load task name in divTaskCreate
 
     divRightPanel.hidden = !display
     if (display) {
-        window.history.replaceState({}, "", window.location.toString().replace("opt=0", "opt=1"));  //change opt to 1 (details open) in the url without refresh page
+        window.history.replaceState({}, "", window.location.toString().replace("opt=0", "opt=" + idFormToDisplay));  //change opt to 1 (details open) in the url without refresh page
         divKanban.classList.remove("withoutdetails")
     } else {
-        window.history.replaceState({}, "", window.location.toString().replace("opt=1", "opt=0"));  //change opt to 0 (details closed) in the url without refresh page
+        window.history.replaceState({}, "", window.location.toString().replace("opt=" + 1, "opt=0"));  //change opt to 0 (details closed) in the url without refresh page
+        window.history.replaceState({}, "", window.location.toString().replace("opt=" + 2, "opt=0"));  //change opt to 0 (details closed) in the url without refresh page
         divKanban.classList.add("withoutdetails")
+        window.location.hash = "" //clear other the id in the hash
+        manageActiveTasks(null) //unactive all tasks
     }
+}
+
+//load task creation form
+function loadTaskCreateForm(idwork) {
+    managedivRightPanel(true, 2)    //open right panel and display divTaskCreate
+    manageActiveTasks(null)
+
+    changeOptInUrl(2)   //change opt in url
+    inputnamecreate.focus() //focus on the name field to be ready to start typing
+
+    window.location.hash = "w-" + idwork    //change the hash with id of the work to be able to find the work again
+
+    $("#work").val(idwork)  //select the good option on #work with the attribute value of option markup
+}
+
+//change var opt in the querystring without refresh page
+function changeOptInUrl(newOpt = 0) {
+    //replace all possibles opt with default value (0)
+    window.history.replaceState({}, "", window.location.toString().replace("opt=" + 1, "opt=0"));
+    window.history.replaceState({}, "", window.location.toString().replace("opt=" + 2, "opt=0"));
+
+    //Set the wanted opt
+    window.history.replaceState({}, "", window.location.toString().replace("opt=0", "opt=" + newOpt));
 }
