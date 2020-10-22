@@ -73,6 +73,15 @@ define("TASK_STATE_INRUN", 2);
 define("TASK_STATE_DONE", 3);
 define("TASK_LIST_STATE", [TASK_STATE_TODO, TASK_STATE_INRUN, TASK_STATE_DONE]);
 
+//define constants of tasks.type, identical to values in the database:
+define("TASK_TYPE_NONE", 0);
+define("TASK_TYPE_QUESTION", 1);
+define("TASK_TYPE_INFORMATION", 2);
+define("TASK_TYPE_PROPOSITION", 3);
+define("TASK_TYPE_IDEA", 4);
+define("TASK_TYPE_REFLEXION", 5);
+define("TASK_LIST_TYPE", [TASK_TYPE_NONE, TASK_TYPE_QUESTION, TASK_TYPE_INFORMATION, TASK_TYPE_PROPOSITION, TASK_TYPE_IDEA, TASK_TYPE_REFLEXION]);
+
 
 //get the flashmessage with the messageid stored in the session.
 function flashMessage($withHtml = true)
@@ -316,6 +325,35 @@ function convertTaskState($int, $needFirstCharToUpper = false)
             break;
         case TASK_STATE_DONE:
             $txt = "terminé";   //ou fini ??
+            break;
+        default:
+            $txt = "ERROR UNKNOWN STATE";
+    }
+    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
+    return $txt;
+}
+
+//Convert the task type in french
+function convertTaskType($int, $needFirstCharToUpper = false)
+{
+    switch ($int) {
+        case TASK_TYPE_NONE:
+            $txt = "(Aucun)";
+            break;
+        case TASK_TYPE_QUESTION:
+            $txt = "question";
+            break;
+        case TASK_TYPE_INFORMATION:
+            $txt = "information";
+            break;
+        case TASK_TYPE_PROPOSITION:
+            $txt = "proposition";
+            break;
+        case TASK_TYPE_IDEA:
+            $txt = "idée";
+            break;
+        case TASK_TYPE_REFLEXION:
+            $txt = "réflexion";
             break;
         default:
             $txt = "ERROR UNKNOWN STATE";

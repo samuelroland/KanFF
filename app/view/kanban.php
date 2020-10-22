@@ -115,7 +115,7 @@ function printAWork($work, $isInsideTheProject)
                 ?>
                 <?php
                 displaydebug($work['hasWritingRightOnTasks']);
-                if ($work['hasWritingRightOnTasks'] && $work['state']!= WORK_STATE_DONE) {
+                if ($work['hasWritingRightOnTasks'] && $work['state'] != WORK_STATE_DONE) {
                     echo "<div id='divTaskPlusButton' class='divTaskPlusButton borderformodifiabletask cursorpointer' data-work='{$work['id']}'>";
                     printAnIcon("plus.png", "Créer une tâche", "plus icon", "divTaskPlusButtonIcon");
                     echo "</div>";
@@ -287,7 +287,7 @@ ob_start();
             $divCSS = "mt-2";
             ?>
             <!-- divTaskDetails Details of a task -->
-            <div id="divTaskDetails" class="divInRightPanel" style="display: none;" >
+            <div id="divTaskDetails" class="divInRightPanel" style="display: none;">
                 <div class="panelRightStandardHeader flexdiv box-verticalaligncenter middlecolumn">
                     <span class="flex-1">Détails tâche n. <strong><span id="number"></span></strong></span>
                     <div class="mr-3">
@@ -329,12 +329,9 @@ ob_start();
                             <div class="">
                                 <span class="<?= $spanCSS ?>">Type:</span>
                                 <select class="form-control" name="type" id="type">
-                                    <option value="null">(Aucun)</option>
-                                    <option value="1">Question</option>
-                                    <option value="2">Information</option>
-                                    <option value="3">Proposition</option>
-                                    <option value="4">Idée</option>
-                                    <option value="5">Réflexion</option>
+                                    <?php foreach (TASK_LIST_TYPE as $type) {
+                                        echo "<option value='" . $type . "'>" . convertTaskType($type, true) . "</option>";
+                                    } ?>
                                 </select>
                             </div>
                             <div class="flex-1 ml-3">
@@ -436,11 +433,13 @@ ob_start();
                             foreach ($project['works'] as $work) {
                                 if ($work['state'] != WORK_STATE_DONE && $work['hasWritingRightOnTasks']) {
                                     ?>
-                                    <option class="" value="<?= $work['id'] ?>" data-work="<?= $work['id'] ?>"><?= $work['name'] ?><?php echo ($work['inbox'] != 1) ? " (".convertWorkState($work['state'], true).")" : "" ?>
+                                    <option class="" value="<?= $work['id'] ?>"
+                                            data-work="<?= $work['id'] ?>"><?= $work['name'] ?><?php echo ($work['inbox'] != 1) ? " (" . convertWorkState($work['state'], true) . ")" : "" ?>
                                     </option>
                                 <?php }
                             } ?>
                         </select>
+                        <input type="hidden" name="project" value="<?= $project['id'] ?>">
                     </div>
                     <div class="mt-2">
                         <span class="smallinfotext">Les autres informations de la tâche peuvent être complété par la suite...</span>

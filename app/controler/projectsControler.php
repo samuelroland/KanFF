@@ -158,4 +158,31 @@ function getTask($id)
     echo json_encode($task);
 }
 
+//Ajax call to create one task
+function createATask($data)
+{
+    $task = [];
+    //TODO: check that work is writable and in the good project
+    
+
+    if (chkLength($data['name'], 100) && $data['name'] != "" && isAtLeastEqual($data['type'], TASK_LIST_TYPE)) {
+        $task['name'] = $data['name'];
+        $task['type'] = $data['type'];
+        $task['work_id'] = $data['work'];
+
+        //Then generate other fields:
+        $task['number'] = getTasksNextUniqueNumber();
+        $task['state'] = TASK_STATE_TODO;
+        $task['urgency'] = 0;
+        $task['creator_id'] = $_SESSION['user']['id'];
+
+        //Then create the task:
+        $id = createTask($task);
+
+        echo json_encode(getOneTask($id));
+    } else {
+        //TODO: return error message in JSON
+    }
+}
+
 ?>

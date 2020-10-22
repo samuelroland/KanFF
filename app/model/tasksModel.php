@@ -61,9 +61,9 @@ function getTasksNextUniqueNumber(){
 }
 
 //Create Work
-function createTasks($Work)
+function createTask($task)
 {
-    createOne("tasks", $Work);
+    return createOne("tasks", $task);
 }
 
 //Update one task with his id
