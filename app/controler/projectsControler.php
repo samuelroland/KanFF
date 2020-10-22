@@ -163,9 +163,17 @@ function createATask($data)
 {
     $task = [];
     //TODO: check that work is writable and in the good project
-    
+    $isInsideTheProject = isAUserInsideAProject($data['project'], $_SESSION['user']['id']);
+    $work = getOneWork($data['work']);
 
-    if (chkLength($data['name'], 100) && $data['name'] != "" && isAtLeastEqual($data['type'], TASK_LIST_TYPE)) {
+    //Check that the work exist and that the user have the permissions to create a task in this work
+    $hasPermissionToCreate = false; //default value
+    if ($work['project_id'] == $data['project'] && hasWritingRightOnTasksOfAWork($isInsideTheProject, $work) && $work['state'] != WORK_STATE_DONE) {
+        $hasPermissionToCreate = true;
+    }
+
+    //Check that data sent are valid
+    if (chkLength($data['name'], 100) && $data['name'] != "" && isAtLeastEqual($data['type'], TASK_LIST_TYPE) && $hasPermissionToCreate) {
         $task['name'] = $data['name'];
         $task['type'] = $data['type'];
         $task['work_id'] = $data['work'];
@@ -181,7 +189,11 @@ function createATask($data)
 
         echo json_encode(getOneTask($id));
     } else {
-        //TODO: return error message in JSON
+        if ($hasPermissionToCreate == false) {
+            //TODO: return error message in JSON: work not found (or "you don't have permissions" ??)
+        } else {
+            //TODO: return error message in JSON: invalid data
+        }
     }
 }
 
