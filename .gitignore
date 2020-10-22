@@ -33,3 +33,4 @@ $*.doc*
 
 db/db-manage/create-db-kanff-ok.sql
 db/db-manage/fill-data-db-kanff-ok.sql
+doc\img\*
