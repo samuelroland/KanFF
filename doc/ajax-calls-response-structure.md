@@ -8,11 +8,11 @@ This is based on [JSend specification](https://github.com/omniti-labs/jsend/blob
 - Response data returned contain in all cases a `status` index with the status. It must contain a `data` index if status is success or fail, or contain a `message` index if status is error.
 - 3 types of status:
     - "**success**": the request have succeed
-    - "**fail**": the request have failed because data are not valid or missing or the action was prohibited
-    - "**error**": internal error (database connexion failed, , )
-- `data` index doesn't contain directly the data of an element but an array with the array of the element.
+    - "**fail**": the request has failed because data sent are invalid or missing, or because the action is prohibited
+    - "**error**": the request has been stopped because of internal errors (database connexion failed, JSON config file unreadable, others internal errors or exceptions)
+- `data` index doesn't contain directly the information of an element but an array with the information of an element. This array in `data` is named depending its content.
 
-        This content of data is accepted: 
+        This structure of data is accepted:
         {
           "status": "success",
           "data": {
@@ -168,4 +168,11 @@ This is based on [JSend specification](https://github.com/omniti-labs/jsend/blob
               }
             }
 
-## Examples for Error queries:
+## Examples for queries with errors:
+
+- Get one element (`?action=getTask&id=153`) but MySQL server is down so return the internal error:
+
+             {
+               "status": "error",
+               "message": "Connexion to database failed. Please contact the instance admin."
+             }
