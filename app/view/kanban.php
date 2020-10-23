@@ -11,20 +11,11 @@ require_once "view/task.php";
 require_once "view/work.php";
 require_once "view/formsForRightPanel.php";
 
-function printAnIcon($iconname, $title, $alt, $defaultClasses = "icon-small ml-2 mr-2", $echo = true)
-{
-    $html = "<img title=\"" . $title . "\" class='$defaultClasses' src='view/medias/icons/$iconname' alt='$alt'>";
-    if ($echo) {
-        echo $html;
-    } else {
-        return $html;
-    }
-}
-
 
 $title = "Kanban de " . $project['name'];
 ob_start();
 ?>
+    <!-- divHeader Header of the page with information about the project -->
     <div class="divHeader flexdiv p-1 pr-2 pl-2">
         <div class="flex-1 flexdiv box-verticalaligncenter">
             <h1 class="nomargin"><?= $project['name'] ?></h1>
@@ -36,42 +27,50 @@ ob_start();
             <button class="btn btn-info clickable" data-href="?action=project&id=<?= $project['id'] ?>">Détails</button>
         </div>
     </div>
+
+    <!-- divKanban All the kanban is in this div -->
     <div class="divKanban flexdiv <?= (isAtLeastEqual($opt, ["1", "2"])) ? "" : "withoutdetails" ?>" id="divKanban">
+
+        <!-- divKanbanHeaderAndContent The kanban header and the content -->
         <div class="divKanbanHeaderAndContent flex-1">
-            <div class="divKanbanHeader flexdiv">
-                <div class="flex-1 box-verticalaligncenter justify-content-center leftcolumn">
-                    <h4 class="nomargin"><?= convertTaskState(TASK_STATE_TODO, true) ?></h4>
-                </div>
-                <div class="flex-1 box-verticalaligncenter justify-content-center middlecolumn">
-                    <h4 class="nomargin"><?= convertTaskState(TASK_STATE_INRUN, true) ?></h4>
-                </div>
-                <div class="flex-1 box-verticalaligncenter justify-content-center rightcolumn">
-                    <h4 class="nomargin"><?= convertTaskState(TASK_STATE_DONE, true) ?></h4>
+
+            <!-- divKanbanHeader Header of the kanban (3 task states at the top of the kanban)-->
+            <div class="divKanbanHeader">
+                <div class="flexdiv divKanbanHeader">
+                    <div class="flex-1 box-verticalaligncenter justify-content-center leftcolumn">
+                        <h4 class="nomargin"><?= convertTaskState(TASK_STATE_TODO, true) ?></h4>
+                    </div>
+                    <div class="flex-1 box-verticalaligncenter justify-content-center middlecolumn">
+                        <h4 class="nomargin"><?= convertTaskState(TASK_STATE_INRUN, true) ?></h4>
+                    </div>
+                    <div class="flex-1 box-verticalaligncenter justify-content-center rightcolumn">
+                        <h4 class="nomargin"><?= convertTaskState(TASK_STATE_DONE, true) ?></h4>
+                    </div>
                 </div>
             </div>
             <hr class="hrgrey nomargin">
 
-            <div class="divKanbanContent flexdiv">
-                <div class="divWorks flex-1">
-                    <!-- List of works -->
-                    <?php
-                    foreach ($project['works'] as $work) {
-                        if ($work['state'] != WORK_STATE_TODO) {
-                            printAWork($work, $isInsideTheProject);
-                        }
-                        displaydebug($work['name']);
-                        displaydebug($work['hasWritingRightOnTasks']);
+            <!-- divKanbanContent Content of the kanban (the list of the work with tasks inside) -->
+            <div class="divKanbanContent">
+                <?php
+                foreach ($project['works'] as $work) {
+                    if ($work['state'] != WORK_STATE_TODO) {
+                        printAWork($work, $isInsideTheProject);
                     }
+                    displaydebug($work['name']);
+                    displaydebug($work['hasWritingRightOnTasks']);
+                }
 
-                    if (count($works) == 1) {
-                        echo "<div class='statebanner bg-transparent mt-2 mb-2'>Tous les travaux sont '" . convertWorkState(WORK_STATE_DONE) . "'</div>";
-                    }
-                    ?>
-                    <hr class="hryellowproject nomargin">
-                </div>
+                //If there is no other work that the inbox work (all the time in run)
+                if (count($works) == 1) {
+                    echo "<div class='statebanner bg-transparent mt-2 mb-2'>Tous les travaux sont '" . convertWorkState(WORK_STATE_TODO) . "'</div>";
+                }
+                ?>
+                <hr class="hryellowproject nomargin">
             </div>
         </div>
 
+        <!-- divRightPanel for the right panel -->
         <div class="divRightPanel" id="divRightPanel" <?= (isAtLeastEqual($opt, ["1", "2"])) ? "" : "hidden" ?>>
             <?php printDivTaskDetails(); ?>
             <?php printDivTaskCreate($project); ?>

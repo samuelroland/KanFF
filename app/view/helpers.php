@@ -417,6 +417,17 @@ function getHTMLPastille($cssColor)
     background-color: $cssColor;'></div>";
 }
 
+//print (or return) an icon with a file, a title, alt attribute, and personalized or default css classes
+function printAnIcon($iconname, $title, $alt, $defaultClasses = "icon-small ml-2 mr-2", $echo = true)
+{
+    $html = "<img title=\"" . $title . "\" class='$defaultClasses' src='view/medias/icons/$iconname' alt='$alt'>";
+    if ($echo) {
+        echo $html;
+    } else {
+        return $html;
+    }
+}
+
 //tasks too or identical to works.state ?
 
 ?>
