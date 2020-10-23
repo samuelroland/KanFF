@@ -5,6 +5,7 @@ This is based on [JSend specification](https://github.com/omniti-labs/jsend/blob
 ### Main principles:
 - Request and response data are in **JSON**
 - Request data sent by POST are a JSON array in **1** dimension
+- Request that delete an element must contain POST data, to make the request incomplete with GET parameters only (to avoid CRSF vulnerability)
 - Response data returned contain in all cases a `status` index with the status. It must contain a `data` index if status is success or fail, or contain a `message` index if status is error.
 - 3 types of status:
     - "**success**": the request have succeed
