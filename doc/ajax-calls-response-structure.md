@@ -1,15 +1,43 @@
-# Response Structure to Ajax calls
-## Explanation of the structure and content of JSON requests and responses to all types of Ajax calls.
-This is based on [JSend standard](https://github.com/omniti-labs/jsend/blob/master/README.md) for web services.
+# Structure of Ajax calls
+## Definition of the structure and the content in Ajax calls (including request data and response data) 
+This is based on [JSend specification](https://github.com/omniti-labs/jsend/blob/master/README.md) for web services. (Description: *JSend is a specification for a simple, no-frills, JSON based format for application-level communication.*)
 
-### 3 types of status:
-- "**success**": the request have succeed
-- "**fail**": the request have failed because data are not valid or missing or the action was prohibited
-- "**error**": internal error (database connexion impossible, )
+### Main principles:
+- Request and response data are in **JSON**
+- Request data sent by POST are a JSON array in **1** dimension
+- Response data returned contain in all cases a `status` index with the status. It must contain a `data` index if status is success or fail, or contain a `message` index if status is error.
+- 3 types of status:
+    - "**success**": the request have succeed
+    - "**fail**": the request have failed because data are not valid or missing or the action was prohibited
+    - "**error**": internal error (database connexion failed, , )
+- `data` index doesn't contain directly the data of an element but an array with the array of the element.
+
+        This content of data is accepted: 
+        {
+          "status": "success",
+          "data": {
+            "task": {
+              "id": 153,
+              "name": "créer doc",
+              "description": null
+            }
+          }
+        }
+        
+        This version not:
+        {
+          "status": "success",
+          "data": {
+            "id": 153,
+            "name": "créer doc",
+            "description": null
+          }
+        }
+        
 
 ## Examples for Success queries:
 ### Query GET
-- Get one element (GET, `?action=getTask&id=153`) return:
+- Get one element (`?action=getTask&id=153`) return the task with all its informations:
 
         {
           "status": "success",
@@ -22,7 +50,7 @@ This is based on [JSend standard](https://github.com/omniti-labs/jsend/blob/mast
           }
         }
 
-- Get multiples elements  (GET, `?action=getTasks&project=2`) return:
+- Get multiples elements (`?action=getTasks&project=2`) return an array `tasks` of task:
 
         {
           "status": "success",
@@ -58,7 +86,7 @@ This is based on [JSend standard](https://github.com/omniti-labs/jsend/blob/mast
               "project": 26
             }
 
-    - Response:
+    - Response (the entire task created):
 
             {
               "status": "success",
@@ -81,7 +109,7 @@ This is based on [JSend standard](https://github.com/omniti-labs/jsend/blob/mast
               "description": null
             }
 
-    - Response:
+    - Response (the entire task updated):
     
             {
               "status": "success",
@@ -102,7 +130,7 @@ This is based on [JSend standard](https://github.com/omniti-labs/jsend/blob/mast
               "id": 651
             }
 
-    - Response:
+    - Response (no data because task has been deleted):
 
             {
               "status": "success",
@@ -111,7 +139,7 @@ This is based on [JSend standard](https://github.com/omniti-labs/jsend/blob/mast
 
 ## Examples for Failed queries:
 
-- Get one element (GET, `?action=getTask&id=900`) return:
+- Get one element (GET, `?action=getTask&id=900`) return the error information in `data` index:
 
         {
           "status": "failed",
@@ -121,15 +149,15 @@ This is based on [JSend standard](https://github.com/omniti-labs/jsend/blob/mast
             "position": "inline"
           }
         }
-        
+
 - Delete one element:
-    - Request `?action=deleteTask`:
+    - Request `?action=deleteTask` (forgot POST values):
    
             {
               
             }
 
-    - Response:
+    - Response (the error information in `data` index):
 
             {
               "status": "failed",
@@ -139,3 +167,5 @@ This is based on [JSend standard](https://github.com/omniti-labs/jsend/blob/mast
                 "position": "inline"
               }
             }
+
+## Examples for Error queries:
