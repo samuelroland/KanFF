@@ -1,72 +1,75 @@
 <?php
 /**
  *  Project: KanFF
- *  File: projectsControler.php controler functions for the tasks
+ *  File: tasksControler.php controler functions for the tasks
  *  Author: Samuel Roland
  *  Creation date: 22.07.2020
  */
 
 require_once "model/tasksModel.php";
 
-//display the page groups
+//display the page Tasks
 function tasks()
 {
-    /*
-    $groups = getAllGroups();
-    $fieldsToConvert = ["name", "description", "context", "status"];
-    $groups = specialCharsConvertFromAnArray($groups, $fieldsToConvert);
-    displaydebug($groups);
-    */
     require_once "view/tasks.php";
 }
 
-//display the page create a group or create the group (depends on the data sent)
-function createATask($group)
+//Ajax call to get one task in JSON
+function getTask($id)
 {
-    $dataerror = false; //no error
-    if ($group != null) {
-        //If the required informations exist and if they are valid:
-        if (isset($group['name'], $group['password'], $group['visibility']) && chkLength($group['name'], 50) && $group['visibility'] > 0 && $group['visibility'] < 13) {
-            if (isset($group['context'])) {
-                if (chkLength($group['context'], 200) == false) {
-                    $dataerror = true;
-                }
-            }
-            if (isset($group['description'])) {
-                if (chkLength($group['description'], 200) == false) {
-                    $dataerror = true;
-                }
-            }
-            $group['restrict_access'] = chkToTinyint($group['restrict_access']);
+    //TODO: check permissions (if the project is visible) before send the task
+    //TODO: return error or empty if task is not found
+    $task = getOneTask($id);
+    $task['statename'] = convertTaskState($task['state'], true);
+    $task['work'] = getOneWork($task['work_id']);
+    if ($task['responsible_id'] != null) {
+        $task['responsible'] = unsetPasswordsInArrayOn2Dimensions(getUserById($task['responsible_id']));
+    }
+    if ($task['creator_id'] != null) {
+        $task['creator'] = unsetPasswordsInArrayOn2Dimensions(getUserById($task['creator_id']));
+    }
+    if ($task['completion_date'] != null) {
+        $task['completion'] = DTToHumanDate($task['completion_date'], "simpletime");
+    }
+    echo json_encode($task);
+}
 
-            //Check password for important action
-            if (checkUserPassword($_SESSION['user']['id'], $group['password'])) {
+//Ajax call to create one task
+function createATask($data)
+{
+    $task = [];
+    //TODO: check that work is writable and in the good project
+    $isInsideTheProject = isAUserInsideAProject($data['project'], $_SESSION['user']['id']);
+    $work = getOneWork($data['work']);
 
-                unset($group['password']);  //unset for not include it in the creation of the group
-                $group['status'] = "Créé le " . date("d M y");
-                $group['creator_id'] = $_SESSION['user']['id'];
-                $group['creation_date'] = timeToDT(time());
+    //Check that the work exist and that the user have the permissions to create a task in this work
+    $hasPermissionToCreate = false; //default value
+    if ($work['project_id'] == $data['project'] && hasWritingRightOnTasksOfAWork($isInsideTheProject, $work) && $work['state'] != WORK_STATE_DONE) {
+        $hasPermissionToCreate = true;
+    }
 
-                createGroup($group);
-                flshmsg(16);    //"group well created" msg
-                groups();   //back to groups page
-            } else {
-                flshmsg(15);    //password error for action
-                $dataerror = false; //unset error to protect the flshmsg of password error
-                require_once "view/createAGroup.php";
-            }
-            displaydebug($group);
-        } else {
-            $dataerror = true;
-        }
-        if ($dataerror) {
-            flshmsg(14);
-            require_once "view/createAGroup.php";
-        }
-        displaydebug($dataerror);
-        displaydebug($_SESSION);
+    //Check that data sent are valid
+    if (chkLength($data['name'], 100) && $data['name'] != "" && isAtLeastEqual($data['type'], TASK_LIST_TYPE) && $hasPermissionToCreate) {
+        $task['name'] = $data['name'];
+        $task['type'] = $data['type'];
+        $task['work_id'] = $data['work'];
+
+        //Then generate other fields:
+        $task['number'] = getTasksNextUniqueNumber();
+        $task['state'] = TASK_STATE_TODO;
+        $task['urgency'] = 0;
+        $task['creator_id'] = $_SESSION['user']['id'];
+
+        //Then create the task:
+        $id = createTask($task);
+
+        echo json_encode(getOneTask($id));
     } else {
-        require_once "view/createAGroup.php";
+        if ($hasPermissionToCreate == false) {
+            //TODO: return error message in JSON: work not found (or "you don't have permissions" ??)
+        } else {
+            //TODO: return error message in JSON: invalid data
+        }
     }
 }
 
