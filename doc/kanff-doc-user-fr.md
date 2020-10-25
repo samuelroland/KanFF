@@ -81,3 +81,41 @@ Quelques informations supplémentaires quant aux champs du formulaire:
 
 ... et bien sûr son mot de passe obligatoire!
 
+### Gérer son compte
+Afin de gérer son compte et pouvoir modifier ses informations personnelles (email, téléphone, mot de passe, ...) une page `Mon compte` existe.  
+Vous pouvez y accéder depuis le cercle avec vos initiales en haut à droite.
+
+![loginasdf](img/myaccountbutton.PNG)
+
+### Accès limité
+La page `Accès limité` s'affiche lorsque votre compte n'a pas encore été approuvé, ou qu'il est archivé ou banni. Cette limitation permet de ne pas rendre publique les données du collectif à n'importe qui qui créerait un compte.
+
+
+### A propos
+La page `A propos` en cliquant sur le nom du collectif en haut à gauche, vous permet d'en savoir plus sur le collectif, l'instance et sur KanFF.
+
+### Déconnexion
+Pour vous déconnecter de votre session, il suffit de cliquer sur le cerle initiales, puis `Déconnexion`.
+Si vous utilisez un ordinateur qui ne vous appartient pas ou que vous partagez, il est important de se déconnecter afin de ne pas laisser l'accès à votre compte à une autre personne. 
+
+### Options du menu:
+Dans le menu en haut, vous avez les options suivantes:
+- Dashboard: c'est le tableau de bord personnel. Il contient xxxx
+- Projets: la liste des projets du collectif triés par catégories et par groupes d'état.
+- Groupes: la liste des groupes visibles (pour vous) du collectif.
+- Membres: la liste des membres du collectif séparés selon leur état.
+
+
+## Dashboard
+
+## Projets:
+
+### Consulter la liste des projets
+Sous l'option `Projets` du menu, vous trouverez la liste des projets réalisés par des groupes du collectif.
+
+### Créer un projet
+Un bouton `Nouveau projet` dans la page `Projets` vous emmène sur la page de création d'un projet.
+
+- Remplissez un nom, une description et un objectif.
+- Les projets étant réalisés par un ou plusieurs groupes (et non pas par des membres directement), vous devez choisir le groupe qui va créer et gérer le projet et dont vous faites partie.
+ 
