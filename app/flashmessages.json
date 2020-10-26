@@ -8,5 +8,7 @@
   "6": "Votre compte a été créé avec succès! Vous avez été directement connecté à votre compte.",
   "7": "Votre compte a été modifié avec succès! Vous avez été directement connecté à votre compte.",
   "8": "Le mot de passe inséré n'est pas correct.... Veuillez ressayer",
-  "9": "Votre projet a été créé avec succès!"
+  "9": "Votre projet a été créé avec succès!",
+  "10": "Données invalides. Veuillez retenter.",
+  "11": "Action non autorisée avec ces permissions."
 }

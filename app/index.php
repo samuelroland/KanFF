@@ -42,6 +42,10 @@ displaydebug($_GET);
 extract($_POST); //vars:
 displaydebug($_POST);
 
+//Extract values from post data sent with ajax calls
+$data = (array)json_decode(file_get_contents("php://input"));
+displaydebug($data);
+
 displaydebug($_SESSION);
 
 if (isset($_POST)) {
@@ -132,6 +136,9 @@ if (!isset($_SESSION['user']['id'])) {
                 break;
             case "getTask": //Ajax call to get one task
                 getTask($_GET['id']);
+                break;
+            case "createTask":  //Ajax call to create one task
+                createATask($data);
                 break;
             case "about":
                 about();

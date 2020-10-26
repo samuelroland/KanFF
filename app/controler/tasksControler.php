@@ -7,6 +7,25 @@
  */
 
 require_once "model/tasksModel.php";
+define("API_SUCCESS", 1);
+define("API_FAIL", 2);
+define("API_ERROR", 3);
+
+function getApiResponse($status, $data, $message = "Error...")
+{
+    if (isAtLeastEqual($status, [API_SUCCESS, API_FAIL, API_ERROR]) == false) {
+        die("$status not possible for \$status");
+    }
+    $statusPossible = [API_SUCCESS => "success", API_FAIL => "fail", API_ERROR => "error"];
+    $response['status'] = $statusPossible[$status];
+    if ($data != false) {
+        $response['data'] = $data;
+    }
+    if ($status == API_ERROR) {
+        $response['message'] = $message;
+    }
+    return $response;
+}
 
 //display the page Tasks
 function tasks()
@@ -63,13 +82,18 @@ function createATask($data)
         //Then create the task:
         $id = createTask($task);
 
-        echo json_encode(getOneTask($id));
+        $task = getOneTask($id);
+        $response = getApiResponse(API_SUCCESS, ['task' => $task]);
+        echo json_encode($response);
     } else {
         if ($hasPermissionToCreate == false) {
             //TODO: return error message in JSON: work not found (or "you don't have permissions" ??)
+            $response = getApiResponse(API_FAIL, false, getFlashMessageById(11));
         } else {
             //TODO: return error message in JSON: invalid data
+            $response = getApiResponse(API_FAIL, false, getFlashMessageById(10));
         }
+        echo json_encode($response);
     }
 }
 
