@@ -149,7 +149,7 @@ function printDivTaskCreate($project)
                 <div class="ml-2 ">
                     <span class="">Type:</span>
                     <select class="form-control" name="type" id="type">
-                        <option value="null">(Aucun)</option>
+                        <option value="0">(Aucun)</option>
                         <option value="1">Question</option>
                         <option value="2">Information</option>
                         <option value="3">Proposition</option>
@@ -199,8 +199,8 @@ function printDivTaskCreate($project)
                     </div>
                 </div>
                 <div class="flexdiv box-alignright">
-                    <button class="btnSaveCancel btn colorCancel">Annuler</button>
-                    <button class="btnSaveCancel btn colorSave">Créer la tâche</button>
+                    <button id="btnCancel" class="btnSaveCancel btn colorCancel">Annuler</button>
+                    <button id="btnSave" class="btnSaveCancel btn colorSave">Créer la tâche</button>
                 </div>
             </div>
         </div>

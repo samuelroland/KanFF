@@ -86,3 +86,26 @@ $(document).ready(function () {
         inp.value = inp.value.trim()
     })
 })
+
+//Get an array with key corresponding to name fields and with value, of a form (sending with Ajax
+function getArrayFromAFormFieldsWithName(formname) {
+    frm = document.getElementById(formname)
+    subelements = frm.getElementsByTagName("*")
+    finalArray = []
+    Array.prototype.forEach.call(subelements, function (el) {
+        if (el.name != undefined && el.name != "") {
+            if (el.value != null) {
+                finalArray[removeNumbersInString(el.name)] = el.value
+            }
+        }
+    })
+    return finalArray
+}
+
+//Remove all numbers in a string
+function removeNumbersInString(text) {
+    for (i = 0; i < 10; i++) {
+        text = text.replaceAll(i, "")
+    }
+    return text
+}

@@ -17,6 +17,8 @@ $(document).ready(function () {
         displayTaskDetails(event.target)
     })
 
+    btnSave.addEventListener("click", tryCreateTask)
+
     //Extract value from url:
     url = window.location.toString()
     opt = url.substr(url.indexOf("opt=") + 4, 1)
@@ -188,4 +190,24 @@ function manageActiveTasks(taskToActive) {
     } else {
         taskToActive.classList.add("activeTask")
     }
+}
+
+function createTask() {
+    data = getArrayFromAFormFieldsWithName("divTaskCreate")
+    http = new XMLHttpRequest()
+    http.onreadystatechange = function () {
+        if (http.readyState == XMLHttpRequest.DONE && http.status == 200) {
+            //response = JSON.parse(http.responseText)
+            log(http.responseText)
+        }
+    }
+    http.open("POST", "?action=createTask")
+    http.setRequestHeader("Content-Type", "application/json")
+    http.send(JSON.stringify(Object.assign({}, data)))
+    log(JSON.stringify(Object.assign(data)))
+}
+
+function tryCreateTask(){
+    //TODO: check data in the form, display error message, receive ajax response, manage form, manage serial mode behavior and task DOM creation
+    createTask()
 }
