@@ -56,17 +56,21 @@ function getTask($id)
 //Ajax call to create one task
 function createATask($data)
 {
+    var_dump($data);
     $task = [];
-    //TODO: check that work is writable and in the good project
-    $isInsideTheProject = isAUserInsideAProject($data['project'], $_SESSION['user']['id']);
-    $work = getOneWork($data['work']);
+    $hasPermissionToCreate = null; //default value
+    if (isset($data['project'], $data['work'])) {
+        //TODO: check that work is writable and in the good project
+        $isInsideTheProject = isAUserInsideAProject($data['project'], $_SESSION['user']['id']);
+        $work = getOneWork($data['work']);
 
-    //Check that the work exist and that the user have the permissions to create a task in this work
-    $hasPermissionToCreate = false; //default value
-    if ($work['project_id'] == $data['project'] && hasWritingRightOnTasksOfAWork($isInsideTheProject, $work) && $work['state'] != WORK_STATE_DONE) {
-        $hasPermissionToCreate = true;
+        //Check that the work exist and that the user have the permissions to create a task in this work
+        if ($work['project_id'] == $data['project'] && hasWritingRightOnTasksOfAWork($isInsideTheProject, $work) && $work['state'] != WORK_STATE_DONE) {
+            $hasPermissionToCreate = true;
+        } else {
+            $hasPermissionToCreate = false;
+        }
     }
-
     //Check that data sent are valid
     if (chkLength($data['name'], 100) && $data['name'] != "" && isAtLeastEqual($data['type'], TASK_LIST_TYPE) && $hasPermissionToCreate) {
         $task['name'] = $data['name'];
@@ -86,12 +90,12 @@ function createATask($data)
         $response = getApiResponse(API_SUCCESS, ['task' => $task]);
         echo json_encode($response);
     } else {
-        if ($hasPermissionToCreate == false) {
+        if ($hasPermissionToCreate === false) {
             //TODO: return error message in JSON: work not found (or "you don't have permissions" ??)
-            $response = getApiResponse(API_FAIL, false, getFlashMessageById(11));
+            $response = getApiResponse(API_FAIL, ["error" => getFlashMessageById(11), "code" => 11, "position" => "top"]);
         } else {
             //TODO: return error message in JSON: invalid data
-            $response = getApiResponse(API_FAIL, false, getFlashMessageById(10));
+            $response = getApiResponse(API_FAIL, ["error" => getFlashMessageById(10), "code" => 10, "position" => "top"]);
         }
         echo json_encode($response);
     }
