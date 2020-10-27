@@ -225,8 +225,41 @@ function unsetPasswordsInArrayOn2Dimensions($array)
 }
 
 //check with a simple basic regex if email is valid
-function isEmailFormat($text){
+function isEmailFormat($text)
+{
     //Thanks to: https://www.regular-expressions.info/email.html
     return (!!preg_match('/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/', strtoupper($text)));  //!! for bool value
 }
+
+//Send feedback with data sent with Ajax
+function sendFeedback($data)
+{
+    require ".const.php";
+    if (isEmailFormat($emailSourceForFeedback) && isEmailFormat($emailForFeedback)) {
+
+        if (isAtLeastEqual("", [$data['subject'], $data['content']]) == false) {
+            $to = $emailForFeedback;
+            $subject = "F: " . $data['subject'];
+            $message = htmlspecialchars($data['content']);
+            $headers = array(
+                'From' => $emailSourceForFeedback,
+                'X-Mailer' => 'PHP/' . phpversion()
+            );
+
+            $result = mail($to, $subject, $message, $headers);
+
+            if (!$result) {
+                $errorMessage = error_get_last()['message'];
+            }
+            var_dump($errorMessage);
+            var_dump($result);
+            //TODO: return success message
+        } else {
+            //TODO: error invalid data.
+        }
+    } else {
+        //TODO: error bad config in the instance. Contact admin.
+    }
+}
+
 ?>

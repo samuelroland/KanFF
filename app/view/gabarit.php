@@ -174,7 +174,7 @@ Y,                    `\"8bd888b,             ,P
 </header>
 
 <?php
-if ($feedbackForm == true && $emailForFeedback != null && isEmailFormat($emailForFeedback)) { ?>
+if ($feedbackForm == true && isEmailFormat($emailSourceForFeedback) && isEmailFormat($emailForFeedback)) { ?>
     <!-- feedback form -->
     <div class="dropdown position-fixed">
         <form>
@@ -213,8 +213,7 @@ if ($feedbackForm == true && $emailForFeedback != null && isEmailFormat($emailFo
                         </div>
                     </div>
                     <textarea name="feedback" id="txtFeedback" rows="10" class="thinblackborder"
-                              placeholder="Concernant les fonctionnalités présentes sur cette page, bogues trouvés, le design, la simplicité (ou non) d'utilisation, suggestions, la cohérence, la clarté des informations, ... tout commentaire constructif à propos de cette page est le bienvenu!"
-                              maxlength="6000"></textarea>
+                              placeholder="Concernant les fonctionnalités présentes sur cette page, bogues trouvés, le design, la simplicité (ou non) d'utilisation, suggestions, la cohérence, la clarté des informations, ... tout commentaire constructif à propos de cette page est le bienvenu!" maxlength="6000"></textarea>
                     <div class="box-alignright">
                         <div id="btnCancelFeedback" class="btn btn-light littleinfotext mr-2">Annuler</div>
                         <div id="btnSendFeedback" class="btn btn-light thinBorder">Envoyer</div>
