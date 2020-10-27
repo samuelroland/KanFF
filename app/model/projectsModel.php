@@ -106,7 +106,7 @@ function getAllArchivedProjects($id)
 //Get all groups participations to a project where the groups are joined by the member
 function getGroupsParticipatingToAProjectByMember($projectid, $userid)
 {
-    $query = "SELECT participate.`*` FROM projects
+    $query = "SELECT participate.* FROM projects
 INNER join participate ON participate.project_id = projects.id
 INNER join `groups` ON participate.group_id = `groups`.id
 INNER join `join` ON `join`.group_id = `groups`.id

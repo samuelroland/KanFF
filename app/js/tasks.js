@@ -136,7 +136,9 @@ function loadTaskDetailsWithData(task) {
     description.value = task.description
     type.options.selectedIndex = task.type
     urgency.value = task.urgency
-    deadline.value = task.deadline.substr(0, task.deadline.indexOf(" "))    //remove H:i:s part
+    if (task.deadline != null) {
+        deadline.value = task.deadline.substr(0, task.deadline.indexOf(" "))    //remove H:i:s part
+    }
 
     //Responsible and creator fullnames if set
     if (task.hasOwnProperty("responsible")) {
@@ -207,7 +209,7 @@ function createTask() {
     log(JSON.stringify(Object.assign(data)))
 }
 
-function tryCreateTask(){
+function tryCreateTask() {
     //TODO: check data in the form, display error message, receive ajax response, manage form, manage serial mode behavior and task DOM creation
     createTask()
 }
