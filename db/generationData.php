@@ -725,12 +725,15 @@ function dataWorks()
 
 function extraDataForOneTask($task, $work)
 {
-    $task['deadline'] = getRandomDateFormated(strtotime($work['start']), strtotime($work['end']));
+    $task['deadline'] = null;
+    if (rand(1, 4) == 1) {
+        $task['deadline'] = getRandomDateFormated(strtotime($work['start']), strtotime($work['end']));
+    }
 
-    $task['urgency'] = rand(1, 5);
+    $task['urgency'] = rand(0, 5);
 
     if (rand(1, 8)) {
-        $task['type'] = rand(1, 5);
+        $task['type'] = rand(0, 5);
     } else {
         $task['type'] = null;
     }
@@ -781,7 +784,7 @@ function dataTasks()
     $nbNotRandomTasks = count($tasks);
 
     //Generate random data:
-    $lastnumber = $tasks[count($tasks)-1]['number'];
+    $lastnumber = $tasks[count($tasks) - 1]['number'];
     for ($i = 1; $i <= NB_RANDOM_TASKS_TO_GENERATE; $i++) {
 
         //Convert date in datetime format:
