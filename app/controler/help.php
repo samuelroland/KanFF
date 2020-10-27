@@ -224,4 +224,9 @@ function unsetPasswordsInArrayOn2Dimensions($array)
     return $array;
 }
 
+//check with a simple basic regex if email is valid
+function isEmailFormat($text){
+    //Thanks to: https://www.regular-expressions.info/email.html
+    return (!!preg_match('/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/', strtoupper($text)));  //!! for bool value
+}
 ?>
