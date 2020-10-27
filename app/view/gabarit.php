@@ -70,7 +70,7 @@ Y,                    `\"8bd888b,             ,P
 ?>
 
 <!-- The full header -->
-<header class="bg-header <?= ($debug == false) ? "header-fixed" : "" //the header is not fixed in debug mode because else devs can't see var_dump() results printed under the menu.                            ?>">
+<header class="bg-header <?= ($debug == false) ? "header-fixed" : "" //the header is not fixed in debug mode because else devs can't see var_dump() results printed under the menu.                              ?>">
 
     <!-- Zone Logo with logo image + version texts -->
     <div class="divZoneLogo flexdiv">
@@ -83,7 +83,7 @@ Y,                    `\"8bd888b,             ,P
             </div>
         </div>
         <div data-href="?action=about"
-             class="flex-3 collectivename flexdiv overflow-hidden borderleftorange borderrightorange clickable cursorpointer <?= ($action == "about") ? 'active' : '' //button active or not                            ?>">
+             class="flex-3 collectivename flexdiv overflow-hidden borderleftorange borderrightorange clickable cursorpointer <?= ($action == "about") ? 'active' : '' //button active or not                              ?>">
             <div class="align-items-center flexdiv"><?= $instanceinfos['collective']['name'] ?></div>
         </div>
     </div>
@@ -173,53 +173,57 @@ Y,                    `\"8bd888b,             ,P
     </div>
 </header>
 
-<!-- feedback form -->
+<?php
+if ($feedbackForm == true && $emailForFeedback != null && isEmailFormat($emailForFeedback)) { ?>
+    <!-- feedback form -->
+    <div class="dropdown position-fixed">
+        <form>
+            <!-- form tag ? -> thanks to https://stackoverflow.com/questions/25089297/avoid-dropdown-menu-close-on-click-inside#answer-34216265 -->
+            <!-- The circle -->
+            <div class="divFeedback" data-toggle="dropdown" aria-expanded="false">
+                <?php
+                printAnIcon("feedback.svg", "Envoyer un feedback sur la page", "feedback icon", "icon-small iconFeedback");
+                ?>
+            </div>
 
-<div class="dropdown position-fixed">
-    <form>
-        <!-- form tag ? -> thanks to https://stackoverflow.com/questions/25089297/avoid-dropdown-menu-close-on-click-inside#answer-34216265 -->
-        <!-- The circle -->
-        <div class="divFeedback" data-toggle="dropdown" aria-expanded="false">
-            <?php
-            printAnIcon("feedback.svg", "Envoyer un feedback sur la page", "feedback icon", "icon-small iconFeedback");
-            ?>
-        </div>
-
-        <!-- The dropdown -->
-        <div class="divDropUpFeedback dropdown-menu" style="">
-            <div>
-                <div class="box-verticalaligncenter height-min-content">
-                    <div class="flex-1"><strong>Formulaire de feedback</strong></div>
-                    <div>
-                        <?php
-                        echo createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-xsmall m-2", false), "Ce formulaire vous permet d'envoyer un feedback à propos de la page actuelle. Si ce formulaire s'affiche c'est uniquement car cette instance existe pour aller faire tester les gens.", false, "right");
-                        ?>
+            <!-- The dropdown -->
+            <div class="divDropUpFeedback dropdown-menu" style="">
+                <div>
+                    <div class="box-verticalaligncenter height-min-content">
+                        <div class="flex-1"><strong>Formulaire de feedback</strong></div>
+                        <div>
+                            <?php
+                            echo createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-xsmall m-1", false), "Ce formulaire vous permet d'envoyer un feedback à propos de la page actuelle. Si ce formulaire s'affiche c'est uniquement car cette instance existe pour aller faire tester les gens.", false, "right");
+                            ?>
+                        </div>
                     </div>
-                </div>
 
-                <span class="small">Informations automatiques:</span>
-                <br><span class="small">URL: <span class="littleinfotext"><?= $_SERVER['REQUEST_URI'] ?></span></span>
-                <br><span class="small">Cookies d'interface: <span class="littleinfotext">Inclus</span></span>
-                <br><span class="small">Version: <span
-                            class="littleinfotext"><?= $versions[count($versions) - 1]['version'] ?></span></span>
-                <div class="mt-3 flexdiv">
-                    <strong class="flex-1">Votre retour:</strong>
-                    <div>
-                        <?php
-                        echo createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-xsmall m-2", false), "Ne rentrez aucune information personnelle (mot de passe, secrets, ...). Vous pouvez faire votre retour en plusieurs fois si besoin.", false, "right");
-                        ?>
+                    <span class="small">Informations automatiques:</span>
+                    <br><span class="small">URL: <span
+                                class="littleinfotext"><?= $_SERVER['REQUEST_URI'] ?></span></span>
+                    <br><span class="small">Cookies d'interface: <span class="littleinfotext">Inclus</span></span>
+                    <br><span class="small">Version: <span
+                                class="littleinfotext"><?= $versions[count($versions) - 1]['version'] ?></span></span>
+                    <div class="mt-3 box-verticalaligncenter">
+                        <strong class="flex-1">Votre retour:</strong>
+                        <div>
+                            <?php
+                            echo createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-xsmall m-1", false), "Ne rentrez aucune information personnelle sensibles (mot de passe, secrets, ...). Vous pouvez faire votre retour en plusieurs fois si besoin.", false, "right");
+                            ?>
+                        </div>
                     </div>
-                </div>
-                <textarea name="feedback" id="txtFeedback" rows="10" class="thinblackborder"
-                          placeholder="Concernant les fonctionnalités présentes sur cette page, bogues trouvés, le design, la simplicité (ou non) d'utilisation, suggestions, la cohérence, la clarté des informations, ... tout commentaire constructif à propos de cette page est le bienvenu!" maxlength="6000"></textarea>
-                <div class="box-alignright">
-                    <div id="btnSendFeedback" class="btn btn-light littleinfotext mr-2">Annuler</div>
-                    <div id="btnSendFeedback" class="btn btn-light thinBorder">Envoyer</div>
+                    <textarea name="feedback" id="txtFeedback" rows="10" class="thinblackborder"
+                              placeholder="Concernant les fonctionnalités présentes sur cette page, bogues trouvés, le design, la simplicité (ou non) d'utilisation, suggestions, la cohérence, la clarté des informations, ... tout commentaire constructif à propos de cette page est le bienvenu!"
+                              maxlength="6000"></textarea>
+                    <div class="box-alignright">
+                        <div id="btnCancelFeedback" class="btn btn-light littleinfotext mr-2">Annuler</div>
+                        <div id="btnSendFeedback" class="btn btn-light thinBorder">Envoyer</div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
+<?php } ?>
 
 <!-- Flashmessage div if the flashmessage is set-->
 <div class="margintopforheader"><?php

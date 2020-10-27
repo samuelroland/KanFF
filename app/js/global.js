@@ -18,6 +18,25 @@ $(document).ready(function () {
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
+
+    //#btnCancelFeedback on click delete text and close dropup
+    if (document.getElementById("btnCancelFeedback") != null) {
+        document.getElementById("btnCancelFeedback").addEventListener("click", function (sender) {
+            txtFeedback.value = ""
+
+        })
+    }
+
+    //#btnSendFeedback on click check form and send if verified
+    if (document.getElementById("btnSendFeedback") != null) {
+        document.getElementById("btnSendFeedback").addEventListener("click", function (sender) {
+            if (txtFeedback.value != "") {
+                //TODO: send the ajax query
+
+                //TODO: if success or error, display message
+            }
+        })
+    }
 })
 
 //Reload the counter, for input text and textarea with class .textFieldToCheck and a associated counter
