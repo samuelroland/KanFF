@@ -26,7 +26,7 @@ function printATask($task, $hasWritingRightOnTasks, $hidden = false)
                 } ?></div>
             <div class=""><em class="number"><?= $task['number'] ?></em></div>
         </div>
-        <div class="divTaskName"><strong class="name"><?= createElementWithFixedLines($task['name'], 4) ?></strong></div>
+        <div class="divTaskName"><strong><?= createElementWithFixedLines($task['name'], 4, "name") ?></strong></div>
         <div class="divTaskBottomLine flexdiv" hidden>
             <span class="flex-1 box-verticalaligncenter">
                 <span>

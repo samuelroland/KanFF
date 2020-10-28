@@ -405,16 +405,15 @@ function createToolTip($innerText, $tooltipText, $link = false, $type = "top")
     return $html;
 }
 
-function createElementWithFixedLines($text, $nbLines)
+function createElementWithFixedLines($text, $nbLines, $cssClassesInAddition = "")
 {
-    $html = "<span class='txtFixedLines' style='-webkit-line-clamp: $nbLines;'>$text</span>";
+    $html = "<span class='txtFixedLines $cssClassesInAddition' style='-webkit-line-clamp: $nbLines;'>$text</span>";
     return $html;
 }
 
 function getHTMLPastille($cssColor)
 {
-    return "<div class='pastillecircle' style='
-    background-color: $cssColor;'></div>";
+    return "<div class='pastillecircle' style='background-color: $cssColor;'></div>";
 }
 
 //print (or return) an icon with a file, a title, alt attribute, and personalized or default css classes
