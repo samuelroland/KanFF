@@ -567,6 +567,7 @@ hr {
     margin: 10px;
     display: flex;
     justify-content: center;
+    border: 1px solid black;
 }
 
 .divFeedback:hover {
