@@ -33,7 +33,7 @@ $(document).ready(function () {
         switch (opt) {
             case "1":   //opt 1 = idFormToDisplay => divTaskDetails
                 task = document.getElementById("Task-" + hash.substr(hash.indexOf("#t-") + 3, hash.length)) //get the element ("Task-"+ task.id) with its id in the hash
-                log(task)
+                logIt(task)
                 if (task != null) {    //if task found with the id in the hash
                     displayTaskDetails(task)
                     manageActiveTasks(task)
@@ -45,7 +45,7 @@ $(document).ready(function () {
                 break;
             case "2":   //opt 1 = idFormToDisplay => divTaskCreate
                 work = document.getElementById("Work-" + hash.substr(hash.indexOf("#w-") + 3)) //get the element ("Work-"+ task.id) with its id in the hash
-                log(work)
+                logIt(work)
                 if (work != null) {    //if work found with the id in the hash
                     loadTaskCreateForm(work.getAttribute("data-id"))
                 } else {
@@ -133,18 +133,28 @@ function displayTaskDetails(task) {
 //load the divRightPanel form with the array of data task
 function loadTaskDetailsWithData(response) {
     task = response.data.task
+    logIt(task)
+
+    //Fill basic fields:
     number.innerText = task.number
-    log(task)
     inputname.value = task.name
     spanname.innerText = task.name
     description.value = task.description
     type.options.selectedIndex = task.type
     urgency.value = task.urgency
+    link.value = task.link
+    state.innerText = task.statename
+    workname.value = task.work.name
+
+    //Deadline management
     if (task.deadline != null) {
         deadline.value = task.deadline.substr(0, task.deadline.indexOf(" "))    //remove H:i:s part
+    } else {
+        deadline.value = "" //set null
     }
+    //TODO: add H:m support
 
-    //Responsible and creator fullnames if set
+    //Responsible management if exists
     if (task.hasOwnProperty("responsible")) {
         responsible.value = buildFullNameWithUser(task.responsible)
         initials.innerText = task.responsible.initials
@@ -153,15 +163,12 @@ function loadTaskDetailsWithData(response) {
         initials.innerText = "?"
     }
 
+    //Display the creator in small text
     if (task.hasOwnProperty("creator")) {
         creator.innerText = "Tâche créé par " + buildFullNameWithUser(task.creator)
     } else {
         creator.innerText = ""
     }
-
-    link.value = task.link
-    state.innerText = task.statename
-    workname.value = task.work.name
 
     //Completion date if exists and if task is done
     if (task.completion_date != null && task.state == 3) {
@@ -172,7 +179,7 @@ function loadTaskDetailsWithData(response) {
 }
 
 //Just log text in the console
-function log(text) {
+function logIt(text) {
     console.log(text)
 }
 
@@ -187,7 +194,7 @@ function buildFullNameWithUser(user) {
 
 //Manage (display or hide) active task(s). If null all tasks will be unactived, else the task element will be active (with adding .activeTask css class)
 function manageActiveTasks(taskToActive) {
-    log("hide all tasks")
+    logIt("hide all tasks")
     if (taskToActive == null) {
         var els = document.getElementsByClassName("divTask");
         Array.prototype.forEach.call(els, function (onetask) {

@@ -20,10 +20,13 @@ ob_start();
         <div class="flex-1 flexdiv box-verticalaligncenter">
             <h1 class="nomargin"><?= $project['name'] ?></h1>
             <h4 class="pl-5 pr-2 nomargin"><?= convertProjectState($project['state'], true) ?></h4>
-            <h5 class="pl-5 pr-2 nomargin">Effort (fourni/total): <?= "3/34" ?></h5>
-            <h5 class="pl-5 pr-2 nomargin">Valeur (générée/total): <?= "3/34" ?></h5>
+
         </div>
         <div class="box-verticalaligncenter">
+            <h5 class="pl-2 pr-4 nomargin" title="Effort fourni/total pour tous les travaux">
+                Effort: <?= $providedEffort . "/" . $totalEffort ?></h5>
+            <h5 class="pl-2 pr-4 nomargin" title="Valeur généré/total pour tous les travaux">
+                Valeur: <?= $generatedValue . "/" . $totalValue ?></h5>
             <button class="btn btn-info clickable" data-href="?action=project&id=<?= $project['id'] ?>">Détails</button>
         </div>
     </div>

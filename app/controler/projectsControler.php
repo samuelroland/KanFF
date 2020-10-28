@@ -95,7 +95,17 @@ function kanban($id, $opt)
         $works[$task['work_id']]['tasks'][] = $task;
     }
 
+    $totalEffort = 0;
+    $totalValue = 0;
+    $providedEffort = 0;
+    $generatedValue = 0;
     foreach ($works as $key => $work) {
+        $totalEffort += $work['effort'];
+        $totalValue += $work['value'];
+        if ($work['state'] == WORK_STATE_DONE) {
+            $providedEffort += $work['effort'];
+            $generatedValue += $work['value'];
+        }
         $works[$key]['hasWritingRightOnTasks'] = hasWritingRightOnTasksOfAWork($isInsideTheProject, $work);
         if ($isInsideTheProject != true) {  //if is not inside the project, the filter apply, else no filter
             if ($work['visible'] != 1) {    //unset the work is not visible
@@ -107,6 +117,7 @@ function kanban($id, $opt)
     displaydebug($works);
 
     $project['works'] = $works;
+
     require_once "view/kanban.php";
 }
 
