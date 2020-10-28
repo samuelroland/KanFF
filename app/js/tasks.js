@@ -196,20 +196,21 @@ function manageActiveTasks(taskToActive) {
 
 function createTask() {
     data = getArrayFromAFormFieldsWithName("divTaskCreate")
-    http = new XMLHttpRequest()
-    http.onreadystatechange = function () {
-        if (http.readyState == XMLHttpRequest.DONE && http.status == 200) {
-            //response = JSON.parse(http.responseText)
-            log(http.responseText)
-        }
-    }
-    http.open("POST", "?action=createTask")
-    http.setRequestHeader("Content-Type", "application/json")
-    http.send(JSON.stringify(Object.assign({}, data)))
-    log(JSON.stringify(Object.assign(data)))
+    sendRequest("POST", "?action=createTask", createTaskWhenCreated, data)
+
 }
 
 function tryCreateTask() {
     //TODO: check data in the form, display error message, receive ajax response, manage form, manage serial mode behavior and task DOM creation
     createTask()
+}
+
+function createTaskWhenCreated(response) {
+    //TODO: include condition to check status before and display error message
+
+    task = response.data.task
+    htmlTask = "<div class='test'></div>"
+    leftcol.insertAdjacentElement('beforeend', htmlTask);
+    htmlTask = new HTMLObjectElement("<div class='test'></div>")
+    htmlTask.classList.add("salut")
 }

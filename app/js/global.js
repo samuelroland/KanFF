@@ -132,14 +132,15 @@ function removeNumbersInString(text) {
 //Send a HTTP request (with an Ajax call):
 function sendRequest(verb, url, callback, data) {
     reqHttp = new XMLHttpRequest()  //Create XHR Object
-    http.setRequestHeader("Content-Type", "application/json")   //set header content type as json data
+
     //Start function on change of readyState
     reqHttp.onreadystatechange = function () {
         if (reqHttp.readyState == XMLHttpRequest.DONE && reqHttp.status == 200) {   //if request is done and is success (HTTP status, not response status)
-            callback(reqHttp.responseText)  //launch the callback function with response text received
+            callback(JSON.parse(reqHttp.responseText))  //launch the callback function with response text received
         }
     }
     reqHttp.open(verb, url)   //open the request with a verb (GET, POST, ...) and an URL
+    reqHttp.setRequestHeader("Content-Type", "application/json")   //set header content type as json data
 
     if (data != null) { //if body is the request is not null
         if (Array.isArray(data)) {  //if it's an array
