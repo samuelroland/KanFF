@@ -4,9 +4,7 @@
  *  Author: Samuel Roland
  *  Creation date: 15.10.2020
  */
-
-//After the DOM has been loaded:
-$(document).ready(function () {
+function declareEventsForTasks() {
     //bottom line of divTask have to be hidden if divTask is not on hover and displayed if on hover
     declareChangeHiddenStateOnOneChildOnParentHover("divTask", "mouseover", "divTaskBottomLine", false)
     declareChangeHiddenStateOnOneChildOnParentHover("divTask", "mouseout", "divTaskBottomLine", true)
@@ -16,6 +14,12 @@ $(document).ready(function () {
     $(".divTask").on("click", function (event) {
         displayTaskDetails(event.target)
     })
+
+}
+
+//After the DOM has been loaded:
+$(document).ready(function () {
+    declareEventsForTasks()
 
     btnSave.addEventListener("click", tryCreateTask)
 
@@ -67,7 +71,6 @@ $(document).ready(function () {
         loadTaskNameForCreate()
     })
     loadTaskNameForCreate()
-
 })
 
 //load task name from #inputnamecreat to spannamecreate
@@ -128,7 +131,8 @@ function displayTaskDetails(task) {
 }
 
 //load the divRightPanel form with the array of data task
-function loadTaskDetailsWithData(task) {
+function loadTaskDetailsWithData(response) {
+    task = response.data.task
     number.innerText = task.number
     log(task)
     inputname.value = task.name
@@ -207,10 +211,33 @@ function tryCreateTask() {
 
 function createTaskWhenCreated(response) {
     //TODO: include condition to check status before and display error message
+    if (response.data != null) {
+        newtask = response.data.task
+        htmlTask = document.importNode(createElementFromHTML(document.querySelector("#templateTask").innerHTML), true)  //copy html content from the template
 
-    task = response.data.task
-    htmlTask = "<div class='test'></div>"
-    leftcol.insertAdjacentElement('beforeend', htmlTask);
-    htmlTask = new HTMLObjectElement("<div class='test'></div>")
-    htmlTask.classList.add("salut")
+        //Fill fields that divTask need:
+        htmlTask.querySelector(".number").innerHTML = newtask.number
+        htmlTask.querySelector(".name").innerHTML = newtask.name
+        htmlTask.id = "Task-" + newtask.id
+        htmlTask.setAttribute("data-id", newtask.id)
+        theTaskPlusBtnAside = document.getElementById("Work-" + newtask.work.id).querySelector(".leftcolumn .divTaskPlusButton")
+
+        //Add the html just before the plus button
+        theTaskPlusBtnAside.insertAdjacentElement('beforebegin', htmlTask);
+
+        //Manage window displaying
+        declareEventsForTasks() //redeclare event for tasks (for new tasks)
+        managedivRightPanel(true, 1)    //display details
+        loadTaskDetailsWithData(response)   //load data for details
+        manageActiveTasks(document.getElementById("Task-" + newtask.id))    //active new task created
+    }
+}
+
+//Source: Thanks to https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro
+function createElementFromHTML(htmlString) {
+    var div = document.createElement('div');
+    div.innerHTML = htmlString.trim();
+
+    // Change this to div.childNodes to support multiple top-level nodes
+    return div.firstChild;
 }
