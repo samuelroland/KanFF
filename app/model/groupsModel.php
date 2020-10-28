@@ -33,15 +33,26 @@ ORDER BY `groups`.creation_date DESC";
 }
 
 //Get all groups for one user
-function getAllGroupsByUser($id){
-    $query="SELECT `groups`.* FROM	`groups`
+function getAllGroupsByUser($idUser){
+    $query="SELECT `groups`.*,`join`.state  FROM	`groups`
 INNER join `join` ON `join`.group_id = `groups`.id
 INNER join users ON users.id = `join`.user_id
-WHERE	users.id = :id";
-    $params = ['id' => $id];
+WHERE	users.id = :id AND `join`.state IN (".JOIN_STATE_INVITATION_ACCEPTED.",".JOIN_STATE_APPROVED.")
+ORDER BY `join`.start DESC";
+    $params = ['id' => $idUser];
     return Query($query,$params,true);
 }
 
+//Get all members for one group ordred by accepted status
+function getUsersFromAGroup($idGroup){
+    $query="SELECT `users`.*,`join`.state  FROM	`users`
+INNER join `join` ON `users`.id = `join`.user_id
+INNER join `groups` ON `join`.group_id = `groups`.id
+WHERE	`groups`.id =:id AND `join`.state IN (".JOIN_STATE_INVITATION_ACCEPTED.",".JOIN_STATE_APPROVED.")
+ORDER BY `join`.start DESC";
+    $params = ['id' => $idGroup];
+    return Query($query,$params,true);
+}
 //Create group
 function createGroup($group)
 {
