@@ -193,6 +193,13 @@ Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard"
             <div class="  pt-3">
                 <button type="submit" class="btn btn-primary">Enresgistrer</button>
             </div>
+            <div class="  pt-3">
+            <p class="">Se mettre en pause</p>
+            <div class=" pt-3">
+                <button type="submit" class="btn btn-primary">Définir son compte comme "en pause"</button>
+            </div>
+            </div>
+            <div class=" pt-3">
             <div class="">
                 <p class="">Zone danger - actions irréversibles ou à grosses conséquences techniques.</p>
                 <div class=" pt-3">
@@ -201,6 +208,7 @@ Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard"
                 <div class="  pt-3">
                     <button type="submit" class=" btn btn-primary">Archiver son compte</button>
                 </div>
+            </div>
             </div>
             </form>
         </div>
