@@ -14,7 +14,7 @@ $cssForDivField = "row pt-1";
 $title = "Mon compte";
 ob_start();
 ?>
-
+    <div class="<?= $cssForDivZone ?>">
     <div class="">
         <div class="flexdiv">
             <h1 class="flex-1"><?= $title ?></h1>
@@ -29,7 +29,6 @@ ob_start();
         <div class="form-group">
             <form class="" action="?action=signin" method="post">
                 <h5 class="pt-3">Informations principales:</h5>
-                <div class="<?= $cssForDivZone ?>">
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Prénom</span>
                             <input id="inpFirstname" class="<?= $cssForInput ?> textFieldToCheck trimItOnChange" minlength="2"
@@ -39,10 +38,6 @@ ob_start();
                         </div>
 
 
-
-
-
-                    </div>
                     <div class=" <?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Nom</span>
                         <input id="inpLastname" class="<?= $cssForInput ?> textFieldToCheck trimItOnChange" minlength="2"
@@ -114,9 +109,11 @@ ob_start();
                             }
 
                             ?></span>
+
                         <img title="Cet état peut être non aprouvé, aprouvé, archivé ou admin"
                              src="view/medias/icons/point.png" alt="question sign" width="35" height="35" class="">
                     </div>
+
                     <div class="<?= $cssForDivField ?>">
                         <span class=" <?= $cssForSpan ?>">En pause</span>
                         <input class="<?= $cssForInput ?> " type="checkbox" id="inpOnBreak"
@@ -152,7 +149,7 @@ ob_start();
                 </div>
 
                 <h5 class="pt-3">Champs facultatifs:</h5>
-                <div class="<?= $cssForDivZone ?>">
+
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Email</span>
                         <input class="<?= $cssForInput ?>" type="email" name="email"
@@ -187,7 +184,7 @@ Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard"
                         <?= flashMessage(); ?>
                     </div>
                 </div>
-        </div>
+
         <div class="">
             <p class="">Ces informations seront visibles à tous les membres approuvés de l'instance, dans le but d'avoir
                 un ou des moyens de contact et une description pour les nouvelles personnes, qui ne connaissent pas les
@@ -209,6 +206,8 @@ Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard"
         </div>
     </div>
     </div>
+    </div>
+
 <?php
 $contenttype = "large";
 $content = ob_get_clean();
