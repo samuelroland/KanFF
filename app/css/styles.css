@@ -163,6 +163,11 @@ body {
     font-size: 0.8em;
     font-style: italic;
 }
+.littleinfotext {
+    color: #1d1919;
+    font-size: 0.95em;
+    font-style: italic;
+}
 
 .rowtest {
     display: -ms-flexbox;
@@ -548,4 +553,47 @@ hr {
 .noverticalmargin {
     margin-top: 0px !important;
     margin-bottom: 0px !important;
+}
+
+.divFeedback {
+    z-index: 2000;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;;
+    background-color: #bfbfbfdb;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.divFeedback:hover {
+    background-color: #ececec;
+    border: 1px solid black;
+    box-shadow: 0 5px 5px rgba(57, 44, 12, 0.54);
+}
+
+.iconFeedback {
+
+}
+
+.divDropUpFeedback {
+    padding: 10px;
+    margin: 5px;
+    width: 300px;
+    background-color: #ececec;
+    box-shadow: 0 5px 5px rgba(57, 44, 12, 0.54);
+}
+
+#txtFeedback {
+    width: 100%;
+    border-radius: 3px;
+    resize: none;
+    padding: 5px;
+}
+
+.thinblackborder {
+    border: 1px solid black;
 }

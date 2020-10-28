@@ -68,6 +68,9 @@ if (!isset($_SESSION['user']['id'])) {
         case "about":
             about();
             break;
+        case "sendFeedback":    //Ajax call to send a feedback with the feedback form
+            sendFeedback($data);
+            break;
         default:
             //Default action: return to the login page
             login(null, null);
@@ -84,6 +87,9 @@ if (!isset($_SESSION['user']['id'])) {
                 break;
             case "about":
                 about();
+                break;
+            case "sendFeedback":    //Ajax call to send a feedback with the feedback form
+                sendFeedback($data);
                 break;
             default:
                 limitedAccessInfo();
@@ -142,6 +148,9 @@ if (!isset($_SESSION['user']['id'])) {
                 break;
             case "about":
                 about();
+                break;
+            case "sendFeedback":    //Ajax call to send a feedback with the feedback form
+                sendFeedback($data);
                 break;
             case "":    //if no action it's the dashboard
                 dashboard();
