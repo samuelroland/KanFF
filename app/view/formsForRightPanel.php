@@ -6,7 +6,7 @@
  *  Creation date: 23.10.2020
  */
 
-function printDivTaskDetails()
+function printDivTaskDetails($project)
 {
     ob_start();
     $spanCSS = "";

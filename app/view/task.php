@@ -22,11 +22,11 @@ function printATask($task, $hasWritingRightOnTasks, $hidden = false)
          data-id="<?= $task['id'] ?>" <?= ($hidden) ? "hidden" : "" ?>>
         <div class="flexdiv divTaskNumber">
             <div class="flex-1"><?php if ($task['responsible_id'] != null) {
-                    echo "<span class='divTaskUserMentionEllipsis'>" . mentionUser($task['responsible'], "txtMentionOnTask") . "</span>";
+                    echo "<span class='divTaskUserMentionEllipsis'>" . mentionUser($task['responsible'], "txtMentionOnTask responsible") . "</span>";
                 } ?></div>
-            <div class=""><em><?= $task['number'] ?></em></div>
+            <div class=""><em class="number"><?= $task['number'] ?></em></div>
         </div>
-        <div class="divTaskName"><strong><?= createElementWithFixedLines($task['name'], 4) ?></strong></div>
+        <div class="divTaskName"><strong class="name"><?= createElementWithFixedLines($task['name'], 4) ?></strong></div>
         <div class="divTaskBottomLine flexdiv" hidden>
             <span class="flex-1 box-verticalaligncenter">
                 <span>
