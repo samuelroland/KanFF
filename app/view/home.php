@@ -11,6 +11,12 @@ ob_start();
 <h1><?= $title ?></h1>
 
 
+    <h2>
+        <p>Résultat de la requète:</p><br>
+        <?php
+        displaydebug(getUsersFromAGroup(1));
+        ?>
+    </h2>
 <?php
 $contenttype = "large";
 $content = ob_get_clean();
