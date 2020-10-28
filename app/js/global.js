@@ -21,7 +21,7 @@ $(document).ready(function () {
 
     //#btnCancelFeedback on click delete text and close dropup
     if (document.getElementById("btnCancelFeedback") != null) {
-        document.getElementById("btnCancelFeedback").addEventListener("click", function (sender) {
+        document.getElementById("btnCancelFeedback").addEventListener("click", function () {
             txtFeedback.value = ""
 
         })
@@ -127,4 +127,28 @@ function removeNumbersInString(text) {
         text = text.replaceAll(i, "")
     }
     return text
+}
+
+//Send a HTTP request (with an Ajax call):
+function sendRequest(verb, url, callback, data) {
+    reqHttp = new XMLHttpRequest()  //Create XHR Object
+    http.setRequestHeader("Content-Type", "application/json")   //set header content type as json data
+    //Start function on change of readyState
+    reqHttp.onreadystatechange = function () {
+        if (reqHttp.readyState == XMLHttpRequest.DONE && reqHttp.status == 200) {   //if request is done and is success (HTTP status, not response status)
+            callback(reqHttp.responseText)  //launch the callback function with response text received
+        }
+    }
+    reqHttp.open(verb, url)   //open the request with a verb (GET, POST, ...) and an URL
+
+    if (data != null) { //if body is the request is not null
+        if (Array.isArray(data)) {  //if it's an array
+            formatedData = JSON.stringify(Object.assign({}, data))  //stringify in JSON the Array converted in Object
+        } else {
+            formatedData = JSON.stringify(data) //stringify in JSON the Object
+        }
+        reqHttp.send(formatedData)  //send the query with formated data
+    } else {
+        reqHttp.send()  //send the query without any body
+    }
 }

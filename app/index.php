@@ -69,6 +69,7 @@ if (!isset($_SESSION['user']['id'])) {
             about();
             break;
         case "sendFeedback":    //Ajax call to send a feedback with the feedback form
+            setHTTPHeaderForAPIResponse();
             sendFeedback($data);
             break;
         default:
@@ -89,6 +90,7 @@ if (!isset($_SESSION['user']['id'])) {
                 about();
                 break;
             case "sendFeedback":    //Ajax call to send a feedback with the feedback form
+                setHTTPHeaderForAPIResponse();
                 sendFeedback($data);
                 break;
             default:
@@ -141,15 +143,18 @@ if (!isset($_SESSION['user']['id'])) {
                 tasks();
                 break;
             case "getTask": //Ajax call to get one task
+                setHTTPHeaderForAPIResponse();
                 getTask($_GET['id']);
                 break;
             case "createTask":  //Ajax call to create one task
+                setHTTPHeaderForAPIResponse();
                 createATask($data);
                 break;
             case "about":
                 about();
                 break;
             case "sendFeedback":    //Ajax call to send a feedback with the feedback form
+                setHTTPHeaderForAPIResponse();
                 sendFeedback($data);
                 break;
             case "":    //if no action it's the dashboard

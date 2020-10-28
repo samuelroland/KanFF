@@ -562,7 +562,7 @@ hr {
     left: 0;
     height: 50px;
     width: 50px;
-    border-radius: 50%;;
+    border-radius: 15px;
     background-color: #bfbfbfdb;
     margin: 10px;
     display: flex;

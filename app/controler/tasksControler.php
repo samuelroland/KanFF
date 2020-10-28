@@ -56,7 +56,7 @@ function getTask($id)
 //Ajax call to create one task
 function createATask($data)
 {
-    var_dump($data);
+    displaydebug($data);
     $task = [];
     $hasPermissionToCreate = null; //default value
     if (isset($data['project'], $data['work'])) {

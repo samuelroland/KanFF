@@ -262,4 +262,10 @@ function sendFeedback($data)
     }
 }
 
+//Set the headers of the HTTP request for API response (from an Ajax call):
+function setHTTPHeaderForAPIResponse()
+{
+    header("Content-Type: application/json");
+}
+
 ?>
