@@ -69,8 +69,6 @@ ob_start();
                                name="username" pattern="^[a-zA-Z0-9_]*$"
                                placeholder="josette27" required value="<?= $user['username'] ?>"/>
                         <p id="pCounterUsername" class="m-2"></p>
-                        <img title="Cet état peut être non aprouvé, aprouvé, archivé ou admin"
-                             src="view/medias/icons/point.png" alt="question sign" width="35" height="35" class="">
                     </div>
 
                     <div class="<?= $cssForDivField ?>">
@@ -121,32 +119,6 @@ ob_start();
                         <img title="La valeur 'En pause' défini moralement que votre engagement dans ce collectif est en pause. La seule différence est que vous apparaîtrez dans la liste des membres sous l'option 'En pause' au lieu de l'option 'Actif'."
                              src="view/medias/icons/point.png" alt="question sign" width="35" height="35" class="">
                     </div>
-                    <h5 class="pt-3">Changement de mot de passe:
-                    </h5>
-
-                    <div class="<?= $cssForDivField ?>">
-                        <span class="<?= $cssForSpan ?>">Actuel</span>
-                        <input class="<?= $cssForInput ?>" type="password" name="password" placeholder="" required/>
-                        <img title="Inserez le mot de passe actuel" src="view/medias/icons/point.png"
-                             alt="question sign"
-                             width="35"
-                             height="35" class="">
-                    </div>
-                    <div class="<?= $cssForDivField ?>">
-                        <span class="<?= $cssForSpan ?>">Mot de passe</span>
-                        <input class="<?= $cssForInput ?>" type="password" name="newpassword" placeholder="" required/>
-                        <img title="Les critères de sécurité du mot de passe sont:
-                - yy caractères
-                - caractères minuscules, majuscules, spéciaux, chiffres.
-                - ... TBD" src="view/medias/icons/point.png" alt="question sign" width="35" height="35" class="">
-                    </div>
-
-                    <div class="<?= $cssForDivField ?>">
-                        <span class="<?= $cssForSpan ?>">Confirmation</span>
-                        <input class="<?= $cssForInput ?>" type="password" name="newpasswordc" placeholder="" required
-                               title="Confirmation du mot de passe"/>
-                    </div>
-                </div>
 
                 <h5 class="pt-3">Champs facultatifs:</h5>
 
@@ -193,13 +165,34 @@ Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard"
             <div class="  pt-3">
                 <button type="submit" class="btn btn-primary">Enresgistrer</button>
             </div>
-            <div class="  pt-3">
-            <p class="">Se mettre en pause</p>
-            <div class=" pt-3">
-                <button type="submit" class="btn btn-primary">Définir son compte comme "en pause"</button>
+            <h5 class="pt-3">Changement du mot de passe:</h5>
+            <div class="<?= $cssForDivField ?>">
+                <span class="<?= $cssForSpan ?>">Mot de passe actuel</span>
+                <input class="<?= $cssForInput ?>" type="password" name="newpasswordc" placeholder="" required
+                       title="Confirmation du mot de passe"/>
             </div>
+
+            <div class= "<?= $cssForDivField ?>">
+                <span class="<?= $cssForSpan ?>">nouveau mot de passe</span>
+                <input class="<?= $cssForInput ?>" type="password" name="newpassword" placeholder="" required/>
+                <img title="Les critères de sécurité du mot de passe sont:
+                - yy caractères
+                - caractères minuscules, majuscules, spéciaux, chiffres.
+                - ... TBD" src="view/medias/icons/point.png" alt="question sign" width="35" height="35" class="">
             </div>
-            <div class=" pt-3">
+
+
+            <div class="<?= $cssForDivField ?>">
+                <span class="<?= $cssForSpan ?>">Confirmation</span>
+                <input class="<?= $cssForInput ?>" type="password" name="newpasswordc" placeholder="" required
+                       title="Confirmation du mot de passe"/>
+            </div>
+        </div>
+        <div class="  pt-3">
+            <button type="submit" class=" btn btn-primary">Changer</button>
+        </div>
+
+        <div class=" pt-3">
             <div class="">
                 <p class="">Zone danger - actions irréversibles ou à grosses conséquences techniques.</p>
                 <div class=" pt-3">
