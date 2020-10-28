@@ -99,7 +99,7 @@ $title = "Créer un projet"
             <label for="chkRestrictAccess">Le journal de bord est visible par les personnes non-membres des groupes réalisant ce projet</label>
         </div>
     </div>
-    <div class="divPassword row pt-4">
+    <div class="divPassword row pt-4 col-lg-12">
         <div class="mr-3">
             <h4>Confirmation de l'action</h4>
             <input class="form-control fullwidth smalltextinput" type="password" name="password" placeholder="Mot de passe" required>

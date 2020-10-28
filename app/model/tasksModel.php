@@ -19,21 +19,24 @@ function getAllTasks()
 }
 
 //Get one task whith conditions
-function getOneByConditionTasks($conditions,$params){
+function getOneByConditionTasks($conditions, $params)
+{
     return getByCondition("tasks", $params, $conditions, false);
 }
 
 //Get more than one task whith conditions
-function getAllByConditionTasks($conditions,$params){
+function getAllByConditionTasks($conditions, $params)
+{
     return getByCondition("tasks", $params, $conditions, true);
 }
 
-function getAllTasksByWorks($idWorks){
-    $query="SELECT tasks.* FROM	tasks
+function getAllTasksByWorks($idWorks)
+{
+    $query = "SELECT tasks.* FROM	tasks
 INNER join works ON tasks.work_id = works.id
 WHERE	works.id = 12";
     $params = ['id' => $idWorks];
-    return Query($query,$params,true);
+    return Query($query, $params, true);
 }
 
 //Get all the tasks by project id
@@ -47,17 +50,18 @@ WHERE projects.id = :id";
     return Query($query, $params, true);
 }
 
-function getTasksNextUniqueNumber(){
-    $tasks=getAllTasks();
-    $uniquenumber=0;
-    if (isset($tasks)){
+function getTasksNextUniqueNumber()
+{
+    $tasks = getAllTasks();
+    $uniquenumber = 0;
+    if (isset($tasks)) {
         foreach ($tasks as $task) {
-            if ($uniquenumber<$task["number"]){
-                $uniquenumber=$task["number"];
+            if ($uniquenumber < $task["number"]) {
+                $uniquenumber = $task["number"];
             }
         }
     }
-    return $uniquenumber+1;
+    return $uniquenumber + 1;
 }
 
 //Create Work
