@@ -155,8 +155,17 @@ function sendRequest(verb, url, callback, data) {
 }
 
 //display a temporary message on topright
-function displayResponseMsg(message) {
+function displayResponseMsg(val) {
+    //Take the message depending if started directly as a callback of an Ajax call (response sent in parameter), or started by an other function (message sent in parameter)
+    if (val.hasOwnProperty("data")) {
+        msg = val.data.message
+    } else {
+        msg = val
+    }
 
+    //TODO: create html box at right top to display the message
+logIt("message right top displayed")
+    logIt(msg)
 }
 
 function checkAllValuesAreNotEmpty(values) {
@@ -168,12 +177,12 @@ function checkAllValuesAreNotEmpty(values) {
     return true
 }
 
-function manageResponseStatus(response){
+function manageResponseStatus(response) {
     status = response.status
-    switch (status){
+    switch (status) {
         case "success":
             return true
-        break;
+            break;
         case "failed":
 
     }

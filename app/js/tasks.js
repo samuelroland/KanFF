@@ -4,6 +4,9 @@
  *  Author: Samuel Roland
  *  Creation date: 15.10.2020
  */
+
+var optionsOpened = false
+
 function declareEventsForTasks() {
     //bottom line of divTask have to be hidden if divTask is not on hover and displayed if on hover
     declareChangeHiddenStateOnOneChildOnParentHover("divTask", "mouseover", "divTaskBottomLine", false)
@@ -12,7 +15,27 @@ function declareEventsForTasks() {
 
     //On click on .divTask display the task details
     $(".divTask").on("click", function (event) {
-        displayTaskDetails(event.target)
+        if (optionsOpened == false) {
+            displayTaskDetails(event.target)
+        } else {
+            displayTaskDetails(null)
+        }
+    })
+    $(".divTask").on("mouseout", function (event) {
+        optionsOpened = false
+    })
+    Array.prototype.forEach.call(document.getElementsByClassName("icon-task-triangle"), function (icon) {
+        icon.addEventListener("click", function (event) {
+            //event.stopPropagation()
+            optionsOpened = !optionsOpened
+        })
+    })
+    $(".optTaskDelete").on("click", function (event) {
+        opt = event.target
+        opt = getRealParentHavingId(opt)
+        logIt(opt)
+        deleteTask(opt.getAttribute("data-id"))
+        event.stopPropagation()
     })
 
 }
@@ -219,9 +242,23 @@ function tryUpdateTask() {
 
 function updateTask() {
     data = getArrayFromAFormFieldsWithName("divTaskCreate")
-    sendRequest("POST", "?action=updateTask", createTaskWhenCreated, data)
+    sendRequest("POST", "?action=updateTask", displayResponseMsg, data)
 }
 
+function deleteTask(id) {
+    data = {id: id}
+    sendRequest("POST", "?action=deleteTask", manageTaskDeleteResponse, data)
+}
+
+function manageTaskDeleteResponse(response) {
+    if (manageResponseStatus(response)) {
+        id = response.data.reference.id
+        document.getElementById("Task-" + id).remove()
+        managedivRightPanel(false)
+        //TODO: close right panel only if task deleted is displayed
+        manageActiveTasks(null)
+    }
+}
 
 function tryCreateTask() {
     //TODO: check data in the form, display error message, receive ajax response, manage form, manage serial mode behavior and task DOM creation
