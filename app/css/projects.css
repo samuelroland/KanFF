@@ -185,3 +185,15 @@
 .divInRightPanel {
     padding: 0px 5px 0px 5px;
 }
+
+.jsTempMsg {
+    z-index: 3000;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: #d5d6d7;
+    border-radius: 4px;
+    border: 1px solid black;
+    box-shadow: 2px 1px black;
+    padding: 2px;
+}

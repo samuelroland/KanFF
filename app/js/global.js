@@ -154,9 +154,8 @@ function sendRequest(verb, url, callback, data) {
     }
 }
 
-function displayResponseMsg(response) {
-    //TODO: check if status is not failed with specified function
-    msg = response.data.message
+//display a temporary message on topright
+function displayResponseMsg(message) {
 
 }
 
@@ -167,4 +166,15 @@ function checkAllValuesAreNotEmpty(values) {
         }
     })
     return true
+}
+
+function manageResponseStatus(response){
+    status = response.status
+    switch (status){
+        case "success":
+            return true
+        break;
+        case "failed":
+
+    }
 }

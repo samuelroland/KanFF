@@ -83,6 +83,11 @@ ob_start();
             <?php printDivTaskCreate($project); ?>
         </div>
     </div>
+    <!--<div class="jsTempMsg">
+        <?= printAnIcon("point.png", "", "question mark icon", "icon-task", false) ?>
+        <span class="jsTempMsgText mr-2">Tâche créée avec succès !</span>
+        <?= printAnIcon("blackcross.png", "", "question mark icon", "icon- m-2", false) ?>
+    </div>-->
 <?php
 displaydebug($project);
 $contenttype = "full";
