@@ -117,4 +117,14 @@ WHERE users.id = :userid AND participate.state IN (" . PARTICIPATE_STATE_INVITAT
     return Query($query, $params, true);
 }
 
+//Get project's id by task's id
+function getProjectIdByTask($idTask){
+    $query="SELECT projects.id AS project_id,works.state AS work_state	FROM projects
+INNER join 	works ON	projects.id = works.project_id
+INNER	join tasks ON works.id = tasks.work_id
+WHERE	tasks.id = :id;";
+    $params = ["id" => $idTask];
+    return Query($query, $params, false);
+}
+
 ?>

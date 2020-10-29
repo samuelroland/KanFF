@@ -101,4 +101,52 @@ function createATask($data)
     }
 }
 
+//Ajax call to update one task
+function updateATask($data)
+{
+    var_dump($data);
+    $task = [];
+    $hasPermissionToUpdate = null; //default value
+    if (isset($data, $id)) {
+        //TODO: check that the user can update the task
+        //TODO: get the project_id of the task
+        $isInsideTheProject = isAUserInsideAProject(getProjectIdByTask($id), $_SESSION['user']['id']);
+        $work = getOneWork($data['work']);
+
+        //Check that the work exist and that the user have the permissions to create a task in this work
+        if (hasWritingRightOnTasksOfAWork($isInsideTheProject, $work) && $work['state'] != WORK_STATE_DONE) {
+            $hasPermissionToUpdate = true;
+        } else {
+            $hasPermissionToUpdate = false;
+        }
+    }
+    //Check that data sent are valid
+    if (chkLength($data['name'], 100) && $data['name'] != "" && isAtLeastEqual($data['type'], TASK_LIST_TYPE) && $hasPermissionToUpdate) {
+        $task['name'] = $data['name'];
+        $task['type'] = $data['type'];
+        $task['work_id'] = $data['work'];
+
+        //Then generate other fields:
+        $task['number'] = getTasksNextUniqueNumber();
+        $task['state'] = TASK_STATE_TODO;
+        $task['urgency'] = 0;
+        $task['creator_id'] = $_SESSION['user']['id'];
+
+        //Then create the task:
+        $id = createTask($task);
+
+        $task = getOneTask($id);
+        $response = getApiResponse(API_SUCCESS, ['task' => $task]);
+        echo json_encode($response);
+    } else {
+        if ($hasPermissionToCreate === false) {
+            //TODO: return error message in JSON: work not found (or "you don't have permissions" ??)
+            $response = getApiResponse(API_FAIL, ["error" => getFlashMessageById(11), "code" => 11, "position" => "top"]);
+        } else {
+            //TODO: return error message in JSON: invalid data
+            $response = getApiResponse(API_FAIL, ["error" => getFlashMessageById(10), "code" => 10, "position" => "top"]);
+        }
+        echo json_encode($response);
+    }
+}
 ?>
