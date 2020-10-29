@@ -150,6 +150,14 @@ if (!isset($_SESSION['user']['id'])) {
                 setHTTPHeaderForAPIResponse();
                 createATask($data);
                 break;
+            case "updateTask":  //Ajax call to update one task
+                setHTTPHeaderForAPIResponse();
+                updateATask($data);
+                break;
+            case "deleteTask":  //Ajax call to delete one task
+                setHTTPHeaderForAPIResponse();
+                deleteATask($data);
+                break;
             case "about":
                 about();
                 break;

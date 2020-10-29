@@ -18,13 +18,21 @@ function getApiResponse($status, $data, $message = "Error...")
     }
     $statusPossible = [API_SUCCESS => "success", API_FAIL => "fail", API_ERROR => "error"];
     $response['status'] = $statusPossible[$status];
-    if ($data != false) {
+    if ($data !== false) {
         $response['data'] = $data;
     }
     if ($status == API_ERROR) {
         $response['message'] = $message;
     }
     return $response;
+}
+
+function getApiDataContentError($error, $code, $position = "topright")
+{
+    $data['error'] = $error;
+    $data['code'] = $code;
+    $data['position'] = $position;
+    return $data;
 }
 
 //display the page Tasks
@@ -148,4 +156,33 @@ function updateATask($data)
         echo json_encode($response);
     }
 }
+
+//Ajax call to delete a task
+function deleteATask($data)
+{
+    displaydebug($data);
+    $task = getOneTask($data['id']);
+    $hasPermissionToUpdate = null; //default value
+    if (isset($data) && empty($task) == false) {
+        $isInsideTheProject = isAUserInsideAProject(getProjectIdByTask($data['id']), $_SESSION['user']['id']);
+        $work = getOneWork($task['work_id']);
+
+        //Check that the work exist and that the user have the permissions to create a task in this work
+        if (hasWritingRightOnTasksOfAWork($isInsideTheProject, $work) && $work['state'] != WORK_STATE_DONE) {
+            $hasPermissionToDelete = true;
+        } else {
+            $hasPermissionToDelete = false;
+        }
+    }
+
+    if ($hasPermissionToDelete) {
+        deleteTasks($data['id']);
+        $response = getApiResponse(API_SUCCESS, null);
+    } else {
+        $response = getApiResponse(API_FAIL, getApiDataContentError("no permission", 155));
+        //TODO: error about invalid data (and export message to flashmessages.json)
+    }
+    echo json_encode($response);
+}
+
 ?>
