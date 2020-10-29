@@ -37,7 +37,7 @@ function printDivTaskDetails($project)
                         </div>
                         <input id="inputname" name="name" type="text"
                                class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength"
-                               placeholder="Nom de la tâche" maxlength="100">
+                               placeholder="Nom de la tâche" maxlength="100" required>
                     </div>
                     <div class="flex-1 ml-2">
                         <span class="<?= $spanCSS ?>">Travail:</span>
@@ -82,7 +82,7 @@ function printDivTaskDetails($project)
                         <div class="ml-3">
                             <span class="<?= $spanCSS ?>">Urgence:</span>
                             <input type="number" id="urgency" class="form-control inputtypenumber"
-                                   value="" min="0" max="5">
+                                   value="" min="0" max="5" required>
                         </div>
                         <div class="mt-4">
                             <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-xsmall m-2", false), "Notez l'urgence de la tâche de 0 à 5 (0 = aucun, 1 = min et 5 = max)", false) ?>
@@ -144,7 +144,7 @@ function printDivTaskCreate($project)
                     </div>
                     <input type="text" id="inputnamecreate" name="name2" maxlength="100" autofocus
                            class="textFieldToCheck counterVisibleOnlyIfFastMaxLength form-control"
-                           placeholder="Nom de la tâche">
+                           placeholder="Nom de la tâche" required>
                 </div>
                 <div class="ml-2 ">
                     <span class="">Type:</span>

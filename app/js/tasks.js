@@ -208,8 +208,20 @@ function manageActiveTasks(taskToActive) {
 function createTask() {
     data = getArrayFromAFormFieldsWithName("divTaskCreate")
     sendRequest("POST", "?action=createTask", createTaskWhenCreated, data)
-
 }
+
+//try to update the task in the form details
+function tryUpdateTask() {
+    if (checkAllValuesAreNotEmpty([inputname.value, urgency.value, type.value])) {
+
+    }
+}
+
+function updateTask() {
+    data = getArrayFromAFormFieldsWithName("divTaskCreate")
+    sendRequest("POST", "?action=updateTask", createTaskWhenCreated, data)
+}
+
 
 function tryCreateTask() {
     //TODO: check data in the form, display error message, receive ajax response, manage form, manage serial mode behavior and task DOM creation

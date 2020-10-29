@@ -338,7 +338,7 @@ function convertTaskType($int, $needFirstCharToUpper = false)
 {
     switch ($int) {
         case TASK_TYPE_NONE:
-            $txt = "(Aucun)";
+            $txt = "TBD";
             break;
         case TASK_TYPE_QUESTION:
             $txt = "question";

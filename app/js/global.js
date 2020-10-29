@@ -153,3 +153,18 @@ function sendRequest(verb, url, callback, data) {
         reqHttp.send()  //send the query without any body
     }
 }
+
+function displayResponseMsg(response) {
+    //TODO: check if status is not failed with specified function
+    msg = response.data.message
+
+}
+
+function checkAllValuesAreNotEmpty(values) {
+    Array.prototype.forEach.call(values, function (val) {
+        if (val == null || val == null) {
+            return false
+        }
+    })
+    return true
+}
