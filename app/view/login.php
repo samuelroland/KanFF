@@ -24,7 +24,7 @@ $instanceinfos = getInstanceInfos();
             <div class="box-alignright">
         <button type="submit" class="btn btn-primary mt-2">Se connecter</button>
             </div>
-            <br><p>Pas encore de compte sur cette instance ? <a href="/?action=signin">Créer un compte.</a></p>
+            <br><p>Pas encore de compte sur cette instance ? <a href="?action=signin">Créer un compte.</a></p>
         </div>
 
     </form>

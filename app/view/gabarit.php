@@ -76,7 +76,7 @@ Y,                    `\"8bd888b,             ,P
     <div class="divZoneLogo flexdiv">
         <div class="divLogo lineheigthsmall">
             <img src="view/medias/logos/KanFF_Logo.svg" alt="logo KanFF" class="logo clickable cursorpointer"
-                 data-href="/">
+                 data-href="?">
             <div class="divVersion ">
                 <span class="versiontext "><?= $versions[count($versions) - 1]['version'] ?></span>
                 <span class="versiontext alignright"><em>le <?= date("d.m.Y", strtotime($versions[count($versions) - 1]['date'])) ?></em></span>
@@ -128,12 +128,12 @@ Y,                    `\"8bd888b,             ,P
                                     <?= ($_SESSION['user']['on_break'] == 1) ? "<p class='lightbluelogo p-2'><strong>En pause</strong></p>" : "" ?>
                                     <!-- The 2 buttons for "my account" and "logout" -->
                                     <div class="clickable cursorpointer yellowdarkonhover"
-                                         data-href="/?action=editAccount">
+                                         data-href="?action=editAccount">
                                         <img src="view/medias/icons/settings.png" alt="settings icon"
                                              class="icon-small">
                                         <strong>Mon compte</strong></div>
                                     <div class="clickable cursorpointer yellowdarkonhover fullwidth"
-                                         data-href="/?action=logout">
+                                         data-href="?action=logout">
                                         <img src="view/medias/icons/logout.png" alt="settings icon" class="icon-small">
                                         <strong>Déconnexion</strong>
                                     </div>
@@ -147,7 +147,7 @@ Y,                    `\"8bd888b,             ,P
     <?php } else { //if user is not logged display only a login button?>
         <div class="user row col-2 borderleftorange txtblack">
             <div class="col-10 box-verticalaligncenter header-height">
-                <a href="/?action=login"><span class="btn btn-info">Connexion</span></a>
+                <a href="?action=login"><span class="btn btn-info">Connexion</span></a>
             </div>
         </div>
     <?php } ?>
@@ -158,13 +158,13 @@ Y,                    `\"8bd888b,             ,P
             <?php
             if (isset($_SESSION['user']['id']) && checkLimitedAccess() == false){  //display the buttons only if the user is logged
             ?>
-            <li><a class="<?= ($action == null) ? 'active' : '' ?>" href="/">Dashboard</a></li>
-            <!--<li><a class="<?= ($action == "tasks") ? 'active' : '' ?>" href="/?action=tasks">Tâches</a></li>
+            <li><a class="<?= ($action == null) ? 'active' : '' ?>" href="?">Dashboard</a></li>
+            <!--<li><a class="<?= ($action == "tasks") ? 'active' : '' ?>" href="?action=tasks">Tâches</a></li>
             -->
-            <li><a class="<?= ($action == "projects") ? 'active' : '' ?>" href="/?action=projects">Projets</a></li>
-            <li><a class="<?= ($action == "groups") ? 'active' : '' ?>" href="/?action=groups">Groupes</a></li>
-            <li><a class="<?= ($action == "members") ? 'active' : '' ?>" href="/?action=members">Membres</a></li>
-            <!--<li><a class="<?= ($action == "calendar") ? 'active' : '' ?>" href="/?action=calendar">Calendrier</a>
+            <li><a class="<?= ($action == "projects") ? 'active' : '' ?>" href="?action=projects">Projets</a></li>
+            <li><a class="<?= ($action == "groups") ? 'active' : '' ?>" href="?action=groups">Groupes</a></li>
+            <li><a class="<?= ($action == "members") ? 'active' : '' ?>" href="?action=members">Membres</a></li>
+            <!--<li><a class="<?= ($action == "calendar") ? 'active' : '' ?>" href="?action=calendar">Calendrier</a>
             --></li>
         </ul>
         <?php
