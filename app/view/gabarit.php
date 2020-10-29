@@ -70,7 +70,7 @@ Y,                    `\"8bd888b,             ,P
 ?>
 
 <!-- The full header -->
-<header class="bg-header <?= ($debug == false) ? "header-fixed" : "" //the header is not fixed in debug mode because else devs can't see var_dump() results printed under the menu.                              ?>">
+<header class="bg-header <?= ($debug == false) ? "header-fixed" : "" //the header is not fixed in debug mode because else devs can't see var_dump() results printed under the menu.                               ?>">
 
     <!-- Zone Logo with logo image + version texts -->
     <div class="divZoneLogo flexdiv">
@@ -83,7 +83,7 @@ Y,                    `\"8bd888b,             ,P
             </div>
         </div>
         <div data-href="?action=about"
-             class="flex-3 collectivename flexdiv overflow-hidden borderleftorange borderrightorange clickable cursorpointer <?= ($action == "about") ? 'active' : '' //button active or not                              ?>">
+             class="flex-3 collectivename flexdiv overflow-hidden borderleftorange borderrightorange clickable cursorpointer <?= ($action == "about") ? 'active' : '' //button active or not                               ?>">
             <div class="align-items-center flexdiv"><?= $instanceinfos['collective']['name'] ?></div>
         </div>
     </div>
@@ -173,10 +173,42 @@ Y,                    `\"8bd888b,             ,P
     </div>
 </header>
 
+<!-- Flashmessage div if the flashmessage is set-->
+<div class="margintopforheader"><?php
+    $msg = flashMessage(true); //get flashmessage with Html included
+    echo $msg;  //$msg that store the message can now be displayed. the value of $msg isn't lost (useful for appbody).
+    ?></div>
+<!-- Zone appbody with the content of the view generated -->
+<?php
+//Depending on the content type choosed in the view, the appbody will change. 3 types are available: full, large, restrict.
+switch ($contenttype) {
+    case "full":
+        ?>
+        <div class="appbody <?= ($msg != "") ? "" : "margintopforheader" ?> p-1"><?= $content; ?></div><?php
+        break;
+    case "large":
+        ?>
+        <div class="appbody <?= ($msg != "") ? "" : "margintopforheader" ?> p-3"><?= $content; ?></div><?php
+        break;
+    case "restricted":
+        ?>
+        <div class="flexdiv <?= ($msg != "") ? "" : "margintopforheader" ?> justify-content-center">
+            <div class="appbody appbodyrestrict col-lg-7 col-md-8 col-sm-11 marginauto p-3"><?= $content; ?></div>
+        </div>
+        <?php
+        break;
+    default:
+        ?>
+        <div class="appbody p-1">$contenttype must be correctly defined...</div>
+        <?php
+        break;
+}
+?>
+
 <?php
 if ($feedbackForm == true && isEmailFormat($emailSourceForFeedback) && isEmailFormat($emailForFeedback)) { ?>
     <!-- feedback form -->
-    <div class="dropdown position-fixed">
+    <div class="dropdown position-fixed cursorpointer">
         <form>
             <!-- form tag ? -> thanks to https://stackoverflow.com/questions/25089297/avoid-dropdown-menu-close-on-click-inside#answer-34216265 -->
             <!-- The circle -->
@@ -213,7 +245,8 @@ if ($feedbackForm == true && isEmailFormat($emailSourceForFeedback) && isEmailFo
                         </div>
                     </div>
                     <textarea name="feedback" id="txtFeedback" rows="10" class="thinblackborder"
-                              placeholder="Concernant les fonctionnalités présentes sur cette page, bogues trouvés, le design, la simplicité (ou non) d'utilisation, suggestions, la cohérence, la clarté des informations, ... tout commentaire constructif à propos de cette page est le bienvenu!" maxlength="6000"></textarea>
+                              placeholder="Concernant les fonctionnalités présentes sur cette page, bogues trouvés, le design, la simplicité (ou non) d'utilisation, suggestions, la cohérence, la clarté des informations, ... tout commentaire constructif à propos de cette page est le bienvenu!"
+                              maxlength="6000"></textarea>
                     <div class="box-alignright">
                         <div id="btnCancelFeedback" class="btn btn-light littleinfotext mr-2">Annuler</div>
                         <div id="btnSendFeedback" class="btn btn-light thinBorder">Envoyer</div>
@@ -223,39 +256,5 @@ if ($feedbackForm == true && isEmailFormat($emailSourceForFeedback) && isEmailFo
         </form>
     </div>
 <?php } ?>
-
-<!-- Flashmessage div if the flashmessage is set-->
-<div class="margintopforheader"><?php
-    $msg = flashMessage(true); //get flashmessage with Html included
-    echo $msg;  //$msg that store the message can now be displayed. the value of $msg isn't lost (useful for appbody).
-    ?></div>
-<!-- Zone appbody with the content of the view generated -->
-<?php
-//Depending on the content type choosed in the view, the appbody will change. 3 types are available: full, large, restrict.
-switch ($contenttype) {
-    case "full":
-        ?>
-        <div class="appbody <?= ($msg != "") ? "" : "margintopforheader" ?> p-1"><?= $content; ?></div><?php
-        break;
-    case "large":
-        ?>
-        <div class="appbody <?= ($msg != "") ? "" : "margintopforheader" ?> p-3"><?= $content; ?></div><?php
-        break;
-    case "restricted":
-        ?>
-        <div class="flexdiv <?= ($msg != "") ? "" : "margintopforheader" ?> justify-content-center">
-            <div class="appbody appbodyrestrict col-lg-7 col-md-8 col-sm-11 marginauto p-3"><?= $content; ?></div>
-        </div>
-        <?php
-        break;
-    default:
-        ?>
-        <div class="appbody p-1">$contenttype must be correctly defined...</div>
-        <?php
-        break;
-}
-?>
-
-</div>
 </body>
 </html>

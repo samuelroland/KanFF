@@ -6,7 +6,7 @@
  *  Creation date: 23.10.2020
  */
 
-function printDivTaskDetails()
+function printDivTaskDetails($project)
 {
     ob_start();
     $spanCSS = "";
@@ -47,14 +47,14 @@ function printDivTaskDetails()
                 <div class=" <?= $divCSS ?>">
                     <span class="<?= $spanCSS ?>">Description:</span>
                     <textarea id="description" name="description" type="text" rows="4"
-                              class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength"
+                              class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength resizenone"
                               placeholder="Description de la tâche" maxlength="2000"></textarea>
                     <div class="alignright"><span id="pCounterDescription"></span></div>
                 </div>
                 <div class="flexdiv <?= $divCSS ?>">
                     <div class="">
                         <span class="<?= $spanCSS ?>">Type:</span>
-                        <select class="form-control" name="type" id="type">
+                        <select class="form-control width-min-content" name="type" id="type">
                             <?php foreach (TASK_LIST_TYPE as $type) {
                                 echo "<option value='" . $type . "'>" . convertTaskType($type, true) . "</option>";
                             } ?>
@@ -66,7 +66,7 @@ function printDivTaskDetails()
                             <div class="circle-responsible mr-2">
                                 <p class="marginauto" id="initials"></p>
                             </div>
-                            <input type="text" id="responsible" class="form-control"
+                                <input type="text" id="responsible" class="form-control flex-1 width-min-content"
                                    value="" disabled readonly>
                         </div>
                         <div class="alignright smallinfotext"><span id="creator"></span></div>

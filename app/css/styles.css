@@ -163,6 +163,7 @@ body {
     font-size: 0.8em;
     font-style: italic;
 }
+
 .littleinfotext {
     color: #1d1919;
     font-size: 0.95em;
@@ -562,11 +563,12 @@ hr {
     left: 0;
     height: 50px;
     width: 50px;
-    border-radius: 50%;;
+    border-radius: 15px;
     background-color: #bfbfbfdb;
     margin: 10px;
     display: flex;
     justify-content: center;
+    border: 1px solid black;
 }
 
 .divFeedback:hover {
@@ -596,4 +598,8 @@ hr {
 
 .thinblackborder {
     border: 1px solid black;
+}
+
+.resizenone {
+    resize: none;
 }

@@ -50,13 +50,14 @@ function getTask($id)
     if ($task['completion_date'] != null) {
         $task['completion'] = DTToHumanDate($task['completion_date'], "simpletime");
     }
-    echo json_encode($task);
+
+    echo json_encode(getApiResponse(API_SUCCESS, ['task' => $task]));
 }
 
 //Ajax call to create one task
 function createATask($data)
 {
-    var_dump($data);
+    displaydebug($data);
     $task = [];
     $hasPermissionToCreate = null; //default value
     if (isset($data['project'], $data['work'])) {
@@ -86,9 +87,7 @@ function createATask($data)
         //Then create the task:
         $id = createTask($task);
 
-        $task = getOneTask($id);
-        $response = getApiResponse(API_SUCCESS, ['task' => $task]);
-        echo json_encode($response);
+        getTask($id);   //return the task like if it was asked with ?action=getTask
     } else {
         if ($hasPermissionToCreate === false) {
             //TODO: return error message in JSON: work not found (or "you don't have permissions" ??)

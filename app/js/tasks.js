@@ -4,9 +4,7 @@
  *  Author: Samuel Roland
  *  Creation date: 15.10.2020
  */
-
-//After the DOM has been loaded:
-$(document).ready(function () {
+function declareEventsForTasks() {
     //bottom line of divTask have to be hidden if divTask is not on hover and displayed if on hover
     declareChangeHiddenStateOnOneChildOnParentHover("divTask", "mouseover", "divTaskBottomLine", false)
     declareChangeHiddenStateOnOneChildOnParentHover("divTask", "mouseout", "divTaskBottomLine", true)
@@ -16,6 +14,12 @@ $(document).ready(function () {
     $(".divTask").on("click", function (event) {
         displayTaskDetails(event.target)
     })
+
+}
+
+//After the DOM has been loaded:
+$(document).ready(function () {
+    declareEventsForTasks()
 
     btnSave.addEventListener("click", tryCreateTask)
 
@@ -29,7 +33,7 @@ $(document).ready(function () {
         switch (opt) {
             case "1":   //opt 1 = idFormToDisplay => divTaskDetails
                 task = document.getElementById("Task-" + hash.substr(hash.indexOf("#t-") + 3, hash.length)) //get the element ("Task-"+ task.id) with its id in the hash
-                log(task)
+                logIt(task)
                 if (task != null) {    //if task found with the id in the hash
                     displayTaskDetails(task)
                     manageActiveTasks(task)
@@ -41,7 +45,7 @@ $(document).ready(function () {
                 break;
             case "2":   //opt 1 = idFormToDisplay => divTaskCreate
                 work = document.getElementById("Work-" + hash.substr(hash.indexOf("#w-") + 3)) //get the element ("Work-"+ task.id) with its id in the hash
-                log(work)
+                logIt(work)
                 if (work != null) {    //if work found with the id in the hash
                     loadTaskCreateForm(work.getAttribute("data-id"))
                 } else {
@@ -67,7 +71,6 @@ $(document).ready(function () {
         loadTaskNameForCreate()
     })
     loadTaskNameForCreate()
-
 })
 
 //load task name from #inputnamecreat to spannamecreate
@@ -128,19 +131,30 @@ function displayTaskDetails(task) {
 }
 
 //load the divRightPanel form with the array of data task
-function loadTaskDetailsWithData(task) {
+function loadTaskDetailsWithData(response) {
+    task = response.data.task
+    logIt(task)
+
+    //Fill basic fields:
     number.innerText = task.number
-    log(task)
     inputname.value = task.name
     spanname.innerText = task.name
     description.value = task.description
     type.options.selectedIndex = task.type
     urgency.value = task.urgency
+    link.value = task.link
+    state.innerText = task.statename
+    workname.value = task.work.name
+
+    //Deadline management
     if (task.deadline != null) {
         deadline.value = task.deadline.substr(0, task.deadline.indexOf(" "))    //remove H:i:s part
+    } else {
+        deadline.value = "" //set null
     }
+    //TODO: add H:m support
 
-    //Responsible and creator fullnames if set
+    //Responsible management if exists
     if (task.hasOwnProperty("responsible")) {
         responsible.value = buildFullNameWithUser(task.responsible)
         initials.innerText = task.responsible.initials
@@ -149,15 +163,12 @@ function loadTaskDetailsWithData(task) {
         initials.innerText = "?"
     }
 
+    //Display the creator in small text
     if (task.hasOwnProperty("creator")) {
         creator.innerText = "Tâche créé par " + buildFullNameWithUser(task.creator)
     } else {
         creator.innerText = ""
     }
-
-    link.value = task.link
-    state.innerText = task.statename
-    workname.value = task.work.name
 
     //Completion date if exists and if task is done
     if (task.completion_date != null && task.state == 3) {
@@ -168,7 +179,7 @@ function loadTaskDetailsWithData(task) {
 }
 
 //Just log text in the console
-function log(text) {
+function logIt(text) {
     console.log(text)
 }
 
@@ -183,7 +194,7 @@ function buildFullNameWithUser(user) {
 
 //Manage (display or hide) active task(s). If null all tasks will be unactived, else the task element will be active (with adding .activeTask css class)
 function manageActiveTasks(taskToActive) {
-    log("hide all tasks")
+    logIt("hide all tasks")
     if (taskToActive == null) {
         var els = document.getElementsByClassName("divTask");
         Array.prototype.forEach.call(els, function (onetask) {
@@ -196,20 +207,44 @@ function manageActiveTasks(taskToActive) {
 
 function createTask() {
     data = getArrayFromAFormFieldsWithName("divTaskCreate")
-    http = new XMLHttpRequest()
-    http.onreadystatechange = function () {
-        if (http.readyState == XMLHttpRequest.DONE && http.status == 200) {
-            //response = JSON.parse(http.responseText)
-            log(http.responseText)
-        }
-    }
-    http.open("POST", "?action=createTask")
-    http.setRequestHeader("Content-Type", "application/json")
-    http.send(JSON.stringify(Object.assign({}, data)))
-    log(JSON.stringify(Object.assign(data)))
+    sendRequest("POST", "?action=createTask", createTaskWhenCreated, data)
+
 }
 
 function tryCreateTask() {
     //TODO: check data in the form, display error message, receive ajax response, manage form, manage serial mode behavior and task DOM creation
     createTask()
+}
+
+function createTaskWhenCreated(response) {
+    //TODO: include condition to check status before and display error message
+    if (response.data != null) {
+        newtask = response.data.task
+        htmlTask = document.importNode(createElementFromHTML(document.querySelector("#templateTask").innerHTML), true)  //copy html content from the template
+
+        //Fill fields that divTask need:
+        htmlTask.querySelector(".number").innerHTML = newtask.number
+        htmlTask.querySelector(".name").innerHTML = newtask.name
+        htmlTask.id = "Task-" + newtask.id
+        htmlTask.setAttribute("data-id", newtask.id)
+        theTaskPlusBtnAside = document.getElementById("Work-" + newtask.work.id).querySelector(".leftcolumn .divTaskPlusButton")
+
+        //Add the html just before the plus button
+        theTaskPlusBtnAside.insertAdjacentElement('beforebegin', htmlTask);
+
+        //Manage window displaying
+        declareEventsForTasks() //redeclare event for tasks (for new tasks)
+        managedivRightPanel(true, 1)    //display details
+        loadTaskDetailsWithData(response)   //load data for details
+        manageActiveTasks(document.getElementById("Task-" + newtask.id))    //active new task created
+    }
+}
+
+//Source: Thanks to https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro
+function createElementFromHTML(htmlString) {
+    var div = document.createElement('div');
+    div.innerHTML = htmlString.trim();
+
+    // Change this to div.childNodes to support multiple top-level nodes
+    return div.firstChild;
 }

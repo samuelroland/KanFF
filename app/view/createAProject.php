@@ -14,7 +14,7 @@ $title = "Créer un projet"
         </div>
 
         <div class="col-lg-3 col-md-10">
-            <h4>Importance</h4>
+            <h4>Réalisé par</h4>
             <select name="group" id="group" class="form-control" required>
                 <?php foreach ($groups as $g) { ?>
                     <option value="<?= $g['id'] ?>"><?= $g['name'] ?></option>
@@ -23,13 +23,15 @@ $title = "Créer un projet"
         </div>
 
         <div class="col-lg-5 col-md-12 infotext">
-            Les projets sont réalisés par un ou plusieurs groupes. Vous devez choisir un premier groupe dont vous êtes membre pour créer un projet.
+            Les projets sont réalisés par un ou plusieurs groupes. Vous devez choisir un premier groupe dont vous êtes
+            membre pour créer un projet.
         </div>
     </div>
     <p id="pCounterName">0/50</p>
     <div class="divDescription row pt-4">
         <div class="col-lg-3 col-md-12"><h4>Description</h4></div>
-        <div class="col-12"><textarea class="form-control fullwidth textFieldToCheck" name="description" id="txtDescription" rows="2"
+        <div class="col-12"><textarea class="form-control fullwidth textFieldToCheck" name="description"
+                                      id="txtDescription" rows="2"
                                       maxlength="500" minlength="3" required></textarea>
         </div>
 
@@ -49,7 +51,7 @@ $title = "Créer un projet"
         <h4 class="col-lg-3 col-md-12">Début et fin prévus</h4>
         <div class="marginauto">
             <label for="start">Début:</label>
-            <input type="date" id="start" name="dateStart" required>
+            <input type="date" id="start" name="dateStart" value="<?= date("YYYY-MM-DD", strtotime("now")) ?>" required>
         </div>
         <div class="marginauto">
             <label for="end">Fin (facultatif):</label>
@@ -89,28 +91,30 @@ $title = "Créer un projet"
         <h4>Confidentialité</h4>
         <div class="col-lg-12 col-md-12">
             <input type="checkbox" id="chkRestrictAccess"
-                   name="restrict_access">
+                   name="restrict_access" checked>
             <label for="chkRestrictAccess">Le projet est visible par les personnes non-membres des groupes réalisant ce
                 projet</label>
         </div>
         <div class="col-lg-12 col-md-12">
             <input type="checkbox" id="chkRestrictAccess"
-                   name="restrict_access">
-            <label for="chkRestrictAccess">Le journal de bord est visible par les personnes non-membres des groupes réalisant ce projet</label>
+                   name="restrict_access" checked>
+            <label for="chkRestrictAccess">Le journal de bord est visible par les personnes non-membres des groupes
+                réalisant ce projet</label>
         </div>
     </div>
     <div class="divPassword row pt-4 col-lg-12">
         <div class="mr-3">
             <h4>Confirmation de l'action</h4>
-            <input class="form-control fullwidth smalltextinput" type="password" name="password" placeholder="Mot de passe" required>
+            <input class="form-control fullwidth smalltextinput" type="password" name="password"
+                   placeholder="Mot de passe" required>
         </div>
         <div class="box-verticalaligncenter">
-            Créer un groupe étant une action importante, nous avons besoin de
+            Créer un projet étant une action importante, nous avons besoin de
             votre confirmation pour valider l'action.<br>Pour ceci rentrer le mot de passe de votre compte.
         </div>
     </div>
     <div class="divBtnCreate pt-4">
-        <input type="submit" class="btn btn-primary" value="Créer le groupe">
+        <input type="submit" class="btn btn-primary" value="Créer le projet">
     </div>
 </form>
 <?php
