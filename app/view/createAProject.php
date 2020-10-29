@@ -51,11 +51,12 @@ $title = "Créer un projet"
         <h4 class="col-lg-3 col-md-12">Début et fin prévus</h4>
         <div class="marginauto">
             <label for="start">Début:</label>
-            <input type="date" id="start" name="dateStart" value="<?= date("YYYY-MM-DD", strtotime("now")) ?>" required>
+            <input type="date" id="start" name="dateStart" value="<?= date("Y-m-d") ?>" required>
         </div>
         <div class="marginauto">
             <label for="end">Fin (facultatif):</label>
-            <input class="marginauto" type="date" id="end" name="dateEnd">
+            <input class="marginauto" type="date" id="end" name="dateEnd" value="<?=date("Y-m-d", strtotime("tomorrow")) ?>">
+            <input type="hidden" value="0" name="datechanged" id="datechanged">
         </div>
 
 
