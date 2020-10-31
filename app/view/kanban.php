@@ -83,11 +83,11 @@ ob_start();
             <?php printDivTaskCreate($project); ?>
         </div>
     </div>
-    <!--<div class="jsTempMsg">
-        <?= printAnIcon("point.png", "", "question mark icon", "icon-task", false) ?>
-        <span class="jsTempMsgText mr-2">Tâche créée avec succès !</span>
-        <?= printAnIcon("blackcross.png", "", "question mark icon", "icon- m-2", false) ?>
-    </div>-->
+    <div class="jsTempMsg flexdiv">
+        <div class="box-verticalaligncenter"><?= printAnIcon("checkmark.png", "", "question mark icon", "icon-task m-1", false) ?></div>
+        <div class="jsTempMsgText flex-1 ml-1 mr-1 box-verticalaligncenter"><?php echo createElementWithFixedLines("", 3, "msgText", true); ?></div>
+        <?= printAnIcon("blackcross.png", "", "question mark icon", "icon-tempmsg m-1", false) ?>
+    </div>
 <?php
 displaydebug($project);
 $contenttype = "full";

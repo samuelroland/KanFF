@@ -236,6 +236,9 @@ function sendFeedback($data)
 {
     $versions = getVersionsApp();
     require ".const.php";
+    if ($feedbackForm != true) {
+        die("Feedback form is disabled");
+    }
     if (isEmailFormat($emailSourceForFeedback) && isEmailFormat($emailForFeedback)) {
 
         if (isAtLeastEqual("", [$data['subject'], $data['content']]) == false && chkLength($data['content'], 6000) && chkLength($data['subject'], 100)) {
@@ -256,7 +259,7 @@ function sendFeedback($data)
                 'X-Mailer' => 'PHP/' . phpversion()
             );
 
-            $message = $message ."\n\nJSON:\n". json_encode(array_merge($data, $technicalInformations));
+            $message = $message . "\n\nJSON:\n" . json_encode(array_merge($data, $technicalInformations));
             $result = mail($to, $subject, $message, $headers);
 
             if (!$result) {

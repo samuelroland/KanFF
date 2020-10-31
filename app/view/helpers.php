@@ -405,9 +405,9 @@ function createToolTip($innerText, $tooltipText, $link = false, $type = "top")
     return $html;
 }
 
-function createElementWithFixedLines($text, $nbLines, $cssClassesInAddition = "")
+function createElementWithFixedLines($text, $nbLines, $cssClassesInAddition = "", $withTitle = false)
 {
-    $html = "<span class='txtFixedLines $cssClassesInAddition' style='-webkit-line-clamp: $nbLines;'>$text</span>";
+    $html = "<span class='txtFixedLines $cssClassesInAddition' style='-webkit-line-clamp: $nbLines;' " . (($withTitle == true) ? "title='" . $text . "'" : "") . ">$text</span>";
     return $html;
 }
 
