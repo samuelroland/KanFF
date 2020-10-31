@@ -177,7 +177,7 @@ function deleteATask($data)
 
     if ($hasPermissionToDelete) {
         deleteTasks($data['id']);
-        $response = getApiResponse(API_SUCCESS, ["reference" => ["id" => $data['id']]]);
+        $response = getApiResponse(API_SUCCESS, ["reference" => ["id" => $data['id']], "message" => "Tâche " . $task['number'] . " supprimée avec succès."]);
     } else {
         $response = getApiResponse(API_FAIL, getApiDataContentError("no permission", 155));
         //TODO: error about invalid data (and export message to flashmessages.json)

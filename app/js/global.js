@@ -179,9 +179,13 @@ function displayResponseMsg(val) {
         msg = val
     }
 
-    //TODO: create html box at right top to display the message
-    logIt("message right top displayed")
-    logIt(msg)
+    htmlMsg = document.importNode(createElementFromHTML(document.querySelector("#templateMsg").innerHTML), true)  //copy html content from the template
+
+    //Fill text:
+    htmlMsg.querySelector(".msgText").innerHTML = msg
+
+    //display the message
+    divTempMessages.appendChild(htmlMsg)
 }
 
 function checkAllValuesAreNotEmpty(values) {
@@ -197,9 +201,19 @@ function manageResponseStatus(response) {
     status = response.status
     switch (status) {
         case "success":
+            if (response.data.hasOwnProperty("message")) {
+                displayResponseMsg(response.data.message)
+            }
             return true
-            break;
         case "failed":
-
+            if (response.data.hasOwnProperty("error")) {
+                displayResponseMsg(response.data.number + ": " + response.data.error)
+            }
+            return false
+        case "error":   //TODO with specs
+            if (response.hasOwnProperty("message")) {
+                displayResponseMsg(response.message)
+            }
+            return false
     }
 }

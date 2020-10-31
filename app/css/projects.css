@@ -187,17 +187,13 @@
 }
 
 .jsTempMsg {
-    z-index: 3000;
-    position: fixed;
-    top: 10px;
-    right: 10px;
+    margin-bottom: 5px;
     background-color: #e8edff;
     border-radius: 4px;
     border: 1px solid black;
-    box-shadow: 2px 1px black;
+    box-shadow: 1px 2px 2px black;
     padding: 2px;
-    max-width: 350px;
-    min-width: 200px;
+    width: 300px;
     max-height: 60px;
     word-break: break-all;
 }
