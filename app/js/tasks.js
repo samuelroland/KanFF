@@ -236,7 +236,7 @@ function createTask() {
 //try to update the task in the form details
 function tryUpdateTask() {
     if (checkAllValuesAreNotEmpty([inputname.value, urgency.value, type.value])) {
-
+        updateTask()
     }
 }
 

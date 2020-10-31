@@ -78,6 +78,12 @@ function invertHiddenState(parent, classNameOfChild) {
     obj.hidden = !obj.hidden
 }
 
+//Invert hidden state of an element (overload function)
+function invertHiddenState(obj) {
+    obj.hidden = !obj.hidden
+}
+
+
 //Invert the inner text of an element (if one is set, set the other one)
 function invertInnerText(obj, firsttext, secondtext) {
     if (obj.innerText === firsttext) {

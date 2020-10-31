@@ -164,13 +164,13 @@ function displayResponseMsg(val) {
     }
 
     //TODO: create html box at right top to display the message
-logIt("message right top displayed")
+    logIt("message right top displayed")
     logIt(msg)
 }
 
 function checkAllValuesAreNotEmpty(values) {
     Array.prototype.forEach.call(values, function (val) {
-        if (val == null || val == null) {
+        if (val == null || val == undefined) {
             return false
         }
     })
