@@ -110,7 +110,18 @@ li a:hover {
 
 body {
     font-family: Verdana, Sans-serif;
-    background-color: #e2e7f0;
+    background-color: #e5f9ff;
+
+    /*Historic:
+        First:
+        background-color: #e2e7f0;
+        2nd:
+        background-color: #e8edff;
+
+        try
+        #e5f9ff
+        #e8f8ff tiré du bleu logo
+    */
     overflow-x: hidden
 }
 
