@@ -429,4 +429,9 @@ function printAnIcon($iconname, $title, $alt, $defaultClasses = "icon-small ml-2
 
 //tasks too or identical to works.state ?
 
+function printPageWIPTextInfo()
+{
+    echo "<p class='text-danger'><strong>Page en cours de construction.</strong></p>";
+}
+
 ?>

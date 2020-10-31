@@ -5,6 +5,7 @@ $isAdmin = checkAdmin();
 
 ?>
     <h1><?= $title ?></h1>
+<?php printPageWIPTextInfo(); ?>
     <div class="headView flexdiv">
         <div class="flex-4">
             <button data-href="?action=members&option=1"

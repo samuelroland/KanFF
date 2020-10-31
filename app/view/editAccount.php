@@ -27,6 +27,7 @@ ob_start();
             pouvez gérer votre compte. Vous pouvez modifier vos informations pour la plupart et aussi archiver ou
             supprimer
             votre compte (attention supprimer est une action irréversible!)</p>
+        <?php printPageWIPTextInfo(); ?>
         <div class="form-group">
             <form class="" action="?action=signin" method="post">
                 <h5 class="pt-3">Informations principales:</h5>

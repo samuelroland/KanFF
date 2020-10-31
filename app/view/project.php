@@ -16,7 +16,7 @@ ob_start();
             </button>
         </div>
     </div>
-    Page en construction.
+<?php printPageWIPTextInfo(); ?>
     <p>Voici les informations du projet <?= $project['name'] ?>, les groupes réalisant ce projet, le journal de bord et
         la gestion des travaux.</p>
 <?php

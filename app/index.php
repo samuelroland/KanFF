@@ -107,6 +107,9 @@ if (!isset($_SESSION['user']['id'])) {
             case "groups":
                 groups();
                 break;
+            case "group":
+                groupDetails($_GET['id']);
+                break;
             case "members":
                 $option = $_GET['option'];
                 if ($isAdmin == false && ($option == 5 || $option == 6)) {

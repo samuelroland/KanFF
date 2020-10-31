@@ -7,6 +7,7 @@ echo $result;
 
 ?>
     <h1><?= $title ?></h1>
+<?php printPageWIPTextInfo(); ?>
     <div class="headView flexdiv">
         <div class="flex-1">
             <button class="btn active">Tous</button>
@@ -50,8 +51,8 @@ echo $result;
                             </div>
                         <?php } else { ?>
                             <div class="box-verticalaligncenter">
-                                    <img src="view/medias/icons/email.png" alt="email logo" class="icon-simple">
-                                    <span><em>Pas d'email</em></span>
+                                <img src="view/medias/icons/email.png" alt="email logo" class="icon-simple">
+                                <span><em>Pas d'email</em></span>
                             </div>
                             <?php
                         }

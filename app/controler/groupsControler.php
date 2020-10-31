@@ -68,4 +68,11 @@ function createAGroup($group)
     }
 }
 
+function groupDetails($id)
+{
+    $group = getOneGroup($id);
+
+    require_once "view/group.php";
+}
+
 ?>

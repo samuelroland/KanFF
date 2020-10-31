@@ -3,6 +3,7 @@ ob_start();
 $title = "Créer un groupe"
 ?>
     <h1><?= $title ?></h1>
+<?php printPageWIPTextInfo(); ?>
     <p>Cette page vous permet de créer un nouveau groupe sur cette instance. Vous rentrez ici les informations de base
         pour un groupe qui sont modifiables par la suite, et les autres informations pourront être rentrées dans les
         paramètres une fois le groupe créé.</p>
