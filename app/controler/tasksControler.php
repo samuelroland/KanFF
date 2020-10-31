@@ -47,6 +47,13 @@ function getTask($id)
     //TODO: check permissions (if the project is visible) before send the task
     //TODO: return error or empty if task is not found
     $task = getOneTask($id);
+    $task = createTaskComplementFields($task);
+    echo json_encode(getApiResponse(API_SUCCESS, ['task' => $task]));
+}
+
+//create complements fields of a task (creator, repsonsible, completion in simpletime, work, state in text)
+function createTaskComplementFields($task)
+{
     $task['statename'] = convertTaskState($task['state'], true);
     $task['work'] = getOneWork($task['work_id']);
     if ($task['responsible_id'] != null) {
@@ -58,8 +65,7 @@ function getTask($id)
     if ($task['completion_date'] != null) {
         $task['completion'] = DTToHumanDate($task['completion_date'], "simpletime");
     }
-
-    echo json_encode(getApiResponse(API_SUCCESS, ['task' => $task]));
+    return $task;
 }
 
 //Ajax call to create one task
@@ -95,7 +101,12 @@ function createATask($data)
         //Then create the task:
         $id = createTask($task);
 
-        getTask($id);   //return the task like if it was asked with ?action=getTask
+        $newtask = getOneTask($id);
+        $newtask = createTaskComplementFields($newtask);
+
+        $t = getApiResponse(API_SUCCESS, ['task' => $newtask, 'message' => "Tâche " . $task['number'] . " créée avec succès."]);
+        echo json_encode($t);
+        die();
     } else {
         if ($hasPermissionToCreate === false) {
             //TODO: return error message in JSON: work not found (or "you don't have permissions" ??)
@@ -104,8 +115,9 @@ function createATask($data)
             //TODO: return error message in JSON: invalid data
             $response = getApiResponse(API_FAIL, ["error" => getFlashMessageById(10), "code" => 10, "position" => "top"]);
         }
-        echo json_encode($response);
+
     }
+    echo json_encode($response);
 }
 
 //Ajax call to update one task

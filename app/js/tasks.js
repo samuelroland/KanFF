@@ -266,6 +266,7 @@ function tryCreateTask() {
 }
 
 function createTaskWhenCreated(response) {
+    manageResponseStatus(response)
     //TODO: include condition to check status before and display error message
     if (response.data != null) {
         newtask = response.data.task
