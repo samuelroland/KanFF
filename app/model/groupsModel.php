@@ -44,6 +44,14 @@ ORDER BY `join`.start DESC";
     return Query($query, $params, true);
 }
 
+//get all groups archived (state is archived)
+function getAllGroupsArchived()
+{
+    $query = "SELECT * from `groups`
+where groups.state = ".GROUP_STATE_ARCHIVED.";";
+    return Query($query, $params, true);
+}
+
 //Get all members for one group ordred by accepted status
 function getUsersFromAGroup($idGroup)
 {

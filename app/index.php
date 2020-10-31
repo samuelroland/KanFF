@@ -105,7 +105,11 @@ if (!isset($_SESSION['user']['id'])) {
                 editAccount($_POST);
                 break;
             case "groups":
-                groups();
+                $option = $_GET['option'];
+                if ($option == null || isAtLeastEqual($option, [1, 2, 3]) == false) {
+                    $option = 1;
+                }
+                groups($option);
                 break;
             case "group":
                 groupDetails($_GET['id']);

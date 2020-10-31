@@ -9,9 +9,18 @@
 require_once "model/groupsModel.php";
 
 //display the page groups
-function groups()
+function groups($option)
 {
-    $groups = getAllGroups();
+    switch ($option){
+        case 1:
+            $groups = getAllGroups();
+            break;
+        case 2:
+            $groups = getAllGroupsByUser($_SESSION['user']['id']);
+            break;
+        case 3:
+            $groups = getAllGroupsArchived();
+    }
     $fieldsToConvert = ["name", "description", "context", "status"];
     $groups = specialCharsConvertFromAnArray($groups, $fieldsToConvert);
     displaydebug($groups);
