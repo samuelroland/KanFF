@@ -234,26 +234,39 @@ function isEmailFormat($text)
 //Send feedback with data sent with Ajax
 function sendFeedback($data)
 {
+    $versions = getVersionsApp();
     require ".const.php";
     if (isEmailFormat($emailSourceForFeedback) && isEmailFormat($emailForFeedback)) {
 
-        if (isAtLeastEqual("", [$data['subject'], $data['content']]) == false) {
+        if (isAtLeastEqual("", [$data['subject'], $data['content']]) == false && chkLength($data['content'], 6000) && chkLength($data['subject'], 100)) {
             $to = $emailForFeedback;
-            $subject = "F: " . $data['subject'];
-            $message = htmlspecialchars($data['content']);
+            $subject = "Retour KanFF: " . time();
+            $cookies = $_COOKIE;
+            unset($cookies['PHPSESSID']);   //remove cookie for the session
+            ob_start();
+            print_r($cookies);
+            $printCookies = ob_get_clean();
+            $technicalInformations = ["Sent at: " . date("Y-m-d H:i:s", time()), $_SERVER['HTTP_USER_AGENT'], $_SERVER['REQUEST_URI'], $versions[count($versions) - 1]['version'], $printCookies];
+            $intro = "Technical informations:\n" . implode("
+            ", $technicalInformations);
+            $message = "Subject: \n" . $data['subject'] . "\n\nContent:\n" . $data['content'];
+            $message = $intro . "\n\n---------------------------------------------------------------------\n" . $message;
             $headers = array(
                 'From' => $emailSourceForFeedback,
                 'X-Mailer' => 'PHP/' . phpversion()
             );
 
+            $message = $message ."\n\nJSON:\n". json_encode(array_merge($data, $technicalInformations));
             $result = mail($to, $subject, $message, $headers);
 
             if (!$result) {
                 $errorMessage = error_get_last()['message'];
             }
-            var_dump($errorMessage);
-            var_dump($result);
+            displaydebug($errorMessage);
+            displaydebug($result);
             //TODO: return success message
+            $response = getApiResponse(API_SUCCESS, ['message' => "Feedback envoyé."]);
+            echo json_encode($response);
         } else {
             //TODO: error invalid data.
         }

@@ -607,6 +607,11 @@ hr {
     padding: 5px;
 }
 
+#txtFeedbackSubject {
+    border-radius: 3px;
+    padding: 5px;
+}
+
 .thinblackborder {
     border: 1px solid black;
 }

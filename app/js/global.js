@@ -32,12 +32,28 @@ $(document).ready(function () {
         document.getElementById("btnSendFeedback").addEventListener("click", function (sender) {
             if (txtFeedback.value != "") {
                 //TODO: send the ajax query
-
+                data = getArrayFromAFormFieldsWithName("frmFeedback")
+                sendRequest("POST", "?action=sendFeedback", manageResponseOfSendFeedback, data)
                 //TODO: if success or error, display message
             }
         })
     }
+    $("#txtFeedbackInfos").on("click", function () { //when click on infos, display or hide detailed informations
+        invertHiddenState(divFeedbackInfos)
+    })
 })
+
+//manage the response of the feedback sent
+function manageResponseOfSendFeedback(response) {
+    manageResponseStatus(response)
+    inpSub = document.querySelector("input[name='subject']")
+    inpContent = document.querySelector("textarea[name='content']")
+
+    if (response.status == "success") {
+        inpSub.value = ""
+        inpContent.value = ""
+    }
+}
 
 //Reload the counter, for input text and textarea with class .textFieldToCheck and a associated counter
 function checkTextFieldToCheck() {
