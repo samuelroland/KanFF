@@ -80,7 +80,7 @@ $isAdmin = checkAdmin();
                     <td><?= $member['initials'] ?></td>
                     <td><?= $member['username'] ?></td>
                     <td><?= $member['firstname'] . " <strong>" . $member['lastname'] . "</strong>" ?></td>
-                    <td><?= "<em>" . substrText($member['status'], 77) . "</em>" ?></td>
+                    <td><?= "<em>" . createElementWithFixedLines(substrText($member['status'], 150), 1) . "</em>" ?></td>
                     <td><?= DTToHumanDate($member['inscription'], "simpleday") ?></td>
                     <?php //State account cell
                     if ($isAdmin) {
