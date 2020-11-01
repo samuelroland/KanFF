@@ -184,8 +184,16 @@ function displayResponseMsg(val) {
     //Fill text:
     htmlMsg.querySelector(".msgText").innerHTML = msg
 
+
+    setTimeout(function () {
+        divTempMessages.firstChild.classList.replace("visible", "hidden")
+        setTimeout(function(){divTempMessages.firstChild.remove()}, 1500)
+    }, 3000)   //remove the first child of the list of temp messages in 4.5 seconds. At this time the first message will be the current htmlMsg (because precedent msg will removed just before).
+
     //display the message
+    htmlMsg.classList.add("hidden")
     divTempMessages.appendChild(htmlMsg)
+    htmlMsg.classList.replace("hidden", "visible")
 }
 
 function checkAllValuesAreNotEmpty(values) {
