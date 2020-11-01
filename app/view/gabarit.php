@@ -268,6 +268,19 @@ if ($feedbackForm == true && isEmailFormat($emailSourceForFeedback) && isEmailFo
         </form>
     </div>
 <?php } ?>
+<!-- templates -->
+<div id="templates">
+    <template id="templateMsg">
+        <div class="jsTempMsg flexdiv">
+            <div class="box-verticalaligncenter checkmark"><?= printAnIcon("checkmark.png", "", "question mark icon", "icon-task m-1", false) ?></div>
+            <div class="box-verticalaligncenter redcross" hidden><?= printAnIcon("redcross.png", "", "question mark icon", "icon-task m-1", false) ?></div>
+            <div class="jsTempMsgText flex-1 ml-1 mr-1 box-verticalaligncenter"><?php echo createElementWithFixedLines("", 3, "msgText", true); ?></div>
+            <?= printAnIcon("blackcross.png", "", "question mark icon", "icon-tempmsg m-1", false) ?>
+        </div>
+    </template>
+    <template id="templateTask"><?php printATask([], true); ?></template>
+</div>
+
 <!-- JS messages at the top right. Invisible if empty. -->
 <div id="divTempMessages"></div>
 </body>
