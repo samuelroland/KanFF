@@ -434,4 +434,14 @@ function printPageWIPTextInfo()
     echo "<p class='text-danger'><strong>Page en cours de construction.</strong></p>";
 }
 
+//build fullname of the user with firstname and lastname (and a space between)
+function buildFullNameOfUser($user)
+{
+    if (isAtLeastEqual("", [$user['firstname'], $user['lastname']])) {
+        return $user['firstname'] . " " . $user['lastname'];
+    } else {
+        return false;
+    }
+}
+
 ?>

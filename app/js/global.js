@@ -178,7 +178,7 @@ function displayResponseMsg(val, checkmark = true, color = "black") {
     } else {
         msg = val
     }
-
+    logIt(val)
     htmlMsg = document.importNode(createElementFromHTML(document.querySelector("#templateMsg").innerHTML), true)  //copy html content from the template
 
     //Fill text:

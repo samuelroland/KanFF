@@ -268,6 +268,9 @@ if ($feedbackForm == true && isEmailFormat($emailSourceForFeedback) && isEmailFo
         </form>
     </div>
 <?php } ?>
+<!-- JS messages at the top right. Invisible if empty. -->
+<div id="divTempMessages"></div>
+
 <!-- templates -->
 <div id="templates">
     <template id="templateMsg">
@@ -281,7 +284,7 @@ if ($feedbackForm == true && isEmailFormat($emailSourceForFeedback) && isEmailFo
     <template id="templateTask"><?php printATask([], true); ?></template>
 </div>
 
-<!-- JS messages at the top right. Invisible if empty. -->
-<div id="divTempMessages"></div>
+
+
 </body>
 </html>

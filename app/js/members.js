@@ -22,22 +22,43 @@ function manageEditMode() {
     $(".sltAccountState").attr("disabled", !document.querySelector(".sltAccountState").disabled)
 }
 
-//Onclick on a .sltAccountState, send request (ajax call) to change account
+//onchange on a .sltAccountState, send request (ajax call) to change account state
 function changeAccountState(event) {
     slt = event.target
-    if (checkAllValuesAreNotEmpty([slt.value])) {
-        sendRequest("POST", "?action=updateAccountState", manageAccountStateResponse, [{'state': slt.value}])
+    iduser = slt.getAttribute("data-user")
+    pwd = inpPassword.value
+
+    if (pwd == "") {  //if there is no password given
+        slt.value = slt.getAttribute("data-startstate") //set at the current state
+        inpPassword.focus() //focus the password input
+        displayResponseMsg("Mot de passe non rempli", false)    //display error msg
+    } else {    //else the ajax call can be sent
+        if (checkAllValuesAreNotEmpty([slt.value, pwd])) {
+            sendRequest("POST", "?action=updateAccountState", manageAccountStateResponse, {
+                'id': iduser,
+                'state': slt.value,
+                'password': pwd
+            })
+        }
     }
+
 }
 
 //manage account state response
 function manageAccountStateResponse(response) {
-    //TODO: if there is no response, create artificial response with internal error (? not sure, and about internet connexion?)
-    manageResponseStatus(response)
+    isSuccess = manageResponseStatus(response)
     //TODO: display success message or reselect the first value:
-    user = response.data.user
-    if (response.status == "fail") {
+    if (isSuccess == true) {
+        user = response.data.user
         lastSlt = document.querySelector("select[data-user='" + user.id + "']")
-        lastSlt.value = user.state
+        lastSlt.disabled = true
     }
+    if (isSuccess == false) {
+        if (response.data.hasOwnProperty("user")) {
+            user = response.data.user
+            lastSlt = document.querySelector("select[data-user='" + user.id + "']")
+            lastSlt.value = user.state
+        }
+    }
+
 }
