@@ -86,7 +86,9 @@ $isAdmin = checkAdmin();
                     if ($isAdmin) {
                         echo "<td class='box-verticalaligncenter'><select name='' id='' class='sltAccountState' data-user='" . $member['id'] . "' disabled data-startstate='" . $member['state'] . "'>";
                         foreach (USER_LIST_STATE as $onestate) {
-                            echo "<option value='$onestate'" . (($member['state'] == $onestate) ? "selected" : '') . ">" . convertUserState($onestate, true) . "</option>";
+                            if (canChangeUserState($member['state'], $onestate)) {
+                                echo "<option value='$onestate'" . (($member['state'] == $onestate) ? "selected" : '') . ">" . convertUserState($onestate, true) . "</option>";
+                            }
                         }
                         echo "</select></td>";
                     }

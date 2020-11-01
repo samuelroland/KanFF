@@ -284,4 +284,21 @@ function setHTTPHeaderForAPIResponse()
     header("Content-Type: application/json");
 }
 
+//get bool value to know if an admin can change the state of a user from $current to $next (because change approved by non-approved is not permitted for example)
+function canChangeUserState($current, $next)
+{
+    if ($next == $current) {
+        return true;
+    } else if ($current == USER_STATE_UNAPPROVED && $next == USER_STATE_APPROVED) {
+        return true;
+    } else if ($current == USER_STATE_APPROVED && $next != USER_STATE_UNAPPROVED) {
+        return true;
+    } else if (isAtLeastEqual($current, [USER_STATE_ARCHIVED, USER_STATE_BANNED, USER_STATE_APPROVED]) && isAtLeastEqual($next, [USER_STATE_ARCHIVED, USER_STATE_BANNED, USER_STATE_APPROVED])) {
+        return true;
+    } else if ($current == USER_STATE_ADMIN && $next == USER_STATE_APPROVED) {
+        return true;
+    }
+    return false;
+}
+
 ?>
