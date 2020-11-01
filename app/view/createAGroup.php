@@ -88,7 +88,7 @@ $title = "Créer un groupe"
             </div>
         </div>
         <div class="divBtnCreate pt-4">
-            <input type="submit" class="btn btn-primary" value="Créer le groupe">
+            <input type="submit" class="btn btn-primary" value="Créer le groupe" disabled>créer un groupe pas encore possible
         </div>
     </form>
 <?php

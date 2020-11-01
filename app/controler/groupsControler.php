@@ -56,9 +56,9 @@ function createAGroup($group)
 
                 createGroup($group);
                 flshmsg(16);    //"group well created" msg
-                groups();   //back to groups page
+                groups(1);   //back to groups page
             } else {
-                flshmsg(15);    //password error for action
+                flshmsg(12);    //password error for action
                 $dataerror = false; //unset error to protect the flshmsg of password error
                 require_once "view/createAGroup.php";
             }
