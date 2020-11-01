@@ -174,7 +174,7 @@ function deleteATask($data)
 {
     displaydebug($data);
     $task = getOneTask($data['id']);
-    $hasPermissionToUpdate = null; //default value
+    $hasPermissionToDelete = null; //default value
     if (isset($data) && empty($task) == false) {
         $isInsideTheProject = isAUserInsideAProject(getProjectIdByTask($data['id']), $_SESSION['user']['id']);
         $work = getOneWork($task['work_id']);

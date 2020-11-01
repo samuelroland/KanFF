@@ -191,11 +191,11 @@
     background-color: #e8edff;
     border-radius: 4px;
     border: 1px solid black;
-    box-shadow: 1px 2px 2px black;
+    box-shadow: 1px 2px 2px #0000006e;
     padding: 2px;
     width: 300px;
     max-height: 60px;
-    word-break: break-all;
+    word-break: break-word;
     transition: visibility 2s linear 0.7s, opacity 0.7s ease-in-out;
 }
 

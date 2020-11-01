@@ -54,7 +54,8 @@ ob_start();
                     <template id="templateTask"><?php printATask([], true); ?></template>
                     <template id="templateMsg">
                         <div class="jsTempMsg flexdiv">
-                            <div class="box-verticalaligncenter"><?= printAnIcon("checkmark.png", "", "question mark icon", "icon-task m-1", false) ?></div>
+                            <div class="box-verticalaligncenter checkmark"><?= printAnIcon("checkmark.png", "", "question mark icon", "icon-task m-1", false) ?></div>
+                            <div class="box-verticalaligncenter redcross" hidden><?= printAnIcon("redcross.png", "", "question mark icon", "icon-task m-1", false) ?></div>
                             <div class="jsTempMsgText flex-1 ml-1 mr-1 box-verticalaligncenter"><?php echo createElementWithFixedLines("", 3, "msgText", true); ?></div>
                             <?= printAnIcon("blackcross.png", "", "question mark icon", "icon-tempmsg m-1", false) ?>
                         </div>

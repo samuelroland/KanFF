@@ -171,7 +171,7 @@ function sendRequest(verb, url, callback, data) {
 }
 
 //display a temporary message on topright
-function displayResponseMsg(val) {
+function displayResponseMsg(val, checkmark = true, color = "black") {
     //Take the message depending if started directly as a callback of an Ajax call (response sent in parameter), or started by an other function (message sent in parameter)
     if (val.hasOwnProperty("data")) {
         msg = val.data.message
@@ -183,11 +183,21 @@ function displayResponseMsg(val) {
 
     //Fill text:
     htmlMsg.querySelector(".msgText").innerHTML = msg
+    htmlMsg.querySelector(".msgText").style.color = color
+    if (checkmark === false) {
+        checkMark = htmlMsg.querySelector(".checkmark")
+        redCross = htmlMsg.querySelector(".redcross")
+
+        checkMark.hidden = true
+        redCross.hidden = false
+    }
 
 
     setTimeout(function () {
         divTempMessages.firstChild.classList.replace("visible", "hidden")
-        setTimeout(function(){divTempMessages.firstChild.remove()}, 1500)
+        setTimeout(function () {
+            divTempMessages.firstChild.remove()
+        }, 1500)
     }, 3000)   //remove the first child of the list of temp messages in 4.5 seconds. At this time the first message will be the current htmlMsg (because precedent msg will removed just before).
 
     //display the message
@@ -205,23 +215,32 @@ function checkAllValuesAreNotEmpty(values) {
     return true
 }
 
+//manage the response status
 function manageResponseStatus(response) {
     status = response.status
     switch (status) {
         case "success":
-            if (response.data.hasOwnProperty("message")) {
+            if (response.data.hasOwnProperty("message")) {  //if contain a message (a success message) display it
                 displayResponseMsg(response.data.message)
             }
-            return true
-        case "failed":
-            if (response.data.hasOwnProperty("error")) {
-                displayResponseMsg(response.data.number + ": " + response.data.error)
+            isSuccess = true
+            break;
+        case "fail":
+            if (response.data.hasOwnProperty("error")) {    //failed queries must contain error index
+                displayResponseMsg("Erreur " + response.data.code + ": " + response.data.error, false)
+            } else {
+                displayResponseMsg("Erreur indéfinie")
             }
-            return false
+            isSuccess = false
+            break
         case "error":   //TODO with specs
             if (response.hasOwnProperty("message")) {
-                displayResponseMsg(response.message)
+                displayResponseMsg(response.message, false, "red")
             }
-            return false
+            isSuccess = false
+            break;
+        default:
+            displayResponseMsg("Unknown status '" + response.status + "' of the response")
     }
+    return isSuccess
 }

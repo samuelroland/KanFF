@@ -32,10 +32,11 @@ function declareEventsForTasks() {
     })
     $(".optTaskDelete").on("click", function (event) {
         opt = event.target
+        event.stopPropagation()
         opt = getRealParentHavingId(opt)
         logIt(opt)
         deleteTask(opt.getAttribute("data-id"))
-        event.stopPropagation()
+
     })
 
 }
@@ -251,7 +252,8 @@ function deleteTask(id) {
 }
 
 function manageTaskDeleteResponse(response) {
-    if (manageResponseStatus(response)) {
+    isSuccess = manageResponseStatus(response)
+    if (isSuccess) {
         id = response.data.reference.id
         document.getElementById("Task-" + id).remove()
         managedivRightPanel(false)

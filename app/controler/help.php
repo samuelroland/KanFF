@@ -267,15 +267,15 @@ function sendFeedback($data)
             }
             displaydebug($errorMessage);
             displaydebug($result);
-            //TODO: return success message
+
             $response = getApiResponse(API_SUCCESS, ['message' => "Feedback envoyé."]);
-            echo json_encode($response);
         } else {
-            //TODO: error invalid data.
+            $response = getApiResponse(API_FAIL, getApiDataContentError("Données invalides. Echec d'envoi du feedback.", 152));
         }
     } else {
-        //TODO: error bad config in the instance. Contact admin.
+        $response = getApiResponse(API_ERROR, null, "Mauvaise configuration côté serveur pour l'envoi de feedback. Contacter l'admin de l'instance.");
     }
+    echo json_encode($response);
 }
 
 //Set the headers of the HTTP request for API response (from an Ajax call):
