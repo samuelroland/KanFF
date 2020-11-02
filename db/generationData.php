@@ -15,6 +15,7 @@ function getPDO()
     return new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname, $user, $pass);
 }
 
+define("GLOBAL_LOREM", file_get_contents("http://loripsum.net/api/short/5/long/plaintext"));
 require_once "../app/view/helpers.php";
 require_once "../app/controler/help.php";
 
@@ -118,7 +119,8 @@ function getAllItems($tablename)
 
 function getLoremIpsum($length = 100)
 {
-    return substr(file_get_contents("http://loripsum.net/api/short/1/long/plaintext"), 0, $length - 2);
+    $lorem = constant("GLOBAL_LOREM");
+    return substr($lorem, strpos($lorem, " ", rand(0, strpos($lorem, " ", strlen($lorem) - $length - 30))), $length - 2);
 }
 
 /// ----------------------------
