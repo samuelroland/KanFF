@@ -494,25 +494,28 @@ function dataProjects()
         $project['end'] = getRandomDateFormated(strtotime($project['start']));  //random date after start
 
         //Generate state:
-        $state = PROJECT_STATE_ACTIVEWORK;    //default state is active work
-        if (rand(1, 15) == 1) {
-            $state = PROJECT_STATE_UNDERREFLECTION;
-        } else if (rand(1, 6) == 1) {
-            $state = PROJECT_STATE_DONE;
-        } else if (rand(1, 5) == 1) {
-            $state = PROJECT_STATE_SEMIACTIVEWORK;
-        } else if (rand(1, 6) == 1) {
-            $state = PROJECT_STATE_ONBREAK;
-        } else if (rand(1, 7) == 1) {
-            $state = PROJECT_STATE_REPORTED;
-        } else if (rand(1, 8) == 1) {
-            $state = PROJECT_STATE_ABANDONNED;
-        } else if (rand(1, 9) == 1) {
-            $state = PROJECT_STATE_CANCELLED;
-        } else if (rand(1, 10) == 1) {
-            $state = PROJECT_STATE_UNDERPLANNING;
+        if (isset($ressource['state']) == false) {
+            $state = PROJECT_STATE_ACTIVEWORK;    //default state is active work
+            if (rand(1, 15) == 1) {
+                $state = PROJECT_STATE_UNDERREFLECTION;
+            } else if (rand(1, 6) == 1) {
+                $state = PROJECT_STATE_DONE;
+            } else if (rand(1, 5) == 1) {
+                $state = PROJECT_STATE_SEMIACTIVEWORK;
+            } else if (rand(1, 6) == 1) {
+                $state = PROJECT_STATE_ONBREAK;
+            } else if (rand(1, 7) == 1) {
+                $state = PROJECT_STATE_REPORTED;
+            } else if (rand(1, 8) == 1) {
+                $state = PROJECT_STATE_ABANDONNED;
+            } else if (rand(1, 9) == 1) {
+                $state = PROJECT_STATE_CANCELLED;
+            } else if (rand(1, 10) == 1) {
+                $state = PROJECT_STATE_UNDERPLANNING;
+            }
+            $project['state'] = $state;
         }
-        $project['state'] = $state;
+
 
         //Generate logbook_content:
         $project['logbook_content'] = "Contient les décisions importantes, rencontres formelles, changements importants et publications de nouvelles version de document.
@@ -526,13 +529,14 @@ Important, signifie que ce qui est décrit dans l'enregistrement, a un impact su
         }
 
         //Generate archived:
-        $project['archived'] = 0;
-        if ($state == PROJECT_STATE_CANCELLED || $state == PROJECT_STATE_ABANDONNED || $state == PROJECT_STATE_DONE) {
-            if (rand(1, 2)) {   //project can be finished but not yet archived
-                $project['archived'] = 1;
+        if (isset($ressource['archived']) == false) {
+            $project['archived'] = 0;
+            if ($state == PROJECT_STATE_CANCELLED || $state == PROJECT_STATE_ABANDONNED || $state == PROJECT_STATE_DONE) {
+                if (rand(1, 2)) {   //project can be finished but not yet archived
+                    $project['archived'] = 1;
+                }
             }
         }
-
         //Generate repsonsible_id
         $project['responsible_id'] = null;
         if (rand(1, 3) == 1) {
@@ -542,7 +546,7 @@ Important, signifie que ce qui est décrit dans l'enregistrement, a un impact su
         $project['id'] = $id;
         $projects[] = $project;
     }
-    print_r($project);
+    print_r($projects);
     importTableData("projects", $projects);
     printAllChoosenFields($projects, "manager_id");
 }
@@ -828,7 +832,7 @@ function printAllChoosenFields($array, $fieldname)
 }
 
 //EXECUTION - Here is the code and functions that will be started:
-define("CREATE_DB_BEFORE_INSERTION", false);    //if can recreate the db before insertion or not
+define("CREATE_DB_BEFORE_INSERTION", true);    //if can recreate the db before insertion or not
 
 if (CREATE_DB_BEFORE_INSERTION) {
 //Total creation of the database before insertion. (drop database before the creation)
@@ -842,12 +846,12 @@ if (CREATE_DB_BEFORE_INSERTION) {
 }
 
 //Comment or uncomment the functions that you need (be aware of foreign keys and if the creation of db before insertion is enabled):
-//dataUsers();
-//dataGroups();
-//data_join();
-//dataProjects();
-//dataParticipate();
-//dataLog();
-//dataWorks();
+dataUsers();
+dataGroups();
+data_join();
+dataProjects();
+dataParticipate();
+dataLog();
+dataWorks();
 dataTasks();
 ?>
