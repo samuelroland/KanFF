@@ -67,6 +67,13 @@ define("WORK_STATE_ONBREAK", 3);
 define("WORK_STATE_DONE", 4);
 define("WORK_LIST_STATE", [WORK_STATE_TODO, WORK_STATE_INRUN, WORK_STATE_ONBREAK, WORK_STATE_DONE]);
 
+//define constants of works.need_help, identical to values in the database:
+define("WORK_NEEDHELP_NONE", 0);
+define("WORK_NEEDHELP_INNER", 1);
+define("WORK_NEEDHELP_OUTER", 2);
+define("WORK_NEEDHELP_BOTH", 3);
+define("WORK_LIST_NEEDHELP", [WORK_NEEDHELP_NONE, WORK_NEEDHELP_INNER, WORK_NEEDHELP_OUTER, WORK_NEEDHELP_BOTH]);
+
 //define constants of tasks.state, identical to values in the database:
 define("TASK_STATE_TODO", 1);
 define("TASK_STATE_INRUN", 2);
@@ -305,6 +312,29 @@ function convertWorkState($int, $needFirstCharToUpper = false)
             break;
         case WORK_STATE_DONE:
             $txt = "terminé";   //ou fini ??
+            break;
+        default:
+            $txt = "ERROR UNKNOWN STATE";
+    }
+    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
+    return $txt;
+}
+
+//Convert the work need_help in french
+function convertWorkNeedhelp($int, $needFirstCharToUpper = false)
+{
+    switch ($int) {
+        case WORK_NEEDHELP_NONE:
+            $txt = "Pas besoin";
+            break;
+        case WORK_NEEDHELP_INNER:
+            $txt = "Besoin d'aide interne";
+            break;
+        case WORK_NEEDHELP_OUTER:
+            $txt = "Besoin d'aide externe";
+            break;
+        case WORK_NEEDHELP_BOTH:
+            $txt = "Besoin d'aide interne et externe";
             break;
         default:
             $txt = "ERROR UNKNOWN STATE";
