@@ -52,13 +52,13 @@ ob_start();
                         <span class="<?= $cssForSpan ?>">Initiales </span>
                         <input class="<?= $cssForInput ?>" type="text" value="<?= $user['initials'] ?>" readonly
                                disabled/>
-                        <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-small ml-2 mr-2 m-2", false), "Généreées automatiquement et donc non modifiables", false) ?>
+                        <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-small ml-2 mr-2 m-2", false), "Généreées automatiquement et donc non modifiables", false,"right") ?>
                     </div>
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Date d'inscription </span>
                         <input class="<?= $cssForInput ?>" type="date"
                                value="<?= date("Y-m-d", strtotime($user['inscription'])) ?>" readonly disabled/>
-                        <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-small ml-2 mr-2 m-2", false), "Date d'inscription sur cette instance non modifiable", false) ?>
+                        <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-small ml-2 mr-2 m-2", false), "Date d'inscription sur cette instance non modifiable", false,"right") ?>
 
                     </div>
 
@@ -89,7 +89,7 @@ ob_start();
                         <span class=" <?= $cssForSpan ?>">Etat du compte </span>
                         <input class="<?= $cssForInput ?>" type="text" readonly disabled
                                value="<?= convertUserState($user['state']) ?>"/>
-                        <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-small ml-2 mr-2 m-2", false), "Cet état peut être" , false) ?>
+                        <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-small ml-2 mr-2 m-2", false), "Cet état peut être" , false,"right") ?>
 
                     </div>
                     <div class="<?= $cssForDivField ?>">
@@ -109,7 +109,7 @@ ob_start();
 
                             ?></span>
                         <div  class="">
-                        <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-small ml-2 mr-2 m-2", false), "Information concernant le dernier changement d'état", false) ?>
+                        <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-small ml-2 mr-2 m-2", false), "Information concernant le dernier changement d'état", false,"right") ?>
                         </div>
                     </div>
 
@@ -119,7 +119,7 @@ ob_start();
                                readonly disabled <?= ($user['on_break'] == 1) ? "checked" : "" ?>/>
 
                         <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-small ml-2 mr-2 m-2", false), "Mettre son compte en pause, indique que vous n'êtes plus disponible pour le collectif, mais ne vous restreint pas dans l'utilisation. Vous apparaîtrez dans la partie 'Membres en pause' de la liste des membres.
-Il peut être utile de laisser une information dans votre statut, concernant la raison et de la date prévue de votre retour.", false) ?>
+Il peut être utile de laisser une information dans votre statut, concernant la raison et de la date prévue de votre retour.", false,"right") ?>
 
                     </div>
 
@@ -141,7 +141,7 @@ Il peut être utile de laisser une information dans votre statut, concernant la 
                         <span class="<?= $cssForSpan ?>">Lien messagerie instantanée</span>
                         <input class="<?= $cssForInput ?>" type="email" name="email"
                                placeholder="t.me/josette27" value="<?= $user['chat_link'] ?>"/>
-                        <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-small ml-2 mr-2 m-2", false), "Lien permettant de vous écrire en privé via la messagerie instanée de votre collectif.", false) ?>
+                        <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-small ml-2 mr-2 m-2", false), "Lien permettant de vous écrire en privé via la messagerie instanée de votre collectif.", false,"right") ?>
 
                     </div>
 
@@ -179,7 +179,7 @@ Il peut être utile de laisser une information dans votre statut, concernant la 
                 <input class="<?= $cssForInput ?>" type="password" name="newpassword" placeholder="" required/>
                 <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-small ml-2 mr-2 m-2", false), "Les mots de passes doivent contenir:
 - 8 caractères minimum
-- au moins une lettre et un chiffre", false) ?>
+- au moins une lettre et un chiffre", false,"right") ?>
             </div>
 
 
