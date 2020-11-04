@@ -15,9 +15,6 @@ $(document).ready(function () {
         invertHiddenState(parent, "shortdescription")
         invertHiddenState(parent, "longdescription")
     })
-    $("#end").on("change", function (sender) {
-        $("#datechanged").val(1)
-    })
     $(".btnSeeMoreOrLessWorks").on("click", function (event) {
         parent = getRealParentHavingId(event.target)
         if (event.target.innerText === "Afficher contenu") {    //if the user want to display content

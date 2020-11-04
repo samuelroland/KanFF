@@ -45,8 +45,8 @@ function projects($option)
 // Display the page create a project or create the project (depends on the data sent)
 function createAProject($newProject)
 {
-    $groups = getAllGroups();
-    //displaydebug($groups);
+    $groups = getAllGroupsByUser($_SESSION['user']['id']);
+    displaydebug($_SESSION);
     if (empty($newProject) == false) {
         $error = false;
         $newProject['name'] = trimIt($newProject['name']);
