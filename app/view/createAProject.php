@@ -56,8 +56,7 @@ $title = "Créer un projet"
         </div>
         <div class="marginauto">
             <label for="end">Fin (facultatif):</label>
-            <input class="marginauto" type="date" id="end" name="dateEnd" value="<?=date("Y-m-d", strtotime("tomorrow")) ?>">
-            <input type="hidden" value="0" name="datechanged" id="datechanged">
+            <input class="marginauto" type="date" id="end" name="dateEnd">
         </div>
 
 
