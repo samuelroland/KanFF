@@ -51,23 +51,8 @@ function printAWork($work, $isInsideTheProject)
                         echo "<span class='text-info mr-2'>Invisible</span>";
                     }
                     if ($work['need_help'] != 0) {
-                        $iconname = "help_orange.png";
-                        $icontitle = "Ce travail a besoin d'aide. (Voir si interne et/ou externe).";
-                        $description = "Besoin d'aide";
-                        switch ($work['need_help']) {
-                            case 1:
-                                $iconname = "help_orange.png";
-                                $description = "Besoin d'aide interne";
-                                break;
-                            case 2:
-                                $iconname = "help_yellow.png";
-                                $description = "Besoin d'aide externe";
-                                break;
-                            case 3:
-                                $iconname = "help_orangeyellow.png";
-                                $description = "Besoin d'aide interne et externe";
-                                break;
-                        }
+                        $description = convertWorkNeedhelp($work['need_help']);
+                        $iconname = convertWorkNeedhelpIcon($work['need_help']);
                         if ($isInsideTheProject) {  //inside the project, the icon is in all cases displayed (even if don't need help from members inside the project)
                             printAnIcon($iconname, $icontitle, "H letter for help icon");
                             echo "<span class=' mr-2'>$description</span>";

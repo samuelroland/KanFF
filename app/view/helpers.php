@@ -343,6 +343,29 @@ function convertWorkNeedhelp($int, $needFirstCharToUpper = false)
     return $txt;
 }
 
+//Convert the work need_help in french
+function convertWorkNeedhelpIcon($int, $needFirstCharToUpper = false)
+{
+    switch ($int) {
+        case WORK_NEEDHELP_NONE:
+            $txt = false;
+            break;
+        case WORK_NEEDHELP_INNER:
+            $txt = "help_orange.png";
+            break;
+        case WORK_NEEDHELP_OUTER:
+            $txt = "help_yellow.png";
+            break;
+        case WORK_NEEDHELP_BOTH:
+            $txt = "help_orangeyellow.png";
+            break;
+        default:
+            $txt = "ERROR UNKNOWN STATE";
+    }
+    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
+    return $txt;
+}
+
 //Convert the task state in french
 function convertTaskState($int, $needFirstCharToUpper = false)
 {
