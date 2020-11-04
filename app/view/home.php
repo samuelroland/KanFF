@@ -8,18 +8,21 @@
 $title = "Dashboard";
 ob_start();
 ?>
-<h1><?= $title ?></h1>
-<?php if($debug){ ?>
+    <h1><?= $title ?></h1>
+<?php printPageWIPTextInfo(); ?>
 
-
-    <h2>Résultat de la requète:</h2><br>
-    <h3>
+<?php
+require ".const.php";
+if ($dev == true) { //dev zone
+    ?>
+    <h2>
+        <p>Résultat de la requète:</p><br>
         <?php
         displaydebug(getUsersFromAGroup(1));
         ?>
-    </h3>
-<?php }?>
-<?php
+    </h2>
+    <?php
+}
 $contenttype = "large";
 $content = ob_get_clean();
 require "gabarit.php";

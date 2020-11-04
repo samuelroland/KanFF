@@ -8,3 +8,7 @@
 .divMembers table tr th {
     padding: 4px 10px;
 }
+
+.divMembersSecondLine{
+    height: 55px;
+}

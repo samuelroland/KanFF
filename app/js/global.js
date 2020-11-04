@@ -32,12 +32,28 @@ $(document).ready(function () {
         document.getElementById("btnSendFeedback").addEventListener("click", function (sender) {
             if (txtFeedback.value != "") {
                 //TODO: send the ajax query
-
+                data = getArrayFromAFormFieldsWithName("frmFeedback")
+                sendRequest("POST", "?action=sendFeedback", manageResponseOfSendFeedback, data)
                 //TODO: if success or error, display message
             }
         })
     }
+    $("#txtFeedbackInfos").on("click", function () { //when click on infos, display or hide detailed informations
+        invertHiddenState(divFeedbackInfos)
+    })
 })
+
+//manage the response of the feedback sent
+function manageResponseOfSendFeedback(response) {
+    manageResponseStatus(response)
+    inpSub = document.querySelector("input[name='subject']")
+    inpContent = document.querySelector("textarea[name='content']")
+
+    if (response.status == "success") {
+        inpSub.value = ""
+        inpContent.value = ""
+    }
+}
 
 //Reload the counter, for input text and textarea with class .textFieldToCheck and a associated counter
 function checkTextFieldToCheck() {
@@ -152,4 +168,79 @@ function sendRequest(verb, url, callback, data) {
     } else {
         reqHttp.send()  //send the query without any body
     }
+}
+
+//display a temporary message on topright
+function displayResponseMsg(val, checkmark = true, color = "black") {
+    //Take the message depending if started directly as a callback of an Ajax call (response sent in parameter), or started by an other function (message sent in parameter)
+    if (val.hasOwnProperty("data")) {
+        msg = val.data.message
+    } else {
+        msg = val
+    }
+    logIt(val)
+    htmlMsg = document.importNode(createElementFromHTML(document.querySelector("#templateMsg").innerHTML), true)  //copy html content from the template
+
+    //Fill text:
+    htmlMsg.querySelector(".msgText").innerHTML = msg
+    htmlMsg.querySelector(".msgText").style.color = color
+    if (checkmark === false) {
+        checkMark = htmlMsg.querySelector(".checkmark")
+        redCross = htmlMsg.querySelector(".redcross")
+
+        checkMark.hidden = true
+        redCross.hidden = false
+    }
+
+
+    setTimeout(function () {
+        divTempMessages.firstChild.classList.replace("visible", "hidden")
+        setTimeout(function () {
+            divTempMessages.firstChild.remove()
+        }, 1500)
+    }, 3000)   //remove the first child of the list of temp messages in 4.5 seconds. At this time the first message will be the current htmlMsg (because precedent msg will removed just before).
+
+    //display the message
+    htmlMsg.classList.add("hidden")
+    divTempMessages.appendChild(htmlMsg)
+    htmlMsg.classList.replace("hidden", "visible")
+}
+
+function checkAllValuesAreNotEmpty(values) {
+    Array.prototype.forEach.call(values, function (val) {
+        if (val == null || val == undefined) {
+            return false
+        }
+    })
+    return true
+}
+
+//manage the response status
+function manageResponseStatus(response) {
+    status = response.status
+    switch (status) {
+        case "success":
+            if (response.data.hasOwnProperty("message")) {  //if contain a message (a success message) display it
+                displayResponseMsg(response.data.message)
+            }
+            isSuccess = true
+            break;
+        case "fail":
+            if (response.data.hasOwnProperty("error")) {    //failed queries must contain error index
+                displayResponseMsg("Erreur " + response.data.code + ": " + response.data.error, false)
+            } else {
+                displayResponseMsg("Erreur indéfinie")
+            }
+            isSuccess = false
+            break
+        case "error":   //TODO with specs
+            if (response.hasOwnProperty("message")) {
+                displayResponseMsg(response.message, false, "red")
+            }
+            isSuccess = false
+            break;
+        default:
+            displayResponseMsg("Unknown status '" + response.status + "' of the response")
+    }
+    return isSuccess
 }

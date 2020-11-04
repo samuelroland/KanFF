@@ -1,11 +1,11 @@
 <?php
 /**
  *  Project: KanFF
- *  File: home.php firstpage of the website
+ *  File: group.php details about a group
  *  Author: Samuel Roland
- *  Creation date: 25.05.2020
+ *  Creation date: 31.10.2020
  */
-$title = "Détails de " . $user['firstname'] . " " . $user['lastname'];
+$title = "Détails " . $group['name'];
 ob_start();
 ?>
     <h1><?= $title ?></h1>

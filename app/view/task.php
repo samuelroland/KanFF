@@ -72,7 +72,7 @@ function printATask($task, $hasWritingRightOnTasks, $hidden = false)
                             echo "<span class='dropdown-item divTaskDropdownOption'>Passer à " . convertTaskState($option, true) . "</span>";
                         }
                         ?>
-                        <span class="dropdown-item divTaskDropdownOption text-danger">Supprimer</span>
+                        <span class="dropdown-item divTaskDropdownOption text-danger optTaskDelete">Supprimer</span>
                     <?php } ?>
                 </div>
             </span>

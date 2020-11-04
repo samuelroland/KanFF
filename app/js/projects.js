@@ -15,7 +15,9 @@ $(document).ready(function () {
         invertHiddenState(parent, "shortdescription")
         invertHiddenState(parent, "longdescription")
     })
-
+    $("#end").on("change", function (sender) {
+        $("#datechanged").val(1)
+    })
     $(".btnSeeMoreOrLessWorks").on("click", function (event) {
         parent = getRealParentHavingId(event.target)
         if (event.target.innerText === "Afficher contenu") {    //if the user want to display content
@@ -75,6 +77,12 @@ function invertHiddenState(parent, classNameOfChild) {
     obj = parent.querySelector("." + classNameOfChild)
     obj.hidden = !obj.hidden
 }
+
+//Invert hidden state of an element (overload function)
+function invertHiddenState(obj) {
+    obj.hidden = !obj.hidden
+}
+
 
 //Invert the inner text of an element (if one is set, set the other one)
 function invertInnerText(obj, firsttext, secondtext) {

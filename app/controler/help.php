@@ -234,38 +234,71 @@ function isEmailFormat($text)
 //Send feedback with data sent with Ajax
 function sendFeedback($data)
 {
+    $versions = getVersionsApp();
     require ".const.php";
+    if ($feedbackForm != true) {
+        die("Feedback form is disabled");
+    }
     if (isEmailFormat($emailSourceForFeedback) && isEmailFormat($emailForFeedback)) {
 
-        if (isAtLeastEqual("", [$data['subject'], $data['content']]) == false) {
+        if (isAtLeastEqual("", [$data['subject'], $data['content']]) == false && chkLength($data['content'], 6000) && chkLength($data['subject'], 100)) {
             $to = $emailForFeedback;
-            $subject = "F: " . $data['subject'];
-            $message = htmlspecialchars($data['content']);
+            $subject = "Retour KanFF: " . time();
+            $cookies = $_COOKIE;
+            unset($cookies['PHPSESSID']);   //remove cookie for the session
+            ob_start();
+            print_r($cookies);
+            $printCookies = ob_get_clean();
+            $technicalInformations = ["Sent at: " . date("Y-m-d H:i:s", time()), $_SERVER['HTTP_USER_AGENT'], $_SERVER['REQUEST_URI'], $versions[count($versions) - 1]['version'], $printCookies];
+            $intro = "Technical informations:\n" . implode("
+            ", $technicalInformations);
+            $message = "Subject: \n" . $data['subject'] . "\n\nContent:\n" . $data['content'];
+            $message = $intro . "\n\n---------------------------------------------------------------------\n" . $message;
             $headers = array(
                 'From' => $emailSourceForFeedback,
                 'X-Mailer' => 'PHP/' . phpversion()
             );
 
+            $message = $message . "\n\nJSON:\n" . json_encode(array_merge($data, $technicalInformations));
             $result = mail($to, $subject, $message, $headers);
 
             if (!$result) {
                 $errorMessage = error_get_last()['message'];
             }
-            var_dump($errorMessage);
-            var_dump($result);
-            //TODO: return success message
+            displaydebug($errorMessage);
+            displaydebug($result);
+
+            $response = getApiResponse(API_SUCCESS, ['message' => "Feedback envoyé."]);
         } else {
-            //TODO: error invalid data.
+            $response = getApiResponse(API_FAIL, getApiDataContentError("Données invalides. Echec d'envoi du feedback.", 152));
         }
     } else {
-        //TODO: error bad config in the instance. Contact admin.
+        $response = getApiResponse(API_ERROR, null, "Mauvaise configuration côté serveur pour l'envoi de feedback. Contacter l'admin de l'instance.");
     }
+    echo json_encode($response);
 }
 
 //Set the headers of the HTTP request for API response (from an Ajax call):
 function setHTTPHeaderForAPIResponse()
 {
     header("Content-Type: application/json");
+}
+
+//get bool value to know if an admin can change the state of a user from $current to $next (because change approved by non-approved is not permitted for example)
+function canChangeUserState($current, $next)
+{
+    if ($next == $current) {
+        return true;
+    } else if ($current == USER_STATE_UNAPPROVED && $next == USER_STATE_APPROVED) {
+        return true;
+    } else if ($current == USER_STATE_APPROVED && $next != USER_STATE_UNAPPROVED) {
+        return true;
+    } else if (isAtLeastEqual($current, [USER_STATE_ARCHIVED, USER_STATE_BANNED, USER_STATE_APPROVED]) && isAtLeastEqual($next, [USER_STATE_ARCHIVED, USER_STATE_BANNED, USER_STATE_APPROVED])) {
+        return true;
+    } else if ($current == USER_STATE_ADMIN && $next == USER_STATE_APPROVED) {
+        return true;
+    }
+    return false;
 }
 
 ?>

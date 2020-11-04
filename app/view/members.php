@@ -5,6 +5,7 @@ $isAdmin = checkAdmin();
 
 ?>
     <h1><?= $title ?></h1>
+<?php printPageWIPTextInfo(); ?>
     <div class="headView flexdiv">
         <div class="flex-4">
             <button data-href="?action=members&option=1"
@@ -34,16 +35,21 @@ $isAdmin = checkAdmin();
         </div>
         <div class="box-alignright flex-1">
             <?php if ($isAdmin) { ?>
-                <button class="btn btn-primary" id="btnEditMode">Mode édition</button>
+                <div class="btn btn-primary" id="btnMembersEditMode">Mode édition</div>
             <?php } ?>
         </div>
     </div>
 
-    <div class="flexdiv">
-        <p class="pt-2 flex-2">La liste ci-dessous contient <strong><?= count($members) ?></strong> membres.</p>
-        <div class="box-alignright flex-1">
-            <input type="password" id="inpPassword" class="form-control" placeholder="Mot de passe" hidden>
-        </div>
+    <div class="flexdiv pt-2 pb-2 divMembersSecondLine">
+        <span class="pt-2 flex-2">La liste ci-dessous contient <strong><?= count($members) ?></strong> membres.</span>
+        <?php if ($isAdmin) { ?>
+            <div class="box-alignright flex-1 box-verticalaligncenter" id="inpDivPassword" hidden>
+                <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-xsmall ml-2 mr-2", false), "Pour activer le mode édition, vous devez rentrer votre mot de passe.", false, "left") ?>
+                <input type="password" id="inpPassword" class="form-control width-min-content"
+                       placeholder="Mot de passe">
+
+            </div>
+        <?php } ?>
     </div>
 
     <div class="divMembers pt-0 flexdiv">
@@ -74,14 +80,17 @@ $isAdmin = checkAdmin();
                     <td><?= $member['initials'] ?></td>
                     <td><?= $member['username'] ?></td>
                     <td><?= $member['firstname'] . " <strong>" . $member['lastname'] . "</strong>" ?></td>
-                    <td><?= "<em>" . substrText($member['status'], 77) . "</em>" ?></td>
+                    <td><?= "<em>" . createElementWithFixedLines(substrText($member['status'], 150), 1) . "</em>" ?></td>
                     <td><?= DTToHumanDate($member['inscription'], "simpleday") ?></td>
                     <?php //State account cell
                     if ($isAdmin) {
-                        echo "<th><select name='' id='' class='sltAccountState' disabled>";
+                        echo "<td class='box-verticalaligncenter'><select name='' id='' class='sltAccountState' data-user='" . $member['id'] . "' disabled data-startstate='" . $member['state'] . "'>";
                         foreach (USER_LIST_STATE as $onestate) {
-                            echo "<option value='$onestate'" . (($member['state'] == $onestate) ? "selected" : '') . ">" . convertUserState($onestate) . "</option>";
+                            if (canChangeUserState($member['state'], $onestate)) {
+                                echo "<option value='$onestate'" . (($member['state'] == $onestate) ? "selected" : '') . ">" . convertUserState($onestate, true) . "</option>";
+                            }
                         }
+                        echo "</select></td>";
                     }
                     ?>
                     <?php //On break cell:

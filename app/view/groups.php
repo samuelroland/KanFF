@@ -7,10 +7,12 @@ echo $result;
 
 ?>
     <h1><?= $title ?></h1>
+<?php printPageWIPTextInfo(); ?>
     <div class="headView flexdiv">
         <div class="flex-1">
-            <button class="btn active">Tous</button>
-            <button class="btn btn-info">Rejoints</button>
+            <button class="btn clickable <?= ($option == 1) ? 'active' : 'btn-info' ?>" data-href="?action=groups&option=1">Tous</button>
+            <button class="btn clickable <?= ($option == 2) ? 'active' : 'btn-info' ?>" data-href="?action=groups&option=2">Rejoints</button>
+            <button class="btn clickable <?= ($option == 3) ? 'active' : 'btn-info' ?>" data-href="?action=groups&option=3">Archivés</button>
         </div>
         <div class="box-alignright flex-1">
             <a href="?action=createAGroup">
@@ -50,14 +52,14 @@ echo $result;
                             </div>
                         <?php } else { ?>
                             <div class="box-verticalaligncenter">
-                                    <img src="view/medias/icons/email.png" alt="email logo" class="icon-simple">
-                                    <span><em>Pas d'email</em></span>
+                                <img src="view/medias/icons/email.png" alt="email logo" class="icon-simple">
+                                <span><em>Pas d'email</em></span>
                             </div>
                             <?php
                         }
                         if (is_null($group['creator_initials']) == false) { ?>
                             <div class="box-verticalaligncenter">
-                                <a href="/?action=member&id=<?= $group['creator_id'] ?>" class="linkExternal"><img
+                                <a href="?action=member&id=<?= $group['creator_id'] ?>" class="linkExternal"><img
                                             src="view/medias/icons/user.png" alt="email logo" class="icon-simple">
                                     <span class="verticalalign"><?= $group['creator_initials'] ?></span></a>
                             </div>
@@ -70,7 +72,9 @@ echo $result;
                     <?php } ?>
 
                     <div class="position-bottom-right">
-                        <button class="btn btn-info">Détails</button>
+                        <button class="btn btn-info clickable" data-href="?action=group&id=<?= $group['id'] ?>">
+                            Détails
+                        </button>
                     </div>
                 </div>
 

@@ -75,4 +75,48 @@ function memberDetails($id)
     require_once "view/member.php";
 }
 
+//update the account state of a member
+function updateAccountState($data)  //Ajax call
+{
+    displaydebug($data);
+
+    //if values are not null
+    if (isAtLeastEqual("", [$data['state'], $data['password'], $data['id']]) == false) {
+
+        //check that user password is right
+        if (checkUserPassword($_SESSION['user']['id'], $data['password'])) {
+
+            $user = getUserById($data['id']);
+            $thisChangeOfStateIsPossible = canChangeUserState($user['state'], $data['state']) && (isAtLeastEqual($data['state'], USER_LIST_STATE));
+
+            //is this change of state possible (go from current state to next state is authorized and the state exists)
+            if ($thisChangeOfStateIsPossible) {
+                updateUser(['state' => $data['state']], $data['id']);   //update only the state on the user
+
+                //success response with fullname and new state
+                $response = getApiResponse(API_SUCCESS, ['user' => unsetPasswordsInArrayOn2Dimensions($user), 'message' => "Etat de " . buildFullNameOfUser($user) . " changé en " . convertUserState($data['state'])]);
+            } else {    //not authorized
+                $dataAPI = getApiDataContentError("Impossible de changer vers cet état-là.", 33);
+                $user = getUserById($data['id']);
+                $dataAPI['user'] = unsetPasswordsInArrayOn2Dimensions($user);
+                $response = getApiResponse(API_FAIL, $dataAPI);
+            }
+        } else {    //password invalid
+            $dataAPI = getApiDataContentError("Mot de passe pour activer le mode édition erroné", 15);
+            $user = getUserById($data['id']);
+            $dataAPI['user'] = unsetPasswordsInArrayOn2Dimensions($user);
+            $response = getApiResponse(API_FAIL, $dataAPI);
+        }
+    } else {    //missing data
+        $dataAPI = getApiDataContentError("Données manquantes", 17);
+        $user = getUserById($data['id']);
+        if (empty($user) == false) {    //to prevent empty value if id is inexistant, because the user will be empty
+            $dataAPI['user'] = unsetPasswordsInArrayOn2Dimensions($user);
+        }
+        $response = getApiResponse(API_FAIL, $dataAPI);
+    }
+
+    echo json_encode($response);
+}
+
 ?>

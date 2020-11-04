@@ -1,17 +1,24 @@
 <?php
 /**
  *  Project: KanFF
- *  File: Database informations and debug mode
+ *  File: Database informations, debug mode and other configurations
  *  Author: YOU
  *  Creation date: DATE
  */
-//TODO: Fill the following informations for the database and the debug mode, and rename the file ".const.php.example" in ".const.php".
+//TODO: Fill the following informations for the database, debug mode and other configurations, and rename the file ".const.php.example" to ".const.php".
 
 //Database informations
 $user = "";
 $pass = "";
 $dbhost = "";
 $dbname = "";
+
 //Mode debug:
-$debug = false; // enable or disable the debug mode (display var_dump(), ... if enabled).
+$debug = false; // enable or disable the debug mode (for displaydebug(), ...).
+
+//Other configurations:
+$dev = false; // dev zone with code to tests model or helpers functions
+$feedbackForm = false;   //is feedback form at bottom left displayed
+$emailForFeedback = "";    //email of receiver of feedback sent with the feedback form
+$emailSourceForFeedback = "";   //email to send feedback by email with a smtp server
 ?>

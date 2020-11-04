@@ -9,9 +9,18 @@
 require_once "model/groupsModel.php";
 
 //display the page groups
-function groups()
+function groups($option)
 {
-    $groups = getAllGroups();
+    switch ($option){
+        case 1:
+            $groups = getAllGroups();
+            break;
+        case 2:
+            $groups = getAllGroupsByUser($_SESSION['user']['id']);
+            break;
+        case 3:
+            $groups = getAllGroupsArchived();
+    }
     $fieldsToConvert = ["name", "description", "context", "status"];
     $groups = specialCharsConvertFromAnArray($groups, $fieldsToConvert);
     displaydebug($groups);
@@ -47,9 +56,9 @@ function createAGroup($group)
 
                 createGroup($group);
                 flshmsg(16);    //"group well created" msg
-                groups();   //back to groups page
+                groups(1);   //back to groups page
             } else {
-                flshmsg(15);    //password error for action
+                flshmsg(12);    //password error for action
                 $dataerror = false; //unset error to protect the flshmsg of password error
                 require_once "view/createAGroup.php";
             }
@@ -66,6 +75,13 @@ function createAGroup($group)
     } else {
         require_once "view/createAGroup.php";
     }
+}
+
+function groupDetails($id)
+{
+    $group = getOneGroup($id);
+
+    require_once "view/group.php";
 }
 
 ?>

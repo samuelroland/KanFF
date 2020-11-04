@@ -20,13 +20,14 @@ ob_start();
         <div class="flexdiv">
             <h1 class="flex-1"><?= $title ?></h1>
             <div class="flex-1 d-block">
-                <button class="btn btn-primary float-right">Détails de cette instance <?=$instance['name']  ?></button>
+                <button class="btn btn-primary float-right clickable" data-href="?action=about">Détails de cette instance <?=$instance['name']  ?></button>
             </div>
         </div>
         <p class="">Voici les informations de votre compte sur l'instance Blason. C'est sur cette page que vous
             pouvez gérer votre compte. Vous pouvez modifier vos informations pour la plupart et aussi archiver ou
             supprimer
             votre compte (attention supprimer est une action irréversible!)</p>
+        <?php printPageWIPTextInfo(); ?>
         <div class="form-group">
             <form class="" action="?action=signin" method="post">
                 <h5 class="pt-3">Informations principales:</h5>

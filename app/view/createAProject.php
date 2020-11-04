@@ -3,6 +3,7 @@ ob_start();
 $title = "Créer un projet"
 ?>
 <h1><?= $title ?></h1>
+<?php printPageWIPTextInfo(); ?>
 <p>Cette page vous permet de créer un nouveau projet réalisé par un groupe dont vous êtes membre.</p>
 
 <form action="?action=createAGroup" method="POST" class="pt-4">
@@ -51,11 +52,12 @@ $title = "Créer un projet"
         <h4 class="col-lg-3 col-md-12">Début et fin prévus</h4>
         <div class="marginauto">
             <label for="start">Début:</label>
-            <input type="date" id="start" name="dateStart" value="<?= date("YYYY-MM-DD", strtotime("now")) ?>" required>
+            <input type="date" id="start" name="dateStart" value="<?= date("Y-m-d") ?>" required>
         </div>
         <div class="marginauto">
             <label for="end">Fin (facultatif):</label>
-            <input class="marginauto" type="date" id="end" name="dateEnd">
+            <input class="marginauto" type="date" id="end" name="dateEnd" value="<?=date("Y-m-d", strtotime("tomorrow")) ?>">
+            <input type="hidden" value="0" name="datechanged" id="datechanged">
         </div>
 
 

@@ -18,13 +18,21 @@ function getApiResponse($status, $data, $message = "Error...")
     }
     $statusPossible = [API_SUCCESS => "success", API_FAIL => "fail", API_ERROR => "error"];
     $response['status'] = $statusPossible[$status];
-    if ($data != false) {
+    if ($data !== false) {
         $response['data'] = $data;
     }
     if ($status == API_ERROR) {
         $response['message'] = $message;
     }
     return $response;
+}
+
+function getApiDataContentError($error, $code, $position = "topright")
+{
+    $data['error'] = $error;
+    $data['code'] = $code;
+    $data['position'] = $position;
+    return $data;
 }
 
 //display the page Tasks
@@ -39,6 +47,13 @@ function getTask($id)
     //TODO: check permissions (if the project is visible) before send the task
     //TODO: return error or empty if task is not found
     $task = getOneTask($id);
+    $task = createTaskComplementFields($task);
+    echo json_encode(getApiResponse(API_SUCCESS, ['task' => $task]));
+}
+
+//create complements fields of a task (creator, repsonsible, completion in simpletime, work, state in text)
+function createTaskComplementFields($task)
+{
     $task['statename'] = convertTaskState($task['state'], true);
     $task['work'] = getOneWork($task['work_id']);
     if ($task['responsible_id'] != null) {
@@ -50,8 +65,7 @@ function getTask($id)
     if ($task['completion_date'] != null) {
         $task['completion'] = DTToHumanDate($task['completion_date'], "simpletime");
     }
-
-    echo json_encode(getApiResponse(API_SUCCESS, ['task' => $task]));
+    return $task;
 }
 
 //Ajax call to create one task
@@ -87,7 +101,12 @@ function createATask($data)
         //Then create the task:
         $id = createTask($task);
 
-        getTask($id);   //return the task like if it was asked with ?action=getTask
+        $newtask = getOneTask($id);
+        $newtask = createTaskComplementFields($newtask);
+
+        $t = getApiResponse(API_SUCCESS, ['task' => $newtask, 'message' => "Tâche " . $task['number'] . " créée avec succès."]);
+        echo json_encode($t);
+        die();
     } else {
         if ($hasPermissionToCreate === false) {
             //TODO: return error message in JSON: work not found (or "you don't have permissions" ??)
@@ -96,8 +115,9 @@ function createATask($data)
             //TODO: return error message in JSON: invalid data
             $response = getApiResponse(API_FAIL, ["error" => getFlashMessageById(10), "code" => 10, "position" => "top"]);
         }
-        echo json_encode($response);
+
     }
+    echo json_encode($response);
 }
 
 //Ajax call to update one task
@@ -148,4 +168,33 @@ function updateATask($data)
         echo json_encode($response);
     }
 }
+
+//Ajax call to delete a task
+function deleteATask($data)
+{
+    displaydebug($data);
+    $task = getOneTask($data['id']);
+    $hasPermissionToDelete = null; //default value
+    if (isset($data) && empty($task) == false) {
+        $isInsideTheProject = isAUserInsideAProject(getProjectIdByTask($data['id']), $_SESSION['user']['id']);
+        $work = getOneWork($task['work_id']);
+
+        //Check that the work exist and that the user have the permissions to create a task in this work
+        if (hasWritingRightOnTasksOfAWork($isInsideTheProject, $work) && $work['state'] != WORK_STATE_DONE) {
+            $hasPermissionToDelete = true;
+        } else {
+            $hasPermissionToDelete = false;
+        }
+    }
+
+    if ($hasPermissionToDelete) {
+        deleteTasks($data['id']);
+        $response = getApiResponse(API_SUCCESS, ["reference" => ["id" => $data['id']], "message" => "Tâche " . $task['number'] . " supprimée avec succès."]);
+    } else {
+        $response = getApiResponse(API_FAIL, getApiDataContentError("no permission", 155));
+        //TODO: error about invalid data (and export message to flashmessages.json)
+    }
+    echo json_encode($response);
+}
+
 ?>

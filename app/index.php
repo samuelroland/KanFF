@@ -105,7 +105,14 @@ if (!isset($_SESSION['user']['id'])) {
                 editAccount($_POST);
                 break;
             case "groups":
-                groups();
+                $option = $_GET['option'];
+                if ($option == null || isAtLeastEqual($option, [1, 2, 3]) == false) {
+                    $option = 1;
+                }
+                groups($option);
+                break;
+            case "group":
+                groupDetails($_GET['id']);
                 break;
             case "members":
                 $option = $_GET['option'];
@@ -116,6 +123,10 @@ if (!isset($_SESSION['user']['id'])) {
                 break;
             case "member":
                 memberDetails($_GET['id']);
+                break;
+            case "updateAccountState": //Ajax call to update the account state of a member
+                setHTTPHeaderForAPIResponse();
+                updateAccountState($data);
                 break;
             case "createAGroup":
                 createAGroup($_POST);
@@ -149,6 +160,14 @@ if (!isset($_SESSION['user']['id'])) {
             case "createTask":  //Ajax call to create one task
                 setHTTPHeaderForAPIResponse();
                 createATask($data);
+                break;
+            case "updateTask":  //Ajax call to update one task
+                setHTTPHeaderForAPIResponse();
+                updateATask($data);
+                break;
+            case "deleteTask":  //Ajax call to delete one task
+                setHTTPHeaderForAPIResponse();
+                deleteATask($data);
                 break;
             case "about":
                 about();

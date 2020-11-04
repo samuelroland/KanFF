@@ -338,7 +338,7 @@ function convertTaskType($int, $needFirstCharToUpper = false)
 {
     switch ($int) {
         case TASK_TYPE_NONE:
-            $txt = "(Aucun)";
+            $txt = "TBD";
             break;
         case TASK_TYPE_QUESTION:
             $txt = "question";
@@ -405,9 +405,9 @@ function createToolTip($innerText, $tooltipText, $link = false, $type = "top")
     return $html;
 }
 
-function createElementWithFixedLines($text, $nbLines, $cssClassesInAddition = "")
+function createElementWithFixedLines($text, $nbLines, $cssClassesInAddition = "", $withTitle = false)
 {
-    $html = "<span class='txtFixedLines $cssClassesInAddition' style='-webkit-line-clamp: $nbLines;'>$text</span>";
+    $html = "<span class='txtFixedLines $cssClassesInAddition' style='-webkit-line-clamp: $nbLines;' " . (($withTitle == true) ? "title='" . $text . "'" : "") . ">$text</span>";
     return $html;
 }
 
@@ -419,7 +419,7 @@ function getHTMLPastille($cssColor)
 //print (or return) an icon with a file, a title, alt attribute, and personalized or default css classes
 function printAnIcon($iconname, $title, $alt, $defaultClasses = "icon-small ml-2 mr-2", $echo = true)
 {
-    $html = "<img title=\"" . $title . "\" class='$defaultClasses' src='view/medias/icons/$iconname' alt='$alt'>";
+    $html = "<img title=\"" . $title . "\" class=\"$defaultClasses\" src='view/medias/icons/$iconname' alt='$alt'>";
     if ($echo) {
         echo $html;
     } else {
@@ -428,5 +428,20 @@ function printAnIcon($iconname, $title, $alt, $defaultClasses = "icon-small ml-2
 }
 
 //tasks too or identical to works.state ?
+
+function printPageWIPTextInfo()
+{
+    echo "<p class='text-danger'><strong>Page en cours de construction.</strong></p>";
+}
+
+//build fullname of the user with firstname and lastname (and a space between)
+function buildFullNameOfUser($user)
+{
+    if (isAtLeastEqual("", [$user['firstname'], $user['lastname']])) {
+        return $user['firstname'] . " " . $user['lastname'];
+    } else {
+        return false;
+    }
+}
 
 ?>

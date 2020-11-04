@@ -8,10 +8,15 @@
 $instanceinfos = getInstanceInfos();
 $collective = $instanceinfos['collective'];
 $instance = $instanceinfos['instance'];
+$versions = getVersionsApp();
+$lastVersion = $versions[count($versions)-1];
 ob_start();
 $title = "A propos";
 ?>
     <h1><?= $title = "A propos"; ?></h1>
+<?php if ($instance['testinstance'] == true) {
+    echo "<p class='text-danger'><strong>Ceci est une instance de test. Toutes les données sont fictives et ne doivent pas être réelle puisque accessibles publiquement.</strong></p>";
+} ?>
     <br>
     <h2 class="txtdarkbluelogo"><?= $collective['name'] ?></h2>
     <p><strong>Type: </strong><?= $collective['type'] ?></p>
@@ -19,13 +24,15 @@ $title = "A propos";
     <br>
     <h2 class="txtlightbluelogo">Instance <?= $instance['name'] ?></h2>
     <p><strong>Une instance, Késako ?</strong></p>
-    <p><em>Une instance est une installation d'une application sur un serveur. Ici par exemple,
+    <p>Une instance est une installation d'une application sur un serveur. Ici par exemple,
             l'instance <?= $instance['name'] ?> est une installation de l'application KanFF sur le serveur atteignable à
-            l'url <?= $instance['url'] ?>. Une instance KanFF ne peut pour l'instant n'héberger qu'un seul collectif.
-            Dans de futures versions, il sera certainement possible d'en héberger plusieurs.</em></p>
+            l'url <?= $_SERVER['HTTP_HOST'] ?>. Une instance KanFF ne peut pour l'instant n'héberger qu'un seul collectif.
+            Dans de futures versions, il sera certainement possible d'en héberger plusieurs.</p>
     <p><?= $instance['description'] ?></p>
-    <p><strong>Lien: </strong><?= $instance['url'] ?></p>
-    <p><strong>A propos: </strong><br><?= $instance['about'] ?></p>
+    <p><strong>Lien: </strong><?= $_SERVER['HTTP_HOST'] ?></p>
+    <p><strong>Version installée: </strong>
+        <?= $lastVersion['version'] . " (publiée le " . DTToHumanDate($lastVersion['date'], "simpleday") . ")" ?></p>
+    <p><strong>A propos de cette instance: </strong><br><?= $instance['about'] ?></p>
      <br>
     <p><strong>Admin: </strong><?= $instance['admin'] ?></p>
     <p><strong>Contact: </strong><?= $instance['contact'] ?></p>

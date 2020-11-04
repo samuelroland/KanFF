@@ -50,9 +50,6 @@ ob_start();
                         <h4 class="nomargin"><?= convertTaskState(TASK_STATE_DONE, true) ?></h4>
                     </div>
                 </div>
-                <div id="templates" hidden>
-                    <template id="templateTask"><?php printATask([], true); ?></template>
-                </div>
 
             </div>
             <hr class="hrgrey nomargin">

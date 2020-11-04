@@ -15,9 +15,9 @@ $cssForDivField = "row pt-1";
     <h1 class="aligncenter"><?= $title ?></h1>
     <p>Les informations demandées permettent de vous identifier et seront visibles aux autres membres du collectif (sauf
         mot de passe). Les informations facultatives ne sont pas utile à l'application. Avant de créer un compte, vous
-        pouvez vous renseigner sur <a href="/?action=about">cette instance <?= $instanceinfos['instance']['name'] ?></a>
+        pouvez vous renseigner sur <a href="?action=about">cette instance <?= $instanceinfos['instance']['name'] ?></a>
         si besoin.</p>
-    <form style="align-self: auto" class="" action="/?action=signin" method="POST">
+    <form style="align-self: auto" class="" action="?action=signin" method="POST">
         <h5 class="pt-3">Informations principales:</h5>
         <div class="<?= $cssForDivZone ?>">
             <div class="<?= $cssForDivField ?>">
@@ -125,7 +125,7 @@ Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard" src="view/medias/
         </div>
 
     </form>
-    <p class="flex-1 nomargin">Déjà un compte ? <a href="/?action=login">Connexion.</a></p>
+    <p class="flex-1 nomargin">Déjà un compte ? <a href="?action=login">Connexion.</a></p>
 </div>
 
 <?php

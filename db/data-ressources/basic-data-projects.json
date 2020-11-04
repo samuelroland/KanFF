@@ -10,11 +10,13 @@
     "manager_id": 1
   },
   {
-    "name": "Crowfunding Festival 2020",
+    "name": "Crowdfunding Festival 2020",
     "description": "Campagne de financement participatif pour pouvoir organiser le festival du 14 octobre.",
     "goal": "Communiquer autour du festival, expliquer les enjeux et les impacts, et inciter les gens à participer au financement participatif. L'objectif chiffré est de récolter 20'000 CHF d'ici au 10 septembre.",
     "importance": 5,
     "urgency": 4,
+    "state": 3,
+    "archived": 0,
     "visible": 1,
     "logbook_visible": 1,
     "manager_id": 5
