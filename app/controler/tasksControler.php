@@ -139,8 +139,41 @@ function updateATask($data)
             $hasPermissionToUpdate = false;
         }
     }
-    //Check that data sent are valid
-    if (chkLength($data['name'], 100) && $data['name'] != "" && isAtLeastEqual($data['type'], TASK_LIST_TYPE) && $hasPermissionToUpdate) {
+    /**
+     * Validation Data
+     */
+
+    //Check if value needed aren't empty
+    if (isAtLeastEqual("", [$data["name"], $data["state"], $data["urgency"]])) {
+
+        //TODO: API répond qu'une ou plusieurs valeur(s) demandée(s) est/sont vide(s)
+    }
+
+    /**Check strings's length*/
+
+    $description=true;
+    //Description isn't not null, check before if isset
+    if (!isAtLeastEqual("",$data["description"])){
+        if (!chkLength($data['description'], 2000)){
+            $description=false;
+        }
+    }
+    $link=true;
+    //Link isn't not null, check before if isset
+    if (!isAtLeastEqual("",$data["link"])){
+        if (!chkLength($data['link'], 2000)){
+            $link=false;
+        }
+    }
+
+    //Check if
+    if (chkLength($data['name'], 100)&& $description && $link){
+        $dataLength=true;
+    }else {
+        $dataLength=false;
+    }
+    /**En of checking strings's lenght*/
+    if ($dataLength && isAtLeastEqual($data['type'], TASK_LIST_TYPE) && $hasPermissionToUpdate) {
 
         //unset useless var
         unsetVar($data['number']);
@@ -149,35 +182,30 @@ function updateATask($data)
         unsetVar($data['work_id']);
         unsetVar($data['completion_date']);
 
+        //use state only if state = true
+        if ($data['state']) {
+            $task['state'] = $data['state'];
+        }
+
+
         //check if below's var are in right type (INT, STRING...)
-        $test1=is_int($data['urgency']);
-        $test2=is_int($data['type']);
-        $test3=is_int($data['responsible_id']);
+        $test1 = is_int($data['urgency']);
+        $test2 = is_int($data['type']);
+        $test3 = is_int($data['responsible_id']);
 
-        if (!$test1&&!$test2&&!$test3){
-            //TODO: API repond qu'un ou plusieurs valeur(s) demandée(s) a/ont un problème de type
-        }
-
-        //check if the needed value aren't empty
-        $test1=setVarTask('name',$data,$task);
-        $test2=setVarTask('urgency',$data,$task);
-        if (isset($data['state'])){if ($data['state']){$task['state'] = $data['state'];$test3=true;}}
-
-
-        if (!$test1&&!$test2&&!$test3){
-            //TODO: API repond qu'une ou plusieurs valeur(s) demandée(s) est/sont vide(s)
+        if (!$test1 && !$test2 && !$test3) {
+            //TODO: API repond qu'une ou plusieurs valeur(s) demandée(s) a/ont un problème de type
         }
 
 
-
-        setVarTask('type',$data,$task);
+        setVarTask('type', $data, $task);
         //Then generate other fields:
         $task['state'] = TASK_STATE_TODO;
         $task['urgency'] = 0;
         $task['creator_id'] = $_SESSION['user']['id'];
 
         //Then create the task:
-        updateTasks($data['work_id'],$id);
+        updateTasks($data['work_id'], $id);
 
         $task = getOneTask($id);
         $response = getApiResponse(API_SUCCESS, ['task' => $task]);
@@ -195,17 +223,20 @@ function updateATask($data)
 }
 
 //unset var if not empty
-function unsetVar($var){
-    if (isset($var)){
+function unsetVar($var)
+{
+    if (isset($var)) {
         unset($var);
     }
 }
+
 //set var if not empty
-function setVarTask($nameOfVar,$data,$task){
-    if (isset($nameOfVar)){
+function setVarTask($nameOfVar, $data, $task)
+{
+    if (isset($nameOfVar)) {
         $task[$nameOfVar] = $data[$nameOfVar];
         return true;
-    }else{
+    } else {
         return false;
     }
 }
