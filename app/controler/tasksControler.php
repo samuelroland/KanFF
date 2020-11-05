@@ -129,24 +129,49 @@ function updateATask($data)
     }
     //Check that data sent are valid
     if (chkLength($data['name'], 100) && $data['name'] != "" && isAtLeastEqual($data['type'], TASK_LIST_TYPE) && $hasPermissionToUpdate) {
-        $task['name'] = $data['name'];
-        $task['type'] = $data['type'];
-        $task['work_id'] = $data['work'];
 
+        //unset useless var
+        unsetVar($data['number']);
+        unsetVar($data['id']);
+        unsetVar($data['creator_id']);
+        unsetVar($data['work_id']);
+        unsetVar($data['completion_date']);
+
+        //check if below's var are in right type (INT, STRING...)
+        $test1=is_int($data['urgency']);
+        $test2=is_int($data['type']);
+        $test3=is_int($data['responsible_id']);
+
+        if (!$test1&&!$test2&&!$test3){
+            //TODO: API repond qu'un ou plusieurs valeur(s) demandée(s) a/ont un problème de type
+        }
+
+        //check if the needed value aren't empty
+        $test1=setVarTask('name',$data,$task);
+        $test2=setVarTask('urgency',$data,$task);
+        if (isset($data['state'])){if ($data['state']){$task['state'] = $data['state'];$test3=true;}}
+
+
+        if (!$test1&&!$test2&&!$test3){
+            //TODO: API repond qu'une ou plusieurs valeur(s) demandée(s) est/sont vide(s)
+        }
+
+
+
+        setVarTask('type',$data,$task);
         //Then generate other fields:
-        $task['number'] = getTasksNextUniqueNumber();
         $task['state'] = TASK_STATE_TODO;
         $task['urgency'] = 0;
         $task['creator_id'] = $_SESSION['user']['id'];
 
         //Then create the task:
-        $id = createTask($task);
+        updateTasks($data['work_id'],$id);
 
         $task = getOneTask($id);
         $response = getApiResponse(API_SUCCESS, ['task' => $task]);
         echo json_encode($response);
     } else {
-        if ($hasPermissionToCreate === false) {
+        if ($hasPermissionToUpdate === false) {
             //TODO: return error message in JSON: work not found (or "you don't have permissions" ??)
             $response = getApiResponse(API_FAIL, ["error" => getFlashMessageById(11), "code" => 11, "position" => "top"]);
         } else {
@@ -154,6 +179,22 @@ function updateATask($data)
             $response = getApiResponse(API_FAIL, ["error" => getFlashMessageById(10), "code" => 10, "position" => "top"]);
         }
         echo json_encode($response);
+    }
+}
+
+//unset var if not empty
+function unsetVar($var){
+    if (isset($var)){
+        unset($var);
+    }
+}
+//set var if not empty
+function setVarTask($nameOfVar,$data,$task){
+    if (isset($nameOfVar)){
+        $task[$nameOfVar] = $data[$nameOfVar];
+        return true;
+    }else{
+        return false;
     }
 }
 
