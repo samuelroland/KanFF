@@ -149,7 +149,7 @@ function printDivTaskCreate($project)
                 <div class="ml-2 ">
                     <span class="">Type:</span>
                     <select class="form-control" name="type" id="type">
-                        <option value="0">(Aucun)</option>
+                        <option value="0">Autre</option>
                         <option value="1">Question</option>
                         <option value="2">Information</option>
                         <option value="3">Proposition</option>

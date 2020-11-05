@@ -67,6 +67,13 @@ define("WORK_STATE_ONBREAK", 3);
 define("WORK_STATE_DONE", 4);
 define("WORK_LIST_STATE", [WORK_STATE_TODO, WORK_STATE_INRUN, WORK_STATE_ONBREAK, WORK_STATE_DONE]);
 
+//define constants of works.need_help, identical to values in the database:
+define("WORK_NEEDHELP_NONE", 0);
+define("WORK_NEEDHELP_INNER", 1);
+define("WORK_NEEDHELP_OUTER", 2);
+define("WORK_NEEDHELP_BOTH", 3);
+define("WORK_LIST_NEEDHELP", [WORK_NEEDHELP_NONE, WORK_NEEDHELP_INNER, WORK_NEEDHELP_OUTER, WORK_NEEDHELP_BOTH]);
+
 //define constants of tasks.state, identical to values in the database:
 define("TASK_STATE_TODO", 1);
 define("TASK_STATE_INRUN", 2);
@@ -313,6 +320,52 @@ function convertWorkState($int, $needFirstCharToUpper = false)
     return $txt;
 }
 
+//Convert the work need_help in french
+function convertWorkNeedhelp($int, $needFirstCharToUpper = false)
+{
+    switch ($int) {
+        case WORK_NEEDHELP_NONE:
+            $txt = "Pas besoin";
+            break;
+        case WORK_NEEDHELP_INNER:
+            $txt = "Besoin d'aide interne";
+            break;
+        case WORK_NEEDHELP_OUTER:
+            $txt = "Besoin d'aide externe";
+            break;
+        case WORK_NEEDHELP_BOTH:
+            $txt = "Besoin d'aide interne et externe";
+            break;
+        default:
+            $txt = "ERROR UNKNOWN STATE";
+    }
+    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
+    return $txt;
+}
+
+//Convert the work need_help in french
+function convertWorkNeedhelpIcon($int, $needFirstCharToUpper = false)
+{
+    switch ($int) {
+        case WORK_NEEDHELP_NONE:
+            $txt = false;
+            break;
+        case WORK_NEEDHELP_INNER:
+            $txt = "help_orange.png";
+            break;
+        case WORK_NEEDHELP_OUTER:
+            $txt = "help_yellow.png";
+            break;
+        case WORK_NEEDHELP_BOTH:
+            $txt = "help_orangeyellow.png";
+            break;
+        default:
+            $txt = "ERROR UNKNOWN STATE";
+    }
+    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
+    return $txt;
+}
+
 //Convert the task state in french
 function convertTaskState($int, $needFirstCharToUpper = false)
 {
@@ -405,9 +458,9 @@ function createToolTip($innerText, $tooltipText, $link = false, $type = "top")
     return $html;
 }
 
-function createElementWithFixedLines($text, $nbLines, $cssClassesInAddition = "")
+function createElementWithFixedLines($text, $nbLines, $cssClassesInAddition = "", $withTitle = false)
 {
-    $html = "<span class='txtFixedLines $cssClassesInAddition' style='-webkit-line-clamp: $nbLines;'>$text</span>";
+    $html = "<span class='txtFixedLines $cssClassesInAddition' style='-webkit-line-clamp: $nbLines;' " . (($withTitle == true) ? "title='" . $text . "'" : "") . ">$text</span>";
     return $html;
 }
 
@@ -432,6 +485,16 @@ function printAnIcon($iconname, $title, $alt, $defaultClasses = "icon-small ml-2
 function printPageWIPTextInfo()
 {
     echo "<p class='text-danger'><strong>Page en cours de construction.</strong></p>";
+}
+
+//build fullname of the user with firstname and lastname (and a space between)
+function buildFullNameOfUser($user)
+{
+    if (isAtLeastEqual("", [$user['firstname'], $user['lastname']])) {
+        return $user['firstname'] . " " . $user['lastname'];
+    } else {
+        return false;
+    }
 }
 
 ?>

@@ -124,7 +124,8 @@ INNER join 	works ON	projects.id = works.project_id
 INNER	join tasks ON works.id = tasks.work_id
 WHERE	tasks.id = :id;";
     $params = ["id" => $idTask];
-    return Query($query, $params, false);
+    $result = Query($query, $params, false);
+    return $result['project_id'];
 }
 
 ?>

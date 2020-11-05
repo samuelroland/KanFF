@@ -32,10 +32,11 @@ function declareEventsForTasks() {
     })
     $(".optTaskDelete").on("click", function (event) {
         opt = event.target
+        event.stopPropagation()
         opt = getRealParentHavingId(opt)
         logIt(opt)
         deleteTask(opt.getAttribute("data-id"))
-        event.stopPropagation()
+
     })
 
 }
@@ -236,7 +237,7 @@ function createTask() {
 //try to update the task in the form details
 function tryUpdateTask() {
     if (checkAllValuesAreNotEmpty([inputname.value, urgency.value, type.value])) {
-
+        updateTask()
     }
 }
 
@@ -251,7 +252,8 @@ function deleteTask(id) {
 }
 
 function manageTaskDeleteResponse(response) {
-    if (manageResponseStatus(response)) {
+    isSuccess = manageResponseStatus(response)
+    if (isSuccess) {
         id = response.data.reference.id
         document.getElementById("Task-" + id).remove()
         managedivRightPanel(false)
@@ -266,6 +268,7 @@ function tryCreateTask() {
 }
 
 function createTaskWhenCreated(response) {
+    manageResponseStatus(response)
     //TODO: include condition to check status before and display error message
     if (response.data != null) {
         newtask = response.data.task

@@ -607,10 +607,32 @@ hr {
     padding: 5px;
 }
 
+#txtFeedbackSubject {
+    border-radius: 3px;
+    padding: 5px;
+}
+
 .thinblackborder {
     border: 1px solid black;
 }
 
 .resizenone {
     resize: none;
+}
+
+.icon-tempmsg {
+    height: 13px;
+}
+
+
+#divTempMessages {
+    z-index: 2500;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 300px;
+    display: flex;
+    justify-content: end;
+    flex-flow: wrap;
+    align-content: baseline;
 }

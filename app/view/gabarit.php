@@ -32,6 +32,7 @@ require ".const.php";
     <!-- Js files  -->
     <script src="js/global.js"></script>
     <script src="js/groups.js"></script>
+    <script src="js/members.js"></script>
     <script src="js/users.js"></script>
     <script src="js/projects.js"></script>
     <script src="js/tasks.js"></script>
@@ -70,7 +71,7 @@ Y,                    `\"8bd888b,             ,P
 ?>
 
 <!-- The full header -->
-<header class="bg-header <?= ($debug == false) ? "header-fixed" : "" //the header is not fixed in debug mode because else devs can't see var_dump() results printed under the menu.                               ?>">
+<header class="bg-header <?= ($debug == false) ? "header-fixed" : "" //the header is not fixed in debug mode because else devs can't see var_dump() results printed under the menu.                                   ?>">
 
     <!-- Zone Logo with logo image + version texts -->
     <div class="divZoneLogo flexdiv">
@@ -83,7 +84,7 @@ Y,                    `\"8bd888b,             ,P
             </div>
         </div>
         <div data-href="?action=about"
-             class="flex-3 collectivename flexdiv overflow-hidden borderleftorange borderrightorange clickable cursorpointer <?= ($action == "about") ? 'active' : '' //button active or not                               ?>">
+             class="flex-3 collectivename flexdiv overflow-hidden borderleftorange borderrightorange clickable cursorpointer <?= ($action == "about") ? 'active' : '' //button active or not                                   ?>">
             <div class="align-items-center flexdiv"><?= $instanceinfos['collective']['name'] ?></div>
         </div>
     </div>
@@ -193,7 +194,7 @@ switch ($contenttype) {
     case "restricted":
         ?>
         <div class="flexdiv <?= ($msg != "") ? "" : "margintopforheader" ?> justify-content-center">
-            <div class="appbody appbodyrestrict col-lg-7 col-md-8 col-sm-11 marginauto p-3"><?= $content; ?></div>
+            <div class="appbody appbodyrestrict marginauto p-3"><?= $content; ?></div>
         </div>
         <?php
         break;
@@ -208,11 +209,11 @@ switch ($contenttype) {
 <?php
 if ($feedbackForm == true && isEmailFormat($emailSourceForFeedback) && isEmailFormat($emailForFeedback)) { ?>
     <!-- feedback form -->
-    <div class="dropdown position-fixed cursorpointer">
+    <div class="dropdown position-fixed">
         <form>
             <!-- form tag ? -> thanks to https://stackoverflow.com/questions/25089297/avoid-dropdown-menu-close-on-click-inside#answer-34216265 -->
             <!-- The circle -->
-            <div class="divFeedback" data-toggle="dropdown" aria-expanded="false">
+            <div class="divFeedback cursorpointer" data-toggle="dropdown" aria-expanded="false">
                 <?php
                 printAnIcon("feedback.svg", "Envoyer un feedback sur la page", "feedback icon", "icon-small iconFeedback");
                 ?>
@@ -225,17 +226,24 @@ if ($feedbackForm == true && isEmailFormat($emailSourceForFeedback) && isEmailFo
                         <div class="flex-1"><strong>Formulaire de feedback</strong></div>
                         <div>
                             <?php
-                            echo createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-xsmall m-1", false), "Ce formulaire vous permet d'envoyer un feedback à propos de la page actuelle. Si ce formulaire s'affiche c'est uniquement car cette instance existe pour aller faire tester les gens.", false, "right");
+                            echo createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-xsmall m-1", false), "Ce formulaire vous permet d'envoyer un feedback à propos de la page actuelle. \nIl s'affiche uniquement sur les instances de tests.", false, "right");
                             ?>
                         </div>
                     </div>
 
-                    <span class="small">Informations automatiques:</span>
-                    <br><span class="small">URL: <span
-                                class="littleinfotext"><?= $_SERVER['REQUEST_URI'] ?></span></span>
-                    <br><span class="small">Cookies d'interface: <span class="littleinfotext">Inclus</span></span>
-                    <br><span class="small">Version: <span
-                                class="littleinfotext"><?= $versions[count($versions) - 1]['version'] ?></span></span>
+                    <span class="small cursorpointer" id="txtFeedbackInfos">Informations automatiques
+                    <?php printAnIcon("trianglebottom.png", "Afficher", "triangle bottom icon", "icon-task-triangle"); ?>
+                    </span>
+                    <div id="divFeedbackInfos" hidden>
+                        <span class="small">URL: <span
+                                    class="littleinfotext"><?= $_SERVER['REQUEST_URI'] ?></span></span>
+                        <br><span class="small">Cookies d'interface: <span class="littleinfotext">Inclus</span></span>
+                        <br><span class="small">Version: <span class="littleinfotext">
+                            <?= $versions[count($versions) - 1]['version'] ?>
+                        </span></span>
+                        <br><span class="small">Informations sur le navigateur: <span
+                                    class="littleinfotext">Inclus</span></span>
+                    </div>
                     <div class="mt-3 box-verticalaligncenter">
                         <strong class="flex-1">Votre retour:</strong>
                         <div>
@@ -244,9 +252,13 @@ if ($feedbackForm == true && isEmailFormat($emailSourceForFeedback) && isEmailFo
                             ?>
                         </div>
                     </div>
-                    <textarea name="feedback" id="txtFeedback" rows="10" class="thinblackborder"
-                              placeholder="Concernant les fonctionnalités présentes sur cette page, bogues trouvés, le design, la simplicité (ou non) d'utilisation, suggestions, la cohérence, la clarté des informations, ... tout commentaire constructif à propos de cette page est le bienvenu!"
-                              maxlength="6000"></textarea>
+                    <div id="frmFeedback">
+                        <input id="txtFeedbackSubject" type="text" maxlength="100" name="subject"
+                               placeholder="Sujet du retour" class="thinblackborder mb-1 mt-1 fullwidth">
+                        <textarea name="content" id="txtFeedback" rows="10" class="thinblackborder"
+                                  placeholder="Concernant les fonctionnalités présentes sur cette page, bogues trouvés, le design, la simplicité (ou non) d'utilisation, suggestions, la cohérence, la clarté des informations, ... tout commentaire constructif à propos de cette page est le bienvenu!"
+                                  maxlength="6000"></textarea>
+                    </div>
                     <div class="box-alignright">
                         <div id="btnCancelFeedback" class="btn btn-light littleinfotext mr-2">Annuler</div>
                         <div id="btnSendFeedback" class="btn btn-light thinBorder">Envoyer</div>
@@ -256,5 +268,23 @@ if ($feedbackForm == true && isEmailFormat($emailSourceForFeedback) && isEmailFo
         </form>
     </div>
 <?php } ?>
+<!-- JS messages at the top right. Invisible if empty. -->
+<div id="divTempMessages"></div>
+
+<!-- templates -->
+<div id="templates">
+    <template id="templateMsg">
+        <div class="jsTempMsg flexdiv">
+            <div class="box-verticalaligncenter checkmark"><?= printAnIcon("checkmark.png", "", "question mark icon", "icon-task m-1", false) ?></div>
+            <div class="box-verticalaligncenter redcross" hidden><?= printAnIcon("redcross.png", "", "question mark icon", "icon-task m-1", false) ?></div>
+            <div class="jsTempMsgText flex-1 ml-1 mr-1 box-verticalaligncenter"><?php echo createElementWithFixedLines("", 3, "msgText", true); ?></div>
+            <?= printAnIcon("blackcross.png", "", "question mark icon", "icon-tempmsg m-1", false) ?>
+        </div>
+    </template>
+    <template id="templateTask"><?php printATask([], true); ?></template>
+</div>
+
+
+
 </body>
 </html>

@@ -124,6 +124,10 @@ if (!isset($_SESSION['user']['id'])) {
             case "member":
                 memberDetails($_GET['id']);
                 break;
+            case "updateAccountState": //Ajax call to update the account state of a member
+                setHTTPHeaderForAPIResponse();
+                updateAccountState($data);
+                break;
             case "createAGroup":
                 createAGroup($_POST);
                 break;

@@ -186,8 +186,8 @@
     "work_id": 3
   },
   {
-    "name": "",
-    "description": "Choix du format",
+    "name": "Choix du format",
+    "description": "mp4, mov ?",
     "state": 3,
     "work_id": 3
   },

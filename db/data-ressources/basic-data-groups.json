@@ -1,6 +1,6 @@
 [
   {
-    "name": "GT Finances",
+    "name": "Finances",
     "description": "Ce groupe s'occupe de gérer les finances de l'association. Il gère les dons, les dépenses, les demandes d'argent, et gère le compte bancaire.",
     "context": "Ce groupe a été créé après un problème avec les finances. Le problème était que trop peu de personnes s'en occupaient.",
     "status": "Travail une fois par mois pour les tâches répétitives",
@@ -8,7 +8,7 @@
     "prerequisite": "Connaissances minimales en comptabilité requises. Le reste peu être appris sur le tas si vous voulez vous intégrer dans ce groupe. De la rigueur administrative est aussi de mise."
   },
   {
-    "name": "GT Réflexion interne",
+    "name": "Réflexion interne",
     "description": "Groupe pour réfléchir au fonctionnement interne.",
     "context": "Différentes tensions entre certains membres.",
     "status": "",
@@ -24,14 +24,14 @@
     "restrict_access": 1
   },
   {
-    "name": "GT Journal",
+    "name": "Journal",
     "description": "Collaboration avec un journal régional mensuel pour un prochain numéro consacré à l'association. Le journal sera publié fin mai.",
     "context": "Envie de prendre place dans l'espace médiatique et de se faire connaître...",
     "status": "En pause pour cause du covid et reporté en septembre.",
     "prerequisite": "Aimer écrire ou dessiner. Les textes sont travaillés très longtemps avant d'arriver dans leur phase finale."
   },
   {
-    "name": "GT Festival",
+    "name": "Festival",
     "description": "Organise les \"festivals\" annuels de l'association.",
     "context": "",
     "status": "",
@@ -39,27 +39,27 @@
     "visibility": 4
   },
   {
-    "name": "GT Multimédia",
+    "name": "Multimédia",
     "description": "Crée tous les design et médias dont l'association a besoin. Affiches, vidéos, photos, montages, ...",
     "context": "Rassemblement des personnes créatives de l'association.",
     "status": "Peu actif...",
     "image": "group_2fg2k8ip25uujr77t4tfyegn4puusp.jpg"
   },
   {
-    "name": "GT Sites web",
-    "description": "Ce GT s'occupe des sites web et de leur maintenance.",
+    "name": "Sites web",
+    "description": "Ce groupe s'occupe des sites web et de leur maintenance.",
     "context": "Besoin de connaissances un peu technique et des personnes qui se portent responsables.",
     "status": "Travail actif sur le site cantonal...",
     "restrict_access": 1
   },
   {
-    "name": "GT Communication",
+    "name": "Communication",
     "description": "Gére toute la communication interne et externe de l'association. Gère les différents réseaux sociaux.",
     "context": "",
     "status": "Textes et messages envoyés tous les jours. Très actif pour la réfléxion."
   },
   {
-    "name": "GT Education",
+    "name": "Education",
     "description": "Fait des formations en ligne pour des membres internes et externes.",
     "context": "Volonté de se former au thèmes de l'association.",
     "status": "Formations intenses entre le 15 et le 23. Ensuite pause."
@@ -72,14 +72,14 @@
     "restrict_access": 1
   },
   {
-    "name": "GT boîte mail",
+    "name": "boîte mail",
     "description": "Gestion de la boite mail et réponses aux messages.",
     "context": "",
     "status": "Une personne gère la boite mail par jour et ce tous les jours.",
     "image": "group_blwt3uw94psz9n8xtmy1fym3exo8b2.jpg"
   },
   {
-    "name": "GT Anniversaire",
+    "name": "Anniversaire",
     "description": "Organisation de la fête annuel de l'anniversaire du collectif, qui consiste simplement en un apéro sur une soirée.",
     "context": "Moment de plaisir et de détente pour changer des périodes de l'année intense en travail.",
     "status": "Nouveau projet pour les 20 ans démarré.",
@@ -87,7 +87,7 @@
     "restrict_access": 1
   },
   {
-    "name": "GT Bien-être",
+    "name": "Bien-être",
     "description": "S'occupe de gérer les conflits à l'interne et de veiller au bien-être de chaque membre, via la boîte aux lettres.",
     "context": "",
     "status": "Diverses conflits sont en cours d'être géré mais cela prend du temps...",
