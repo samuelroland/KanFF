@@ -143,6 +143,11 @@ function updateATask($data)
     /**
      * Validation Data
      */
+    //Check type of update
+    $total=0;
+    for ($i=0;$i==count($data);$i++){
+        if (isset($data[1])){$total+=1;}
+    }
 
     //Check if value needed aren't empty
     if (isAtLeastEqual("", [$data["name"], $data["state"], $data["urgency"]])) {
@@ -196,16 +201,7 @@ function updateATask($data)
     }
 }
 
-//set var if not empty
-function setVarTask($nameOfVar, $data, $task)
-{
-    if (isset($nameOfVar)) {
-        $task[$nameOfVar] = $data[$nameOfVar];
-        return true;
-    } else {
-        return false;
-    }
-}
+
 
 //Ajax call to delete a task
 function deleteATask($data)
