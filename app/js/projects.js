@@ -15,6 +15,10 @@ $(document).ready(function () {
         invertHiddenState(parent, "shortdescription")
         invertHiddenState(parent, "longdescription")
     })
+    $("#start").on("change", function (sender) {
+        console.log(sender.target.value)
+        $("#end").attr("min",sender.target.value) // Minimum value of end is greater of start
+    })
     $(".btnSeeMoreOrLessWorks").on("click", function (event) {
         parent = getRealParentHavingId(event.target)
         if (event.target.innerText === "Afficher contenu") {    //if the user want to display content
