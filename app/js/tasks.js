@@ -38,14 +38,14 @@ function declareEventsForTasks() {
         deleteTask(opt.getAttribute("data-id"))
 
     })
-
+    $("#btnSave").on("click", tryUpdateTask)
 }
 
 //After the DOM has been loaded:
 $(document).ready(function () {
     declareEventsForTasks()
 
-    btnSave.addEventListener("click", tryCreateTask)
+    $("#btnCreate").on("click", tryCreateTask)
 
     //Extract value from url:
     url = window.location.toString()
@@ -231,7 +231,7 @@ function manageActiveTasks(taskToActive) {
 
 function createTask() {
     data = getArrayFromAFormFieldsWithName("divTaskCreate")
-    sendRequest("POST", "?action=createTask", createTaskWhenCreated, data)
+    sendRequest("POST", "?action=createTask", createTaskCallback, data)
 }
 
 //try to update the task in the form details
@@ -242,7 +242,7 @@ function tryUpdateTask() {
 }
 
 function updateTask() {
-    data = getArrayFromAFormFieldsWithName("divTaskCreate")
+    data = getArrayFromAFormFieldsWithName("divTaskDetails")
     sendRequest("POST", "?action=updateTask", displayResponseMsg, data)
 }
 
@@ -263,11 +263,15 @@ function manageTaskDeleteResponse(response) {
 }
 
 function tryCreateTask() {
-    //TODO: check data in the form, display error message, receive ajax response, manage form, manage serial mode behavior and task DOM creation
-    createTask()
+    //ALl asked value (name, type and work) are required
+    if (inputnamecreate.value != "" && typecreate.value != "" && workcreate.value != "") {
+        createTask()
+    } else {    //data missing (local message)
+        displayResponseMsg("Données manquantes. Création de la tâche impossible.", false)
+    }
 }
 
-function createTaskWhenCreated(response) {
+function createTaskCallback(response) {
     manageResponseStatus(response)
     //TODO: include condition to check status before and display error message
     if (response.data != null) {
@@ -286,6 +290,9 @@ function createTaskWhenCreated(response) {
 
         //Manage window displaying
         declareEventsForTasks() //redeclare event for tasks (for new tasks)
+
+        //If serial mode enabled:
+        //TODO: serial mode management
         managedivRightPanel(true, 1)    //display details
         loadTaskDetailsWithData(response)   //load data for details
         manageActiveTasks(document.getElementById("Task-" + newtask.id))    //active new task created
