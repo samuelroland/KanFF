@@ -123,6 +123,7 @@ function createATask($data)
 //Ajax call to update one task
 function updateATask($data)
 {
+    $error = false;
     var_dump($data);
     $task = [];
     $hasPermissionToUpdate = null; //default value
@@ -145,42 +146,20 @@ function updateATask($data)
 
     //Check if value needed aren't empty
     if (isAtLeastEqual("", [$data["name"], $data["state"], $data["urgency"]])) {
-
-        //TODO: API répond qu'une ou plusieurs valeur(s) demandée(s) est/sont vide(s)
+        $error = true;
     }
 
     /**Check strings's length*/
 
-    $description=true;
-    //Description isn't not null, check before if isset
-    if (!isAtLeastEqual("",$data["description"])){
-        if (!chkLength($data['description'], 2000)){
-            $description=false;
-        }
-    }
-    $link=true;
-    //Link isn't not null, check before if isset
-    if (!isAtLeastEqual("",$data["link"])){
-        if (!chkLength($data['link'], 2000)){
-            $link=false;
-        }
-    }
+    $error = setErrorValueIfNotTrue(!isAtLeastEqual("", $data["description"]) && !chkLength($data['description'], 2000), $error);
+
+    $error = setErrorValueIfNotTrue((!isAtLeastEqual("", $data["link"]) && !chkLength($data['link'], 2000)), $error);
 
     //Check if
-    if (chkLength($data['name'], 100)&& $description && $link){
-        $dataLength=true;
-    }else {
-        $dataLength=false;
-    }
-    /**En of checking strings's lenght*/
-    if ($dataLength && isAtLeastEqual($data['type'], TASK_LIST_TYPE) && $hasPermissionToUpdate) {
+    $error = (!chkLength($data['name'], 100));
 
-        //unset useless var
-        unsetVar($data['number']);
-        unsetVar($data['id']);
-        unsetVar($data['creator_id']);
-        unsetVar($data['work_id']);
-        unsetVar($data['completion_date']);
+    /**En of checking strings's lenght*/
+    if (isAtLeastEqual($data['type'], TASK_LIST_TYPE) && $hasPermissionToUpdate && !$error) {
 
         //use state only if state = true
         if ($data['state']) {
@@ -192,12 +171,7 @@ function updateATask($data)
         $test1 = is_int($data['urgency']);
         $test2 = is_int($data['type']);
         $test3 = is_int($data['responsible_id']);
-
-        if (!$test1 && !$test2 && !$test3) {
-            //TODO: API repond qu'une ou plusieurs valeur(s) demandée(s) a/ont un problème de type
-        }
-
-
+        $error = setErrorValueIfNotTrue(isAtLeastEqual(false, [is_int($data['urgency']), is_int($data['type']), is_int($data['responsible_id'])]) == false, $error);
         setVarTask('type', $data, $task);
         //Then generate other fields:
         $task['state'] = TASK_STATE_TODO;
@@ -208,7 +182,7 @@ function updateATask($data)
         updateTasks($data['work_id'], $id);
 
         $task = getOneTask($id);
-        $response = getApiResponse(API_SUCCESS, ['task' => $task]);
+        $response = getApiResponse(API_SUCCESS, ['task' => $task, 'message' => "Tâche mise à jour"]);
         echo json_encode($response);
     } else {
         if ($hasPermissionToUpdate === false) {
@@ -219,14 +193,6 @@ function updateATask($data)
             $response = getApiResponse(API_FAIL, ["error" => getFlashMessageById(10), "code" => 10, "position" => "top"]);
         }
         echo json_encode($response);
-    }
-}
-
-//unset var if not empty
-function unsetVar($var)
-{
-    if (isset($var)) {
-        unset($var);
     }
 }
 
