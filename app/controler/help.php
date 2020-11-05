@@ -301,4 +301,14 @@ function canChangeUserState($current, $next)
     return false;
 }
 
+//set value for error if error is not true. if error is true, return true to not change value
+function setErrorValueIfNotTrue($newValue, $currentValue)
+{
+    if ($currentValue == true) {
+        return $currentValue;
+    } else {
+        return $newValue;
+    }
+}
+
 ?>
