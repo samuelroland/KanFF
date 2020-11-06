@@ -128,6 +128,10 @@ if (!isset($_SESSION['user']['id'])) {
                 setHTTPHeaderForAPIResponse();
                 updateAccountState($data);
                 break;
+            case "changeStatus": //Ajax call to change the status of the user logged
+                setHTTPHeaderForAPIResponse();
+                changeStatus($data);
+                break;
             case "createAGroup":
                 createAGroup($_POST);
                 break;

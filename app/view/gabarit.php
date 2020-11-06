@@ -121,7 +121,7 @@ Y,                    `\"8bd888b,             ,P
                                     <br>
                                     <p>Inscription: <?= DTToHumanDate($_SESSION['user']['inscription']) ?></p>
                                     <p><strong>Statut <br></strong><em
-                                                id="pStatus"><?= $_SESSION['user']['status'] ?></em>
+                                                id="pStatus" class="breakword"><?= $_SESSION['user']['status'] ?></em>
                                         <span id="spChangeStatusIcon">
                                             <?= printAnIcon("modify.png", "", "modifiy icon", "yellowdarkonhover p-1 icon-small justify-content-end icnChangeStatus modify", false) ?>
                                             <?= printAnIcon("checkmark.png", "", "check mark icon", "yellowdarkonhover p-1 icon-small justify-content-end icnChangeStatus checkmark", false, "", true) ?>

@@ -119,4 +119,24 @@ function updateAccountState($data)  //Ajax call
     echo json_encode($response);
 }
 
+//change the status text of the user logged
+function changeStatus($data)  //Ajax call
+{
+    $data['status'] = trimIt($data['status']);  //trim the text
+
+    if (chkLength($data['status'], 200)) {  //maxlength is 200 chars
+        updateUser(['status' => $data['status']], $_SESSION['user']['id']); //update the user status
+        $msg = "Statut modifié!";   //default response msg is "status modified"
+        if ($data['status'] == "") {
+            $msg = "Statut vidé.";  //and if status is empty, msg is "status emptied"
+        }
+        //response is the new user updated and the success message
+        $response = getApiResponse(API_SUCCESS, ['user' => unsetPasswordsInArrayOn2Dimensions(getUserById($_SESSION['user']['id'])), 'message' => $msg]);
+    } else {
+        $dataError = getApiDataContentError("Données invalides.", 33);    //basic invalid data error
+        $response = getApiResponse(API_FAIL, array_merge(['user' => $_SESSION['user']], $dataError)); //response contains error and user information (to have the state)
+    }
+    echo json_encode($response);
+}
+
 ?>

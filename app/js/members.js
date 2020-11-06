@@ -41,18 +41,17 @@ function changeStatusDropdown() {
 
 //send the request to change status on the server
 function changeStatus(newStatus) {
-    sendRequest("GET", "?action=changeStatus", changeStatusCallback, {'status': newStatus})
+    sendRequest("POST", "?action=changeStatus", changeStatusCallback, {"status": newStatus})
 }
 
 //callbak for changeStatus request
 function changeStatusCallback(response) {
     isSuccess = manageResponseStatus(response)
-    if (isSuccess != true) {    //if not updated, set the content of displayed status like the status present on the server
-        em = document.createElement("em")
-        em.innerText = response.data.user.status
-        pStatus.innerHTML = ""
-        pStatus.appendChild(em)
-    }
+    //In all cases, set the content of displayed status like the status present on the server (updated or not)
+    em = document.createElement("em")
+    em.innerText = response.data.user.status
+    pStatus.innerHTML = ""
+    pStatus.appendChild(em)
 }
 
 //manage the edit mode (btn #btnMembersEditMode)
