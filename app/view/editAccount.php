@@ -13,8 +13,18 @@ $cssForDivField = "row pt-1";
 $title = "Mon compte";
 $instanceinfos = getInstanceInfos();
 $instance = $instanceinfos['instance'];
+$states = USER_LIST_STATE;
+$list="";
+foreach ($states as $state){
+
+    $list.= ", ".convertUserState($state);
+
+}
+
 ob_start();
-?>
+?>.
+
+
     <div class="<?= $cssForDivZone ?>">
     <div class="">
         <div class="flexdiv">
@@ -27,7 +37,7 @@ ob_start();
             pouvez gérer votre compte. Vous pouvez modifier vos informations pour la plupart et aussi archiver ou
             supprimer
             votre compte (attention supprimer est une action irréversible!)</p>
-        <?php printPageWIPTextInfo(); ?>
+        <?php printPageWIPTextInfo();?>
         <div class="form-group">
             <form class="" action="?action=signin" method="post">
                 <h5 class="pt-3">Informations principales:</h5>
@@ -89,7 +99,7 @@ ob_start();
                         <span class=" <?= $cssForSpan ?>">Etat du compte </span>
                         <input class="<?= $cssForInput ?>" type="text" readonly disabled
                                value="<?= convertUserState($user['state']) ?>"/>
-                        <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-small ml-2 mr-2 m-2", false), "Cet état peut être" , false,"right") ?>
+                        <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-small ml-2 mr-2 m-2", false), "Cet état peut être ".$list, false,"right")?>
 
                     </div>
                     <div class="<?= $cssForDivField ?>">

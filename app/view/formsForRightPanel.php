@@ -81,7 +81,7 @@ function printDivTaskDetails($project)
                     <div class="flex-1 flexdiv">
                         <div class="ml-3">
                             <span class="<?= $spanCSS ?>">Urgence:</span>
-                            <input type="number" id="urgency" class="form-control inputtypenumber"
+                            <input type="number" name="urgency" id="urgency" class="form-control inputtypenumber"
                                    value="" min="0" max="5" required>
                         </div>
                         <div class="mt-4">
@@ -109,7 +109,7 @@ function printDivTaskDetails($project)
                 <div class="panelRightStandardBottomLine">
                     <div class="flexdiv box-alignright">
                         <button class="btnSaveCancel btn colorCancel">Annuler</button>
-                        <button class="btnSaveCancel btn colorSave">Enregistrer</button>
+                        <button id="btnSave" class="btnSaveCancel btn colorSave">Enregistrer</button>
                     </div>
                 </div>
             </div>
@@ -148,7 +148,7 @@ function printDivTaskCreate($project)
                 </div>
                 <div class="ml-2 ">
                     <span class="">Type:</span>
-                    <select class="form-control" name="type" id="type">
+                    <select class="form-control" name="type" id="typecreate">
                         <option value="0">Autre</option>
                         <option value="1">Question</option>
                         <option value="2">Information</option>
@@ -160,7 +160,7 @@ function printDivTaskCreate($project)
             </div>
             <div class="mt-2">
                 <span class="">Travail:</span>
-                <select class="form-control" name="work" id="work">
+                <select class="form-control" name="work" id="workcreate">
                     <?php
                     //TODO: add conditions to not include invisible and done, and sort the list cleverly
                     foreach ($project['works'] as $work) {
@@ -200,7 +200,7 @@ function printDivTaskCreate($project)
                 </div>
                 <div class="flexdiv box-alignright">
                     <button id="btnCancel" class="btnSaveCancel btn colorCancel">Annuler</button>
-                    <button id="btnSave" class="btnSaveCancel btn colorSave">Créer la tâche</button>
+                    <button id="btnCreate" class="btnSaveCancel btn colorSave">Créer la tâche</button>
                 </div>
             </div>
         </div>

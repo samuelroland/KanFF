@@ -56,7 +56,7 @@ $title = "Créer un projet"
         </div>
         <div class="marginauto">
             <label for="end">Fin (facultatif):</label>
-            <input class="marginauto" type="date" id="end" name="dateEnd">
+            <input class="marginauto" type="date" id="end" min="" name="dateEnd">
         </div>
 
 
@@ -71,22 +71,10 @@ $title = "Créer un projet"
         <div class="col-lg-3 col-md pt-4">
             <h4>Importance</h4>
 
-            <select class="form-control" name="importance" id="selImportance" required>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select></div>
+            <input type="number" min="1" max="5" name="importance" id="selImportance" placeholder="1" required></div>
         <div class="col-lg-3 col-md pt-4">
             <h4>Urgence</h4>
-            <select class="form-control" name="urgency" id="selUrgency" required>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select></div>
+            <input type="number" min="1" max="5" name="urgency" id="selUrgency" placeholder="1" required></div>
     </div>
     <div class="divVisibility mr-0 pt-4">
         <h4>Confidentialité</h4>
