@@ -44,7 +44,12 @@ $title = "A propos";
     <br>
     <h2 class="txtgreenlogo">KanFF</h2>
 <p><strong>canne... quoi ?</strong></p>
-<p><em class="txtdarkbluelogo">C'est une application web (opensource) de gestion de projets, de tâches, et d'organisation du travail, conçue pour le milieu militant et associatif.</em><br>Chaque membre a son compte et intéragit avec des groupes, des projets, des travaux et tâches, de manière collaborative. Les tâches et travaux d'un projet sont gérés à l'aide d'un kanban. <!-- Il y a aussi des événements et des journaux de bord par projet.--></p>
+<p><em class="txtdarkbluelogo">
+        C'est une application web (opensource) de gestion de projets, de tâches, et d'organisation du travail, conçue pour le milieu militant et associatif.</em><br>
+    <p><strong>Structure de l'application</strong></p>
+        Quand un collectif utilise l'application, les membres du collectif ont un compte et rejoignent des groupes. Les groupes réalisent 0, 1 ou plusieurs projets (les projets sont réalisés par un ou plusieurs groupes).<br><br>
+        Chaque projet a un kanban et est divisé en parties appelées "travaux". Ceux-ci contiennent des tâches relatives à ce travail.<br>
+        La gestion de toutes ces tâches dans les différents travaux et projets se fait collaborativement à travers le kanban et les détails du projet. Les événements importants relatifs à un projet sont consignés par les membres dans un journal de bord.</p>
 
     <!--<p><strong>Gérer des projets et des tâches ? C'est quoi et comment ?</strong></p>
 <p>Il existe <strong>un petit mode d'emploi</strong> explicant de manière large et simple ce qu'on peut faire sur KanFF. Cette documentation se trouve ici. [ADD LINK]. Vous apprendrez également la signification des termes moins connus et largement utilisés dans l'application (comme kanban, travail, supertâche, ...). Le tout est illustré d'images afin de rendre les explications plus concrètes.
