@@ -8,11 +8,13 @@
 //After the DOM has been loaded:
 $(document).ready(function () {
     //Declare events:
-    inpFirstname.addEventListener("keyup", validateSigninFields)
-    inpLastname.addEventListener("keyup", validateSigninFields)
-    inpUsername.addEventListener("change", validateSigninFields)
-    inpPassword1.addEventListener("change", validateSigninFields)
-    inpPassword2.addEventListener("change", validateSigninFields)
+    if (queryActionIncludes("signin")) {
+        inpFirstname.addEventListener("keyup", validateSigninFields)
+        inpLastname.addEventListener("keyup", validateSigninFields)
+        inpUsername.addEventListener("change", validateSigninFields)
+        inpPassword1.addEventListener("change", validateSigninFields)
+        inpPassword2.addEventListener("change", validateSigninFields)
+    }
 })
 
 function validateSigninFields() {

@@ -8,8 +8,12 @@
 document.addEventListener("DOMContentLoaded", init)
 
 function init() {
-    btnMembersEditMode.addEventListener("click", manageEditMode)
-    $(".sltAccountState").on("change", changeAccountState)
+    if (window.location.toString().includes("members")) {
+        btnMembersEditMode.addEventListener("click", manageEditMode)
+        $(".sltAccountState").on("change", changeAccountState)
+    }
+    $("#icnChangeStatus").on("click", changeStatusDropdown)
+}
 }
 
 //manage the edit mode (btn #btnMembersEditMode)

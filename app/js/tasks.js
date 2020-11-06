@@ -43,58 +43,61 @@ function declareEventsForTasks() {
 
 //After the DOM has been loaded:
 $(document).ready(function () {
-    declareEventsForTasks()
+    if (queryActionIncludes("kanban")) { //init only if page is kanban
+        declareEventsForTasks()
 
-    $("#btnCreate").on("click", tryCreateTask)
+        $("#btnCreate").on("click", tryCreateTask)
 
-    //Extract value from url:
-    url = window.location.toString()
-    opt = url.substr(url.indexOf("opt=") + 4, 1)
-    hash = window.location.hash.toString()
+        //Extract value from url:
+        url = window.location.toString()
+        opt = url.substr(url.indexOf("opt=") + 4, 1)
+        hash = window.location.hash.toString()
 
-    //if url is correctly build (hash not empty. action=kanban, hash start with #t- or #w- and and if opt is not), then display right panel with the right form (in opt)
-    if (hash != "" && url.indexOf("action=kanban") != -1 && (hash.startsWith("#t-") || hash.startsWith("#w-")) && url.indexOf("opt=0") == -1) {
-        switch (opt) {
-            case "1":   //opt 1 = idFormToDisplay => divTaskDetails
-                task = document.getElementById("Task-" + hash.substr(hash.indexOf("#t-") + 3, hash.length)) //get the element ("Task-"+ task.id) with its id in the hash
-                logIt(task)
-                if (task != null) {    //if task found with the id in the hash
-                    displayTaskDetails(task)
-                    manageActiveTasks(task)
-                } else {
-                    managedivRightPanel(false)     //close details because there is no task to display
-                    manageActiveTasks(null)
-                    window.location.hash = ""   //remove the bad hash with the unknown id
-                }
-                break;
-            case "2":   //opt 1 = idFormToDisplay => divTaskCreate
-                work = document.getElementById("Work-" + hash.substr(hash.indexOf("#w-") + 3)) //get the element ("Work-"+ task.id) with its id in the hash
-                logIt(work)
-                if (work != null) {    //if work found with the id in the hash
-                    loadTaskCreateForm(work.getAttribute("data-id"))
-                } else {
-                    managedivRightPanel(false)     //close details because there is no work to display
-                    window.location.hash = ""   //remove the bad hash with the unknown id
-                }
-                break;
+        //if url is correctly build (hash not empty. action=kanban, hash start with #t- or #w- and and if opt is not), then display right panel with the right form (in opt)
+        if (hash != "" && url.indexOf("action=kanban") != -1 && (hash.startsWith("#t-") || hash.startsWith("#w-")) && url.indexOf("opt=0") == -1) {
+            switch (opt) {
+                case "1":   //opt 1 = idFormToDisplay => divTaskDetails
+                    task = document.getElementById("Task-" + hash.substr(hash.indexOf("#t-") + 3, hash.length)) //get the element ("Task-"+ task.id) with its id in the hash
+                    logIt(task)
+                    if (task != null) {    //if task found with the id in the hash
+                        displayTaskDetails(task)
+                        manageActiveTasks(task)
+                    } else {
+                        managedivRightPanel(false)     //close details because there is no task to display
+                        manageActiveTasks(null)
+                        window.location.hash = ""   //remove the bad hash with the unknown id
+                    }
+                    break;
+                case "2":   //opt 1 = idFormToDisplay => divTaskCreate
+                    work = document.getElementById("Work-" + hash.substr(hash.indexOf("#w-") + 3)) //get the element ("Work-"+ task.id) with its id in the hash
+                    logIt(work)
+                    if (work != null) {    //if work found with the id in the hash
+                        loadTaskCreateForm(work.getAttribute("data-id"))
+                    } else {
+                        managedivRightPanel(false)     //close details because there is no work to display
+                        window.location.hash = ""   //remove the bad hash with the unknown id
+                    }
+                    break;
+            }
+
+        } else {
+            managedivRightPanel(false)
         }
 
-    } else {
-        managedivRightPanel(false)
-    }
-
-    //.onclickCloseDetails object can close divRightPanel on click event
-    $(".onclickCloseDetails").on("click", function (event) {
-        managedivRightPanel(false)
-        manageActiveTasks(null)     //unactive all tasks
-    })
+        //.onclickCloseDetails object can close divRightPanel on click event
+        $(".onclickCloseDetails").on("click", function (event) {
+            managedivRightPanel(false)
+            manageActiveTasks(null)     //unactive all tasks
+        })
 
 
-    //On keyup on #inputnamecreate the task name is loaded
-    $("#inputnamecreate").on("keyup", function (event) {
+        //On keyup on #inputnamecreate the task name is loaded
+        $("#inputnamecreate").on("keyup", function (event) {
+            loadTaskNameForCreate()
+        })
         loadTaskNameForCreate()
-    })
-    loadTaskNameForCreate()
+
+    }
 })
 
 //load task name from #inputnamecreat to spannamecreate

@@ -244,3 +244,14 @@ function manageResponseStatus(response) {
     }
     return isSuccess
 }
+
+//is the needle included in the action in the querystring ?
+function queryActionIncludes(needle) {
+    if (needle == "") {    //the needle can't be empty
+        return false
+    }
+    querystring = window.location.search    //get the querystring
+    action = querystring.split("&")[0]  //get the first parameter in the querystring (that must be in all cases the action=x
+    action = action.toLowerCase()   //set to lowercase because updateTask and tasks contain the work "task" but the
+    return (action.includes(needle))
+}
