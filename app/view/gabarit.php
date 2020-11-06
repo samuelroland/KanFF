@@ -123,8 +123,8 @@ Y,                    `\"8bd888b,             ,P
                                     <p><strong>Statut <br></strong><em
                                                 id="pStatus" class="breakword"><?= $_SESSION['user']['status'] ?></em>
                                         <span id="spChangeStatusIcon">
-                                            <?= printAnIcon("modify.png", "", "modifiy icon", "yellowdarkonhover p-1 icon-small justify-content-end icnChangeStatus modify", false) ?>
-                                            <?= printAnIcon("checkmark.png", "", "check mark icon", "yellowdarkonhover p-1 icon-small justify-content-end icnChangeStatus checkmark", false, "", true) ?>
+                                            <?= printAnIcon("modify.png", "Modifier le statut", "modifiy icon", "yellowdarkonhover p-1 icon-small justify-content-end icnChangeStatus modify", false) ?>
+                                            <?= printAnIcon("checkmark.png", "Enregistrer le statut", "check mark icon", "yellowdarkonhover p-1 icon-small justify-content-end icnChangeStatus checkmark", false, "", true) ?>
                                         </span>
                                     </p>
                                     <p><strong>Etat:</strong> <?= convertUserState($_SESSION['user']['state']) ?></p>

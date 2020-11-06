@@ -24,14 +24,22 @@ function changeStatusDropdown() {
         input.classList.add("font-italic")
         input.maxLength = 200
         input.value = pStatus.innerText
+        input.setAttribute("data-modified", "false")    //at start the content is not modified
+        input.addEventListener("input", function (event) {  //but if the content change (event "input") set this data-modified to true
+            inp = event.target
+            inp.setAttribute("data-modified", "true")
+        })
         pStatus.innerHTML = ""
         pStatus.appendChild(input)
     } else {    //else recreate the em markup with the content of the input
+        textHasChanged = pStatus.querySelector("textarea").getAttribute("data-modified")
         em = document.createElement("em")
         em.innerText = pStatus.querySelector("textarea").value
         pStatus.innerHTML = ""
         pStatus.appendChild(em)
-        changeStatus(em.innerText)
+        if (textHasChanged == "true") { //change request only if the status has been modified
+            changeStatus(em.innerText)  //send the request
+        }
     }
 
     //Invert hidden state on icon when click on one of them (to create an alternance with the 2 icons checkmark and modifiy)
