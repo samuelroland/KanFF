@@ -71,7 +71,7 @@ Y,                    `\"8bd888b,             ,P
 ?>
 
 <!-- The full header -->
-<header class="bg-header <?= ($debug == false) ? "header-fixed" : "" //the header is not fixed in debug mode because else devs can't see var_dump() results printed under the menu.                                   ?>">
+<header class="bg-header <?= ($debug == false) ? "header-fixed" : "" //the header is not fixed in debug mode because else devs can't see var_dump() results printed under the menu.                                      ?>">
 
     <!-- Zone Logo with logo image + version texts -->
     <div class="divZoneLogo flexdiv">
@@ -84,7 +84,7 @@ Y,                    `\"8bd888b,             ,P
             </div>
         </div>
         <div data-href="?action=about"
-             class="flex-3 collectivename flexdiv overflow-hidden borderleftorange borderrightorange clickable cursorpointer <?= ($action == "about") ? 'active' : '' //button active or not                                   ?>">
+             class="flex-3 collectivename flexdiv overflow-hidden borderleftorange borderrightorange clickable cursorpointer <?= ($action == "about") ? 'active' : '' //button active or not                                      ?>">
             <div class="align-items-center flexdiv"><?= $instanceinfos['collective']['name'] ?></div>
         </div>
     </div>
@@ -120,10 +120,12 @@ Y,                    `\"8bd888b,             ,P
                                     <?= $_SESSION['user']['phonenumber'] ?><br>
                                     <br>
                                     <p>Inscription: <?= DTToHumanDate($_SESSION['user']['inscription']) ?></p>
-                                    <p><strong>Statut <br></strong><em><?= $_SESSION['user']['status'] ?></em><img
-                                                src="view/medias/icons/modify.png"
-                                                alt="modify icon"
-                                                class="yellowdarkonhover icon-small justify-content-end">
+                                    <p><strong>Statut <br></strong><em
+                                                id="pStatus"><?= $_SESSION['user']['status'] ?></em>
+                                        <span id="spChangeStatusIcon">
+                                            <?= printAnIcon("modify.png", "", "modifiy icon", "yellowdarkonhover p-1 icon-small justify-content-end icnChangeStatus modify", false) ?>
+                                            <?= printAnIcon("checkmark.png", "", "check mark icon", "yellowdarkonhover p-1 icon-small justify-content-end icnChangeStatus checkmark", false, "", true) ?>
+                                        </span>
                                     </p>
                                     <p><strong>Etat:</strong> <?= convertUserState($_SESSION['user']['state']) ?></p>
                                     <?= ($_SESSION['user']['on_break'] == 1) ? "<p class='lightbluelogo p-2'><strong>En pause</strong></p>" : "" ?>
@@ -275,15 +277,15 @@ if ($feedbackForm == true && isEmailFormat($emailSourceForFeedback) && isEmailFo
 <div id="templates">
     <template id="templateMsg">
         <div class="jsTempMsg flexdiv">
-            <div class="box-verticalaligncenter checkmark"><?= printAnIcon("checkmark.png", "", "question mark icon", "icon-task m-1", false) ?></div>
-            <div class="box-verticalaligncenter redcross" hidden><?= printAnIcon("redcross.png", "", "question mark icon", "icon-task m-1", false) ?></div>
+            <div class="box-verticalaligncenter checkmark"><?= printAnIcon("checkmark.png", "", "check mark icon", "icon-task m-1", false) ?></div>
+            <div class="box-verticalaligncenter redcross"
+                 hidden><?= printAnIcon("redcross.png", "", "redcross icon", "icon-task m-1", false) ?></div>
             <div class="jsTempMsgText flex-1 ml-1 mr-1 box-verticalaligncenter"><?php echo createElementWithFixedLines("", 3, "msgText", true); ?></div>
             <?= printAnIcon("blackcross.png", "", "question mark icon", "icon-tempmsg m-1", false) ?>
         </div>
     </template>
     <template id="templateTask"><?php printATask([], true); ?></template>
 </div>
-
 
 
 </body>

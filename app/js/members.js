@@ -12,8 +12,47 @@ function init() {
         btnMembersEditMode.addEventListener("click", manageEditMode)
         $(".sltAccountState").on("change", changeAccountState)
     }
-    $("#icnChangeStatus").on("click", changeStatusDropdown)
+    $(".icnChangeStatus").on("click", changeStatusDropdown)
 }
+
+//first function launched on click on one icon .icnChangeStatus to change the status in the dropdown in the gabarit
+function changeStatusDropdown() {
+    if (pStatus.querySelector("textarea") == null) {    //if input doesn't exist, create it with the current innerText
+        input = document.createElement("textarea")
+        input.rows = 5
+        input.classList.add("fullwidth")
+        input.classList.add("font-italic")
+        input.maxLength = 200
+        input.value = pStatus.innerText
+        pStatus.innerHTML = ""
+        pStatus.appendChild(input)
+    } else {    //else recreate the em markup with the content of the input
+        em = document.createElement("em")
+        em.innerText = pStatus.querySelector("textarea").value
+        pStatus.innerHTML = ""
+        pStatus.appendChild(em)
+        changeStatus(em.innerText)
+    }
+
+    //Invert hidden state on icon when click on one of them (to create an alternance with the 2 icons checkmark and modifiy)
+    invertHiddenStateOnChild(document.getElementById("spChangeStatusIcon"), "checkmark")
+    invertHiddenStateOnChild(document.getElementById("spChangeStatusIcon"), "modify")
+}
+
+//send the request to change status on the server
+function changeStatus(newStatus) {
+    sendRequest("GET", "?action=changeStatus", changeStatusCallback, {'status': newStatus})
+}
+
+//callbak for changeStatus request
+function changeStatusCallback(response) {
+    isSuccess = manageResponseStatus(response)
+    if (isSuccess != true) {    //if not updated, set the content of displayed status like the status present on the server
+        em = document.createElement("em")
+        em.innerText = response.data.user.status
+        pStatus.innerHTML = ""
+        pStatus.appendChild(em)
+    }
 }
 
 //manage the edit mode (btn #btnMembersEditMode)

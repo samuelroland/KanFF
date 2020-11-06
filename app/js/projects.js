@@ -74,7 +74,7 @@ function getInvertState(state) {
 }
 
 //Invert hidden state of a child element
-function invertHiddenState(parent, classNameOfChild) {
+function invertHiddenStateOnChild(parent, classNameOfChild) {
     obj = parent.querySelector("." + classNameOfChild)
     obj.hidden = !obj.hidden
 }

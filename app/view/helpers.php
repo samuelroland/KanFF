@@ -470,9 +470,12 @@ function getHTMLPastille($cssColor)
 }
 
 //print (or return) an icon with a file, a title, alt attribute, and personalized or default css classes
-function printAnIcon($iconname, $title, $alt, $defaultClasses = "icon-small ml-2 mr-2", $echo = true)
+function printAnIcon($iconname, $title, $alt, $defaultClasses = "icon-small ml-2 mr-2", $echo = true, $id = "", $hidden = false)
 {
-    $html = "<img title=\"" . $title . "\" class=\"$defaultClasses\" src='view/medias/icons/$iconname' alt='$alt'>";
+    if ($id != "") {    //if not null
+        $id = "id='$id'";   ///build attribute string
+    }   //if null the $id will just be "" so attribute id will not exist at all.
+    $html = "<img title=\"" . $title . "\" class=\"$defaultClasses\" src='view/medias/icons/$iconname' $id alt='$alt' " . (($hidden) ? "hidden" : "") . ">";
     if ($echo) {
         echo $html;
     } else {

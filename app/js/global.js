@@ -255,3 +255,14 @@ function queryActionIncludes(needle) {
     action = action.toLowerCase()   //set to lowercase because updateTask and tasks contain the work "task" but the
     return (action.includes(needle))
 }
+
+function invertHiddenStateOnIconWithSameClasse(parentname, iconclass) {
+    parent = document.getElementById(parentname)
+    firstelement = parent.querySelector("." + iconclass)
+    firstelement
+
+    els = document.getElementsByClassName(iconclass);
+    Array.prototype.forEach.call(els, function (el) {
+        el.hidden = true
+    })
+}
