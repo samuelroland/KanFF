@@ -91,9 +91,16 @@ $(document).ready(function () {
             loadTaskNameForCreate()
         })
         loadTaskNameForCreate()
-
+        $("#inputnamecreate").on("keydown", createTaskIfEnterKey)
     }
 })
+
+//create the task if the key enter is pressed
+function createTaskIfEnterKey(event) {
+    if (event.key.toLowerCase() == "enter" && inputnamecreate.value != "") {    //if enter key is pressed and value is not null
+        tryCreateTask() //try to create the task like (same as if button "save" was clicked)
+    }
+}
 
 //load task name from #inputnamecreate to spannamecreate
 function loadTaskNameForCreate() {
@@ -307,6 +314,7 @@ function deleteTaskCallback(response) {
 }
 
 /* 2 functions to change the responsible of a task in JS and Ajax */
+
 //TODO: complete the 2 followings functions
 function changeResponsible(event) {
     event.stopPropagation()
@@ -329,6 +337,7 @@ function changeResponsibleCallback(response) {
 }
 
 /* 2 functions to change the responsible of a task in JS and Ajax */
+
 //TODO: complete the 3 followings functions
 function tryChangeState(event) {
     task = getRealParentHavingId(event.target)
