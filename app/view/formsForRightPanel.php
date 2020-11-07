@@ -132,7 +132,7 @@ function printDivTaskCreate($project)
         </div>
         <div class="" id="divTaskCreateContent">
             <div class="divTaskDetailsFirstLine flexdiv box-verticalaligncenter">
-                <h5 id="spannamecreate" class="flex-1 nomargin"></h5>
+                <h5 id="spannamecreate" class="flex-1 nomargin breakword"></h5>
             </div>
             <hr class="hrgrey nomargin">
             <span class="smallinfotext">Une tâche est une activité courte réalisée par une personne parmi d'autres tâches dans le but d'effectuer entièrement le travail. </span>
@@ -183,7 +183,7 @@ function printDivTaskCreate($project)
                     <label for="chkSerialCreation" class="ml-2 noverticalmargin">Mode Création en série</label>
                 </div>
                 <div class="box-alignright">
-                    <span><?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-xsmall m-2", false), "Ce mode vous permet de créer plusieurs tâches à la suite en restant sur ce formulaire. Par défaut quand le mode est désactivé, les détails de la tâche apparaissent directement après la création.", false, "bottom") ?></span>
+                    <span><?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-xsmall m-2", false), "Ce mode vous permet de créer plusieurs tâches à la suite en restant sur ce formulaire. Quand le mode est désactivé, les détails de la tâche apparaissent directement après la création.", false, "bottom") ?></span>
                 </div>
             </div>
             <div class="panelRightStandardBottomLine ">

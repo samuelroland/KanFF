@@ -260,14 +260,18 @@ function createTaskCallback(response) {
         //Add the html just before the plus button
         theTaskPlusBtnAside.insertAdjacentElement('beforebegin', htmlTask);
 
-        //Manage window displaying
         declareEventsForTasks() //redeclare event for tasks (for new tasks)
 
-        //If serial mode enabled:
-        //TODO: serial mode management
-        managedivRightPanel(true, 1)    //display details
-        loadTaskDetailsWithData(response)   //load data for details
-        manageActiveTasks(document.getElementById("Task-" + newtask.id))    //active new task created
+        //Manage right panel:
+        if (chkSerialCreation.checked) {    //if serial mode enabled
+            inputnamecreate.value = ""  //empty name
+            typecreate.options.selectedIndex = 0    //set the first option by default (index 0 is not equal to value 0 !)
+
+        } else {    //display divTaskDetails with details of task
+            managedivRightPanel(true, 1)    //display details form
+            loadTaskDetailsWithData(response)   //load data for details
+            manageActiveTasks(document.getElementById("Task-" + newtask.id))    //active new task created
+        }
     }
 }
 
@@ -285,7 +289,7 @@ function updateTask() {
 
 function updateTaskCallback(response) {
     isSuccess = manageResponseStatus(response)
-    loadTaskDetailsWithData(response.data.task)
+    loadTaskDetailsWithData(response)
 }
 
 /* 3 functions to manage deletion of task in JS and Ajax */
