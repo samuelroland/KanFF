@@ -17,41 +17,52 @@ ob_start();
         </div>
     </div>
 <?php printPageWIPTextInfo(); ?>
-    <p>Voici les informations du projet <?= $project['name'] ?>, les groupes réalisant ce projet, le journal de bord et
-        la gestion des travaux.</p>
+    <p>Voici les informations du projet <strong><?= $project['name'] ?></strong>, les groupes participants, les travaux
+        du projet et le journal de bord.</p>
 <?php
 if ($project['archived'] == 1) {
     echo "<p class='statebanner bg-primary'>Ce projet est archivé. Il ne peut plus être modifié.</p>";
 }
 ?>
-    <div class="statebanner">
+    <div class="statebanner box-verticalaligncenter ">
         <img src="view/medias/icons/infopoint.png" alt="info point" class="icon-small">
-        <span><h2 class="d-inline">Etat: <?= convertProjectState($project['state']) ?></h2></span>
+        <span><h3 class="d-inline ml-3"><?= convertProjectState($project['state'], true) ?></h3></span>
     </div>
-    <div>
+    <div class="mt-4">
         <h3>Informations</h3>
-        <h4>Nom</h4>
-        <?= $project['name'] ?>
+        <div class="mt-2">
+            <strong>Nom: </strong>
+            <?= $project['name'] ?>
+        </div>
+        <div class="mt-2">
+            <strong>Description:</strong>
+            <br>
+            <?= $project['description'] ?>
+        </div>
+        <div class="mt-2">
+            <strong>Objectif:</strong>
+            <br>
+            <?= $project['goal'] ?>
+        </div>
+        <div class="mt-2">
+            <strong>Début:</strong>
+            <?= DTToHumanDate($project['start']) ?>
+            et <strong> Fin:</strong>
+            <?= (($project['end'] != null) ? DTToHumanDate($project['end']) : "Non défini") ?>
+        </div>
 
-        <h4>Description</h4>
-        <?= $project['description'] ?>
+        <div class="mt-2 projectpriority box-verticalaligncenter">
+            <strong>Importance:</strong><?php
+            printAnIcon("exclamationmark.png", "Importance du projet (de 1 à 5)", "exclamation mark icon", "icon-small");
+            echo "<span class='pr-2 bigvalue'>" . $project['importance'] . "</span>";
+            echo " <strong>et Urgence:</strong>";
+            printAnIcon("clock.png", "Urgence du projet (de 1 à 5)", "exclamation mark icon", "icon-small");
 
-        <h4>Objectif</h4>
-        <?= $project['goal'] ?>
-
-        <h4>Début - Fin</h4>
-        <?= DTToHumanDate($project['start']) . " - " . DTToHumanDate($project['end']) ?>
-
-        <h4>Importance - Urgence</h4>
-        <?php
-        echo "<img src='view/medias/icons/exclamationmark.png' class='icon-small' />";
-        echo $project['importance'];
-        echo "<img src='view/medias/icons/clock.png' class='icon-small' />";
-        echo $project['urgency']
-
-        ?>
+            echo "<span class='pr-2 bigvalue'>" . $project['urgency'] . "</span>";
+            ?>
+        </div>
     </div>
-    <div>
+    <div class="mt-4">
         <h3>Groupes participants</h3>
         <table class="table table-active">
             <thead>
@@ -67,7 +78,7 @@ if ($project['archived'] == 1) {
             displaydebug($groups);
             foreach ($groups as $group) { ?>
                 <tr>
-                    <td><?= $group['name']; //TODO: display if group is creator and if is manager of the project ?></td>
+                    <td><?= $group['name']; //TODO: display if group is creator and if is manager of the project       ?></td>
                     <td><?= DTToHumanDate($group['creation_date']) ?></td>
                     <td><?= $group['nbmembers'] ?></td>
                     <td><?= DTToHumanDate($group['participate_since']) ?></td>
@@ -76,11 +87,12 @@ if ($project['archived'] == 1) {
             </tbody>
         </table>
     </div>
-    <div>
-        <h3>Gestion des travaux</h3>
+    <div class="mt-4">
+        <h3>Travaux</h3>
+        <div>En construction</div>
     </div>
 
-    <div>
+    <div class="mt-4">
         <h3 id="logs">Journal de bord</h3>
         <?php
         displaydebug($logs);
@@ -91,7 +103,6 @@ if ($project['archived'] == 1) {
                 echo "Aucun enregistrement dans le journal de bord...";
             } else {
                 ?>
-                <span>Options d'affichage:</span>
                 <div class="headView flexdiv">
                     <div class="flex-4">
                         <button data-href="?action=project&id=<?= $project['id'] ?>&option=1#logs"
@@ -118,7 +129,9 @@ if ($project['archived'] == 1) {
                             <?php
                         }
                         ?>
+                        <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-xsmall m-2", false), "Options d'affichage permettant d'afficher plus ou moins d'informations concernant les enregistrements du journal", false, "right") ?>
                     </div>
+
                     <div class="box-alignright flex-1">
                         <?php if ($isAdmin) { ?>
                             <button class="btn btn-primary" id="btnEditMode">Mode édition</button>

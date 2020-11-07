@@ -6,14 +6,18 @@
  */
 
 .statebanner {
-    background-color: #0097ba;
+    background-color: #d1d5e4;
     padding: 5px;
+    border-radius: 5px;
+    height: 50px;
 }
 
 .oneLog:hover {
     background-color: #cbcbcb;
 }
-
+.projectpriority{
+    height: 40px;
+}
 .divParticipate {
 
 }
