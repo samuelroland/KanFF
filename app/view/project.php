@@ -83,52 +83,53 @@ if ($project['archived'] == 1) {
         if ($project['logbook_visible']) { ?>
             <div><?= $project['logbook_content'] ?></div>
             <hr class="hrgrey">
-            <span>Options d'affichage:</span>
-            <div class="headView flexdiv">
-                <div class="flex-4">
-                    <button data-href="?action=project&id=<?= $project['id'] ?>&option=1#logs"
-                            class="clickable btn <?= ($option == 1) ? 'active' : 'btn-info' ?>"
-                            title="Date, titre et initiales">Aperçu
-                    </button>
-                    <button data-href="?action=project&id=<?= $project['id'] ?>&option=2#logs"
-                            class="clickable btn <?= ($option == 2) ? 'active' : 'btn-info' ?>"
-                            title="Date, titre, description raccourcie initiales.">Résumé
-                    </button>
-                    <button data-href="?action=project&id=<?= $project['id'] ?>&option=3#logs"
-                            class="clickable btn <?= ($option == 3) ? 'active' : 'btn-info' ?>"
-                            title="Date, titre et initiales">Étendu
-                    </button>
-                    <?php
-                    if ($isAdmin) { ?>
-                        <button data-href="?action=members&option=5"
-                                class="clickable btn <?= ($option == 5) ? 'active' : 'btn-info' ?>">Non approuvé
-                            (<strong><?= $nbUnapprovedUsers ?></strong>)
-                        </button>
-                        <button data-href="?action=members&option=6"
-                                class="clickable btn <?= ($option == 6) ? 'active' : 'btn-info' ?>">Banni
-                        </button>
-                        <?php
-                    }
-                    ?>
-                </div>
-                <div class="box-alignright flex-1">
-                    <?php if ($isAdmin) { ?>
-                        <button class="btn btn-primary" id="btnEditMode">Mode édition</button>
-                    <?php } ?>
-                </div>
-            </div>
-            <?php
-
-            if (empty($logs)) {
+            <?php if (empty($logs)) {
                 echo "Aucun enregistrement dans le journal de bord...";
             } else {
+                ?>
+                <span>Options d'affichage:</span>
+                <div class="headView flexdiv">
+                    <div class="flex-4">
+                        <button data-href="?action=project&id=<?= $project['id'] ?>&option=1#logs"
+                                class="clickable btn <?= ($option == 1) ? 'active' : 'btn-info' ?>"
+                                title="Date, titre et initiales">Aperçu
+                        </button>
+                        <button data-href="?action=project&id=<?= $project['id'] ?>&option=2#logs"
+                                class="clickable btn <?= ($option == 2) ? 'active' : 'btn-info' ?>"
+                                title="Date, titre, description raccourcie initiales.">Résumé
+                        </button>
+                        <button data-href="?action=project&id=<?= $project['id'] ?>&option=3#logs"
+                                class="clickable btn <?= ($option == 3) ? 'active' : 'btn-info' ?>"
+                                title="Date, titre et initiales">Étendu
+                        </button>
+                        <?php
+                        if ($isAdmin) { ?>
+                            <button data-href="?action=members&option=5"
+                                    class="clickable btn <?= ($option == 5) ? 'active' : 'btn-info' ?>">Non approuvé
+                                (<strong><?= $nbUnapprovedUsers ?></strong>)
+                            </button>
+                            <button data-href="?action=members&option=6"
+                                    class="clickable btn <?= ($option == 6) ? 'active' : 'btn-info' ?>">Banni
+                            </button>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                    <div class="box-alignright flex-1">
+                        <?php if ($isAdmin) { ?>
+                            <button class="btn btn-primary" id="btnEditMode">Mode édition</button>
+                        <?php } ?>
+                    </div>
+                </div>
+                <?php
+
                 foreach ($logs as $log) { ?>
                     <div class="oneLog mt-1 pb-2" id="log-<?= $log['id'] ?>"
                          data-open="<?= ($option == 3) ? "true" : "false" ?>">
                         <div class="logfirstline flexdiv">
                             <strong class="flex-2"><?= DTToHumanDate($log['date'], "simpleday") . " - " . $log['title'] ?></strong>
                             <?php if ($option == 2) {
-                                echo "<em class='flex-3 shortdescription'>" . substrText($log['description'], 100) . "</em>";
+                                echo "<em class='flex-3 shortdescription acceptreturnchar'>" . substrText($log['description'], 100) . "</em>";
                             } ?>
                             <span class="flex-1 alignright">
                                 <img src="view/medias/icons/trianglebottom.png" alt="triangle bottom"
@@ -142,7 +143,7 @@ if ($project['archived'] == 1) {
                         <div class="logInner pl-4 longdescription" <?php if ($option != 3) {
                             echo "hidden";
                         } ?>>
-                            <em><?= $log['description'] ?></em>
+                            <em class="acceptreturnchar"><?= $log['description'] ?></em>
                         </div>
                     </div>
                 <?php }

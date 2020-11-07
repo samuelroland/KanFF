@@ -12,8 +12,8 @@ $(document).ready(function () {
 
         //On click, invert the state of data-open attribute and invert the description visible
         parent.setAttribute("data-open", getInvertState(parent.getAttribute("data-open")))
-        invertHiddenState(parent, "shortdescription")
-        invertHiddenState(parent, "longdescription")
+        invertHiddenStateOnChild(parent, "shortdescription")
+        invertHiddenStateOnChild(parent, "longdescription")
     })
     $("#start").on("change", function (sender) {
         console.log(sender.target.value)
