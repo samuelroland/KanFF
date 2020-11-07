@@ -38,9 +38,8 @@ $cssForDivField = "row pt-1";
             <div class="<?= $cssForDivField ?>">
                 <span class="<?= $cssForSpan ?>">Initiales</span>
                 <input id="inpInitials" class="<?= $cssForInput ?>" type="text" placeholder="JRD" readonly disabled/>
-                <img title="Les initiales sont uniques et générées automatiquement.
-Format: première lettre du prénom + la première lettre du nom + la dernière lettre du nom/2ème lettre du nom (en cas de conflit)."
-                     src="view/medias/icons/point.png" alt="point icon" width="35" height="35" class="mr-2 ml-2">
+                <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-middlesmall m-2", false), "Les initiales sont uniques et générées automatiquement. Format: première lettre du prénom + la première lettre du nom + la dernière lettre du nom/2ème lettre du nom (en cas de conflit).", false, "right") ?>
+
             </div>
         </div>
         <h5 class="pt-3">Identification:
@@ -60,10 +59,7 @@ Format: première lettre du prénom + la première lettre du nom + la dernière 
                 <span class="<?= $cssForSpan ?>">Mot de passe</span>
                 <input id="inpPassword1" class="<?= $cssForInput ?>" type="password" name="password" placeholder=""
                        required pattern="^(?=.*[A-Za-z])(?=.*\d).{8,}$"/>
-                <img title="Les mots de passes doivent contenir:
-- 8 caractères minimum
-- au moins une lettre et un chiffre" src="view/medias/icons/point.png" alt="point icon" width="35" height="35"
-                     class="mr-2 ml-2">
+                <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-middlesmall m-2", false), "Les mots de passes doivent contenir: 8 caractères minimum + au moins une lettre et un chiffre", false, "right") ?>
             </div>
 
             <div class="<?= $cssForDivField ?>">
@@ -102,9 +98,7 @@ Format: première lettre du prénom + la première lettre du nom + la dernière 
                 <span class="<?= $cssForSpan ?>">Lien messagerie instantanée</span>
                 <input class="<?= $cssForInput ?> trimItOnChange" type="text" name="chat_link"
                        placeholder="t.me/josette27"/ value="<?= $post['chat_link'] ?>">
-                <img title="Lien publique contenant votre pseudo publique. Fonctionne pour certaines messageries uniquement.
-Ex: pseudo = jeanrichard alors sur Telegram: t.me/jeanrichard" src="view/medias/icons/point.png" alt="point icon"
-                     width="35" height="35" class="mr-2 ml-2">
+                <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-middlesmall m-2", false), "Lien permettant de vous écrire en privé via la messagerie instantanée de votre collectif.", false, "right") ?>
             </div>
 
             <div class="<?= $cssForDivField ?>">
