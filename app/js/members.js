@@ -12,11 +12,11 @@ function init() {
         btnMembersEditMode.addEventListener("click", manageEditMode)
         $(".sltAccountState").on("change", changeAccountState)
     }
-    $(".icnChangeStatus").on("click", changeStatusDropdown)
+    $(".icnChangeStatus").on("click", tryChangeStatus)  //present everywhere because is in the gabarit
 }
 
-//first function launched on click on one icon .icnChangeStatus to change the status in the dropdown in the gabarit
-function changeStatusDropdown() {
+/* 3 functions to manage change of the user status in JS and Ajax */
+function tryChangeStatus() {
     if (pStatus.querySelector("textarea") == null) {    //if input doesn't exist, create it with the current innerText
         input = document.createElement("textarea")
         input.rows = 5
@@ -72,6 +72,7 @@ function manageEditMode() {
     $(".sltAccountState").attr("disabled", !document.querySelector(".sltAccountState").disabled)
 }
 
+/* 2 functions to manage change of the state of a user account in JS and Ajax */
 //onchange on a .sltAccountState, send request (ajax call) to change account state
 function changeAccountState(event) {
     slt = event.target
@@ -84,18 +85,17 @@ function changeAccountState(event) {
         displayResponseMsg("Mot de passe non rempli", false)    //display error msg
     } else {    //else the ajax call can be sent
         if (checkAllValuesAreNotEmpty([slt.value, pwd])) {
-            sendRequest("POST", "?action=updateAccountState", manageAccountStateResponse, {
+            sendRequest("POST", "?action=updateAccountState", accountStateCallback, {
                 'id': iduser,
                 'state': slt.value,
                 'password': pwd
             })
         }
     }
-
 }
 
 //manage account state response
-function manageAccountStateResponse(response) {
+function accountStateCallback(response) {
     isSuccess = manageResponseStatus(response)
     //TODO: display success message or reselect the first value:
     if (isSuccess == true) {

@@ -256,13 +256,16 @@ function queryActionIncludes(needle) {
     return (action.includes(needle))
 }
 
-function invertHiddenStateOnIconWithSameClasse(parentname, iconclass) {
-    parent = document.getElementById(parentname)
-    firstelement = parent.querySelector("." + iconclass)
-    firstelement
+//Source: Thanks to https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro
+function createElementFromHTML(htmlString) {
+    var div = document.createElement('div');
+    div.innerHTML = htmlString.trim();
 
-    els = document.getElementsByClassName(iconclass);
-    Array.prototype.forEach.call(els, function (el) {
-        el.hidden = true
-    })
+    // Change this to div.childNodes to support multiple top-level nodes
+    return div.firstChild;
+}
+
+//Just log text in the console
+function logIt(text) {
+    console.log(text)
 }

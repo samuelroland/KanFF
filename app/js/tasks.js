@@ -30,14 +30,7 @@ function declareEventsForTasks() {
             optionsOpened = !optionsOpened
         })
     })
-    $(".optTaskDelete").on("click", function (event) {
-        opt = event.target
-        event.stopPropagation()
-        opt = getRealParentHavingId(opt)
-        logIt(opt)
-        deleteTask(opt.getAttribute("data-id"))
-
-    })
+    $(".optTaskDelete").on("click", tryDeleteTask)
     $("#btnSave").on("click", tryUpdateTask)
 }
 
@@ -100,7 +93,7 @@ $(document).ready(function () {
     }
 })
 
-//load task name from #inputnamecreat to spannamecreate
+//load task name from #inputnamecreate to spannamecreate
 function loadTaskNameForCreate() {
     spannamecreate.innerText = inputnamecreate.value
 }
@@ -130,7 +123,6 @@ function manageVisibilityTasks(btn, display) {
         }
     })
 }
-
 
 function displayTaskDetails(task) {
     task = getRealParentHavingId(task)
@@ -205,11 +197,6 @@ function loadTaskDetailsWithData(response) {
     }
 }
 
-//Just log text in the console
-function logIt(text) {
-    console.log(text)
-}
-
 //build the fullname string with firstname and lastname of a user
 function buildFullNameWithUser(user) {
     fullname = ""
@@ -232,39 +219,7 @@ function manageActiveTasks(taskToActive) {
     }
 }
 
-function createTask() {
-    data = getArrayFromAFormFieldsWithName("divTaskCreate")
-    sendRequest("POST", "?action=createTask", createTaskCallback, data)
-}
-
-//try to update the task in the form details
-function tryUpdateTask() {
-    if (checkAllValuesAreNotEmpty([inputname.value, urgency.value, type.value])) {
-        updateTask()
-    }
-}
-
-function updateTask() {
-    data = getArrayFromAFormFieldsWithName("divTaskDetails")
-    sendRequest("POST", "?action=updateTask", displayResponseMsg, data)
-}
-
-function deleteTask(id) {
-    data = {id: id}
-    sendRequest("POST", "?action=deleteTask", manageTaskDeleteResponse, data)
-}
-
-function manageTaskDeleteResponse(response) {
-    isSuccess = manageResponseStatus(response)
-    if (isSuccess) {
-        id = response.data.reference.id
-        document.getElementById("Task-" + id).remove()
-        managedivRightPanel(false)
-        //TODO: close right panel only if task deleted is displayed
-        manageActiveTasks(null)
-    }
-}
-
+/* 3 functions to manage creation of task in JS and Ajax */
 function tryCreateTask() {
     //ALl asked value (name, type and work) are required
     if (inputnamecreate.value != "" && typecreate.value != "" && workcreate.value != "") {
@@ -272,6 +227,11 @@ function tryCreateTask() {
     } else {    //data missing (local message)
         displayResponseMsg("Données manquantes. Création de la tâche impossible.", false)
     }
+}
+
+function createTask() {
+    data = getArrayFromAFormFieldsWithName("divTaskCreate")
+    sendRequest("POST", "?action=createTask", createTaskCallback, data)
 }
 
 function createTaskCallback(response) {
@@ -302,11 +262,44 @@ function createTaskCallback(response) {
     }
 }
 
-//Source: Thanks to https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro
-function createElementFromHTML(htmlString) {
-    var div = document.createElement('div');
-    div.innerHTML = htmlString.trim();
+/* 3 functions to manage update of task in JS and Ajax */
+function tryUpdateTask() {
+    if (checkAllValuesAreNotEmpty([inputname.value, urgency.value, type.value])) {
+        updateTask()
+    }
+}
 
-    // Change this to div.childNodes to support multiple top-level nodes
-    return div.firstChild;
+function updateTask() {
+    data = getArrayFromAFormFieldsWithName("divTaskDetails")
+    sendRequest("POST", "?action=updateTask", updateTaskCallback, data)
+}
+
+function updateTaskCallback(response) {
+    isSuccess = manageResponseStatus(response)
+    loadTaskDetailsWithData(response.data.task)
+}
+
+/* 3 functions to manage deletion of task in JS and Ajax */
+function tryDeleteTask(event) {
+    opt = event.target
+    event.stopPropagation()
+    opt = getRealParentHavingId(opt)
+    logIt(opt)
+    deleteTask(opt.getAttribute("data-id"))
+}
+
+function deleteTask(id) {
+    data = {id: id}
+    sendRequest("POST", "?action=deleteTask", deleteTaskCallback, data)
+}
+
+function deleteTaskCallback(response) {
+    isSuccess = manageResponseStatus(response)
+    if (isSuccess) {
+        id = response.data.reference.id
+        document.getElementById("Task-" + id).remove()
+        managedivRightPanel(false)
+        //TODO: close right panel only if task deleted is displayed
+        manageActiveTasks(null)
+    }
 }
