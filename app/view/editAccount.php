@@ -22,9 +22,7 @@ foreach ($states as $state){
 }
 
 ob_start();
-?>.
-
-
+?>
     <div class="<?= $cssForDivZone ?>">
     <div class="">
         <div class="flexdiv">
