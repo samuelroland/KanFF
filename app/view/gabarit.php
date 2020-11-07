@@ -286,7 +286,7 @@ if ($feedbackForm == true && isEmailFormat($emailSourceForFeedback) && isEmailFo
             <?= printAnIcon("blackcross.png", "", "question mark icon", "icon-tempmsg m-1", false) ?>
         </div>
     </template>
-    <?php require "view/task.php";  //to have declare printATask ?>
+    <?php require_once "view/task.php";  //to have declare printATask (require once because is already declared if page is kanban ?>
     <template id="templateTask"><?php printATask([], true); ?></template>
 </div>
 
