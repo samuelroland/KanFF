@@ -21,10 +21,8 @@ $(document).ready(function () {
     })
     $(".btnSeeMoreOrLessWorks").on("click", function (event) {
         parent = getRealParentHavingId(event.target)
-        if (event.target.innerText === "Afficher contenu") {    //if the user want to display content
-            window.location.hash = "#" + parent.id  //go to work anchor
-        }
-        invertHiddenState(parent, "divWorkContent")
+        //TODO: scroll to an ideal work position
+        invertHiddenStateOnChild(parent, "divWorkContent")
         invertInnerText(event.target, "Afficher contenu", "Masquer contenu")
     })
 
@@ -143,10 +141,8 @@ function loadTaskCreateForm(idwork) {
 
     changeOptInUrl(2)   //change opt in url
     inputnamecreate.focus() //focus on the name field to be ready to start typing
-
-    window.location.hash = "w-" + idwork    //change the hash with id of the work to be able to find the work again
-
-    $("#work").val(idwork)  //select the good option on #work with the attribute value of option markup
+    //TODO: scroll to an ideal work position where the task is at top of the divKanban but not hidden.
+    $("#workcreate").val(idwork)  //select the good option on #work with the attribute value of option markup
 }
 
 //change var opt in the querystring without refresh page
