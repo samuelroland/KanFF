@@ -44,7 +44,7 @@ $isAdmin = checkAdmin();
         <span class="pt-2 flex-2">La liste ci-dessous contient <strong><?= count($members) ?></strong> membres.</span>
         <?php if ($isAdmin) { ?>
             <div class="box-alignright flex-1 box-verticalaligncenter" id="inpDivPassword" hidden>
-                <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-xsmall ml-2 mr-2", false), "Pour activer le mode édition, vous devez rentrer votre mot de passe.", false, "left") ?>
+                <?= createToolTipWithPoint("Pour activer le mode édition, vous devez rentrer votre mot de passe.", "icon-xsmall ml-2 mr-2", false, "left") ?>
                 <input type="password" id="inpPassword" class="form-control width-min-content"
                        placeholder="Mot de passe">
 

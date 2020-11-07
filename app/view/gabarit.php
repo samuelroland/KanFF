@@ -228,7 +228,7 @@ if ($feedbackForm == true && isEmailFormat($emailSourceForFeedback) && isEmailFo
                         <div class="flex-1"><strong>Formulaire de feedback</strong></div>
                         <div>
                             <?php
-                            echo createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-xsmall m-1", false), "Ce formulaire vous permet d'envoyer un feedback à propos de la page actuelle. \nIl s'affiche uniquement sur les instances de tests.", false, "right");
+                            echo createToolTipWithPoint("Ce formulaire vous permet d'envoyer un feedback à propos de la page actuelle. \nIl s'affiche uniquement sur les instances de tests.", "icon-xsmall m-1", false, "right");
                             ?>
                         </div>
                     </div>
@@ -250,7 +250,7 @@ if ($feedbackForm == true && isEmailFormat($emailSourceForFeedback) && isEmailFo
                         <strong class="flex-1">Votre retour:</strong>
                         <div>
                             <?php
-                            echo createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-xsmall m-1", false), "Ne rentrez aucune information personnelle sensibles (mot de passe, secrets, ...). Vous pouvez faire votre retour en plusieurs fois si besoin.", false, "right");
+                            echo createToolTipWithPoint("Ne rentrez aucune information personnelle sensibles (mot de passe, secrets, ...). Vous pouvez faire votre retour en plusieurs fois si besoin.", "icon-xsmall m-1", false, "right");
                             ?>
                         </div>
                     </div>

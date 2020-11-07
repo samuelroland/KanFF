@@ -85,7 +85,7 @@ function printDivTaskDetails($project)
                                    value="" min="0" max="5" required>
                         </div>
                         <div class="mt-4">
-                            <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-xsmall m-2", false), "Notez l'urgence de la tâche de 0 à 5 (0 = aucun, 1 = min et 5 = max)", false) ?>
+                            <?= createToolTipWithPoint("Notez l'urgence de la tâche de 0 à 5 (0 = aucun, 1 = min et 5 = max)", "icon-xsmall m-2", false) ?>
                         </div>
                     </div>
                 </div>
@@ -183,7 +183,7 @@ function printDivTaskCreate($project)
                     <label for="chkSerialCreation" class="ml-2 noverticalmargin">Mode Création en série</label>
                 </div>
                 <div class="box-alignright">
-                    <span><?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-xsmall m-2", false), "Ce mode vous permet de créer plusieurs tâches à la suite en restant sur ce formulaire. Quand le mode est désactivé, les détails de la tâche apparaissent directement après la création.", false, "bottom") ?></span>
+                    <span><?= createToolTipWithPoint("Ce mode vous permet de créer plusieurs tâches à la suite en restant sur ce formulaire. Quand le mode est désactivé, les détails de la tâche apparaissent directement après la création.", "icon-xsmall m-2", false, "bottom") ?></span>
                 </div>
             </div>
             <div class="panelRightStandardBottomLine ">

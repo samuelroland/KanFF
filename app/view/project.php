@@ -129,7 +129,7 @@ if ($project['archived'] == 1) {
                             <?php
                         }
                         ?>
-                        <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-xsmall m-2", false), "Options d'affichage permettant d'afficher plus ou moins d'informations concernant les enregistrements du journal", false, "right") ?>
+                        <?= createToolTipWithPoint("Options d'affichage permettant d'afficher plus ou moins d'informations concernant les enregistrements du journal", "icon-xsmall m-2", false, "right") ?>
                     </div>
 
                     <div class="box-alignright flex-1">

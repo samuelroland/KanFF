@@ -53,7 +53,7 @@ $title = "Créer un groupe"
                                 </option>
                             <?php } ?>
                         </select>
-                        <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-small ml-2 mr-2 m-2", false), "Cette option permet de gérer le niveau de visibilité des informations du groupe pour les personnes à l'extérieur du groupe.", false, "right") ?>
+                        <?= createToolTipWithPoint( "Cette option permet de gérer le niveau de visibilité des informations du groupe pour les personnes à l'extérieur du groupe.", "icon-small ml-2 mr-2 m-2", false, "right") ?>
                     </div>
                     <div class="mt-2">Signification du mode : (a définir)</div>
                 </div>
@@ -66,7 +66,7 @@ $title = "Créer un groupe"
                     <label for="chkRestrictAccess">Accès restreint</label>
                 </div>
                 <div class="col-lg-8 col-md-12 infotext">
-                    <?= createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-small ml-2 mr-2 m-2", false), "L'accès restreint permet de modérer l'entrée des personnes dans un groupe. Les personnes devront être approuvée avant d'être membre du groupe.", false, "right") ?>
+                    <?= createToolTipWithPoint("L'accès restreint permet de modérer l'entrée des personnes dans un groupe. Les personnes devront être approuvée avant d'être membre du groupe.", "icon-small ml-2 mr-2 m-2", false, "right") ?>
                 </div>
 
             </div>
