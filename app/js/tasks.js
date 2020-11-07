@@ -32,6 +32,8 @@ function declareEventsForTasks() {
     })
     $(".optTaskDelete").on("click", tryDeleteTask)
     $("#btnSave").on("click", tryUpdateTask)
+
+    $(".iconresponsible").on("click", changeResponsible)
 }
 
 //After the DOM has been loaded:
@@ -302,4 +304,47 @@ function deleteTaskCallback(response) {
         //TODO: close right panel only if task deleted is displayed
         manageActiveTasks(null)
     }
+}
+
+/* 2 functions to change the responsible of a task in JS and Ajax */
+//TODO: complete the 2 followings functions
+function changeResponsible(event) {
+    event.stopPropagation()
+    icon = event.target
+    parent = getRealParentHavingId(icon)
+
+    if (icon.classList.contains("addresponsible")) {    //if icon is "add responsible"
+        data = {'responsible_id': userloggedid.innerText}   //insert id of the user logged
+    } else {    //else the icon is "remove responsible"
+        data = {'responsible_id': null}
+    }
+    sendRequest("POST", "?action=updateTask&id=" + parent.getAttribute("data-id"), changeResponsibleCallback, data)
+}
+
+function changeResponsibleCallback(response) {
+    //manageResponseStatus(response)
+    //TODO: update responsible in kanban and in task details if open
+
+    //loadTaskDetailsWithData(response.data.task)
+}
+
+/* 2 functions to change the responsible of a task in JS and Ajax */
+//TODO: complete the 3 followings functions
+function tryChangeState(event) {
+    task = getRealParentHavingId(event.target)
+    //TODO: move the task with the mouse in an other column of the kanban
+
+    newstate = 1
+    //build data for body request
+    changeState(data)
+}
+
+function changeState(data) {   //change state and/or work of a task
+    sendRequest("POST", "?action=updateTask&id=" + parent.getAttribute("data-id"), changeStateCallback, data)
+}
+
+function changeStateCallback(response) {
+    //manageResponseStatus(response)
+    //TODO: move the task to position saved on the server ? (depending on state and work).
+
 }

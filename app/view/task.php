@@ -33,9 +33,9 @@ function printATask($task, $hasWritingRightOnTasks, $hidden = false)
                 <?php
                 if ($hasWritingRightOnTasks) {
                     if ($task['responsible_id'] != null && $task['responsible_id'] == $_SESSION['user']['id']) {
-                        printAnIcon("removeuser.png", "Relâcher la tache", "remove user icon", "icon-task " . (($hasWritingRightOnTasks) ? "cursorpointer" : ""));
+                        printAnIcon("removeuser.png", "Relâcher la tache", "remove user icon", "icon-task iconresponsible removeresponsible " . (($hasWritingRightOnTasks) ? "cursorpointer" : ""));
                     } else {
-                        printAnIcon("adduser3.png", "Prendre la tâche", "add user icon", "icon-task " . (($hasWritingRightOnTasks) ? "cursorpointer" : ""));
+                        printAnIcon("adduser3.png", "Prendre la tâche", "add user icon", "icon-task iconresponsible addresponsible " . (($hasWritingRightOnTasks) ? "cursorpointer" : ""));
                     }
                 }
                 ?>

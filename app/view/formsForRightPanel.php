@@ -36,7 +36,7 @@ function printDivTaskDetails($project)
                             <span id="pCounterName"></span>
                         </div>
                         <input id="inputname" name="name" type="text"
-                               class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength"
+                               class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength inputspan"
                                placeholder="Nom de la tâche" maxlength="100" required>
                     </div>
                     <div class="flex-1 ml-2">
@@ -47,14 +47,14 @@ function printDivTaskDetails($project)
                 <div class=" <?= $divCSS ?>">
                     <span class="<?= $spanCSS ?>">Description:</span>
                     <textarea id="description" name="description" type="text" rows="4"
-                              class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength resizenone"
+                              class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength resizenone inputspan"
                               placeholder="Description de la tâche" maxlength="2000"></textarea>
                     <div class="alignright"><span id="pCounterDescription"></span></div>
                 </div>
                 <div class="flexdiv <?= $divCSS ?>">
                     <div class="">
                         <span class="<?= $spanCSS ?>">Type:</span>
-                        <select class="form-control width-min-content" name="type" id="type">
+                        <select class="form-control width-min-content inputspan" name="type" id="type">
                             <?php foreach (TASK_LIST_TYPE as $type) {
                                 echo "<option value='" . $type . "'>" . convertTaskType($type, true) . "</option>";
                             } ?>
@@ -76,12 +76,12 @@ function printDivTaskDetails($project)
                     <div class="flex-1">
                         <span class="<?= $spanCSS ?>">Date limite:</span>
                         <input id="deadline" type="date" value="" name="deadline"
-                               class="form-control inputtypedate">
+                               class="form-control inputtypedate inputspan">
                     </div>
                     <div class="flex-1 flexdiv">
                         <div class="ml-3">
                             <span class="<?= $spanCSS ?>">Urgence:</span>
-                            <input type="number" name="urgency" id="urgency" class="form-control inputtypenumber"
+                            <input type="number" name="urgency" id="urgency" class="form-control inputtypenumber inputspan"
                                    value="" min="0" max="5" required>
                         </div>
                         <div class="mt-4">
@@ -95,7 +95,7 @@ function printDivTaskDetails($project)
                         <span class="alignright">Ouvrir le lien</span>
                     </div>
                     <input type="text" placeholder="Lien relatif à la tâche" name="link" id="link"
-                           class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength"
+                           class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength inputspan"
                            maxlength="2000">
                     <div class="alignright">
                         <span id="pCounterLink">asfd</span>
@@ -103,7 +103,7 @@ function printDivTaskDetails($project)
                 </div>
                 <div class="<?= $divCSS ?>">
                     <span class="<?= $spanCSS ?>">Projet:</span>
-                    <input id="projectname" type="text" value="<?= $project['name'] ?>" class="form-control"
+                    <input id="projectname" type="text" value="<?= $project['name'] ?>" class="form-control inputspan"
                            disabled readonly>
                 </div>
                 <div class="panelRightStandardBottomLine">

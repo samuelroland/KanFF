@@ -636,3 +636,14 @@ hr {
     flex-flow: wrap;
     align-content: baseline;
 }
+/* try to manage background and disable for input in task details
+.inputspan {
+    background-color: #e2e7f0;
+}
+
+.inputspan:hover, .inputspan.active {
+    background-color: white;
+
+}
+
+ */
