@@ -74,11 +74,15 @@ function projectDetails($id, $option)
     if ($option == null) {
         $option = 2;
     }
+    //TODO: check visibility of the project and if isMember
     $project = getOneProject($id);
-    $users = getAllUsers();
-    $logs = getAllLogs($project['id']);
-    foreach ($logs as $key => $log) {
-        $logs[$key]['user'] = $users[$log['user_id']];
+    if (empty($project) == false) {
+        $users = getAllUsers();
+        $groups = getAllGroupsByProject($id);
+        $logs = getAllLogs($project['id']);
+        foreach ($logs as $key => $log) {
+            $logs[$key]['user'] = $users[$log['user_id']];
+        }
     }
     require_once "view/project.php";
 }

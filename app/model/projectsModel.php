@@ -60,6 +60,20 @@ WHERE `groups`.id = :id" . (($isMember == false) ? " AND projects.visible = 1;" 
     return Query($query, $params, true);
 }
 
+//Get all the projects in which a group participates, for a person that is a member of this group or not (can see invisible projects only if is a member)
+function getAllGroupsByProject($id)
+{
+    $query = "SELECT `groups`.*, COUNT(`join`.user_id) AS nbmembers, participate.`start` AS participate_since FROM projects
+INNER join participate ON projects.id = participate.project_id
+INNER join `groups` ON `groups`.id = participate.group_id
+INNER join `join` ON `join`.group_id = `groups`.id
+WHERE `projects`.id = 2 AND participate.state IN (" . implode(", ", [PARTICIPATE_STATE_INVITATION_ACCEPTED, PARTICIPATE_STATE_CREATOR]) . ") AND `join`.state IN (" . implode(", ", [JOIN_STATE_APPROVED, JOIN_STATE_INVITATION_ACCEPTED]) . ")
+GROUP BY `groups`.id
+ORDER BY participate.`start`";
+    $params = ["id" => $id];
+    return Query($query, $params, true);
+}
+
 //Get all visible groups by the logged user's id
 function getAllProjectsVisible($id)
 {
@@ -118,8 +132,9 @@ WHERE users.id = :userid AND participate.state IN (" . PARTICIPATE_STATE_INVITAT
 }
 
 //Get project's id by task's id
-function getProjectIdByTask($idTask){
-    $query="SELECT projects.id AS project_id,works.state AS work_state	FROM projects
+function getProjectIdByTask($idTask)
+{
+    $query = "SELECT projects.id AS project_id,works.state AS work_state	FROM projects
 INNER join 	works ON	projects.id = works.project_id
 INNER	join tasks ON works.id = tasks.work_id
 WHERE	tasks.id = :id;";
