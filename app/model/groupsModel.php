@@ -48,7 +48,7 @@ ORDER BY `join`.start DESC";
 function getAllGroupsArchived()
 {
     $query = "SELECT * from `groups`
-where groups.state = ".GROUP_STATE_ARCHIVED.";";
+where groups.state = " . GROUP_STATE_ARCHIVED . ";";
     return Query($query, $params, true);
 }
 
@@ -80,6 +80,18 @@ function updateGroup($group, $id)
 function deleteGroup($id)
 {
     deleteOne("groups", $id);
+}
+
+//is the member in a group
+function isMemberInAGroup($userid, $groupid)
+{
+    $query = "SELECT `users`.*,`join`.state  FROM	`users`
+INNER join `join` ON `users`.id = `join`.user_id
+INNER join `groups` ON `join`.group_id = `groups`.id
+WHERE	`groups`.id =:groupid AND `join`.state IN (" . JOIN_STATE_INVITATION_ACCEPTED . "," . JOIN_STATE_APPROVED . ") AND users.id = :userid";
+    $params = ['groupid' => $groupid, 'userid' => $userid];
+    $result = Query($query, $params, true);
+    return !(empty($result));
 }
 
 ?>
