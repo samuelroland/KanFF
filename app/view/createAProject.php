@@ -9,7 +9,7 @@ $title = "Créer un projet"
 <form action="?action=createAGroup" method="POST" class="pt-1">
     <div class="divContext row pt-4 box-verticalaligncenter">
         <div class="col-lg-3 col-md-12 ">
-            <h4>Nom du Projet</h4>
+            <h4>Nom du projet</h4>
             <input type="text" class="form-control smalltextinput textFieldToCheck" name="name" id="txtName"
                    maxlength="70" required>
         </div>
@@ -48,12 +48,12 @@ $title = "Créer un projet"
     <p id="pCounterGoal">0/500</p>
 
     <div class="divContext row pt-4">
-        <h4 class="col-lg-3 col-md-12">Début et fin prévus</h4>
-        <div class="marginauto">
+        <h4 class="ml-3 mr-5">Début et fin prévus</h4>
+        <div class="ml-4">
             <label for="start">Début:</label>
             <input type="date" id="start" name="dateStart" value="<?= date("Y-m-d") ?>" required>
         </div>
-        <div class="marginauto">
+        <div class="ml-4">
             <label for="end">Fin (facultatif):</label>
             <input class="marginauto" type="date" id="end" min="" name="dateEnd">
         </div>
@@ -63,16 +63,16 @@ $title = "Créer un projet"
     <div class="d-inline-flex pt-4 box-verticalaligncenter">
         <div><h3>Priorité du projet</h3></div>
         <?= createToolTipWithPoint("Notez de 1 à 5 (1 = minimum et 5 = maximum), l'importance de l'urgence du projet.
-            Ce qui permet ensuite de calculer la priorité du projet en privélégiant l'important à l'urgent.", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
+            Ce qui permet ensuite de calculer la priorité du projet en privélégiant l'important à l'urgent.", "icon-middlesmall ml-2 mr-2 m-2", false, "Top") ?>
     </div>
     <div class="divImportance row">
         <div class="col-lg-3 col-md">
             <h4>Importance</h4>
 
-            <input type="number" min="1" max="5" name="importance" id="selImportance" placeholder="1" required></div>
+            <input class="form-control inputtypenumber" type="number" min="1" max="5" name="importance" id="selImportance" placeholder="1" required></div>
         <div class="col-lg-3 col-md">
             <h4>Urgence</h4>
-            <input type="number" min="1" max="5" name="urgency" id="selUrgency" placeholder="1" required></div>
+            <input class="form-control inputtypenumber" type="number" min="1" max="5" name="urgency" id="selUrgency" placeholder="1" required></div>
     </div>
     <div class="divVisibility mr-0 pt-4">
         <h4>Confidentialité</h4>
@@ -104,6 +104,7 @@ $title = "Créer un projet"
         <input type="submit" class="btn btn-primary" value="Créer le projet">
     </div>
 </form>
+<br><br>
 <?php
 $contenttype = "large";
 $content = ob_get_clean();
