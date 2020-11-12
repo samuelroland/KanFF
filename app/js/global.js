@@ -272,3 +272,9 @@ function createElementFromHTML(htmlString) {
 function logIt(text) {
     console.log(text)
 }
+
+//test a regex with a string
+function testRegex(regex, string) {
+    patt = new RegExp(regex)
+    return patt.test(string)
+}
