@@ -33,8 +33,13 @@ $(document).ready(function () {
             if (txtFeedback.value != "") {
                 //TODO: send the ajax query
                 data = getArrayFromAFormFieldsWithName("frmFeedback")
-                sendRequest("POST", "?action=sendFeedback", manageResponseOfSendFeedback, data)
-                //TODO: if success or error, display message
+                if (chkFeedbackEmail.checked == false) {    //if there email will not be sent
+                    data['email'] = null    //set null (but don't remove the field)
+                }
+
+                if (chkFeedbackEmail.checked == true && txtFeedbackEmail.value != "" && isEmailFormat(txtFeedbackEmail.value) || chkFeedbackEmail.checked == false) {    //send only if is checked and email is not empty, or is not checked
+                    sendRequest("POST", "?action=sendFeedback", manageResponseOfSendFeedback, data)
+                }
             }
         })
     }
@@ -271,6 +276,13 @@ function createElementFromHTML(htmlString) {
 //Just log text in the console
 function logIt(text) {
     console.log(text)
+}
+
+//test if string is a valid email
+function isEmailFormat(testemail) {
+    result = testRegex("^[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,}$", testemail)   //test the
+    logIt("isEmailFormat: " + result)
+    return result
 }
 
 //test a regex with a string

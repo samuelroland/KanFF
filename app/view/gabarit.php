@@ -253,7 +253,7 @@ if ($feedbackForm == true && isEmailFormat($emailSourceForFeedback) && isEmailFo
                                 <span class="small cursorpointer">Réponse</span>
                                 <?php printAnIcon("trianglebottom.png", "Afficher", "triangle bottom icon", "icon-task-triangle"); ?>
                             </span>
-                            <input type="checkbox" <?= ((isset($_SESSION['feedback']['email']) == true) ? "checked" : "") ?>>
+                            <input type="checkbox" id="chkFeedbackEmail" <?= ((isset($_SESSION['feedback']['email']) == true) ? "checked" : "") ?>>
                         </div>
                         <?php
                         echo createToolTipWithPoint("Si vous souhaitez recevoir une réponse à votre retour, vous pouvez noter votre adresse email et cocher la case. L'email est déjà rempli si vous restez connecté avec le même compte.", "icon-xsmall m-1", false, "right");
