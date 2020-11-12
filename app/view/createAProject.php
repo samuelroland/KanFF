@@ -6,8 +6,8 @@ $title = "Créer un projet"
 <?php printPageWIPTextInfo(); ?>
 <p>Cette page vous permet de créer un nouveau projet réalisé par un groupe dont vous êtes membre.</p>
 
-<form action="?action=createAGroup" method="POST" class="pt-4">
-    <div class="divContext row pt-4">
+<form action="?action=createAGroup" method="POST" class="pt-1">
+    <div class="divContext row pt-4 box-verticalaligncenter">
         <div class="col-lg-3 col-md-12 ">
             <h4>Nom du Projet</h4>
             <input type="text" class="form-control smalltextinput textFieldToCheck" name="name" id="txtName"
@@ -16,16 +16,15 @@ $title = "Créer un projet"
 
         <div class="col-lg-3 col-md-10">
             <h4>Réalisé par</h4>
-            <select name="group" id="group" class="form-control" required>
-                <?php foreach ($groups as $g) { ?>
-                    <option value="<?= $g['id'] ?>"><?= $g['name'] ?></option>
-                <?php } ?>
-            </select>
-        </div>
-
-        <div class="col-lg-5 col-md-12 infotext">
-            Les projets sont réalisés par un ou plusieurs groupes. Vous devez choisir un premier groupe dont vous êtes
-            membre pour créer un projet.
+            <div class="d-inline-flex box-verticalaligncenter">
+                <select name="group" id="group" class="form-control" required>
+                    <?php foreach ($groups as $g) { ?>
+                        <option value="<?= $g['id'] ?>"><?= $g['name'] ?></option>
+                    <?php } ?>
+                </select>
+                <?= createToolTipWithPoint("Les projets sont réalisés par un ou plusieurs groupes. Vous devez choisir un premier groupe dont vous êtes
+            membre pour créer un projet.", "icon-small ml-2 mr-2 m-2", false, "right") ?>
+            </div>
         </div>
     </div>
     <p id="pCounterName">0/50</p>
@@ -61,18 +60,17 @@ $title = "Créer un projet"
 
 
     </div>
-
-    <div class="divImportance row pt-4">
-        <div class="col-lg-3 col-md-12"><h3>Priorité du projet</h3></div>
-        <div class="col-md-12 infotext">
-            Notez de 1 à 5 (1 = minimum et 5 = maximum), l'importance de l'urgence du projet.
-            Ce qui permet ensuite de calculer la priorité du projet en privélégiant l'important à l'urgent.
-        </div>
-        <div class="col-lg-3 col-md pt-4">
+    <div class="d-inline-flex pt-4 box-verticalaligncenter">
+        <div><h3>Priorité du projet</h3></div>
+        <?= createToolTipWithPoint("Notez de 1 à 5 (1 = minimum et 5 = maximum), l'importance de l'urgence du projet.
+            Ce qui permet ensuite de calculer la priorité du projet en privélégiant l'important à l'urgent.", "icon-small ml-2 mr-2 m-2", false, "right") ?>
+    </div>
+    <div class="divImportance row">
+        <div class="col-lg-3 col-md">
             <h4>Importance</h4>
 
             <input type="number" min="1" max="5" name="importance" id="selImportance" placeholder="1" required></div>
-        <div class="col-lg-3 col-md pt-4">
+        <div class="col-lg-3 col-md">
             <h4>Urgence</h4>
             <input type="number" min="1" max="5" name="urgency" id="selUrgency" placeholder="1" required></div>
     </div>
@@ -94,12 +92,12 @@ $title = "Créer un projet"
     <div class="divPassword row pt-4 col-lg-12">
         <div class="mr-3">
             <h4>Confirmation de l'action</h4>
-            <input class="form-control fullwidth smalltextinput" type="password" name="password"
-                   placeholder="Mot de passe" required>
-        </div>
-        <div class="box-verticalaligncenter">
-            Créer un projet étant une action importante, nous avons besoin de
-            votre confirmation pour valider l'action.<br>Pour ceci rentrer le mot de passe de votre compte.
+            <div class="d-inline-flex box-verticalaligncenter">
+                <input class="form-control fullwidth smalltextinput" type="password" name="password"
+                       placeholder="Mot de passe" required>
+                <?= createToolTipWithPoint("Créer un projet étant une action importante, nous avons besoin de
+            votre confirmation pour valider l'action. Pour ceci rentrer le mot de passe de votre compte.", "icon-small ml-2 mr-2 m-2", false, "right") ?>
+            </div>
         </div>
     </div>
     <div class="divBtnCreate pt-4">
