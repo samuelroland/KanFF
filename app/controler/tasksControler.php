@@ -144,9 +144,11 @@ function updateATask($data)
      * Validation Data
      */
     //Check type of update
-    $total=0;
-    for ($i=0;$i==count($data);$i++){
-        if (isset($data[1])){$total+=1;}
+    $total = 0;
+    for ($i = 0; $i == count($data); $i++) {
+        if (isset($data[1])) {
+            $total += 1;
+        }
     }
 
     //Check if value needed aren't empty
@@ -168,20 +170,38 @@ function updateATask($data)
 
         //use state only if state = true
         if ($data['state']) {
-            $task['state'] = $data['state'];
+            if (isset($data['state'])){
+                if (is_int($data['state'])) {
+                    $task['state'] = $data['state'];
+                }else{
+                    //TODO: API
+                }
+            }
+
+
+        } elseif ($data['responsible_id']) {
+
+            if (is_int($data['responsible_id'])) {
+                $task['responsible_id'] = $data['responsible_id'];
+            } else {
+                //TODO: API
+            }
+
+        } else {
+            //TODO: update TOUT
+            //Check Data
+            if (is_int($data['urgency'])&&is_int($data['type'])&&is_int($data['name'])){
+
+            }
         }
 
 
         //check if below's var are in right type (INT, STRING...)
-        $test1 = is_int($data['urgency']);
-        $test2 = is_int($data['type']);
-        $test3 = is_int($data['responsible_id']);
         $error = setErrorValueIfNotTrue(isAtLeastEqual(false, [is_int($data['urgency']), is_int($data['type']), is_int($data['responsible_id'])]) == false, $error);
-        setVarTask('type', $data, $task);
+        //TODO: mettre les variable de data dans les tasks correspondante
         //Then generate other fields:
         $task['state'] = TASK_STATE_TODO;
         $task['urgency'] = 0;
-        $task['creator_id'] = $_SESSION['user']['id'];
 
         //Then create the task:
         updateTasks($data['work_id'], $id);
@@ -200,7 +220,6 @@ function updateATask($data)
         echo json_encode($response);
     }
 }
-
 
 
 //Ajax call to delete a task
