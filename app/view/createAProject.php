@@ -69,10 +69,10 @@ $title = "Créer un projet"
         <div class="col-lg-3 col-md">
             <h4>Importance</h4>
 
-            <input class="form-control inputtypenumber" type="number" min="1" max="5" name="importance" id="selImportance" placeholder="1" required></div>
+            <input class="form-control inputtypenumber" type="number" min="1" max="5" name="importance" id="selImportance" value="1" required></div>
         <div class="col-lg-3 col-md">
             <h4>Urgence</h4>
-            <input class="form-control inputtypenumber" type="number" min="1" max="5" name="urgency" id="selUrgency" placeholder="1" required></div>
+            <input class="form-control inputtypenumber" type="number" min="1" max="5" name="urgency" id="selUrgency" value="1" required></div>
     </div>
     <div class="divVisibility mr-0 pt-4">
         <h4>Confidentialité</h4>

@@ -19,6 +19,11 @@ $(document).ready(function () {
     })
     $("#start").on("change", function (sender) {
         $("#end").attr("min",sender.target.value) // Minimum value of end is greater of start
+        if (start.value > end.value && end.value !== "" )
+        {
+            console.log(end.value)
+            end.value = start.value
+        }
     })
     $(".btnSeeMoreOrLessWorks").on("click", function (event) {
         parent = getRealParentHavingId(event.target)

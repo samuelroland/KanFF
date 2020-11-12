@@ -46,7 +46,6 @@ function projects($option)
 function createAProject($newProject)
 {
     $groups = getAllGroupsByUser($_SESSION['user']['id']);
-    displaydebug($_SESSION);
     if (empty($newProject) == false) {
         $error = false;
         $newProject['name'] = trimIt($newProject['name']);

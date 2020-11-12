@@ -30,11 +30,19 @@ $(document).ready(function () {
     //#btnSendFeedback on click check form and send if verified
     if (document.getElementById("btnSendFeedback") != null) {
         document.getElementById("btnSendFeedback").addEventListener("click", function (sender) {
-            if (txtFeedback.value != "") {
-                //TODO: send the ajax query
+            if (txtFeedback.value != "" && txtFeedbackSubject.value != "") {
                 data = getArrayFromAFormFieldsWithName("frmFeedback")
-                sendRequest("POST", "?action=sendFeedback", manageResponseOfSendFeedback, data)
-                //TODO: if success or error, display message
+                if (chkFeedbackEmail.checked == false) {    //if there email will not be sent
+                    data['email'] = null    //set null (but don't remove the field)
+                }
+
+                if (chkFeedbackEmail.checked == true && txtFeedbackEmail.value != "" && isEmailFormat(txtFeedbackEmail.value) || chkFeedbackEmail.checked == false) {    //send only if is checked and email is not empty, or is not checked
+                    sendRequest("POST", "?action=sendFeedback", manageResponseOfSendFeedback, data)
+                } else {
+                    displayResponseMsg("Envoi impossible. Email invalide.", false)
+                }
+            } else {
+                displayResponseMsg("Envoi impossible. En-tête et contenu requis.", false)
             }
         })
     }
@@ -210,8 +218,10 @@ function displayResponseMsg(val, checkmark = true, color = "black") {
 }
 
 function checkAllValuesAreNotEmpty(values) {
+    logIt(values)
+    logIt("checkAllValuesAreNotEmpty contains bugs...")
     Array.prototype.forEach.call(values, function (val) {
-        if (val == null || val == undefined) {
+        if (val === null || val === undefined || val === "") {
             return false
         }
     })
@@ -271,4 +281,17 @@ function createElementFromHTML(htmlString) {
 //Just log text in the console
 function logIt(text) {
     console.log(text)
+}
+
+//test if string is a valid email
+function isEmailFormat(testemail) {
+    result = testRegex("^[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,}$", testemail)   //test the
+    logIt("isEmailFormat: " + result)
+    return result
+}
+
+//test a regex with a string
+function testRegex(regex, string) {
+    patt = new RegExp(regex)
+    return patt.test(string)
 }

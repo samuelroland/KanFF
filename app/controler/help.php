@@ -228,7 +228,7 @@ function unsetPasswordsInArrayOn2Dimensions($array)
 function isEmailFormat($text)
 {
     //Thanks to: https://www.regular-expressions.info/email.html
-    return (!!preg_match('/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/', strtoupper($text)));  //!! for bool value
+    return (!!preg_match('/^[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,}$/', strtoupper($text)));  //!! for bool value
 }
 
 //Send feedback with data sent with Ajax
@@ -249,11 +249,8 @@ function sendFeedback($data)
             ob_start();
             print_r($cookies);
             $printCookies = ob_get_clean();
-            $technicalInformations = ["Sent at: " . date("Y-m-d H:i:s", time()), $_SERVER['HTTP_USER_AGENT'], $_SERVER['REQUEST_URI'], $versions[count($versions) - 1]['version'], $printCookies];
-            $intro = "Technical informations:\n" . implode("
-            ", $technicalInformations);
-            $message = "Subject: \n" . $data['subject'] . "\n\nContent:\n" . $data['content'];
-            $message = $intro . "\n\n---------------------------------------------------------------------\n" . $message;
+            $technicalInformations = ["Sent at: " . date("Y-m-d H:i:s", time()), $_SERVER['HTTP_USER_AGENT'], $_SERVER['HTTP_REFERER'], $versions[count($versions) - 1]['version'], $printCookies];
+
             $headers = array(
                 'From' => $emailSourceForFeedback,
                 'X-Mailer' => 'PHP/' . phpversion()
@@ -261,16 +258,23 @@ function sendFeedback($data)
 
             //Reply email
             $data['email'] = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
-            if (isset($data['email']) && $data['email'] != false) { //if email is not empty and if sanitize has not failed
-                $headers['Reply-To'] = $data['email'];  //set email as reply to
+            if (is_null($data['email']) == false && $data['email'] != false) { //if email is not null and if sanitize has not failed
 
+                $technicalInformations[] = "Reply-To: " . $data['email'] . ((isEmailFormat($data['email']) == false) ? "  EMAIL INVALID! Reply-To not defined..." : "");   //save the email in the technical informations (because not displayed in all cases in the mail client)
                 if (isEmailFormat($data['email'])) { //do not save the email if not strict email valid (because will be displayed)
+                    $headers['Reply-To'] = $data['email'];  //set email as reply to
                     $_SESSION['feedback']['email'] = $data['email'];
                 }
             }
 
-            $message = $message . "\n\nJSON:\n" . json_encode(array_merge($data, $technicalInformations));
-            $result = mail($to, $subject, $message, $headers);  //send the final email
+            $introTechInformations = "Technical informations:\n" . implode("
+            ", $technicalInformations); //implode technical informations for introduction
+
+            $message = "Subject: \n" . $data['subject'] . "\n\nContent:\n" . $data['content'];  //the message is the subject + the content of the feedback
+
+            //Build the final email content (with technical informations, message, json data)
+            $content = $introTechInformations . "\n\n---------------------------------------------------------------------\n" . $message . "\n---------------------------------------------------------------------\nJSON:\n" . json_encode(array_merge($data, $technicalInformations));    //the final total content of the email
+            $result = mail($to, $subject, $content, $headers);  //send the final email
 
             if (!$result) {
                 $errorMessage = error_get_last()['message'];

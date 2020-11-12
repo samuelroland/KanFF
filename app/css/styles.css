@@ -573,6 +573,11 @@ hr {
     margin-bottom: 0px !important;
 }
 
+.nohorizontalmargin {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+
 .divFeedback {
     z-index: 2000;
     position: fixed;

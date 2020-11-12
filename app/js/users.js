@@ -71,8 +71,3 @@ function setFirstCharToUpper(text) {
 function manageSubmitButton(isDisabled) {
     inpSubmit.disabled = isDisabled
 }
-
-function testRegex(regex, string) {
-    patt = new RegExp(regex)
-    return patt.test(string)
-}
