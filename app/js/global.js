@@ -41,6 +41,9 @@ $(document).ready(function () {
     $("#txtFeedbackInfos").on("click", function () { //when click on infos, display or hide detailed informations
         invertHiddenState(divFeedbackInfos)
     })
+    $("#spanFeedbackEmail").on("click", function () { //when click on infos, display or hide the email input
+        invertHiddenState(divFeedbackEmail)
+    })
 })
 
 //manage the response of the feedback sent

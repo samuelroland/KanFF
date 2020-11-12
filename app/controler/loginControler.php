@@ -41,6 +41,7 @@ function login($infoLogin, $password)
 function logout()
 {
     unset($_SESSION['user']);   // Clears the session
+    unset($_SESSION['feedback']);   // Unset feedback data
     login(null, null);
 }
 

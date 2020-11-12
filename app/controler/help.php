@@ -259,8 +259,18 @@ function sendFeedback($data)
                 'X-Mailer' => 'PHP/' . phpversion()
             );
 
+            //Reply email
+            $data['email'] = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
+            if (isset($data['email']) && $data['email'] != false) { //if email is not empty and if sanitize has not failed
+                $headers['Reply-To'] = $data['email'];  //set email as reply to
+
+                if (isEmailFormat($data['email'])) { //do not save the email if not strict email valid (because will be displayed)
+                    $_SESSION['feedback']['email'] = $data['email'];
+                }
+            }
+
             $message = $message . "\n\nJSON:\n" . json_encode(array_merge($data, $technicalInformations));
-            $result = mail($to, $subject, $message, $headers);
+            $result = mail($to, $subject, $message, $headers);  //send the final email
 
             if (!$result) {
                 $errorMessage = error_get_last()['message'];
