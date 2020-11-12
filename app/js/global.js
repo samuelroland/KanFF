@@ -30,8 +30,7 @@ $(document).ready(function () {
     //#btnSendFeedback on click check form and send if verified
     if (document.getElementById("btnSendFeedback") != null) {
         document.getElementById("btnSendFeedback").addEventListener("click", function (sender) {
-            if (txtFeedback.value != "") {
-                //TODO: send the ajax query
+            if (txtFeedback.value != "" && txtFeedbackSubject.value != "") {
                 data = getArrayFromAFormFieldsWithName("frmFeedback")
                 if (chkFeedbackEmail.checked == false) {    //if there email will not be sent
                     data['email'] = null    //set null (but don't remove the field)
@@ -39,7 +38,11 @@ $(document).ready(function () {
 
                 if (chkFeedbackEmail.checked == true && txtFeedbackEmail.value != "" && isEmailFormat(txtFeedbackEmail.value) || chkFeedbackEmail.checked == false) {    //send only if is checked and email is not empty, or is not checked
                     sendRequest("POST", "?action=sendFeedback", manageResponseOfSendFeedback, data)
+                } else {
+                    displayResponseMsg("Envoi impossible. Email invalide.", false)
                 }
+            } else {
+                displayResponseMsg("Envoi impossible. En-tête et contenu requis.", false)
             }
         })
     }
@@ -215,8 +218,10 @@ function displayResponseMsg(val, checkmark = true, color = "black") {
 }
 
 function checkAllValuesAreNotEmpty(values) {
+    logIt(values)
+    logIt("checkAllValuesAreNotEmpty contains bugs...")
     Array.prototype.forEach.call(values, function (val) {
-        if (val == null || val == undefined) {
+        if (val === null || val === undefined || val === "") {
             return false
         }
     })

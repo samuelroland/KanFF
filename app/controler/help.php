@@ -249,7 +249,7 @@ function sendFeedback($data)
             ob_start();
             print_r($cookies);
             $printCookies = ob_get_clean();
-            $technicalInformations = ["Sent at: " . date("Y-m-d H:i:s", time()), $_SERVER['HTTP_USER_AGENT'], $_SERVER['REQUEST_URI'], $versions[count($versions) - 1]['version'], $printCookies];
+            $technicalInformations = ["Sent at: " . date("Y-m-d H:i:s", time()), $_SERVER['HTTP_USER_AGENT'], $_SERVER['HTTP_REFERER'], $versions[count($versions) - 1]['version'], $printCookies];
 
             $headers = array(
                 'From' => $emailSourceForFeedback,

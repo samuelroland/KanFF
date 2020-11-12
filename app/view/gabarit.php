@@ -237,8 +237,7 @@ if ($feedbackForm == true && isEmailFormat($emailSourceForFeedback) && isEmailFo
                     <?php printAnIcon("trianglebottom.png", "Afficher", "triangle bottom icon", "icon-task-triangle"); ?>
                     </span>
                     <div id="divFeedbackInfos" hidden>
-                        <span class="small">URL: <span
-                                    class="littleinfotext"><?= $_SERVER['REQUEST_URI'] ?></span></span>
+                        <span class="small">URL complet: <span class="littleinfotext">Inclus</span></span>
                         <br><span class="small">Cookies d'interface: <span class="littleinfotext">Inclus</span></span>
                         <br><span class="small">Version: <span class="littleinfotext">
                             <?= $versions[count($versions) - 1]['version'] ?>
@@ -249,11 +248,11 @@ if ($feedbackForm == true && isEmailFormat($emailSourceForFeedback) && isEmailFo
 
                     <div class="flexdiv box-verticalaligncenter">
                         <div class="flex-1">
+                            <input type="checkbox" id="chkFeedbackEmail" <?= ((isset($_SESSION['feedback']['email']) == true) ? "checked" : "") ?>>
                             <span id="spanFeedbackEmail">
                                 <span class="small cursorpointer">Réponse</span>
                                 <?php printAnIcon("trianglebottom.png", "Afficher", "triangle bottom icon", "icon-task-triangle"); ?>
                             </span>
-                            <input type="checkbox" id="chkFeedbackEmail" <?= ((isset($_SESSION['feedback']['email']) == true) ? "checked" : "") ?>>
                         </div>
                         <?php
                         echo createToolTipWithPoint("Si vous souhaitez recevoir une réponse à votre retour, vous pouvez noter votre adresse email et cocher la case. L'email est déjà rempli si vous restez connecté avec le même compte.", "icon-xsmall m-1", false, "right");
@@ -262,7 +261,7 @@ if ($feedbackForm == true && isEmailFormat($emailSourceForFeedback) && isEmailFo
                     <div id="divFeedbackEmail" <?= ((isset($_SESSION['feedback']['email']) == true) ? "" : "hidden") ?>>
                         <input id="txtFeedbackEmail" type="email" maxlength="254" name="email"
                                placeholder="votremail@example.com"
-                               class="thinblackborder mb-1 mt-1 fullwidth">
+                               class="thinblackborder mb-1 mt-1 fullwidth" value="<?= ((isset($_SESSION['feedback']['email']) == true) ? $_SESSION['feedback']['email'] : "") ?>">
                     </div>
 
 
@@ -276,10 +275,10 @@ if ($feedbackForm == true && isEmailFormat($emailSourceForFeedback) && isEmailFo
                     </div>
                     <div id="frmFeedback">
                         <input id="txtFeedbackSubject" type="text" maxlength="100" name="subject"
-                               placeholder="Sujet du retour" class="thinblackborder mb-1 mt-1 fullwidth" required>
+                               placeholder="Sujet du retour" class="thinblackborder mb-1 mt-1 fullwidth">
                         <textarea name="content" id="txtFeedback" rows="10" class="thinblackborder"
                                   placeholder="Concernant les fonctionnalités présentes sur cette page, bogues trouvés, le design, la simplicité (ou non) d'utilisation, suggestions, la cohérence, la clarté des informations, ... tout commentaire constructif à propos de cette page est le bienvenu!"
-                                  maxlength="6000" required></textarea>
+                                  maxlength="6000"></textarea>
                     </div>
                     <div class="box-alignright">
                         <div id="btnCancelFeedback" class="btn btn-light littleinfotext mr-2">Annuler</div>
