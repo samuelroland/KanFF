@@ -23,7 +23,7 @@ $title = "Créer un projet"
                     <?php } ?>
                 </select>
                 <?= createToolTipWithPoint("Les projets sont réalisés par un ou plusieurs groupes. Vous devez choisir un premier groupe dont vous êtes
-            membre pour créer un projet.", "icon-small ml-2 mr-2 m-2", false, "right") ?>
+            membre pour créer un projet.", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
             </div>
         </div>
     </div>
@@ -63,7 +63,7 @@ $title = "Créer un projet"
     <div class="d-inline-flex pt-4 box-verticalaligncenter">
         <div><h3>Priorité du projet</h3></div>
         <?= createToolTipWithPoint("Notez de 1 à 5 (1 = minimum et 5 = maximum), l'importance de l'urgence du projet.
-            Ce qui permet ensuite de calculer la priorité du projet en privélégiant l'important à l'urgent.", "icon-small ml-2 mr-2 m-2", false, "right") ?>
+            Ce qui permet ensuite de calculer la priorité du projet en privélégiant l'important à l'urgent.", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
     </div>
     <div class="divImportance row">
         <div class="col-lg-3 col-md">
@@ -96,7 +96,7 @@ $title = "Créer un projet"
                 <input class="form-control fullwidth smalltextinput" type="password" name="password"
                        placeholder="Mot de passe" required>
                 <?= createToolTipWithPoint("Créer un projet étant une action importante, nous avons besoin de
-            votre confirmation pour valider l'action. Pour ceci rentrer le mot de passe de votre compte.", "icon-small ml-2 mr-2 m-2", false, "right") ?>
+            votre confirmation pour valider l'action. Pour ceci rentrer le mot de passe de votre compte.", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
             </div>
         </div>
     </div>
