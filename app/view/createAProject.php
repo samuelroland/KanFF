@@ -6,7 +6,7 @@ $title = "Créer un projet"
 <?php printPageWIPTextInfo(); ?>
 <p>Cette page vous permet de créer un nouveau projet réalisé par un groupe dont vous êtes membre.</p>
 
-<form action="?action=createAGroup" method="POST" class="pt-1">
+<form action="?action=createAProject" method="POST" class="pt-1">
     <div class="divContext row pt-4 box-verticalaligncenter">
         <div class="col-lg-3 col-md-12 ">
             <h4>Nom du projet</h4>
@@ -17,7 +17,7 @@ $title = "Créer un projet"
         <div class="col-lg-3 col-md-10">
             <h4>Réalisé par</h4>
             <div class="d-inline-flex box-verticalaligncenter">
-                <select name="group" id="group" class="form-control" required>
+                <select name="manager_id" id="manager_id" class="form-control" required>
                     <?php foreach ($groups as $g) { ?>
                         <option value="<?= $g['id'] ?>"><?= $g['name'] ?></option>
                     <?php } ?>
@@ -51,11 +51,11 @@ $title = "Créer un projet"
         <h4 class="ml-3 mr-5">Début et fin prévus</h4>
         <div class="ml-4">
             <label for="start">Début:</label>
-            <input type="date" id="start" name="dateStart" value="<?= date("Y-m-d") ?>" required>
+            <input type="date" id="start" name="start" value="<?= date("Y-m-d") ?>" required>
         </div>
         <div class="ml-4">
             <label for="end">Fin (facultatif):</label>
-            <input class="marginauto" type="date" id="end" min="" name="dateEnd">
+            <input class="marginauto" type="date" id="end" min="" name="end">
         </div>
 
 
@@ -79,14 +79,14 @@ $title = "Créer un projet"
     <div class="divVisibility mr-0 pt-4">
         <h4>Confidentialité</h4>
         <div class="col-lg-12 col-md-12">
-            <input type="checkbox" id="chkRestrictAccess"
-                   name="restrict_access" checked>
+            <input type="checkbox" id="visible"
+                   name="visible" checked>
             <label for="chkRestrictAccess">Le projet est visible par les personnes non-membres des groupes réalisant ce
                 projet</label>
         </div>
         <div class="col-lg-12 col-md-12">
-            <input type="checkbox" id="chkRestrictAccess"
-                   name="restrict_access" checked>
+            <input type="checkbox" id="logbook_visible"
+                   name="logbook_visible" checked>
             <label for="chkRestrictAccess">Le journal de bord est visible par les personnes non-membres des groupes
                 réalisant ce projet</label>
         </div>
