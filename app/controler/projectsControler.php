@@ -71,6 +71,10 @@ function createAProject($newProject)
         } else {
             $newProject['logbook_visible'] = 0;
         }
+        if ($newProject['goal'] == "")
+        {
+            $newProject['goal'] = "Non défini";
+        }
         if ($newProject['end'] = " "){
             $dateEnd = null;
             $dateEnd = date("Y-m-d H:i:s", $dateEnd);
