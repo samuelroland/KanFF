@@ -16,7 +16,56 @@ Returns the entire string with first letter of the given variable in uppercase
 #### Parameters:
 - $string: a string.
 #### Return: string
+##
+Show the content of $_SESSION["flashmsg"]
+   
+    function flashMessage($withHtml = true)
+#### Parameters:
+- $withHtml: false if we want to display the message without html
+#### Return: void
+##
+Show the content of $_SESSION["flashmsg"]
+   
+    function flashMessage($withHtml = true)
+#### Parameters:
+- $withHtml: false if we want to display the message without html
+#### Return: void
+##
+Display a var (with var_dump()) for debug, only if debug mode is enabled
+   
+    function displaydebug($var, $needPrint_r = false)
+#### Parameters:
+- $var: must contain var we want to display
+- $needPrint_r: true if we want to print_r the var
+#### Return: void
+##
+Convert[x][y] [x] is the table where the field[y] is located, we want to convert [y] to text
+   
+       function convertXY($int, $needFirstCharToUpper = false)
+- convertUserState
+- convertJoinState
+- convertGroupState
+- convertGroupVisibility
+- convertProjectState
+- convertParticipateState
+- convertWorkState
+- convertWorkNeedhelp
+- convertWorkNeedhelpIcon
+- convertTaskState
+- convertTaskType
+#### Parameters:
+- $int: must contain the int
+- $needFirstCharToUpper: true if we want an upper lettre at the start of the word
+#### Return: void
  
+##
+Return the given string without space at start and end
+   
+    function manageIfApplyOnFirstChar($txt, $needFirstCharToUpper)
+#### Parameters:
+- $txt: must contain the text that we want to trim
+- $needFirstCharToUpper: true if we want an upper lettre at the start of the word
+#### Return: string
 
 ## help.php
 
