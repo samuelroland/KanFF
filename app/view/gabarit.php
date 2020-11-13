@@ -31,6 +31,7 @@ require ".const.php";
 
     <!-- Js files  -->
     <script src="js/global.js"></script>
+    <script src="js/gabarit.js"></script>
     <script src="js/groups.js"></script>
     <script src="js/members.js"></script>
     <script src="js/users.js"></script>

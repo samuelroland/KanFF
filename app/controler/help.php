@@ -15,7 +15,7 @@ define("ARRAY_ACCENT_CHARS", array('Š' => 'S', 'š' => 's', 'Ž' => 'Z', 'ž' =
 //Check that the password sent is the password of the user logged. The function is not useful for the logins, but it's useful to check the password when the user make an important action that need to be validated.
 function checkUserPassword($id, $password)
 {
-    require_once "controler/loginControler.php";    //WIP useful
+    require_once "controler/accountControler.php";    //WIP useful
     $user = getUserById($id);
     return password_verify($password, $user['password']);   //return true ou false
 }

@@ -5,6 +5,7 @@
  *  Creation date: 26.04.2020
  */
 
+//TODO: precise and enhance funcitons names
 
 //manage the response of the feedback sent
 function manageResponseOfSendFeedback(response) {

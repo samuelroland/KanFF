@@ -1,10 +1,11 @@
 <?php
 /**
  *  Project: KanFF
- *  File: accountControler.php
+ *  File: accountControler.php file for controler functions about the management of the account of a user (login, signin, editAccount, ...)
  *  Author: Kevin Vaucher et Luís Pedro Pinheiro
  *  Creation date: 18.05.2020
  */
+require "model/usersModel.php";
 
 function editAccount($post)
 {
@@ -91,9 +92,6 @@ function editAccount($post)
         require "view/editAccount.php";
     }
 }
-
-
-
 
 //This funtion will redirect to the signin page or redirect to the signin page
 function signin($post)
@@ -213,4 +211,41 @@ function limitedAccessInfo()
         $user['state_modifier'] = getUserById($user['state_modifier_id']);  //get the user modifier
     }
     require_once "view/limitedAccess.php";
+}
+
+// This funtion will try to Login Using the provided data
+function login($infoLogin, $password)
+    // If trying to login it checks the data, else load the page
+{
+    if ($infoLogin != "") {
+        $infoLogin = trimIt($infoLogin);
+        if (strlen($infoLogin) == 3) {// If the infoLogin is initials, then convert it to upper case
+            $infoLogin = strtoupper($infoLogin);
+        }
+        $UserLog = getUser($infoLogin);
+        if (password_verify($password, $UserLog['password'])) {
+            unset($UserLog['password']);    // Unset password to not save it in the session
+            $_SESSION['user'] = $UserLog;   // Save all informations of the users in the session
+            displaydebug($_SESSION);    // Function that will display a var_dump if the debug mode is active
+            if (checkLimitedAccess()) {
+                limitedAccessInfo();    //go directly to limited access info page
+            } else {
+                dashboard();    //go to default page if has no limitation of access
+            }
+
+        } else {
+            flshmsg(1);
+            require_once 'view/login.php';
+        }
+    } else {
+        require_once 'view/login.php';
+    }
+}
+
+// Function to logout the user from de current session
+function logout()
+{
+    unset($_SESSION['user']);   // Clears the session
+    unset($_SESSION['feedback']);   // Unset feedback data
+    login(null, null);
 }
