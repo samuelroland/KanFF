@@ -100,12 +100,12 @@ Return if [needle] is contain in the things after "action=" in the querystring
 - needle: must contain the text that we want to check if is contained in querystring
 #### Return: bool
 ##
-Create a div element in html with [htmlString] in content
+Create a div with a DOM object inside from a string with html code
    
     function createElementFromHTML(htmlString)
 #### Parameters:
 - htmlString: must contain the text that we want to put in the div
-#### Return: void
+#### Return: the div with the object created inside
 ##
 Write in console the given text
    
