@@ -81,29 +81,47 @@ Return the given string without all numbers
    
     function displayResponseMsg(val, checkmark = true, color = "black")
 #### Parameters:
-- text: must contain the text that we want to remove numbers
+- val: must contain the text that we want display
+- checkmark: must contain a bool that tell to us if the checkmark is a tick or a cross
+- color: must contain a css color that decide what is the text's color
 #### Return: string
 ##
-Return the given string without all numbers
+Return false if one of the [values] is empty
    
-    function removeNumbersInString(text)
+    function checkAllValuesAreNotEmpty(values)
 #### Parameters:
-- text: must contain the text that we want to remove numbers
+- values: must contain the values we want to tests
 #### Return: string
 ##
-Return the given string without all numbers
+Return if [needle] is contain in the things after "action=" in the querystring 
    
-    function removeNumbersInString(text)
+    function queryActionIncludes(needle)
 #### Parameters:
-- text: must contain the text that we want to remove numbers
-#### Return: string
+- needle: must contain the text that we want to check if is contained in querystring
+#### Return: bool
 ##
-Return the given string without all numbers
+Create a div element in html with [htmlString] in content
    
-    function removeNumbersInString(text)
+    function createElementFromHTML(htmlString)
 #### Parameters:
-- text: must contain the text that we want to remove numbers
+- htmlString: must contain the text that we want to put in the div
+#### Return: void
+##
+Write in console the given text
+   
+    function logIt(text)
+#### Parameters:
+- text: must contain the text that we want to write in console
+#### Return: void
+##
+Return a bool if the string tested with regex return true
+   
+    function testRegex(regex, string)
+#### Parameters:
+- regex: must contain a regex
+- string: must contain a string
 #### Return: string
+
 
 
 
