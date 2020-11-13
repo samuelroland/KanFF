@@ -67,7 +67,7 @@ function getAllGroupsByProject($id)
 INNER join participate ON projects.id = participate.project_id
 INNER join `groups` ON `groups`.id = participate.group_id
 INNER join `join` ON `join`.group_id = `groups`.id
-WHERE `projects`.id = 2 AND participate.state IN (" . implode(", ", [PARTICIPATE_STATE_INVITATION_ACCEPTED, PARTICIPATE_STATE_CREATOR]) . ") AND `join`.state IN (" . implode(", ", [JOIN_STATE_APPROVED, JOIN_STATE_INVITATION_ACCEPTED]) . ")
+WHERE `projects`.id = :id AND participate.state IN (" . implode(", ", [PARTICIPATE_STATE_INVITATION_ACCEPTED, PARTICIPATE_STATE_CREATOR]) . ") AND `join`.state IN (" . implode(", ", [JOIN_STATE_APPROVED, JOIN_STATE_INVITATION_ACCEPTED]) . ")
 GROUP BY `groups`.id
 ORDER BY participate.`start`";
     $params = ["id" => $id];
