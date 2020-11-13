@@ -42,17 +42,17 @@ Display a var (with var_dump()) for debug, only if debug mode is enabled
 Convert[x][y] [x] is the table where the field[y] is located, we want to convert [y] to text
    
        function convertXY($int, $needFirstCharToUpper = false)
-- convertUserState
-- convertJoinState
-- convertGroupState
-- convertGroupVisibility
-- convertProjectState
-- convertParticipateState
-- convertWorkState
-- convertWorkNeedhelp
-- convertWorkNeedhelpIcon
-- convertTaskState
-- convertTaskType
+- convertUserState()
+- convertJoinState()
+- convertGroupState()
+- convertGroupVisibility()
+- convertProjectState()
+- convertParticipateState()
+- convertWorkState()
+- convertWorkNeedhelp()
+- convertWorkNeedhelpIcon()
+- convertTaskState()
+- convertTaskType()
 #### Parameters:
 - $int: must contain the int
 - $needFirstCharToUpper: true if we want an upper lettre at the start of the word
