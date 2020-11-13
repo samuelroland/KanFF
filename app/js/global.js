@@ -151,7 +151,7 @@ function queryActionIncludes(needle) {
     querystring = window.location.search    //get the querystring
     action = querystring.split("&")[0]  //get the first parameter in the querystring (that must be in all cases the action=x
     action = action.toLowerCase()   //set to lowercase because updateTask and tasks contain the work "task" but the
-    return (action.includes(needle))
+    return (action.includes(needle.toLowerCase()))
 }
 
 //Source: Thanks to https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro

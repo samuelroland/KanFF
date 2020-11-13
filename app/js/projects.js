@@ -6,8 +6,17 @@
  */
 //After the DOM has been loaded:
 $(document).ready(function () {
-    minDate =
-        $("#end").attr("min", start.value);
+    if (queryActionIncludes("createAProject")) {
+        minDate = $("#end").attr("min", start.value);
+
+        $("#start").on("change", function (sender) {
+            $("#end").attr("min", sender.target.value) // Minimum value of end is greater of start
+            if (start.value > end.value && end.value !== "") {
+                console.log(end.value)
+                end.value = start.value
+            }
+        })
+    }
     //Declare events:
     $(".oneLog").on("click", function (sender) {
         parent = getRealParentHavingId(sender.target)
@@ -17,13 +26,7 @@ $(document).ready(function () {
         invertHiddenStateOnChild(parent, "shortdescription")
         invertHiddenStateOnChild(parent, "longdescription")
     })
-    $("#start").on("change", function (sender) {
-        $("#end").attr("min", sender.target.value) // Minimum value of end is greater of start
-        if (start.value > end.value && end.value !== "") {
-            console.log(end.value)
-            end.value = start.value
-        }
-    })
+
     $(".btnSeeMoreOrLessWorks").on("click", function (event) {
         parent = getRealParentHavingId(event.target)
         //TODO: scroll to an ideal work position
