@@ -10,4 +10,5 @@ function about(){
     require_once "view/about.php";
 }
 
+//TODO: manage informations of an instance
 ?>
