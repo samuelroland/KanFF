@@ -53,20 +53,46 @@ function createAProject($newProject)
         if (checkUserPassword($_SESSION['user']['id'], $newProject['password']) == false) {
             $error = 8;
         }
+        unset($newProject['password']);
 
+        // Default values (not in the form)
+        $newProject['archived'] = 0;
+        $newProject['logbook_content'] = "Non défini";
+        $newProject['responsible_id'] = null;
+        $newProject['state'] = PROJECT_STATE_UNDERREFLECTION;
+
+        if ($newProject['visible'] == "on") {
+            $newProject['visible'] = 1;
+        } else {
+            $newProject['visible'] = 0;
+        }
+        if ($newProject['logbook_visible'] == "on") {
+            $newProject['logbook_visible'] = 1;
+        } else {
+            $newProject['logbook_visible'] = 0;
+        }
+        if ($newProject['end'] = " "){
+            $dateEnd = null;
+            $dateEnd = date("Y-m-d H:i:s", $dateEnd);
+            displaydebug($dateEnd);
+            displaydebug("salut");
+            $newProject['end'] = $dateEnd;
+        }
         //Then depending on errors or on success:
         if ($error != false) {
             flshmsg($error);
             require "view/createAProject.php";  //view values sent inserted
         } else {
             createOne("projects", $newProject);
-            displaydebug($newProject);
             flshmsg(9);
+            require "view/projects.php";
         }
-    } else {
+    }else{
         require_once "view/createAProject.php";
     }
+
 }
+
 
 function projectDetails($id, $option)
 {
