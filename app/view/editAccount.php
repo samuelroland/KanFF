@@ -150,7 +150,7 @@ Il peut être utile de laisser une information dans votre statut, concernant la 
 
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Lien messagerie instantanée</span>
-                        <input class="<?= $cssForInput ?>" type="email" name="email"
+                        <input class="<?= $cssForInput ?>" type="" name="email"
                                placeholder="t.me/josette27" value="<?= $user['chat_link'] ?>"/>
                         <?= createToolTipWithPoint("Lien permettant de vous écrire en privé via la messagerie instanée de votre collectif.", "icon-small ml-2 mr-2 m-2", false, "right") ?>
 
@@ -179,7 +179,7 @@ Il peut être utile de laisser une information dans votre statut, concernant la 
                     autres membres. </p>
 
                 <div class="  pt-3">
-                    <button type="submit" class="btn btn-primary">Enresgistrer</button>
+                    <button type="submit" data-href="?action=editAccount" class="btn btn-primary">Enresgistrer</button>
                 </div>
                 <h5 class="pt-3">Changement du mot de passe:</h5>
                 <div class="<?= $cssForDivField ?>">
@@ -202,7 +202,7 @@ Il peut être utile de laisser une information dans votre statut, concernant la 
                 </div>
             </div>
             <div class="  pt-3">
-                <button type="submit" class=" btn btn-primary">Changer</button>
+                <button type="submit" data-href="?action=editAccount" class=" btn btn-primary">Changer</button>
             </div>
 
             <div class=" pt-3">
