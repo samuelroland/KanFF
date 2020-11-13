@@ -59,12 +59,20 @@ Convert[x][y] [x] is the table where the field[y] is located, we want to convert
 #### Return: void
  
 ##
-Return the given string without space at start and end
+Return the given string with an upper char for first letter depends on [needFirstCharToUpper]
    
     function manageIfApplyOnFirstChar($txt, $needFirstCharToUpper)
 #### Parameters:
 - $txt: must contain the text that we want to trim
-- $needFirstCharToUpper: true if we want an upper lettre at the start of the word
+- $needFirstCharToUpper: true if we want an upper letter at the start of the word
+#### Return: string
+##
+Display the firstname and lastname 
+   
+    function mentionUser($basicUser, $css = "text-info")
+#### Parameters:
+- $basicUser: must contain the user we want to diplay with the hover
+- $css: must contain a css class
 #### Return: string
 
 ## help.php
