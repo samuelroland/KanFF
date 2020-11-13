@@ -10,16 +10,16 @@ ob_start();
 ?>
     <h1><?= $title ?></h1>
     <h4>Etat du compte: <?= convertUserState($user['state']) ?></h4>
-<span><em><strong>Pourquoi ai-je un accès limité aux données internes ?</strong></em></span><br>
-<p class="">
-    <?= $message ?>
-</p>
+    <span><em><strong>Pourquoi ai-je un accès limité aux données internes ?</strong></em></span><br>
+    <p class="">
+        <?= $message ?>
+    </p>
 <?php
 
 if ($user['state_modification_date'] != null || $user['state_modifier_id'] != null) {
-    echo "État du compte défini comme <em>" . convertUserState($user['state'])."</em>";
+    echo "État du compte défini comme <em>" . convertUserState($user['state']) . "</em>";
     if ($user['state_modification_date'] != null) {
-        echo " le <strong>" . DTToHumanDate($user['state_modification_date'], "simpletime")."</strong>";
+        echo " le <strong>" . DTToHumanDate($user['state_modification_date'], "simpletime") . "</strong>";
     }
     if ($user['state_modifier_id'] != null) {
         echo " par " . mentionUser($user['state_modifier']);

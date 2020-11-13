@@ -8,7 +8,7 @@
 $title = "Dashboard";
 ob_start();
 ?>
-    <h1><?= $title ?></h1>
+<h1><?= $title ?></h1>
 <?php printPageWIPTextInfo(); ?>
 
 <?php

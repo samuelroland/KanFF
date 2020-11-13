@@ -66,7 +66,7 @@ function printDivTaskDetails($project)
                             <div class="circle-responsible mr-2">
                                 <p class="marginauto" id="initials"></p>
                             </div>
-                                <input type="text" id="responsible" class="form-control flex-1 width-min-content"
+                            <input type="text" id="responsible" class="form-control flex-1 width-min-content"
                                    value="" disabled readonly>
                         </div>
                         <div class="alignright smallinfotext"><span id="creator"></span></div>
@@ -81,7 +81,8 @@ function printDivTaskDetails($project)
                     <div class="flex-1 flexdiv">
                         <div class="ml-3">
                             <span class="<?= $spanCSS ?>">Urgence:</span>
-                            <input type="number" name="urgency" id="urgency" class="form-control inputtypenumber inputspan"
+                            <input type="number" name="urgency" id="urgency"
+                                   class="form-control inputtypenumber inputspan"
                                    value="" min="0" max="5" required>
                         </div>
                         <div class="mt-4">

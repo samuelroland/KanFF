@@ -31,8 +31,7 @@ function createAWork($data)
     //Not null ?
 
 
-
-    if (!isAtLeastEqual("",[$data['type'], $data["name"],$data["start"],$data["end"],$data["value"],$data["effort"],$data["visible"],$data["open"],$data["inbox"],$data["repetitive"],$data["need_help"],$data["project_id"]])&& $hasPermissionToCreate) {
+    if (!isAtLeastEqual("", [$data['type'], $data["name"], $data["start"], $data["end"], $data["value"], $data["effort"], $data["visible"], $data["open"], $data["inbox"], $data["repetitive"], $data["need_help"], $data["project_id"]]) && $hasPermissionToCreate) {
         $task['name'] = $data['name'];
         $task['type'] = $data['type'];
         $task['work_id'] = $data['work'];

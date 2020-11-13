@@ -14,43 +14,46 @@ $title = "Mon compte";
 $instanceinfos = getInstanceInfos();
 $instance = $instanceinfos['instance'];
 $states = USER_LIST_STATE;
-$list="";
-foreach ($states as $state){
+$list = "";
+foreach ($states as $state) {
 
-    $list.= ", ".convertUserState($state);
+    $list .= ", " . convertUserState($state);
 
 }
 
 ob_start();
 ?>
     <div class="<?= $cssForDivZone ?>">
-    <div class="">
-        <div class="flexdiv">
-            <h1 class="flex-1"><?= $title ?></h1>
-            <div class="flex-1 d-block">
-                <button class="btn btn-primary float-right clickable" data-href="?action=about">Détails de cette instance <?=$instance['name']  ?></button>
+        <div class="">
+            <div class="flexdiv">
+                <h1 class="flex-1"><?= $title ?></h1>
+                <div class="flex-1 d-block">
+                    <button class="btn btn-primary float-right clickable" data-href="?action=about">Détails de cette
+                        instance <?= $instance['name'] ?></button>
+                </div>
             </div>
-        </div>
-        <p class="">Voici les informations de votre compte sur l'instance Blason. C'est sur cette page que vous
-            pouvez gérer votre compte. Vous pouvez modifier vos informations pour la plupart et aussi archiver ou
-            supprimer
-            votre compte (attention supprimer est une action irréversible!)</p>
-        <?php printPageWIPTextInfo();?>
-        <div class="form-group">
-            <form class="" action="?action=signin" method="post">
-                <h5 class="pt-3">Informations principales:</h5>
+            <p class="">Voici les informations de votre compte sur l'instance Blason. C'est sur cette page que vous
+                pouvez gérer votre compte. Vous pouvez modifier vos informations pour la plupart et aussi archiver ou
+                supprimer
+                votre compte (attention supprimer est une action irréversible!)</p>
+            <?php printPageWIPTextInfo(); ?>
+            <div class="form-group">
+                <form class="" action="?action=signin" method="post">
+                    <h5 class="pt-3">Informations principales:</h5>
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Prénom</span>
-                            <input id="inpFirstname" class="<?= $cssForInput ?> textFieldToCheck trimItOnChange" minlength="2"
-                                   maxlength="75" type="text"
-                                   name="firstname" placeholder="Josette" required value="<?= $user['firstname'] ?>"/>
-                            <p id="pCounterFirstname" class="m-2"></p>
-                        </div>
+                        <input id="inpFirstname" class="<?= $cssForInput ?> textFieldToCheck trimItOnChange"
+                               minlength="2"
+                               maxlength="75" type="text"
+                               name="firstname" placeholder="Josette" required value="<?= $user['firstname'] ?>"/>
+                        <p id="pCounterFirstname" class="m-2"></p>
+                    </div>
 
 
                     <div class=" <?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Nom</span>
-                        <input id="inpLastname" class="<?= $cssForInput ?> textFieldToCheck trimItOnChange" minlength="2"
+                        <input id="inpLastname" class="<?= $cssForInput ?> textFieldToCheck trimItOnChange"
+                               minlength="2"
                                maxlength="75" type="text"
                                name="lastname"
                                placeholder="Richard" required value="<?= $user['lastname'] ?>"/>
@@ -66,13 +69,14 @@ ob_start();
                         <span class="<?= $cssForSpan ?>">Date d'inscription </span>
                         <input class="<?= $cssForInput ?>" type="date"
                                value="<?= date("Y-m-d", strtotime($user['inscription'])) ?>" readonly disabled/>
-                        <?= createToolTipWithPoint( "Date d'inscription sur cette instance non modifiable", "icon-small ml-2 mr-2 m-2", false, "right"); ?>
+                        <?= createToolTipWithPoint("Date d'inscription sur cette instance non modifiable", "icon-small ml-2 mr-2 m-2", false, "right"); ?>
 
                     </div>
 
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Nom d'utilisateur/trice</span>
-                        <input id="inpUsername" class="<?= $cssForInput ?> textFieldToCheck removeSpaceInRT trimItOnChange"
+                        <input id="inpUsername"
+                               class="<?= $cssForInput ?> textFieldToCheck removeSpaceInRT trimItOnChange"
                                minlength="4"
                                maxlength="15" type="text"
                                name="username" pattern="^[a-zA-Z0-9_]*$"
@@ -82,15 +86,14 @@ ob_start();
 
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Statut</span>
-                        <span class="spanTextArea"><textarea name="Statut" id="txtStatut" rows="2" placeholder="tbd" maxlength="200"
+                        <span class="spanTextArea"><textarea name="Statut" id="txtStatut" rows="2" placeholder="tbd"
+                                                             maxlength="200"
                                                              class=" fullwidth form-control textFieldToCheck trimItOnChange"
                                                              title="Votre Statut"><?= $user['status'] ?></textarea>
                         <p id="pCounterStatut" class="mt-2 mb-2 col-lg-12"></p>
                         </span>
 
                     </div>
-
-
 
 
                     <div class="<?= $cssForDivField ?>">
@@ -116,8 +119,8 @@ ob_start();
                             }
 
                             ?></span>
-                        <div  class="">
-                        <?= createToolTipWithPoint("Information concernant le dernier changement d'état", "icon-small ml-2 mr-2 m-2", false,"right") ?>
+                        <div class="">
+                            <?= createToolTipWithPoint("Information concernant le dernier changement d'état", "icon-small ml-2 mr-2 m-2", false, "right") ?>
                         </div>
                     </div>
 
@@ -131,7 +134,7 @@ Il peut être utile de laisser une information dans votre statut, concernant la 
 
                     </div>
 
-                <h5 class="pt-3">Champs facultatifs:</h5>
+                    <h5 class="pt-3">Champs facultatifs:</h5>
 
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Email</span>
@@ -156,7 +159,8 @@ Il peut être utile de laisser une information dans votre statut, concernant la 
 
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Biographie</span>
-                        <span class="spanTextArea">    <textarea name="biography" id="txtBiography" rows="4" maxlength="2000"
+                        <span class="spanTextArea">    <textarea name="biography" id="txtBiography" rows="4"
+                                                                 maxlength="2000"
                                                                  placeholder="Dans le milieu associatif, depuis 10 ans déjà, je suis à dans Assoc depuis 2015 et j'aide plusieurs heures par semaines. La partie contact médias m'intéresse beaucoup. Je suis photographe de métier, mais aussi céramiste et je cultive un petit potager..."
                                                                  class="fullwidth form-control textFieldToCheck trimItOnChange"
                                                                  title="Votre biographie"><?= $user['biography'] ?></textarea>
@@ -165,50 +169,52 @@ Il peut être utile de laisser une information dans votre statut, concernant la 
 
                         <?= flashMessage(); ?>
                     </div>
-                </div>
-
-        <div class="">
-            <p class="">Ces informations seront visibles à tous les membres approuvés de l'instance, dans le but d'avoir
-                un ou des moyens de contact et une description pour les nouvelles personnes, qui ne connaissent pas les
-                autres membres. </p>
-
-            <div class="  pt-3">
-                <button type="submit" class="btn btn-primary">Enresgistrer</button>
-            </div>
-            <h5 class="pt-3">Changement du mot de passe:</h5>
-            <div class="<?= $cssForDivField ?>">
-                <span class="<?= $cssForSpan ?>">Mot de passe actuel</span>
-                <input class="<?= $cssForInput ?>" type="password" name="newpasswordc" placeholder="" required
-                       title="Confirmation du mot de passe"/>
             </div>
 
-            <div class= "<?= $cssForDivField ?>">
-                <span class="<?= $cssForSpan ?>">nouveau mot de passe</span>
-                <input class="<?= $cssForInput ?>" type="password" name="newpassword" placeholder="" required/>
-                <?= createToolTipWithPoint("Les mots de passes doivent contenir: 8 caractères minimum + au moins une lettre et un chiffre", "icon-small ml-2 mr-2 m-2", false, "right") ?>
-            </div>
-
-
-            <div class="<?= $cssForDivField ?>">
-                <span class="<?= $cssForSpan ?>">Confirmation</span>
-                <input class="<?= $cssForInput ?>" type="password" name="newpasswordc" placeholder="" required
-                       title="Confirmation du mot de passe"/>
-            </div>
-        </div>
-        <div class="  pt-3">
-            <button type="submit" class=" btn btn-primary">Changer</button>
-        </div>
-
-        <div class=" pt-3">
             <div class="">
-                <p class="">Zone danger - actions irréversibles ou à grosses conséquences techniques.</p>
-                <div class=" pt-3">
-                    <button type="submit" class="btn btn-primary">Supprimer son compte</button>
-                </div>
+                <p class="">Ces informations seront visibles à tous les membres approuvés de l'instance, dans le but
+                    d'avoir
+                    un ou des moyens de contact et une description pour les nouvelles personnes, qui ne connaissent pas
+                    les
+                    autres membres. </p>
+
                 <div class="  pt-3">
-                    <button type="submit" class=" btn btn-primary">Archiver son compte</button>
+                    <button type="submit" class="btn btn-primary">Enresgistrer</button>
+                </div>
+                <h5 class="pt-3">Changement du mot de passe:</h5>
+                <div class="<?= $cssForDivField ?>">
+                    <span class="<?= $cssForSpan ?>">Mot de passe actuel</span>
+                    <input class="<?= $cssForInput ?>" type="password" name="newpasswordc" placeholder="" required
+                           title="Confirmation du mot de passe"/>
+                </div>
+
+                <div class="<?= $cssForDivField ?>">
+                    <span class="<?= $cssForSpan ?>">nouveau mot de passe</span>
+                    <input class="<?= $cssForInput ?>" type="password" name="newpassword" placeholder="" required/>
+                    <?= createToolTipWithPoint("Les mots de passes doivent contenir: 8 caractères minimum + au moins une lettre et un chiffre", "icon-small ml-2 mr-2 m-2", false, "right") ?>
+                </div>
+
+
+                <div class="<?= $cssForDivField ?>">
+                    <span class="<?= $cssForSpan ?>">Confirmation</span>
+                    <input class="<?= $cssForInput ?>" type="password" name="newpasswordc" placeholder="" required
+                           title="Confirmation du mot de passe"/>
                 </div>
             </div>
+            <div class="  pt-3">
+                <button type="submit" class=" btn btn-primary">Changer</button>
+            </div>
+
+            <div class=" pt-3">
+                <div class="">
+                    <p class="">Zone danger - actions irréversibles ou à grosses conséquences techniques.</p>
+                    <div class=" pt-3">
+                        <button type="submit" class="btn btn-primary">Supprimer son compte</button>
+                    </div>
+                    <div class="  pt-3">
+                        <button type="submit" class=" btn btn-primary">Archiver son compte</button>
+                    </div>
+                </div>
             </div>
             </form>
         </div>

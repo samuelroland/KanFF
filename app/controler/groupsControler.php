@@ -11,7 +11,7 @@ require_once "model/groupsModel.php";
 //display the page groups
 function groups($option)
 {
-    switch ($option){
+    switch ($option) {
         case 1:
             $groups = getAllGroups();
             break;

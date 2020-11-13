@@ -7,7 +7,7 @@
 //After the DOM has been loaded:
 $(document).ready(function () {
     minDate =
-    $("#end").attr("min", start.value);
+        $("#end").attr("min", start.value);
     //Declare events:
     $(".oneLog").on("click", function (sender) {
         parent = getRealParentHavingId(sender.target)
@@ -18,9 +18,8 @@ $(document).ready(function () {
         invertHiddenStateOnChild(parent, "longdescription")
     })
     $("#start").on("change", function (sender) {
-        $("#end").attr("min",sender.target.value) // Minimum value of end is greater of start
-        if (start.value > end.value && end.value !== "" )
-        {
+        $("#end").attr("min", sender.target.value) // Minimum value of end is greater of start
+        if (start.value > end.value && end.value !== "") {
             console.log(end.value)
             end.value = start.value
         }

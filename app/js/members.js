@@ -73,6 +73,7 @@ function manageEditMode() {
 }
 
 /* 2 functions to manage change of the state of a user account in JS and Ajax */
+
 //onchange on a .sltAccountState, send request (ajax call) to change account state
 function changeAccountState(event) {
     slt = event.target

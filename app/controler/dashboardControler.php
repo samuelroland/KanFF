@@ -6,7 +6,8 @@
  *  Creation date: 25.05.2020
  */
 
-function dashboard(){
+function dashboard()
+{
     require_once "view/home.php";
 }
 

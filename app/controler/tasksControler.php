@@ -170,10 +170,10 @@ function updateATask($data)
 
         //use state only if state = true
         if ($data['state']) {
-            if (isset($data['state'])){
+            if (isset($data['state'])) {
                 if (is_int($data['state'])) {
                     $task['state'] = $data['state'];
-                }else{
+                } else {
                     //TODO: API
                 }
             }
@@ -190,7 +190,7 @@ function updateATask($data)
         } else {
             //TODO: update TOUT
             //Check Data
-            if (is_int($data['urgency'])&&is_int($data['type'])&&is_int($data['name'])){
+            if (is_int($data['urgency']) && is_int($data['type']) && is_int($data['name'])) {
 
             }
         }

@@ -12,18 +12,18 @@ error_reporting(0); //Hide all error with the php code and html/css/js code
 // Include all controllers
 require_once "view/helpers.php";     //functions for helpers functions
 require_once "controler/help.php";   //controler to generate common contents
-require "controler/accountControler.php"; // controler to modify account settings
-require "controler/dashboardControler.php"; // controler for the dashboard page
-require "controler/groupsControler.php"; // controler for the groups
-require "controler/membersControler.php"; // controler for the members
-require "controler/projectsControler.php"; // controler for the projects
-require "controler/logControler.php"; // controler for the projects
-require "controler/tasksControler.php"; // controler for the projects
-require "controler/worksControler.php"; // controler for the projects
-require "controler/eventsControler.php"; // controler for the projects
-require "controler/adminControler.php"; // controler for the projects
-require "model/localFilesModel.php";    //model for local files functions
-require "model/CRUDModel.php";//default model CRUD
+require_once "controler/accountControler.php"; // controler to modify account settings
+require_once "controler/dashboardControler.php"; // controler for the dashboard page
+require_once "controler/groupsControler.php"; // controler for the groups
+require_once "controler/membersControler.php"; // controler for the members
+require_once "controler/projectsControler.php"; // controler for the projects
+require_once "controler/logControler.php"; // controler for the projects
+require_once "controler/tasksControler.php"; // controler for the projects
+require_once "controler/worksControler.php"; // controler for the projects
+require_once "controler/eventsControler.php"; // controler for the projects
+require_once "controler/adminControler.php"; // controler for the projects
+require_once "model/localFilesModel.php";    //model for local files functions
+require_once "model/CRUDModel.php";//default model CRUD
 //require  "controler/testCRUDmodel.php";//controler for test CRUDmodel functions
 
 $isAdmin = checkAdmin();

@@ -73,7 +73,8 @@ function printAWork($work, $isInsideTheProject)
             <div class="divWorkIconsRight box-verticalaligncenter">
                 <?= ($work['state'] == WORK_STATE_DONE) ? "<button class='btnSeeMoreOrLessWorks borderformodifiabletask'>Afficher contenu</button>" : "" ?>
                 <span class="ml-3 mr-3">Effort: <?= $work['effort'] ?> - Valeur: <?= $work['value'] ?></span>
-                <?php if($work['inbox']!=1){?><span class="ml-3 mr-3"><?= DTToHumanDate($work['start']) ?> - <?= DTToHumanDate($work['end']) ?></span><?php } ?>
+                <?php if ($work['inbox'] != 1) { ?><span class="ml-3 mr-3"><?= DTToHumanDate($work['start']) ?>
+                    - <?= DTToHumanDate($work['end']) ?></span><?php } ?>
             </div>
         </div>
         <div class="divWorkContent flexdiv" <?= ($work['state'] == WORK_STATE_DONE) ? "hidden" : "" ?>>

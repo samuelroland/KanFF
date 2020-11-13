@@ -6,7 +6,8 @@
  *  Creation date: 26.08.2020
  */
 
-function about(){
+function about()
+{
     require_once "view/about.php";
 }
 

@@ -8,7 +8,7 @@
 $title = "Tâches";
 ob_start();
 ?>
-<h1><?= $title ?></h1>
+    <h1><?= $title ?></h1>
 <?php
 $contenttype = "large";
 $content = ob_get_clean();

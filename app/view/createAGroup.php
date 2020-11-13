@@ -53,7 +53,7 @@ $title = "Créer un groupe"
                                 </option>
                             <?php } ?>
                         </select>
-                        <?= createToolTipWithPoint( "Cette option permet de gérer le niveau de visibilité des informations du groupe pour les personnes à l'extérieur du groupe.", "icon-small ml-2 mr-2 m-2", false, "right") ?>
+                        <?= createToolTipWithPoint("Cette option permet de gérer le niveau de visibilité des informations du groupe pour les personnes à l'extérieur du groupe.", "icon-small ml-2 mr-2 m-2", false, "right") ?>
                     </div>
                     <div class="mt-2">Signification du mode : (a définir)</div>
                 </div>
@@ -88,7 +88,8 @@ $title = "Créer un groupe"
             </div>
         </div>
         <div class="divBtnCreate pt-4">
-            <input type="submit" class="btn btn-primary" value="Créer le groupe" disabled>créer un groupe pas encore possible
+            <input type="submit" class="btn btn-primary" value="Créer le groupe" disabled>créer un groupe pas encore
+            possible
         </div>
     </form>
 <?php

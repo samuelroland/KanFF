@@ -78,7 +78,7 @@ if ($project['archived'] == 1) {
             displaydebug($groups);
             foreach ($groups as $group) { ?>
                 <tr>
-                    <td><?= $group['name']; //TODO: display if group is creator and if is manager of the project        ?></td>
+                    <td><?= $group['name']; //TODO: display if group is creator and if is manager of the project         ?></td>
                     <td><?= DTToHumanDate($group['creation_date']) ?></td>
                     <td><?= $group['nbmembers'] ?></td>
                     <td><?= DTToHumanDate($group['participate_since']) ?></td>
