@@ -1,16 +1,34 @@
-# Management of the records and generate the data
+# Database specification
 
-This file define:
-- the number of records for each tables of the db
-- what is the possibilities of specifics value (like states and their meanings if not clear)
+## Informations
+- MCD and MLD
+- List of all tables
+- List of all fields for each table
+- Pack "Collectif Assoc Vaud" 
 
+## MCD and MLD
 
-## Tables:
+## List of all tables:
+- users: list of users on the instance
+- groups: list of groups
+- join: joining table between users and groups, say who join which group
+- projects: list of projects
+- works: list of works (works are part of projects and a group of tasks)
+- tasks: list of tasks
+- participate: list of participations of groups to projects
+- log: joining table representing a list of logs (not technical but project log, displayed in a logbook)
+
+## List of all fields for each table:
+All tables contain an `id` field that is the unique technical identifier for each entry in the database. To make this documentation lighter, this field isn't mentioned for each table below.
 
 ### Users:
-- 100 records.
-
-- phonenumber: 10 numbers
+- username: a simple username of a maximum of 15 characters
+- initials: initials built with firstname and lastname (first letter of firstname + first and last letter of lastname (default format)) always in uppercase. It's a unique identifier.
+- firsname: firstname of the user
+- lastname: lastname of the user
+- chat_link: link to an external messaging app internal to the collective, to write in private to the user (first contact mean)
+- email: an facultative email that can useful for other users of the collective (second contact mean, not technically used)
+- phonenumber: a string of 20 digits for the phonenumber (third contact mean, not technically used)
 - biography: replaced with lorum ipsum
 - password: firstname hashed with password_hash()
 - inscription: date between 01.01.2019 and date of generation
@@ -119,3 +137,15 @@ x records wroten by hand.
 - link: can contains a link that is related to the task
 - completion_date: date of the completion of the task
 
+
+## Pack "Collectif Assoc Vaud":
+This pack of data in french is about a fictive collective.
+### Content:
+- 100 users
+- 13 groups
+- 16 projects
+- 25 works (9 real works written by hand + 16 works inbox (16 because 1 for each project))
+- 336 tasks (36 real tasks written by hand + 300 in lorem ipsum)
+- 538 join
+- 12 log
+- 24 participate (association of group_id and project_id written by hand)
