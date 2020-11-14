@@ -12,10 +12,11 @@ This is the documentation of the database of the KanFF.
 MCD (`Modèle Conceptuel de Données` in french is the `Conceptual Data Model` in english)
 
 ![MCD picture](MCD-KanFF-official.png)
-
+---
 MLD (`Modèle Logique de Données` in french is the `Logical Data Model` in english)
 
 ![MCD picture](MLD-KanFF-official.png)
+---
 
 ## List of all tables:
 - `users`: list of users on the instance
@@ -92,6 +93,7 @@ Other tables exist in the data model but are abandoned for v1.0...
 - `creation_date`: date of the creation of the group
 
 ### join:
+Each entry represents a joining of a user to a group.
 - `user_id`: the foreign key linked users.id
 - `group_id`: the foreign key linked groups.id
 - `start`: date of subscription (if not yet inside the group, the date is when the entry is created, then when the user is accepted, the start is updated to the date of joining)
@@ -141,7 +143,7 @@ Other tables exist in the data model but are abandoned for v1.0...
 ### Works:
 - `name`: name of the work
 - `description`: simple description of what will be done in this work
-- `start` and `end`: date of start and of the work. Is useful to make a planning.
+- `start` and `end`: date of start and end of the work. Is useful to make a planning.
 - `state`: technical state of the work (this field is independent of dates about the work. changes are only manual)
     - Values:
         - 1 = to do
@@ -149,7 +151,7 @@ Other tables exist in the data model but are abandoned for v1.0...
         - 3 = on break
         - 4 = done
 - `value`: value of the "work" made in this work. INT value between 1 and 10 (1 = min and 10 = max).
-- `effort`: value to estimate the effort to bring to achieve this work. INT value between 1 and 10 (1 = min and 10 = max).
+- `effort`: estimation of the effort to bring to achieve this work. INT value between 1 and 10 (1 = min and 10 = max).
 - `visible`: if the work is visible or not outside of the project.
 - `open`: says if the work is opened to modifications from members not in the project.
 - `inbox`: says if the work is the inbox of the project (task created without choosing the work will be created in the work inbox). Only one inbox per project is authorized.
@@ -161,7 +163,7 @@ Other tables exist in the data model but are abandoned for v1.0...
         - 2 = Need help from external persons
         - 3 = Need help from both (internal and external)
 - `creation_date`: date of creation of the work.
-- `project_id`: a foreign key linked projects.id
+- `project_id`: a foreign key linked projects.id. It's the parent project.
 - `creator_id`: a foreign key linked users.id. It's the creator of the work.
 - `responsible_id`: a foreign key linked users.id. It's the responsible of the work.
 
@@ -176,6 +178,14 @@ Other tables exist in the data model but are abandoned for v1.0...
             - 2 = in run
             - 3 = done
 - `urgency`: how the task is urgent (1 = min and 5 = max)
+- `type`: the type of the task (Type changes depending on which type of thing is needed to achieve the task: a question need a response, a proposition need a reflexion then a decision, an information need to be managed or stored, ...).
+    - Values
+        - 0 = None (TBD)
+        - 1 = question
+        - 2 = information
+        - 3 = proposition
+        - 4 = idea
+        - 5 = reflexion
 - `link`: a useful link related to the task
 - `completion_date`: date of the completion of the task (when state has been moved to "done" the last time)
 - `responsible_id`: a foreign key linked users.id. It's the responsible for the task.
@@ -183,9 +193,30 @@ Other tables exist in the data model but are abandoned for v1.0...
 - `work_id`: a foreign key linked works.id. It's the parent work.
 
 ## Participate
+Each entry represents a participation of a group to a project.
+- `group_id`: a foreign key linked groups.id.
+- `project_id`: a foreign key linked projects.id.
+- `start`: date of start of the participation (definition of this date follows the same logic as join.start)
+- `end`: date of end of the participation
+- `state`: technical state of the participation
+    - Values:
+        - 1 = invitation
+        - 2 = invitation accepted
+        - 3 = creator (the group is the creator of the project)
+        - 4 = left
+        - 5 = invitation refused
+        - 6 = banned
 
 ## Log
-
+Each entry represents a log in the logbook of a project created by a user
+- `title`: title of the log (5-10 words resuming the log)
+- `description`: Complete description of what has happened (support line break)
+- `date`: date of when it has happened
+- `creation_date`: creation date of the log
+- `modification_date`: modification date of the log
+- `visible`: if the log is visible to persons external to the project
+- `user_id`: a foreign key linked users.id. It's the creator of the log.
+- `project_id`: a foreign key linked projects.id. It's the parent project.
 
 
 ## Pack "Collectif Assoc Vaud":
