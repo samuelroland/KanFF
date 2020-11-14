@@ -14,9 +14,6 @@ ob_start();
 $title = "A propos";
 ?>
     <h1><?= $title = "A propos"; ?></h1>
-<?php if ($instance['testinstance'] == true) {
-    echo "<p class='text-danger'><strong>Ceci est une instance de test. Toutes les données sont fictives et ne doivent pas être réelles puisque accessibles publiquement.</strong></p>";
-} ?>
     <p>Quelques informations à propos du collectif hébergé, de l'instance et de l'application.</p>
     <br>
     <h2 class="txtdarkbluelogo">Collectif</h2>

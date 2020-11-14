@@ -2,11 +2,15 @@
 ob_start();
 $title = "Connexion";
 $instanceinfos = getInstanceInfos();
+$instance = $instanceinfos['instance'];
 ?>
 
     <form class="formlog" action="?action=login" method="post">
         <div>
             <p class="aligncenter"><?= $instanceinfos['collective']['msg'] ?></p>
+            <?php if ($instance['testinstance'] == true) {
+                echo "<p class='text-danger'><strong>Vous êtes sur une instance de test et les données sont fictives. Elles doivent le rester car elles sont accessibles publiquement! (Ne créer pas de compte, projet, travail, tâche, groupe, ... réel).</strong></p>";
+            } ?>
             <div class="box-aligncenter pt-4"><img src="view/medias/logos/KanFF_Logo.svg" alt="logoLog" class="logoLog">
                 <br><span class="versiontext"></span>
                 <span class="versiontext"></span></div>
