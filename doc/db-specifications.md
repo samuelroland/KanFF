@@ -18,14 +18,16 @@ MLD (`Modèle Logique de Données` in french is the `Logical Data Model` in engl
 ![MCD picture](MLD-KanFF-official.png)
 
 ## List of all tables:
-- users: list of users on the instance
-- groups: list of groups
-- join: joining table between users and groups, says who join which group
-- projects: list of projects
-- works: list of works (works are part of projects and a group of tasks)
-- tasks: list of tasks
-- participate: list of participations of groups to projects
-- log: joining table representing a list of logs (not technical but project log, displayed in a logbook)
+- `users`: list of users on the instance
+- `groups`: list of groups
+- `join`: joining table between users and groups, says who join which group
+- `projects`: list of projects
+- `works`: list of works (works are part of projects and a group of tasks)
+- `tasks`: list of tasks
+- `participate`: list of participations of groups to projects
+- `log`: joining table representing a list of logs (not technical but project log, displayed in a logbook)
+
+Other tables exist in the data model but are abandoned for v1.0...
 
 ## List of all fields for each table:
 ### Information about the whole database:
@@ -33,8 +35,8 @@ MLD (`Modèle Logique de Données` in french is the `Logical Data Model` in engl
 - **All the dates are stored in DATETIME format** (even if the hours, minutes, seconds level of precision is not displayed).
 - **All the links are 2000 chars max long**.
 - All TINYINT value are representing boolean value (MySQL doesn't support BOOL type). 0 = false and 1 = true.
-- All fields representing a technical state of an element are called `state` and are always in INT type. (Example: look at users.state below).
-- All fields given an information about the state with a text (content of this text is free) are called `status` and are always in VARCHAR type. (Example for users.status: `I'm in holiday. I'll be back the 10th. Leave me an SMS if you really need me...`)
+- All fields representing a technical state of an element are called `state` and are always in INT type. (Example: look at users.state below). This information has an impact on the use and the permissions on the app.
+- All fields given an information about the state with a text (content of this text is free) are called `status` and are always in VARCHAR type. (Example for users.status: `I'm in holiday. I'll be back the 10th. Leave me an SMS if you really need me...`). This information is not technically linked to state and has no impact on the use of the app.
 
 ### Users:
 - `username`: a simple username of a maximum of 15 characters
@@ -70,77 +72,71 @@ MLD (`Modèle Logique de Données` in french is the `Logical Data Model` in engl
 - `context`: why and in which context/circumstances, the group has been created.
 - `prerequisite`: prerequisite to have before joining the group
 - `email`: email as mean of contact for the entire group
-- `image`: image name (ex: `group_2fg2k8ip25uujr77t4tfyegn4puusp.jpg`)
+- `image`: image name (ex: `group_2fg2k8ip25uujr77t4tfyegn4puusp.jpg`). The images are stored in folder `/data/groups/`. Naming format: `group_` + random string of 30 chars + `.jpg`
 - `restrict_access`: boolean value (in tinyint). Says if the access to the group is restricted (anyone that want to join need to be moderated). This is useful for sensitive groups.
 - `chat_link`: link to join the group in the internal messaging app
-
-- visibility: The visibility field is the level of visibility of the group's details, for people of the instance that are not member of the group. (The members of the group can see all details about the group). 
-Here are the different values that are stored and their meanings:
-
-1: Totally invisible
-2: Only title visible
-3: Fast all visible: name, description, context, email, image, restrict_access value, status, state, creator, creation_date. And members too. (3 is the defaut choice).
-4: Totally visible: All field of the table "groups" (without the id). And members too.
-
-These 2 parameters are useful for sensitive or semi-sensitive groups!
-
-Others fields:
-- image: name of the image stored in folder `/data/groups/`. Format: `group_` + random string of 30 chars + `.jpg`
-- status: status written by members of the group
-- state: technical state of the group:
-    - Values: 0 = on start-up. 1 = active. 2 = on break. 3 = archived.
+- `drive_link`: link of the drive or of the folder in the drive where the group store its files 
+- `status`: status written by members of the group
+- `state`: technical state of the group:
+    - Values:
+        - 0 = on start-up
+        - 1 = active
+        - 2 = on break
+        - 3 = archived
+- `visibility`: This is the level of visibility of the group's details, for members of the collective external to the group. (The members of the group have access to all information about the group).
+    - Values:
+        - 1 = Invisible: totally invisible
+        - 2 = Title visible: only name is visible
+        - 3 = Standard: Fast all visible: only `chat_link` and `drive_link` are not visible. And members too. (3 is the defaut choice)
+        - 4 = Totally visible: All fields of the table "groups" (without the id). And members too.
+- `creator_id`: id of the user that have created the group
+- `creation_date`: date of the creation of the group
 
 ### join:
-Depends on the random.
-
-every user should be in minimal in one group (perhaps 0 group in rare cases).
-every user are in 10 groups in maximum. 
-
-- start: date of subscription
-- end: date of when the user has left the group/or has been banned, of has been refused 
-
-a user can join, leave, and join again a group.
-
-accepted: state of the subscription. The state is influenced by the group type (restricted access or not)
-
-If access restricted:
-1 = non approuved
-2 = refused
-3 = ask for invitation
-4 = invitation accepted
-5 = invitation refused
-4 = banned of the group
-5 = accepted
-
-invitation ? sensible group ? !!! user quit a group himself!
-admin of a group ??
-date for accepted ? (last modification) ???
-
-If access not restricted:
-4 = banned of the group
-5 = accepted
-
---> automatically accepted (5) because free access. no value 1, 2 or 3.
-
-So a user is member of a group if: there is no end date and accepted = 5
+- `user_id`: the foreign key linked users.id
+- `group_id`: the foreign key linked groups.id
+- `start`: date of subscription (if not yet inside the group, the date is when the entry is created, then when the user is accepted, the start is updated to the date of joining)
+- `end`: date of when the user has left the group or has been refused (for any reason)
+- `state`: technical state of the joining:
+    - A user is member of a group if state is "invitation accepted" or "approved".
+    - Possible values if access is restricted:
+        - 1 = unapproved
+        - 2 = refused
+        - 3 = invitation
+        - 4 = left
+        - 5 = invitation refused
+        - 6 = banned
+        - 7 = invitation accepted
+        - 8 = approved
+    - Possible values if access is not restricted:
+        6 = banned
+        8 = approved
+- `admin`: level of admin: 0 = not an admin, 1 = is an normal admin. (no others values now).
 
 ### Projects:
-x records wroten by hand.
-
-- name: name of the group
-- description: description of the project
-- goal: goal/mission of the project
-- start and end: start and end dates of the project
-- state: technical state of the project:
-    - Values: 0 = under reflection, 1 = under planning, 2 = semi-active work, 3 = active work, 4 = on break, 5 = reported, 6 = abandoned, 7 = cancelled, 8 = completed.
-- archived: boolean value. if the project is archived or not. A project can be archived only if his state is abandoned, cancelled or completed (6, 7 or 8)
-- importance and urgency: values 1 to 5 to mesure importance and urgency of the project. (1=min and 5=max)
-- visible: boolean value. visible or not outside of the group.
-- logbook_visible: boolean value. can make the logbook visible or note. (The logbook make a group of log: user_log_project).
-- logbook_content: text about the content of the logbook. The members should write a very short text to say wich content should be saved in the logbook. And the text have to describe the definition of important. For example:
+- `name`: name of the group
+- `description`: description of the project
+- `goal`: goal/mission of the project
+- `start` and `end`: start and end dates of the project (end is facultative, start can be set in the past at creation)
+- `state`: technical state of the project:
+    - Values:
+        - 0 = under reflection
+        - 1 = under planning
+        - 2 = semi-active work
+        - 3 = active work
+        - 4 = on break
+        - 5 = reported
+        - 6 = abandoned
+        - 7 = cancelled
+        - 8 = done
+- `archived`: boolean value. if the project is archived or not. A project can be archived only if his state is abandoned, cancelled or completed (6, 7 or 8)
+- `importance` and `urgency`: values 1 to 5 to mesure importance and urgency of the project. (1=min and 5=max)
+- `visible`: boolean value. visible or not outside of the group.
+- `logbook_visible`: boolean value. can make the logbook visible or note. (The logbook make a group of log: user_log_project).
+- `logbook_content`: text about the content of the logbook. The members should write a very short text to say wich content should be saved in the logbook. And the text have to describe the definition of important. For example:
     >Contains the important decisions, formal meetings, important change and publications of new versions of documents. 
     ><br>Important means that what is described in the log, has an impact on the work of severals persons in the project.
-- needhelp: boolean value. Add a little icon "help" if the project need help of externals persons (to join the group or to help without join)
+- `needhelp`: boolean value. Add a little icon "help" if the project need help of externals persons (to join the group or to help without join)
 - 
 
 ### Works:
