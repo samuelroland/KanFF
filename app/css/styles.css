@@ -514,6 +514,11 @@ tr {
     border-radius: 5px;
 }
 
+.hrlight {
+    border: #c6c6c6 1px solid;
+    border-radius: 5px;
+}
+
 .margin-5px {
     margin: -5px;
 }

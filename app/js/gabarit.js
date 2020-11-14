@@ -40,15 +40,18 @@ $(document).ready(function () {
                     displayResponseMsg("Envoi impossible. Email invalide.", false)
                 }
             } else {
-                displayResponseMsg("Envoi impossible. En-tête et contenu requis.", false)
+                displayResponseMsg("Envoi impossible. Sujet et contenu requis.", false)
             }
         })
     }
     $("#txtFeedbackInfos").on("click", function () { //when click on infos, display or hide detailed informations
         invertHiddenState(divFeedbackInfos)
     })
-    $("#spanFeedbackEmail").on("click", function () { //when click on infos, display or hide the email input
+    $("#spanFeedbackEmail").on("click", function () { //when click on response span, display or hide the email input
         invertHiddenState(divFeedbackEmail)
+    })
+    $("#chkFeedbackEmail").on("click", function () { //when click on checkbox for response, display or hide the email input
+        divFeedbackEmail.hidden = chkFeedbackEmail.checked
     })
 })
 

@@ -72,7 +72,7 @@ Y,                    `\"8bd888b,             ,P
 ?>
 
 <!-- The full header -->
-<header class="bg-header <?= ($debug == false) ? "header-fixed" : "" //the header is not fixed in debug mode because else devs can't see var_dump() results printed under the menu.                                                ?>">
+<header class="bg-header <?= ($debug == false) ? "header-fixed" : "" //the header is not fixed in debug mode because else devs can't see var_dump() results printed under the menu.                                                  ?>">
 
     <!-- Zone Logo with logo image + version texts -->
     <div class="divZoneLogo flexdiv">
@@ -85,7 +85,7 @@ Y,                    `\"8bd888b,             ,P
             </div>
         </div>
         <div data-href="?action=about"
-             class="flex-3 collectivename flexdiv overflow-hidden borderleftorange borderrightorange clickable cursorpointer <?= ($action == "about") ? 'active' : '' //button active or not                                                ?>">
+             class="flex-3 collectivename flexdiv overflow-hidden borderleftorange borderrightorange clickable cursorpointer <?= ($action == "about") ? 'active' : '' //button active or not                                                  ?>">
             <div class="align-items-center flexdiv"><?= $instanceinfos['collective']['name'] ?></div>
         </div>
     </div>
@@ -246,29 +246,29 @@ if ($feedbackForm == true && isEmailFormat($emailSourceForFeedback) && isEmailFo
                         <br><span class="small">Informations sur le navigateur: <span
                                     class="littleinfotext">Inclus</span></span>
                     </div>
-
+                    <hr class="hrlight nomargin">
                     <div class="flexdiv box-verticalaligncenter">
                         <div class="flex-1">
+                            <span id="spanFeedbackEmail" class="cursorpointer">
                             <input type="checkbox"
-                                   id="chkFeedbackEmail" <?= ((isset($_SESSION['feedback']['email']) == true) ? "checked" : "") ?>>
-                            <span id="spanFeedbackEmail">
-                                <span class="small cursorpointer">Réponse</span>
-                                <?php printAnIcon("trianglebottom.png", "Afficher", "triangle bottom icon", "icon-task-triangle"); ?>
+                                   id="chkFeedbackEmail" class="cursorpointer" <?= ((isset($_SESSION['feedback']['email']) == true) ? "checked" : "") ?>>
+                                <label for="chkFeedbackEmail" class="nomargin small cursorpointer">Réponse souhaitée</label>
+                                <?php //printAnIcon("trianglebottom.png", "Afficher", "triangle bottom icon", "icon-task-triangle"); ?>
                             </span>
                         </div>
                         <?php
-                        echo createToolTipWithPoint("Si vous souhaitez recevoir une réponse à votre retour, vous pouvez noter votre adresse email et cocher la case. L'email est déjà rempli si vous restez connecté avec le même compte.", "icon-xsmall m-1", false, "right");
+                        echo createToolTipWithPoint("Si vous souhaitez recevoir une réponse à votre retour, vous pouvez noter votre adresse email et cocher la case. L'email reste en mémoire si vous restez connecté·e avec le même compte.", "icon-xsmall m-1", false, "right");
                         ?>
                     </div>
                     <div id="divFeedbackEmail" <?= ((isset($_SESSION['feedback']['email']) == true) ? "" : "hidden") ?>>
                         <input id="txtFeedbackEmail" type="email" maxlength="254" name="email"
-                               placeholder="votremail@example.com"
-                               class="thinblackborder mb-1 mt-1 fullwidth"
+                               placeholder="email@example.com"
+                               class="thinblackborder mb-1 mt-1 fullwidth small"
                                value="<?= ((isset($_SESSION['feedback']['email']) == true) ? $_SESSION['feedback']['email'] : "") ?>">
                     </div>
 
-
-                    <div class="mt-3 box-verticalaligncenter">
+                    <hr class="hrlight nomargin">
+                    <div class="mt-2 box-verticalaligncenter">
                         <strong class="flex-1">Votre retour:</strong>
                         <div>
                             <?php
