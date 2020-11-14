@@ -1,17 +1,26 @@
-# Database specification
+# Database specifications
+This is the documentation of the database of the KanFF.
 
 ## Informations
 - MCD and MLD
 - List of all tables
 - List of all fields for each table
 - Pack "Collectif Assoc Vaud" 
+- How to generate another pack ?
 
 ## MCD and MLD
+MCD (`Modèle Conceptuel de Données` in french is the `Conceptual Data Model` in english)
+
+![MCD picture](MCD-KanFF-official.png)
+
+MLD (`Modèle Logique de Données` in french is the `Logical Data Model` in english)
+
+![MCD picture](MLD-KanFF-official.png)
 
 ## List of all tables:
 - users: list of users on the instance
 - groups: list of groups
-- join: joining table between users and groups, say who join which group
+- join: joining table between users and groups, says who join which group
 - projects: list of projects
 - works: list of works (works are part of projects and a group of tasks)
 - tasks: list of tasks
@@ -19,35 +28,54 @@
 - log: joining table representing a list of logs (not technical but project log, displayed in a logbook)
 
 ## List of all fields for each table:
-All tables contain an `id` field that is the unique technical identifier for each entry in the database. To make this documentation lighter, this field isn't mentioned for each table below.
+### Information about the whole database:
+- **All tables contain an `id`** field that is the unique technical identifier for each entry in the database. To make this documentation lighter, this field isn't mentioned for each table below.
+- **All the dates are stored in DATETIME format** (even if the hours, minutes, seconds level of precision is not displayed).
+- **All the links are 2000 chars max long**.
+- All TINYINT value are representing boolean value (MySQL doesn't support BOOL type). 0 = false and 1 = true.
+- All fields representing a technical state of an element are called `state` and are always in INT type. (Example: look at users.state below).
+- All fields given an information about the state with a text (content of this text is free) are called `status` and are always in VARCHAR type. (Example for users.status: `I'm in holiday. I'll be back the 10th. Leave me an SMS if you really need me...`)
 
 ### Users:
-- username: a simple username of a maximum of 15 characters
-- initials: initials built with firstname and lastname (first letter of firstname + first and last letter of lastname (default format)) always in uppercase. It's a unique identifier.
-- firsname: firstname of the user
-- lastname: lastname of the user
-- chat_link: link to an external messaging app internal to the collective, to write in private to the user (first contact mean)
-- email: an facultative email that can useful for other users of the collective (second contact mean, not technically used)
-- phonenumber: a string of 20 digits for the phonenumber (third contact mean, not technically used)
-- biography: replaced with lorum ipsum
-- password: firstname hashed with password_hash()
-- inscription: date between 01.01.2019 and date of generation
-- status: status written by the user
-- state: technical state of the account:
-    - Values: 0 = unapproved. 1 = approved. 2 = archived. 3 = banned. 4 = admin.
-        - unapproved, archived and banned: the user can not see internal data. He can login, logout, change his account informations and see the message "you are not approved yet" or "you're account has been archived. contact an admin."
-        - approved and on break: access to internal data like normal users
-        - admin: access to internal data and the members management (management of their state only, and delete if needed).
+- `username`: a simple username of a maximum of 15 characters
+- `initials`: initials built with firstname and lastname (first letter of firstname + first and last letter of lastname (default format)) always in uppercase. It's a unique identifier.
+- `firstname`: firstname of the user
+- `lastname`: lastname of the user
+- `chat_link`: link to an external messaging app internal to the collective, to write in private to the user (first contact mean)
+- `email`: an facultative email that can useful for other users of the collective (second contact mean, not technically used)
+- `phonenumber`: a string of 20 digits for the phonenumber (third contact mean, not technically used)
+- `biography`: a biography text
+- `password`: the password to login hashed with password_hash() and DEFAULT_PASSWORD mode
+- `inscription`: date of creation of the account
+- `on_break`: if you are on break or not (of your work in the collective)
+- `status`: status written by the user
+- `state`: technical state of the account:
+    - Values: 
+        - 0 = unapproved
+        - 1 = approved
+        - 2 = archived
+        - 3 = banned
+        - 4 = admin
+    - Effect:
+        - unapproved, archived and banned: the user has no access to internal data. The user can run these actions only: login, signin, about, sendFeedback, editAccount.
+        - approved: access to internal data like a normal user (most common state)
+        - admin: access to internal data and the management of members (management of their state only)
+- `state_modifier_id`: As only admins can change state of users, this field store the id of the admin that change the user state for the last time
+- `state_modification_date`: date of last modification of the state of the user by an admin
 
 ### Groups:
 11 records.
-
-- context: why or in wich context, the group has been created.
-- email: mean of contact of a entire group
-- restrict_access: boolean field (in tinyint). is the access of the group totally free or the group want to manage the new members of the group ? set 1 if yes. This is useful for sensitive groups.
+- `name`: name of the group
+- `description`: description of what is the group, what is its goal and how it is organized
+- `context`: why and in which context/circumstances, the group has been created.
+- `prerequisite`: prerequisite to have before joining the group
+- `email`: email as mean of contact for the entire group
+- `image`: image name (ex: `group_2fg2k8ip25uujr77t4tfyegn4puusp.jpg`)
+- `restrict_access`: boolean value (in tinyint). Says if the access to the group is restricted (anyone that want to join need to be moderated). This is useful for sensitive groups.
+- `chat_link`: link to join the group in the internal messaging app
 
 - visibility: The visibility field is the level of visibility of the group's details, for people of the instance that are not member of the group. (The members of the group can see all details about the group). 
-Here is the differents values that are stored and their meanings:
+Here are the different values that are stored and their meanings:
 
 1: Totally invisible
 2: Only title visible
@@ -139,7 +167,8 @@ x records wroten by hand.
 
 
 ## Pack "Collectif Assoc Vaud":
-This pack of data in french is about a fictive collective.
+This pack of data in french is about a fictive collective called "Collectif Assoc Vaud"
+
 ### Content:
 - 100 users
 - 13 groups
@@ -149,3 +178,16 @@ This pack of data in french is about a fictive collective.
 - 538 join
 - 12 log
 - 24 participate (association of group_id and project_id written by hand)
+
+### How to use it ?
+//import db
+
+Passwords are the firstname of the user...
+
+Examples users (often used in user doc and other examples) to login:
+- Josette Richard (JRD - josette.richard@assoc.ch)
+- Vincent Rigot (VRT - vincent.rigot@assoc.ch)
+- Mégane Blan (MBN - megane.blan@assoc.ch)
+
+## How to generate another pack ?
+If you know how to execute php and write a file in JSON format, you are able to create another pack. This can be useful for demonstration purposes when you need other data than the pack "Collectif Assoc Vaud" because you want to have more realistic data corresponding to your collective.
