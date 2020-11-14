@@ -66,7 +66,6 @@ Other tables exist in the data model but are abandoned for v1.0...
 - `state_modification_date`: date of last modification of the state of the user by an admin
 
 ### Groups:
-11 records.
 - `name`: name of the group
 - `description`: description of what is the group, what is its goal and how it is organized
 - `context`: why and in which context/circumstances, the group has been created.
@@ -129,37 +128,64 @@ Other tables exist in the data model but are abandoned for v1.0...
         - 6 = abandoned
         - 7 = cancelled
         - 8 = done
-- `archived`: boolean value. if the project is archived or not. A project can be archived only if his state is abandoned, cancelled or completed (6, 7 or 8)
-- `importance` and `urgency`: values 1 to 5 to mesure importance and urgency of the project. (1=min and 5=max)
-- `visible`: boolean value. visible or not outside of the group.
-- `logbook_visible`: boolean value. can make the logbook visible or note. (The logbook make a group of log: user_log_project).
-- `logbook_content`: text about the content of the logbook. The members should write a very short text to say wich content should be saved in the logbook. And the text have to describe the definition of important. For example:
-    >Contains the important decisions, formal meetings, important change and publications of new versions of documents. 
-    ><br>Important means that what is described in the log, has an impact on the work of severals persons in the project.
-- `needhelp`: boolean value. Add a little icon "help" if the project need help of externals persons (to join the group or to help without join)
-- 
+- `archived`: if the project is archived or not. A project can be archived only if his state is abandoned, cancelled or completed (6, 7 or 8).
+- `importance` and `urgency`: values 1 to 5 to mark importance and urgency of the project. (1 = min and 5 = max)
+- `visible`: visible or not outside of the groups realizing it.
+- `logbook_visible`: if the logbook is visible or not. (The logbook is the list of log in this project).
+- `logbook_content`: text about the content of the logbook. The members should write a very short text to say which content should be saved in the logbook. And the text have to define what is important. For example:
+    >Contains the important decisions, formal meetings, important changes and publications of new versions of documents. 
+    ><br>Important means that what is described in the log, has an impact on the work of several persons in the project.
+- `responsible_id`: possibility to define a user as responsible for the project
+- `manager_id`: the group that manages the participants (the other groups) to the project (by default is the creator group).
 
 ### Works:
-- name: name of the work
-- description: simple description of what will be done in this work
-- start and end: date of start and of the work. Is useful to make a planning.
-- state: technical state of the work (independant of dates about the work. changes are only manual)
-    - Values: 1 = to do, 2 = in run, 3 = on break, 4 = completed.
-- value: value of the "work" made in this work. INT value: 1 to 10.
-- effort: value between 1 and 10 about the effort to bring to achieve this work.
-- visible: boolean value. visible or not outside of the group.
-- creation_date: date of creation of the work.
+- `name`: name of the work
+- `description`: simple description of what will be done in this work
+- `start` and `end`: date of start and of the work. Is useful to make a planning.
+- `state`: technical state of the work (this field is independent of dates about the work. changes are only manual)
+    - Values:
+        - 1 = to do
+        - 2 = in run
+        - 3 = on break
+        - 4 = done
+- `value`: value of the "work" made in this work. INT value between 1 and 10 (1 = min and 10 = max).
+- `effort`: value to estimate the effort to bring to achieve this work. INT value between 1 and 10 (1 = min and 10 = max).
+- `visible`: if the work is visible or not outside of the project.
+- `open`: says if the work is opened to modifications from members not in the project.
+- `inbox`: says if the work is the inbox of the project (task created without choosing the work will be created in the work inbox). Only one inbox per project is authorized.
+- `repetitive`: the work is something repetitive (ex: manage emails, ...)
+- `need_help`: If the work need help (internal or external help, or both). Add a little icon "help" needed on the work.
+    - Values:
+        - 0 = None
+        - 1 = Need help from internal persons
+        - 2 = Need help from external persons
+        - 3 = Need help from both (internal and external)
+- `creation_date`: date of creation of the work.
+- `project_id`: a foreign key linked projects.id
+- `creator_id`: a foreign key linked users.id. It's the creator of the work.
+- `responsible_id`: a foreign key linked users.id. It's the responsible of the work.
 
 ### Tasks:
-- number: unique identifier to identify a task. equal to id ? !!how to generate an unique number ?
-- name: name of the task
-- description: what you should do in this task, if name is not clear or unprecise
-- deadline: date where the task should be done
-- state: technical state of the task (independant of dates about the task. changes are only manual)
-    - Values: 1 = to do, 2 = in run, 3 = completed.
-- urgency: how the task is urgent (1=min and 5=max)
-- link: can contains a link that is related to the task
-- completion_date: date of the completion of the task
+- `number`: a unique identifier to identify a task in a project. (??? unique only in a project or in all projects ?)
+- `name`: name of the task
+- `description`: description of the task, useful if the name is not clear or imprecise
+- `deadline`: date where the task should or must be done
+- `state`: technical state of the task (independant of dates about the task. changes are only manual)
+        - Values:
+            - 1 = to do
+            - 2 = in run
+            - 3 = done
+- `urgency`: how the task is urgent (1 = min and 5 = max)
+- `link`: a useful link related to the task
+- `completion_date`: date of the completion of the task (when state has been moved to "done" the last time)
+- `responsible_id`: a foreign key linked users.id. It's the responsible for the task.
+- `creator_id`: a foreign key linked users.id. It's the creator of the task.
+- `work_id`: a foreign key linked works.id. It's the parent work.
+
+## Participate
+
+## Log
+
 
 
 ## Pack "Collectif Assoc Vaud":
