@@ -53,7 +53,19 @@ $versions = [
 \n- **Details of a projet** is in progress. Logbook display is pretty advanced.
 \n- **Create a project** and **Page projects** are in progress.
 \n- ..."
-    ]
+    ],
+    [
+        "version" => "v2.0-beta",
+        "date" => "2020-11-15",
+        "changelog" => "- **Feedback form finished** (it can be activated with variables in `.const.php`)
+\n- **Page Kanban** work in progress (create tasks, display their details and delete them is possible)
+\n- Page Projects, Details of a project, Create a project, are in progress.
+\n- **Technical documentation** (about the app and the project) is up to date (main doc: `kanff-doc-fr.md` and linked documentations: `helpers-functions.md`, `db-specifications.md`, `list-pages.md`, `structure-ajax-calls.md`)
+\n
+\nOthers:
+\n- **My account** always in progress. The model is respected.
+\n- **Start of demanding feedback** to external persons and fixing bugs
+"]
 ];
 
 ?>
