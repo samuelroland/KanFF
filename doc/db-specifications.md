@@ -1,12 +1,32 @@
 # Database specifications
-This is the documentation of the database of the KanFF.
+These are the full specifications of the database of the KanFF (the tables, fields, the effect of part of values, ...).
 
-## Informations
-- MCD and MLD
-- List of all tables
-- List of all fields for each table
-- Pack "Collectif Assoc Vaud" 
-- How to generate another pack ?
+## Table of content
+<!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
+
+- [Database specifications](#database-specifications)   
+   - [Table of content](#table-of-content)   
+   - [MCD and MLD](#mcd-and-mld)   
+   - [![MCD picture](MCD-KanFF-official.png)](#mcd-picturemcd-kanff-officialpng)   
+   - [![MCD picture](MLD-KanFF-official.png)](#mcd-picturemld-kanff-officialpng)   
+   - [List of all tables:](#list-of-all-tables)   
+   - [List of all fields for each table:](#list-of-all-fields-for-each-table)   
+      - [Information about the whole database:](#information-about-the-whole-database)   
+      - [Users:](#users)   
+      - [Groups:](#groups)   
+      - [join:](#join)   
+      - [Projects:](#projects)   
+      - [Works:](#works)   
+      - [Tasks:](#tasks)   
+   - [Participate](#participate)   
+   - [Log](#log)   
+   - [Pack "Collectif Assoc Vaud":](#pack-collectif-assoc-vaud)   
+      - [Content:](#content)   
+      - [How to use it ?](#how-to-use-it)   
+   - [How to generate another pack ?](#how-to-generate-another-pack)   
+      - [Process](#process)   
+
+<!-- /MDTOC -->
 
 ## MCD and MLD
 MCD (`Modèle Conceptuel de Données` in french is the `Conceptual Data Model` in english)
@@ -53,7 +73,7 @@ Other tables exist in the data model but are abandoned for v1.0...
 - `on_break`: if you are on break or not (of your work in the collective)
 - `status`: status written by the user
 - `state`: technical state of the account:
-    - Values: 
+    - Values:
         - 0 = unapproved
         - 1 = approved
         - 2 = archived
@@ -75,7 +95,7 @@ Other tables exist in the data model but are abandoned for v1.0...
 - `image`: image name (ex: `group_2fg2k8ip25uujr77t4tfyegn4puusp.jpg`). The images are stored in folder `/data/groups/`. Naming format: `group_` + random string of 30 chars + `.jpg`
 - `restrict_access`: boolean value (in tinyint). Says if the access to the group is restricted (anyone that want to join need to be moderated). This is useful for sensitive groups.
 - `chat_link`: link to join the group in the internal messaging app
-- `drive_link`: link of the drive or of the folder in the drive where the group store its files 
+- `drive_link`: link of the drive or of the folder in the drive where the group store its files
 - `status`: status written by members of the group
 - `state`: technical state of the group:
     - Values:
@@ -135,7 +155,7 @@ Each entry represents a joining of a user to a group.
 - `visible`: visible or not outside of the groups realizing it.
 - `logbook_visible`: if the logbook is visible or not. (The logbook is the list of log in this project).
 - `logbook_content`: text about the content of the logbook. The members should write a very short text to say which content should be saved in the logbook. And the text have to define what is important. For example:
-    >Contains the important decisions, formal meetings, important changes and publications of new versions of documents. 
+    >Contains the important decisions, formal meetings, important changes and publications of new versions of documents.
     ><br>Important means that what is described in the log, has an impact on the work of several persons in the project.
 - `responsible_id`: possibility to define a user as responsible for the project
 - `manager_id`: the group that manages the participants (the other groups) to the project (by default is the creator group).
@@ -232,15 +252,32 @@ This pack of data in french is about a fictive collective called "Collectif Asso
 - 12 log
 - 24 participate (association of group_id and project_id written by hand)
 
-### How to use it ?
-//import db
+One important thing: Passwords are the firstname of the user.
 
-Passwords are the firstname of the user...
+### How to use it ?
+If you want to install it on your own instance:
+- Look at [process to import db](../README.md#proc%C3%A9dure-1) at the part about the import of the pack.  
+Else, if you are looking for an easier option:
+- Use the official test instance. You will find the link in the README too.
 
 Examples users (often used in user doc and other examples) to login:
-- Josette Richard (JRD - josette.richard@assoc.ch)
-- Vincent Rigot (VRT - vincent.rigot@assoc.ch)
-- Mégane Blan (MBN - megane.blan@assoc.ch)
+- Josette Richard (`JRD` - `josette.richard@assoc.ch`)
+- Vincent Rigot (`VRT` - `vincent.rigot@assoc.ch`)
+- Mégane Blan (`MBN` - `megane.blan@assoc.ch`)
 
 ## How to generate another pack ?
-If you know how to execute php and write a file in JSON format, you are able to create another pack. This can be useful for demonstration purposes when you need other data than the pack "Collectif Assoc Vaud" because you want to have more realistic data corresponding to your collective.
+Prerequesite:
+- If you are not a developer, but you know how to execute php, manage database, execute SQL files and write a file in JSON format, you are able to create another pack. You are a developer, it should not be hard.
+- An internet connexion because lorem ipsum is taken from `loremipsum.net` API.
+
+This can be useful for demonstration purposes when you need other data than the pack "Collectif Assoc Vaud" because you want to have more realistic data corresponding to your collective, or you just want a pack in another langage...
+
+### Process
+1. Open folder `db` and you will see `generationData.php` and in the folder `data-ressources` there are JSON files with written by hand data.
+1. Write your own data in the json file called `basic-data-*.json`. * = the table name. Be aware to not break JSON syntax (else the entire file will be unreadable). Other fields not already used by current data will not be supported and erased automatically...
+1. Go in a shell to `db` folder. Execute command `php -f generationData.php` (before you need to have a database set up and a `.const.php` in the `db` folder or in the normal `app` folder).
+1. Wait during the execution that can take a minute approximately.
+1. Go in your database with an SQL client, have a look if you data are based on your basic files and export the entire database in a SQL file.
+1. You can use your SQL file (and even save it in `db-manage/fill-data-db-kanff.sql` if you want to be able to restore the database on a single click on the `db-manage/restore-db-kanff.bat`)
+
+Feel free to adapt the `generationData.php` script as you want !
