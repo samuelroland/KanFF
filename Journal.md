@@ -23,4 +23,8 @@
 1. (__SRD__, 01.10.2020) Publication **du MCD v1.3 et du MLD v1.3**. 0 à 5 changements par tables. Voir les différences sur ce [commit](https://github.com/samuelroland/KanFF/commit/3d2befef6149d7191587f3333d420790514ea9fe?short_path=1ac66ef#diff-1ac66ef7010fbb602c6cc4d4b8f10d96).
 1. (__SRD__, 07.10.2020) **Sprint review** du sprint 5 avec Team + JIE. PV dans le dossier [`PVs` du repos](https://github.com/samuelroland/KanFF/tree/master/PVs) . Clôture du Sprint 5. Lancement du Sprint 6 sur IceScrum (Objectif du Sprint 6: Terminer feature Gestion des projets: inclut la gestion des projets, travaux et tâches).
 1. (__SRD__, 08.10.2020) **Release** `KanFF Beta v1.2` sur [GitHub](https://github.com/samuelroland/KanFF/releases/tag/v1.2-beta).
+1. (__SRD__, 13.11.2020) **Sprint review** du sprint 6 avec Team + JIE. PV dans le dossier [`PVs` du repos](https://github.com/samuelroland/KanFF/tree/master/PVs) . Clôture du Sprint 6. Lancement du Sprint 7 sur IceScrum. Le module "Projet Web+BDD" est terminé. Le projet continue sur le module "Projet à choix en binôme" avec BPT et SRD (sans LPO et MSS). Le Scrum Master est XCL.
+1. (__SRD__, 13.11.2020) **Sprint retrospective** du sprint 6 et bilan global du projet. (Personnes: Team + JIE). Détails à venir...
+1. (__SRD__, 15.11.2020) **Release** `KanFF Beta v2.0` sur [GitHub](https://github.com/samuelroland/KanFF/releases/tag/v2.0-beta).
+1. (__SRD__, 15.11.2020) **Replanification du sprint 7** sur IceScrum. Le trop plein de stories (34) dans le sprint rendant le principe du sprint inutile, il a fallu tout déplanifier puis replanifier les stories de la feature Gestion des utilisateurs + quelques autres stories complémentaires presque terminées ou nécessaires.
 
