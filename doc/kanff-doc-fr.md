@@ -1,10 +1,40 @@
 
-# KanFF  - Documentation technique
+# KanFF - Documentation technique
+
+## Documentations liées spécifiques:
+- [Liste des pages](list-pages.md)
+- [Fonctions d'aide](helpers-functions.md)
+- [Spécifications de la base de données](db-specifications.md)
+- [Structure des appels Ajax](structure-ajax-calls.md)
 
 ## **Table des matières**
+<!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
 
-## Introduction
-TBD
+- [KanFF - Documentation technique](#kanff-documentation-technique)   
+   - [Documentations liées spécifiques:](#documentations-liées-spécifiques)   
+   - [**Table des matières**](#table-des-matières)   
+      - [Cadre, description et motivation](#cadre-description-et-motivation)   
+      - [Organisation](#organisation)   
+         - [Découpage](#découpage)   
+      - [Objectifs](#objectifs)   
+   - [Analyse](#analyse)   
+      - [Modèle Conceptuel de Données](#modèle-conceptuel-de-données)   
+      - [Modèle Logique de Données](#modèle-logique-de-données)   
+   - [Stratégie de test](#stratégie-de-test)   
+   - [Implémentation](#implémentation)   
+      - [Vue d’ensemble](#vue-d’ensemble)   
+      - [Description technique](#description-technique)   
+      - [Points techniques spécifiques](#points-techniques-spécifiques)   
+      - [Livraisons](#livraisons)   
+      - [Erreurs restantes](#erreurs-restantes)   
+   - [Conclusions](#conclusions)   
+      - [Objectifs atteints:](#objectifs-atteints)   
+      - [Objectifs non-atteints:](#objectifs-non-atteints)   
+   - [Annexes](#annexes)   
+      - [Sources – Bibliographie](#sources-–-bibliographie)   
+      - [Journal de bord du projet](#journal-de-bord-du-projet)   
+
+<!-- /MDTOC -->
 
 ### Cadre, description et motivation
 
@@ -12,19 +42,13 @@ TBD
 
 Le projet part de zéro. Le projet est réalisé à l'école pour tout le monde et à la maison pour les personnes qui le veulent.
 
-
-
 Ce projet a beaucoup plus de sens et d'utilité que d'autres projets fait durant les cours, puisqu'il est censé apporter une solution à de nombreux problèmes dans la gestion des projets au sein de collectifs ne bénéficiant pas d'outil adapté et étant soumis à diverses contraintes d'investissements des membres et de niveaux de compétences de leurs membres, contrairement au monde professionnel.
 
-Ce projet est réalisé dans le cadre du cours** Projet Web+BDD** au CPNV en informatique en fin de 2ème et début de 3ème année. Le projet sera terminé dans le cadre du cours **Projet à choix en binôme**. C'est un projet assez long en comparaison des autres projets fait au CPNV.
-
-
+Ce projet est réalisé dans le cadre du cours **Projet Web+BDD** au CPNV en informatique en fin de 2ème et début de 3ème année. Le projet sera terminé dans le cadre du cours **Projet à choix en binôme**. C'est un projet assez long en comparaison des autres projets fait au CPNV.
 
 **Mais d'où vient le nom "KanFF" ??**
 
 Bonne question... "Kan" vient de "kanban" car c'est un élément majeur de l'application et "FF" est l'acronyme de "For Future", en référence au mouvement "Fridays For Future" et à tous les noms dérivés "Strike For Future", "Teachers For Future", "Parents For Future", ... D'ailleurs le logo inclut un vu dans la lettre "K" car le vu est le symbole de la tâche terminée.
-
-
 
 ### Organisation
 
@@ -59,8 +83,6 @@ L'équipe travaille sous les principes de **la méthode Agile Scrum**. Ainsi les
    * Benoît: développeur
 
 
-
-
 #### Découpage
 
 Le projet étant relativement long, il est découpé en 3 parties. L'unité de temps est le sprint qui correspond à un cycle de 2 semaines pour nous, étant une petite équipe.
@@ -82,7 +104,7 @@ Toute la gestion des tâches se fait à l'aide d'un kanban. Chaque projet a son 
 
 
 
-L'application se veut **polyvalente** et devrait pouvoir être utilisée dans des collectifs de différentes tailles, structures et objectifs, organisation du travail et réalisant des projets de nature différente, ... Elle doit être **simple d'utilisation** mais ne doit pas être basique. Elle doit être **intuitive **et compréhensible avec le moins possible de documentation. L'accent est mis sur la page Kanban puisque c'est la page principale.
+L'application se veut **polyvalente** et devrait pouvoir être utilisée dans des collectifs de différentes tailles, structures et objectifs, organisation du travail et réalisant des projets de nature différente, ... Elle doit être **simple d'utilisation** mais ne doit pas être basique. Elle doit être **intuitive** et compréhensible avec le moins possible de documentation. L'accent est mis sur la page Kanban puisque c'est la page principale.
 
 
 
@@ -153,27 +175,12 @@ Cela se passe en 3 phases:
 
 ### Vue d’ensemble
 
-Cette section décrit comment le système à réaliser interagit avec son entourage, en termes :
-
-·         D’utilisateur(s) humain(s)
-
-·         D’utilisateur(s) logiciel(s) (clients d’une API, par exemple)
-
-·         De réseau
-
-·         De ressources externes
-
 Pour l'instant, une instance KanFF ne peut contenir qu'un seul collectif. Chaque membre du collectif sur une instance doit se créer un compte pour accéder au collectif. Aucune donnée de projet, tâches, groupes, membres, ... n'est publique. Seule la page A propos est publique et contient des informations à propos du collectif, de l'instance et de KanFF.
 
 L'application web s'utilise avec un navigateur via l'url du serveur sur lequel est installé l'application. Une connexion internet active est requise pour charger les pages et effectuer des actions. L'application est adaptée à une utilisation sur ordinateur mais pas sur smartphone ni tablette. Le site n'est pas assez responsive et aucun test ne sera fait pour les navigateurs web mobile.
 
-
-
 ### Description technique
-
 KanFF est une application web développée **en PHP** (HTML + CSS + Javascript + Ajax) **en MVC (Model View Controler)** avec une **base de données MySQL**. Les dépendances [npm](npmjs.com) utilisées sont bootstrap et jquery.
-
-
 
 ### Points techniques spécifiques
    1. **Stockage des dates:** Dans la base de données toutes les dates sont stockées en format DateTIme, peut importe si ce qui est affiché est précis à la minute ou la seconde (format naturel Date/Heure) ou alors précis au jour (format naturel Date).
@@ -205,7 +212,6 @@ KanFF est une application web développée **en PHP** (HTML + CSS + Javascript +
    1. Le fichier .const.php des informations pour la base de données ainsi que d'autres configurations propres aux machines.
    1. L'extension PDO est utilisée pour faire les requêtes SQL sur la base de données MySQL. L'extension doit être activée dans le fichier php.ini. (voir installation).
 
-
 ### Livraisons
 
 Identification, date et raison de chaque livraison formelle effectuée au cours du projet.
@@ -213,7 +219,6 @@ Identification, date et raison de chaque livraison formelle effectuée au cours 
 Il y a 3 publications majeures et d'autres petites entre deux. Une publication est faite à la fin de chaque sprint sur GitHub.
 
 [livraisons]
-
 
 
 ### Erreurs restantes  
