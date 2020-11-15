@@ -7,8 +7,6 @@ These are the full specifications of the database of the KanFF (the tables, fiel
 - [Database specifications](#database-specifications)   
    - [Table of content](#table-of-content)   
    - [MCD and MLD](#mcd-and-mld)   
-   - [![MCD picture](MCD-KanFF-official.png)](#mcd-picturemcd-kanff-officialpng)   
-   - [![MCD picture](MLD-KanFF-official.png)](#mcd-picturemld-kanff-officialpng)   
    - [List of all tables:](#list-of-all-tables)   
    - [List of all fields for each table:](#list-of-all-fields-for-each-table)   
       - [Information about the whole database:](#information-about-the-whole-database)   
@@ -32,11 +30,10 @@ These are the full specifications of the database of the KanFF (the tables, fiel
 MCD (`Modèle Conceptuel de Données` in french is the `Conceptual Data Model` in english)
 
 ![MCD picture](MCD-KanFF-official.png)
----
+
 MLD (`Modèle Logique de Données` in french is the `Logical Data Model` in english)
 
 ![MCD picture](MLD-KanFF-official.png)
----
 
 ## List of all tables:
 - `users`: list of users on the instance
