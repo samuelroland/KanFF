@@ -30,7 +30,7 @@
 - [ ] **Page Mon compte**: gestion de son compte.
 - [ ] **Page Membres**: liste de tous les membres de l'instance.
 - [ ] **Page Détails d'un membre**: affichage des informations visibles d'un seul membre**: infos du compte, groupes rejoints (attention visibilité), compétences où le niveau est > 0.
-- [ ] **Vue Dropdown User**: lors d'un clic sur le cercle initiales en haut à droite, apparaît un petit panneau avec quelques informations du compte et les liens pour page `Mon compte` et pour la Déconnexion.
+- [x] **Vue Dropdown User**: lors d'un clic sur le cercle initiales en haut à droite, apparaît un petit panneau avec quelques informations du compte et les liens pour page `Mon compte` et pour la Déconnexion.
 - **Vue Dropdown Notifications**: petit panneau pour afficher les notifications. (**Abandonné pour la v1.0**)
 
 ## Groupes
