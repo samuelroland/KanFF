@@ -5,7 +5,7 @@
  *  Relecture: Benoît Pierrehumbert
  *  Creation date: 24.06.2020
  */ -->
- # KanFF
+# KanFF
 ![kanff logo](https://raw.githubusercontent.com/samuelroland/KanFF/master/app/view/medias/logos/KanFF_Logo_background.png)
 
 ## Une application web (opensource) de gestion de projets, de tâches, et d'organisation du travail, conçue pour le milieu militant et associatif.
@@ -87,7 +87,7 @@ TBD. fichiers.
         initiales: JRD
         mot de passe: Josette
 
- Voilà. Si vous êtes bien connecté avec le compte de Josette Richard, l'installation est réussie et vous pouvez maintenant commencer à développer !  
+Voilà. Si vous êtes bien connecté avec le compte de Josette Richard, l'installation est réussie et vous pouvez maintenant commencer à développer !  
 (Si vous tombez sur l'erreur semblable à celle-ci: `Could not find the driver` alors c'est probablement parce que l'extension PDO n'a pas été activé).
 
 ## Beta tests
@@ -96,11 +96,11 @@ L'application est mise à jour toutes les 2 semaines (en fin de sprint) sur l'in
 L'indication de la version de l'application (ainsi que la date de publication) se trouve à côté du logo sur la page, ou dans le fichier `app/version.php`.
 
 ## Contact
-**Cette application vous intéresse ?** Vous avez des questions, des suggestions, des remarques, des critiques constructives, sur l'application ou le projet ? Vos idées nous intéressent ! Écrivez-nous à kanff[ate]protonmail.com en français ou en anglais. *(OpenPGP: `de52d839a9baf0486f6049761500b58971c1047f`)*. Si vous avez un compte GitHub mettez-nous une étoile !
+**Cette application vous intéresse ?** Vous avez des questions, des suggestions, des remarques, des critiques constructives, sur l'application ou le projet ? Vos idées nous intéressent ! Écrivez-nous à kanff[ate]pm.me en français ou en anglais. *(OpenPGP: `de52d839a9baf0486f6049761500b58971c1047f`)*. Si vous avez un compte GitHub mettez-nous une étoile !
 
 ## Informations sur le projet
 ### Documentations
-Les documentations sont parfois en cours d'écriture ou incomplète...
+Les documentations sont pour certaines en cours d'écriture ou incomplète...
 #### Documentation utilisateur
 - [Documentation utilisateur](doc/kanff-doc-user-fr.md)
 
@@ -115,7 +115,7 @@ Les documentations sont parfois en cours d'écriture ou incomplète...
 Le projet a commencé le 23.04.2020 et est toujours en cours. Il n'y a pas encore de version assez complète pour être utilisable (uniquement des versions bêta). La première version utilisable (`v1.0`) est prévue pour le 29.01.2020 (il est possible qu'il y ait du retard). Il y a actuellement beaucoup de petits bogues et de fonctionnalités commencées et non terminées.
 
 ### Contributions
-Si vous êtes intéressé·e à contribuer, nous nous en réjouissons. Nous n'avons pas encore de lignes directrices pour les contributions, alors n'hésitez pas à nous envoyer un email pour nous motiver à les écrire (et nous dire au passage sur quoi vous aimeriez aider : code, documentation, design, autres) ...
+Si vous êtes intéressé·e à contribuer, nous nous en réjouissons. Nous n'avons pas encore de lignes directrices pour les contributions, alors n'hésitez pas à nous envoyer un email pour nous motiver à les écrire (et nous dire au passage sur quoi vous aimeriez aider : code, documentation, design, autres) ... Vous pouvez sans hésiter ouvrir une issue également.
 
 ### Feuille de route
 Fonctionnalité prévues pour la version `v1.0` (~29.01.2020) :
