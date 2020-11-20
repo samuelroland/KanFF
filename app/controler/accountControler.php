@@ -74,14 +74,17 @@ function editAccount($post)
                 require "view/editAccount.php";  //view values sent inserted
             } else {
                 updateOne("users", $_SESSION['user']['id'], $editUser);
+                $data = []; //make data empty to avoid display values of data after update
+                $user = getUserById($_SESSION['user']['id']);
                 displaydebug($editUser);
-                flshmsg(6);
-                unset($_SESSION['user']);   // Clears the session
-                login($editUser['initials'], $password1);
+                unset($user['password']);
+                flshmsg(6); //success
+                $_SESSION['user'] = $user;
+                require "view/editAccount.php"; //display the page with new values
             }
         } else {
             flshmsg(8);
-            require "view/editAccount.php";
+            require "view/editAccount.php"; //display form again with input filled
         }
 
     } else {    //if no data, load the page as normal
