@@ -1,10 +1,10 @@
-/**
+<!--/**
  *  Project: KanFF
  *  File: kanff-doc-user-fr.md kanff user doc source
  *  Author: Samuel Roland
  *  Relecture: 
  *  Creation date: 22.10.2020
- */
+ */ -->
  
 # Mode d'emploi
 
