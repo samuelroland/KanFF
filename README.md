@@ -10,6 +10,12 @@ Quand un collectif utilise l'application, les membres du collectif ont un compte
 Chaque projet a un kanban et est divisé en parties appelées "travaux". Ceux-ci contiennent des tâches relatives à ce travail.
 La gestion de toutes ces tâches dans les différents travaux et projets se fait collaborativement à travers le kanban et les détails du projet. Les événements importants relatifs à un projet sont consignés par les membres dans un journal de bord.
 
+Le kanban du projet `Crowdfunding Festival 2020` sur l'instance de test.  
+![readme-kanban-example.PNG](doc/img/readme-kanban-example.PNG)
+
+Les détails d'une tâche 1 sur le kanban du projet `Crowdfunding Festival 2020`.  
+![readme-task-details-example.png](doc/img/readme-task-details-example.png)
+
 ## Contexte d'utilisation
 L'application est pensée pour être utilisée par **des membres de collectifs, d'organisations, de mouvements, d'associations ou de simples groupes ayant des projets communs.**  
 L'application se veut **polyvalente** et devrait pouvoir être utilisée dans des groupes de différentes tailles, structures et objectifs, organisation du travail et réalisant des projets de nature différente, ...
