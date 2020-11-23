@@ -7,24 +7,40 @@
  */
 require "model/usersModel.php";
 
+define("USER_PASSWORD_REGEX", "/^(?=.*[A-Za-z])(?=.*\d).{8,}$/");
+
 function editAccount($post)
 {
-
+    $userBase = getUserById($_SESSION['user']['id']);
+    $user = $userBase;
+    $msg = null; //no msg by default
 
     if (empty($post) == false) {    //if data have been sent
-        $error = false; //no error by default
+        if (isAtLeastEqual("", [$post['currentpassword'], $post['newpassword'], $post['newpasswordc']]) == false) {   //if the 3 passwords are present, it's a password update
+            if (checkUserPassword($_SESSION['user']['id'], $post['currentpassword']) && checkRegex($post['newpassword'], USER_PASSWORD_REGEX) && $post['newpassword'] == $post['newpasswordc']) {   //if passwords are valid
+                updateOne("users", $_SESSION['user']['id'], ['password' => password_hash($post['newpassword'], PASSWORD_DEFAULT)]); //update the password
+            } else {
+                $msg = 10;  //password invalid
+            }
+        } else if (isset($post['firstname'], $post['lastname'], $post['username'], $post['status'], $post['email'], $post['phonenumber'], $post['biography'])) { //if data are set for general update
 
-        if (checkUserPassword($_SESSION['user']['id'], $post["password"])) {
             //Get the variables, trim them and define the variables that are not sent (because not in the form)
             $editUser['username'] = trimIt($post['username']);
-            $editUser['initials'] = getUniqueInitials(trimIt($post['firstname']), trimIt($post['lastname']));
             $editUser['firstname'] = trimIt($post['firstname']);
             $editUser['lastname'] = trimIt($post['lastname']);
-            $editUser['password'] = $post['newpassword'];   //only to check it's not empty
 
             //All not null values are set so we can test if these informations are not missing:
             if (checkThatEachKeyIsNotEmpty($editUser) == false) {
                 $error = 5; //data error
+            }
+
+            //If firstname or lastname have changed, generate initials again
+            if ($editUser['firstname'] != $userBase['firstname'] || $editUser['lastname'] != $userBase['lastname']) {
+                $editUser['initials'] = getUniqueInitials(trimIt($post['firstname']), trimIt($post['lastname']));
+                //Check initials if error has occured:
+                if ($editUser['initials'] == false) {    //no unique combination for initials have been found
+                    $error = 4; //data not unique
+                }
             }
 
             //Optionnals variables
@@ -37,28 +53,6 @@ function editAccount($post)
             //Onbreak management:
             $editUser['on_break'] = chkToTinyint($post['on_break']);   //on break value from checkbox
 
-            //TODO: check that the 2 passwords are equal that the current one is right, before make the change
-            $password1 = $post['newpassword'];
-            $password2 = $post['newpasswordc'];
-
-            //Generate others values:
-            $editUser['password'] = password_hash($post['newpassword'], PASSWORD_DEFAULT);
-
-            //Check initials if error has occured:
-            if ($editUser['initials'] == false) {    //no unique combination for initials have been found
-                $error = 4; //data not unique
-            }
-
-            //Check that the 2 passwords are the same:
-            if ($password1 != $password2) {
-                $error = 5; //data error
-            }
-
-            //Check the Regex on it:
-            if (!preg_match("/^(?=.*[A-Za-z])(?=.*\d).{8,}$/", $password1)) {
-                $error = 5; //data error
-            }
-
             //Is username already taken ?
             if (empty(searchUserByUsername($editUser['username'])) == false) {
                 $error = 4; //data not unique
@@ -68,32 +62,38 @@ function editAccount($post)
                 $error = 4; //data not unique
             }
 
-            //Then depending on errors or on success:
-            if ($error != false) {
-                flshmsg($error);
-                require "view/editAccount.php";  //view values sent inserted
-            } else {
+            if ($error == null) {   //if no error, then update the general information
                 updateOne("users", $_SESSION['user']['id'], $editUser);
-                $data = []; //make data empty to avoid display values of data after update
                 $user = getUserById($_SESSION['user']['id']);
                 displaydebug($editUser);
                 unset($user['password']);
-                flshmsg(6); //success
                 $_SESSION['user'] = $user;
-                require "view/editAccount.php"; //display the page with new values
+                flshmsg(6); //update has succeed
             }
-        } else {
-            flshmsg(8);
-            require "view/editAccount.php"; //display form again with input filled
-        }
 
+        } else {    //if data are not valid to update password and for general update
+            $msg = 10; //invalid data
+        }
     } else {    //if no data, load the page as normal
         $user = getUserById($_SESSION['user']['id']);
-        if ($user['state_modifier_id'] != null) {
-            $user['state_modifier'] = getUserById($user['state_modifier_id']);  //get the user modifier
-        }
-        require "view/editAccount.php";
+
     }
+
+    //Final action (set flashmessage if exist and go to the view):
+    if ($msg != null) {
+        flshmsg($msg);
+    }
+    $user = userItemLoadExtraFields($user);
+    require "view/editAccount.php"; //in all cases, the view will be displayed (independently of all possibles errors or content of $user)
+}
+
+//Load extra field for a user (state modifier)
+function userItemLoadExtraFields($user)
+{
+    if ($user['state_modifier_id'] != null) {
+        $user['state_modifier'] = getUserById($user['state_modifier_id']);  //get the user modifier
+    }
+    return $user;
 }
 
 //This funtion will redirect to the signin page or redirect to the signin page
@@ -125,7 +125,7 @@ function signin($post)
 
         //Generate others values:
         $newUser['inscription'] = timeToDT(time());
-        $newUser['status'] = "Arrivé.e le " . DTToHumanDate(time(), "simpleday", true);   //simple day and a timestamp is sent (not a DateTime)
+        $newUser['status'] = "Arrivé·e le " . DTToHumanDate(time(), "simpleday", true);   //simple day and a timestamp is sent (not a DateTime)
         $newUser['state'] = USER_STATE_UNAPPROVED;  //by default unapproved
         $newUser['password'] = password_hash($post['password'], PASSWORD_DEFAULT);
         $newUser['on_break'] = 0;   //not on break
