@@ -90,7 +90,7 @@ ob_start();
 
                 <div class="<?= $cssForDivField ?>">
                     <span class="<?= $cssForSpan ?>">Statut</span>
-                    <span class="spanTextArea"><textarea name="Statut" id="txtStatut" rows="2" placeholder="tbd"
+                    <span class="spanTextArea"><textarea name="status" id="txtStatut" rows="2" placeholder="tbd"
                                                          maxlength="200"
                                                          class=" fullwidth form-control textFieldToCheck trimItOnChange"
                                                          title="Votre Statut"><?= $user['status'] ?></textarea>
@@ -148,13 +148,13 @@ Il peut être utile de laisser une information dans votre statut, concernant la 
 
                 <div class="<?= $cssForDivField ?>">
                     <span class="<?= $cssForSpan ?>">N° téléphone</span>
-                    <input class="<?= $cssForInput ?>" type="text" name="nb_phone"
+                    <input class="<?= $cssForInput ?>" type="text" name="phonenumber"
                            value="<?= $user['phonenumber'] ?>"/>
                 </div>
 
                 <div class="<?= $cssForDivField ?>">
                     <span class="<?= $cssForSpan ?>">Lien messagerie instantanée</span>
-                    <input class="<?= $cssForInput ?>" type="" name="email"
+                    <input class="<?= $cssForInput ?>" type="text" name="chat_link"
                            placeholder="t.me/josette27" value="<?= $user['chat_link'] ?>"/>
                     <?= createToolTipWithPoint("Lien permettant de vous écrire en privé via la messagerie instanée de votre collectif.", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
 
@@ -185,7 +185,7 @@ Il peut être utile de laisser une information dans votre statut, concernant la 
                     <h4>Changement du mot de passe:</h4>
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Mot de passe actuel</span>
-                        <input class="<?= $cssForInput ?>" type="password" name="newpasswordc" placeholder="" required
+                        <input class="<?= $cssForInput ?>" type="password" name="currentpassword" placeholder="" required
                                title="Confirmation du mot de passe"/>
                     </div>
 

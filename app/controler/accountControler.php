@@ -19,6 +19,7 @@ function editAccount($post)
         if (isAtLeastEqual("", [$post['currentpassword'], $post['newpassword'], $post['newpasswordc']]) == false) {   //if the 3 passwords are present, it's a password update
             if (checkUserPassword($_SESSION['user']['id'], $post['currentpassword']) && checkRegex($post['newpassword'], USER_PASSWORD_REGEX) && $post['newpassword'] == $post['newpasswordc']) {   //if passwords are valid
                 updateOne("users", $_SESSION['user']['id'], ['password' => password_hash($post['newpassword'], PASSWORD_DEFAULT)]); //update the password
+                $msg = 15;  //update password succeed
             } else {
                 $msg = 10;  //password invalid
             }
@@ -31,7 +32,7 @@ function editAccount($post)
 
             //All not null values are set so we can test if these informations are not missing:
             if (checkThatEachKeyIsNotEmpty($editUser) == false) {
-                $error = 5; //data error
+                $msg = 5; //data error
             }
 
             //If firstname or lastname have changed, generate initials again
@@ -39,7 +40,7 @@ function editAccount($post)
                 $editUser['initials'] = getUniqueInitials(trimIt($post['firstname']), trimIt($post['lastname']));
                 //Check initials if error has occured:
                 if ($editUser['initials'] == false) {    //no unique combination for initials have been found
-                    $error = 4; //data not unique
+                    $msg = 4; //data not unique
                 }
             }
 
@@ -54,21 +55,21 @@ function editAccount($post)
             $editUser['on_break'] = chkToTinyint($post['on_break']);   //on break value from checkbox
 
             //Is username already taken ?
-            if (empty(searchUserByUsername($editUser['username'])) == false) {
-                $error = 4; //data not unique
+            if (empty(searchUserByUsername($editUser['username'])) == false && $editUser['username'] != $userBase['username']) {
+                $msg = 4; //data not unique
             }
             //Is email already taken ?
-            if (empty(searchUserByEmail($editUser['email'])) == false) {
-                $error = 4; //data not unique
+            if (empty(searchUserByEmail($editUser['email'])) == false && $editUser['email'] != $userBase['email']) {
+                $msg = 4; //data not unique
             }
 
-            if ($error == null) {   //if no error, then update the general information
+            if ($msg == null) {   //if no error, then update the general information
                 updateOne("users", $_SESSION['user']['id'], $editUser);
                 $user = getUserById($_SESSION['user']['id']);
                 displaydebug($editUser);
                 unset($user['password']);
                 $_SESSION['user'] = $user;
-                flshmsg(6); //update has succeed
+                flshmsg(25); //update has succeed
             }
 
         } else {    //if data are not valid to update password and for general update
