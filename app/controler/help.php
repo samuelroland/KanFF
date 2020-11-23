@@ -325,4 +325,10 @@ function setErrorValueIfNotTrue($newValue, $currentValue)
     }
 }
 
+//Check that a string match with a regular expression (regex):
+function checkRegex($string, $regex)
+{
+    return preg_match($regex, $string);
+}
+
 ?>
