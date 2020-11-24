@@ -25,7 +25,7 @@
 - Le nom de l'objet est contenu au début de id, un diminutif est utilisé dans le cas où l'objet dépasse 4 caractères.
 - Les mots suivants on tous une majuscule comme première lettre.
 - Il n'y a pas de "_" entre les mots.
-## Nom de classe CSS
+#### Nom de classe CSS
 - WIP
 ## Nom des paramètres de fonction
 - Nous utilisons du ***LowerCamelCase***.
@@ -33,3 +33,8 @@
 
 ## Conditions exclusive de validation
 - Permet qu'une validation de donnée ne soie pas impactée par une éventuelle modification de la structure de la base de donnée.
+
+## Updates et sauvegardes
+- Nous ne prenons que les champs utiles au lieu de tous les prendre et, par la suite supprimer les non autorisés.
+
+## 
