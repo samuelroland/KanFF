@@ -7,7 +7,7 @@
  */
 require "model/usersModel.php";
 
-define("USER_PASSWORD_REGEX", "/^(?=.*[A-Za-z])(?=.*\d).{8,}$/");
+define("USER_PASSWORD_REGEX", "^(?=.*[A-Za-z])(?=.*\d).{8,}$");
 
 function editAccount($post)
 {
@@ -19,9 +19,9 @@ function editAccount($post)
         if (isAtLeastEqual("", [$post['currentpassword'], $post['newpassword'], $post['newpasswordc']]) == false) {   //if the 3 passwords are present, it's a password update
             if (checkUserPassword($_SESSION['user']['id'], $post['currentpassword']) && checkRegex($post['newpassword'], USER_PASSWORD_REGEX) && $post['newpassword'] == $post['newpasswordc']) {   //if passwords are valid
                 updateOne("users", $_SESSION['user']['id'], ['password' => password_hash($post['newpassword'], PASSWORD_DEFAULT)]); //update the password
-                $msg = 15;  //update password succeed
+                $msg = 14;  //update password succeed
             } else {
-                $msg = 10;  //password invalid
+                $msg = 5;  //password invalid
             }
         } else if (isset($post['firstname'], $post['lastname'], $post['username'], $post['status'], $post['email'], $post['phonenumber'], $post['biography'])) { //if data are set for general update
 
@@ -69,11 +69,11 @@ function editAccount($post)
                 displaydebug($editUser);
                 unset($user['password']);
                 $_SESSION['user'] = $user;
-                flshmsg(25); //update has succeed
+                $msg = 13; //update has succeed
             }
 
         } else {    //if data are not valid to update password and for general update
-            $msg = 10; //invalid data
+            $msg = 5; //invalid data
         }
     } else {    //if no data, load the page as normal
         $user = getUserById($_SESSION['user']['id']);

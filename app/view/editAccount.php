@@ -179,28 +179,36 @@ Il peut être utile de laisser une information dans votre statut, concernant la 
             </form>
 
 
-            <form action="?action=editAccount" method="POST">
+            <form action="?action=editAccount" class="formCheckNoErrorMessages" id="frmUpdatePassword" method="POST">
                 <div class="pt-3">
                     <hr class="hrlight">
                     <h4>Changement du mot de passe:</h4>
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Mot de passe actuel</span>
-                        <input class="<?= $cssForInput ?>" type="password" name="currentpassword" placeholder="" required
-                               title="Confirmation du mot de passe"/>
+                        <input class="<?= $cssForInput ?>" type="password" name="currentpassword" placeholder=""
+                               pattern="<?= USER_PASSWORD_REGEX ?>"
+                               required
+                               title="Mot de passe actuel"/>
                     </div>
 
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Nouveau mot de passe</span>
-                        <input class="<?= $cssForInput ?>" type="password" name="newpassword" placeholder="" required/>
+                        <input class="<?= $cssForInput ?> passToCheckWithPattern" type="password"
+                               data-msg-id="pErrorNewPasswordC" name="newpassword" id="newFirstPassword" placeholder="" required
+                               pattern="<?= USER_PASSWORD_REGEX ?>"
+                               title="Nouveau mot de passe"/>
                         <?= createToolTipWithPoint("Les mots de passes doivent contenir: 8 caractères minimum + au moins une lettre et un chiffre", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
                     </div>
 
-
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Confirmation</span>
-                        <input class="<?= $cssForInput ?>" type="password" name="newpasswordc" placeholder="" required
-                               title="Confirmation du mot de passe"/>
+                        <input class="<?= $cssForInput ?> secondValueIdenticalToCheck" type="password" name="newpasswordc" data-firstvalue="newFirstPassword" data-dontdisplayifempty="true" data-msg-id="pError2DifferentPasswords" placeholder="" required
+                               pattern="<?= USER_PASSWORD_REGEX ?>"
+                               title="Confirmation du nouveau mot de passe"/>
                     </div>
+
+                    <p class="errormsg mt-2" id="pErrorNewPasswordC" hidden>Les mots de passe doivent respecter les critères de sécurité (voir "?")</p>
+                    <p class="errormsg mt-2" id="pError2DifferentPasswords" hidden>Les mots de passe doivent être identiques</p>
                 </div>
                 <div class="  pt-3">
                     <button type="submit" data-href="?action=editAccount" class=" btn btn-primary">Changer</button>
