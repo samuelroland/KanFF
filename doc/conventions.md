@@ -14,6 +14,7 @@
 - Le verbe au début du nom de la fonction est en minuscule.
 - Les mots suivants on tous une majuscule comme première lettre.
 - Il n'y a pas de "_" entre les mots.
+
 #### Pour les fonction **`Ajax`** :
 - Lors de l'utilisation d'une fonction avec **`Ajax`**, nous utilisons un *try* pour le premier appel de la fonction.
 - Le *try* appel la fonction qui porte son nom; *try*`deleteTask()` appel `deleteTask()`.
@@ -37,4 +38,10 @@
 ## Updates et sauvegardes
 - Nous ne prenons que les champs utiles au lieu de tous les prendre et, par la suite supprimer les non autorisés.
 
-## 
+## Versioning system pour le changelog
+- Work in Progress.
+- Voir [semver.org](https://semver.org/).
+
+## Nom des fichiers
+- Les nom des fichiers sont en ***LowerCamelCase***.
+- Ce à quoi le fichier est destiné est défini par le premier mot du nom de fichier.
