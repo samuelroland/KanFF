@@ -1,5 +1,5 @@
 # Git branching model
-Here is information about the branching model used with Git, to declare the strategy for creating, using, merging and deleting of branches.
+Here is information about the git branching model, to declare the strategy for creating, using, merging and deleting of branches.
 For the management of branches (create, merge and delete branch) we will use Git flow. Other actions like commit, log, show, status, restore, push, pull, clone, ... will be with Git "normal".
 
 Feature branches names will be named with lower kebab case (like `my-account`, `technical-documentation` or `conventions`).
@@ -7,9 +7,13 @@ Release branches names will be named with same name as the tag name (like `v1.2`
 
 ## List of branches
 - `master`: main branch that will be equal to the production last version
-- `develop`: branch to merge different features and make them work together, where the next release code will be
+- `develop`: branch to merge different features and make them work together, where the next release code will be. (this branch is defined as default branch on GitHub). It represents the progress of the project.
 - Foreach story, one feature branch will be created. The name must be the name of the story in english.
 - Foreach release, one release branch with the name of the tag of the release (like `v2.5`) will be created.
+
+### Commits
+- No commit must be pushed to `master`
+- No commit relating to a feature must 
 
 ### Commands:
 #### Creation:
@@ -24,3 +28,9 @@ This command will be proposed when you will try to push. It will return somethin
 #### Finish:
 - At feature finishing : Example with `my-account` story: `git flow feature finish my-account`.
 - At release finishing `v1.1-beta`: `git flow release finish v1.1-beta`.
+
+
+
+develop est l'état interne de l'avancement de l'équipe.
+
+on peut faire des merges depuis différentes features.
