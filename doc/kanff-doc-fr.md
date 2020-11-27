@@ -98,11 +98,8 @@ L'application se veut **polyvalente** et devrait pouvoir être utilisée dans de
 ## Analyse
 
 Quand un collectif utilise l'application, les membres du collectif ont un compte et rejoignent des groupes. Les groupes réalisent 0, 1 ou plusieurs projets (les projets sont réalisés par un ou plusieurs groupes).
-
 Chaque projet a un kanban et est divisé en parties appelées "travaux". Ceux-ci contiennent des tâches relatives à ce travail.
-
 La gestion de toutes ces tâches dans les différents travaux et projets se fait collaborativement à travers le kanban et les détails du projet. Les événements importants relatifs à un projet sont consignés par les membres dans un journal de bord.
-
 L'application doit être compatible avec l'ensemble des navigateurs standards : Mozilla Firefox, Safari, Google Chrome.
 
 ### Modèle Conceptuel de Données
@@ -127,9 +124,9 @@ Moyens mis en place:
     - Dans ce pack, les membres données en exemple et pour tester l'application sont les 3 suivants: "Josette Richard (JRD)" admin, "Mégane Blan (MBN)" membre approuvée et "Vincent Rigot (VRT)" membre banni. Le projet contenant des données réalistes est le projet "**Crowdfunding Festival 2020**". Josette Richard est dans le projet et Mégane Blan est à l'extérieur (permettant ainsi de tester les différences entre l'intérieur et l'extérieur d'un projet)
     - Ce pack est chargeable en lançant le fichier `KanFF\db\db-manage\restore-db-kanff.bat` (ou en lancant les 2 fichiers SQL (voir readme.md), mais ne fonctionnent que si la base de donnée s'appelle "kanff"). Le fichier bat prend en compte d'autres noms de base de données.
     - Ce pack est généré à l'aide du script de génération **generationData.php** et se base sur les données écrites à la main dans les fichiers **basic-data-*.json** (* = nom de la table. Fichiers dit "basiques".). Le script de génération complète les données manquantes de celles fournies dans les fichiers de données basiques et en génère d'autres complétement aléatoire parfois (notamment pour les tâches). (Pour créer un pack pour un autre collectif imaginaire, il suffirait de changer ces fichiers basiques et de relancer le script, puis d'exporter la base de données en SQL).
-    - Le pack contient 100 membres, 13 groupes, 16 projets, 300 tâches (36 réalistes et le reste en lorem ipsum), 25 travaux (9 réalistes et le reste en lorem ipsum), 12 logs, et un nombre aléatoire de join et de participate.
-   - Des tests rapides des fonctionnalités sont fait durant le développement par les développeur·euse·s et durant les sprint review pour les tests d'acceptation. Les fonctionnalités sont testées dans un cadre normal (utilisation standard) et aussi un peu en modifiant du code HTML et les requêtes HTTP, afin d'y insérer des valeurs qui doivent être validées et refusées si invalides (le javascript empêchant de le faire directement sur le formulaire parfois).
-   - Test unitaires des fonctions du CRUDModel.php: testé avec `testCRUDmodel` dans différents contextes.
+     - Le pack contient 100 membres, 13 groupes, 16 projets, 300 tâches (36 réalistes et le reste en lorem ipsum), 25 travaux (9 réalistes et le reste en lorem ipsum), 12 logs, et un nombre aléatoire de join et de participate.
+    - Des tests rapides des fonctionnalités sont fait durant le développement par les développeur·euse·s et durant les sprint review pour les tests d'acceptation. Les fonctionnalités sont testées dans un cadre normal (utilisation standard) et aussi un peu en modifiant du code HTML et les requêtes HTTP, afin d'y insérer des valeurs qui doivent être validées et refusées si invalides (le javascript empêchant de le faire directement sur le formulaire parfois).
+    - Test unitaires des fonctions du CRUDModel.php: testé avec `testCRUDmodel` dans différents contextes.
 
 
 **Tests et demandes de feedback extérieurs.**
@@ -149,7 +146,7 @@ Cela se passe en 3 phases:
 
 Pour l'instant, une instance KanFF ne peut contenir qu'un seul collectif. Chaque membre du collectif sur une instance doit se créer un compte pour accéder au collectif. Aucune donnée de projet, tâches, groupes, membres, ... n'est publique. Seule la page A propos est publique et contient des informations à propos du collectif, de l'instance et de KanFF.
 
-L'application web s'utilise avec un navigateur via l'url du serveur sur lequel est installé l'application. Une connexion internet active est requise pour charger les pages et effectuer des actions. L'application est adaptée à une utilisation sur ordinateur mais pas sur smartphone ni tablette. Le site n'est pas assez responsive et aucun test ne sera fait pour les navigateurs web mobile.
+L'application web s'utilise avec un navigateur via l'URL du serveur sur lequel est installé l'application. Une connexion internet active est requise pour charger les pages et effectuer des actions. L'application est adaptée à une utilisation sur ordinateur mais pas sur smartphone ni tablette. Le site n'est pas assez responsive et aucun test ne sera fait pour les navigateurs web mobile.
 
 ### Description technique
 KanFF est une application web développée **en PHP** (HTML + CSS + Javascript + Ajax) **en MVC (Model View Controler)** avec une **base de données MySQL**. Les dépendances [npm](npmjs.com) utilisées sont bootstrap et jquery.
@@ -180,9 +177,15 @@ KanFF est une application web développée **en PHP** (HTML + CSS + Javascript +
        - Ainsi quand on reçoit les valeurs de la base de données ou d'ailleurs en INT et qu'on veut avoir la significatione en français (pour l'afficher par ex), on appelle `convertTaskState($task['state'])`pour avoir "en cours" par ex.
        - Dans le code on utilise jamais les valeurs brut (1, 2, 3, ...) on utilise uniquement les constantes (par ex. un if `if ($task['state'] == TASK\_STATE\_DONE)` et pas `if ($task['state'] == 3)`).
 - **Mode debug:** le mode debug permet d'afficher les var\_dump() lancés par un remplacement `function displaydebug($var, $needPrint\_r = false)`. la variable $debug dans .const.php doit être définie à true pour que les var\_dump() s'affichent. Ce qui est très pratique pour faire du debug sans impacter le code utile pour tout le monde et pour la production.
-- **CRUDModel.php: **ce fichier implémente une série de fonctions permettant d'effectuer des actions CRUD (Create Read Update Delete) avec la base de données. Des fonctions getAll(), getOne(), Query(), getByCondition, createOne(), updateOne(), deleteOne() sont implémentées afin de ne plus devoir gérer PDO dans d'autres fichiers model et pouvoir souvent éviter d'écrire du SQL quand la requête est "standard".
+- **CRUDModel.php:** ce fichier implémente une série de fonctions permettant d'effectuer des actions CRUD (Create Read Update Delete) avec la base de données. Des fonctions getAll(), getOne(), Query(), getByCondition, createOne(), updateOne(), deleteOne() sont implémentées afin de ne plus devoir gérer PDO dans d'autres fichiers model et pouvoir souvent éviter d'écrire du SQL quand la requête est "standard".
 - Le fichier .const.php des informations pour la base de données ainsi que d'autres configurations propres aux machines.
 - L'extension PDO est utilisée pour faire les requêtes SQL sur la base de données MySQL. L'extension doit être activée dans le fichier php.ini. (voir installation).
+- **Types de vue**: les types de vues pour le gabarit permettent d'adapter la zone du gabarit prévue pour la vue. Valeurs possibles:
+    - `full`: simple marge `p-1`: pour les pages qui doivent la totalité de l'espace disponible.
+    - `large`: simple marge `p-3`: pour la plupart des pages avec une marge standard
+    - `restricted`: largeur maximum définie, zone centrée et marge `p-3`: pour les pages d'informations ou avec peu d'éléments.
+- **Flashmessages**: Les flashmessages sont des messages affichés en haut du gabarit ou dans une vue directement permettant d'avertir l'utilisateur d'une erreur ou de la réussite pour une action.
+
 
 ### Livraisons
 Il y a 3 publications majeures et d'autres petites entre deux. Une publication est faite à la fin de chaque sprint sur GitHub.
