@@ -21,6 +21,10 @@
 - La fonction appelée par le *try* appel une fonction `sendRequest()`.
 - Après l'appel de la fonction principale il y a un *callback*, qui est appelé par `sendRequest()`.
 
+#### Pour les fonctions similaire entre les `controler` et les `model`
+- WIP
+
+
 ## Nom des objets HTML
 #### Nom des id
 - Le nom de l'objet est contenu au début de id, un diminutif est utilisé dans le cas où l'objet dépasse 4 caractères.
