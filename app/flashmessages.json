@@ -13,5 +13,7 @@
   "11": "Action non autorisée avec ces permissions.",
   "12": "Mot de passe de confirmation pour une action importante erroné. Veuillez retenter.",
   "13": "Informations du compte mises à jour.",
-  "14": "Mot de passe mis à jour."
+  "14": "Mot de passe mis à jour.",
+  "15": "Echec de mise à jour du mot de passe. Le nouveau mot de passe doit être différent de l'ancien.",
+  "16": "Echec de mise à jour du mot de passe. Le mot de passe actuel est erroné."
 }

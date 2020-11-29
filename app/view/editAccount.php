@@ -117,7 +117,7 @@ ob_start();
                         if ($user['state_modification_date'] != null || $user['state_modifier_id'] != null) {
                             echo "Défini comme " . convertUserState($user['state']);
                             if ($user['state_modification_date'] != null) {
-                                echo " le " . DTToHumanDate($user['state_modification_date']);
+                                echo " le " . DTToHumanDate($user['state_modification_date'], "simpletime");
                             }
                             if ($user['state_modifier_id'] != null) {
                                 echo " par " . mentionUser($user['state_modifier']);
@@ -149,19 +149,19 @@ Vous pouvez laisser une information dans votre statut concernant la raison de vo
                 <div class="<?= $cssForDivField ?>">
                     <span class="<?= $cssForSpan ?>">Email</span>
                     <input class="<?= $cssForInput ?>" type="email" name="email"
-                           placeholder="josette.richard@assoc.ch" value="<?= $user['email'] ?>"/>
+                           placeholder="josette.richard@assoc.ch" value="<?= $user['email'] ?>" maxlength="254"/>
                 </div>
 
                 <div class="<?= $cssForDivField ?>">
                     <span class="<?= $cssForSpan ?>">N° de téléphone</span>
-                    <input class="<?= $cssForInput ?>" type="text" name="phonenumber"
+                    <input class="<?= $cssForInput ?>" type="text" name="phonenumber" minlength="4" maxlength="20"
                            value="<?= $user['phonenumber'] ?>"/>
                 </div>
 
                 <div class="<?= $cssForDivField ?>">
                     <span class="<?= $cssForSpan ?>">Lien messagerie instantanée</span>
                     <input class="<?= $cssForInput ?>" type="text" name="chat_link"
-                           placeholder="t.me/josette27" value="<?= $user['chat_link'] ?>"/>
+                           placeholder="t.me/josette27" value="<?= $user['chat_link'] ?>" maxlength="2000"/>
                     <?= createToolTipWithPoint("Lien permettant de vous écrire en privé via la messagerie instanée de votre collectif.", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
 
                 </div>
@@ -178,11 +178,13 @@ Vous pouvez laisser une information dans votre statut concernant la raison de vo
                                   title="Votre biographie"><?= $user['biography'] ?></textarea>
                             <?= createToolTipWithPoint("La biographie décrit en quelques mots qui vous êtes, ce qui vous intéresse dans ce collectif et pourquoi vous l'avez rejoint.", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
                         </div>
-                        <p id="pCounterBiography" class="mt-2 mb-2 col-lg-12"></p>
+                        <p id="pCounterBiography" class="mt-2 mb-2"></p>
                     </div>
 
                 </div>
-                <p class="">Ces informations (mot de passe et changement d'état exclus) sont visibles à l'entièreté les membres du collectif de l'instance. Les champs facultatifs donne un moyen de contact aux autres membres.</p>
+                <p class="">Ces informations (mot de passe et changement d'état exclus) sont visibles à l'entièreté des
+                    membres du collectif de l'instance. Les champs facultatifs donne un moyen de contact aux autres
+                    membres.</p>
                 <div data-href="?action=editAccount" class="clickable btn btn-light">Annuler</div>
                 <button type="submit" data-href="?action=editAccount" class="btn btn-primary">Enregistrer</button>
             </form>
@@ -192,10 +194,10 @@ Vous pouvez laisser une information dans votre statut concernant la raison de vo
                 <div class="pt-3">
                     <hr class="hrlight">
                     <h4>Changement du mot de passe</h4>
+                    <span>Le nouveau mot de passe doit être différent de l'actuel.</span>
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Mot de passe actuel</span>
                         <input class="<?= $cssForInput ?>" type="password" name="currentpassword" placeholder=""
-                               pattern="<?= USER_PASSWORD_REGEX ?>"
                                required
                                title="Mot de passe actuel"/>
                     </div>
@@ -207,7 +209,7 @@ Vous pouvez laisser une information dans votre statut concernant la raison de vo
                                required
                                pattern="<?= USER_PASSWORD_REGEX ?>"
                                title="Nouveau mot de passe"/>
-                        <?= createToolTipWithPoint("Les mots de passes doivent contenir: 8 caractères minimum + au moins une lettre et un chiffre", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
+                        <?= createToolTipWithPoint(USER_PASSWORD_CONDITIONS, "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
                     </div>
 
                     <div class="<?= $cssForDivField ?>">
@@ -217,6 +219,7 @@ Vous pouvez laisser une information dans votre statut concernant la raison de vo
                                data-msg-id="pError2DifferentPasswords" placeholder="" required
                                pattern="<?= USER_PASSWORD_REGEX ?>"
                                title="Confirmation du nouveau mot de passe"/>
+                        <?= createToolTipWithPoint("Le nouveau mot de passe doit être confirmé pour éviter les fautes de frappes.", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
                     </div>
 
                     <p class="errormsg mt-2" id="pErrorNewPasswordC" hidden>Les mots de passe doivent respecter les

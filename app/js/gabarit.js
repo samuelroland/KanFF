@@ -36,8 +36,11 @@ $(document).ready(function () {
         formCheckNoErrorMessages(event.target)
     })
     document.querySelector(".formCheckNoErrorMessages button[type=submit]").onclick = function (event) {
-        event.preventDefault()
+        //event.preventDefault()
         formCheckNoErrorMessages(event.target)
+    }
+    document.querySelector(".formCheckNoErrorMessages input").onchange = function () {
+        formCheckNoErrorMessages(document.querySelector(".formCheckNoErrorMessages"))
     }
 
 
@@ -182,10 +185,6 @@ function formCheckNoErrorMessages(clickedElement) {
     logIt(allMessagesAreHidden)
     if (allMessagesAreHidden == true) {
         btn.disabled = false
-    }
-
-    if (clickedElement == btn && btn.disabled == false) {
-        parentform.submit()
     }
 }
 

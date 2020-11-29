@@ -7,7 +7,8 @@
  */
 require "model/usersModel.php";
 
-define("USER_PASSWORD_REGEX", "^(?=.*[A-Za-z])(?=.*\d).{8,}$");
+define("USER_PASSWORD_REGEX", "^(?=.*[A-Za-z])(?=.*\d).{8,}$"); //Regular expression for users passwords
+define("USER_PASSWORD_CONDITIONS", "Le mot de passe doivent contenir: 8 caractères minimum + au moins une lettre et un chiffre");   //text explaining the conditions to create a valid password (valid with the regex)
 
 function editAccount($post)
 {
@@ -17,11 +18,19 @@ function editAccount($post)
 
     if (empty($post) == false) {    //if data have been sent
         if (isAtLeastEqual("", [$post['currentpassword'], $post['newpassword'], $post['newpasswordc']]) == false) {   //if the 3 passwords are present, it's a password update
-            if (checkUserPassword($_SESSION['user']['id'], $post['currentpassword']) && checkRegex($post['newpassword'], USER_PASSWORD_REGEX) && $post['newpassword'] == $post['newpasswordc']) {   //if passwords are valid
-                updateOne("users", $_SESSION['user']['id'], ['password' => password_hash($post['newpassword'], PASSWORD_DEFAULT)]); //update the password
-                $msg = 14;  //update password succeed
+            if (checkUserPassword($_SESSION['user']['id'], $post['currentpassword'])) {   //if passwords are valid
+                if (checkRegex($post['newpassword'], USER_PASSWORD_REGEX) && $post['newpassword'] == $post['newpasswordc']) {
+                    if ($post['currentpassword'] == $post['newpassword']) {
+                        $msg = 15;  //current password and new password can not be equal
+                    } else {
+                        updateOne("users", $_SESSION['user']['id'], ['password' => password_hash($post['newpassword'], PASSWORD_DEFAULT)]); //update the password
+                        $msg = 14;  //update password succeed
+                    }
+                } else {
+                    $msg = 5; //password invalid --> invalid data
+                }
             } else {
-                $msg = 5;  //password invalid
+                $msg = 16;   //current password is wrong
             }
         } else if (isset($post['firstname'], $post['lastname'], $post['username'], $post['status'], $post['email'], $post['phonenumber'], $post['biography'])) { //if data are set for general update
 
