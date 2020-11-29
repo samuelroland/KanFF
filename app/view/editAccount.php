@@ -31,32 +31,32 @@ ob_start();
             <div class="flexdiv">
                 <h1 class="flex-1"><?= $title ?></h1>
                 <div class="flex-1 d-block">
-                    <button class="btn btn-primary float-right clickable" data-href="?action=about">Détails de cette
-                        instance <?= $instance['name'] ?></button>
+                    <button class="btn btn-primary float-right clickable" data-href="?action=about">Détails de
+                        l'instance <?= $instance['name'] ?></button>
                 </div>
             </div>
-            <p class="">Voici les informations de votre compte sur l'instance Blason. C'est sur cette page que vous
-                pouvez gérer votre compte. Vous pouvez modifier vos informations pour la plupart et aussi archiver ou
-                supprimer
-                votre compte (attention supprimer est une action irréversible!)</p>
+            <p class="">Voici les informations de votre compte sur l'instance <?= $instance['name'] ?>. Vous pouvez
+                gérer votre compte mais aussi archiver ou
+                supprimer votre compte.</p>
             <?php printPageWIPTextInfo(); ?>
 
             <form class="pt-1" action="?action=editAccount" method="POST">
                 <hr class="hrlight">
-                <h4>Informations principales:</h4>
+                <h4>Informations principales</h4>
                 <div class="<?= $cssForDivField ?>">
                     <span class="<?= $cssForSpan ?>">Prénom</span>
-                    <input id="inpFirstname" class="<?= $cssForInput ?> textFieldToCheck trimItOnChange"
+                    <input id="inpFirstname"
+                           class="<?= $cssForInput ?> textFieldToCheck counterVisibleOnlyIfFastMaxLength trimItOnChange"
                            minlength="2"
                            maxlength="75" type="text"
                            name="firstname" placeholder="Josette" required value="<?= $user['firstname'] ?>"/>
                     <p id="pCounterFirstname" class="m-2"></p>
                 </div>
 
-
                 <div class=" <?= $cssForDivField ?>">
                     <span class="<?= $cssForSpan ?>">Nom</span>
-                    <input id="inpLastname" class="<?= $cssForInput ?> textFieldToCheck trimItOnChange"
+                    <input id="inpLastname"
+                           class="<?= $cssForInput ?> textFieldToCheck counterVisibleOnlyIfFastMaxLength trimItOnChange"
                            minlength="2"
                            maxlength="75" type="text"
                            name="lastname"
@@ -67,13 +67,13 @@ ob_start();
                     <span class="<?= $cssForSpan ?>">Initiales </span>
                     <input class="<?= $cssForInput ?>" type="text" value="<?= $user['initials'] ?>" readonly
                            disabled/>
-                    <?= createToolTipWithPoint("Généreées automatiquement et donc non modifiables", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
+                    <?= createToolTipWithPoint("Les initiales sont générées automatiquement et non modifiables.", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
                 </div>
                 <div class="<?= $cssForDivField ?>">
                     <span class="<?= $cssForSpan ?>">Date d'inscription </span>
                     <input class="<?= $cssForInput ?>" type="date"
                            value="<?= date("Y-m-d", strtotime($user['inscription'])) ?>" readonly disabled/>
-                    <?= createToolTipWithPoint("Date d'inscription sur cette instance non modifiable", "icon-middlesmall ml-2 mr-2 m-2", false, "right"); ?>
+                    <?= createToolTipWithPoint("La date d'inscription sur cette instance est non modifiable.", "icon-middlesmall ml-2 mr-2 m-2", false, "right"); ?>
 
                 </div>
 
@@ -90,13 +90,17 @@ ob_start();
 
                 <div class="<?= $cssForDivField ?>">
                     <span class="<?= $cssForSpan ?>">Statut</span>
-                    <span class="spanTextArea"><textarea name="status" id="txtStatut" rows="2" placeholder="tbd"
-                                                         maxlength="200"
-                                                         class=" fullwidth form-control textFieldToCheck trimItOnChange"
-                                                         title="Votre Statut"><?= $user['status'] ?></textarea>
-                        <p id="pCounterStatut" class="mt-2 mb-2 col-lg-12"></p>
-                        </span>
-
+                    <div class="spanTextArea">
+                        <div class="flexdiv">
+                        <textarea name="status" id="txtStatut" rows="2"
+                                  placeholder="Exemple: Cette semaine, je suis très investie dans le crowdfunding et la gestion des emails. L'effort à fournir est important mais ça me plaît."
+                                  maxlength="200"
+                                  class="flex-1 fullwidth form-control textFieldToCheck trimItOnChange d-inline"
+                                  title="Statut"><?= $user['status'] ?></textarea>
+                            <?= createToolTipWithPoint("Votre statut est une information courte qui peut changer régulièrement, et qui explique en quelques phrases ce que vous faites ces temps-ci au sein du collectif.", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
+                        </div>
+                        <p id="pCounterStatus" class="mt-2 mb-2"></p>
+                    </div>
                 </div>
 
 
@@ -130,15 +134,17 @@ ob_start();
 
                 <div class="<?= $cssForDivField ?>">
                     <span class=" <?= $cssForSpan ?>">En pause</span>
-                    <input class="<?= $cssForInput ?> " type="checkbox" id="inpOnBreak"
-                           readonly disabled <?= ($user['on_break'] == 1) ? "checked" : "" ?>/>
+                    <div class="col-md-5 col-sm-7 box-aligncenter inputForForm">
+                        <input type="checkbox" name="on_break"
+                               id="inpOnBreak" <?= ($user['on_break'] == 1) ? "checked" : "" ?>/>
+                    </div>
 
-                    <?= createToolTipWithPoint("Mettre son compte en pause, indique que vous n'êtes plus disponible pour le collectif, mais ne vous restreint pas dans l'utilisation. Vous apparaîtrez dans la partie 'Membres en pause' de la liste des membres.
-Il peut être utile de laisser une information dans votre statut, concernant la raison et de la date prévue de votre retour.", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
+                    <?= createToolTipWithPoint("Se mettre en pause indique que vous n'êtes plus disponible pour le collectif, mais ne vous restreint pas dans l'utilisation. Vous serez sous 'En pause' dans la page membres.
+Vous pouvez laisser une information dans votre statut concernant la raison de votre pause et la date de votre retour.", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
 
                 </div>
 
-                <h4 class="pt-3">Champs facultatifs:</h4>
+                <h4 class="pt-3">Champs facultatifs</h4>
 
                 <div class="<?= $cssForDivField ?>">
                     <span class="<?= $cssForSpan ?>">Email</span>
@@ -147,7 +153,7 @@ Il peut être utile de laisser une information dans votre statut, concernant la 
                 </div>
 
                 <div class="<?= $cssForDivField ?>">
-                    <span class="<?= $cssForSpan ?>">N° téléphone</span>
+                    <span class="<?= $cssForSpan ?>">N° de téléphone</span>
                     <input class="<?= $cssForInput ?>" type="text" name="phonenumber"
                            value="<?= $user['phonenumber'] ?>"/>
                 </div>
@@ -163,18 +169,21 @@ Il peut être utile de laisser une information dans votre statut, concernant la 
 
                 <div class="<?= $cssForDivField ?>">
                     <span class="<?= $cssForSpan ?>">Biographie</span>
-                    <span class="spanTextArea">    <textarea name="biography" id="txtBiography" rows="4"
-                                                             maxlength="2000"
-                                                             placeholder="Dans le milieu associatif, depuis 10 ans déjà, je suis à dans Assoc depuis 2015 et j'aide plusieurs heures par semaines. La partie contact médias m'intéresse beaucoup. Je suis photographe de métier, mais aussi céramiste et je cultive un petit potager..."
-                                                             class="fullwidth form-control textFieldToCheck trimItOnChange"
-                                                             title="Votre biographie"><?= $user['biography'] ?></textarea>
-                            <p id="pCounterBiography" class="mt-2 mb-2 col-lg-12"></p>
-                        </span>
+                    <div class="spanTextArea">
+                        <div class="flexdiv">
+                        <textarea name="biography" id="txtBiography" rows="5"
+                                  maxlength="2000"
+                                  placeholder="Exemple: Dans le milieu associatif, depuis 10 ans déjà, je suis à dans Assoc depuis 2015 et j'aide plusieurs heures par semaines. La partie contact médias m'intéresse beaucoup. Je suis photographe de métier, mais aussi céramiste et je cultive un petit potager... J'ai rejoins Assoc parce que mes idées sont très proches de ce collectif."
+                                  class="fullwidth form-control textFieldToCheck trimItOnChange flex-1"
+                                  title="Votre biographie"><?= $user['biography'] ?></textarea>
+                            <?= createToolTipWithPoint("La biographie décrit en quelques mots qui vous êtes, ce qui vous intéresse dans ce collectif et pourquoi vous l'avez rejoint.", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
+                        </div>
+                        <p id="pCounterBiography" class="mt-2 mb-2 col-lg-12"></p>
+                    </div>
 
                 </div>
-                <p class="">Ces informations seront visibles à tous les membres approuvés de l'instance, dans le but
-                    d'avoir un ou des moyens de contact et une description pour les nouvelles personnes, qui ne
-                    connaissent pas les autres membres. </p>
+                <p class="">Ces informations (mot de passe et changement d'état exclus) sont visibles à l'entièreté les membres du collectif de l'instance. Les champs facultatifs donne un moyen de contact aux autres membres.</p>
+                <div data-href="?action=editAccount" class="clickable btn btn-light">Annuler</div>
                 <button type="submit" data-href="?action=editAccount" class="btn btn-primary">Enregistrer</button>
             </form>
 
@@ -182,7 +191,7 @@ Il peut être utile de laisser une information dans votre statut, concernant la 
             <form action="?action=editAccount" class="formCheckNoErrorMessages" id="frmUpdatePassword" method="POST">
                 <div class="pt-3">
                     <hr class="hrlight">
-                    <h4>Changement du mot de passe:</h4>
+                    <h4>Changement du mot de passe</h4>
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Mot de passe actuel</span>
                         <input class="<?= $cssForInput ?>" type="password" name="currentpassword" placeholder=""
@@ -194,7 +203,8 @@ Il peut être utile de laisser une information dans votre statut, concernant la 
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Nouveau mot de passe</span>
                         <input class="<?= $cssForInput ?> passToCheckWithPattern" type="password"
-                               data-msg-id="pErrorNewPasswordC" name="newpassword" id="newFirstPassword" placeholder="" required
+                               data-msg-id="pErrorNewPasswordC" name="newpassword" id="newFirstPassword" placeholder=""
+                               required
                                pattern="<?= USER_PASSWORD_REGEX ?>"
                                title="Nouveau mot de passe"/>
                         <?= createToolTipWithPoint("Les mots de passes doivent contenir: 8 caractères minimum + au moins une lettre et un chiffre", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
@@ -202,28 +212,32 @@ Il peut être utile de laisser une information dans votre statut, concernant la 
 
                     <div class="<?= $cssForDivField ?>">
                         <span class="<?= $cssForSpan ?>">Confirmation</span>
-                        <input class="<?= $cssForInput ?> secondValueIdenticalToCheck" type="password" name="newpasswordc" data-firstvalue="newFirstPassword" data-dontdisplayifempty="true" data-msg-id="pError2DifferentPasswords" placeholder="" required
+                        <input class="<?= $cssForInput ?> secondValueIdenticalToCheck" type="password"
+                               name="newpasswordc" data-firstvalue="newFirstPassword" data-dontdisplayifempty="true"
+                               data-msg-id="pError2DifferentPasswords" placeholder="" required
                                pattern="<?= USER_PASSWORD_REGEX ?>"
                                title="Confirmation du nouveau mot de passe"/>
                     </div>
 
-                    <p class="errormsg mt-2" id="pErrorNewPasswordC" hidden>Les mots de passe doivent respecter les critères de sécurité (voir "?")</p>
-                    <p class="errormsg mt-2" id="pError2DifferentPasswords" hidden>Les mots de passe doivent être identiques</p>
+                    <p class="errormsg mt-2" id="pErrorNewPasswordC" hidden>Les mots de passe doivent respecter les
+                        critères de sécurité (voir "?")</p>
+                    <p class="errormsg mt-2" id="pError2DifferentPasswords" hidden>Les mots de passe doivent être
+                        identiques</p>
                 </div>
-                <div class="  pt-3">
-                    <button type="submit" data-href="?action=editAccount" class=" btn btn-primary">Changer</button>
+                <div class="pt-3">
+                    <button type="submit" class="btn btn-primary">Changer</button>
                 </div>
             </form>
 
 
             <div class="pt-3">
                 <hr class="hrlight">
-                <h4 class="">Zone danger - actions irréversibles ou à grosses conséquences techniques</h4>
-                <div class=" pt-3">
-                    <button type="submit" class="btn btn-primary">Supprimer son compte ...</button>
-                </div>
+                <h4 class="d-inline text-danger">Zone danger</h4>
                 <div class="  pt-3">
-                    <button type="submit" class=" btn btn-primary">Archiver son compte ...</button>
+                    <button type="submit" class=" btn btn-dark">Archiver mon compte...</button>
+                </div>
+                <div class=" pt-3">
+                    <button type="submit" class="btn btn-dark">Supprimer mon compte...</button>
                 </div>
             </div>
 
