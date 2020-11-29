@@ -62,7 +62,7 @@ function DTToHumanDate($datetime, $mode = "simpleday", $isTimestamp = false)
             return date("j F Y", $timestamp);
             break;
         case "completetime":
-            return date("j F Y à H:i:S", $timestamp);
+            return date("j F Y à H:i:s", $timestamp);
             break;
         default:
             return "ERROR!";
@@ -328,6 +328,7 @@ function setErrorValueIfNotTrue($newValue, $currentValue)
 //Check that a string match with a regular expression (regex):
 function checkRegex($string, $regex)
 {
+    $regex = "/" . $regex . "/";    //transform regex raw format, with adding slash at start and end
     return preg_match($regex, $string);
 }
 

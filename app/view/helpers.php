@@ -343,7 +343,7 @@ function convertWorkNeedhelp($int, $needFirstCharToUpper = false)
     return $txt;
 }
 
-//Convert the work need_help in french
+//Convert the work need_help to the name of the icon
 function convertWorkNeedhelpIcon($int, $needFirstCharToUpper = false)
 {
     switch ($int) {
@@ -391,7 +391,7 @@ function convertTaskType($int, $needFirstCharToUpper = false)
 {
     switch ($int) {
         case TASK_TYPE_NONE:
-            $txt = "autre";
+            $txt = "autre"; //TBD
             break;
         case TASK_TYPE_QUESTION:
             $txt = "question";
@@ -415,7 +415,7 @@ function convertTaskType($int, $needFirstCharToUpper = false)
     return $txt;
 }
 
-//Done you can use it
+//Set the first char of a string to uppercase
 function setFirstCharToUpperCase($string)
 {
     $string = strtoupper(replaceAccentChars(substr($string, 0, 1))) . substr($string, 1);
@@ -466,25 +466,26 @@ function createToolTipWithPoint($tooltipText, $pointClasses = "icon-small m-2", 
     return $html;
 }
 
-
-function createElementWithFixedLines($text, $nbLines, $cssClassesInAddition = "", $withTitle = false)
+//Create HTML inline element for a text displayed at maximum on $nbLines lines. (like a long text displayed on maximum 4 lines in a div).
+function createElementWithFixedLines($text, $nbLines, $cssClassesInAddition = "", $withTextAsTitle = false)
 {
-    $html = "<span class='txtFixedLines $cssClassesInAddition' style='-webkit-line-clamp: $nbLines;' " . (($withTitle == true) ? "title='" . $text . "'" : "") . ">$text</span>";
+    $html = "<span class='txtFixedLines $cssClassesInAddition' style='-webkit-line-clamp: $nbLines;' " . (($withTextAsTitle == true) ? "title='" . $text . "'" : "") . ">$text</span>";
     return $html;
 }
 
+//Create a pastille (a little colored circle). $cssColor is a valid css color string (ex: "red" or "#ff0e5d")
 function getHTMLPastille($cssColor)
 {
     return "<div class='pastillecircle' style='background-color: $cssColor;'></div>";
 }
 
 //print (or return) an icon with a file, a title, alt attribute, and personalized or default css classes
-function printAnIcon($iconname, $title, $alt, $defaultClasses = "icon-small ml-2 mr-2", $echo = true, $id = "", $hidden = false)
+function printAnIcon($iconname, $title, $alt, $cssClasses = "icon-small ml-2 mr-2", $echo = true, $id = "", $hidden = false)
 {
     if ($id != "") {    //if not null
         $id = "id='$id'";   ///build attribute string
     }   //if null the $id will just be "" so attribute id will not exist at all.
-    $html = "<img title=\"" . $title . "\" class=\"$defaultClasses\" src='view/medias/icons/$iconname' $id alt='$alt' " . (($hidden) ? "hidden" : "") . ">";
+    $html = "<img title=\"" . $title . "\" class=\"$cssClasses\" src='view/medias/icons/$iconname' $id alt='$alt' " . (($hidden) ? "hidden" : "") . ">";
     if ($echo) {
         echo $html;
     } else {
@@ -492,17 +493,16 @@ function printAnIcon($iconname, $title, $alt, $defaultClasses = "icon-small ml-2
     }
 }
 
-//tasks too or identical to works.state ?
-
+//Print a WIP Page informations (for beta versions only).
 function printPageWIPTextInfo()
 {
-    echo "<p class='text-danger'><strong>Page en cours de construction.</strong></p>";
+    echo "<span class='text-danger'><strong>Page en cours de construction.</strong></span>";
 }
 
-//build fullname of the user with firstname and lastname (and a space between)
+//Build full name of the user with firstname and lastname (and a space between)
 function buildFullNameOfUser($user)
 {
-    if (isAtLeastEqual("", [$user['firstname'], $user['lastname']])) {
+    if (isAtLeastEqual("", [$user['firstname'], $user['lastname']]) == false) {
         return $user['firstname'] . " " . $user['lastname'];
     } else {
         return false;
