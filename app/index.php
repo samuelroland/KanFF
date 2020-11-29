@@ -103,6 +103,12 @@ if (!isset($_SESSION['user']['id'])) {
             case "editAccount":
                 editAccount($_POST);
                 break;
+            case "deleteAccount":
+                deleteAccount($_POST);
+                break;
+            case "archiveAccount":
+                archiveAccount($_POST);
+                break;
             case "groups":
                 $option = $_GET['option'];
                 if ($option == null || isAtLeastEqual($option, [1, 2, 3]) == false) {

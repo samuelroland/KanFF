@@ -426,3 +426,25 @@ Réflexion après publication MCD et MLD v1.3:
 - numéro de tâche: unique sur le projet ou pour tous les projets du collectif ?
 - nom du type "sans type" ? "Standard"? "(Aucun)" ? Il faut être clair rapidement pour ne pas créer la confusion.
 - peut-on gérer les tâches dans un travail terminé ?
+
+Conséquences suppression éléments:
+- Users:
+	- condition autre que permission: aucune
+	- creator_id et responsible_id mis à null
+	- join lié supprimé ? Je dirais non. comme on a garde lhistorique "intact".
+- Groups:
+	- condition autre que permission: n'avoir plus de projets en management (soit les avoir supprimés, soit avoir donné le management à un autre groupe.
+	- participate supprimés ? join supprimés ? ou clé group_id mis à null ?
+- Projects:
+	- condition autre que permission: aucune
+	- tous les travaux, logs et tâches sont supprimés
+	- participate supprimés ? ou clé project_id mis à null ?
+- Works:
+	- condition autre que permission: ne doit contenir aucune tâche
+	- pas d'impact sur d'autres tables
+- Tasks:
+	- condition autre que permission: aucune
+	- pas d'impact sur d'autres tables
+- Log:
+	- condition autre que permission: seulement jusqu'à 4 jours avant la création.
+	- pas d'impact sur d'autres tables
