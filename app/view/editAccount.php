@@ -46,9 +46,10 @@ ob_start();
                 <div class="<?= $cssForDivField ?>">
                     <span class="<?= $cssForSpan ?>">Prénom</span>
                     <input id="inpFirstname"
+                           pattern="<?= USER_NAMES_REGEX ?>"
                            class="<?= $cssForInput ?> textFieldToCheck counterVisibleOnlyIfFastMaxLength trimItOnChange"
                            minlength="2"
-                           maxlength="75" type="text"
+                           maxlength="100" type="text"
                            name="firstname" placeholder="Josette" required value="<?= $user['firstname'] ?>"/>
                     <p id="pCounterFirstname" class="m-2"></p>
                 </div>
@@ -56,9 +57,10 @@ ob_start();
                 <div class=" <?= $cssForDivField ?>">
                     <span class="<?= $cssForSpan ?>">Nom</span>
                     <input id="inpLastname"
+                           pattern="<?= USER_NAMES_REGEX ?>"
                            class="<?= $cssForInput ?> textFieldToCheck counterVisibleOnlyIfFastMaxLength trimItOnChange"
                            minlength="2"
-                           maxlength="75" type="text"
+                           maxlength="100" type="text"
                            name="lastname"
                            placeholder="Richard" required value="<?= $user['lastname'] ?>"/>
                     <p id="pCounterLastname" class="m-2"></p>

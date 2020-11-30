@@ -10,6 +10,8 @@ require "model/usersModel.php";
 define("USER_PASSWORD_REGEX", "^(?=.*[A-Za-z])(?=.*\d).{8,}$"); //Regular expression for users passwords
 define("USER_PASSWORD_CONDITIONS", "Le mot de passe doivent contenir: 8 caractères minimum + au moins une lettre et un chiffre");   //text explaining the conditions to create a valid password (valid with the regex)
 
+define("USER_NAMES_REGEX", "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð '-]+$"); //Regular expression for users names (thanks to https://stackoverflow.com/questions/2385701/regular-expression-for-first-and-last-name#answer-2385967)
+
 function editAccount($post)
 {
     $userBase = getUserById($_SESSION['user']['id']);
@@ -44,12 +46,42 @@ function editAccount($post)
                 $msg = 5; //data error
             }
 
-            //If firstname or lastname have changed, generate initials again
-            if ($editUser['firstname'] != $userBase['firstname'] || $editUser['lastname'] != $userBase['lastname']) {
-                $editUser['initials'] = getUniqueInitials(trimIt($post['firstname']), trimIt($post['lastname']));
-                //Check initials if error has occured:
-                if ($editUser['initials'] == false) {    //no unique combination for initials have been found
-                    $msg = 4; //data not unique
+            //Check the length of all strings
+            if (strlen($editUser['username']) < 4 || chkLength($editUser['username'], 15) == false) {
+                $msg = 5; //data error
+            }
+            if (chkLength($editUser['firstname'], 100) == false) {
+                $msg = 5; //data error
+            }
+            if (chkLength($editUser['lastname'], 100) == false) {
+                $msg = 5; //data error
+            }
+            if (chkLength($editUser['status'], 200) == false) {
+                $msg = 5; //data error
+            }
+            if (chkLength($editUser['email'], 254) == false) {
+                $msg = 5; //data error
+            }
+            if (chkLength($editUser['phonenumber'], 20) == false) {
+                $msg = 5; //data error
+            }
+            if (chkLength($editUser['chat_link'], 2000) == false) {
+                $msg = 5; //data error
+            }
+            if (chkLength($editUser['biography'], 2000) == false) {
+                $msg = 5; //data error
+            }
+
+            if (checkNamesValidity($editUser['firstname']) == false || checkNamesValidity($editUser['lastname']) == false) {   //check validity of firstname and lastname
+                $msg = 5; //data error
+            } else {    //generate initials only if firstname and lastname are valid
+                //If firstname or lastname have changed, generate initials again
+                if ($editUser['firstname'] != $userBase['firstname'] || $editUser['lastname'] != $userBase['lastname']) {
+                    $editUser['initials'] = getUniqueInitials($editUser['firstname'], $editUser['lastname']);
+                    //Check initials if error has occurred:
+                    if ($editUser['initials'] == false) {    //no unique combination for initials have been found
+                        $msg = 4; //data not unique
+                    }
                 }
             }
 
@@ -60,8 +92,16 @@ function editAccount($post)
             $editUser['biography'] = trimIt($post['biography']);
             $editUser['status'] = trimIt($post['status']);
 
+            if ($editUser['email'] != "" && isEmailFormat($editUser['email']) == false) {
+                $msg = 5; //data error
+            }
+
             //Onbreak management:
-            $editUser['on_break'] = chkToTinyint($post['on_break']);   //on break value from checkbox
+            if (isCheckboxValueValid($post['on_break'])) {
+                $editUser['on_break'] = chkToTinyint($post['on_break']);   //on break value from checkbox
+            } else {
+                $msg = 5; //data error
+            }
 
             //Is username already taken ?
             if (empty(searchUserByUsername($editUser['username'])) == false && $editUser['username'] != $userBase['username']) {
@@ -184,6 +224,8 @@ function signin($post)
 function getUniqueInitials($firstname, $lastname)
 {
     //Create initials:
+    $firstname = replaceAccentChars($firstname);
+    $lastname = replaceAccentChars($lastname);
     $initials = substr($firstname, 0, 1) . substr($lastname, 0, 1) . substr($lastname, strlen($lastname) - 1);
     $initials = strtoupper($initials);  //set to upper case
 
