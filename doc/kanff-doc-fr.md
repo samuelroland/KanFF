@@ -1,4 +1,5 @@
 # KanFF - Documentation technique
+Rédaction: Samuel, Relecture: Benoît. Version 1.1 du 03.11.2020.
 
 ## Documentations liées spécifiques:
 - [Liste des pages](list-pages.md)
@@ -148,32 +149,38 @@ KanFF est une application web développée **en PHP** (HTML + CSS + Javascript +
 ### Points techniques spécifiques
 - **Stockage des dates:** Dans la base de données toutes les dates sont stockées en format DateTIme, peut importe si ce qui est affiché est précis à la minute ou la seconde (format naturel Date/Heure) ou alors précis au jour (format naturel Date).
 - **Structure du repos:** Le [repository GitHub](github.com/samuelroland/KanFF) contient les éléments suivants
-- **PVs**: Procès Verbaux des réunions (pour les sprints reviews mais pas pour les sprints retrospectives)
-- **app**: le dossier contenant l'application, c'est le dossier racine du serveur
-- **db**: fichiers concernant la structure de la base de données (sources du MCD et MLD), la génération de données et les packs de données, ainsi qu'une documentation technique sur la base de données (signification des champs) appelée "records-management.md".
-- **doc**: les fichiers de documentations les plus importants (MCD + MLD + kanff-doc-fr.md + list-pages.md)
-- **ressources**: création et export des maquettes, fichiers du logo, réflexion en cours.
-- **.gitignore**: fichier standardisé par git qui contient la liste des fichiers ignorés
-- **Journal.md**: Journal de bord du projet qui contient tous les événements importants et également les conclusions des sprints retrospectives.
-- **README.md**: fichier "Lisez-moi" expliquant ce qu'est KanFF, qui contient le logo, ainsi que des informations pour l'installation pour le développement et pour une instance de production.
+    - **PVs**: Procès Verbaux des réunions (pour les sprints reviews mais pas pour les sprints retrospectives)
+    - **app**: le dossier contenant l'application, c'est le dossier racine du serveur
+    - **db**: fichiers concernant la structure de la base de données (sources du MCD et MLD), le script de génération de données `generationData.php` et les packs de données, ainsi que les fichiers dit basiques.
+    - **doc**: tous les fichiers de documentations (MCD + MLD + documentations techniques et liées et documentation utilisateur + maquettes).
+    - **ressources**: fichier source des maquettes, fichiers du logo, fichiers txt de réflexion en cours.
+    - **.gitignore**: fichier standardisé par git qui contient la liste des fichiers ignorés
+    - **Journal.md**: Journal de bord du projet qui contient tous les événements importants et également les conclusions des sprints retrospectives.
+    - **README.md**: fichier standardisé "Lisez-moi" expliquant ce qu'est KanFF, qui contient le logo, ainsi que des informations pour l'installation pour le développement et pour une instance de production.
 - **Validation des actions importantes**: Afin de valider les actions importantes, comme la création ou la suppression d'un projet, d'un groupe, d'un compte, ... (liste non exhaustive), il est demandé, pour effectuer ces actions, de saisir son mot de passe. Ceci afin d'empêcher une action involontaire, une action d'une personne malveillante sur une session laissée ouverte sans surveillance, ou l'action de personnes malveillantes sur à un vol de cookies (identification possible avec les cookies mais mot de passe inconnu). Voir fonction checkUserPassword() ci-dessous.
 - **Valeurs booléennes**: le type BOOL n'était pas pris en charge par MySQL, toutes les valeurs booléennes sont manipulées en type TINYINT (1bit donc valeurs possibles sont 0 ou 1) et ne sont pas converties (il n'y a pas de changement de type TINYINT vers BOOL et inversément). Dans toute l'application toutes les valeurs en TINYINT valant 0 signifie false et celles valant 1 signifient true. (Attention à ne pas mélanger avec les valeurs INT, par ex. users.state qui peut valoir de 0 à 8).
-- **3 fichiers de fonctions d'aides (fichier help): **`helpers.php` (fonctions générant du contenu commun), help.php (fonctions contrôleur communes), global.js (fonctions JS communes). Toutes ces fonctions sont décrites dans un document séparé [ici](doc/helpers-functions.md).
+- **3 fichiers de fonctions d'aides (fichier help)**: `helpers.php` (fonctions générant du contenu commun), help.php (fonctions contrôleur communes), global.js (fonctions JS communes). Toutes ces fonctions sont décrites dans un document séparé [ici](doc/helpers-functions.md).
 - **Login**: il est possible de se connecter avec un email, un nom d'utilisateur ou des initiales. Ces 3 valeurs sont donc uniques dans la base de données.
-- **Génération unique des initiales**: Les initiales sont toujours stockées en majuscules. Le premier format est "première lettre du prénom + première lettre du nom + dernière lettre du nom" et le deuxième est "première lettre du prénom + première lettre du nom + deuxième lettre du nom". Si le premier format ne permet pas l'unicité, alors le 2ème format est appliqué. Si ce n'est toujours pas unique, il y a n'a pas d'autres formats prévus et la création du compte ne peut pas se faire... Cest la fonciton `getUniqueInitials($firstname, $lastname)`qui s'en occupe.
+- **Génération unique des initiales**: Les initiales sont toujours stockées en majuscules. Le premier format est "première lettre du prénom + première lettre du nom + dernière lettre du nom" et le deuxième est "première lettre du prénom + première lettre du nom + deuxième lettre du nom". Si le premier format ne permet pas l'unicité, alors le 2ème format est appliqué. Si ce n'est toujours pas unique, il y a n'a pas d'autres formats prévus et la création du compte ne peut pas se faire... Cest la fonction `getUniqueInitials($firstname, $lastname)` qui s'en occupe.
 - **Champs INT et constantes**: La base de données contenant de nombreux champs de type INT stockant diverses valeurs ayant une signification, il est indispensable de prévoir un moyen pratique pour développer sans connaître les valeurs INT mais uniquement en s'adaptant à leur signification, et pouvoir changer ou rajouter une nouvelle valeur en changeant uniquement le code dans un fichier help. Ceci concerne les champs state, type, visibility et need_help notamment.  
-       - On définit des constantes PHP dans le fichier `helpers.php`:
-           - define("TASK_STATE_TODO", 1);
-           - define("TASK_STATE_INRUN", 2);
-           - define("TASK_STATE_DONE", 3);
-       - Puis on définit une autre constante liste: `define("TASK_LIST_STATE", [*TASK_STATE_TODO*, *TASK_STATE_INRUN*, *TASK_STATE_DONE*]);`
-       - Puis on crée aussi une fonction qui va permettre de traduire les valeurs dans leur signification en français: `function convertTaskState($int, $needFirstCharToUpper = false)`
-       - Ainsi quand on reçoit les valeurs de la base de données ou d'ailleurs en INT et qu'on veut avoir la signification en français (pour l'afficher par ex), on appelle `convertTaskState($task['state'])`pour avoir "en cours" par ex.
-       - Dans le code on n'utilise jamais les valeurs brut (1, 2, 3, ...) on utilise uniquement les constantes (par ex. un if `if ($task['state'] == TASK_STATE_DONE)` et pas `if ($task['state'] == 3)`).
-- **Mode debug:** le mode debug permet d'afficher les var_dump() lancés par un remplacement `function displaydebug($var, $needPrint_r = false)`. la variable $debug dans `.const.php` doit être définie à true pour que les var_dump() s'affichent. Ce qui est très pratique pour faire du debug sans impacter le code pour tout le monde ainsi que pour la production (et donc pouvoir activer/désactiver l'affichage var_dump() est très pratique en développement).
-- **`CRUDModel.php`:** ce fichier implémente une série de fonctions permettant d'effectuer des actions CRUD (Create Read Update Delete) avec la base de données. Des fonctions getAll(), getOne(), Query(), getByCondition, createOne(), updateOne(), deleteOne() sont implémentées afin de ne plus devoir gérer PDO dans d'autres fichiers model et pouvoir souvent éviter d'écrire du SQL quand la requête est "standard".
+    - On définit des constantes PHP dans le fichier `helpers.php`:
+        ```php
+        define("TASK_STATE_TODO", 1);
+        define("TASK_STATE_INRUN", 2);
+        define("TASK_STATE_DONE", 3);
+        ```
+    - Puis on définit une autre constante qui est la liste des constantes ordrées logiquement (l'ordre sera visible dans les `<select>` notamment):
+        ```php
+        define("TASK_LIST_STATE", [TASK_STATE_TODO, TASK_STATE_INRUN, TASK_STATE_DONE]);
+        ```
+    - Puis on crée aussi une fonction qui va permettre de traduire les valeurs dans leur signification en français: `function convertTaskState($int, $needFirstCharToUpper = false)`
+    - Ainsi quand on reçoit les valeurs de la base de données ou d'ailleurs en INT et qu'on veut avoir la signification en français (pour l'afficher par ex), on appelle `convertTaskState($task['state'])`pour avoir "en cours" par ex.
+    - Dans le code on n'utilise jamais les valeurs brut (1, 2, 3, ...) on utilise uniquement les constantes (par ex. un if `if ($task['state'] == TASK_STATE_DONE)` et pas `if ($task['state'] == 3)`), comme ca si la valeur 3 change de signification il y aura peu de code à modifier.
+    - Les différentes valeurs possibles et leurs significations sont décrites de manière détaillées dans [les spécifications de la base de données](db-specifications.md). Les constantes correspondantes peuvent être trouvées dans `helpers.php`. Elles sont toujours nommées de la manière suivante: `TABLE_CHAMP_SIGNIFICATION` par ex. `USER_STATE_BANNED` ou `GROUP_VISIBILITY_TITLE`. Les constantes "liste" sont nommées `TABLE_LIST_CHAMP` par ex. `GROUP_LIST_STATE` ou `WORK_LIST_NEEDHELP`.
+- **Mode debug:** le mode debug permet d'afficher les var_dump() lancés par un remplacement `function displaydebug($var, $needPrint_r = false)`. la variable $debug dans `.const.php` doit être définie à `true` pour que les var_dump() s'affichent. Ce qui est très pratique pour faire du debug sans impacter le code pour tout le monde ainsi que pour la production (et donc pouvoir activer/désactiver l'affichage var_dump() est très pratique en développement).
+- **`CRUDModel.php`:** ce fichier implémente une série de fonctions permettant d'effectuer des actions CRUD (Create Read Update Delete) avec la base de données. Des fonctions `Query()`, `getAll()`, `getOne()`, `getByCondition`, `createOne()`, `updateOne()`, `deleteOne()` sont implémentées afin de ne plus devoir gérer PDO dans d'autres fichiers model et pouvoir souvent éviter d'écrire du SQL quand la requête est "standard". Ces fonctions sont décrites dans [les spécifications de la base de données](db-specifications.md).
 - Le fichier `.const.php` des informations pour la base de données ainsi que d'autres configurations propres aux machines.
-- **L'extension PDO** est utilisée pour faire les requêtes SQL sur la base de données MySQL. L'extension doit être activée dans le fichier php.ini. (voir readme).
+- **L'extension PDO** est utilisée pour faire les requêtes SQL sur la base de données MySQL. L'extension doit être activée dans le fichier `php.ini` (voir readme).
 - **Types de vue**: les types de vues pour le gabarit permettent d'adapter la zone du gabarit prévue pour la vue. Valeurs possibles:
     - `full`: simple marge `p-1`: pour les pages qui doivent la totalité de l'espace disponible.
     - `large`: simple marge `p-3`: pour la plupart des pages avec une marge standard
@@ -193,44 +200,68 @@ KanFF est une application web développée **en PHP** (HTML + CSS + Javascript +
         - Les messages API sont affichés à l'aide de la fonction `displayResponseMsg(val, checkmark = true, color = "black")` en JS. Ce sont des messages temporaires qui disparaissent après quelques secondes (appelé `jsTempMsg`). Plusieurs messages peuvent être affichés à la fois.
         - Exemple de 2 `jsTempMsg` (avec checkmark `false` puis `true`):  
         ![exemple de jsTempMsg](img/jstempmsg.png)
+- **Couleurs logo**: 
+    - Codes couleurs hexadécimaux:
+        - Bleu foncé: `#38417f`
+        - Bleu clair: `#4fb6e3`
+        - Vert: `#348a19`
+    - Classes CSS pour arrière fond avec couleurs du logo:
+        - Bleu foncé: `darkbluelogo`
+        - Bleu clair: `lightbluelogo`
+        - Vert: `greenlogo`
+    - Classes CSS pour couleur du texte avec couleurs du logo:
+        - Bleu foncé: `txtdarkbluelogo`
+        - Bleu clair: `txtlightbluelogo`
+        - Vert: `txtgreenlogo`
+- **Les tooltips**: ce sont les petits encadrés qui apparaissent au survol et qui contiennent du texte. Ils sont très utilisés pour les icônes d'aide ("?") afin d'expliquer rapidement le but ou le fonctionnement d'une fonctionnalité ou d'un champ, mais aussi pour mentionner des membres et à d'autres occasions.
+    - Exemples:  
+        ![tooltip example](img/tooltip_point.png)
+        ![tooltip example](img/tooltip_mentionuser.png)
+    - On les crée avec la fonction `createToolTip($innerText, $tooltipText, $link = false, $type = "top")`. Si c'est un tooltip sur une icône d'aide, alors on peut directement utiliser `createToolTipWithPoint($tooltipText, $pointClasses = "icon-small m-2", $link = false, $type = "top")`.
+- **Afficher des icônes**: pour ne pas avoir besoin de constamment réécrire le HTML pour créer une icône, il existe la fonction `printAnIcon($iconname, $title, $alt, $defaultClasses = "icon-small ml-2 mr-2", $echo = true, $id = "", $hidden = false)`. Des classes CSS par défaut sont donc appliquées.
+- **Le dropdown user**: est la petite zone qui s'affiche avec un clic sur les initiales de la personne connectée.
+    - Aperçu:  
+    ![dropdown user example](img/dropdown_user.PNG)
+- **Mots de passe**: les mots de passe des membres sont hashés et salés avec la fonction `password_hash($password, PASSWORD_DEFAULT);`. Les mots de passe doivent respecter une Regex (regex stockée dans la constante `USER_PASSWORD_REGEX` et la description est stockée dans `USER_PASSWORD_CONDITIONS`)
+- **Les regex (expressions régulières)**: sont stockées dans des constantes dans le format sans "/" de départ et de fin (compatible en HTML et JS). Les "/" sont nécessaires en PHP. La fonction `checkRegex($string, $regex)` existe en PHP et `testRegex(regex, string)` existe en JS. Pour tester des regex pour un certain type de valeur (nom, email, username, ...), des fonctions sont créés parfois. Par ex. `isEmailFormat($text)`.
 
 ### Livraisons
-Il y a 3 publications majeures et d'autres petites entre deux. Une publication est faite à la fin de chaque sprint sur GitHub. (Only tags are displayed here)
+Il y a 3 publications majeures et d'autres petites entre deux. Une publication est faite à la fin de chaque sprint sur GitHub. (Seulement les tags sont affichés ici). Pour voir les releases et leur description, suivez le lien de l'image.
 
 [![livraisons](img/releases_2.0-beta.png)](https://github.com/samuelroland/KanFF/releases)
 
-### Erreurs restantes  
-
-Les erreurs décrites ci-dessous concernent la version actuellement (`v2.0-beta`) implémentée uniquement sur les stories terminées. (Les stories en cours contenant des tonnes d'erreurs et de partie non terminées, dû au manque de temps):
-
+### Erreurs restantes
+Les erreurs décrites ci-dessous concernent la version actuellement (`v2.0-beta`) implémentée uniquement sur les stories terminées. (Les stories en cours contenant des tonnes d'erreurs et de partie non terminées, dû au manque de temps, ne sont pas incluses dans la liste):
 - Les initiales devraient avoir d'autres formats possible et mieux avertir l'utilisateur du problème.
 - Il y a des erreurs dans la console JS dû à une déclaration des événements sur chaque page au lieu de pages ciblées.
 - Le texte d'explications des fonctionnalités est parfois trop long et mal écrit. Il faudrait le réécrire en demandant des avis extérieurs.
 - Le menu n'est pas responsive et ne s'adapte pas sur écran restreint. Il est cassé et la plupart des boutons deviennent invisible. Il faudrait gérer les options et l'affichage du menu pour les écrans moins larges.
 
-## Conclusions
+## Conclusion
 Cette conclusion est faite à la fin du module Projet Web+BDD (`v2.0-beta`) et l'état des lieux ne concerne donc que ce moment-là.
 
-### Objectifs atteints:
+### Objectifs atteints
 - Gestion des membres basiques (création compte, connexion, changement d'état),
 - Début de la gestion des projets (kanban, détails d'un projet)
 
-### Objectifs non-atteints:
+### Objectifs non-atteints
+- Gestion des groupes (juste liste des groupes en cours et créer un groupe encore en cours) manquante.
+- Gestion complète des membres (édition du compte, détails d'un membre, ...) pas terminée.
+- Gestion complète des projets (projets, travaux et tâches) pas terminée.
 
-- Gestion des groupes (juste liste des groupes en cours et créer un groupe encore en cours) manquant.
-- Gestion complète des membres (édition du compte, détails d'un membre, ...) pas terminés.
-- Gestion des projets (projets, travaux et tâches).
-
-Toutes les fonctionnalités sont uniquement possibles pour 1 collectif.
+Une instance ne peut héberger qu'un seul collectif.
 
 ## Annexes
 ### Sources – Bibliographie
+<!--
 Liste des livres utilisés (Titre, auteur, date), des sites Internet (URL) consultés, des articles (Revue, date, titre, auteur)… Et de toutes les aides externes (noms)
-- php.net
-- stackoverflow.com
-- w3schools.com
+-->
+- [php.net](https://php.net): Documentation officiel PHP
+- [stackoverflow.com](https://stackoverflow.com)
+- [w3schools.com](https://w3schools.com)
+- [sql.sh](https://sql.sh): Documentation officiel SQL
 - M. Carrel pour aide et conseils
 - M. Ithurbide pour les conseils en gestion de projet.
 
 ### Journal de bord du projet
-Le journal de bord se trouve sur GitHub [dans `Journal.md`](https://github.com/samuelroland/KanFF/blob/master/Journal.md) et contient tous les événements importants, décisions, changements, documentations, ...
+Le journal de bord se trouve sur GitHub ([voir `Journal.md`](../Journal.md)) et contient tous les événements importants, décisions, changements, documentations, ...
