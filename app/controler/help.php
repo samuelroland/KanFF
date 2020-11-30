@@ -32,6 +32,12 @@ function chkToTinyint($value)
     return (is_null($value)) ? "0" : "1";
 }
 
+//is value sent by a checkbox valid ? (can be "on" or empty) but no other possibilities.
+function isCheckboxValueValid($value)
+{
+    return ($value == "on" || $value == "");
+}
+
 //Define the next flashmessage with his number
 function flshmsg($number)
 {
@@ -330,6 +336,13 @@ function checkRegex($string, $regex)
 {
     $regex = "/" . $regex . "/";    //transform regex raw format, with adding slash at start and end
     return preg_match($regex, $string);
+}
+
+//Check validity of names (alphabetical and "-" and " " authorized only):
+function checkNamesValidity($name)
+{
+    $regex = USER_NAMES_REGEX;
+    return checkRegex($name, $regex);
 }
 
 ?>
