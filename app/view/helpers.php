@@ -509,4 +509,25 @@ function buildFullNameOfUser($user)
     }
 }
 
+//Build sentence "Defined as approved,
+function buildSentenceAccountStateLastChange($user, $middleBreak = false, $introductionIncluded = true)
+{
+    //INFO: unapproved user don't have state_modifier_id and state_modification_date. All other state must be associated with the date (and the admin id is facultative).
+    if ($user['state'] == USER_STATE_UNAPPROVED) {  //if unapproved, the state hasn't been changed yet (no information at all)
+        $sentence = "Aucun changement d'état pour l'instant.";
+    } else {
+        $sentence = "";
+        if ($introductionIncluded) {
+            $sentence .= "Défini comme <em>" . convertUserState($user['state']) . "</em>" . (($middleBreak == true) ? "<br>" : "");
+        }
+        $sentence .= " le " . DTToHumanDate($user['state_modification_date'], "simpletime");  //the date must be not null if state has changed
+        if ($user['state_modifier_id'] != null) {   //the admin can be anonyme
+            $sentence .= " par " . mentionUser($user['state_modifier']);
+        } else {
+            $sentence .= " (Admin anonyme).";
+        }
+    }
+    return $sentence;
+}
+
 ?>
