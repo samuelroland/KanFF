@@ -33,9 +33,9 @@ L'application se veut **polyvalente** et devrait pouvoir être utilisée dans de
 L'application doit permettre: de **gérer des projets, gérer des tâches**, la répartition du travail, de planifier des projets, de gérer les **membres** et les **groupes**, ... afin de **collaborer à plusieurs sur des projets**, avoir une **vision d'ensemble large** (de tous les projets, travaux, tâches, groupes et membres du collectif), mieux répartir la charge de travail, inclure de nouvelles personnes et aussi les personnes moins engagées...
 
 ### Publications prévues ou passées (releases)
--[x] KanFF Beta v1.0, le 19.06.2020
--[x] KanFF Beta v2.0, le 13.11.2020
--[ ] **KanFF v1.0**, le 29.01.2021
+- [x] KanFF Beta v1.0, le 19.06.2020
+- [x] KanFF Beta v2.0, le 13.11.2020
+- [ ] **KanFF v1.0**, le 29.01.2021
 
 D'autres petites publications sont faites entre ces grosses publications à la fin de chaque sprint (0.1-beta, 0.2-beta, 1.1-beta, 1.2-beta, 2.1-beta, 2.2-beta).
 
