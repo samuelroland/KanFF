@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", init)
 function init() {
     if (window.location.toString().includes("members")) {
         btnMembersEditMode.addEventListener("click", manageEditMode)
-        $(".sltAccountState").on("change", changeAccountState)
+        $(".sltAccountState").on("change", tryChangeAccountState)
     }
     $(".icnChangeStatus").on("click", tryChangeStatus)  //present everywhere because is in the gabarit
 }
@@ -72,26 +72,43 @@ function manageEditMode() {
     $(".sltAccountState").attr("disabled", !document.querySelector(".sltAccountState").disabled)
 }
 
-/* 2 functions to manage change of the state of a user account in JS and Ajax */
+/* 3 functions to manage change of the state of a user account in JS and Ajax */
 
-//onchange on a .sltAccountState, send request (ajax call) to change account state
-function changeAccountState(event) {
+//onchange on a .sltAccountState, try to change account state:
+function tryChangeAccountState(event) {
+    //Get informations for confirmation text and password check
     slt = event.target
-    iduser = slt.getAttribute("data-user")
+    fullname = getRealParentHavingId(slt).querySelector(".memberfullname").innerText
+    newstatetext = slt.options[slt.selectedIndex].innerText
     pwd = inpPassword.value
 
     if (pwd == "") {  //if there is no password given
         slt.value = slt.getAttribute("data-startstate") //set at the current state
         inpPassword.focus() //focus the password input
         displayResponseMsg("Mot de passe non rempli", false)    //display error msg
-    } else {    //else the ajax call can be sent
-        if (checkAllValuesAreNotEmpty([slt.value, pwd])) {
-            sendRequest("POST", "?action=updateAccountState", accountStateCallback, {
-                'id': iduser,
-                'state': slt.value,
-                'password': pwd
-            })
+    } else {
+        //popup a confirmation:
+        confirmation = confirm("Confirmez-vous vouloir changer l'état de " + fullname + " à '" + newstatetext + "' ?")
+        if (confirmation == true) { //if confirmation has been validated
+            changeAccountState(slt) //send the request
+        } else {    //if confirmation is "cancel", set the value as origin for the select and display cancellation message
+            slt.value = slt.getAttribute("data-startstate")
+            displayResponseMsg("Changement d'état annulé.")
         }
+    }
+}
+
+//send request (ajax call) to change account state
+function changeAccountState(slt) {
+    iduser = slt.getAttribute("data-user")
+    pwd = inpPassword.value
+
+    if (checkAllValuesAreNotEmpty([slt.value, pwd])) {  //last minute check
+        sendRequest("POST", "?action=updateAccountState", accountStateCallback, {
+            'id': iduser,
+            'state': slt.value,
+            'password': pwd
+        })
     }
 }
 
@@ -102,9 +119,9 @@ function accountStateCallback(response) {
     if (isSuccess == true) {
         user = response.data.user
         lastSlt = document.querySelector("select[data-user='" + user.id + "']")
+        lastSlt.style.backgroundColor = "#d9edff"
         lastSlt.disabled = true
-    }
-    if (isSuccess == false) {
+    } else {
         if (response.data.hasOwnProperty("user")) {
             user = response.data.user
             lastSlt = document.querySelector("select[data-user='" + user.id + "']")

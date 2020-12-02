@@ -11,7 +11,13 @@ require_once "model/groupsModel.php";
 //display the page groups
 function members($option)
 {
-    $members = getAllUsersByInscriptionDesc();   //get all users without any sorting
+    $members = getAllUsersByInscriptionDesc();   //get all users with sorting by inscription date
+
+    foreach ($members as $key => $member) {
+        if ($member['state_modifier_id'] != null) {
+            $members[$key]['state_modifier'] = $members[$member['state_modifier_id']];
+        }
+    }
 
     //Countings and sorting of the users:
     $nbUnapprovedUsers = 0;

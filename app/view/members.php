@@ -64,6 +64,9 @@ $isAdmin = checkAdmin();
                 <?php
                 if ($isAdmin) {
                     echo "<th>Etat du<br> compte</th>";
+                    if ($option != 5) {
+                        echo "<th>Changement état</th>";
+                    }
                 }
                 ?>
                 <?= ($isAdmin == false && ($option == 1 || $option == 2)) ? "" : "<th>En<br>pause</th>" ?>
@@ -75,11 +78,12 @@ $isAdmin = checkAdmin();
             $test = 0;
             foreach ($members as $member) {
                 ?>
-                <tr class="userline clickable  <?= ($member['id'] == $_SESSION['user']['id']) ? "yellowveryligthheader" : "" ?>"
+                <tr id="tr-member-<?= $member['id'] ?>"
+                    class="userline clickable  <?= ($member['id'] == $_SESSION['user']['id']) ? "yellowveryligthheader" : "" ?>"
                     data-href="?action=member&id=<?= $member['id'] ?>">
                     <td><?= $member['initials'] ?></td>
                     <td><?= $member['username'] ?></td>
-                    <td><?= $member['firstname'] . " <strong>" . $member['lastname'] . "</strong>" ?></td>
+                    <td class="memberfullname"><?= $member['firstname'] . " <strong>" . $member['lastname'] . "</strong>" ?></td>
                     <td><?= "<em>" . createElementWithFixedLines(substrText($member['status'], 150), 1) . "</em>" ?></td>
                     <td><?= DTToHumanDate($member['inscription'], "simpleday") ?></td>
                     <?php //State account cell
@@ -91,11 +95,14 @@ $isAdmin = checkAdmin();
                             }
                         }
                         echo "</select></td>";
+                        if ($option != 5) {
+                            echo "<td>" . buildSentenceAccountStateLastChange($member, true, false) . "</td>";
+                        }
                     }
                     ?>
                     <?php //On break cell:
                     //$cellOnBreak = '<td><input type="checkbox" disabled ' . (($member['on_break'] == 1) ? "checked" : "") . '></td>';
-                    $cellOnBreak = '<td>' . (($member['on_break'] == 1) ? "Oui" : "Non") . '</td>';
+                    $cellOnBreak = '<td class="">' . (($member['on_break'] == 1) ? printAnIcon("break.svg", "En pause", "break icon", "flexdiv align-content-center icon-middlesmall marginauto", false) : "") . '</td>';
                     echo ($isAdmin == false && ($option == 1 || $option == 2)) ? "" : $cellOnBreak
                     ?>
                 </tr>
