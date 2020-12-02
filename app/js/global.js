@@ -7,18 +7,6 @@
 
 //TODO: precise and enhance funcitons names
 
-//manage the response of the feedback sent
-function manageResponseOfSendFeedback(response) {
-    manageResponseStatus(response)
-    inpSub = document.querySelector("input[name='subject']")
-    inpContent = document.querySelector("textarea[name='content']")
-
-    if (response.status == "success") {
-        inpSub.value = ""
-        inpContent.value = ""
-    }
-}
-
 //Get an array with key corresponding to name fields and with value, of a form (sending with Ajax
 function getArrayFromAFormFieldsWithName(formname) {
     frm = document.getElementById(formname)
@@ -103,14 +91,14 @@ function displayResponseMsg(val, checkmark = true, color = "black") {
 }
 
 function checkAllValuesAreNotEmpty(values) {
-    logIt(values)
-    logIt("checkAllValuesAreNotEmpty contains bugs...")
+    result = true   //default value
     Array.prototype.forEach.call(values, function (val) {
         if (val === null || val === undefined || val === "") {
-            return false
+            result = false
         }
     })
-    return true
+    logIt("checkAllValuesAreNotEmpty:" + result)
+    return result;
 }
 
 //manage the response status

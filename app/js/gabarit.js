@@ -21,28 +21,12 @@ $(document).ready(function () {
     if (document.getElementById("btnCancelFeedback") != null) {
         document.getElementById("btnCancelFeedback").addEventListener("click", function () {
             txtFeedback.value = ""
-
         })
     }
 
     //#btnSendFeedback on click check form and send if verified
     if (document.getElementById("btnSendFeedback") != null) {
-        document.getElementById("btnSendFeedback").addEventListener("click", function (sender) {
-            if (txtFeedback.value != "" && txtFeedbackSubject.value != "") {
-                data = getArrayFromAFormFieldsWithName("frmFeedback")
-                if (chkFeedbackEmail.checked == false) {    //if there email will not be sent
-                    data['email'] = null    //set null (but don't remove the field)
-                }
-
-                if (chkFeedbackEmail.checked == true && txtFeedbackEmail.value != "" && isEmailFormat(txtFeedbackEmail.value) || chkFeedbackEmail.checked == false) {    //send only if is checked and email is not empty, or is not checked
-                    sendRequest("POST", "?action=sendFeedback", manageResponseOfSendFeedback, data)
-                } else {
-                    displayResponseMsg("Envoi impossible. Email invalide.", false)
-                }
-            } else {
-                displayResponseMsg("Envoi impossible. Sujet et contenu requis.", false)
-            }
-        })
+        document.getElementById("btnSendFeedback").addEventListener("click", sendFeedback)
     }
     $("#txtFeedbackInfos").on("click", function () { //when click on infos, display or hide detailed informations
         invertHiddenState(divFeedbackInfos)
@@ -54,6 +38,36 @@ $(document).ready(function () {
         divFeedbackEmail.hidden = chkFeedbackEmail.checked
     })
 })
+
+//send feedback from the gabarit:
+function sendFeedback() {
+    if (txtFeedback.value != "" && txtFeedbackSubject.value != "") {
+        data = getArrayFromAFormFieldsWithName("frmFeedback")
+        if (chkFeedbackEmail.checked == false) {    //if there email will not be sent
+            data['email'] = null    //set null (but don't remove the field)
+        }
+
+        if (chkFeedbackEmail.checked == true && txtFeedbackEmail.value != "" && isEmailFormat(txtFeedbackEmail.value) || chkFeedbackEmail.checked == false) {    //send only if is checked and email is not empty, or is not checked
+            sendRequest("POST", "?action=sendFeedback", sendFeedbackCallback, data)
+        } else {
+            displayResponseMsg("Envoi impossible. Email invalide.", false)
+        }
+    } else {
+        displayResponseMsg("Envoi impossible. Sujet et contenu requis.", false)
+    }
+}
+
+//manage the response of the feedback sent
+function sendFeedbackCallback(response) {
+    manageResponseStatus(response)
+    inpSub = document.querySelector("input[name='subject']")
+    inpContent = document.querySelector("textarea[name='content']")
+
+    if (response.status == "success") {
+        inpSub.value = ""
+        inpContent.value = ""
+    }
+}
 
 //When the page is loaded, start the check for remove bad text counter initialisation (called 0/50 instead of 0/100 for example)
 document.addEventListener('DOMContentLoaded', function () {
