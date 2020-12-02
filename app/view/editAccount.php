@@ -116,21 +116,10 @@ ob_start();
                 <div class="<?= $cssForDivField ?>">
                     <span class=" <?= $cssForSpan ?>">Changement d'état</span>
                     <span class=" <?= $cssForSpan ?> col-md-5 col-sm-7 d-block" type="text" readonly><?php
-                        if ($user['state_modification_date'] != null || $user['state_modifier_id'] != null) {
-                            echo "Défini comme " . convertUserState($user['state']);
-                            if ($user['state_modification_date'] != null) {
-                                echo " le " . DTToHumanDate($user['state_modification_date'], "simpletime");
-                            }
-                            if ($user['state_modifier_id'] != null) {
-                                echo " par " . mentionUser($user['state_modifier']);
-                            }
-                        } else {
-                            echo "Aucun changement d'état pour l'instant.";
-                        }
-
+                        echo buildSentenceAccountStateLastChange($user);
                         ?></span>
                     <div class="">
-                        <?= createToolTipWithPoint("Information concernant le dernier changement d'état", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
+                        <?= createToolTipWithPoint("Information concernant le dernier changement d'état", "icon-small ml-2 mr-2 m-2", false, "right") ?>
                     </div>
                 </div>
 
