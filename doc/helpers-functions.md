@@ -59,6 +59,26 @@ Convert[x][y] [x] is the table where the field[y] is located, we want to convert
 #### Return: void
  
 ##
+Create hoverables texts-tooltips for help 
+   
+       function createToolTip($innerText, $tooltipText, $link = false, $type = "top")
+#### Parameters:
+- $innerText: must contain the content we want to show when tooltip is hovered
+- $tooltipText: must contain the title of tooltip 
+- $link: can contain a link for redirection
+- $type: must contain where we want to place the data
+#### Return: string
+##
+Create hoverables texts-tooltips for help 
+   
+       function createToolTipWithPoint($tooltipText, $pointClasses = "icon-small m-2", $link = false, $type = "top")
+#### Parameters:
+- $innerText: must contain the content we want to show when tooltip' point is hovered
+- $pointClasses: can contain classes for the tooltip's point
+- $link: can contain a link for redirection
+- $type: must contain where we want to place the data
+#### Return: string
+##
 Return the given string with an upper char for first letter depends on [needFirstCharToUpper]
    
     function manageIfApplyOnFirstChar($txt, $needFirstCharToUpper)
@@ -74,6 +94,43 @@ Display the firstname and lastname
 - $basicUser: must contain the user we want to diplay with the hover
 - $css: must contain a css class
 #### Return: string
+##
+print (or return) an icon with a file, a title, alt attribute, and personalized or default css classes
+   
+    function printAnIcon($iconname, $title, $alt, $defaultClasses = "icon-small ml-2 mr-2", $echo = true, $id = "", $hidden = false)
+#### Parameters:
+- $iconname: must contain the name of file we want to use in this icon
+- $title: must contain a title
+- $alt: must contain an alternative text if image isn't avalible
+- $defaultClasses: can contain classes 
+- $echo: can contain a boolean, true if we want to show that in a echo
+- $id: can contain an id
+- $hidden: can contain a boolean variable to show or not the icon
+#### Return: string
+##
+Create an element with fixed number of line
+   
+    function createElementWithFixedLines($text, $nbLines, $cssClassesInAddition = "", $withTitle = false)
+#### Parameters:
+- $text: must contain the text we want to show
+- $nbLines: must contain a number of line
+- $cssClassesInAddition: can contain classes 
+- $withTitle: can contain boolean 
+#### Return: string
+##
+Create a colored circle with custom color 
+   
+    function getHTMLPastille($cssColor)
+#### Parameters:
+- $cssColor: must contain a css Color code or name
+#### Return: string
+##
+Write if the current page is "Work In Progress"
+   
+    function printPageWIPTextInfo()
+#### Parameters:
+- none
+#### Return: void
 
 ## help.php
 
@@ -270,6 +327,20 @@ Get error value if not true
 
 ## global.js
 ##
+Manage the response status, if it's fail success or an error
+   
+    function manageResponseStatus(response)
+#### Parameters:
+- response: must contain all the data we need for an ajax's response 
+#### Return: boolean
+##
+Manage the response status, if it's fail success or an error
+   
+    function manageResponseStatus(response)
+#### Parameters:
+- response: must contain all the data we need for an ajax's response 
+#### Return: boolean
+##
 Return the given string without all numbers
    
     function removeNumbersInString(text)
@@ -324,6 +395,7 @@ Return if [needle] is contain in the things after "action=" in the querystring
 #### Parameters:
 - needle: must contain the text that we want to check if is contained in querystring
 #### Return: bool
+
 ##
 Create a div with a DOM object inside from a string with html code
    
