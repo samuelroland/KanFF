@@ -69,7 +69,14 @@ $isAdmin = checkAdmin();
                     }
                 }
                 ?>
-                <?= ($isAdmin == false && ($option == 1 || $option == 2)) ? "" : "<th>En<br>pause</th>" ?>
+                <?php
+                $onbreakColumn = ($isAdmin == false && ($option == 1 || $option == 2) || ($isAdmin == true && $option == 5));
+                echo($onbreakColumn ? "" : "<th>En<br>pause</th>")
+                ?>
+                <?php
+                $deletionColumn = ($isAdmin == false || ($isAdmin == true && $option != 5));
+                echo($deletionColumn ? "" : "<th>Suppression</th>");
+                ?>
 
             </tr>
             </thead>
@@ -103,7 +110,12 @@ $isAdmin = checkAdmin();
                     <?php //On break cell:
                     //$cellOnBreak = '<td><input type="checkbox" disabled ' . (($member['on_break'] == 1) ? "checked" : "") . '></td>';
                     $cellOnBreak = '<td class="">' . (($member['on_break'] == 1) ? printAnIcon("break.svg", "En pause", "break icon", "flexdiv align-content-center icon-middlesmall marginauto", false) : "") . '</td>';
-                    echo ($isAdmin == false && ($option == 1 || $option == 2)) ? "" : $cellOnBreak
+                    echo ($onbreakColumn) ? "" : $cellOnBreak
+                    ?>
+
+                    <?php //Deletion column
+                    $cellDeletion = '<td class=""><span data-userid="' . $member['id'] . '" class="membersTrashIcons cursorforbidden" id="membertrash-' . $member['id'] . '">' . printAnIcon("trash.png", "Supprimer ce compte", "trash icon", " flexdiv icon-middlesmall marginauto", false) . '</span></td>';
+                    echo ($deletionColumn) ? "" : $cellDeletion
                     ?>
                 </tr>
             <?php } ?>

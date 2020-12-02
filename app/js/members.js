@@ -13,6 +13,7 @@ function init() {
         $(".sltAccountState").on("change", tryChangeAccountState)
     }
     $(".icnChangeStatus").on("click", tryChangeStatus)  //present everywhere because is in the gabarit
+    $(".membersTrashIcons").on("click", tryDeleteUnapprovedUser)  //present everywhere because is in the gabarit
 }
 
 /* 3 functions to manage change of the user status in JS and Ajax */
@@ -70,6 +71,14 @@ function manageEditMode() {
 
     //change disabled state of .sltAccountState elements (actual disabled state is taken in the first .sltAccountState element
     $(".sltAccountState").attr("disabled", !document.querySelector(".sltAccountState").disabled)
+    if (document.querySelector(".membersTrashIcons").classList.contains("cursorpointer")) { //if contains class .cursorpointer
+        $(".membersTrashIcons").removeClass("cursorpointer") //remove the pointer cursor
+        $(".membersTrashIcons").addClass("cursorforbidden") //add the forbidden cursor
+    } else {
+        $(".membersTrashIcons").removeClass("cursorforbidden") //remove the forbidden cursor
+        $(".membersTrashIcons").addClass("cursorpointer")    //add the pointer cursor
+    }
+
 }
 
 /* 3 functions to manage change of the state of a user account in JS and Ajax */
@@ -129,4 +138,40 @@ function accountStateCallback(response) {
         }
     }
 
+}
+
+/* 3 functions to delete unapproved user if needed in JS and Ajax */
+
+function tryDeleteUnapprovedUser(event) {
+    trash = event.target
+    if (inpPassword.parentNode.hidden != true) {    //if edition mode is enabled (password input parent must be not hidden)
+        deleteUnapprovedUser(trash)
+    }
+}
+
+function deleteUnapprovedUser(trash) {
+
+    trash = getRealParentHavingId(trash)    //img or span element can be clicked
+    idUser = trash.getAttribute("data-userid")
+    pwd = inpPassword.value
+
+    if (checkAllValuesAreNotEmpty([idUser, pwd])) {  //last minute check
+        sendRequest("POST", "?action=deleteUnapprovedUser", deleteUnapprovedUserCallback, {
+            'id': idUser,
+            'password': pwd
+        })
+    } else {
+        displayResponseMsg("Mot de passe non rempli", false)    //display error msg
+    }
+}
+
+function deleteUnapprovedUserCallback(response) {
+    isSuccess = manageResponseStatus(response)
+    data = response.data
+    if (isSuccess) {    //if user has been deleted
+        userInTheList = document.getElementById("tr-member-" + data.user.id)
+        if (userInTheList != null) {
+            userInTheList.remove()  //delete the line of the member
+        }
+    }   //else do nothing, because message has been displayed and the member has not been deleted
 }

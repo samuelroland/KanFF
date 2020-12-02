@@ -64,7 +64,7 @@ function updateUser($user, $id)
 //Delete one user with his id
 function deleteUser($id)
 {
-    deleteOne("users", $id);
+    return deleteOne("users", $id);
 }
 
 function getAllUsersActive()

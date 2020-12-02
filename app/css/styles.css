@@ -462,6 +462,10 @@ tr {
     cursor: pointer;
 }
 
+.cursorforbidden {
+    cursor: no-drop;
+}
+
 .cursorgrab {
     cursor: grab;
 }

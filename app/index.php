@@ -131,6 +131,10 @@ if (!isset($_SESSION['user']['id'])) {
                 setHTTPHeaderForAPIResponse();
                 changeStatus($data);
                 break;
+            case "deleteUnapprovedUser": //Ajax call to delete an unapproved member (for spam)
+                setHTTPHeaderForAPIResponse();
+                deleteUnapprovedUser($data);
+                break;
             case "createAGroup":
                 createAGroup($_POST);
                 break;
