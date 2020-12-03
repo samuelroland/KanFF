@@ -11,7 +11,13 @@ require_once "model/groupsModel.php";
 //display the page groups
 function members($option)
 {
-    $members = getAllUsersByInscriptionDesc();   //get all users without any sorting
+    $members = getAllUsersByInscriptionDesc();   //get all users with sorting by inscription date
+
+    foreach ($members as $key => $member) {
+        if ($member['state_modifier_id'] != null) {
+            $members[$key]['state_modifier'] = $members[$member['state_modifier_id']];
+        }
+    }
 
     //Countings and sorting of the users:
     $nbUnapprovedUsers = 0;
@@ -135,6 +141,37 @@ function changeStatus($data)  //Ajax call
     } else {
         $dataError = getApiDataContentError("Données invalides.", 33);    //basic invalid data error
         $response = getApiResponse(API_FAIL, array_merge(['user' => $_SESSION['user']], $dataError)); //response contains error and user information (to have the state)
+    }
+    echo json_encode($response);
+}
+
+//delete an unapproved member taken by id
+function deleteUnapprovedUser($data)    //Ajax call
+{
+    //Take ressources needed for validations:
+    $isAdmin = checkAdmin();
+    $userToDelete = getUserById($data['id']);   //if id doesn't exist, it will be false
+    $passwordVerification = checkUserPassword($_SESSION['user']['id'], $data['password']);
+
+    //Structure of validation (depending on the possible errors):
+    if ($isAdmin && $userToDelete != false && $userToDelete['state'] == USER_STATE_UNAPPROVED && $passwordVerification) {    //if user logged is admin and if the member to delete is unapproved and exists, and if password of admin is valid
+        deleteUser($data['id']);    //delete the user
+        $userToDelete = unsetPasswordsInArrayOn2Dimensions($userToDelete);
+        $callback = getUserById($data['id']);
+        if ($callback == false) {   //if callback user is empty, the user has been deleted
+            $msg = "Le compte de " . buildFullNameOfUser($userToDelete) . " a bien été supprimé.";
+            $response = getApiResponse(API_SUCCESS, ['user' => $userToDelete, 'message' => $msg]);
+        } else {    //the user hasn't been deleted because of an SQL error (like foreign key doesn't accept deletion of their reference...)
+            $msg = "Erreur interne. Suppression impossible.";
+            $response = getApiResponse(API_ERROR, null, $msg);
+        }
+    } else { //permission denied
+        if ($passwordVerification == false) {   //because of the password
+            $dataError = getApiDataContentError("Echec. Mot de passe invalide.", 42);    //validation password wrong
+        } else {    //because of other reasons
+            $dataError = getApiDataContentError("Action non autorisée.", 35);    //permission denied message
+        }
+        $response = getApiResponse(API_FAIL, $dataError); //response contains error only
     }
     echo json_encode($response);
 }

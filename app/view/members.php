@@ -64,9 +64,19 @@ $isAdmin = checkAdmin();
                 <?php
                 if ($isAdmin) {
                     echo "<th>Etat du<br> compte</th>";
+                    if ($option != 5) {
+                        echo "<th>Changement état</th>";
+                    }
                 }
                 ?>
-                <?= ($isAdmin == false && ($option == 1 || $option == 2)) ? "" : "<th>En<br>pause</th>" ?>
+                <?php
+                $onbreakColumn = ($isAdmin == false && ($option == 1 || $option == 2) || ($isAdmin == true && $option == 5));
+                echo($onbreakColumn ? "" : "<th>En<br>pause</th>")
+                ?>
+                <?php
+                $deletionColumn = ($isAdmin == false || ($isAdmin == true && $option != 5));
+                echo($deletionColumn ? "" : "<th>Suppression</th>");
+                ?>
 
             </tr>
             </thead>
@@ -75,11 +85,12 @@ $isAdmin = checkAdmin();
             $test = 0;
             foreach ($members as $member) {
                 ?>
-                <tr class="userline clickable  <?= ($member['id'] == $_SESSION['user']['id']) ? "yellowveryligthheader" : "" ?>"
+                <tr id="tr-member-<?= $member['id'] ?>"
+                    class="userline clickable  <?= ($member['id'] == $_SESSION['user']['id']) ? "yellowveryligthheader" : "" ?>"
                     data-href="?action=member&id=<?= $member['id'] ?>">
                     <td><?= $member['initials'] ?></td>
                     <td><?= $member['username'] ?></td>
-                    <td><?= $member['firstname'] . " <strong>" . $member['lastname'] . "</strong>" ?></td>
+                    <td class="memberfullname"><?= $member['firstname'] . " <strong>" . $member['lastname'] . "</strong>" ?></td>
                     <td><?= "<em>" . createElementWithFixedLines(substrText($member['status'], 150), 1) . "</em>" ?></td>
                     <td><?= DTToHumanDate($member['inscription'], "simpleday") ?></td>
                     <?php //State account cell
@@ -91,12 +102,20 @@ $isAdmin = checkAdmin();
                             }
                         }
                         echo "</select></td>";
+                        if ($option != 5) {
+                            echo "<td>" . buildSentenceAccountStateLastChange($member, true, false) . "</td>";
+                        }
                     }
                     ?>
                     <?php //On break cell:
                     //$cellOnBreak = '<td><input type="checkbox" disabled ' . (($member['on_break'] == 1) ? "checked" : "") . '></td>';
-                    $cellOnBreak = '<td>' . (($member['on_break'] == 1) ? "Oui" : "Non") . '</td>';
-                    echo ($isAdmin == false && ($option == 1 || $option == 2)) ? "" : $cellOnBreak
+                    $cellOnBreak = '<td class="">' . (($member['on_break'] == 1) ? printAnIcon("break.svg", "En pause", "break icon", "flexdiv align-content-center icon-middlesmall marginauto", false) : "") . '</td>';
+                    echo ($onbreakColumn) ? "" : $cellOnBreak
+                    ?>
+
+                    <?php //Deletion column
+                    $cellDeletion = '<td class=""><span data-userid="' . $member['id'] . '" class="membersTrashIcons cursorforbidden" id="membertrash-' . $member['id'] . '">' . printAnIcon("trash.png", "Supprimer ce compte", "trash icon", " flexdiv icon-middlesmall marginauto", false) . '</span></td>';
+                    echo ($deletionColumn) ? "" : $cellDeletion
                     ?>
                 </tr>
             <?php } ?>

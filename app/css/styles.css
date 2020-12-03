@@ -193,7 +193,7 @@ body {
 }
 
 .marginauto {
-    margin: auto;
+    margin: auto !important;
 }
 
 select {
@@ -460,6 +460,10 @@ tr {
 
 .cursorpointer {
     cursor: pointer;
+}
+
+.cursorforbidden {
+    cursor: no-drop;
 }
 
 .cursorgrab {

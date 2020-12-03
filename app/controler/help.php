@@ -32,6 +32,12 @@ function chkToTinyint($value)
     return (is_null($value)) ? "0" : "1";
 }
 
+//is value sent by a checkbox valid ? (can be "on" or empty) but no other possibilities.
+function isCheckboxValueValid($value)
+{
+    return ($value == "on" || $value == "");
+}
+
 //Define the next flashmessage with his number
 function flshmsg($number)
 {
@@ -62,7 +68,7 @@ function DTToHumanDate($datetime, $mode = "simpleday", $isTimestamp = false)
             return date("j F Y", $timestamp);
             break;
         case "completetime":
-            return date("j F Y à H:i:S", $timestamp);
+            return date("j F Y à H:i:s", $timestamp);
             break;
         default:
             return "ERROR!";
@@ -323,6 +329,20 @@ function setErrorValueIfNotTrue($newValue, $currentValue)
     } else {
         return $newValue;
     }
+}
+
+//Check that a string match with a regular expression (regex):
+function checkRegex($string, $regex)
+{
+    $regex = "/" . $regex . "/";    //transform regex raw format, with adding slash at start and end
+    return preg_match($regex, $string);
+}
+
+//Check validity of names (alphabetical and "-" and " " authorized only):
+function checkNamesValidity($name)
+{
+    $regex = USER_NAMES_REGEX;
+    return checkRegex($name, $regex);
 }
 
 ?>
