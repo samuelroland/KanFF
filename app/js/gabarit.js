@@ -9,7 +9,7 @@
 //Declare event keyup for start reload counter
 //TODO: refactor the entire file
 $(document).ready(function () {
-    $(".textFieldToCheck").on("keyup", function (txt) { //on event keyup on a input with class .textFieldToCheck
+    $(".textFieldToCheck").on("keyup", function () { //on event keyup on a input with class .textFieldToCheck
         checkTextFieldToCheck()
     })
     //Init tooltip in the page:
@@ -23,6 +23,25 @@ $(document).ready(function () {
             txtFeedback.value = ""
         })
     }
+
+    $(".passToCheckWithPattern").on("change", function (event) { //on event keyup on a input with class .textFieldToCheck
+        checkTextsPatternMatches()
+        check2ValuesAreIdentical()
+        formCheckNoErrorMessages(event.target)
+    })
+
+    $(".secondValueIdenticalToCheck").on("change", function (event) { //on event keyup on a input with class .textFieldToCheck
+        check2ValuesAreIdentical()
+        formCheckNoErrorMessages(event.target)
+    })
+    document.querySelector(".formCheckNoErrorMessages button[type=submit]").onclick = function (event) {
+        //event.preventDefault()
+        formCheckNoErrorMessages(event.target)
+    }
+    document.querySelector(".formCheckNoErrorMessages input").onchange = function () {
+        formCheckNoErrorMessages(document.querySelector(".formCheckNoErrorMessages"))
+    }
+
 
     //#btnSendFeedback on click check form and send if verified
     if (document.getElementById("btnSendFeedback") != null) {
@@ -135,4 +154,61 @@ function checkTextFieldToCheck() {
             }
         }
     })
+}
+
+//Check that pattern of text (regex) matches their value, if not display the error message (id is in data-msg-id):
+function checkTextsPatternMatches() {
+    els = document.getElementsByClassName("passToCheckWithPattern");
+    Array.prototype.forEach.call(els, function (inp) {
+        pError = document.getElementById(inp.getAttribute("data-msg-id"))
+        pError.hidden = testRegex(inp.pattern, inp.value)
+    })
+}
+
+//Check that 2 values of are valid
+function check2ValuesAreIdentical() {
+    els = document.getElementsByClassName("secondValueIdenticalToCheck");   //the second values identical to check
+    Array.prototype.forEach.call(els, function (secondElement) {
+        firstElement = document.getElementById(secondElement.getAttribute("data-firstvalue"))
+
+        firstValue = getValueOrInnerText(firstElement)
+        secondValue = getValueOrInnerText(secondElement)
+
+        logIt(secondElement.getAttribute("data-dontdisplayifempty"))
+        pError = document.getElementById(secondElement.getAttribute("data-msg-id"))
+        if (secondValue == "" && secondElement.getAttribute("data-dontdisplayifempty") == "true") {
+            pError.hidden = true    //if empty and must not display if empty, set as hidden
+        } else {
+            pError.hidden = (firstValue === secondValue)
+        }
+    })
+}
+
+//TODO: comment and refactor this function
+function formCheckNoErrorMessages(clickedElement) {
+    parentform = getRealParentHavingId(clickedElement)
+    btn = parentform.querySelector("button[type=submit]")
+    var allMessagesAreHidden = true
+    var els = parentform.querySelectorAll("p.errormsg")
+    Array.prototype.forEach.call(els, function (el) {
+        if (el.hidden == false) {
+            btn.disabled = true
+            allMessagesAreHidden = false
+        }
+    })
+    logIt(allMessagesAreHidden)
+    if (allMessagesAreHidden == true) {
+        btn.disabled = false
+    }
+}
+
+//Get value of an element (if input or textarea it contains a value, if not it contains an innerText)
+function getValueOrInnerText(obj) {
+    if (obj.tagName == "INPUT" || obj.tagName == "TEXTAREA") {
+        value = obj.value
+    } else {
+        value = obj.innerText
+    }
+
+    return value
 }

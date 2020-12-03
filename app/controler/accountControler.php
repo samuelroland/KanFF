@@ -7,24 +7,82 @@
  */
 require "model/usersModel.php";
 
+define("USER_PASSWORD_REGEX", "^(?=.*[A-Za-z])(?=.*\d).{8,}$"); //Regular expression for users passwords
+define("USER_PASSWORD_CONDITIONS", "Le mot de passe doivent contenir: 8 caractères minimum + au moins une lettre et un chiffre");   //text explaining the conditions to create a valid password (valid with the regex)
+
+define("USER_NAMES_REGEX", "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð '-]{2,100}$"); //Regular expression for users names (thanks to https://stackoverflow.com/questions/2385701/regular-expression-for-first-and-last-name#answer-2385967)
+
 function editAccount($post)
 {
-
+    $userBase = getUserById($_SESSION['user']['id']);
+    $user = $userBase;
+    $msg = null; //no msg by default
 
     if (empty($post) == false) {    //if data have been sent
-        $error = false; //no error by default
+        if (isAtLeastEqual("", [$post['currentpassword'], $post['newpassword'], $post['newpasswordc']]) == false) {   //if the 3 passwords are present, it's a password update
+            if (checkUserPassword($_SESSION['user']['id'], $post['currentpassword'])) {   //if passwords are valid
+                if (checkRegex($post['newpassword'], USER_PASSWORD_REGEX) && $post['newpassword'] == $post['newpasswordc']) {
+                    if ($post['currentpassword'] == $post['newpassword']) {
+                        $msg = 15;  //current password and new password can not be equal
+                    } else {
+                        updateOne("users", $_SESSION['user']['id'], ['password' => password_hash($post['newpassword'], PASSWORD_DEFAULT)]); //update the password
+                        $msg = 14;  //update password succeed
+                    }
+                } else {
+                    $msg = 5; //password invalid --> invalid data
+                }
+            } else {
+                $msg = 16;   //current password is wrong
+            }
+        } else if (isset($post['firstname'], $post['lastname'], $post['username'], $post['status'], $post['email'], $post['phonenumber'], $post['biography'])) { //if data are set for general update
 
-        if (checkUserPassword($_SESSION['user']['id'], $post["password"])) {
             //Get the variables, trim them and define the variables that are not sent (because not in the form)
             $editUser['username'] = trimIt($post['username']);
-            $editUser['initials'] = getUniqueInitials(trimIt($post['firstname']), trimIt($post['lastname']));
             $editUser['firstname'] = trimIt($post['firstname']);
             $editUser['lastname'] = trimIt($post['lastname']);
-            $editUser['password'] = $post['newpassword'];   //only to check it's not empty
 
             //All not null values are set so we can test if these informations are not missing:
             if (checkThatEachKeyIsNotEmpty($editUser) == false) {
-                $error = 5; //data error
+                $msg = 5; //data error
+            }
+
+            //Check the length of all strings
+            if (strlen($editUser['username']) < 4 || chkLength($editUser['username'], 15) == false) {
+                $msg = 5; //data error
+            }
+            if (chkLength($editUser['firstname'], 100) == false) {
+                $msg = 5; //data error
+            }
+            if (chkLength($editUser['lastname'], 100) == false) {
+                $msg = 5; //data error
+            }
+            if (chkLength($editUser['status'], 200) == false) {
+                $msg = 5; //data error
+            }
+            if (chkLength($editUser['email'], 254) == false) {
+                $msg = 5; //data error
+            }
+            if (chkLength($editUser['phonenumber'], 20) == false) {
+                $msg = 5; //data error
+            }
+            if (chkLength($editUser['chat_link'], 2000) == false) {
+                $msg = 5; //data error
+            }
+            if (chkLength($editUser['biography'], 2000) == false) {
+                $msg = 5; //data error
+            }
+
+            if (checkNamesValidity($editUser['firstname']) == false || checkNamesValidity($editUser['lastname']) == false) {   //check validity of firstname and lastname
+                $msg = 5; //data error
+            } else {    //generate initials only if firstname and lastname are valid
+                //If firstname or lastname have changed, generate initials again
+                if ($editUser['firstname'] != $userBase['firstname'] || $editUser['lastname'] != $userBase['lastname']) {
+                    $editUser['initials'] = getUniqueInitials($editUser['firstname'], $editUser['lastname']);
+                    //Check initials if error has occurred:
+                    if ($editUser['initials'] == false) {    //no unique combination for initials have been found
+                        $msg = 4; //data not unique
+                    }
+                }
             }
 
             //Optionnals variables
@@ -34,63 +92,58 @@ function editAccount($post)
             $editUser['biography'] = trimIt($post['biography']);
             $editUser['status'] = trimIt($post['status']);
 
+            if ($editUser['email'] != "" && isEmailFormat($editUser['email']) == false) {
+                $msg = 5; //data error
+            }
+
             //Onbreak management:
-            $editUser['on_break'] = chkToTinyint($post['on_break']);   //on break value from checkbox
-
-            //TODO: check that the 2 passwords are equal that the current one is right, before make the change
-            $password1 = $post['newpassword'];
-            $password2 = $post['newpasswordc'];
-
-            //Generate others values:
-            $editUser['password'] = password_hash($post['newpassword'], PASSWORD_DEFAULT);
-
-            //Check initials if error has occured:
-            if ($editUser['initials'] == false) {    //no unique combination for initials have been found
-                $error = 4; //data not unique
-            }
-
-            //Check that the 2 passwords are the same:
-            if ($password1 != $password2) {
-                $error = 5; //data error
-            }
-
-            //Check the Regex on it:
-            if (!preg_match("/^(?=.*[A-Za-z])(?=.*\d).{8,}$/", $password1)) {
-                $error = 5; //data error
+            if (isCheckboxValueValid($post['on_break'])) {
+                $editUser['on_break'] = chkToTinyint($post['on_break']);   //on break value from checkbox
+            } else {
+                $msg = 5; //data error
             }
 
             //Is username already taken ?
-            if (empty(searchUserByUsername($editUser['username'])) == false) {
-                $error = 4; //data not unique
+            if (empty(searchUserByUsername($editUser['username'])) == false && $editUser['username'] != $userBase['username']) {
+                $msg = 4; //data not unique
             }
             //Is email already taken ?
-            if (empty(searchUserByEmail($editUser['email'])) == false) {
-                $error = 4; //data not unique
+            if (empty(searchUserByEmail($editUser['email'])) == false && $editUser['email'] != $userBase['email']) {
+                $msg = 4; //data not unique
             }
 
-            //Then depending on errors or on success:
-            if ($error != false) {
-                flshmsg($error);
-                require "view/editAccount.php";  //view values sent inserted
-            } else {
+            if ($msg == null) {   //if no error, then update the general information
                 updateOne("users", $_SESSION['user']['id'], $editUser);
+                $user = getUserById($_SESSION['user']['id']);
                 displaydebug($editUser);
-                flshmsg(6);
-                unset($_SESSION['user']);   // Clears the session
-                login($editUser['initials'], $password1);
+                unset($user['password']);
+                $_SESSION['user'] = $user;
+                $msg = 13; //update has succeed
             }
-        } else {
-            flshmsg(8);
-            require "view/editAccount.php";
-        }
 
+        } else {    //if data are not valid to update password and for general update
+            $msg = 5; //invalid data
+        }
     } else {    //if no data, load the page as normal
         $user = getUserById($_SESSION['user']['id']);
-        if ($user['state_modifier_id'] != null) {
-            $user['state_modifier'] = getUserById($user['state_modifier_id']);  //get the user modifier
-        }
-        require "view/editAccount.php";
+
     }
+
+    //Final action (set flashmessage if exist and go to the view):
+    if ($msg != null) {
+        flshmsg($msg);
+    }
+    $user = userItemLoadExtraFields($user);
+    require "view/editAccount.php"; //in all cases, the view will be displayed (independently of all possibles errors or content of $user)
+}
+
+//Load extra field for a user (state modifier)
+function userItemLoadExtraFields($user)
+{
+    if ($user['state_modifier_id'] != null) {
+        $user['state_modifier'] = getUserById($user['state_modifier_id']);  //get the user modifier
+    }
+    return $user;
 }
 
 //This funtion will redirect to the signin page or redirect to the signin page
@@ -122,7 +175,7 @@ function signin($post)
 
         //Generate others values:
         $newUser['inscription'] = timeToDT(time());
-        $newUser['status'] = "Arrivé.e le " . DTToHumanDate(time(), "simpleday", true);   //simple day and a timestamp is sent (not a DateTime)
+        $newUser['status'] = "Arrivé·e le " . DTToHumanDate(time(), "simpleday", true);   //simple day and a timestamp is sent (not a DateTime)
         $newUser['state'] = USER_STATE_UNAPPROVED;  //by default unapproved
         $newUser['password'] = password_hash($post['password'], PASSWORD_DEFAULT);
         $newUser['on_break'] = 0;   //not on break
@@ -171,6 +224,8 @@ function signin($post)
 function getUniqueInitials($firstname, $lastname)
 {
     //Create initials:
+    $firstname = replaceAccentChars($firstname);
+    $lastname = replaceAccentChars($lastname);
     $initials = substr($firstname, 0, 1) . substr($lastname, 0, 1) . substr($lastname, strlen($lastname) - 1);
     $initials = strtoupper($initials);  //set to upper case
 
