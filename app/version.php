@@ -65,6 +65,19 @@ $versions = [
 \nOthers:
 \n- **My account** always in progress. The model is respected.
 \n- **Start of demanding feedback** to external persons and fixing bugs
+"],
+    [
+        "version" => "v2.1-beta",
+        "date" => "2020-12-03",
+        "changelog" => "New features:
+\n- **Technical documentation** (list pages, structure ajax calls, helpers functions, database specifications, are done but global documentation is in progress).
+\n- **Page My account** is finally done. Update general information and password are now possible.
+\n- **CRUD model for users** is done.
+\n- **Page Members** is alsmost finished (change the account state is possible).
+\n
+\nOthers:
+\n- **Page Delete/Archive account** is in progress.
+\n- **User manual** is still a draft.
 "]
 ];
 
