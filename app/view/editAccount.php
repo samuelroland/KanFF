@@ -38,7 +38,6 @@ ob_start();
             <p class="">Voici les informations de votre compte sur l'instance <?= $instance['name'] ?>. Vous pouvez
                 gérer votre compte mais aussi archiver ou
                 supprimer votre compte.</p>
-            <?php printPageWIPTextInfo(); ?>
 
             <form class="pt-1" action="?action=editAccount" method="POST">
                 <hr class="hrlight">
@@ -226,10 +225,10 @@ Vous pouvez laisser une information dans votre statut concernant la raison de vo
                 <hr class="hrlight">
                 <h4 class="d-inline text-danger">Zone danger</h4>
                 <div class="  pt-3">
-                    <button type="submit" class=" btn btn-dark">Archiver mon compte...</button>
+                    <button type="submit" class="clickable btn btn-dark" data-href="?action=archiveAccount">Archiver mon compte...</button>
                 </div>
                 <div class=" pt-3">
-                    <button type="submit" class="btn btn-dark">Supprimer mon compte...</button>
+                    <button type="submit" class="clickable btn btn-dark" data-href="?action=deleteAccount">Supprimer mon compte...</button>
                 </div>
             </div>
 
