@@ -249,3 +249,25 @@ function logout()
     unset($_SESSION['feedback']);   // Unset feedback data
     login(null, null);
 }
+
+function deleteAccount($post)
+{
+    if (empty($post)) {
+        //display the view if no data
+        $option = "delete";
+        require_once "view/bigActionOnAccount.php";
+    } else {
+        //Check data sent and delete account
+    }
+}
+
+function archiveAccount($post)
+{
+    if (empty($post)) {
+        //display the view if no data
+        $option = "archive";
+        require_once "view/bigActionOnAccount.php";
+    } else {
+        //Check data sent and archive account
+    }
+}
