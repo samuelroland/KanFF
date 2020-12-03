@@ -18,7 +18,7 @@ if ($dev == true) { //dev zone
     <h2>
         <p>Résultat de la requète:</p><br>
         <?php
-        displaydebug(getUsersFromAGroup(1));
+        displaydebug(getContributionsByUsers(20,true));
         ?>
     </h2>
     <?php
