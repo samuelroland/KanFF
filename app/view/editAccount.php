@@ -48,7 +48,6 @@ ob_start();
                     <input id="inpFirstname"
                            pattern="<?= USER_NAMES_REGEX ?>"
                            class="<?= $cssForInput ?> textFieldToCheck counterVisibleOnlyIfFastMaxLength trimItOnChange"
-                           minlength="2"
                            maxlength="100" type="text"
                            name="firstname" placeholder="Josette" required value="<?= $user['firstname'] ?>"/>
                     <p id="pCounterFirstname" class="m-2"></p>
@@ -59,7 +58,6 @@ ob_start();
                     <input id="inpLastname"
                            pattern="<?= USER_NAMES_REGEX ?>"
                            class="<?= $cssForInput ?> textFieldToCheck counterVisibleOnlyIfFastMaxLength trimItOnChange"
-                           minlength="2"
                            maxlength="100" type="text"
                            name="lastname"
                            placeholder="Richard" required value="<?= $user['lastname'] ?>"/>
@@ -83,11 +81,11 @@ ob_start();
                     <span class="<?= $cssForSpan ?>">Nom d'utilisateur·ice</span>
                     <input id="inpUsername"
                            class="<?= $cssForInput ?> textFieldToCheck removeSpaceInRT trimItOnChange"
-                           minlength="4"
                            maxlength="15" type="text"
-                           name="username" pattern="^[a-zA-Z0-9_]*$"
-                           placeholder="josette27" required value="<?= $user['username'] ?>"/>
+                           name="username" pattern="^[a-zA-Z0-9_]{4,15}$"
+                           placeholder="josette27" value="<?= $user['username'] ?>" required />
                     <p id="pCounterUsername" class="m-2"></p>
+                    <?= createToolTipWithPoint("Cette valeur doit être alphanumérique et peut contenir des '_'. La longueur minimum est de 5. ", "icon-middlesmall ml-2 mr-2 m-2", false, "right"); ?>
                 </div>
 
                 <div class="<?= $cssForDivField ?>">
@@ -115,7 +113,7 @@ ob_start();
                 </div>
                 <div class="<?= $cssForDivField ?>">
                     <span class=" <?= $cssForSpan ?>">Changement d'état</span>
-                    <span class=" <?= $cssForSpan ?> col-md-5 col-sm-7 d-block" type="text" readonly><?php
+                    <span class=" <?= $cssForSpan ?> col-md-5 col-sm-7 d-block"><?php
                         echo buildSentenceAccountStateLastChange($user);
                         ?></span>
                     <div class="">
@@ -145,7 +143,7 @@ Vous pouvez laisser une information dans votre statut concernant la raison de vo
 
                 <div class="<?= $cssForDivField ?>">
                     <span class="<?= $cssForSpan ?>">N° de téléphone</span>
-                    <input class="<?= $cssForInput ?>" type="text" name="phonenumber" minlength="4" maxlength="20"
+                    <input class="<?= $cssForInput ?>" type="text" name="phonenumber" maxlength="20"
                            value="<?= $user['phonenumber'] ?>"/>
                 </div>
 

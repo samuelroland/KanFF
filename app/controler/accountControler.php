@@ -10,7 +10,7 @@ require "model/usersModel.php";
 define("USER_PASSWORD_REGEX", "^(?=.*[A-Za-z])(?=.*\d).{8,}$"); //Regular expression for users passwords
 define("USER_PASSWORD_CONDITIONS", "Le mot de passe doivent contenir: 8 caractères minimum + au moins une lettre et un chiffre");   //text explaining the conditions to create a valid password (valid with the regex)
 
-define("USER_NAMES_REGEX", "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð '-]+$"); //Regular expression for users names (thanks to https://stackoverflow.com/questions/2385701/regular-expression-for-first-and-last-name#answer-2385967)
+define("USER_NAMES_REGEX", "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð '-]{2,100}$"); //Regular expression for users names (thanks to https://stackoverflow.com/questions/2385701/regular-expression-for-first-and-last-name#answer-2385967)
 
 function editAccount($post)
 {
