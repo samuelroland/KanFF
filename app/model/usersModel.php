@@ -66,7 +66,12 @@ function deleteUser($id)
 {
     return deleteOne("users", $id);
 }
-
+//Archive one user with his id
+function archiveUser($id)
+{
+    $user=["state"=>USER_STATE_ARCHIVED];
+    return updateOne("users", $id, $user);
+}
 function getAllUsersActive()
 {
     $query = "SELECT * FROM users 

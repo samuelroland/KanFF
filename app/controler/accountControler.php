@@ -312,8 +312,17 @@ function deleteAccount($post)
         $option = "delete";
         require_once "view/bigActionOnAccount.php";
     } else {
+        $userid=$_SESSION["user"]["id"];
+        $password = getUserById($userid)["password"];
         //Check data sent and delete account
-        displaydebug($post);
+        //check if textToCopy is correctly copied
+        if ($post["sentence"] == USER_SENTENCES_DELETE["textToCopy"] && checkUserPassword($userid, $post["password"])) {
+            //delete account
+
+        }
+
+        //J'ai compris les conséquences de la suppression de mon compte sur les informations liées à mon compte, et je confirme vouloir supprimer mon compte de cette instance Blason de manière irréversible.
+
     }
 }
 
@@ -321,10 +330,16 @@ function archiveAccount($post)
 {
     if (empty($post)) {
         //display the view if no data
-        $option = "archive";
+        $option = "delete";
         require_once "view/bigActionOnAccount.php";
     } else {
-        displaydebug($post);
+        $userid=$_SESSION["user"]["id"];
+        $password = getUserById($userid)["password"];
         //Check data sent and archive account
+        //check if textToCopy is correctly copied
+        if ($post["sentence"] == USER_SENTENCES_DELETE["textToCopy"] && checkUserPassword($userid, $post["password"])) {
+            //archive account
+            archiveUser($userid);
+        }
     }
 }
