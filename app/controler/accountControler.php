@@ -313,6 +313,7 @@ function deleteAccount($post)
         require_once "view/bigActionOnAccount.php";
     } else {
         //Check data sent and delete account
+        displaydebug($post);
     }
 }
 
@@ -323,6 +324,7 @@ function archiveAccount($post)
         $option = "archive";
         require_once "view/bigActionOnAccount.php";
     } else {
+        displaydebug($post);
         //Check data sent and archive account
     }
 }

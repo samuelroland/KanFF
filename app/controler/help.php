@@ -10,8 +10,35 @@ define("ARRAY_ACCENT_CHARS", array('Š' => 'S', 'š' => 's', 'Ž' => 'Z', 'ž' =
         'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I', 'Ñ' => 'N', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'O', 'Ø' => 'O', 'Ù' => 'U',
         'Ú' => 'U', 'Û' => 'U', 'Ü' => 'U', 'Ý' => 'Y', 'Þ' => 'B', 'ß' => 'Ss', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'a', 'å' => 'a', 'æ' => 'a', 'ç' => 'c',
         'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ð' => 'o', 'ñ' => 'n', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o',
-        'ö' => 'o', 'ø' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ý' => 'y', 'þ' => 'b', 'ÿ' => 'y', 'Ğ' => 'G', 'İ' => 'I', 'Ş' => 'S', 'ğ' => 'g', 'ı' => 'i', 'ş' => 's', 'ü' => 'u')
-);
+        'ö' => 'o', 'ø' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ý' => 'y', 'þ' => 'b', 'ÿ' => 'y', 'Ğ' => 'G', 'İ' => 'I', 'Ş' => 'S', 'ğ' => 'g', 'ı' => 'i', 'ş' => 's', 'ü' => 'u'));
+define("USER_SENTENCES_DELETE",array(
+    "title" => "Suppression du compte",
+    "verb" => "Supprimer définitivement son compte",
+    "button" => "Supprimer définitivement mon compte",
+    "introduction" => "Attention cette action est irréversible !
+            Si vous souhaitez quitter le collectif et disparaître entièrement, supprimer son compte est la bonne
+            option. Si vous voulez rester dans les archives du collectif (sous les comptes archivés) et garder les
+            références à votre compte tel quel, archiver son compte est une meilleure option.",
+    "consequences" => 'A part votre compte, rien ne sera supprimé... Seul les références à votre compte (permettant de savoir qui a créé une tâche, un travail, un groupe, ou une entrée de journal de bord) ou permettant
+                de savoir qui est responsable de quelque chose (une tâche, un travail ou un projet) ainsi que les
+                références vous liant à une adhésion à un groupe, seront supprimées (à les place, il sera affiché
+                "Compte supprimé").',
+    "textToCopy" => "J'ai compris les conséquences de la suppression de mon compte sur les informations liées à mon
+                compte, et je confirme vouloir supprimer mon compte de cette instance Blason de manière
+                irréversible."));
+define("USER_SENTENCES_ARCHIVE",array(
+    "title" => "Archivage du compte",
+    "verb" => "oui",
+    "button" => "oui",
+    "introduction" => "oui",
+    "consequences" => 'oui',
+    "textToCopy" => "oui"));
+
+
+
+
+
+
 //Check that the password sent is the password of the user logged. The function is not useful for the logins, but it's useful to check the password when the user make an important action that need to be validated.
 function checkUserPassword($id, $password)
 {
