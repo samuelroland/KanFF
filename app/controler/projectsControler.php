@@ -71,11 +71,10 @@ function createAProject($newProject)
         } else {
             $newProject['logbook_visible'] = 0;
         }
-        if ($newProject['goal'] == "")
-        {
+        if ($newProject['goal'] == "") {
             $newProject['goal'] = "Non défini";
         }
-        if ($newProject['end'] = " "){
+        if ($newProject['end'] = " ") {
             $dateEnd = null;
             $dateEnd = date("Y-m-d H:i:s", $dateEnd);
             displaydebug($dateEnd);
@@ -91,7 +90,7 @@ function createAProject($newProject)
             flshmsg(9);
             require "view/projects.php";
         }
-    }else{
+    } else {
         require_once "view/createAProject.php";
     }
 

@@ -82,7 +82,7 @@ ob_start();
                            class="<?= $cssForInput ?> textFieldToCheck removeSpaceInRT trimItOnChange"
                            maxlength="15" type="text"
                            name="username" pattern="^[a-zA-Z0-9_]{4,15}$"
-                           placeholder="josette27" value="<?= $user['username'] ?>" required />
+                           placeholder="josette27" value="<?= $user['username'] ?>" required/>
                     <p id="pCounterUsername" class="m-2"></p>
                     <?= createToolTipWithPoint("Cette valeur doit être alphanumérique et peut contenir des '_'. La longueur minimum est de 5. ", "icon-middlesmall ml-2 mr-2 m-2", false, "right"); ?>
                 </div>
@@ -225,10 +225,14 @@ Vous pouvez laisser une information dans votre statut concernant la raison de vo
                 <hr class="hrlight">
                 <h4 class="d-inline text-danger">Zone danger</h4>
                 <div class="  pt-3">
-                    <button type="submit" class="clickable btn btn-dark" data-href="?action=archiveAccount">Archiver mon compte...</button>
+                    <button type="submit" class="clickable btn btn-dark" data-href="?action=archiveAccount">Archiver mon
+                        compte...
+                    </button>
                 </div>
                 <div class=" pt-3">
-                    <button type="submit" class="clickable btn btn-dark" data-href="?action=deleteAccount">Supprimer mon compte...</button>
+                    <button type="submit" class="clickable btn btn-dark" data-href="?action=deleteAccount">Supprimer mon
+                        compte...
+                    </button>
                 </div>
             </div>
 

@@ -22,7 +22,7 @@ function getFlashMessageById($id)
 {
     $data = json_decode(file_get_contents("flashmessages.json"), true);
 
-    if ($data == null){ //if there is no flashmessage, there is a problem with the formatting of the json file
+    if ($data == null) { //if there is no flashmessage, there is a problem with the formatting of the json file
         return "Error in the code: File flashmessages.json is not properly formatted or is empty ! (For devs: Did you leave a comma or miss a \" ?)";
     }
     if (isset($data[$id])) {
