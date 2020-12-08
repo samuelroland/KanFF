@@ -7,467 +7,314 @@
 -- MLD source: MLD-KanFF-official.png v1.3
 -- --------------------------------------------------------
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- -----------------------------------------------------
--- Schema kanff
--- -----------------------------------------------------
--- Database of KanFF application
-DROP SCHEMA IF EXISTS `kanff` ;
 
--- -----------------------------------------------------
--- Schema kanff
---
--- Database of KanFF application
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `kanff` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin ;
-USE `kanff` ;
+-- Listage de la structure de la base pour kanff
+CREATE DATABASE IF NOT EXISTS `kanff` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_bin */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `kanff`;
 
--- -----------------------------------------------------
--- Table `kanff`.`users`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `kanff`.`users` ;
-
-CREATE TABLE IF NOT EXISTS `kanff`.`users` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(15) NOT NULL,
-  `initials` VARCHAR(3) NOT NULL,
-  `firstname` VARCHAR(100) NOT NULL,
-  `lastname` VARCHAR(100) NOT NULL,
-  `chat_link` VARCHAR(2000) NULL,
-  `email` VARCHAR(254) NULL,
-  `phonenumber` VARCHAR(20) NULL,
-  `biography` VARCHAR(2000) NULL,
-  `password` VARCHAR(255) NOT NULL,
-  `inscription` DATETIME NOT NULL,
-  `on_break` INT NOT NULL,
-  `status` VARCHAR(200) NULL,
-  `state` INT NOT NULL,
-  `state_modifier_id` INT NULL,
-  `state_modification_date` DATETIME NULL,
+-- Listage de la structure de la table kanff. competences
+CREATE TABLE IF NOT EXISTS `competences` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8_bin NOT NULL,
+  `category` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
-  UNIQUE INDEX `initials_UNIQUE` (`initials` ASC) VISIBLE,
-  INDEX `fk_users_users1_idx` (`state_modifier_id` ASC) VISIBLE,
-  CONSTRAINT `fk_users_users1`
-    FOREIGN KEY (`state_modifier_id`)
-    REFERENCES `kanff`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  UNIQUE KEY `name_UNIQUE` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='					';
 
+-- Les données exportées n'étaient pas sélectionnées.
 
--- -----------------------------------------------------
--- Table `kanff`.`groups`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `kanff`.`groups` ;
-
-CREATE TABLE IF NOT EXISTS `kanff`.`groups` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(50) NOT NULL,
-  `description` VARCHAR(1000) NOT NULL,
-  `context` VARCHAR(1000) NULL,
-  `prerequisite` VARCHAR(500) NULL,
-  `email` VARCHAR(254) NULL,
-  `image` VARCHAR(50) NULL,
-  `restrict_access` TINYINT NOT NULL,
-  `chat_link` VARCHAR(2000) NULL,
-  `drive_link` VARCHAR(2000) NULL,
-  `status` VARCHAR(200) NULL,
-  `state` INT NOT NULL,
-  `visibility` INT NOT NULL,
-  `creator_id` INT NOT NULL,
-  `creation_date` DATETIME NOT NULL,
+-- Listage de la structure de la table kanff. concern
+CREATE TABLE IF NOT EXISTS `concern` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `event_id` int NOT NULL,
+  `group_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE,
-  INDEX `fk_groups_users1_idx` (`creator_id` ASC) VISIBLE,
-  CONSTRAINT `fk_groups_users1`
-    FOREIGN KEY (`creator_id`)
-    REFERENCES `kanff`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  KEY `fk_events_has_groups_groups1_idx` (`group_id`),
+  KEY `fk_events_has_groups_events1_idx` (`event_id`),
+  CONSTRAINT `fk_events_has_groups_events1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`),
+  CONSTRAINT `fk_events_has_groups_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+-- Les données exportées n'étaient pas sélectionnées.
 
--- -----------------------------------------------------
--- Table `kanff`.`projects`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `kanff`.`projects` ;
-
-CREATE TABLE IF NOT EXISTS `kanff`.`projects` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(70) NOT NULL,
-  `description` VARCHAR(1000) NOT NULL,
-  `goal` VARCHAR(1000) NULL,
-  `start` DATETIME NOT NULL,
-  `end` DATETIME NULL,
-  `state` INT NOT NULL,
-  `archived` TINYINT NOT NULL,
-  `importance` INT NOT NULL,
-  `urgency` INT NOT NULL,
-  `visible` TINYINT NOT NULL,
-  `logbook_visible` TINYINT NOT NULL,
-  `logbook_content` VARCHAR(500) NULL,
-  `responsible_id` INT NULL,
-  `manager_id` INT NOT NULL,
+-- Listage de la structure de la table kanff. events
+CREATE TABLE IF NOT EXISTS `events` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(90) COLLATE utf8_bin NOT NULL,
+  `description` varchar(2000) COLLATE utf8_bin DEFAULT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime NOT NULL,
+  `place` varchar(200) COLLATE utf8_bin DEFAULT NULL,
+  `type` varchar(30) COLLATE utf8_bin NOT NULL,
+  `link` varchar(2000) COLLATE utf8_bin DEFAULT NULL,
+  `visibility_level` int NOT NULL,
+  `creator_id` int NOT NULL,
+  `creation_date` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE,
-  INDEX `fk_projects_users1_idx` (`responsible_id` ASC) VISIBLE,
-  INDEX `fk_projects_groups1_idx` (`manager_id` ASC) VISIBLE,
-  CONSTRAINT `fk_projects_users1`
-    FOREIGN KEY (`responsible_id`)
-    REFERENCES `kanff`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_projects_groups1`
-    FOREIGN KEY (`manager_id`)
-    REFERENCES `kanff`.`groups` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  UNIQUE KEY `Uniqueevents` (`title`,`end`),
+  KEY `fk_events_users1_idx` (`creator_id`),
+  CONSTRAINT `fk_events_users1` FOREIGN KEY (`creator_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+-- Les données exportées n'étaient pas sélectionnées.
 
--- -----------------------------------------------------
--- Table `kanff`.`works`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `kanff`.`works` ;
-
-CREATE TABLE IF NOT EXISTS `kanff`.`works` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(50) NOT NULL,
-  `description` VARCHAR(500) NULL,
-  `start` DATETIME NOT NULL,
-  `end` DATETIME NOT NULL,
-  `state` INT NOT NULL,
-  `value` INT NOT NULL,
-  `effort` INT NOT NULL,
-  `visible` TINYINT NOT NULL,
-  `open` TINYINT NOT NULL,
-  `inbox` TINYINT NOT NULL,
-  `repetitive` TINYINT NOT NULL,
-  `need_help` INT NOT NULL,
-  `creation_date` DATETIME NOT NULL,
-  `project_id` INT NOT NULL,
-  `creator_id` INT NOT NULL,
-  `responsible_id` INT NULL,
+-- Listage de la structure de la table kanff. get
+CREATE TABLE IF NOT EXISTS `get` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `notification_id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `read` tinyint NOT NULL,
+  `reading_date` datetime DEFAULT NULL,
+  `silence` tinyint NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_works_projects1_idx` (`project_id` ASC) VISIBLE,
-  INDEX `fk_works_users1_idx` (`creator_id` ASC) VISIBLE,
-  INDEX `fk_works_users2_idx` (`responsible_id` ASC) VISIBLE,
-  CONSTRAINT `fk_works_projects1`
-    FOREIGN KEY (`project_id`)
-    REFERENCES `kanff`.`projects` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_works_users1`
-    FOREIGN KEY (`creator_id`)
-    REFERENCES `kanff`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_works_users2`
-    FOREIGN KEY (`responsible_id`)
-    REFERENCES `kanff`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  KEY `fk_notifications_has_users_users1_idx` (`user_id`),
+  KEY `fk_notifications_has_users_notifications1_idx` (`notification_id`),
+  CONSTRAINT `fk_notifications_has_users_notifications1` FOREIGN KEY (`notification_id`) REFERENCES `notifications` (`id`),
+  CONSTRAINT `fk_notifications_has_users_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+-- Les données exportées n'étaient pas sélectionnées.
 
--- -----------------------------------------------------
--- Table `kanff`.`tasks`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `kanff`.`tasks` ;
-
-CREATE TABLE IF NOT EXISTS `kanff`.`tasks` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `number` INT NOT NULL,
-  `name` VARCHAR(100) NOT NULL,
-  `description` VARCHAR(2000) NULL,
-  `deadline` DATETIME NULL,
-  `state` INT NOT NULL,
-  `urgency` INT NOT NULL,
-  `type` INT NULL,
-  `link` VARCHAR(2000) NULL,
-  `completion_date` DATETIME NULL,
-  `responsible_id` INT NULL,
-  `creator_id` INT NOT NULL,
-  `work_id` INT NOT NULL,
+-- Listage de la structure de la table kanff. groups
+CREATE TABLE IF NOT EXISTS `groups` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8_bin NOT NULL,
+  `description` varchar(1000) COLLATE utf8_bin NOT NULL,
+  `context` varchar(1000) COLLATE utf8_bin DEFAULT NULL,
+  `prerequisite` varchar(500) COLLATE utf8_bin DEFAULT NULL,
+  `email` varchar(254) COLLATE utf8_bin DEFAULT NULL,
+  `image` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `restrict_access` tinyint NOT NULL,
+  `chat_link` varchar(2000) COLLATE utf8_bin DEFAULT NULL,
+  `drive_link` varchar(2000) COLLATE utf8_bin DEFAULT NULL,
+  `status` varchar(200) COLLATE utf8_bin DEFAULT NULL,
+  `state` int NOT NULL,
+  `visibility` int NOT NULL,
+  `creator_id` int DEFAULT NULL,
+  `creation_date` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `number_UNIQUE` (`number` ASC) VISIBLE,
-  INDEX `fk_tasks_users_idx` (`responsible_id` ASC) VISIBLE,
-  INDEX `fk_tasks_users1_idx` (`creator_id` ASC) VISIBLE,
-  INDEX `fk_tasks_works1_idx` (`work_id` ASC) VISIBLE,
-  CONSTRAINT `fk_tasks_users`
-    FOREIGN KEY (`responsible_id`)
-    REFERENCES `kanff`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_tasks_users1`
-    FOREIGN KEY (`creator_id`)
-    REFERENCES `kanff`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_tasks_works1`
-    FOREIGN KEY (`work_id`)
-    REFERENCES `kanff`.`works` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  UNIQUE KEY `name_UNIQUE` (`name`),
+  KEY `fk_groups_users1_idx` (`creator_id`),
+  CONSTRAINT `fk_groups_users1` FOREIGN KEY (`creator_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+-- Les données exportées n'étaient pas sélectionnées.
 
--- -----------------------------------------------------
--- Table `kanff`.`competences`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `kanff`.`competences` ;
-
-CREATE TABLE IF NOT EXISTS `kanff`.`competences` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(100) NOT NULL,
-  `category` VARCHAR(50) NULL,
+-- Listage de la structure de la table kanff. join
+CREATE TABLE IF NOT EXISTS `join` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int DEFAULT NULL,
+  `group_id` int DEFAULT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime DEFAULT NULL,
+  `state` int NOT NULL DEFAULT '1',
+  `admin` int NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
-ENGINE = InnoDB
-COMMENT = '					';
+  KEY `fk_users_has_groups_groups1_idx` (`group_id`),
+  KEY `fk_users_has_groups_users1_idx` (`user_id`),
+  CONSTRAINT `fk_users_has_groups_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `fk_users_has_groups_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=539 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+-- Les données exportées n'étaient pas sélectionnées.
 
--- -----------------------------------------------------
--- Table `kanff`.`notifications`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `kanff`.`notifications` ;
-
-CREATE TABLE IF NOT EXISTS `kanff`.`notifications` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(200) NOT NULL,
-  `type` INT NOT NULL,
-  `link` VARCHAR(2000) NOT NULL,
-  `date` DATETIME NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `kanff`.`events`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `kanff`.`events` ;
-
-CREATE TABLE IF NOT EXISTS `kanff`.`events` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(90) NOT NULL,
-  `description` VARCHAR(2000) NULL,
-  `start` DATETIME NOT NULL,
-  `end` DATETIME NOT NULL,
-  `place` VARCHAR(200) NULL,
-  `type` VARCHAR(30) NOT NULL,
-  `link` VARCHAR(2000) NULL,
-  `visibility_level` INT NOT NULL,
-  `creator_id` INT NOT NULL,
-  `creation_date` DATETIME NOT NULL,
+-- Listage de la structure de la table kanff. log
+CREATE TABLE IF NOT EXISTS `log` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) COLLATE utf8_bin NOT NULL,
+  `description` varchar(2000) COLLATE utf8_bin NOT NULL,
+  `date` datetime NOT NULL,
+  `creation_date` datetime NOT NULL,
+  `modification_date` datetime DEFAULT NULL,
+  `visible` tinyint NOT NULL,
+  `user_id` int DEFAULT NULL,
+  `project_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `Uniqueevents` (`title` ASC, `end` ASC) VISIBLE,
-  INDEX `fk_events_users1_idx` (`creator_id` ASC) VISIBLE,
-  CONSTRAINT `fk_events_users1`
-    FOREIGN KEY (`creator_id`)
-    REFERENCES `kanff`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  KEY `fk_users_has_projects_projects1_idx` (`project_id`),
+  KEY `fk_users_has_projects_users1_idx` (`user_id`),
+  CONSTRAINT `fk_users_has_projects_projects1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_users_has_projects_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+-- Les données exportées n'étaient pas sélectionnées.
 
--- -----------------------------------------------------
--- Table `kanff`.`own`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `kanff`.`own` ;
+-- Listage de la structure de la table kanff. notifications
+CREATE TABLE IF NOT EXISTS `notifications` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) COLLATE utf8_bin NOT NULL,
+  `type` int NOT NULL,
+  `link` varchar(2000) COLLATE utf8_bin NOT NULL,
+  `date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-CREATE TABLE IF NOT EXISTS `kanff`.`own` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
-  `competence_id` INT NOT NULL,
-  `level` INT NOT NULL,
-  INDEX `fk_users_has_competences_competences1_idx` (`competence_id` ASC) VISIBLE,
-  INDEX `fk_users_has_competences_users1_idx` (`user_id` ASC) VISIBLE,
+-- Les données exportées n'étaient pas sélectionnées.
+
+-- Listage de la structure de la table kanff. own
+CREATE TABLE IF NOT EXISTS `own` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `competence_id` int NOT NULL,
+  `level` int NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_users_has_competences_users1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `kanff`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_users_has_competences_competences1`
-    FOREIGN KEY (`competence_id`)
-    REFERENCES `kanff`.`competences` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  KEY `fk_users_has_competences_competences1_idx` (`competence_id`),
+  KEY `fk_users_has_competences_users1_idx` (`user_id`),
+  CONSTRAINT `fk_users_has_competences_competences1` FOREIGN KEY (`competence_id`) REFERENCES `competences` (`id`),
+  CONSTRAINT `fk_users_has_competences_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+-- Les données exportées n'étaient pas sélectionnées.
 
--- -----------------------------------------------------
--- Table `kanff`.`suscribe`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `kanff`.`suscribe` ;
-
-CREATE TABLE IF NOT EXISTS `kanff`.`suscribe` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
-  `event_id` INT NOT NULL,
-  `level` INT NULL,
+-- Listage de la structure de la table kanff. participate
+CREATE TABLE IF NOT EXISTS `participate` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `group_id` int DEFAULT NULL,
+  `project_id` int DEFAULT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime DEFAULT NULL,
+  `state` int NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_users_has_events_events1_idx` (`event_id` ASC) VISIBLE,
-  INDEX `fk_users_has_events_users1_idx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `fk_users_has_events_users1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `kanff`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_users_has_events_events1`
-    FOREIGN KEY (`event_id`)
-    REFERENCES `kanff`.`events` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  UNIQUE KEY `UniqueParticipation` (`group_id`,`project_id`),
+  KEY `fk_groups_has_projects_projects1_idx` (`project_id`),
+  KEY `fk_groups_has_projects_groups1_idx` (`group_id`),
+  CONSTRAINT `fk_groups_has_projects_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `fk_groups_has_projects_projects1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+-- Les données exportées n'étaient pas sélectionnées.
 
--- -----------------------------------------------------
--- Table `kanff`.`get`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `kanff`.`get` ;
-
-CREATE TABLE IF NOT EXISTS `kanff`.`get` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `notification_id` INT NOT NULL,
-  `user_id` INT NOT NULL,
-  `read` TINYINT NOT NULL,
-  `reading_date` DATETIME NULL,
-  `silence` TINYINT NOT NULL,
+-- Listage de la structure de la table kanff. projects
+CREATE TABLE IF NOT EXISTS `projects` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(70) COLLATE utf8_bin NOT NULL,
+  `description` varchar(1000) COLLATE utf8_bin NOT NULL,
+  `goal` varchar(1000) COLLATE utf8_bin DEFAULT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime DEFAULT NULL,
+  `state` int NOT NULL,
+  `archived` tinyint NOT NULL,
+  `importance` int NOT NULL,
+  `urgency` int NOT NULL,
+  `visible` tinyint NOT NULL,
+  `logbook_visible` tinyint NOT NULL,
+  `logbook_content` varchar(500) COLLATE utf8_bin DEFAULT NULL,
+  `responsible_id` int DEFAULT NULL,
+  `manager_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_notifications_has_users_users1_idx` (`user_id` ASC) VISIBLE,
-  INDEX `fk_notifications_has_users_notifications1_idx` (`notification_id` ASC) VISIBLE,
-  CONSTRAINT `fk_notifications_has_users_notifications1`
-    FOREIGN KEY (`notification_id`)
-    REFERENCES `kanff`.`notifications` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_notifications_has_users_users1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `kanff`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  UNIQUE KEY `name_UNIQUE` (`name`),
+  KEY `fk_projects_users1_idx` (`responsible_id`),
+  KEY `fk_projects_groups1_idx` (`manager_id`),
+  CONSTRAINT `fk_projects_groups1` FOREIGN KEY (`manager_id`) REFERENCES `groups` (`id`) ON DELETE RESTRICT,
+  CONSTRAINT `fk_projects_users1` FOREIGN KEY (`responsible_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+-- Les données exportées n'étaient pas sélectionnées.
 
--- -----------------------------------------------------
--- Table `kanff`.`participate`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `kanff`.`participate` ;
-
-CREATE TABLE IF NOT EXISTS `kanff`.`participate` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `group_id` INT NOT NULL,
-  `project_id` INT NOT NULL,
-  `start` DATETIME NOT NULL,
-  `end` DATETIME NULL,
-  `state` INT NOT NULL,
-  INDEX `fk_groups_has_projects_projects1_idx` (`project_id` ASC) VISIBLE,
-  INDEX `fk_groups_has_projects_groups1_idx` (`group_id` ASC) VISIBLE,
+-- Listage de la structure de la table kanff. suscribe
+CREATE TABLE IF NOT EXISTS `suscribe` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `event_id` int NOT NULL,
+  `level` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `UniqueParticipation` (`group_id` ASC, `project_id` ASC) VISIBLE,
-  CONSTRAINT `fk_groups_has_projects_groups1`
-    FOREIGN KEY (`group_id`)
-    REFERENCES `kanff`.`groups` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_groups_has_projects_projects1`
-    FOREIGN KEY (`project_id`)
-    REFERENCES `kanff`.`projects` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  KEY `fk_users_has_events_events1_idx` (`event_id`),
+  KEY `fk_users_has_events_users1_idx` (`user_id`),
+  CONSTRAINT `fk_users_has_events_events1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`),
+  CONSTRAINT `fk_users_has_events_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+-- Les données exportées n'étaient pas sélectionnées.
 
--- -----------------------------------------------------
--- Table `kanff`.`log`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `kanff`.`log` ;
-
-CREATE TABLE IF NOT EXISTS `kanff`.`log` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(100) NOT NULL,
-  `description` VARCHAR(2000) NOT NULL,
-  `date` DATETIME NOT NULL,
-  `creation_date` DATETIME NOT NULL,
-  `modification_date` DATETIME NULL,
-  `visible` TINYINT NOT NULL,
-  `user_id` INT NOT NULL,
-  `project_id` INT NOT NULL,
-  INDEX `fk_users_has_projects_projects1_idx` (`project_id` ASC) VISIBLE,
-  INDEX `fk_users_has_projects_users1_idx` (`user_id` ASC) VISIBLE,
+-- Listage de la structure de la table kanff. tasks
+CREATE TABLE IF NOT EXISTS `tasks` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `number` int NOT NULL,
+  `name` varchar(100) COLLATE utf8_bin NOT NULL,
+  `description` varchar(2000) COLLATE utf8_bin DEFAULT NULL,
+  `deadline` datetime DEFAULT NULL,
+  `state` int NOT NULL,
+  `urgency` int NOT NULL,
+  `type` int DEFAULT NULL,
+  `link` varchar(2000) COLLATE utf8_bin DEFAULT NULL,
+  `completion_date` datetime DEFAULT NULL,
+  `responsible_id` int DEFAULT NULL,
+  `creator_id` int DEFAULT NULL,
+  `work_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_users_has_projects_users1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `kanff`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_users_has_projects_projects1`
-    FOREIGN KEY (`project_id`)
-    REFERENCES `kanff`.`projects` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  UNIQUE KEY `number_UNIQUE` (`number`),
+  KEY `fk_tasks_users_idx` (`responsible_id`),
+  KEY `fk_tasks_users1_idx` (`creator_id`),
+  KEY `fk_tasks_works1_idx` (`work_id`),
+  CONSTRAINT `fk_tasks_users` FOREIGN KEY (`responsible_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `fk_tasks_users1` FOREIGN KEY (`creator_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `fk_tasks_works1` FOREIGN KEY (`work_id`) REFERENCES `works` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=337 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+-- Les données exportées n'étaient pas sélectionnées.
 
--- -----------------------------------------------------
--- Table `kanff`.`join`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `kanff`.`join` ;
-
-CREATE TABLE IF NOT EXISTS `kanff`.`join` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
-  `group_id` INT NOT NULL,
-  `start` DATETIME NOT NULL,
-  `end` DATETIME NULL,
-  `state` INT NOT NULL DEFAULT 1,
-  `admin` INT NOT NULL,
+-- Listage de la structure de la table kanff. users
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(15) COLLATE utf8_bin NOT NULL,
+  `initials` varchar(3) COLLATE utf8_bin NOT NULL,
+  `firstname` varchar(100) COLLATE utf8_bin NOT NULL,
+  `lastname` varchar(100) COLLATE utf8_bin NOT NULL,
+  `chat_link` varchar(2000) COLLATE utf8_bin DEFAULT NULL,
+  `email` varchar(254) COLLATE utf8_bin DEFAULT NULL,
+  `phonenumber` varchar(20) COLLATE utf8_bin DEFAULT NULL,
+  `biography` varchar(2000) COLLATE utf8_bin DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8_bin NOT NULL,
+  `inscription` datetime NOT NULL,
+  `on_break` int NOT NULL,
+  `status` varchar(200) COLLATE utf8_bin DEFAULT NULL,
+  `state` int NOT NULL,
+  `state_modifier_id` int DEFAULT NULL,
+  `state_modification_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_users_has_groups_groups1_idx` (`group_id` ASC) VISIBLE,
-  INDEX `fk_users_has_groups_users1_idx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `fk_users_has_groups_users1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `kanff`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_users_has_groups_groups1`
-    FOREIGN KEY (`group_id`)
-    REFERENCES `kanff`.`groups` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  UNIQUE KEY `username_UNIQUE` (`username`),
+  UNIQUE KEY `initials_UNIQUE` (`initials`),
+  KEY `fk_users_users1_idx` (`state_modifier_id`),
+  CONSTRAINT `fk_users_users1` FOREIGN KEY (`state_modifier_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+-- Les données exportées n'étaient pas sélectionnées.
 
--- -----------------------------------------------------
--- Table `kanff`.`concern`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `kanff`.`concern` ;
-
-CREATE TABLE IF NOT EXISTS `kanff`.`concern` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `event_id` INT NOT NULL,
-  `group_id` INT NOT NULL,
+-- Listage de la structure de la table kanff. works
+CREATE TABLE IF NOT EXISTS `works` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8_bin NOT NULL,
+  `description` varchar(500) COLLATE utf8_bin DEFAULT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime NOT NULL,
+  `state` int NOT NULL,
+  `value` int NOT NULL,
+  `effort` int NOT NULL,
+  `visible` tinyint NOT NULL,
+  `open` tinyint NOT NULL,
+  `inbox` tinyint NOT NULL,
+  `repetitive` tinyint NOT NULL,
+  `need_help` int NOT NULL,
+  `creation_date` datetime NOT NULL,
+  `project_id` int NOT NULL,
+  `creator_id` int DEFAULT NULL,
+  `responsible_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_events_has_groups_groups1_idx` (`group_id` ASC) VISIBLE,
-  INDEX `fk_events_has_groups_events1_idx` (`event_id` ASC) VISIBLE,
-  CONSTRAINT `fk_events_has_groups_events1`
-    FOREIGN KEY (`event_id`)
-    REFERENCES `kanff`.`events` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_events_has_groups_groups1`
-    FOREIGN KEY (`group_id`)
-    REFERENCES `kanff`.`groups` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  KEY `fk_works_projects1_idx` (`project_id`),
+  KEY `fk_works_users1_idx` (`creator_id`),
+  KEY `fk_works_users2_idx` (`responsible_id`),
+  CONSTRAINT `fk_works_projects1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_works_users1` FOREIGN KEY (`creator_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `fk_works_users2` FOREIGN KEY (`responsible_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+-- Les données exportées n'étaient pas sélectionnées.
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
