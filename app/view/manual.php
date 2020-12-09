@@ -14,7 +14,11 @@ ob_start();
 $title = "Manuel";
 ?>
     <!--<h1 class="aligncenter"><?= $title ?></h1>-->
-<div class="mdstyle"><?= MDToHTML($doc) ?></div>
+    <div id="top"></div>
+    <div class="mdstyle"><?= MDToHTML($doc) ?></div>
+    <div class="clickablebanner box-aligncenter box-verticalaligncenter clickable" data-href="#top">
+        <h4 class="nomargin">Retour en haut ^</h4>
+    </div>
 <?php
 $contenttype = "restricted";
 $content = ob_get_clean();

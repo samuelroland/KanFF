@@ -691,6 +691,7 @@ hr {
 
 .mdstyle h3 {
     margin-top: 0.5em;
+    color: #ff7700;
 }
 
 .mdstyle p code, .mdstyle li code {
@@ -709,4 +710,17 @@ hr {
 
 .mdstyle {
 
+}
+
+
+.clickablebanner {
+    background-color: #d1d5e4;
+    padding: 3px;
+    border-radius: 5px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.clickablebanner:hover {
+    background-color: #b9bdcb;
 }

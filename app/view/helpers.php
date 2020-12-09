@@ -537,4 +537,43 @@ function MDToHTML($raw)
     return $Parsedown->text($raw);
 }
 
+//Get the title in html (including the id attribute), if the line is a title (no other possibility to add the id to the title in markdown).
+function getTitleWithIdAttributeInHTMLIfIsTitle($line, $startWith, $markup)
+{
+    if (startwith($line, $startWith) == false) {    //if the line is not a title
+        return $line;   //return the unchanged line
+    } else {
+        $text = trimIt(substr($line, strpos($line, " ") + 1));  //get the text after the space (the space is after the symbol at the start of line)
+        $id = strtolower(replaceAccentChars(str_replace(" ", "", str_replace("'", "", $text))));    //convert to lowercase, replace accent chars, and replace " " and "'"
+        $result = "<$markup id='" . $id . "'>" . $text . "</$markup>";  //ex: "<h1 id='introduction'>Introduction</h1>"
+        return $result;
+    }
+}
+
+//Get table of content element in Markdown, if the line is a title
+function getTableOfContentElementInMDIfIsTitle($line, $startSymbolsForThisTitle, $level)
+{
+    if (startwith($line, $startSymbolsForThisTitle) == false) {    //if line is not a markdown title, return "" to add nothing to the list
+        return "";
+    } else {
+        $tabs = "";
+        for ($i = 0; $i < $level - 1; $i++) {   //create tabulations before each TOC line to create the different levels of titles
+            $tabs .= "  ";
+        }
+        /*if ($level != 1) {
+            $tabs .= "-";
+        }*/
+        $text = trimIt(substr($line, strpos($line, " ") + 1));  //get the text after the space (the space is after the symbol at the start of line)
+        $id = strtolower(replaceAccentChars(str_replace(" ", "", str_replace("'", "", $text))));
+        $result = "$tabs- [$text](#$id)\n";  //ex: "    - [Introduction](#introduction)" (here with 1 tab if title is level 2).
+        return $result;
+    }
+}
+
+//Return if the string start with the specified substring
+function startwith($text, $with)
+{
+    return (substr($text, 0, strlen($with)) == $with);
+}
+
 ?>
