@@ -2,13 +2,37 @@
  *  Project: KanFF
  *  File: kanff-doc-user-fr.md kanff user doc source
  *  Author: Samuel Roland
- *  Relecture: 
+ *  Relecture:
  *  Creation date: 22.10.2020
  */ -->
- 
+
 # Mode d'emploi
 
 ## Table des matières
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [Mode d'emploi](#mode-demploi)
+	- [Table des matières](#table-des-matires)
+	- [Introduction](#introduction)
+	- [Contexte d'utilisation](#contexte-dutilisation)
+	- [Mini-dictionnaire:](#mini-dictionnaire)
+	- [A quoi ça sert ?](#a-quoi-a-sert-)
+	- [Un peu d'imagination:](#un-peu-dimagination)
+	- [Compte utilisateur·ice:](#compte-utilisateurice)
+		- [Créer un compte:](#crer-un-compte)
+		- [Se connecter:](#se-connecter)
+			- [3 manières différentes de se connecter:](#3-manires-diffrentes-de-se-connecter)
+		- [Gérer son compte](#grer-son-compte)
+		- [Accès limité](#accs-limit)
+		- [A propos](#a-propos)
+		- [Déconnexion](#dconnexion)
+		- [Options du menu:](#options-du-menu)
+	- [Dashboard](#dashboard)
+	- [Projets:](#projets)
+		- [Consulter la liste des projets](#consulter-la-liste-des-projets)
+		- [Créer un projet](#crer-un-projet)
+
+<!-- /TOC -->
 
 ## Introduction
 Ce mode d'emploi vous explique de la manière la plus concise comment utiliser l'application web KanFF. Si vous recherchez des informations sur le projet, la documentation technique, vous les trouverez ici [ADDLINK]
@@ -20,11 +44,10 @@ Vous êtes membre d'un collectif, d'un groupe, d'un mouvement social, une associ
 ## Mini-dictionnaire:
 - Données internes: toutes les informations stockées dans l'application incluant les membres, les groupes, les projets, les travaux, les tâches, concernant un collectif. Ces données ne sont pas publiques mais accessibles uniquement aux membres du collectif.
 - Instance: serveur sur lequel est installé KanFF. L'instance est accessible via une **URL** (`blason.com` par ex.) et a un **nom** donné par la personne la gérant (par exemple `Blason`)
-- Admin: 
+- Admin:
 - URL: Lien internet vers une ressource stockée sur internet (site web, fichier, ...).
 
-###
-- Projets: 
+- Projets:
 - Travaux:
 - Tâches:
 
@@ -41,7 +64,7 @@ Dans ce mode d'emploi, nous allons prendre un exemple concret:
 **Josette Richard** a créé un collectif appelé `Collectif Assoc Vaud` il y a 2 mois avec 2 autres personnes: **Vincent Rigot** et **Mégane Blan**. Le collectif a pour but d'organiser des événements et actions tentant de faire converger diverses luttes. Le collectif démarre à très peu de personnes mais de nombreuses se montrent intéressées à rejoindre. Ensemble il a été décidé d'utiliser KanFF pour gérer les projets collaborativement et faire grandir le collectif.
 
 Josette a trouvé une instance qui a accepté d'y inscrire le collectif. C'est l'instance `Blason` à l'URL `kanff.blason.com`.
-Mégane et Vincent doivent maintenant rejoindre cette instance en y créant un compte. Mégane d'abord, accède à `kanff.blason.com` avec son navigateur web. 
+Mégane et Vincent doivent maintenant rejoindre cette instance en y créant un compte. Mégane d'abord, accède à `kanff.blason.com` avec son navigateur web.
 
 ## Compte utilisateur·ice:
 Pour accéder aux données (membres, groupes, projets, tâches, ...) d'un collectif vous devez avoir un compte et vous faire approuver par votre collectif. Votre compte est propre à une instance et ne peut pas être utilisé sur une autre instance.
@@ -96,7 +119,7 @@ La page `A propos` en cliquant sur le nom du collectif en haut à gauche, vous p
 
 ### Déconnexion
 Pour vous déconnecter de votre session, il suffit de cliquer sur le cerle initiales, puis `Déconnexion`.
-Si vous utilisez un ordinateur qui ne vous appartient pas ou que vous partagez, il est important de se déconnecter afin de ne pas laisser l'accès à votre compte à une autre personne. 
+Si vous utilisez un ordinateur qui ne vous appartient pas ou que vous partagez, il est important de se déconnecter afin de ne pas laisser l'accès à votre compte à une autre personne.
 
 ### Options du menu:
 Dans le menu en haut, vous avez les options suivantes:
@@ -118,4 +141,3 @@ Un bouton `Nouveau projet` dans la page `Projets` vous emmène sur la page de cr
 
 - Remplissez un nom, une description et un objectif.
 - Les projets étant réalisés par un ou plusieurs groupes (et non pas par des membres directement), vous devez choisir le groupe qui va créer et gérer le projet et dont vous faites partie.
- 
