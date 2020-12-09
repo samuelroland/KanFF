@@ -530,4 +530,11 @@ function buildSentenceAccountStateLastChange($user, $middleBreak = false, $intro
     return $sentence;
 }
 
+function MDToHTML($raw)
+{
+    require_once "extensions/parsedown/Parsedown.php";
+    $Parsedown = new Parsedown();
+    return $Parsedown->text($raw);
+}
+
 ?>

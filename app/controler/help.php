@@ -345,4 +345,10 @@ function checkNamesValidity($name)
     return checkRegex($name, $regex);
 }
 
+function manual()
+{
+    $doc = file_get_contents("https://raw.githubusercontent.com/samuelroland/KanFF/develop/doc/kanff-doc-user-fr.md", "r");
+    require_once "view/manual.php";
+}
+
 ?>
