@@ -347,7 +347,8 @@ function checkNamesValidity($name)
 
 function manual()
 {
-    $doc = file_get_contents("https://raw.githubusercontent.com/samuelroland/KanFF/develop/doc/kanff-doc-user-fr.md", "r");
+    //$doc = file_get_contents("https://raw.githubusercontent.com/samuelroland/KanFF/develop/doc/kanff-doc-user-fr.md", "r");
+    $doc = file_get_contents("../doc/kanff-doc-user-fr.md");
     require_once "view/manual.php";
 }
 

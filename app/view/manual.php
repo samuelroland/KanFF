@@ -13,8 +13,8 @@ $lastVersion = $versions[count($versions) - 1];
 ob_start();
 $title = "Manuel";
 ?>
-    <h1 class="aligncenter"><?= $title ?></h1>
-<div class="acceptreturnchar"><?= MDToHTML($doc) ?></div>
+    <!--<h1 class="aligncenter"><?= $title ?></h1>-->
+<div class="mdstyle"><?= MDToHTML($doc) ?></div>
 <?php
 $contenttype = "restricted";
 $content = ob_get_clean();

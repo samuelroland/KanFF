@@ -67,7 +67,7 @@
     color: black;
 }
 
-ul {
+.menu ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -76,14 +76,14 @@ ul {
     text-align: left;
 }
 
-li {
+.menu li {
     float: left;
     height: 100px;
     font-size: 25px;
     text-align: left;
 }
 
-li a {
+.menu li a {
     display: block;
     color: black;
     text-align: left;
@@ -96,7 +96,7 @@ li a {
     background-color: #ffb400;
 }
 
-li a:hover {
+.menu li a:hover {
     background-color: #ffb400;
     height: 100px;
     color: black;
@@ -676,4 +676,37 @@ hr {
 
 .acceptreturnchar {
     white-space: pre-line
+}
+
+.mdstyle h1 {
+    padding-bottom: 5px;
+    border-bottom: 1px solid;
+    color: #38417f;
+}
+
+.mdstyle h2 {
+    margin-top: 0.8em;
+    color: #348a19;
+}
+
+.mdstyle h3 {
+    margin-top: 0.5em;
+}
+
+.mdstyle p code, .mdstyle li code {
+    color: darkblue;
+    background-color: #aedaf2;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 5px;
+}
+
+.mdstyle pre {
+    background-color: lightgrey;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.mdstyle {
+
 }
