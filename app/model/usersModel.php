@@ -66,12 +66,19 @@ function deleteUser($id)
 {
     return deleteOne("users", $id);
 }
+
 //Archive one user with his id
 function archiveUser($id)
 {
-    $user=["state"=>USER_STATE_ARCHIVED];
-    return updateOne("users", $id, $user);
+    $time = timeToDT(time());
+    $_SESSION["user"]["state"] = USER_STATE_ARCHIVED;
+    $_SESSION["user"]["state_modifier_id"] = $id;
+    $_SESSION["user"]["state_modification_date"] = $time;
+
+    $params = ["state" => USER_STATE_ARCHIVED, "state_modifier_id" => $id, "state_modification_date" => $time];
+    return updateOne("users", $id, $params);
 }
+
 function getAllUsersActive()
 {
     $query = "SELECT * FROM users 
@@ -99,12 +106,12 @@ function searchUserByEmail($email)
     return getByCondition("users", ["email" => $email], "email =:email", false);
 }
 
-function getContributionsByUsers($userid,$isInRun)
+function getContributionsByUsers($userid, $isInRun)
 {
-    if ($isInRun){
-        $participatestate=TASK_STATE_INRUN;
-    }else{
-        $participatestate=TASK_STATE_DONE;
+    if ($isInRun) {
+        $participatestate = TASK_STATE_INRUN;
+    } else {
+        $participatestate = TASK_STATE_DONE;
     }
     $query = "SELECT DISTINCT projects.id AS projectid,projects.name AS projectname, works.name AS workname, works.id AS workid, COUNT(distinct tasks.id) AS totaltasks
 FROM users            
@@ -118,6 +125,7 @@ WHERE `join`.state IN(:state1,:state2) AND participate.state = :participatestate
 GROUP BY tasks.work_id
 ORDER BY totaltasks DESC";
 
-   return Query($query, ["state1"=>JOIN_STATE_INVITATION_ACCEPTED,"state2"=>JOIN_STATE_APPROVED,"userid"=>$userid,"participatestate"=>$participatestate],true);
+    return Query($query, ["state1" => JOIN_STATE_INVITATION_ACCEPTED, "state2" => JOIN_STATE_APPROVED, "userid" => $userid, "participatestate" => $participatestate], true);
 }
+
 ?>

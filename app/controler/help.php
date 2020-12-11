@@ -23,9 +23,7 @@ define("USER_SENTENCES_DELETE",array(
                 de savoir qui est responsable de quelque chose (une tâche, un travail ou un projet) ainsi que les
                 références vous liant à une adhésion à un groupe, seront supprimées (à les place, il sera affiché
                 "Compte supprimé").',
-    "textToCopy" => "J'ai compris les conséquences de la suppression de mon compte sur les informations liées à mon
-                compte, et je confirme vouloir supprimer mon compte de cette instance Blason de manière
-                irréversible."));
+    "textToCopy" => "d"));
 define("USER_SENTENCES_ARCHIVE",array(
     "title" => "Archivage du compte",
     "verb" => "oui",

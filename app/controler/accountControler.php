@@ -253,13 +253,13 @@ function limitedAccessInfo()
     $user = $_SESSION['user'];
     switch ($state) {
         case USER_STATE_UNAPPROVED:
-            $message = "Votre compte a été créé mais n'est pas encore approuvé et vous n'avez donc pas encore accès aux informations internes. Veuillez contacter un.e admin afin de vous faire approuver.";
+            $message = "Votre compte a été créé mais n'est pas encore approuvé et vous n'avez donc pas encore accès aux informations internes. Veuillez contacter un·e admin afin de vous faire approuver.";
             break;
         case USER_STATE_BANNED:
-            $message = "Votre compte a été banni de ce collectif par un.e admin. Vous n'avez plus accès aux informations internes.";
+            $message = "Votre compte a été banni de ce collectif par un·e admin. Vous n'avez plus accès aux informations internes.";
             break;
         case USER_STATE_ARCHIVED:
-            $message = "Votre compte est archivé (vous l'avez défini vous même ou alors un.e admin l'a défini). Pour désarchiver votre compte (et retrouver l'accès aux données internes), veuillez contacter un.e admin afin que votre compte soit désarchivé.";
+            $message = "Votre compte est archivé (vous l'avez défini vous même ou alors un·e admin l'a défini). Pour désarchiver votre compte (et retrouver l'accès aux données internes), veuillez contacter un·e admin afin que votre compte soit désarchivé.";
             break;
     }
     if ($user['state_modifier_id'] != null) {
@@ -312,7 +312,7 @@ function deleteAccount($post)
         $option = "delete";
         require_once "view/bigActionOnAccount.php";
     } else {
-        $userid=$_SESSION["user"]["id"];
+        $userid = $_SESSION["user"]["id"];
         $password = getUserById($userid)["password"];
         //Check data sent and delete account
         //check if textToCopy is correctly copied
@@ -333,13 +333,13 @@ function archiveAccount($post)
         $option = "archive";
         require_once "view/bigActionOnAccount.php";
     } else {
-        $userid=$_SESSION["user"]["id"];
-        $password = getUserById($userid)["password"];
+        $userid = $_SESSION["user"]["id"];
         //Check data sent and archive account
-        //check if textToCopy is correctly copied
-        if ($post["sentence"] == USER_SENTENCES_DELETE["textToCopy"] && checkUserPassword($userid, $post["password"])) {
+        //check if textToCopy is correctly copied and if password send is the one
+        if ($post["sentence"] == USER_SENTENCES_ARCHIVE["textToCopy"] && checkUserPassword($userid, $post["password"])) {
             //archive account
             archiveUser($userid);
+            limitedAccessInfo();
         }
     }
 }

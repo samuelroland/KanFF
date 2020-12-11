@@ -34,7 +34,7 @@ ob_start();
             <p><?= $textChosen["consequences"] ?></p>
         </div>
         <hr class="hrlight">
-        <form action="?action=<?=  ?>Account" method="POST">
+        <form action="?action=<?= $option ?>Account" method="POST">
             <div id="divDeleteValidation" class="">
                 <p id="pDeleteValidationText" class="txtdarkbluelogo font-italic">
                     <?= $textChosen["textToCopy"] ?>
