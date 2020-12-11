@@ -330,7 +330,7 @@ function archiveAccount($post)
 {
     if (empty($post)) {
         //display the view if no data
-        $option = "delete";
+        $option = "archive";
         require_once "view/bigActionOnAccount.php";
     } else {
         $userid=$_SESSION["user"]["id"];
