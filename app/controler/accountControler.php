@@ -318,11 +318,9 @@ function deleteAccount($post)
         //check if textToCopy is correctly copied
         if ($post["sentence"] == USER_SENTENCES_DELETE["textToCopy"] && checkUserPassword($userid, $post["password"])) {
             //delete account
-
+            deleteUser($userid);
+            require_once 'view/login.php';
         }
-
-        //J'ai compris les conséquences de la suppression de mon compte sur les informations liées à mon compte, et je confirme vouloir supprimer mon compte de cette instance Blason de manière irréversible.
-
     }
 }
 
