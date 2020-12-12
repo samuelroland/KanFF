@@ -677,3 +677,22 @@ hr {
 .acceptreturnchar {
     white-space: pre-line
 }
+
+.circlebordered {
+    max-width: 40px;
+    max-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px black solid;
+}
+
+.spanAreBlock span {
+    display: block;
+}
+
+.standardDivDetail{
+    margin-top: 16px;
+
+}
