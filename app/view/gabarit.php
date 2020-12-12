@@ -115,12 +115,6 @@ Y,                    `\"8bd888b,             ,P
                             <!-- The dropdown -->
                             <div class="divDropDown dropdown-menu yellowheader" style="">
                                 <div>
-                                    <strong>Mes informations</strong><br>
-                                    <?= $_SESSION['user']['username'] ?><br>
-                                    <span title="<?= $_SESSION['user']['email'] ?>"><?= substrText($_SESSION['user']['email'], 32, true) ?></span><br>
-                                    <?= $_SESSION['user']['phonenumber'] ?><br>
-                                    <br>
-                                    <p>Inscription: <?= DTToHumanDate($_SESSION['user']['inscription']) ?></p>
                                     <p><strong>Statut <br></strong><em
                                                 id="pStatus" class="breakword"><?= $_SESSION['user']['status'] ?></em>
                                         <span id="spChangeStatusIcon">
@@ -128,7 +122,6 @@ Y,                    `\"8bd888b,             ,P
                                             <?= printAnIcon("checkmark.png", "Enregistrer le statut", "check mark icon", "yellowdarkonhover p-1 icon-small justify-content-end icnChangeStatus checkmark", false, "", true) ?>
                                         </span>
                                     </p>
-                                    <p><strong>Etat:</strong> <?= convertUserState($_SESSION['user']['state']) ?></p>
                                     <?= ($_SESSION['user']['on_break'] == 1) ? "<p class='lightbluelogo p-2'><strong>En pause</strong></p>" : "" ?>
                                     <!-- The 2 buttons for "my account" and "logout" -->
                                     <div class="clickable cursorpointer yellowdarkonhover"
