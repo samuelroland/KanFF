@@ -692,7 +692,12 @@ hr {
     display: block;
 }
 
-.standardDivDetail{
+.standardDivDetail {
     margin-top: 16px;
 
+}
+
+.iconsize-40 {
+    height: 40px;
+    width: 40px;
 }
