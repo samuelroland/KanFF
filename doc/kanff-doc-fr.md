@@ -115,7 +115,7 @@ Afin de récolter des retours et idées d'améliorations, il sera demandé à de
 
 Moyens mis en place:
 
-- **Un formulaire de feedback intégré** à l'application est implémenté permettant de donner un retour relatif à une page. Ce formulaire peut être désactivé ou activé dans le ``.const.php``. A chaque feedback envoyé, le texte, les informations sur le navigateur, la page et la version, sont envoyées par email.
+- **Un formulaire de feedback intégré** à l'application est implémenté permettant de donner un retour relatif à une page. Ce formulaire peut être désactivé ou activé dans le ``.const.php``. A chaque feedback envoyé, le texte, les informations sur le navigateur, la page et la version, sont envoyées par email.  
 ![formulaire de feedback](img/feedbackform.png)
 
 - **Un pack de données "Collectif Assoc Vaud"** (nom d'un collectif imaginaire aux objectifs vagues) est créé ayant des membres, groupes, projets, journaux de bord, travaux et tâches (ainsi que les tables join et participate). Ces données sont fictives (tout comme le collectif) mais doivent être en partie réaliste (cela pourrait être un cas réel). Le reste des données peut être généré de manière moins réaliste avec de l'aléatoire plus ou moins intelligent (avec diverses conditions rendant plus réalistes), et également du texte de remplissage (lorem ipsum) afin de simuler des petites et grandes quantités de textes (avec le moindre effort).

@@ -35,6 +35,7 @@ L'application doit permettre de **gérer des projets, gérer des tâches**, la r
 - **KanFF v1.0**, le 15.12.2020
 D'autres petites publications sont faites entre ces grosses publications à la fin de chaque sprint (0.1-beta, 0.2-beta, 1.1-beta, 1.2-beta, 2.1-beta, 2.2-beta).
 
+<p style="color: #f66232"><em>L'application n'est pas responsive pour le moment, alors utilisez la en plein écran sur ordinateur.</em></p>
 ## Installation (pour une instance)
 Cette procédure s'applique pour une instance à distance.
 A venir.
@@ -54,18 +55,17 @@ TBD. fichiers.
 ## Installation locale (pour développement)
 ### Prérequis:
 - Avoir un service `Php` et `MySQL` installé et pouvoir les atteindre dans un shell (tester `php -v` et `mysql -v` pour vérifier. Vérification réussie si la commande est reconnue... Cela sera utile pour la mise à jour de la base de données et l'exécution des tests unitaires). 
-- Avoir l'extension PDO activée sur le serveur Php (changer `;extension=pdo_mysql` par `extension=pdo_mysql` dans le fichier `php.ini` ou vérifier que c'est déjà fait).
+- Avoir l'extension **PDO** et **OpenSSL** activée sur le serveur Php (changer `;extension=pdo_mysql` par `extension=pdo_mysql` et `;extension=openssl` par `extension=openssl` dans le fichier `php.ini` ou vérifier que c'est déjà fait).
+- Avoir [`NPM`](https://www.npmjs.com/get-npm) installé
 
 ### Procédure:
 1. **Récupérer le repository** depuis GitHub (clone ou téléchargement `.zip`) (exemple de clone dans un shell dans le dossier `C:/Alice/Documents/GitHub/`)
-
 
         C:
         cd C:/Alice/Documents/GitHub/
         git clone https://github.com/samuelroland/KanFF
 
-
-1. Ouvrir un shell et **installer les dépendances** avec [`npm`](https://www.npmjs.com/get-npm) dans le dossier `app` ! Un dossier `node_modules` et un fichier `package-lock.json` apparaissent.
+1. Ouvrir un shell et **installer les dépendances** avec NPM  dans le dossier `app` ! Un dossier `node_modules` et un fichier `package-lock.json` apparaissent.
 
         cd app
         npm install
@@ -131,7 +131,7 @@ Fonctionnalité prévues pour les versions **après** la `v1.0` (pas de date dé
 
 ### Gestion du projet
 [Repository GitHub](https://github.com/samuelroland/KanFF) | [Projet IceScrum](https://cloud.icescrum.com/p/PWB2AGDC)  
-Le repository GitHub est public, mais le projet IceScrum est privé. Le projet est géré selon la méthodologie Scrum.
+Le repository GitHub est public, mais le projet IceScrum est privé. Le projet est géré selon la méthodologie Scrum et des sprints sont fait toutes les 2-3 semaines (une publication est faite aussi à la fin des sprints).
 
 ### Objectif du projet
 Réaliser l'application KanFF permettant la gestion des membres, groupes et projets, pour une version `KanFF v1.0` publiée sur GitHub.
