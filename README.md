@@ -36,9 +36,10 @@ L'application doit permettre de **gérer des projets, gérer des tâches**, la r
 D'autres petites publications sont faites entre ces grosses publications à la fin de chaque sprint (0.1-beta, 0.2-beta, 1.1-beta, 1.2-beta, 2.1-beta, 2.2-beta).
 
 <p style="color: #f66232"><em>L'application n'est pas responsive pour le moment, alors utilisez la en plein écran sur ordinateur.</em></p>
+
 ## Installation (pour une instance)
-Cette procédure s'applique pour une instance à distance.
-A venir.
+Cette procédure s'applique pour une instance à distance.  
+A venir quand sera publié en v1.0...
 <!--
 ### Prérequis:
 1. Accès SSH
