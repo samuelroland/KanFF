@@ -9,30 +9,8 @@
 # Mode d'emploi
 
 ## Table des matières
-<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [Mode d'emploi](#mode-demploi)
-	- [Table des matières](#table-des-matires)
-	- [Introduction](#introduction)
-	- [Contexte d'utilisation](#contexte-dutilisation)
-	- [Mini-dictionnaire:](#mini-dictionnaire)
-	- [A quoi ça sert ?](#a-quoi-a-sert-)
-	- [Un peu d'imagination:](#un-peu-dimagination)
-	- [Compte utilisateur·ice:](#compte-utilisateurice)
-		- [Créer un compte:](#crer-un-compte)
-		- [Se connecter:](#se-connecter)
-			- [3 manières différentes de se connecter:](#3-manires-diffrentes-de-se-connecter)
-		- [Gérer son compte](#grer-son-compte)
-		- [Accès limité](#accs-limit)
-		- [A propos](#a-propos)
-		- [Déconnexion](#dconnexion)
-		- [Options du menu:](#options-du-menu)
-	- [Dashboard](#dashboard)
-	- [Projets:](#projets)
-		- [Consulter la liste des projets](#consulter-la-liste-des-projets)
-		- [Créer un projet](#crer-un-projet)
-
-<!-- /TOC -->
+[INSERT TOC HERE]
 
 ## Introduction
 Ce mode d'emploi vous explique de la manière la plus concise comment utiliser l'application web KanFF. Si vous recherchez des informations sur le projet, la documentation technique, vous les trouverez ici [ADDLINK]
@@ -46,7 +24,6 @@ Vous êtes membre d'un collectif, d'un groupe, d'un mouvement social, une associ
 - Instance: serveur sur lequel est installé KanFF. L'instance est accessible via une **URL** (`blason.com` par ex.) et a un **nom** donné par la personne la gérant (par exemple `Blason`)
 - Admin:
 - URL: Lien internet vers une ressource stockée sur internet (site web, fichier, ...).
-
 - Projets:
 - Travaux:
 - Tâches:

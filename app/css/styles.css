@@ -20,7 +20,7 @@
 }
 
 .appbodyrestrict {
-    max-width: 750px;
+    max-width: 1000px;
 }
 
 .logo {
@@ -67,7 +67,7 @@
     color: black;
 }
 
-ul {
+.menu ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -76,14 +76,14 @@ ul {
     text-align: left;
 }
 
-li {
+.menu li {
     float: left;
     height: 100px;
     font-size: 25px;
     text-align: left;
 }
 
-li a {
+.menu li a {
     display: block;
     color: black;
     text-align: left;
@@ -96,7 +96,7 @@ li a {
     background-color: #ffb400;
 }
 
-li a:hover {
+.menu li a:hover {
     background-color: #ffb400;
     height: 100px;
     color: black;

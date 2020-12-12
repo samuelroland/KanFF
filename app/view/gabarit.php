@@ -92,13 +92,14 @@ Y,                    `\"8bd888b,             ,P
 
     <!-- Zone User with user firstname+lastname and circle with initials, the dropdown and the bell -->
     <?php if (isset($_SESSION['user']['id'])) { //if user is logged?>
-        <div class="borderleftorange user row justify-content-end flexdiv borderrightorange pl-2">
+        <div class="borderleftorange user row justify-content-end flexdiv borderrightorange">
             <!-- The bell and the fullname-->
             <!--<div class="pr-2 pl-2 box-verticalaligncenter"><img src="view/medias/icons/bell.png" class="bell"
                                                                 alt="bell icon">
             </div> -->
-            <div class="fullname alignright pr-2 pl-2 justify-content-end box-verticalaligncenter">
-                <?= $_SESSION['user']['firstname'] ?> <?= $_SESSION['user']['lastname'] ?>
+            <div class="fullname alignright pr-3 pl-3 justify-content-end box-verticalaligncenter">
+                <?php //echo $_SESSION['user']['firstname'] . " " . $_SESSION['user']['lastname']; ?>
+                <?php echo createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-middlesmall", false), "Aide sur la page actuelle", "?action=manual") ?>
             </div>
 
             <!-- Circle for user initials and dropdown -->
@@ -115,7 +116,9 @@ Y,                    `\"8bd888b,             ,P
                             <!-- The dropdown -->
                             <div class="divDropDown dropdown-menu yellowheader" style="">
                                 <div>
-                                    <strong>Mes informations</strong><br>
+                                    <strong>Mes informations</strong><br><em>
+                                    <?= $_SESSION['user']['firstname'] ?>
+                                    <?= $_SESSION['user']['lastname'] ?></em><br>
                                     <?= $_SESSION['user']['username'] ?><br>
                                     <span title="<?= $_SESSION['user']['email'] ?>"><?= substrText($_SESSION['user']['email'], 32, true) ?></span><br>
                                     <?= $_SESSION['user']['phonenumber'] ?><br>
