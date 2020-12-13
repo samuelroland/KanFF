@@ -74,7 +74,7 @@ function Query($query, $params, $manyrecords)
             $queryResult = $dbh->lastInsertId();
         }
         if ($statement->errorInfo()[2] != null) {
-            var_dump($statement->errorInfo()[2]);
+            var_dump("SQL ERROR: " . $statement->errorInfo()[2]);
         }
 
         $dbh = null;
@@ -120,7 +120,7 @@ function getAllItems($tablename)
 function getLoremIpsum($length = 100)
 {
     $lorem = constant("GLOBAL_LOREM");
-    return substr($lorem, strpos($lorem, " ", rand(0, strpos($lorem, " ", strlen($lorem) - $length - 30))), $length - 2);
+    return substr($lorem, strpos($lorem, " ", rand(0, strpos($lorem, " ", strlen($lorem) - $length - 30))) + 1, $length - 2);
 }
 
 /// ----------------------------
@@ -729,8 +729,10 @@ function dataWorks()
     importTableData("works", array_merge($works, $inboxWorks)); //import the 2 arrays in the database
 }
 
-function extraDataForOneTask($task, $work)
+function extraDataForOneTask($task, $work, $possibleUsers)
 {
+    print_r($possibleUsers);
+    die();
     $task['deadline'] = null;
     if (rand(1, 4) == 1) {
         $task['deadline'] = getRandomDateFormated(strtotime($work['start']), strtotime($work['end']));
@@ -738,14 +740,14 @@ function extraDataForOneTask($task, $work)
 
     $task['urgency'] = rand(0, 5);
 
-    if (rand(1, 8)) {
+    $task['type'] = 0;
+    if (rand(1, 8) == 1) {
         $task['type'] = rand(0, 5);
-    } else {
-        $task['type'] = null;
     }
 
-    if (rand(1, 20)) {
-        $task['link'] = "https://" . generateRandomString(rand(6, 25)) . "/" . getLoremIpsum(rand(15, 2000));
+    $task['link'] = null;
+    if (rand(1, 10) == 1) {
+        $task['link'] = "https://" . clearAllNonAlphabeticalChars(getLoremIpsum(rand(6, 20))) . ".com/doc/?key=" . clearAllNonAlphabeticalChars(generateRandomString(rand(15, 2000)));   //a basic build to simulate a link
         $task['link'] = substr($task['link'], 0, 2000); //substring to 2000 chars
     }
 
@@ -763,7 +765,10 @@ function extraDataForOneTask($task, $work)
         $task['responsible_id'] = rand(1, 100);
     }
 
-    $task['creator_id'] = rand(1, 100);
+    $task['creator_id'] = $task['responsible_id'];  //by default the creator is the responsible
+    if (rand(1, 4) == 1) {
+        $task['creator_id'] = rand(1, 100);
+    }
 
     return $task;
 }
@@ -799,13 +804,16 @@ function dataTasks()
         $lastnumber = $nextnumber;
         $task['number'] = $nextnumber;
 
-        $task['name'] = getLoremIpsum(rand(4, 50));
-        $task['description'] = getLoremIpsum(1000);
+        $task['name'] = str_replace("\n", "", getLoremIpsum(rand(4, 100)));
+        $task['description'] = null;
+        if (rand(1, 4) == 1) {
+            $task['description'] = str_replace("\n", "", getLoremIpsum(rand(10, 2000)));
+        }
         $task['state'] = rand(1, 3);
 
         $task['work_id'] = $works[rand(1, count((array)$works))]['id'];
-        echo "\n" . $task['name'] . " - work_id: " . $task['work_id'];
         $task = extraDataForOneTask($task, $works[$task['work_id']]);
+        echo "\nTask: " . $task['id'] . ": name: " . $task['name'] . "- work_id: " . $task['work_id'];
         $tasks[] = $task;
     }
 
