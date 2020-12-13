@@ -221,6 +221,16 @@ function isAtLeastEqual($value, $possibilities)
     return false;
 }
 
+function areAreAllEqualTo($value, $possibilities)
+{
+    foreach ($possibilities as $possibility) {
+        if ($value != $possibility) {
+            return false;
+        }
+    }
+    return true;
+}
+
 //Compare 2 dates (datetime format) with day precision and return -1, 0 or 1
 function compare2DatesWithDayPrecision($date1, $date2)
 {
