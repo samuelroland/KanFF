@@ -108,17 +108,23 @@ function flashMessage($withHtml = true)
 //display a var (with var_dump()) for debug, only if debug mode is enabled
 function displaydebug($var, $needPrint_r = false)
 {
+    $isAjax = ($_SERVER['HTTP_X_AJAX'] == 'true');  //if the request is an Ajax call, the debug is different
     require ".const.php";   //get the $debug variable
     if ($debug == true) {   //if debug mode enabled
-        if (substr($_SERVER['SERVER_SOFTWARE'], 0, 7) != "PHP 7.3") {  //if version is not 7.3 (var_dump() don't have the same design)
-            echo "<pre><small>" . print_r($var, true) . "</small></pre>";   //print with line break and style of <pre>
+        echo "\n";
+        if ($isAjax) {
+            print_r($var);  //only print_r() because text is not interpreted in Network panel of the browser
+            echo "\\end/";  //each print_r() must end with "\end/" to be able to find the real JSON response in the middle of debug data
         } else {
-            if ($needPrint_r == false) {
-                var_dump($var); //else to a simple var_dump() of PHP 7.3
+            if (substr($_SERVER['SERVER_SOFTWARE'], 0, 7) != "PHP 7.3") {  //if version is not 7.3 (var_dump() don't have the same design)
+                echo "<pre><small>" . print_r($var, true) . "</small></pre>";   //print with line break and style of <pre>
             } else {
-                echo "<pre><small>" . print_r($var, true) . "</small></pre>";
+                if ($needPrint_r == false) {
+                    var_dump($var); //else to a simple var_dump() of PHP 7.3
+                } else {
+                    echo "<pre><small>" . print_r($var, true) . "</small></pre>";
+                }
             }
-
         }
     }
 }

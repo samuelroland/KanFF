@@ -49,11 +49,23 @@ function sendRequest(verb, url, callback, data) {
     //Start function on change of readyState
     reqHttp.onreadystatechange = function () {
         if (reqHttp.readyState == XMLHttpRequest.DONE && reqHttp.status == 200) {   //if request is done and is success (HTTP status, not response status)
-            callback(JSON.parse(reqHttp.responseText))  //launch the callback function with response text received
+            response = reqHttp.responseText
+            if (response.substr(0, 1) != "{" || response.substr(response.length - 1, 1) != "}") { //if the response doesn't start or end with JSON data, this means that debug data are displayed above and/or under
+                posStartOfJSON = response.lastIndexOf("\\end/{") + 5    //search the position of the JSON data
+                lengthForJSON = response.lastIndexOf("}") - posStartOfJSON + 1  //search the end of the JSON data to calculate the length
+                response = response.substr(posStartOfJSON, lengthForJSON)   //extract the JSON data
+                logIt("Extracted response: \n" + response)
+            }
+            if (isJson(response)) { //check that extracted text is JSON
+                callback(JSON.parse(response))  //launch the callback function with response in parameter
+            } else {
+                displayResponseMsg("Erreur interne: le serveur n'a pas répondu...") //JSON data is missing or displaydebug() result has been "broken"
+            }
         }
     }
     reqHttp.open(verb, url)   //open the request with a verb (GET, POST, ...) and an URL
     reqHttp.setRequestHeader("Content-Type", "application/json")   //set header content type as json data
+    reqHttp.setRequestHeader("X-Ajax", "true")   //set an information in the header to say that the request is an Ajax call
 
     if (data != null) { //if body is the request is not null
         if (Array.isArray(data)) {  //if it's an array
@@ -179,4 +191,14 @@ function isEmailFormat(testemail) {
 function testRegex(regex, string) {
     patt = new RegExp(regex)
     return patt.test(string)
+}
+
+//Thanks to: https://stackoverflow.com/questions/9804777/how-to-test-if-a-string-is-json-or-not#answer-9804835
+function isJson(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
 }
