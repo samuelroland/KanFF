@@ -18,6 +18,7 @@ function getPDO()
 define("GLOBAL_LOREM", file_get_contents("http://loripsum.net/api/short/5/long/plaintext"));
 require_once "../app/view/helpers.php";
 require_once "../app/controler/help.php";
+require_once "../app/model/projectsModel.php";
 
 //Build the string of the SQL query with SQL parameters according to the data sent
 function queryInsertConstructor($items, $tablename)
@@ -171,7 +172,7 @@ function dataUsers()
 
         if (isset($ressource['email']) == false) {
             //half the time, email is set to "firstname.lastname@assoc.com" and if not the email is null
-            if (rand(0, 1)) {
+            if (rand(0, 1) == 1) {
                 $email = $firstname . "." . $lastname . "@assoc.ch";    //create the email with the raw firstname and lastname
                 $email = strtr($email, UNWANTED_CHARS_ARRAY);    //replace accent with corresponding char
                 $email = strtolower($email);    //put the string to lower cases.
@@ -295,7 +296,7 @@ function dataGroups()
         }
 
         //Half time, email is the last word of the name of the group with @assoc.ch
-        if (rand(0, 1)) {
+        if (rand(0, 1) == 1) {
             $wordsOfName = explode(" ", $group['name']);
             $startEmail = strtr($wordsOfName[count($wordsOfName) - 1], UNWANTED_CHARS_ARRAY);    //replace accent with corresponding char
             $group['email'] = strtolower($startEmail) . "@assoc.ch";    //concat start email with domain name
@@ -534,7 +535,7 @@ Important, signifie que ce qui est décrit dans l'enregistrement, a un impact su
         if (isset($ressource['archived']) == false) {
             $project['archived'] = 0;
             if ($state == PROJECT_STATE_CANCELLED || $state == PROJECT_STATE_ABANDONNED || $state == PROJECT_STATE_DONE) {
-                if (rand(1, 2)) {   //project can be finished but not yet archived
+                if (rand(1, 2) == 1) {   //project can be finished but not yet archived
                     $project['archived'] = 1;
                 }
             }
@@ -729,10 +730,8 @@ function dataWorks()
     importTableData("works", array_merge($works, $inboxWorks)); //import the 2 arrays in the database
 }
 
-function extraDataForOneTask($task, $work, $possibleUsers)
+function extraDataForOneTask($task, $work, $usersInTheProject)
 {
-    print_r($possibleUsers);
-    die();
     $task['deadline'] = null;
     if (rand(1, 4) == 1) {
         $task['deadline'] = getRandomDateFormated(strtotime($work['start']), strtotime($work['end']));
@@ -751,24 +750,48 @@ function extraDataForOneTask($task, $work, $possibleUsers)
         $task['link'] = substr($task['link'], 0, 2000); //substring to 2000 chars
     }
 
-    $task['completion_date'] = null;    //default value
-    if ($task['state'] == TASK_STATE_TODO) {
+    //Choose a responsible (by default there is a responsible, but it can be removed under in the code if needed)
+    $task['responsible_id'] = $usersInTheProject[rand(0, count($usersInTheProject) - 1)];   //by default it's a user in the project
+    if ($work['inbox'] == 1) {   //if work is inbox, lots of users outside the project can be responsible
         if (rand(1, 4) == 1) {
             $task['responsible_id'] = rand(1, 100);
-        } else {
+        }
+    } else {  //in rare case if some users are no longer inside the project, they can have been responsible
+        if ($work['responsible_id'] != null) {  //if there is a responsible for the work
+            if (rand(1, 2) == 1) {
+                $task['responsible_id'] = $work['responsible_id'];  //the responsible of the work take care of tasks very often
+            }
+        }
+        if (rand(1, 20) == 1) {
+            $task['responsible_id'] = rand(1, 100);
+        }
+    }
+
+    //Depending on the task state, change a bit values for responsible and completion date
+    $task['completion_date'] = null;    //default value
+    if ($task['state'] == TASK_STATE_TODO) {    //if task is to do, it can have no responsible
+        if (rand(1, 4) > 1) {
             $task['responsible_id'] = null;
         }
-    } else {
-        if ($task['state'] == TASK_STATE_DONE) {
+    } else {    //else (task in run or done)
+        if ($task['state'] == TASK_STATE_DONE) {    //completion date must exist if the task is done
             $task['completion_date'] = getRandomDateFormated(strtotime($work['start']));
         }
-        $task['responsible_id'] = rand(1, 100);
     }
 
     $task['creator_id'] = $task['responsible_id'];  //by default the creator is the responsible
-    if (rand(1, 4) == 1) {
-        $task['creator_id'] = rand(1, 100);
+    if ($work['inbox'] == 1) {  //if work is inbox
+        if (rand(1, 3) == 1) {   //the creator is probably an other user outside the project
+            $task['creator_id'] = rand(1, 100);
+        }
+    } else {
+        if (rand(1, 4) == 1) {
+            $task['creator_id'] = $usersInTheProject[rand(0, count($usersInTheProject) - 1)];   //an other user in the project
+        } else if (rand(1, 20) == 1) {
+            $task['creator_id'] = rand(1, 100);
+        }
     }
+
 
     return $task;
 }
@@ -788,7 +811,7 @@ function dataTasks()
         $nbtasks++;
         $task['id'] = $nbtasks;
         $task['number'] = $task['id'];
-        $task = extraDataForOneTask($task, $works[$task['work_id']]);
+        $task = extraDataForOneTask($task, $works[$task['work_id']], getAllUsersIdInsideAProject($works[$task['work_id']]['project_id']));
         $tasks[] = $task;
     }
 
@@ -812,8 +835,8 @@ function dataTasks()
         $task['state'] = rand(1, 3);
 
         $task['work_id'] = $works[rand(1, count((array)$works))]['id'];
-        $task = extraDataForOneTask($task, $works[$task['work_id']]);
         echo "\nTask: " . $task['id'] . ": name: " . $task['name'] . "- work_id: " . $task['work_id'];
+        $task = extraDataForOneTask($task, $works[$task['work_id']], getAllUsersIdInsideAProject($works[$task['work_id']]['project_id']));
         $tasks[] = $task;
     }
 
@@ -842,7 +865,7 @@ function printAllChoosenFields($array, $fieldname)
 }
 
 //EXECUTION - Here is the code and functions that will be started:
-define("CREATE_DB_BEFORE_INSERTION", true);    //if can recreate the db before insertion or not
+define("CREATE_DB_BEFORE_INSERTION", false);    //if can recreate the db before insertion or not
 
 if (CREATE_DB_BEFORE_INSERTION) {
 //Total creation of the database before insertion. (drop database before the creation)
@@ -856,12 +879,12 @@ if (CREATE_DB_BEFORE_INSERTION) {
 }
 
 //Comment or uncomment the functions that you need (be aware of foreign keys and if the creation of db before insertion is enabled):
-dataUsers();
-dataGroups();
-data_join();
-dataProjects();
-dataParticipate();
-dataLog();
-dataWorks();
+//dataUsers();
+//dataGroups();
+//data_join();
+//dataProjects();
+//dataParticipate();
+//dataLog();
+//dataWorks();
 dataTasks();
 ?>

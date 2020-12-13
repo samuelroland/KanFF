@@ -39,7 +39,7 @@ function Query($query, $params, $manyrecords)
             $queryResult = $dbh->lastInsertId();
         }
         if ($statement->errorInfo()[2] != null) {
-            displaydebug($statement->errorInfo()[2]);
+            displaydebug("SQL ERROR: " . $statement->errorInfo()[2]);
         }
 
         $dbh = null;
