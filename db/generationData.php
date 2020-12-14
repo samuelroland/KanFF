@@ -15,6 +15,25 @@ function getPDO()
     return new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname, $user, $pass);
 }
 
+//Get users id not unapproved ($list false: get a random id, if true: get the list of ids)
+function getUsersIdNotUnapproved($list = false)
+{
+    $users = getByCondition("users", [], "users.state != " . USER_STATE_UNAPPROVED, true);
+    $ids = [];
+    foreach ($users as $user) {
+        $ids[] = $user['id'];
+    }
+    if (empty($ids)) {
+        die("ERROR: Users unapproved not found...");
+    }
+    $rand = $ids[rand(0, count($ids) - 1)];
+    if ($list == true) {
+        return $ids;
+    } else {
+        return $rand;
+    }
+}
+
 define("GLOBAL_LOREM", file_get_contents("http://loripsum.net/api/short/5/long/plaintext"));
 require_once "../app/view/helpers.php";
 require_once "../app/controler/help.php";
@@ -85,6 +104,19 @@ function Query($query, $params, $manyrecords)
         var_dump($statement->errorInfo()[2]);
         return null;
     }
+}
+
+//Get one specific element of one Table
+function getByCondition($table, $params, $conditions, $manyrecords)
+{
+    //$table = "users" OR "competences" ...
+    //$conditions need the complete where condition with AND / OR write in SQL
+    //Example for $conditions => id=:id AND name=:name
+    //$params = ["id"=>$id,"name"=>$name,"NPA"=>94654]
+    //$manyrecords = if the query will return more than 1 item (true/false)
+
+    $query = "SELECT * FROM `$table` WHERE " . $conditions;
+    return Query($query, $params, $manyrecords);
 }
 
 //Generate a date between 01.01.2019 (as default, or the date given if parameter exists) and today formatted in DATETIME format ("Y-m-d H:i:s")
@@ -324,7 +356,7 @@ function dataGroups()
         $group['drive_link'] = "drive.link/open?f=" . generateRandomString(rand(50, 70));
 
         //Foreign key of the user creator
-        $group['creator_id'] = rand(1, 100);
+        $group['creator_id'] = getUsersIdNotUnapproved();
 
         $group['creation_date'] = getRandomDateFormated();
 
@@ -368,7 +400,7 @@ function data_join()
     $id = 0;
 
     //Choose the groups joined for the 100 users (id 1 to 100)
-    for ($i = 1; $i <= 100; $i++) {
+    foreach (getUsersIdNotUnapproved(true) as $i) {
         $join['user_id'] = $i;
 
         //Generate for the most majority of users but not for a minority of people that will not be in any groups.
@@ -543,7 +575,7 @@ Important, signifie que ce qui est décrit dans l'enregistrement, a un impact su
         //Generate repsonsible_id
         $project['responsible_id'] = null;
         if (rand(1, 3) == 1) {
-            $project['responsible_id'] = rand(1, 100);
+            $project['responsible_id'] = getUsersIdNotUnapproved();
         }
 
         $project['id'] = $id;
@@ -633,7 +665,7 @@ function dataLog()
         }
 
         //Generate user_id:
-        $log['user_id'] = rand(1, 100);
+        $log['user_id'] = getUsersIdNotUnapproved();
 
         $log['id'] = $id;
         $logs[] = $log;
@@ -690,11 +722,11 @@ function dataWorks()
         //Generate responsible_id:
         $work['responsible_id'] = null;
         if (rand(1, 3) == 1) {
-            $work['responsible_id'] = rand(1, 100);
+            $work['responsible_id'] = getUsersIdNotUnapproved();
         }
 
         //Generate creator_id:
-        $work['creator_id'] = rand(1, 100);
+        $work['creator_id'] = getUsersIdNotUnapproved();
 
         $work['id'] = $id;
         $works[] = $work;
@@ -721,8 +753,8 @@ function dataWorks()
             "need_help" => 0,
             "creation_date" => $oneproject['start'],    //automatically created with the project
             "project_id" => $oneproject['id'],
-            "creator_id" => rand(1, 100),
-            "responsible_id" => ((rand(1, 3) == 1) ? rand(1, 100) : null)
+            "creator_id" => getUsersIdNotUnapproved(),
+            "responsible_id" => ((rand(1, 3) == 1) ? getUsersIdNotUnapproved() : null)
         ];
         $inboxWorks[] = $inboxWork;
     }
@@ -754,7 +786,7 @@ function extraDataForOneTask($task, $work, $usersInTheProject)
     $task['responsible_id'] = $usersInTheProject[rand(0, count($usersInTheProject) - 1)];   //by default it's a user in the project
     if ($work['inbox'] == 1) {   //if work is inbox, lots of users outside the project can be responsible
         if (rand(1, 4) == 1) {
-            $task['responsible_id'] = rand(1, 100);
+            $task['responsible_id'] = getUsersIdNotUnapproved();
         }
     } else {  //in rare case if some users are no longer inside the project, they can have been responsible
         if ($work['responsible_id'] != null) {  //if there is a responsible for the work
@@ -763,7 +795,7 @@ function extraDataForOneTask($task, $work, $usersInTheProject)
             }
         }
         if (rand(1, 20) == 1) {
-            $task['responsible_id'] = rand(1, 100);
+            $task['responsible_id'] = getUsersIdNotUnapproved();
         }
     }
 
@@ -782,13 +814,13 @@ function extraDataForOneTask($task, $work, $usersInTheProject)
     $task['creator_id'] = $task['responsible_id'];  //by default the creator is the responsible
     if ($work['inbox'] == 1) {  //if work is inbox
         if (rand(1, 3) == 1) {   //the creator is probably an other user outside the project
-            $task['creator_id'] = rand(1, 100);
+            $task['creator_id'] = getUsersIdNotUnapproved();
         }
     } else {
         if (rand(1, 4) == 1) {
             $task['creator_id'] = $usersInTheProject[rand(0, count($usersInTheProject) - 1)];   //an other user in the project
         } else if (rand(1, 20) == 1) {
-            $task['creator_id'] = rand(1, 100);
+            $task['creator_id'] = getUsersIdNotUnapproved();
         }
     }
 
@@ -865,7 +897,7 @@ function printAllChoosenFields($array, $fieldname)
 }
 
 //EXECUTION - Here is the code and functions that will be started:
-define("CREATE_DB_BEFORE_INSERTION", false);    //if can recreate the db before insertion or not
+define("CREATE_DB_BEFORE_INSERTION", true);    //if can recreate the db before insertion or not
 
 if (CREATE_DB_BEFORE_INSERTION) {
 //Total creation of the database before insertion. (drop database before the creation)
@@ -879,12 +911,12 @@ if (CREATE_DB_BEFORE_INSERTION) {
 }
 
 //Comment or uncomment the functions that you need (be aware of foreign keys and if the creation of db before insertion is enabled):
-//dataUsers();
-//dataGroups();
-//data_join();
-//dataProjects();
-//dataParticipate();
-//dataLog();
-//dataWorks();
+dataUsers();
+dataGroups();
+data_join();
+dataProjects();
+dataParticipate();
+dataLog();
+dataWorks();
 dataTasks();
 ?>
