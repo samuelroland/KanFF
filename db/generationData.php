@@ -15,10 +15,19 @@ function getPDO()
     return new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname, $user, $pass);
 }
 
+echo "\n\nScript generationData.php for KanFF database is ready to start... Enabled functions are the end of the file will be executed. Press a key to start.";
+system("pause");
+
+//----- Constants and requirements ------
 define("GLOBAL_LOREM", file_get_contents("http://loripsum.net/api/short/5/long/plaintext"));
+define("NB_RANDOM_TASKS_TO_GENERATE", 300);  //nb of randoms tasks to generate (with lorem ipsum).
+define("CREATE_DB_BEFORE_INSERTION", true);    //if the script must recreate the db before insertion or not.
 require_once "../app/view/helpers.php";
 require_once "../app/controler/help.php";
 
+//----- Useful help functions for data generation especially ------
+
+//Copy of CRUDModel.php with little adaptations:
 //Build the string of the SQL query with SQL parameters according to the data sent
 function queryInsertConstructor($items, $tablename)
 {
@@ -95,6 +104,7 @@ function getRandomDateFormated($start = 1546300800, $end = null)
     return date("Y-m-d H:i:s", rand($start, $end));
 }
 
+//Copy of CRUDModel.php (getAll()) with little adaptations:
 //Get all the items of a table with the table name
 function getAllItems($tablename)
 {
@@ -117,22 +127,39 @@ function getAllItems($tablename)
     }
 }
 
+//Get random words of lorem ipsum in the raw text GLOBAL_LOREM to an approximate (not above) $length chars long.
 function getLoremIpsum($length = 100)
 {
     $lorem = constant("GLOBAL_LOREM");
-    return substr($lorem, strpos($lorem, " ", rand(0, strpos($lorem, " ", strlen($lorem) - $length - 30))), $length - 2);
+    if ($lorem == null) {
+        die("\nGLOBAL_LOREM empty... Internet connexion is required to access to loremipsum.net API.");
+    }
+    return substr($lorem, strpos($lorem, " ", rand(0, strpos($lorem, " ", strlen($lorem) - $length - 30))), $length - 2);   //search a random space in the raw text and
 }
 
-/// ----------------------------
-///  Generate data functions
-/// ----------------------------
-///
-define("UNWANTED_CHARS_ARRAY", array('Š' => 'S', 'š' => 's', 'Ž' => 'Z', 'ž' => 'z', 'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A', 'Æ' => 'A', 'Ç' => 'C', 'È' => 'E', 'É' => 'E',
-        'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I', 'Ñ' => 'N', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'O', 'Ø' => 'O', 'Ù' => 'U',
-        'Ú' => 'U', 'Û' => 'U', 'Ü' => 'U', 'Ý' => 'Y', 'Þ' => 'B', 'ß' => 'Ss', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'a', 'å' => 'a', 'æ' => 'a', 'ç' => 'c',
-        'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ð' => 'o', 'ñ' => 'n', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o',
-        'ö' => 'o', 'ø' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ý' => 'y', 'þ' => 'b', 'ÿ' => 'y', 'Ğ' => 'G', 'İ' => 'I', 'Ş' => 'S', 'ğ' => 'g', 'ı' => 'i', 'ş' => 's', 'ü' => 'u')
-);
+//Source: https://stackoverflow.com/questions/4356289/php-random-string-generator#answer-4356295
+function generateRandomString($length = 10)
+{
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+
+//Display the chosen field in each array that is in an array of associative array:
+function printAFieldForAllItems($array, $fieldname)
+{
+    echo "\n---- printAFieldForAllItems() -----\n Field: $fieldname\n";
+    foreach ($array as $item) {
+        echo "\n{$item[$fieldname]}";
+    }
+}
+
+
+//----- Generate data functions ------
 
 //Generate data for users
 function dataUsers()
@@ -357,7 +384,7 @@ function dataGroups()
 }
 
 //Generate data for join
-function data_join()
+function dataJoin()
 {
     echo "\n-----------------------------\n Generating Join \n-----------------------------\n ";
     //Take the group list
@@ -478,6 +505,7 @@ function data_join()
     importTableData("join", $joins);
 }
 
+//Generate data for projects
 function dataProjects()
 {
     $projectsress = json_decode(file_get_contents("data-ressources/basic-data-projects.json"), true);
@@ -518,7 +546,6 @@ function dataProjects()
             $project['state'] = $state;
         }
 
-
         //Generate logbook_content:
         $project['logbook_content'] = "Contient les décisions importantes, rencontres formelles, changements importants et publications de nouvelles version de document.
 Important, signifie que ce qui est décrit dans l'enregistrement, a un impact sur le travail de plusieurs personnes du projet."; //default value
@@ -533,13 +560,13 @@ Important, signifie que ce qui est décrit dans l'enregistrement, a un impact su
         //Generate archived:
         if (isset($ressource['archived']) == false) {
             $project['archived'] = 0;
-            if ($state == PROJECT_STATE_CANCELLED || $state == PROJECT_STATE_ABANDONNED || $state == PROJECT_STATE_DONE) {
+            if ($project['state'] == PROJECT_STATE_CANCELLED || $project['state'] == PROJECT_STATE_ABANDONNED || $project['state'] == PROJECT_STATE_DONE) {
                 if (rand(1, 2)) {   //project can be finished but not yet archived
                     $project['archived'] = 1;
                 }
             }
         }
-        //Generate repsonsible_id
+        //Generate responsible_id
         $project['responsible_id'] = null;
         if (rand(1, 3) == 1) {
             $project['responsible_id'] = rand(1, 100);
@@ -550,13 +577,13 @@ Important, signifie que ce qui est décrit dans l'enregistrement, a un impact su
     }
     print_r($projects);
     importTableData("projects", $projects);
-    printAllChoosenFields($projects, "manager_id");
+    printAFieldForAllItems($projects, "manager_id");
 }
 
+//Generate data for participate
 function dataParticipate()
 {
     $projects = getAllItems("projects");
-    $groups = getAllItems("groups");
     $participateres = json_decode(file_get_contents("data-ressources/basic-data-participate.json"), true);
 
     echo "\n-----------------------------\n Generating Participate \n-----------------------------\n ";
@@ -591,14 +618,13 @@ function dataParticipate()
             }
         }
 
-
         $participate['id'] = $id;
         $participates[] = $participate;
     }
-
     importTableData("participate", $participates);
 }
 
+//Generate data for log
 function dataLog()
 {
     $projects = getAllItems("projects");
@@ -641,6 +667,7 @@ function dataLog()
     importTableData("log", $logs);
 }
 
+//Generate data for works
 function dataWorks()
 {
     $projects = getAllItems("projects");
@@ -729,6 +756,7 @@ function dataWorks()
     importTableData("works", array_merge($works, $inboxWorks)); //import the 2 arrays in the database
 }
 
+//Generate extra data for tasks
 function extraDataForOneTask($task, $work)
 {
     $task['deadline'] = null;
@@ -768,9 +796,9 @@ function extraDataForOneTask($task, $work)
     return $task;
 }
 
+//Generate data for tasks
 function dataTasks()
 {
-    define("NB_RANDOM_TASKS_TO_GENERATE", 300);  //nb of randoms tasks to generate (with lorem ipsum).
     $works = getAllItems("works");
     $taskres = json_decode(file_get_contents("data-ressources/basic-data-tasks.json"), true);
 
@@ -812,48 +840,29 @@ function dataTasks()
     importTableData("tasks", $tasks);
 }
 
-//Source: https://stackoverflow.com/questions/4356289/php-random-string-generator#answer-4356295
-function generateRandomString($length = 10)
-{
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
-    $charactersLength = strlen($characters);
-    $randomString = '';
-    for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
-    }
-    return $randomString;
-}
 
-//Display the choosen field in each array that is in an array of associative array:
-function printAllChoosenFields($array, $fieldname)
-{
-    echo "\n---- printAllChoosenFields() -----\n Field: $fieldname\n";
-    foreach ($array as $item) {
-        echo "\n{$item[$fieldname]}";
-    }
-}
-
+//------------------------------------------------------------------------------------------------------------
 //EXECUTION - Here is the code and functions that will be started:
-define("CREATE_DB_BEFORE_INSERTION", true);    //if can recreate the db before insertion or not
-
 if (CREATE_DB_BEFORE_INSERTION) {
-//Total creation of the database before insertion. (drop database before the creation)
+    //Total creation of the database before insertion. (drop database before the creation)
     require_once "../app/.const.php";
     $filename = "db-manage/create-db-kanff.sql";
 
-//Drop and create again the database kanff:
+    //Drop and create again the database kanff:
     $cmdCreate = "mysql -u $user -p$pass < $filename -h $dbhost";  //system command for execute sql queries or sql file
     exec($cmdCreate);
     echo "\n\nDatabase kanff dropped and created again !";
 }
 
-//Comment or uncomment the functions that you need (be aware of foreign keys and if the creation of db before insertion is enabled):
+//Comment or uncomment the functions that you need (be aware of foreign keys and if the creation of db before insertion is enabled: see CREATE_DB_BEFORE_INSERTION):
 dataUsers();
 dataGroups();
-data_join();
+dataJoin();
 dataProjects();
 dataParticipate();
 dataLog();
 dataWorks();
 dataTasks();
+
+echo "\n\nScript generationData.php finished... Data should normally be inserted in the database.";
 ?>
