@@ -55,7 +55,7 @@ where groups.state = " . GROUP_STATE_ARCHIVED . ";";
 //Get all members for one group ordred by accepted status
 function getUsersFromAGroup($idGroup)
 {
-    $query = "SELECT `users`.*,`join`.state  FROM	`users`
+    $query = "SELECT `users`.*,`join`.state as joinstate FROM	`users`
 INNER join `join` ON `users`.id = `join`.user_id
 INNER join `groups` ON `join`.group_id = `groups`.id
 WHERE	`groups`.id =:id AND `join`.state IN (" . JOIN_STATE_INVITATION_ACCEPTED . "," . JOIN_STATE_APPROVED . ")

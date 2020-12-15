@@ -536,4 +536,17 @@ function buildSentenceAccountStateLastChange($user, $middleBreak = false, $intro
     return $sentence;
 }
 
+function clearAllNonAlphabeticalChars($text)
+{
+    $characters = str_split('0123456789abcdefghijklmnopqrstuvwxyz');
+
+    $newText = "";
+    foreach (str_split($text) as $char) {
+        if (in_array($char, $characters) == true) {
+            $newText .= $char;
+        }
+    }
+    return $newText;
+}
+
 ?>

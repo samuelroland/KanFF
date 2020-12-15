@@ -15,9 +15,29 @@ function getPDO()
     return new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname, $user, $pass);
 }
 
+//Get users id not unapproved ($list false: get a random id, if true: get the list of ids)
+function getUsersIdNotUnapproved($list = false)
+{
+    $users = getByCondition("users", [], "users.state != " . USER_STATE_UNAPPROVED, true);
+    $ids = [];
+    foreach ($users as $user) {
+        $ids[] = $user['id'];
+    }
+    if (empty($ids)) {
+        die("ERROR: Users unapproved not found...");
+    }
+    $rand = $ids[rand(0, count($ids) - 1)];
+    if ($list == true) {
+        return $ids;
+    } else {
+        return $rand;
+    }
+}
+
 define("GLOBAL_LOREM", file_get_contents("http://loripsum.net/api/short/5/long/plaintext"));
 require_once "../app/view/helpers.php";
 require_once "../app/controler/help.php";
+require_once "../app/model/projectsModel.php";
 
 //Build the string of the SQL query with SQL parameters according to the data sent
 function queryInsertConstructor($items, $tablename)
@@ -74,7 +94,7 @@ function Query($query, $params, $manyrecords)
             $queryResult = $dbh->lastInsertId();
         }
         if ($statement->errorInfo()[2] != null) {
-            var_dump($statement->errorInfo()[2]);
+            var_dump("SQL ERROR: " . $statement->errorInfo()[2]);
         }
 
         $dbh = null;
@@ -84,6 +104,19 @@ function Query($query, $params, $manyrecords)
         var_dump($statement->errorInfo()[2]);
         return null;
     }
+}
+
+//Get one specific element of one Table
+function getByCondition($table, $params, $conditions, $manyrecords)
+{
+    //$table = "users" OR "competences" ...
+    //$conditions need the complete where condition with AND / OR write in SQL
+    //Example for $conditions => id=:id AND name=:name
+    //$params = ["id"=>$id,"name"=>$name,"NPA"=>94654]
+    //$manyrecords = if the query will return more than 1 item (true/false)
+
+    $query = "SELECT * FROM `$table` WHERE " . $conditions;
+    return Query($query, $params, $manyrecords);
 }
 
 //Generate a date between 01.01.2019 (as default, or the date given if parameter exists) and today formatted in DATETIME format ("Y-m-d H:i:s")
@@ -120,7 +153,7 @@ function getAllItems($tablename)
 function getLoremIpsum($length = 100)
 {
     $lorem = constant("GLOBAL_LOREM");
-    return substr($lorem, strpos($lorem, " ", rand(0, strpos($lorem, " ", strlen($lorem) - $length - 30))), $length - 2);
+    return substr($lorem, strpos($lorem, " ", rand(0, strpos($lorem, " ", strlen($lorem) - $length - 30))) + 1, $length - 2);
 }
 
 /// ----------------------------
@@ -171,7 +204,7 @@ function dataUsers()
 
         if (isset($ressource['email']) == false) {
             //half the time, email is set to "firstname.lastname@assoc.com" and if not the email is null
-            if (rand(0, 1)) {
+            if (rand(0, 1) == 1) {
                 $email = $firstname . "." . $lastname . "@assoc.ch";    //create the email with the raw firstname and lastname
                 $email = strtr($email, UNWANTED_CHARS_ARRAY);    //replace accent with corresponding char
                 $email = strtolower($email);    //put the string to lower cases.
@@ -295,7 +328,7 @@ function dataGroups()
         }
 
         //Half time, email is the last word of the name of the group with @assoc.ch
-        if (rand(0, 1)) {
+        if (rand(0, 1) == 1) {
             $wordsOfName = explode(" ", $group['name']);
             $startEmail = strtr($wordsOfName[count($wordsOfName) - 1], UNWANTED_CHARS_ARRAY);    //replace accent with corresponding char
             $group['email'] = strtolower($startEmail) . "@assoc.ch";    //concat start email with domain name
@@ -323,7 +356,7 @@ function dataGroups()
         $group['drive_link'] = "drive.link/open?f=" . generateRandomString(rand(50, 70));
 
         //Foreign key of the user creator
-        $group['creator_id'] = rand(1, 100);
+        $group['creator_id'] = getUsersIdNotUnapproved();
 
         $group['creation_date'] = getRandomDateFormated();
 
@@ -367,7 +400,7 @@ function data_join()
     $id = 0;
 
     //Choose the groups joined for the 100 users (id 1 to 100)
-    for ($i = 1; $i <= 100; $i++) {
+    foreach (getUsersIdNotUnapproved(true) as $i) {
         $join['user_id'] = $i;
 
         //Generate for the most majority of users but not for a minority of people that will not be in any groups.
@@ -534,7 +567,7 @@ Important, signifie que ce qui est décrit dans l'enregistrement, a un impact su
         if (isset($ressource['archived']) == false) {
             $project['archived'] = 0;
             if ($state == PROJECT_STATE_CANCELLED || $state == PROJECT_STATE_ABANDONNED || $state == PROJECT_STATE_DONE) {
-                if (rand(1, 2)) {   //project can be finished but not yet archived
+                if (rand(1, 2) == 1) {   //project can be finished but not yet archived
                     $project['archived'] = 1;
                 }
             }
@@ -542,7 +575,7 @@ Important, signifie que ce qui est décrit dans l'enregistrement, a un impact su
         //Generate repsonsible_id
         $project['responsible_id'] = null;
         if (rand(1, 3) == 1) {
-            $project['responsible_id'] = rand(1, 100);
+            $project['responsible_id'] = getUsersIdNotUnapproved();
         }
 
         $project['id'] = $id;
@@ -632,7 +665,7 @@ function dataLog()
         }
 
         //Generate user_id:
-        $log['user_id'] = rand(1, 100);
+        $log['user_id'] = getUsersIdNotUnapproved();
 
         $log['id'] = $id;
         $logs[] = $log;
@@ -689,11 +722,11 @@ function dataWorks()
         //Generate responsible_id:
         $work['responsible_id'] = null;
         if (rand(1, 3) == 1) {
-            $work['responsible_id'] = rand(1, 100);
+            $work['responsible_id'] = getUsersIdNotUnapproved();
         }
 
         //Generate creator_id:
-        $work['creator_id'] = rand(1, 100);
+        $work['creator_id'] = getUsersIdNotUnapproved();
 
         $work['id'] = $id;
         $works[] = $work;
@@ -720,8 +753,8 @@ function dataWorks()
             "need_help" => 0,
             "creation_date" => $oneproject['start'],    //automatically created with the project
             "project_id" => $oneproject['id'],
-            "creator_id" => rand(1, 100),
-            "responsible_id" => ((rand(1, 3) == 1) ? rand(1, 100) : null)
+            "creator_id" => getUsersIdNotUnapproved(),
+            "responsible_id" => ((rand(1, 3) == 1) ? getUsersIdNotUnapproved() : null)
         ];
         $inboxWorks[] = $inboxWork;
     }
@@ -729,7 +762,7 @@ function dataWorks()
     importTableData("works", array_merge($works, $inboxWorks)); //import the 2 arrays in the database
 }
 
-function extraDataForOneTask($task, $work)
+function extraDataForOneTask($task, $work, $usersInTheProject)
 {
     $task['deadline'] = null;
     if (rand(1, 4) == 1) {
@@ -738,32 +771,59 @@ function extraDataForOneTask($task, $work)
 
     $task['urgency'] = rand(0, 5);
 
-    if (rand(1, 8)) {
+    $task['type'] = 0;
+    if (rand(1, 8) == 1) {
         $task['type'] = rand(0, 5);
-    } else {
-        $task['type'] = null;
     }
 
-    if (rand(1, 20)) {
-        $task['link'] = "https://" . generateRandomString(rand(6, 25)) . "/" . getLoremIpsum(rand(15, 2000));
+    $task['link'] = null;
+    if (rand(1, 10) == 1) {
+        $task['link'] = "https://" . clearAllNonAlphabeticalChars(getLoremIpsum(rand(6, 20))) . ".com/doc/?key=" . clearAllNonAlphabeticalChars(generateRandomString(rand(15, 2000)));   //a basic build to simulate a link
         $task['link'] = substr($task['link'], 0, 2000); //substring to 2000 chars
     }
 
-    $task['completion_date'] = null;    //default value
-    if ($task['state'] == TASK_STATE_TODO) {
+    //Choose a responsible (by default there is a responsible, but it can be removed under in the code if needed)
+    $task['responsible_id'] = $usersInTheProject[rand(0, count($usersInTheProject) - 1)];   //by default it's a user in the project
+    if ($work['inbox'] == 1) {   //if work is inbox, lots of users outside the project can be responsible
         if (rand(1, 4) == 1) {
-            $task['responsible_id'] = rand(1, 100);
-        } else {
-            $task['responsible_id'] = null;
+            $task['responsible_id'] = getUsersIdNotUnapproved();
         }
-    } else {
-        if ($task['state'] == TASK_STATE_DONE) {
-            $task['completion_date'] = getRandomDateFormated(strtotime($work['start']));
+    } else {  //in rare case if some users are no longer inside the project, they can have been responsible
+        if ($work['responsible_id'] != null) {  //if there is a responsible for the work
+            if (rand(1, 2) == 1) {
+                $task['responsible_id'] = $work['responsible_id'];  //the responsible of the work take care of tasks very often
+            }
         }
-        $task['responsible_id'] = rand(1, 100);
+        if (rand(1, 20) == 1) {
+            $task['responsible_id'] = getUsersIdNotUnapproved();
+        }
     }
 
-    $task['creator_id'] = rand(1, 100);
+    //Depending on the task state, change a bit values for responsible and completion date
+    $task['completion_date'] = null;    //default value
+    if ($task['state'] == TASK_STATE_TODO) {    //if task is to do, it can have no responsible
+        if (rand(1, 4) > 1) {
+            $task['responsible_id'] = null;
+        }
+    } else {    //else (task in run or done)
+        if ($task['state'] == TASK_STATE_DONE) {    //completion date must exist if the task is done
+            $task['completion_date'] = getRandomDateFormated(strtotime($work['start']));
+        }
+    }
+
+    $task['creator_id'] = $task['responsible_id'];  //by default the creator is the responsible
+    if ($work['inbox'] == 1) {  //if work is inbox
+        if (rand(1, 3) == 1) {   //the creator is probably an other user outside the project
+            $task['creator_id'] = getUsersIdNotUnapproved();
+        }
+    } else {
+        if (rand(1, 4) == 1) {
+            $task['creator_id'] = $usersInTheProject[rand(0, count($usersInTheProject) - 1)];   //an other user in the project
+        } else if (rand(1, 20) == 1) {
+            $task['creator_id'] = getUsersIdNotUnapproved();
+        }
+    }
+
 
     return $task;
 }
@@ -783,7 +843,7 @@ function dataTasks()
         $nbtasks++;
         $task['id'] = $nbtasks;
         $task['number'] = $task['id'];
-        $task = extraDataForOneTask($task, $works[$task['work_id']]);
+        $task = extraDataForOneTask($task, $works[$task['work_id']], getAllUsersIdInsideAProject($works[$task['work_id']]['project_id']));
         $tasks[] = $task;
     }
 
@@ -799,13 +859,16 @@ function dataTasks()
         $lastnumber = $nextnumber;
         $task['number'] = $nextnumber;
 
-        $task['name'] = getLoremIpsum(rand(4, 50));
-        $task['description'] = getLoremIpsum(1000);
+        $task['name'] = str_replace("\n", "", getLoremIpsum(rand(4, 100)));
+        $task['description'] = null;
+        if (rand(1, 4) == 1) {
+            $task['description'] = str_replace("\n", "", getLoremIpsum(rand(10, 2000)));
+        }
         $task['state'] = rand(1, 3);
 
         $task['work_id'] = $works[rand(1, count((array)$works))]['id'];
-        echo "\n" . $task['name'] . " - work_id: " . $task['work_id'];
-        $task = extraDataForOneTask($task, $works[$task['work_id']]);
+        echo "\nTask: " . $task['id'] . ": name: " . $task['name'] . "- work_id: " . $task['work_id'];
+        $task = extraDataForOneTask($task, $works[$task['work_id']], getAllUsersIdInsideAProject($works[$task['work_id']]['project_id']));
         $tasks[] = $task;
     }
 
