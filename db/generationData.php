@@ -15,30 +15,19 @@ function getPDO()
     return new PDO('mysql:host=' . $dbhost . ';dbname=' . $dbname, $user, $pass);
 }
 
-//Get users id not unapproved ($list false: get a random id, if true: get the list of ids)
-function getUsersIdNotUnapproved($list = false)
-{
-    $users = getByCondition("users", [], "users.state != " . USER_STATE_UNAPPROVED, true);
-    $ids = [];
-    foreach ($users as $user) {
-        $ids[] = $user['id'];
-    }
-    if (empty($ids)) {
-        die("ERROR: Users unapproved not found...");
-    }
-    $rand = $ids[rand(0, count($ids) - 1)];
-    if ($list == true) {
-        return $ids;
-    } else {
-        return $rand;
-    }
-}
+echo "\n\nScript generationData.php for KanFF database is ready to start... Enabled functions are the end of the file will be executed. Press a key to start.";
+system("pause");
 
+//----- Constants and requirements ------
 define("GLOBAL_LOREM", file_get_contents("http://loripsum.net/api/short/5/long/plaintext"));
+define("NB_RANDOM_TASKS_TO_GENERATE", 300);  //nb of randoms tasks to generate (with lorem ipsum).
+define("CREATE_DB_BEFORE_INSERTION", true);    //if the script must recreate the db before insertion or not.
 require_once "../app/view/helpers.php";
 require_once "../app/controler/help.php";
-require_once "../app/model/projectsModel.php";
 
+//----- Useful help functions for data generation especially ------
+
+//Copy of CRUDModel.php with little adaptations:
 //Build the string of the SQL query with SQL parameters according to the data sent
 function queryInsertConstructor($items, $tablename)
 {
@@ -94,7 +83,7 @@ function Query($query, $params, $manyrecords)
             $queryResult = $dbh->lastInsertId();
         }
         if ($statement->errorInfo()[2] != null) {
-            var_dump("SQL ERROR: " . $statement->errorInfo()[2]);
+            var_dump($statement->errorInfo()[2]);
         }
 
         $dbh = null;
@@ -106,19 +95,6 @@ function Query($query, $params, $manyrecords)
     }
 }
 
-//Get one specific element of one Table
-function getByCondition($table, $params, $conditions, $manyrecords)
-{
-    //$table = "users" OR "competences" ...
-    //$conditions need the complete where condition with AND / OR write in SQL
-    //Example for $conditions => id=:id AND name=:name
-    //$params = ["id"=>$id,"name"=>$name,"NPA"=>94654]
-    //$manyrecords = if the query will return more than 1 item (true/false)
-
-    $query = "SELECT * FROM `$table` WHERE " . $conditions;
-    return Query($query, $params, $manyrecords);
-}
-
 //Generate a date between 01.01.2019 (as default, or the date given if parameter exists) and today formatted in DATETIME format ("Y-m-d H:i:s")
 function getRandomDateFormated($start = 1546300800, $end = null)
 {
@@ -128,6 +104,7 @@ function getRandomDateFormated($start = 1546300800, $end = null)
     return date("Y-m-d H:i:s", rand($start, $end));
 }
 
+//Copy of CRUDModel.php (getAll()) with little adaptations:
 //Get all the items of a table with the table name
 function getAllItems($tablename)
 {
@@ -150,22 +127,39 @@ function getAllItems($tablename)
     }
 }
 
+//Get random words of lorem ipsum in the raw text GLOBAL_LOREM to an approximate (not above) $length chars long.
 function getLoremIpsum($length = 100)
 {
     $lorem = constant("GLOBAL_LOREM");
-    return substr($lorem, strpos($lorem, " ", rand(0, strpos($lorem, " ", strlen($lorem) - $length - 30))) + 1, $length - 2);
+    if ($lorem == null) {
+        die("\nGLOBAL_LOREM empty... Internet connexion is required to access to loremipsum.net API.");
+    }
+    return substr($lorem, strpos($lorem, " ", rand(0, strpos($lorem, " ", strlen($lorem) - $length - 30))), $length - 2);   //search a random space in the raw text and
 }
 
-/// ----------------------------
-///  Generate data functions
-/// ----------------------------
-///
-define("UNWANTED_CHARS_ARRAY", array('Š' => 'S', 'š' => 's', 'Ž' => 'Z', 'ž' => 'z', 'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A', 'Æ' => 'A', 'Ç' => 'C', 'È' => 'E', 'É' => 'E',
-        'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I', 'Ñ' => 'N', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'O', 'Ø' => 'O', 'Ù' => 'U',
-        'Ú' => 'U', 'Û' => 'U', 'Ü' => 'U', 'Ý' => 'Y', 'Þ' => 'B', 'ß' => 'Ss', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'a', 'å' => 'a', 'æ' => 'a', 'ç' => 'c',
-        'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ð' => 'o', 'ñ' => 'n', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o',
-        'ö' => 'o', 'ø' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ý' => 'y', 'þ' => 'b', 'ÿ' => 'y', 'Ğ' => 'G', 'İ' => 'I', 'Ş' => 'S', 'ğ' => 'g', 'ı' => 'i', 'ş' => 's', 'ü' => 'u')
-);
+//Source: https://stackoverflow.com/questions/4356289/php-random-string-generator#answer-4356295
+function generateRandomString($length = 10)
+{
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+
+//Display the chosen field in each array that is in an array of associative array:
+function printAFieldForAllItems($array, $fieldname)
+{
+    echo "\n---- printAFieldForAllItems() -----\n Field: $fieldname\n";
+    foreach ($array as $item) {
+        echo "\n{$item[$fieldname]}";
+    }
+}
+
+
+//----- Generate data functions ------
 
 //Generate data for users
 function dataUsers()
@@ -204,7 +198,7 @@ function dataUsers()
 
         if (isset($ressource['email']) == false) {
             //half the time, email is set to "firstname.lastname@assoc.com" and if not the email is null
-            if (rand(0, 1) == 1) {
+            if (rand(0, 1)) {
                 $email = $firstname . "." . $lastname . "@assoc.ch";    //create the email with the raw firstname and lastname
                 $email = strtr($email, UNWANTED_CHARS_ARRAY);    //replace accent with corresponding char
                 $email = strtolower($email);    //put the string to lower cases.
@@ -328,7 +322,7 @@ function dataGroups()
         }
 
         //Half time, email is the last word of the name of the group with @assoc.ch
-        if (rand(0, 1) == 1) {
+        if (rand(0, 1)) {
             $wordsOfName = explode(" ", $group['name']);
             $startEmail = strtr($wordsOfName[count($wordsOfName) - 1], UNWANTED_CHARS_ARRAY);    //replace accent with corresponding char
             $group['email'] = strtolower($startEmail) . "@assoc.ch";    //concat start email with domain name
@@ -356,7 +350,7 @@ function dataGroups()
         $group['drive_link'] = "drive.link/open?f=" . generateRandomString(rand(50, 70));
 
         //Foreign key of the user creator
-        $group['creator_id'] = getUsersIdNotUnapproved();
+        $group['creator_id'] = rand(1, 100);
 
         $group['creation_date'] = getRandomDateFormated();
 
@@ -390,7 +384,7 @@ function dataGroups()
 }
 
 //Generate data for join
-function data_join()
+function dataJoin()
 {
     echo "\n-----------------------------\n Generating Join \n-----------------------------\n ";
     //Take the group list
@@ -400,7 +394,7 @@ function data_join()
     $id = 0;
 
     //Choose the groups joined for the 100 users (id 1 to 100)
-    foreach (getUsersIdNotUnapproved(true) as $i) {
+    for ($i = 1; $i <= 100; $i++) {
         $join['user_id'] = $i;
 
         //Generate for the most majority of users but not for a minority of people that will not be in any groups.
@@ -511,6 +505,7 @@ function data_join()
     importTableData("join", $joins);
 }
 
+//Generate data for projects
 function dataProjects()
 {
     $projectsress = json_decode(file_get_contents("data-ressources/basic-data-projects.json"), true);
@@ -551,7 +546,6 @@ function dataProjects()
             $project['state'] = $state;
         }
 
-
         //Generate logbook_content:
         $project['logbook_content'] = "Contient les décisions importantes, rencontres formelles, changements importants et publications de nouvelles version de document.
 Important, signifie que ce qui est décrit dans l'enregistrement, a un impact sur le travail de plusieurs personnes du projet."; //default value
@@ -566,8 +560,8 @@ Important, signifie que ce qui est décrit dans l'enregistrement, a un impact su
         //Generate archived:
         if (isset($ressource['archived']) == false) {
             $project['archived'] = 0;
-            if ($state == PROJECT_STATE_CANCELLED || $state == PROJECT_STATE_ABANDONNED || $state == PROJECT_STATE_DONE) {
-                if (rand(1, 2) == 1) {   //project can be finished but not yet archived
+            if ($project['state'] == PROJECT_STATE_CANCELLED || $project['state'] == PROJECT_STATE_ABANDONNED || $project['state'] == PROJECT_STATE_DONE) {
+                if (rand(1, 2)) {   //project can be finished but not yet archived
                     $project['archived'] = 1;
                 }
             }
@@ -575,7 +569,7 @@ Important, signifie que ce qui est décrit dans l'enregistrement, a un impact su
         //Generate responsible_id
         $project['responsible_id'] = null;
         if (rand(1, 3) == 1) {
-            $project['responsible_id'] = getUsersIdNotUnapproved();
+            $project['responsible_id'] = rand(1, 100);
         }
 
         $project['id'] = $id;
@@ -583,13 +577,13 @@ Important, signifie que ce qui est décrit dans l'enregistrement, a un impact su
     }
     print_r($projects);
     importTableData("projects", $projects);
-    printAllChoosenFields($projects, "manager_id");
+    printAFieldForAllItems($projects, "manager_id");
 }
 
+//Generate data for participate
 function dataParticipate()
 {
     $projects = getAllItems("projects");
-    $groups = getAllItems("groups");
     $participateres = json_decode(file_get_contents("data-ressources/basic-data-participate.json"), true);
 
     echo "\n-----------------------------\n Generating Participate \n-----------------------------\n ";
@@ -624,14 +618,13 @@ function dataParticipate()
             }
         }
 
-
         $participate['id'] = $id;
         $participates[] = $participate;
     }
-
     importTableData("participate", $participates);
 }
 
+//Generate data for log
 function dataLog()
 {
     $projects = getAllItems("projects");
@@ -665,7 +658,7 @@ function dataLog()
         }
 
         //Generate user_id:
-        $log['user_id'] = getUsersIdNotUnapproved();
+        $log['user_id'] = rand(1, 100);
 
         $log['id'] = $id;
         $logs[] = $log;
@@ -674,6 +667,7 @@ function dataLog()
     importTableData("log", $logs);
 }
 
+//Generate data for works
 function dataWorks()
 {
     $projects = getAllItems("projects");
@@ -722,11 +716,11 @@ function dataWorks()
         //Generate responsible_id:
         $work['responsible_id'] = null;
         if (rand(1, 3) == 1) {
-            $work['responsible_id'] = getAllUsersIdInsideAProject($work['project_id']);
+            $work['responsible_id'] = rand(1, 100);
         }
 
         //Generate creator_id:
-        $work['creator_id'] = getAllUsersIdInsideAProject($work['project_id']);
+        $work['creator_id'] = rand(1, 100);
 
         $work['id'] = $id;
         $works[] = $work;
@@ -743,7 +737,7 @@ function dataWorks()
             "description" => "(Créé automatiquement à la création du projet). Ce travail fait office de boîte de réception pour les tâches envoyés n'ayant pas de travail lié. Plus d'infos dans le mode d'emploi.",
             "start" => $oneproject['start'],
             "end" => $oneproject['end'],
-            "state" => WORK_STATE_INRUN,   //always in run
+            "state" => 2,   //always in run
             "value" => 5,
             "effort" => 5,
             "visible" => 1,
@@ -753,8 +747,8 @@ function dataWorks()
             "need_help" => 0,
             "creation_date" => $oneproject['start'],    //automatically created with the project
             "project_id" => $oneproject['id'],
-            "creator_id" => null,   //there is no creator (is possible because field can be null in the db. if null on inbox --> normal, if null on not inbox work --> created by a deleted account).
-            "responsible_id" => ((rand(1, 3) == 1) ? getAllUsersIdInsideAProject($oneproject['id']) : null)
+            "creator_id" => rand(1, 100),
+            "responsible_id" => ((rand(1, 3) == 1) ? rand(1, 100) : null)
         ];
         $inboxWorks[] = $inboxWork;
     }
@@ -762,7 +756,8 @@ function dataWorks()
     importTableData("works", array_merge($works, $inboxWorks)); //import the 2 arrays in the database
 }
 
-function extraDataForOneTask($task, $work, $usersInTheProject)
+//Generate extra data for tasks
+function extraDataForOneTask($task, $work)
 {
     $task['deadline'] = null;
     if (rand(1, 4) == 1) {
@@ -771,66 +766,39 @@ function extraDataForOneTask($task, $work, $usersInTheProject)
 
     $task['urgency'] = rand(0, 5);
 
-    $task['type'] = 0;
-    if (rand(1, 8) == 1) {
+    if (rand(1, 8)) {
         $task['type'] = rand(0, 5);
+    } else {
+        $task['type'] = null;
     }
 
-    $task['link'] = null;
-    if (rand(1, 10) == 1) {
-        $task['link'] = "https://" . clearAllNonAlphabeticalChars(getLoremIpsum(rand(6, 20))) . ".com/doc/?key=" . clearAllNonAlphabeticalChars(generateRandomString(rand(15, 2000)));   //a basic build to simulate a link
+    if (rand(1, 20)) {
+        $task['link'] = "https://" . generateRandomString(rand(6, 25)) . "/" . getLoremIpsum(rand(15, 2000));
         $task['link'] = substr($task['link'], 0, 2000); //substring to 2000 chars
     }
 
-    //Choose a responsible (by default there is a responsible, but it can be removed under in the code if needed)
-    $task['responsible_id'] = $usersInTheProject[rand(0, count($usersInTheProject) - 1)];   //by default it's a user in the project
-    if ($work['inbox'] == 1) {   //if work is inbox, lots of users outside the project can be responsible
-        if (rand(1, 4) == 1) {
-            $task['responsible_id'] = getUsersIdNotUnapproved();
-        }
-    } else {  //in rare case if some users are no longer inside the project, they can have been responsible
-        if ($work['responsible_id'] != null) {  //if there is a responsible for the work
-            if (rand(1, 2) == 1) {
-                $task['responsible_id'] = $work['responsible_id'];  //the responsible of the work take care of tasks very often
-            }
-        }
-        if (rand(1, 20) == 1) {
-            $task['responsible_id'] = getUsersIdNotUnapproved();
-        }
-    }
-
-    //Depending on the task state, change a bit values for responsible and completion date
     $task['completion_date'] = null;    //default value
-    if ($task['state'] == TASK_STATE_TODO) {    //if task is to do, it can have no responsible
-        if (rand(1, 4) > 1) {
+    if ($task['state'] == TASK_STATE_TODO) {
+        if (rand(1, 4) == 1) {
+            $task['responsible_id'] = rand(1, 100);
+        } else {
             $task['responsible_id'] = null;
         }
-    } else {    //else (task in run or done)
-        if ($task['state'] == TASK_STATE_DONE) {    //completion date must exist if the task is done
+    } else {
+        if ($task['state'] == TASK_STATE_DONE) {
             $task['completion_date'] = getRandomDateFormated(strtotime($work['start']));
         }
+        $task['responsible_id'] = rand(1, 100);
     }
 
-    $task['creator_id'] = $task['responsible_id'];  //by default the creator is the responsible
-    if ($work['inbox'] == 1) {  //if work is inbox
-        if (rand(1, 3) == 1) {   //the creator is probably an other user outside the project
-            $task['creator_id'] = getUsersIdNotUnapproved();
-        }
-    } else {
-        if (rand(1, 4) == 1) {
-            $task['creator_id'] = $usersInTheProject[rand(0, count($usersInTheProject) - 1)];   //an other user in the project
-        } else if (rand(1, 20) == 1) {
-            $task['creator_id'] = getUsersIdNotUnapproved();
-        }
-    }
-
+    $task['creator_id'] = rand(1, 100);
 
     return $task;
 }
 
+//Generate data for tasks
 function dataTasks()
 {
-    define("NB_RANDOM_TASKS_TO_GENERATE", 300);  //nb of randoms tasks to generate (with lorem ipsum).
     $works = getAllItems("works");
     $taskres = json_decode(file_get_contents("data-ressources/basic-data-tasks.json"), true);
 
@@ -843,7 +811,7 @@ function dataTasks()
         $nbtasks++;
         $task['id'] = $nbtasks;
         $task['number'] = $task['id'];
-        $task = extraDataForOneTask($task, $works[$task['work_id']], getAllUsersIdInsideAProject($works[$task['work_id']]['project_id']));
+        $task = extraDataForOneTask($task, $works[$task['work_id']]);
         $tasks[] = $task;
     }
 
@@ -859,64 +827,42 @@ function dataTasks()
         $lastnumber = $nextnumber;
         $task['number'] = $nextnumber;
 
-        $task['name'] = str_replace("\n", "", getLoremIpsum(rand(4, 100)));
-        $task['description'] = null;
-        if (rand(1, 4) == 1) {
-            $task['description'] = str_replace("\n", "", getLoremIpsum(rand(10, 2000)));
-        }
+        $task['name'] = getLoremIpsum(rand(4, 50));
+        $task['description'] = getLoremIpsum(1000);
         $task['state'] = rand(1, 3);
 
         $task['work_id'] = $works[rand(1, count((array)$works))]['id'];
-        echo "\nTask: " . $task['id'] . ": name: " . $task['name'] . "- work_id: " . $task['work_id'];
-        $task = extraDataForOneTask($task, $works[$task['work_id']], getAllUsersIdInsideAProject($works[$task['work_id']]['project_id']));
+        echo "\n" . $task['name'] . " - work_id: " . $task['work_id'];
+        $task = extraDataForOneTask($task, $works[$task['work_id']]);
         $tasks[] = $task;
     }
 
     importTableData("tasks", $tasks);
 }
 
-//Source: https://stackoverflow.com/questions/4356289/php-random-string-generator#answer-4356295
-function generateRandomString($length = 10)
-{
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
-    $charactersLength = strlen($characters);
-    $randomString = '';
-    for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
-    }
-    return $randomString;
-}
 
-//Display the choosen field in each array that is in an array of associative array:
-function printAllChoosenFields($array, $fieldname)
-{
-    echo "\n---- printAllChoosenFields() -----\n Field: $fieldname\n";
-    foreach ($array as $item) {
-        echo "\n{$item[$fieldname]}";
-    }
-}
-
+//------------------------------------------------------------------------------------------------------------
 //EXECUTION - Here is the code and functions that will be started:
-define("CREATE_DB_BEFORE_INSERTION", true);    //if can recreate the db before insertion or not
-
 if (CREATE_DB_BEFORE_INSERTION) {
-//Total creation of the database before insertion. (drop database before the creation)
+    //Total creation of the database before insertion. (drop database before the creation)
     require_once "../app/.const.php";
     $filename = "db-manage/create-db-kanff.sql";
 
-//Drop and create again the database kanff:
+    //Drop and create again the database kanff:
     $cmdCreate = "mysql -u $user -p$pass < $filename -h $dbhost";  //system command for execute sql queries or sql file
     exec($cmdCreate);
     echo "\n\nDatabase kanff dropped and created again !";
 }
 
-//Comment or uncomment the functions that you need (be aware of foreign keys and if the creation of db before insertion is enabled):
+//Comment or uncomment the functions that you need (be aware of foreign keys and if the creation of db before insertion is enabled: see CREATE_DB_BEFORE_INSERTION):
 dataUsers();
 dataGroups();
-data_join();
+dataJoin();
 dataProjects();
 dataParticipate();
 dataLog();
 dataWorks();
 dataTasks();
+
+echo "\n\nScript generationData.php finished... Data should normally be inserted in the database.";
 ?>
