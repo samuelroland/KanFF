@@ -1,10 +1,19 @@
 <?php
 /**
  *  Project: KanFF
- *  File: generationData.php file to generate data to fill the database with the tables of the MLD v1.1
+ *  File: generationData.php file to generate data and fill the database with the tables of the MLD
  *  Author: Samuel Roland
  *  Creation date: 08.05.2020
+ *  Version date: 16.12.2020
  *  VERSION: v2.5
+ *  MLD: MLD-KanFF-official.png v1.3
+ *
+ *  How to run ?
+ *  In a shell type:
+ *  cd pathoftheproject\KanFF\db
+ *  php -f generationData.php
+ *
+ *  Data will be generated and inserted in the db, then you can create a snapshot/export of your db as you want and reuse this sql script.
  */
 
 /// ----------------------------

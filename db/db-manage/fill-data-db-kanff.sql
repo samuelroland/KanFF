@@ -1,3 +1,16 @@
+/**
+ *  Project: KanFF
+ *  File: fill-data-db-kanff.sql file to fill data in kanff database
+ *  Author: Samuel Roland
+ *  Pack of data: Collectif Assoc Vaud
+ *  Version date: 16.12.2020
+ *  Version: v2.5
+ *  Script: generationData.php v2.5
+ *  Sources: see basic-data-*.json
+ *  MLD: MLD-KanFF-official.png v1.3
+ *  Launchable by: restore-db-kanff.bat
+ */
+
 -- --------------------------------------------------------
 -- Hôte :                        127.0.0.1
 -- Version du serveur:           8.0.20 - MySQL Community Server - GPL

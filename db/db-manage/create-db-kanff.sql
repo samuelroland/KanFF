@@ -1,10 +1,18 @@
+/**
+ *  Project: KanFF
+ *  File: create-db-kanff.sql file to create database structure of kanff
+ *  Author: Samuel Roland
+ *  Version date: 16.12.2020
+ *  Version: v2.5
+ *  MCD: MCD-KanFF-official.png v1.3
+ *  MLD: MLD-KanFF-official.png v1.3
+ *  Launchable by: restore-db-kanff.bat
+ */
+
 -- --------------------------------------------------------
 -- MySQL Workbench Synchronization
 -- Generated: 2020-10-01
 -- Project: KanFF
--- File: create-db-kanff.sql file for create the kanff database with the tables.
--- Creation date: 01.10.2020d
--- MLD source: MLD-KanFF-official.png v1.3
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
