@@ -572,7 +572,7 @@ Important, signifie que ce qui est décrit dans l'enregistrement, a un impact su
                 }
             }
         }
-        //Generate repsonsible_id
+        //Generate responsible_id
         $project['responsible_id'] = null;
         if (rand(1, 3) == 1) {
             $project['responsible_id'] = getUsersIdNotUnapproved();
@@ -722,11 +722,11 @@ function dataWorks()
         //Generate responsible_id:
         $work['responsible_id'] = null;
         if (rand(1, 3) == 1) {
-            $work['responsible_id'] = getUsersIdNotUnapproved();
+            $work['responsible_id'] = getAllUsersIdInsideAProject($work['project_id']);
         }
 
         //Generate creator_id:
-        $work['creator_id'] = getUsersIdNotUnapproved();
+        $work['creator_id'] = getAllUsersIdInsideAProject($work['project_id']);
 
         $work['id'] = $id;
         $works[] = $work;
@@ -743,7 +743,7 @@ function dataWorks()
             "description" => "(Créé automatiquement à la création du projet). Ce travail fait office de boîte de réception pour les tâches envoyés n'ayant pas de travail lié. Plus d'infos dans le mode d'emploi.",
             "start" => $oneproject['start'],
             "end" => $oneproject['end'],
-            "state" => 2,   //always in run
+            "state" => WORK_STATE_INRUN,   //always in run
             "value" => 5,
             "effort" => 5,
             "visible" => 1,
@@ -753,8 +753,8 @@ function dataWorks()
             "need_help" => 0,
             "creation_date" => $oneproject['start'],    //automatically created with the project
             "project_id" => $oneproject['id'],
-            "creator_id" => getUsersIdNotUnapproved(),
-            "responsible_id" => ((rand(1, 3) == 1) ? getUsersIdNotUnapproved() : null)
+            "creator_id" => null,   //there is no creator (is possible because field can be null in the db. if null on inbox --> normal, if null on not inbox work --> created by a deleted account).
+            "responsible_id" => ((rand(1, 3) == 1) ? getAllUsersIdInsideAProject($oneproject['id']) : null)
         ];
         $inboxWorks[] = $inboxWork;
     }
