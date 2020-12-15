@@ -1,9 +1,10 @@
 <?php
 /**
  *  Project: KanFF
- *  File: generationData.php file to generate data for fill the database with the tables of the MLD v1.1
+ *  File: generationData.php file to generate data to fill the database with the tables of the MLD v1.1
  *  Author: Samuel Roland
  *  Creation date: 08.05.2020
+ *  VERSION: v2.5
  */
 
 /// ----------------------------
@@ -134,7 +135,8 @@ function getLoremIpsum($length = 100)
     if ($lorem == null) {
         die("\nGLOBAL_LOREM empty... Internet connexion is required to access to loremipsum.net API.");
     }
-    return substr($lorem, strpos($lorem, " ", rand(0, strpos($lorem, " ", strlen($lorem) - $length - 30))), $length - 2);   //search a random space in the raw text and
+    $extracted = substr($lorem, strpos($lorem, " ", rand(0, strpos($lorem, " ", strlen($lorem) - $length - 30))) + 1, $length - 2);   //search a random space in the raw text and
+    return trimIt($extracted);
 }
 
 //Source: https://stackoverflow.com/questions/4356289/php-random-string-generator#answer-4356295
@@ -810,6 +812,9 @@ function dataTasks()
         $task = $ressource;
         $nbtasks++;
         $task['id'] = $nbtasks;
+        if ($task['description'] == "empty") {
+            $task['description'] = null;
+        }
         $task['number'] = $task['id'];
         $task = extraDataForOneTask($task, $works[$task['work_id']]);
         $tasks[] = $task;
@@ -840,6 +845,32 @@ function dataTasks()
     importTableData("tasks", $tasks);
 }
 
+function runFinalCheck()
+{
+    $listTable = ["users", "join", "groups", "participate", "projects", "works", "tasks", "log"];
+    $result = "\n";
+    foreach ($listTable as $table) {
+        $items = getAllItems($table);
+        $result .= "\nTable $table (" . count($items) . " items): ";
+        $lastId = 0;
+        $idsNotFound = [];
+        foreach ($items as $item) {
+            if ($lastId != $item['id'] - 1) {
+                $idsNotFound[] = $item['id'] - 1;
+            }
+            $lastId = $item['id'];
+        }
+
+        if (empty($idsNotFound) == false) {
+            $result .= "Ids of " . $table . " ";
+            $result .= implode(", ", $idsNotFound);
+            $result .= " not inserted (because of errors)";
+        } else {
+            $result .= " OK no entries missing";
+        }
+    }
+    return $result;
+}
 
 //------------------------------------------------------------------------------------------------------------
 //EXECUTION - Here is the code and functions that will be started:
@@ -864,5 +895,6 @@ dataLog();
 dataWorks();
 dataTasks();
 
-echo "\n\nScript generationData.php finished... Data should normally be inserted in the database.";
+$finalCheck = runFinalCheck();
+echo "\n\nScript generationData.php finished... \n------------------------------------\nFINALCHECK:$finalCheck\n\nData should normally be inserted in the database. See above if entries haven't been inserted cause to error (length error or foreign key constraint for ex).";
 ?>
