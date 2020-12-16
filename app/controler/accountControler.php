@@ -319,8 +319,13 @@ function deleteAccount($post)
         if ($post["sentence"] == USER_SENTENCES_DELETE["textToCopy"] && checkUserPassword($userid, $post["password"])) {
             //delete account
             deleteUser($userid);
+            callFlashmessagesDeleteArchive($post, "delete", true);
             session_unset();
             require_once 'view/login.php';
+        } else {
+            callFlashmessagesDeleteArchive($post, "delete", false);
+            $option = "delete";
+            require_once "view/bigActionOnAccount.php";
         }
     }
 }
@@ -339,10 +344,40 @@ function archiveAccount($post)
             if ($post["sentence"] == USER_SENTENCES_ARCHIVE["textToCopy"] && checkUserPassword($userid, $post["password"])) {
                 //archive account
                 archiveUser($userid);
+                callFlashmessagesDeleteArchive($post, "archive", true);
                 limitedAccessInfo();
+            } else {
+                callFlashmessagesDeleteArchive($post, "archive", false);
+                $option = "archive";
+                require_once "view/bigActionOnAccount.php";
             }
         }
-    }else{
+    } else {
         limitedAccessInfo();
     }
+}
+
+
+//flashmessages for delete and archive
+function callFlashmessagesDeleteArchive($post, $option, $success)
+{
+    if ($success) {//check if it's an error or not
+        switch ($option) {//success messages for delete or archive account
+            case "delete":
+                flshmsg(18);
+                break;
+            case "archive":
+                flshmsg(19);
+                break;
+        }
+    } else {
+        if ($post["sentence"] == USER_SENTENCES_ARCHIVE["textToCopy"]) {
+            flshmsg(17);
+        }
+        if (checkUserPassword($_SESSION["user"]["id"], $post["password"])) {
+            flshmsg(8);
+        }
+    }
+
+
 }
