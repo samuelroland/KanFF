@@ -327,18 +327,22 @@ function deleteAccount($post)
 
 function archiveAccount($post)
 {
-    if (empty($post)) {
-        //display the view if no data
-        $option = "archive";
-        require_once "view/bigActionOnAccount.php";
-    } else {
-        $userid = $_SESSION["user"]["id"];
-        //Check data sent and archive account
-        //check if textToCopy is correctly copied and if password send is the one
-        if ($post["sentence"] == USER_SENTENCES_ARCHIVE["textToCopy"] && checkUserPassword($userid, $post["password"])) {
-            //archive account
-            archiveUser($userid);
-            limitedAccessInfo();
+    if (checkUserHasRightsForBigActionOnAccount()) {// Check if user can archive his account
+        if (empty($post)) {
+            //display the view if no data
+            $option = "archive";
+            require_once "view/bigActionOnAccount.php";
+        } else {
+            $userid = $_SESSION["user"]["id"];
+            //Check data sent and archive account
+            //check if textToCopy is correctly copied and if password send is the one
+            if ($post["sentence"] == USER_SENTENCES_ARCHIVE["textToCopy"] && checkUserPassword($userid, $post["password"])) {
+                //archive account
+                archiveUser($userid);
+                limitedAccessInfo();
+            }
         }
+    }else{
+        limitedAccessInfo();
     }
 }

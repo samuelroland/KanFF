@@ -380,4 +380,10 @@ function checkNamesValidity($name)
     return checkRegex($name, $regex);
 }
 
+function checkUserHasRightsForBigActionOnAccount(){
+    if ($_SESSION["user"]["state"] == USER_STATE_ADMIN || $_SESSION["user"]["state"] == USER_STATE_APPROVED){
+        return true;
+    }
+    return false;
+}
 ?>
