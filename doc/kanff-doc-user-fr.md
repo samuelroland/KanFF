@@ -9,30 +9,7 @@
 # Mode d'emploi
 
 ## Table des matières
-<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-
-- [Mode d'emploi](#mode-demploi)
-	- [Table des matières](#table-des-matires)
-	- [Introduction](#introduction)
-	- [Contexte d'utilisation](#contexte-dutilisation)
-	- [Mini-dictionnaire:](#mini-dictionnaire)
-	- [A quoi ça sert ?](#a-quoi-a-sert-)
-	- [Un peu d'imagination:](#un-peu-dimagination)
-	- [Compte utilisateur·ice:](#compte-utilisateurice)
-		- [Créer un compte:](#crer-un-compte)
-		- [Se connecter:](#se-connecter)
-			- [3 manières différentes de se connecter:](#3-manires-diffrentes-de-se-connecter)
-		- [Gérer son compte](#grer-son-compte)
-		- [Accès limité](#accs-limit)
-		- [A propos](#a-propos)
-		- [Déconnexion](#dconnexion)
-		- [Options du menu:](#options-du-menu)
-	- [Dashboard](#dashboard)
-	- [Projets:](#projets)
-		- [Consulter la liste des projets](#consulter-la-liste-des-projets)
-		- [Créer un projet](#crer-un-projet)
-
-<!-- /TOC -->
+[INSERT TOC HERE]
 
 ## Introduction
 Ce mode d'emploi vous explique de la manière la plus concise comment utiliser l'application web KanFF. Si vous recherchez des informations sur le projet, la documentation technique, vous les trouverez ici [ADDLINK]
@@ -141,3 +118,9 @@ Un bouton `Nouveau projet` dans la page `Projets` vous emmène sur la page de cr
 
 - Remplissez un nom, une description et un objectif.
 - Les projets étant réalisés par un ou plusieurs groupes (et non pas par des membres directement), vous devez choisir le groupe qui va créer et gérer le projet et dont vous faites partie.
+
+
+## Groupes:
+some text
+## Membres:
+some text
