@@ -349,6 +349,7 @@ function manual()
 {
     //Get the documentation content:
     //$doc = file_get_contents("https://raw.githubusercontent.com/samuelroland/KanFF/develop/doc/kanff-doc-user-fr.md", "r");
+    $linkImages = "https://raw.githubusercontent.com/samuelroland/KanFF/develop/doc";
     $doc = file_get_contents("../doc/kanff-doc-user-fr.md");
 
     //Manage and work on the content:
@@ -366,6 +367,13 @@ function manual()
     $toc .= "\n";   //insert line break at start and end of TOC to avoid error in interpretation of Parsedown.
     $doc = implode("", $lines); //rebuild the documentation with all lines, one after the other
     $doc = str_replace("[INSERT TOC HERE]", $toc, $doc);    //insert the table of content in the documentation
+    $doc = MDToHTML($doc);
+    $lines = explode("\n", $doc);
+    foreach ($lines as $key => $line) {
+        $line = str_replace("img src=\"img/", "img src=\"$linkImages/img/", $line);
+        $lines[$key] = $line;
+    }
+    $doc = implode("\n", $lines);
     require_once "view/manual.php";
 }
 
