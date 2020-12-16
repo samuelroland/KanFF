@@ -543,17 +543,18 @@ function getTitleWithIdAttributeInHTMLIfIsTitle($line, $startWith, $markup)
     if (startwith($line, $startWith) == false) {    //if the line is not a title
         return $line;   //return the unchanged line
     } else {
-        $text = trimIt(substr($line, strpos($line, " ") + 1));  //get the text after the space (the space is after the symbol at the start of line)
+        $text = trimIt(substr($line, strpos($line, $startWith) + strlen($startWith), strrpos($line, "</") - strpos($line, $startWith) - strlen($startWith)));  //get the text after the space (the space is after the symbol at the start of line)
         $id = strtolower(replaceAccentChars(str_replace(" ", "", str_replace("'", "", $text))));    //convert to lowercase, replace accent chars, and replace " " and "'"
         $result = "<$markup id='" . $id . "'>" . $text . "</$markup>";  //ex: "<h1 id='introduction'>Introduction</h1>"
         return $result;
     }
+
 }
 
 //Get table of content element in Markdown, if the line is a title
-function getTableOfContentElementInMDIfIsTitle($line, $startSymbolsForThisTitle, $level)
+function getTableOfContentElementInMDIfIsTitle($line, $startWith, $level)
 {
-    if (startwith($line, $startSymbolsForThisTitle) == false) {    //if line is not a markdown title, return "" to add nothing to the list
+    if (startwith($line, $startWith) == false) {    //if line is not a markdown title, return "" to add nothing to the list
         return "";
     } else {
         $tabs = "";
@@ -563,7 +564,7 @@ function getTableOfContentElementInMDIfIsTitle($line, $startSymbolsForThisTitle,
         /*if ($level != 1) {
             $tabs .= "-";
         }*/
-        $text = trimIt(substr($line, strpos($line, " ") + 1));  //get the text after the space (the space is after the symbol at the start of line)
+        $text = trimIt(substr($line, strpos($line, $startWith) + strlen($startWith), strrpos($line, "</") - strpos($line, $startWith) - strlen($startWith)));  //get the text after the space (the space is after the symbol at the start of line)
         $id = strtolower(replaceAccentChars(str_replace(" ", "", str_replace("'", "", $text))));
         $result = "$tabs- [$text](#$id)\n";  //ex: "    - [Introduction](#introduction)" (here with 1 tab if title is level 2).
         return $result;

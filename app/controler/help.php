@@ -352,28 +352,28 @@ function manual()
     $linkImages = "https://raw.githubusercontent.com/samuelroland/KanFF/develop/doc";
     $doc = file_get_contents("../doc/kanff-doc-user-fr.md");
 
+    $doc = MDToHTML($doc);
+
     //Manage and work on the content:
     $lines = explode("\n", $doc);   //explode the documentation to work with each line separately
     $toc = "\n\n";  //insert line break at start and end of TOC to avoid error in interpretation of Parsedown.
     foreach ($lines as $key => $line) {
-        $toc .= getTableOfContentElementInMDIfIsTitle($line, "# ", 1);  //concat the markdown text of the list element to the TOC if the line is title level 1
-        $line = getTitleWithIdAttributeInHTMLIfIsTitle($line, "# ", "h1");    //get the html text of the title with his attribute id if the line is title level 1
-        $toc .= getTableOfContentElementInMDIfIsTitle($line, "## ", 2);
-        $line = getTitleWithIdAttributeInHTMLIfIsTitle($line, "## ", "h2");
-        $toc .= getTableOfContentElementInMDIfIsTitle($line, "### ", 3);
-        $line = getTitleWithIdAttributeInHTMLIfIsTitle($line, "### ", "h3");
+        $toc .= getTableOfContentElementInMDIfIsTitle($line, "<h1>", 1);  //concat the markdown text of the list element to the TOC if the line is title level 1
+        $line = getTitleWithIdAttributeInHTMLIfIsTitle($line, "<h1>", "h1");    //get the html text of the title with his attribute id if the line is title level 1
+        $toc .= getTableOfContentElementInMDIfIsTitle($line, "<h2>", 2);
+        $line = getTitleWithIdAttributeInHTMLIfIsTitle($line, "<h2>", "h2");
+        $toc .= getTableOfContentElementInMDIfIsTitle($line, "<h3>", 3);
+        $line = getTitleWithIdAttributeInHTMLIfIsTitle($line, "<h3>", "h3");
         $lines[$key] = $line;   //save final value of line (updated if is title, no change if not).
     }
     $toc .= "\n";   //insert line break at start and end of TOC to avoid error in interpretation of Parsedown.
-    $doc = implode("", $lines); //rebuild the documentation with all lines, one after the other
-    $doc = str_replace("[INSERT TOC HERE]", $toc, $doc);    //insert the table of content in the documentation
-    $doc = MDToHTML($doc);
-    $lines = explode("\n", $doc);
+
     foreach ($lines as $key => $line) {
         $line = str_replace("img src=\"img/", "img src=\"$linkImages/img/", $line);
         $lines[$key] = $line;
     }
     $doc = implode("\n", $lines);
+    $doc = str_replace("[INSERT TOC HERE]", MDToHTML($toc), $doc);    //insert the table of content in the documentation
     require_once "view/manual.php";
 }
 
