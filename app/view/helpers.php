@@ -544,7 +544,7 @@ function getTitleWithIdAttributeInHTMLIfIsTitle($line, $startWith, $markup)
         return $line;   //return the unchanged line
     } else {
         $text = trimIt(substr($line, strpos($line, $startWith) + strlen($startWith), strrpos($line, "</") - strpos($line, $startWith) - strlen($startWith)));  //get the text after the space (the space is after the symbol at the start of line)
-        $id = strtolower(replaceAccentChars(str_replace(" ", "", str_replace("'", "", $text))));    //convert to lowercase, replace accent chars, and replace " " and "'"
+        $id = createKeyNameForElementId($text);    //convert to lowercase, replace accent chars, and replace " " and "'"
         $result = "<$markup id='" . $id . "'>" . $text . "</$markup>";  //ex: "<h1 id='introduction'>Introduction</h1>"
         return $result;
     }
@@ -565,10 +565,29 @@ function getTableOfContentElementInMDIfIsTitle($line, $startWith, $level)
             $tabs .= "-";
         }*/
         $text = trimIt(substr($line, strpos($line, $startWith) + strlen($startWith), strrpos($line, "</") - strpos($line, $startWith) - strlen($startWith)));  //get the text after the space (the space is after the symbol at the start of line)
-        $id = strtolower(replaceAccentChars(str_replace(" ", "", str_replace("'", "", $text))));
+        $id = createKeyNameForElementId($text);
         $result = "$tabs- [$text](#$id)\n";  //ex: "    - [Introduction](#introduction)" (here with 1 tab if title is level 2).
         return $result;
     }
+}
+
+function createKeyNameForElementId($text)
+{
+    $anchor = clearAllNonAlphabeticalChars(strtolower(replaceAccentChars(str_replace(" ", "-", str_replace("'", "-", trimIt($text))))), "-");
+    return $anchor;
+}
+
+function clearAllNonAlphabeticalChars($text, $exceptions = "")
+{
+    $characters = str_split('0123456789abcdefghijklmnopqrstuvwxyz' . $exceptions);
+
+    $newText = "";
+    foreach (str_split($text) as $char) {
+        if (in_array($char, $characters) == true) {
+            $newText .= $char;
+        }
+    }
+    return $newText;
 }
 
 //Return if the string start with the specified substring

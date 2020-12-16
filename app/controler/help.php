@@ -347,10 +347,15 @@ function checkNamesValidity($name)
 
 function manual()
 {
+    require ".const.php";
     //Get the documentation content:
-    //$doc = file_get_contents("https://raw.githubusercontent.com/samuelroland/KanFF/develop/doc/kanff-doc-user-fr.md", "r");
+    if ($dev == true) {
+        $doc = file_get_contents("../doc/kanff-doc-user-fr.md");
+    } else {
+        $doc = file_get_contents("https://raw.githubusercontent.com/samuelroland/KanFF/develop/doc/kanff-doc-user-fr.md", "r");
+    }
     $linkImages = "https://raw.githubusercontent.com/samuelroland/KanFF/develop/doc";
-    $doc = file_get_contents("../doc/kanff-doc-user-fr.md");
+
 
     $doc = MDToHTML($doc);
 
