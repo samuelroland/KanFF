@@ -319,6 +319,7 @@ function deleteAccount($post)
         if ($post["sentence"] == USER_SENTENCES_DELETE["textToCopy"] && checkUserPassword($userid, $post["password"])) {
             //delete account
             deleteUser($userid);
+            session_unset();
             require_once 'view/login.php';
         }
     }

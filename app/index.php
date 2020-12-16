@@ -85,6 +85,9 @@ if (!isset($_SESSION['user']['id'])) {
             case "editAccount":
                 editAccount($_POST);
                 break;
+            case "deleteAccount":
+                deleteAccount($_POST);
+                break;
             case "about":
                 about();
                 break;
