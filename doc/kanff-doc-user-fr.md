@@ -1,12 +1,18 @@
 <!--/**
  *  Project: KanFF
- *  File: kanff-doc-user-fr.md kanff user doc source
+ *  File: kanff-doc-user-fr.md user manual of KanFF
  *  Author: Samuel Roland
  *  Relecture:
  *  Creation date: 22.10.2020
+ *  Version: 0.2.0
+ *  Versiondate: 2020-12-17 20:00:00
+ *  INFO: here is the manual to learn how to use KanFF. This file is hosted in the GitHub repository.
+ *  To get regular updates of this manual, each instance take content directly from GitHub on branch develop and not from a local file.
+ *  If commits pushed to GitHub are WIP (Work In Progress), they must be pushed on another feature branch to not impact production.
+ *  At each merge or commit on develop, version and versiondate must be updated. Don't break the syntax because these 2 
+ *  values are important to notify the users (on the manual) that the manual is more recent than the last time they saw it.
+ *  There is no title h1 ("#" so level 1) at start because it's generated in the php script.
  */ -->
-
-# Mode d'emploi
 
 ## Table des matières
 [INSERT TOC HERE]
