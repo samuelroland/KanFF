@@ -13,9 +13,14 @@ $lastVersion = $versions[count($versions) - 1];
 ob_start();
 $title = "Mode d'emploi";
 ?>
-    <!--<h1 class="aligncenter"><?= $title ?></h1>-->
     <div id="top"></div>
-    <div class="mdstyle"><?php
+    <div class="mdstyle">
+        <div class="flexdiv thinBlackBorderForTitle">
+            <h1 class="flex-1" id="mode-d-emploi"><?= $title ?></h1>
+            <span class="flexdiv align-items-end versiontextformanual font-size-1"><?php echo createToolTip("v" . $docVersion . ", <em>le " . $docVersionDate . "</em>", "Ce mode d'emploi est mis à jour plus fréquemment que l'application (selon les retours). Actuellement en version " . $docVersion . " sortie le " . $docVersionDate . ".", false, "bottom"); ?></span>
+        </div>
+        <h2 id="table-des-matieres">Table des matières</h2>
+        <?php
         echo $doc;
         echo $msg;
         ?></div>

@@ -375,17 +375,45 @@ function manual()
     }
     $toc .= "\n";   //insert line break at start and end of TOC to avoid error in interpretation of Parsedown.
 
-
+    $currentLinesAreComment = false;    //the current lines are inside some comments and must be not included
     foreach ($lines as $key => $line) {
+        $acceptLine = true; //the current line is accepted (or not)
         if ((strpos($line, "src") != -1 || strpos($line, "href") != -1) && strpos($line, "http") == false) {
             //displaydebug(substr($line, 0, 4));
             $line = str_replace("src=\"", "src=\"$linkImages/", $line);
             $line = str_replace("href=\"", "target='_blank' href=\"$linkDocGithub/", $line);
         }
-        $lines[$key] = $line;
+
+        //Extract the version number in the cartouche at the top
+        if (startwith($line, " *  Version:")) {
+            $docVersion = substr($line, strrpos($line, " ") + 1);
+            $docVersion = htmlentities($docVersion);
+        }
+
+        //Extract the version date in the cartouche at the top
+        if (startwith($line, " *  Versiondate:")) {
+            $posSpaceBeforeDate = strrpos($line, " ", (strlen($line) - strrpos($line, " ")) * (-1) - 3);
+            $docVersionDate = substr($line, $posSpaceBeforeDate + 1);
+            $docVersionDate = htmlentities($docVersionDate);
+            $docVersionDate = DTToHumanDate($docVersionDate, "simpletime");
+        }
+
+        //if line is a HTML comment start, the whole line will be excluded
+        if (contains($line, "<!--")) {
+            $currentLinesAreComment = true; //current and next lines will be inside the comment markup
+        }
+        if (contains($line, "[INSERT TOC HERE]")) { //if line contains mention to insert the table of content
+            $line = MDToHTML($toc);    //insert the table of content on this line
+        }
+        if ($currentLinesAreComment == false && $acceptLine == true) {  //if current lines are no comments and the line is accepted
+            $newLines[] = $line;    //include the line in the list of new lines
+        }
+        if (contains($line, "-->")) {   //if it's the end of comments, no other comments will be after.
+            $currentLinesAreComment = false;
+        }
+
     }
-    $doc = implode("\n", $lines);
-    $doc = str_replace("[INSERT TOC HERE]", MDToHTML($toc), $doc);    //insert the table of content in the documentation
+    $doc = implode("\n", $newLines);
     require_once "view/manual.php";
 }
 

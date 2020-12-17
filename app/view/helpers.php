@@ -596,4 +596,9 @@ function startwith($text, $with)
     return (substr($text, 0, strlen($with)) == $with);
 }
 
+function contains($haystack, $needle)
+{
+    return (strpos($haystack, $needle) !== false);
+}
+
 ?>
