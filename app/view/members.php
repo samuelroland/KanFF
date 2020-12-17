@@ -86,12 +86,12 @@ $isAdmin = checkAdmin();
             foreach ($members as $member) {
                 ?>
                 <tr id="tr-member-<?= $member['id'] ?>"
-                    class="userline clickable  <?= ($member['id'] == $_SESSION['user']['id']) ? "yellowveryligthheader" : "" ?>"
-                    data-href="?action=member&id=<?= $member['id'] ?>">
-                    <td><?= $member['initials'] ?></td>
-                    <td><?= $member['username'] ?></td>
-                    <td class="memberfullname"><?= $member['firstname'] . " <strong>" . $member['lastname'] . "</strong>" ?></td>
-                    <td><?= "<em>" . createElementWithFixedLines(substrText($member['status'], 150), 1) . "</em>" ?></td>
+                    class="userline <?= ($member['id'] == $_SESSION['user']['id']) ? "yellowveryligthheader" : "" ?>"
+                    >
+                    <td class="clickable cursorpointer" data-href="?action=member&id=<?= $member['id'] ?>"><?= $member['initials'] ?></td>
+                    <td class="clickable cursorpointer" data-href="?action=member&id=<?= $member['id'] ?>"><?= $member['username'] ?></td>
+                    <td class="clickable cursorpointer memberfullname" data-href="?action=member&id=<?= $member['id'] ?>"><?= $member['firstname'] . " <strong>" . $member['lastname'] . "</strong>" ?></td>
+                    <td class='cursordefault'><?= "<em>" . createElementWithFixedLines(substrText($member['status'], 150), 1) . "</em>" ?></td>
                     <td><?= DTToHumanDate($member['inscription'], "simpleday") ?></td>
                     <?php //State account cell
                     if ($isAdmin) {
