@@ -498,6 +498,10 @@ tr {
     margin: 0px !important;
 }
 
+.noborder {
+    border: none !important;
+}
+
 .spanForForm {
     max-width: 300px;
 }

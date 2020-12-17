@@ -34,11 +34,11 @@ $(document).ready(function () {
         check2ValuesAreIdentical()
         formCheckNoErrorMessages(event.target)
     })
-    document.querySelector(".formCheckNoErrorMessages button[type=submit]").onclick = function (event) {
+    $(".formCheckNoErrorMessages button[type=submit]").onclick = function (event) {
         //event.preventDefault()
         formCheckNoErrorMessages(event.target)
     }
-    document.querySelector(".formCheckNoErrorMessages input").onchange = function () {
+    $(".formCheckNoErrorMessages input").onchange = function () {
         formCheckNoErrorMessages(document.querySelector(".formCheckNoErrorMessages"))
     }
 
@@ -106,6 +106,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             } else {
                 window.location = evt.target.getAttribute('data-href')
+            }
+        })
+    })
+
+    var els2 = document.getElementsByClassName("linkToCopy");
+    Array.prototype.forEach.call(els2, function (el) {
+        el.addEventListener('click', function (evt) {
+            link = evt.target
+            if (link.tagName == "IMG") {
+                link = link.parentNode
+            }
+            href = link.getAttribute('data-hrefcopy')
+            if (href != null) {
+                navigator.clipboard.writeText(href)
+                displayResponseMsg("Lien de la section copié dans le presse papiers.")
             }
         })
     })
