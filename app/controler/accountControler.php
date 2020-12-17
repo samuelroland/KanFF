@@ -312,21 +312,7 @@ function deleteAccount($post)
         $option = "delete";
         require_once "view/bigActionOnAccount.php";
     } else {
-        $userid = $_SESSION["user"]["id"];
-        $password = getUserById($userid)["password"];
-        //Check data sent and delete account
-        //check if textToCopy is correctly copied
-        if ($post["sentence"] == USER_SENTENCES_DELETE["textToCopy"] && checkUserPassword($userid, $post["password"])) {
-            //delete account
-            deleteUser($userid);
-            callFlashmessagesDeleteArchive($post, "delete", true);
-            session_unset();
-            require_once 'view/login.php';
-        } else {
-            callFlashmessagesDeleteArchive($post, "delete", false);
-            $option = "delete";
-            require_once "view/bigActionOnAccount.php";
-        }
+        checkRightForCallFlashMessagesDeleteArchive($post,"delete");
     }
 }
 
@@ -338,19 +324,7 @@ function archiveAccount($post)
             $option = "archive";
             require_once "view/bigActionOnAccount.php";
         } else {
-            $userid = $_SESSION["user"]["id"];
-            //Check data sent and archive account
-            //check if textToCopy is correctly copied and if password send is the one
-            if ($post["sentence"] == USER_SENTENCES_ARCHIVE["textToCopy"] && checkUserPassword($userid, $post["password"])) {
-                //archive account
-                archiveUser($userid);
-                callFlashmessagesDeleteArchive($post, "archive", true);
-                limitedAccessInfo();
-            } else {
-                callFlashmessagesDeleteArchive($post, "archive", false);
-                $option = "archive";
-                require_once "view/bigActionOnAccount.php";
-            }
+            checkRightForCallFlashMessagesDeleteArchive($post,"archive");
         }
     } else {
         limitedAccessInfo();
@@ -358,26 +332,43 @@ function archiveAccount($post)
 }
 
 
-//flashmessages for delete and archive
-function callFlashmessagesDeleteArchive($post, $option, $success)
-{
-    if ($success) {//check if it's an error or not
+//check creditential to call flashmessages for delete and archive
+function checkRightForCallFlashMessagesDeleteArchive($post,$option){
+    if ($option=="delete"){
+        $textToCopy=USER_SENTENCES_DELETE["textToCopy"];
+    }else{
+        $textToCopy=USER_SENTENCES_ARCHIVE["textToCopy"];
+    }
+    $userid = $_SESSION["user"]["id"];
+    //check if textToCopy is correctly copied and if password send is the one
+    if ($post["sentence"] == $textToCopy && checkUserPassword($userid, $post["password"])) {
         switch ($option) {//success messages for delete or archive account
             case "delete":
+                deleteUser($userid);
                 flshmsg(18);
+                session_unset();
+                require_once 'view/login.php';
                 break;
             case "archive":
+                archiveUser($userid);
                 flshmsg(19);
+                limitedAccessInfo();
                 break;
         }
+
+
     } else {
-        if ($post["sentence"] == USER_SENTENCES_ARCHIVE["textToCopy"]) {
-            flshmsg(17);
-        }
-        if (checkUserPassword($_SESSION["user"]["id"], $post["password"])) {
+        if ($post["sentence"] == $textToCopy) {
             flshmsg(8);
         }
-    }
+        elseif (checkUserPassword($_SESSION["user"]["id"], $post["password"])) {
+            flshmsg(17);
+        }
+        elseif (!checkUserPassword($_SESSION["user"]["id"], $post["password"])&&$post["sentence"] != $textToCopy) {
+            flshmsg(17);
+            flshmsg(8);
+        }
 
-
+        require_once "view/bigActionOnAccount.php";
+    }//if sentence or password isn't correct
 }
