@@ -694,6 +694,22 @@ hr {
     color: #ff7700;
 }
 
+.mdstyle h4 {
+    margin-top: 0.5em;
+    color: #4fb6e3;
+}
+
+.mdstyle h5 {
+    margin-top: 0.5em;
+    color: #4fb6e3;
+}
+
+.mdstyle h6 {
+    margin-top: 0.5em;
+    color: #4fb6e3;
+}
+
+
 .mdstyle p code, .mdstyle li code {
     color: darkblue;
     background-color: #aedaf2;

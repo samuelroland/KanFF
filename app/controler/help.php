@@ -367,12 +367,10 @@ function manual()
     $lines = explode("\n", $doc);   //explode the documentation to work with each line separately
     $toc = "\n\n";  //insert line break at start and end of TOC to avoid error in interpretation of Parsedown.
     foreach ($lines as $key => $line) {
-        $toc .= getTableOfContentElementInMDIfIsTitle($line, "<h1>", 1);  //concat the markdown text of the list element to the TOC if the line is title level 1
-        $line = getTitleWithIdAttributeInHTMLIfIsTitle($line, "<h1>", "h1");    //get the html text of the title with his attribute id if the line is title level 1
-        $toc .= getTableOfContentElementInMDIfIsTitle($line, "<h2>", 2);
-        $line = getTitleWithIdAttributeInHTMLIfIsTitle($line, "<h2>", "h2");
-        $toc .= getTableOfContentElementInMDIfIsTitle($line, "<h3>", 3);
-        $line = getTitleWithIdAttributeInHTMLIfIsTitle($line, "<h3>", "h3");
+        for ($i = 1; $i <= 6; $i++) {
+            $toc .= getTableOfContentElementInMDIfIsTitle($line, "<h$i>", $i);  //concat the markdown text of the list element to the TOC if the line is title level 1
+            $line = getTitleWithIdAttributeInHTMLIfIsTitle($line, "<h$i>", "h$i");    //get the html text of the title with his attribute id if the line is title level 1
+        }
         $lines[$key] = $line;   //save final value of line (updated if is title, no change if not).
     }
     $toc .= "\n";   //insert line break at start and end of TOC to avoid error in interpretation of Parsedown.
