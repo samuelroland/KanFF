@@ -348,15 +348,18 @@ function checkNamesValidity($name)
 function manual()
 {
     require ".const.php";
+
+    $linkImages = "https://raw.githubusercontent.com/samuelroland/KanFF/develop/doc";
     //Get the documentation content:
     if ($dev == true) {
         $doc = file_get_contents("../doc/kanff-doc-user-fr.md");
     } else {
-        $doc = file_get_contents("https://raw.githubusercontent.com/samuelroland/KanFF/develop/doc/kanff-doc-user-fr.md", "r");
+        $doc = file_get_contents("$linkImages/kanff-doc-user-fr.md");
     }
-    $linkImages = "https://raw.githubusercontent.com/samuelroland/KanFF/develop/doc";
-
-
+    $msg = null;
+    if ($doc == null){
+        $msg = "Source du mode d'emploi non trouvée... L'affichage est donc impossible.";
+    }
     $doc = MDToHTML($doc);
 
     //Manage and work on the content:

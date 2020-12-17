@@ -99,7 +99,10 @@ Y,                    `\"8bd888b,             ,P
             </div> -->
             <div class="fullname alignright pr-3 pl-3 justify-content-end box-verticalaligncenter">
                 <?php //echo $_SESSION['user']['firstname'] . " " . $_SESSION['user']['lastname']; ?>
-                <?php echo createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-middlesmall", false), "Aide sur la page actuelle", "?action=manual") ?>
+                <?php
+                if ($action != "manual") {  //displayed on every page except the manual itself
+                    echo createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-middlesmall", false), "Aide sur la page " . $title, "?action=manual#" . createKeyNameForElementId($title));
+                } ?>
             </div>
 
             <!-- Circle for user initials and dropdown -->
