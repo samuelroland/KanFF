@@ -11,10 +11,11 @@
  *  If commits pushed to GitHub are WIP (Work In Progress), they must be pushed on another feature branch to not impact production.
  *  At each merge or commit on develop, version and versiondate must be updated. Don't break the syntax because these 2 
  *  values are important to notify the users (on the manual) that the manual is more recent than the last time they saw it.
- *  There is no title h1 ("#" so level 1) at start because it's generated in the php script.
- */ -->
+ *  There is no title h1 ("#" so level 1) and no "table of content" mention at start because it's generated in the php script.
+ *  When writing in this file, the result should be looked in the manual directly (activate dev mode to load the local file)
+ *  and tested on the test instance.
+*/ -->
 
-## Table des matières
 [INSERT TOC HERE]
 
 ## Introduction
@@ -24,7 +25,7 @@ Ce document est adapté pour un maximum de niveaux différents en informatique. 
 ## Contexte d'utilisation
 Vous êtes membre d'un collectif, d'un groupe, d'un mouvement social, une association, ... (appelé ici "collectif" afin de simplifier) et votre collectif est inscrit sur une instance KanFF ? Vous aimeriez être guidé pour vos premiers pas ? Alors vous êtes au bon endroit.
 
-## Mini-dictionnaire:
+## Mini-dictionnaire
 - Données internes: toutes les informations stockées dans l'application incluant les membres, les groupes, les projets, les travaux, les tâches, concernant un collectif. Ces données ne sont pas publiques mais accessibles uniquement aux membres du collectif.
 - Instance: serveur sur lequel est installé KanFF. L'instance est accessible via une **URL** (`blason.com` par ex.) et a un **nom** donné par la personne la gérant (par exemple `Blason`)
 - Admin:
@@ -42,7 +43,7 @@ KanFF vous permet de gérer des projets et des tâches, réalisés par des group
 
 Gérer signifie: créer, afficher, modifier et supprimer. Vous pouvez faire ces 4 actions sur quasiment toutes les données internes.
 
-## Un peu d'imagination:
+## Un peu d'imagination
 Dans ce mode d'emploi, nous allons prendre un exemple concret:  
 **Josette Richard** a créé un collectif appelé `Collectif Assoc Vaud` il y a 2 mois avec 2 autres personnes: **Vincent Rigot** et **Mégane Blan**. Le collectif a pour but d'organiser des événements et actions tentant de faire converger diverses luttes. Le collectif démarre à très peu de personnes mais de nombreuses se montrent intéressées à rejoindre. Ensemble il a été décidé d'utiliser KanFF pour gérer les projets collaborativement et faire grandir le collectif.
 
@@ -52,7 +53,7 @@ Mégane et Vincent doivent maintenant rejoindre cette instance en y créant un c
 ## Compte utilisateur·ice:
 Pour accéder aux données (membres, groupes, projets, tâches, ...) d'un collectif vous devez avoir un compte et vous faire approuver par votre collectif. Votre compte est propre à une instance et ne peut pas être utilisé sur une autre instance.
 
-### Créer un compte:
+### Créer un compte
 - Aller sur la page `Créer un compte` avec le lien en bas de la page de connexion:
 ![login](img/signin.PNG)
 
@@ -66,24 +67,18 @@ Quelques informations supplémentaires quant aux champs du formulaire:
 - Les signes "?" vous donnent une information supplémentaire qui peut vous aider.
 - Les initiales sont uniques et générées automatiquement selon un format simple (première lettre du prénom + première lettre du nom + dernière lettre du nom)
 
-### Se connecter:
+### Se connecter
 - Aller sur la page `Connexion` qui est la première page visible en arrivant sur l'instance.
 
 ![login](img/login.PNG)
 
-#### 3 manières différentes de se connecter:
+#### 3 manières différentes de se connecter
 - Avec ses initiales (les initiales peuvent aussi être en minuscules, il n'y a pas de différence)
-
-![loginasdf](img/logininitials.PNG)
-
+![loginasdf](img/logininitials.PNG)  
 - Avec son nom d'utilisateur·ice
-
-![loginasdf](img/loginusername.PNG)
-
-- Ou avec son email
-
+![loginasdf](img/loginusername.PNG)  
+- Ou avec son email  
 ![loginasdf](img/loginemail.PNG)
-
 
 ... et bien sûr son mot de passe obligatoire!
 
@@ -104,7 +99,7 @@ La page `A propos` en cliquant sur le nom du collectif en haut à gauche, vous p
 Pour vous déconnecter de votre session, il suffit de cliquer sur le cerle initiales, puis `Déconnexion`.
 Si vous utilisez un ordinateur qui ne vous appartient pas ou que vous partagez, il est important de se déconnecter afin de ne pas laisser l'accès à votre compte à une autre personne.
 
-### Options du menu:
+### Options du menu
 Dans le menu en haut, vous avez les options suivantes:
 - Dashboard: c'est le tableau de bord personnel. Il contient xxxx
 - Projets: la liste des projets du collectif triés par catégories et par groupes d'état.
@@ -114,7 +109,7 @@ Dans le menu en haut, vous avez les options suivantes:
 
 ## Dashboard
 
-## Projets:
+## Projets
 
 ### Consulter la liste des projets
 Sous l'option `Projets` du menu, vous trouverez la liste des projets réalisés par des groupes du collectif.
