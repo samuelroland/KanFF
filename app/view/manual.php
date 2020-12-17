@@ -25,8 +25,8 @@ $title = "Mode d'emploi";
         echo $msg;
         ?></div>
 <?php if ($doc != "") { ?>
-    <div class="clickablebanner box-aligncenter box-verticalaligncenter clickable" data-href="#top">
-        <h4 class="nomargin">Retour en haut ^</h4>
+    <div class="clickablebanner linkOfTOC box-aligncenter box-verticalaligncenter clickable" data-href="#top">
+        <h4 class="nomargin linkOfTOC">Retour en haut ^</h4>
     </div>
     <?php
 }

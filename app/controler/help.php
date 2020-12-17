@@ -375,6 +375,15 @@ function manual()
     }
     $toc .= "\n";   //insert line break at start and end of TOC to avoid error in interpretation of Parsedown.
 
+    $tocInLines = explode("\n", MDToHTML($toc));
+    foreach ($tocInLines as $key => $line) {
+        if (contains($line, "<a")) {
+            $line = substr($line, 0, strpos($line, "<a") + 2) . " class='linkOfTOC' " . substr($line, strpos($line, "<a") + 2);
+        }
+        $tocInLines[$key] = $line;
+    }
+    $toc = implode("", $tocInLines);
+
     $currentLinesAreComment = false;    //the current lines are inside some comments and must be not included
     foreach ($lines as $key => $line) {
         $acceptLine = true; //the current line is accepted (or not)

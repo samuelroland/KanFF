@@ -109,7 +109,7 @@ Y,                    `\"8bd888b,             ,P
             <div class="box-alignright pr-4 nomargin">
                 <div class="usericon">
                     <div class="dropdown">
-                        <form action="">
+                        <form action="" class="nomargin">
                             <!-- form tag ? -> thanks to https://stackoverflow.com/questions/25089297/avoid-dropdown-menu-close-on-click-inside#answer-34216265 -->
                             <!-- The circle -->
                             <div class="circle-usericon cursorpointer <?= (checkAdmin()) ? "innerbordercircle" : "" ?>"

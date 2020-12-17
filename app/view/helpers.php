@@ -545,10 +545,10 @@ function getTitleWithIdAttributeInHTMLIfIsTitle($line, $startWith, $markup)
     } else {
         $text = trimIt(substr($line, strpos($line, $startWith) + strlen($startWith), strrpos($line, "</") - strpos($line, $startWith) - strlen($startWith)));  //get the text after the space (the space is after the symbol at the start of line)
         $id = createKeyNameForElementId($text);    //convert to lowercase, replace accent chars, and replace " " and "'"
-        $result = "<div class='flexdiv  box-verticalaligncenter'><$markup id='" . $id . "' class='d-inline'>" . $text . "</$markup>";  //ex: "<h1 id='introduction'>Introduction</h1>"
+        $result = "<div class='flexdiv  box-verticalaligncenter'><$markup id='" . $id . "' class=''>" . $text . "</$markup>";  //ex: "<h1 id='introduction'>Introduction</h1>"
 
         //Add the copylink icon:
-        $result .= "<span data-hrefcopy='" . $_SERVER['HTTP_HOST'] . "?action=manual#" . $id . "' class='cursorpointer linkToCopy'>" . printAnIcon("copylink.png", "Copier le lien vers cette section", "copy lin icon", "icon-xsmall m-2 noborder mt-3 copylink", false) . "</span>";
+        $result .= "<span data-hrefcopy='" . $_SERVER['HTTP_HOST'] . "/?action=manual#" . $id . "' class='cursorpointer linkToCopy'>" . printAnIcon("copylink.png", "Copier le lien vers cette section", "copy lin icon", "icon-xsmall m-2 noborder mt-3 copylink", false) . "</span>";
         $result .= "</div>";
         return $result;
     }
