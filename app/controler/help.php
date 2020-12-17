@@ -350,6 +350,7 @@ function manual()
     require ".const.php";
 
     $linkImages = "https://raw.githubusercontent.com/samuelroland/KanFF/develop/doc";
+    $linkDocGithub = "https://github.com/samuelroland/KanFF/tree/develop/doc";
     //Get the documentation content:
     if ($dev == true) {
         $doc = file_get_contents("../doc/kanff-doc-user-fr.md");
@@ -357,7 +358,7 @@ function manual()
         $doc = file_get_contents("$linkImages/kanff-doc-user-fr.md");
     }
     $msg = null;
-    if ($doc == null){
+    if ($doc == null) {
         $msg = "Source du mode d'emploi non trouvée... L'affichage est donc impossible.";
     }
     $doc = MDToHTML($doc);
@@ -376,8 +377,13 @@ function manual()
     }
     $toc .= "\n";   //insert line break at start and end of TOC to avoid error in interpretation of Parsedown.
 
+
     foreach ($lines as $key => $line) {
-        $line = str_replace("img src=\"img/", "img src=\"$linkImages/img/", $line);
+        if ((strpos($line, "src") != -1 || strpos($line, "href") != -1) && strpos($line, "http") == false) {
+            //displaydebug(substr($line, 0, 4));
+            $line = str_replace("src=\"", "src=\"$linkImages/", $line);
+            $line = str_replace("href=\"", "target='_blank' href=\"$linkDocGithub/", $line);
+        }
         $lines[$key] = $line;
     }
     $doc = implode("\n", $lines);
