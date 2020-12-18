@@ -14,6 +14,13 @@ function init() {
     }
     $(".icnChangeStatus").on("click", tryChangeStatus)  //present everywhere because is in the gabarit
     $(".membersTrashIcons").on("click", tryDeleteUnapprovedUser)  //present everywhere because is in the gabarit
+
+    if (queryActionIncludes("deleteAccount")||queryActionIncludes("archiveAccount")) {
+        $('body').bind('copy paste', function (e) {
+            e.preventDefault();
+            return false;
+        });
+    }
 }
 
 /* 3 functions to manage change of the user status in JS and Ajax */
