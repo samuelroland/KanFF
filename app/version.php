@@ -78,6 +78,17 @@ $versions = [
 \nOthers:
 \n- **Page Delete/Archive account** is in progress.
 \n- **User manual** is still a draft.
+"], [
+        "version" => "v2.2-beta",
+        "date" => "2020-12-18",
+        "changelog" => "New features:
+\n- **Technical documentation** is done for trimester 9.
+\n- **Page Archive/Delete account** is done. Archive and delete his own account is now possible.
+\n- **User manual** structure is done. The manual is accessible from each page with anchors and the content can be written. There is an automatic table of contents and version information.
+\n- **Generation data** script is done. Package `Collectif Assoc Vaud` in `v2.5` published.
+\n
+\nOthers:
+\n- **Page Member details** is in progress. Design is finished and contributions are displayed. Visibility parameters are not managed yet.
 "]
 ];
 
