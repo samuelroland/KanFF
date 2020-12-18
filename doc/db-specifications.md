@@ -237,7 +237,7 @@ Each entry represents a log in the logbook of a project created by a user
 
 
 ## Pack "Collectif Assoc Vaud":
-This pack of data in french is about a fictive collective called "Collectif Assoc Vaud"
+This pack of data in french is about a fictive collective called "Collectif Assoc Vaud". Current version of the pack is **2.5**.
 
 ### Content:
 - 100 users
@@ -245,11 +245,11 @@ This pack of data in french is about a fictive collective called "Collectif Asso
 - 16 projects
 - 25 works (9 real works written by hand + 16 works inbox (16 because 1 for each project))
 - 336 tasks (36 real tasks written by hand + 300 in lorem ipsum)
-- 538 join
+- 612 join
 - 12 log
 - 24 participate (association of group_id and project_id written by hand)
 
-One important thing: Passwords are the firstname of the user.
+**One important thing: Passwords are the firstname of the user.**
 
 ### How to use it ?
 If you want to install it on your own instance:
