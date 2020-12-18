@@ -464,6 +464,10 @@ tr {
     padding: 3px;
 }
 
+.cursordefault {
+    cursor: default;
+}
+
 .cursorpointer {
     cursor: pointer;
 }
