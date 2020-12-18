@@ -138,7 +138,6 @@ INNER join `join` ON `join`.user_id = users.id
 INNER join `groups` ON `join`.group_id = `groups`.id
 INNER join participate ON participate.group_id = `groups`.id
 INNER join projects ON participate.project_id = projects.id
-INNER join works ON works.project_id = projects.id
 WHERE participate.state IN (2, 3) AND `join`.state IN (7, 8) AND projects.id = :id AND users.state != 0
 ORDER BY users.id";
 

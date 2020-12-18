@@ -89,6 +89,12 @@ define("TASK_TYPE_IDEA", 4);
 define("TASK_TYPE_REFLEXION", 5);
 define("TASK_LIST_TYPE", [TASK_TYPE_NONE, TASK_TYPE_QUESTION, TASK_TYPE_INFORMATION, TASK_TYPE_PROPOSITION, TASK_TYPE_IDEA, TASK_TYPE_REFLEXION]);
 
+define("UNWANTED_CHARS_ARRAY", array('Š' => 'S', 'š' => 's', 'Ž' => 'Z', 'ž' => 'z', 'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A', 'Æ' => 'A', 'Ç' => 'C', 'È' => 'E', 'É' => 'E',
+        'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I', 'Ñ' => 'N', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'O', 'Ø' => 'O', 'Ù' => 'U',
+        'Ú' => 'U', 'Û' => 'U', 'Ü' => 'U', 'Ý' => 'Y', 'Þ' => 'B', 'ß' => 'Ss', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'a', 'å' => 'a', 'æ' => 'a', 'ç' => 'c',
+        'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ð' => 'o', 'ñ' => 'n', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o',
+        'ö' => 'o', 'ø' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ý' => 'y', 'þ' => 'b', 'ÿ' => 'y', 'Ğ' => 'G', 'İ' => 'I', 'Ş' => 'S', 'ğ' => 'g', 'ı' => 'i', 'ş' => 's', 'ü' => 'u')
+);
 
 //get the flashmessage with the messageid stored in the session.
 function flashMessage($withHtml = true)
@@ -538,15 +544,22 @@ function buildSentenceAccountStateLastChange($user, $middleBreak = false, $intro
 
 function clearAllNonAlphabeticalChars($text)
 {
-    $characters = str_split('0123456789abcdefghijklmnopqrstuvwxyz');
-
-    $newText = "";
-    foreach (str_split($text) as $char) {
-        if (in_array($char, $characters) == true) {
-            $newText .= $char;
+    //INFO: unapproved user don't have state_modifier_id and state_modification_date. All other state must be associated with the date (and the admin id is facultative).
+    if ($user['state'] == USER_STATE_UNAPPROVED) {  //if unapproved, the state hasn't been changed yet (no information at all)
+        $sentence = "Aucun changement d'état pour l'instant.";
+    } else {
+        $sentence = "";
+        if ($introductionIncluded) {
+            $sentence .= "Défini comme <em>" . convertUserState($user['state']) . "</em>" . (($middleBreak == true) ? "<br>" : "");
+        }
+        $sentence .= " le " . DTToHumanDate($user['state_modification_date'], "simpletime");  //the date must be not null if state has changed
+        if ($user['state_modifier_id'] != null) {   //the admin can be anonyme
+            $sentence .= " par " . mentionUser($user['state_modifier']);
+        } else {
+            $sentence .= " (Admin anonyme).";
         }
     }
-    return $newText;
+    return $sentence;
 }
 
 ?>
