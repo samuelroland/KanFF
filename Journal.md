@@ -30,3 +30,4 @@
 1. (__SRD__, 15.11.2020) **Release** `KanFF Beta v2.0` sur [GitHub](https://github.com/samuelroland/KanFF/releases/tag/v2.0-beta).
 1. (__SRD__, 15.11.2020) **Replanification du sprint 7** sur IceScrum. Le trop plein de stories (34) dans le sprint rendant le principe du sprint inutile, il a fallu tout déplanifier puis replanifier les stories de la feature Gestion des utilisateurs + quelques autres stories complémentaires presque terminées ou nécessaires.
 1. (__SRD__, 03.12.2020) **Release** `KanFF Beta v2.1` sur [GitHub](https://github.com/samuelroland/KanFF/releases/tag/v2.1-beta).
+1. (__SRD__, 18.12.2020) **Release** `KanFF Beta v2.2` sur [GitHub](https://github.com/samuelroland/KanFF/releases/tag/v2.2-beta).
