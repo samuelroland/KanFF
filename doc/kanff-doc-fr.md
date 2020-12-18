@@ -102,12 +102,11 @@ La gestion de toutes ces tâches dans les différents travaux et projets se fait
 L'application doit être compatible avec l'ensemble des navigateurs standards : Mozilla Firefox, Safari, Google Chrome.
 
 ### Modèle Conceptuel de Données
-En français:
-
+Réalisé en français avec [draw.io](https://draw.io). [Fichier source](../db/MCD_MLD/source/MCD-KanFF-official.xml):  
 ![MCD GitHub](https://raw.githubusercontent.com/samuelroland/KanFF/master/doc/MCD-KanFF-official.png)
 
 ### Modèle Logique de Données
-En anglais:
+Réalisé en anglais avec [MySQL Workbench](https://dev.mysql.com/downloads/workbench/). [Fichier source](../db/MCD_MLD/source/MLD-KanFF-official.mwb):  
 ![MLD GitHub](https://raw.githubusercontent.com/samuelroland/KanFF/master/doc/MLD-KanFF-official.png)
 
 ## Stratégie de test
@@ -115,16 +114,17 @@ Afin de récolter des retours et idées d'améliorations, il sera demandé à de
 
 Moyens mis en place:
 
-- **Un formulaire de feedback intégré** à l'application est implémenté permettant de donner un retour relatif à une page. Ce formulaire peut être désactivé ou activé dans le ``.const.php``. A chaque feedback envoyé, le texte, les informations sur le navigateur, la page et la version, sont envoyées par email.
+- **Un formulaire de feedback intégré** à l'application est implémenté permettant de donner un retour relatif à une page. Ce formulaire peut être désactivé ou activé dans le ``.const.php``. A chaque feedback envoyé, le texte, les informations sur le navigateur, la page et la version, sont envoyées par email.  
 ![formulaire de feedback](img/feedbackform.png)
 
 - **Un pack de données "Collectif Assoc Vaud"** (nom d'un collectif imaginaire aux objectifs vagues) est créé ayant des membres, groupes, projets, journaux de bord, travaux et tâches (ainsi que les tables join et participate). Ces données sont fictives (tout comme le collectif) mais doivent être en partie réaliste (cela pourrait être un cas réel). Le reste des données peut être généré de manière moins réaliste avec de l'aléatoire plus ou moins intelligent (avec diverses conditions rendant plus réalistes), et également du texte de remplissage (lorem ipsum) afin de simuler des petites et grandes quantités de textes (avec le moindre effort).
     - Dans ce pack, les membres données en exemple et pour tester l'application sont les 3 suivants: "Josette Richard (JRD)" admin, "Mégane Blan (MBN)" membre approuvée et "Vincent Rigot (VRT)" membre banni. Le projet contenant des données réalistes est le projet "**Crowdfunding Festival 2020**". Josette Richard est dans le projet et Mégane Blan est à l'extérieur (permettant ainsi de tester les différences entre l'intérieur et l'extérieur d'un projet)
     - Ce pack est chargeable en lançant le fichier `KanFF\db\db-manage\restore-db-kanff.bat` (ou en lancant les 2 fichiers SQL (voir readme.md), mais ne fonctionnent que si la base de donnée s'appelle "kanff"). Le fichier bat prend en compte d'autres noms de base de données.
     - Ce pack est généré à l'aide du script de génération **generationData.php** et se base sur les données écrites à la main dans les fichiers **basic-data-*.json** (* = nom de la table. Fichiers dit "basiques".). Le script de génération complète les données manquantes de celles fournies dans les fichiers de données basiques et en génère d'autres complétement aléatoire parfois (notamment pour les tâches). (Pour créer un pack pour un autre collectif imaginaire, il suffirait de changer ces fichiers basiques et de relancer le script, puis d'exporter la base de données en SQL).
-     - Le pack contient 100 membres, 13 groupes, 16 projets, 300 tâches (36 réalistes et le reste en lorem ipsum), 25 travaux (9 réalistes et le reste en lorem ipsum), 12 logs, et un nombre aléatoire de join et de participate.
+     - Le pack contient un cea
     - Des tests rapides des fonctionnalités sont fait durant le développement par les développeur·euse·s et durant les sprint review pour les tests d'acceptation. Les fonctionnalités sont testées dans un cadre normal (utilisation standard) et aussi un peu en modifiant du code HTML et les requêtes HTTP, afin d'y insérer des valeurs qui doivent être validées et refusées si invalides (le javascript empêchant de le faire directement sur le formulaire parfois).
-    - Test unitaires des fonctions du `CRUDModel.php`: testé avec `testCRUDmodel` dans différents contextes.
+    - Test unitaires des fonctions du `CRUDModel.php`: testé avec `testCRUDmodel` dans différents contextes. Voici le résultat de l'execution:
+    ![image tests unitairse](img/unittests.PNG)
 
 **Tests et demandes de feedback extérieurs.**
 - **L'instance de test**:   
@@ -161,6 +161,8 @@ KanFF est une application web développée **en PHP** (HTML + CSS + Javascript +
 - **Valeurs booléennes**: le type BOOL n'était pas pris en charge par MySQL, toutes les valeurs booléennes sont manipulées en type TINYINT (1bit donc valeurs possibles sont 0 ou 1) et ne sont pas converties (il n'y a pas de changement de type TINYINT vers BOOL et inversément). Dans toute l'application toutes les valeurs en TINYINT valant 0 signifie false et celles valant 1 signifient true. (Attention à ne pas mélanger avec les valeurs INT, par ex. users.state qui peut valoir de 0 à 8).
 - **3 fichiers de fonctions d'aides (fichier help)**: `helpers.php` (fonctions générant du contenu commun), help.php (fonctions contrôleur communes), global.js (fonctions JS communes). Toutes ces fonctions sont décrites dans un document séparé [ici](doc/helpers-functions.md).
 - **Login**: il est possible de se connecter avec un email, un nom d'utilisateur ou des initiales. Ces 3 valeurs sont donc uniques dans la base de données.
+- **Contenu de la session**: se résume en le contenu de l'utilisateur connecté (sans mot de passe) et le flashmessage (qui reste temporairement dans la session). On peut donc savoir quel utilisateur est connecté en regardant dans `$_SESSION['user']`:  
+  ![flashmessage dans la session](img/flashmessage-session.PNG)
 - **Génération unique des initiales**: Les initiales sont toujours stockées en majuscules. Le premier format est "première lettre du prénom + première lettre du nom + dernière lettre du nom" et le deuxième est "première lettre du prénom + première lettre du nom + deuxième lettre du nom". Si le premier format ne permet pas l'unicité, alors le 2ème format est appliqué. Si ce n'est toujours pas unique, il y a n'a pas d'autres formats prévus et la création du compte ne peut pas se faire... Cest la fonction `getUniqueInitials($firstname, $lastname)` qui s'en occupe.
 - **Champs INT et constantes**: La base de données contenant de nombreux champs de type INT stockant diverses valeurs ayant une signification, il est indispensable de prévoir un moyen pratique pour développer sans connaître les valeurs INT mais uniquement en s'adaptant à leur signification, et pouvoir changer ou rajouter une nouvelle valeur en changeant uniquement le code dans un fichier help. Ceci concerne les champs state, type, visibility et need_help notamment.  
     - On définit des constantes PHP dans le fichier `helpers.php`:
@@ -223,7 +225,11 @@ KanFF est une application web développée **en PHP** (HTML + CSS + Javascript +
     - Aperçu:  
     ![dropdown user example](img/dropdown_user.PNG)
 - **Mots de passe**: les mots de passe des membres sont hashés et salés avec la fonction `password_hash($password, PASSWORD_DEFAULT);`. Les mots de passe doivent respecter une Regex (regex stockée dans la constante `USER_PASSWORD_REGEX` et la description est stockée dans `USER_PASSWORD_CONDITIONS`)
-- **Les regex (expressions régulières)**: sont stockées dans des constantes dans le format sans "/" de départ et de fin (compatible en HTML et JS). Les "/" sont nécessaires en PHP. La fonction `checkRegex($string, $regex)` existe en PHP et `testRegex(regex, string)` existe en JS. Pour tester des regex pour un certain type de valeur (nom, email, username, ...), des fonctions sont créés parfois. Par ex. `isEmailFormat($text)`.
+- **Les regex (expressions régulières)**: sont stockées dans des constantes dans le format sans "/" de départ et de fin (compatible en HTML et JS). Les "/" sont nécessaires en PHP. La fonction `checkRegex($string, $regex)` existe en PHP et `testRegex(regex, string)` existe en JS. Pour tester des regex pour un certain type de valeur (nom, email, username, ...), des fonctions sont créées parfois. Par ex. `isEmailFormat($text)`.
+
+### Sécurité
+Le logiciel étant destiné à la production, il doit y avoir plusieurs tests de sécurité avant de pouvoir publier en production. Dans l'idéal ces tests seraient automatisés et potentiellement fait par un logiciel externes (pour ne pas devoir les inventer nous même). En dehors de certains fonctionnalités dont la sécurité est assurée déjà un minimum par validation des permissions et bloquage des injections SQL car directement appliqué à chaque fois, il y a diverses autres failles (dont XSS) qui sont facilement exploitable...  
+Des détails sur ces tests, failles, corrections et checklist arriveront plus tard dans le projet...
 
 ### Livraisons
 Il y a 3 publications majeures et d'autres petites entre deux. Une publication est faite à la fin de chaque sprint sur GitHub. (Seulement les tags sont affichés ici). Pour voir les releases et leur description, suivez le lien de l'image.

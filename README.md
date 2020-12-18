@@ -39,7 +39,6 @@ L'application doit permettre: de **gérer des projets, gérer des tâches**, la 
 
 D'autres petites publications sont faites entre ces grosses publications à la fin de chaque sprint (0.1-beta, 0.2-beta, 1.1-beta, 1.2-beta, 2.1-beta, 2.2-beta).
 
-
 ## Beta tests
 Durant le projet il sera demandé à des membres de différentes organisations ou personnes extérieures au projets, d'aller tester l'application sur différentes versions afin de donner des retours sur le design, la conception des fonctionnalités, de nouvelles propositions, ... par écrit et/ou par le formulaire de feedback intégré.
 L'instance de tests est mise à jour toutes les 2-3 semaines (en fin de sprint) sur [kanff.mycpnv.ch/](https://kanff.mycpnv.ch/) et en plus régulièrement sur [kanff.mycpnv.ch/temp](https://kanff.mycpnv.ch/temp).
@@ -88,9 +87,11 @@ Le repository GitHub est public, mais le projet IceScrum est privé. Le projet e
 ### Objectif du projet
 Réaliser l'application KanFF permettant la gestion des membres, groupes et projets, pour une version `KanFF v1.0` publiée sur GitHub.
 
+<p style="color: #f66232"><em>L'application n'est pas responsive pour le moment, alors utilisez la en plein écran sur ordinateur.</em></p>
+
 ## Installation (pour une instance)
-Cette procédure s'applique pour une instance à distance.
-A venir.
+Cette procédure s'applique pour une instance à distance.  
+A venir quand sera publié en v1.0...
 <!--
 ### Prérequis:
 1. Accès SSH
@@ -106,8 +107,9 @@ TBD. fichiers.
 -->
 ## Installation locale (pour développement)
 ### Prérequis:
-- Avoir un service `Php` (version 7.3.x à 7.4.x) et `MySQL` (mysql v8.0.x) installé et pouvoir les atteindre dans un shell (tester `php -v` et `mysql -v` pour vérifier. Les variables d'environnement doivent être définies. Vérification réussie si la commande est reconnue... Cela sera utile pour la mise à jour de la base de données et l'exécution des tests unitaires). Installation possible avec [Chocolatey](https://chocolatey.org/) notamment.
-- Avoir l'extension PDO activée sur le serveur Php (changer `;extension=pdo_mysql` par `extension=pdo_mysql` dans le fichier `php.ini` ou vérifier que c'est déjà fait).
+- Avoir un service `Php` et `MySQL` installé et pouvoir les atteindre dans un shell (tester `php -v` et `mysql -v` pour vérifier. Vérification réussie si la commande est reconnue... Cela sera utile pour la mise à jour de la base de données et l'exécution des tests unitaires).
+- Avoir l'extension **PDO** et **OpenSSL** activée sur le serveur Php (changer `;extension=pdo_mysql` par `extension=pdo_mysql` et `;extension=openssl` par `extension=openssl` dans le fichier `php.ini` ou vérifier que c'est déjà fait).
+- Avoir [`NPM`](https://www.npmjs.com/get-npm) installé
 
 ### Procédure:
 1. **Récupérer le repository** depuis GitHub (clone ou téléchargement `.zip`) (exemple de clone dans un shell dans le dossier `C:/Alice/Documents/GitHub/`)
@@ -134,7 +136,7 @@ TBD. fichiers.
 1. Démarrer un serveur PHP **dans le dossier `app`** (pas le dossier racine du repository!) sur un port libre (ici 8080).
 1. **Ouvrir un navigateur web** sur l'adresse localhost et le port choisi: `localhost:8080`.
 1. **Validation**: L'installation est terminée lorsque le site s'affiche correctement dans le navigateur (page de login affichée et style CSS semblable à la version du [serveur de tests](https://kanff.mycpnv.ch)) et lorsque que le login fonctionne. Tester avec les identifiants suivants:
-       
+
         initiales: JRD
         mot de passe: Josette
 
