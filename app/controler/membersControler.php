@@ -78,6 +78,16 @@ function members($option)
 function memberDetails($id)
 {
     $user = getUserById($id);
+    $groups = getAllGroupsByUser($id);
+    $contributions['inrun'] = getContributionsByUser($id, true);
+    $contributions['old'] = getContributionsByUser($id, false);
+    //Seperate each work contributed by project in contributions:
+    foreach ($contributions['inrun'] as $key => $contribution) {
+        $formatedContributions['inrun'][$contribution['projectid']][] = $contribution;
+    }
+    foreach ($contributions['old'] as $key => $contribution) {
+        $formatedContributions['old'][$contribution['projectid']][] = $contribution;
+    }
     require_once "view/member.php";
 }
 

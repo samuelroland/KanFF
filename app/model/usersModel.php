@@ -106,7 +106,7 @@ function searchUserByEmail($email)
     return getByCondition("users", ["email" => $email], "email =:email", false);
 }
 
-function getContributionsByUsers($userid, $isInRun)
+function getContributionsByUser($userid, $isInRun)
 {
     if ($isInRun) {
         $participatestate = TASK_STATE_INRUN;

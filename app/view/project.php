@@ -25,7 +25,9 @@ if ($project['archived'] == 1) {
 }
 ?>
     <div class="statebanner box-verticalaligncenter ">
-        <img src="view/medias/icons/infopoint.png" alt="info point" class="icon-small">
+        <div class="iconsize-40">
+            <?= printAnIcon("infopoint.png", "Statut","info point", "icon-small") ?>
+        </div>
         <span><h3 class="d-inline ml-3"><?= convertProjectState($project['state'], true) ?></h3></span>
     </div>
     <div class="mt-4">

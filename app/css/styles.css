@@ -750,25 +750,26 @@ hr {
     border-radius: 5px;
 }
 
-.mdstyle pre {
-    background-color: lightgrey;
-    padding: 5px;
-    border-radius: 5px;
+.circlebordered {
+    max-width: 40px;
+    max-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px black solid;
 }
 
-.mdstyle {
+.spanAreBlock span {
+    display: block;
+}
+
+.standardDivDetail {
+    margin-top: 16px;
 
 }
 
-
-.clickablebanner {
-    background-color: #d1d5e4;
-    padding: 3px;
-    border-radius: 5px;
+.iconsize-40 {
     height: 40px;
-    cursor: pointer;
-}
-
-.clickablebanner:hover {
-    background-color: #b9bdcb;
+    width: 40px;
 }
