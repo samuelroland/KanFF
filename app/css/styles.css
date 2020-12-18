@@ -11,6 +11,12 @@
     padding: 0;
 }
 
+.versiontextformanual {
+    font-size: 0.9em;
+    color: black;
+    padding: 0;
+}
+
 .appbody {
     height: 100%;
 }
@@ -20,7 +26,7 @@
 }
 
 .appbodyrestrict {
-    max-width: 750px;
+    max-width: 1000px;
 }
 
 .logo {
@@ -67,7 +73,7 @@
     color: black;
 }
 
-ul {
+.menu ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -76,14 +82,14 @@ ul {
     text-align: left;
 }
 
-li {
+.menu li {
     float: left;
     height: 100px;
     font-size: 25px;
     text-align: left;
 }
 
-li a {
+.menu li a {
     display: block;
     color: black;
     text-align: left;
@@ -96,7 +102,7 @@ li a {
     background-color: #ffb400;
 }
 
-li a:hover {
+.menu li a:hover {
     background-color: #ffb400;
     height: 100px;
     color: black;
@@ -492,6 +498,10 @@ tr {
     margin: 0px !important;
 }
 
+.noborder {
+    border: none !important;
+}
+
 .spanForForm {
     max-width: 300px;
 }
@@ -676,4 +686,85 @@ hr {
 
 .acceptreturnchar {
     white-space: pre-line
+}
+
+.mdstyle img {
+    border: 1px #717171 solid;
+    max-height: 900px;
+    border-radius: 3px;
+}
+
+.mdstyle .thinBlackBorderForTitle {
+    margin: 0px !important;
+    padding-bottom: 10px;
+    border-bottom: 1px solid;
+}
+
+.mdstyle h1 {
+    padding-bottom: 5px;
+    border-bottom: 1px solid;
+    color: #38417f;
+}
+
+.mdstyle .thinBlackBorderForTitle h1 {
+    border: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.mdstyle h2 {
+    margin-top: 0.6em;
+    color: #348a19;
+}
+
+.mdstyle h3 {
+    margin-top: 0.5em;
+    color: #ff7700;
+}
+
+.mdstyle h4 {
+    margin-top: 0.5em;
+    color: #4fb6e3;
+}
+
+.mdstyle h5 {
+    margin-top: 0.5em;
+    color: #4fb6e3;
+}
+
+.mdstyle h6 {
+    margin-top: 0.5em;
+    color: #4fb6e3;
+}
+
+
+.mdstyle p code, .mdstyle li code {
+    color: darkblue;
+    background-color: #aedaf2;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 5px;
+}
+
+.mdstyle pre {
+    background-color: lightgrey;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.mdstyle {
+
+}
+
+
+.clickablebanner {
+    background-color: #d1d5e4;
+    padding: 3px;
+    border-radius: 5px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.clickablebanner:hover {
+    background-color: #b9bdcb;
 }

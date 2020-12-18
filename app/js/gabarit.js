@@ -34,11 +34,11 @@ $(document).ready(function () {
         check2ValuesAreIdentical()
         formCheckNoErrorMessages(event.target)
     })
-    document.querySelector(".formCheckNoErrorMessages button[type=submit]").onclick = function (event) {
+    $(".formCheckNoErrorMessages button[type=submit]").onclick = function (event) {
         //event.preventDefault()
         formCheckNoErrorMessages(event.target)
     }
-    document.querySelector(".formCheckNoErrorMessages input").onchange = function () {
+    $(".formCheckNoErrorMessages input").onchange = function () {
         formCheckNoErrorMessages(document.querySelector(".formCheckNoErrorMessages"))
     }
 
@@ -109,8 +109,39 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         })
     })
+
+    var els2 = document.getElementsByClassName("linkToCopy");
+    Array.prototype.forEach.call(els2, function (el) {
+        el.addEventListener('click', function (evt) {
+            link = evt.target
+            if (link.tagName == "IMG") {
+                link = link.parentNode
+            }
+            href = link.getAttribute('data-hrefcopy')
+            if (href != null) {
+                navigator.clipboard.writeText(href)
+                displayResponseMsg("Lien de la section copié dans le presse papiers.")
+            }
+        })
+    })
+    $(".linkOfTOC").on("click", adjustAutoScrollWithHashIn30Ms) //all links in TOC must have adjustment of scroll after
+    adjustAutoScrollWithHashIn30Ms()
 })
 
+//Start adjustAutoScrollWithHash() in 30ms
+function adjustAutoScrollWithHashIn30Ms() {
+    setTimeout(adjustAutoScrollWithHash, 30)    //30ms is important for asynchronous
+}
+
+//Adjust auto scroll with anchor (scroll in top direction to display the title under the menu)
+function adjustAutoScrollWithHash() {
+    //Thanks to: https://stackoverflow.com/questions/4086107/fixed-page-header-overlaps-in-page-anchors#answer-28824157
+    if (window.location.hash != "") {
+        var offset = $(':target').offset();
+        var scrollto = offset.top - 90; // minus fixed header height
+        $('html, body').animate({scrollTop: scrollto}, 0);
+    }
+}
 
 //Declare event keyup at start. Remove space in real time for inputs with the class .removeSpaceInRT
 $(document).ready(function () {

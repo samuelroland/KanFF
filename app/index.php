@@ -192,6 +192,9 @@ if (!isset($_SESSION['user']['id'])) {
                 setHTTPHeaderForAPIResponse();
                 sendFeedback($data);
                 break;
+            case "manual":
+                manual();
+                break;
             case "":    //if no action it's the dashboard
                 dashboard();
                 break;

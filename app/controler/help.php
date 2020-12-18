@@ -372,12 +372,94 @@ function checkNamesValidity($name)
     return checkRegex($name, $regex);
 }
 
+
 function checkUserHasRightsForBigActionOnAccount()
 {
     if ($_SESSION["user"]["state"] == USER_STATE_ADMIN || $_SESSION["user"]["state"] == USER_STATE_APPROVED) {
         return true;
     }
     return false;
+}
+
+function manual()
+{
+    require ".const.php";
+
+    $linkImages = "https://raw.githubusercontent.com/samuelroland/KanFF/develop/doc";
+    $linkDocGithub = "https://github.com/samuelroland/KanFF/tree/develop/doc";
+    //Get the documentation content:
+    if ($dev == true) {
+        $doc = file_get_contents("../doc/kanff-doc-user-fr.md");
+    } else {
+        $doc = file_get_contents("$linkImages/kanff-doc-user-fr.md");
+    }
+    $msg = null;
+    if ($doc == null) {
+        $msg = "Source du mode d'emploi non trouvée... L'affichage est donc impossible.";
+    }
+    $doc = MDToHTML($doc);
+
+    //Manage and work on the content:
+    $lines = explode("\n", $doc);   //explode the documentation to work with each line separately
+    $toc = "\n\n";  //insert line break at start and end of TOC to avoid error in interpretation of Parsedown.
+    foreach ($lines as $key => $line) {
+        for ($i = 1; $i <= 6; $i++) {
+            $toc .= getTableOfContentElementInMDIfIsTitle($line, "<h$i>", $i);  //concat the markdown text of the list element to the TOC if the line is title level 1
+            $line = getTitleWithIdAttributeInHTMLIfIsTitle($line, "<h$i>", "h$i");    //get the html text of the title with his attribute id if the line is title level 1
+        }
+        $lines[$key] = $line;   //save final value of line (updated if is title, no change if not).
+    }
+    $toc .= "\n";   //insert line break at start and end of TOC to avoid error in interpretation of Parsedown.
+
+    $tocInLines = explode("\n", MDToHTML($toc));
+    foreach ($tocInLines as $key => $line) {
+        if (contains($line, "<a")) {
+            $line = substr($line, 0, strpos($line, "<a") + 2) . " class='linkOfTOC' " . substr($line, strpos($line, "<a") + 2);
+        }
+        $tocInLines[$key] = $line;
+    }
+    $toc = implode("", $tocInLines);
+
+    $currentLinesAreComment = false;    //the current lines are inside some comments and must be not included
+    foreach ($lines as $key => $line) {
+        $acceptLine = true; //the current line is accepted (or not)
+        if ((strpos($line, "src") != -1 || strpos($line, "href") != -1) && strpos($line, "http") == false) {
+            //displaydebug(substr($line, 0, 4));
+            $line = str_replace("src=\"", "src=\"$linkImages/", $line);
+            $line = str_replace("href=\"", "target='_blank' href=\"$linkDocGithub/", $line);
+        }
+
+        //Extract the version number in the cartouche at the top
+        if (startwith($line, " *  Version:")) {
+            $docVersion = substr($line, strrpos($line, " ") + 1);
+            $docVersion = htmlentities($docVersion);
+        }
+
+        //Extract the version date in the cartouche at the top
+        if (startwith($line, " *  Versiondate:")) {
+            $posSpaceBeforeDate = strrpos($line, " ", (strlen($line) - strrpos($line, " ")) * (-1) - 3);
+            $docVersionDate = substr($line, $posSpaceBeforeDate + 1);
+            $docVersionDate = htmlentities($docVersionDate);
+            $docVersionDate = DTToHumanDate($docVersionDate, "simpletime");
+        }
+
+        //if line is a HTML comment start, the whole line will be excluded
+        if (contains($line, "<!--")) {
+            $currentLinesAreComment = true; //current and next lines will be inside the comment markup
+        }
+        if (contains($line, "[INSERT TOC HERE]")) { //if line contains mention to insert the table of content
+            $line = MDToHTML($toc);    //insert the table of content on this line
+        }
+        if ($currentLinesAreComment == false && $acceptLine == true) {  //if current lines are no comments and the line is accepted
+            $newLines[] = $line;    //include the line in the list of new lines
+        }
+        if (contains($line, "-->")) {   //if it's the end of comments, no other comments will be after.
+            $currentLinesAreComment = false;
+        }
+
+    }
+    $doc = implode("\n", $newLines);
+    require_once "view/manual.php";
 }
 
 ?>

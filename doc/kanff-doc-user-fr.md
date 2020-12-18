@@ -9,7 +9,7 @@
  *  INFO: here is the manual to learn how to use KanFF. This file is hosted in the GitHub repository.
  *  To get regular updates of this manual, each instance take content directly from GitHub on branch develop and not from a local file.
  *  If commits pushed to GitHub are WIP (Work In Progress), they must be pushed on another feature branch to not impact production.
- *  At each merge or commit on develop, version and versiondate must be updated. Don't break the syntax because these 2 
+ *  At each merge or commit on develop, version and versiondate must be updated. Don't break the syntax because these 2
  *  values are important to notify the users (on the manual) that the manual is more recent than the last time they saw it.
  *  There is no title h1 ("#" so level 1) and no "table of content" mention at start because it's generated in the php script.
  *  When writing in this file, the result should be looked in the manual directly (activate dev mode to load the local file)
@@ -30,7 +30,6 @@ Vous êtes membre d'un collectif, d'un groupe, d'un mouvement social, une associ
 - Instance: serveur sur lequel est installé KanFF. L'instance est accessible via une **URL** (`blason.com` par ex.) et a un **nom** donné par la personne la gérant (par exemple `Blason`)
 - Admin:
 - URL: Lien internet vers une ressource stockée sur internet (site web, fichier, ...).
-
 - Projets:
 - Travaux:
 - Tâches:

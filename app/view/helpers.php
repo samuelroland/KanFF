@@ -542,24 +542,79 @@ function buildSentenceAccountStateLastChange($user, $middleBreak = false, $intro
     return $sentence;
 }
 
-function clearAllNonAlphabeticalChars($text)
+function MDToHTML($raw)
 {
-    //INFO: unapproved user don't have state_modifier_id and state_modification_date. All other state must be associated with the date (and the admin id is facultative).
-    if ($user['state'] == USER_STATE_UNAPPROVED) {  //if unapproved, the state hasn't been changed yet (no information at all)
-        $sentence = "Aucun changement d'état pour l'instant.";
+    require_once "extensions/parsedown/Parsedown.php";
+    $Parsedown = new Parsedown();
+    return $Parsedown->text($raw);
+}
+
+//Get the title in html (including the id attribute), if the line is a title (no other possibility to add the id to the title in markdown).
+function getTitleWithIdAttributeInHTMLIfIsTitle($line, $startWith, $markup)
+{
+    if (startwith($line, $startWith) == false) {    //if the line is not a title
+        return $line;   //return the unchanged line
     } else {
-        $sentence = "";
-        if ($introductionIncluded) {
-            $sentence .= "Défini comme <em>" . convertUserState($user['state']) . "</em>" . (($middleBreak == true) ? "<br>" : "");
+        $text = trimIt(substr($line, strpos($line, $startWith) + strlen($startWith), strrpos($line, "</") - strpos($line, $startWith) - strlen($startWith)));  //get the text after the space (the space is after the symbol at the start of line)
+        $id = createKeyNameForElementId($text);    //convert to lowercase, replace accent chars, and replace " " and "'"
+        $result = "<div class='flexdiv  box-verticalaligncenter'><$markup id='" . $id . "' class=''>" . $text . "</$markup>";  //ex: "<h1 id='introduction'>Introduction</h1>"
+
+        //Add the copylink icon:
+        $result .= "<span data-hrefcopy='" . $_SERVER['HTTP_HOST'] . "/?action=manual#" . $id . "' class='cursorpointer linkToCopy'>" . printAnIcon("copylink.png", "Copier le lien vers cette section", "copy lin icon", "icon-xsmall m-2 noborder mt-3 copylink", false) . "</span>";
+        $result .= "</div>";
+        return $result;
+    }
+
+}
+
+//Get table of content element in Markdown, if the line is a title
+function getTableOfContentElementInMDIfIsTitle($line, $startWith, $level)
+{
+    if (startwith($line, $startWith) == false) {    //if line is not a markdown title, return "" to add nothing to the list
+        return "";
+    } else {
+        $tabs = "";
+        for ($i = 0; $i < $level - 1; $i++) {   //create tabulations before each TOC line to create the different levels of titles
+            $tabs .= "  ";
         }
-        $sentence .= " le " . DTToHumanDate($user['state_modification_date'], "simpletime");  //the date must be not null if state has changed
-        if ($user['state_modifier_id'] != null) {   //the admin can be anonyme
-            $sentence .= " par " . mentionUser($user['state_modifier']);
-        } else {
-            $sentence .= " (Admin anonyme).";
+        /*if ($level != 1) {
+            $tabs .= "-";
+        }*/
+        $text = trimIt(substr($line, strpos($line, $startWith) + strlen($startWith), strrpos($line, "</") - strpos($line, $startWith) - strlen($startWith)));  //get the text after the space (the space is after the symbol at the start of line)
+        $id = createKeyNameForElementId($text);
+        $result = "$tabs- [$text](#$id)\n";  //ex: "    - [Introduction](#introduction)" (here with 1 tab if title is level 2).
+        return $result;
+    }
+}
+
+function createKeyNameForElementId($text)
+{
+    $anchor = clearAllNonAlphabeticalChars(strtolower(replaceAccentChars(str_replace(" ", "-", str_replace("'", "-", trimIt($text))))), "-");
+    return $anchor;
+}
+
+function clearAllNonAlphabeticalChars($text, $exceptions = "")
+{
+    $characters = str_split('0123456789abcdefghijklmnopqrstuvwxyz' . $exceptions);
+
+    $newText = "";
+    foreach (str_split($text) as $char) {
+        if (in_array($char, $characters) == true) {
+            $newText .= $char;
         }
     }
-    return $sentence;
+    return $newText;
+}
+
+//Return if the string start with the specified substring
+function startwith($text, $with)
+{
+    return (substr($text, 0, strlen($with)) == $with);
+}
+
+function contains($haystack, $needle)
+{
+    return (strpos($haystack, $needle) !== false);
 }
 
 ?>
