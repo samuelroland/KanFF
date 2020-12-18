@@ -307,6 +307,7 @@ function logout()
 
 function deleteAccount($post)
 {
+    defineConstantsSentences();
     if (empty($post)) {
         //display the view if no data
         $option = "delete";
@@ -318,6 +319,7 @@ function deleteAccount($post)
 
 function archiveAccount($post)
 {
+    defineConstantsSentences();
     if (checkUserHasRightsForBigActionOnAccount()) {// Check if user can archive his account
         if (empty($post)) {
             //display the view if no data
