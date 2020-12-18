@@ -9,54 +9,35 @@
 //Choose texts depending on the action choosed:
 switch ($option) {
     case "delete":
-        $title = "Suppression du compte";
-        $verb = "Supprimer définitivement son compte";
-        $button = "Supprimer définitivement mon compte";
-        $introduction = "Attention cette action est irréversible !
-            Si vous souhaitez quitter le collectif et disparaître entièrement, supprimer son compte est la bonne
-            option. Si vous voulez rester dans les archives du collectif (sous les comptes archivés) et garder les
-            références à votre compte tel quel, archiver son compte est une meilleure option.";
-        $consequences = 'A part votre compte, rien ne sera supprimé... Seul les références à votre compte (permettant de savoir qui a créé une tâche, un travail, un groupe, ou une entrée de journal de bord) ou permettant
-                de savoir qui est responsable de quelque chose (une tâche, un travail ou un projet) ainsi que les
-                références vous liant à une adhésion à un groupe, seront supprimées (à les place, il sera affiché
-                "Compte supprimé").';
-        $textToCopy = "J'ai compris les conséquences de la suppression de mon compte sur les informations liées à mon
-                compte, et je confirme vouloir supprimer mon compte de cette instance Blason de manière
-                irréversible.";
+        $textChosen = USER_SENTENCES_DELETE;
         break;
     case "archive":
-        $title = "Archivage du compte";
-        $verb = "Archiver son compte";
-        $button = "Archiver mon compte";
-        $introduction = "asdfsdaf";
-        $consequences = "asdfsdaf";
-        $textToCopy = "asdfsdaf";
+        $textChosen = USER_SENTENCES_ARCHIVE;
         break;
     default:
         die("Dev Error in the \$option for bigActionOnAccount.php");
 }
-
 $cssForSpan = "box-verticalaligncenter spanForForm";
 $cssForInput = "form-control inputForForm nomargin";
-
+$title = $textChosen['title'];
 ob_start();
 ?>
     <div class="<?= $cssForDivZone ?>">
         <div class="flexdiv">
-            <h1 class="flex-1"><?= $title ?></h1>
+            <h1 class="flex-1"><?= $textChosen["title"] ?></h1>
         </div>
         <?php printPageWIPTextInfo(); ?>
-        <p><?= $introduction ?></p>
+        <p><?= $textChosen["introduction"] ?></p>
         <div class="">
             <hr class="hrlight">
             <h5>Conséquences détaillées</h5>
-            <p><?= $consequences ?></p>
+            <p><?= $textChosen["consequences"] ?></p>
         </div>
         <hr class="hrlight">
-        <form action="?action=deleteAccount" method="POST">
+        <form action="?action=<?= $option ?>Account" method="POST">
             <div id="divDeleteValidation" class="">
                 <p id="pDeleteValidationText" class="txtdarkbluelogo font-italic">
-                    <?= $textToCopy ?>
+                    <?= $textChosen["textToCopy"] ?>
                 </p>
                 <textarea name="sentence" id="txtSentenceDeleteValidation" rows="4"
                           class="fullwidth form-control nomargin"
@@ -70,11 +51,11 @@ ob_start();
                        title="Mot de passe de validation"/>
                 <!--<p class="errormsg" id="pErrorUsername" hidden>Le nom d'utilisateur/trice doit être alphanumérique
                     (lettre et nombres, tirets du bas acceptés).</p>-->
-                <?= createToolTipWithPoint($verb . " étant une action très importante, nous avons besoin de
+                <?= createToolTipWithPoint($textChosen["verb"] . " étant une action très importante, nous avons besoin de
             votre confirmation pour valider l'action. Pour ceci rentrer le mot de passe de votre compte.", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
                 <div class="divBtnCreate pt-4">
-                    <input type="submit" class="btn btn-light" value="Annuler">
-                    <input type="submit" class="btn btn-danger" value="<?= $button ?>">
+                    <input type="button" class="btn btn-light clickable" data-href="?action=editAccount" value="Annuler">
+                    <input type="submit" class="btn btn-danger" value="<?= $textChosen["button"] ?>">
                 </div>
             </div>
         </form>

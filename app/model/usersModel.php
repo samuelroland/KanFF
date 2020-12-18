@@ -67,6 +67,18 @@ function deleteUser($id)
     return deleteOne("users", $id);
 }
 
+//Archive one user with his id
+function archiveUser($id)
+{
+    $time = timeToDT(time());
+    $_SESSION["user"]["state"] = USER_STATE_ARCHIVED;
+    $_SESSION["user"]["state_modifier_id"] = $id;
+    $_SESSION["user"]["state_modification_date"] = $time;
+
+    $params = ["state" => USER_STATE_ARCHIVED, "state_modifier_id" => $id, "state_modification_date" => $time];
+    return updateOne("users", $id, $params);
+}
+
 function getAllUsersActive()
 {
     $query = "SELECT * FROM users 

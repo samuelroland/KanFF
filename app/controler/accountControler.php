@@ -253,13 +253,13 @@ function limitedAccessInfo()
     $user = $_SESSION['user'];
     switch ($state) {
         case USER_STATE_UNAPPROVED:
-            $message = "Votre compte a été créé mais n'est pas encore approuvé et vous n'avez donc pas encore accès aux informations internes. Veuillez contacter un.e admin afin de vous faire approuver.";
+            $message = "Votre compte a été créé mais n'est pas encore approuvé et vous n'avez donc pas encore accès aux informations internes. Veuillez contacter un·e admin afin de vous faire approuver.";
             break;
         case USER_STATE_BANNED:
-            $message = "Votre compte a été banni de ce collectif par un.e admin. Vous n'avez plus accès aux informations internes.";
+            $message = "Votre compte a été banni de ce collectif par un·e admin. Vous n'avez plus accès aux informations internes.";
             break;
         case USER_STATE_ARCHIVED:
-            $message = "Votre compte est archivé (vous l'avez défini vous même ou alors un.e admin l'a défini). Pour désarchiver votre compte (et retrouver l'accès aux données internes), veuillez contacter un.e admin afin que votre compte soit désarchivé.";
+            $message = "Votre compte est archivé (vous l'avez défini vous même ou alors un·e admin l'a défini). Pour désarchiver votre compte (et retrouver l'accès aux données internes), veuillez contacter un·e admin afin que votre compte soit désarchivé.";
             break;
     }
     if ($user['state_modifier_id'] != null) {
@@ -307,22 +307,70 @@ function logout()
 
 function deleteAccount($post)
 {
+    defineConstantsSentences();
     if (empty($post)) {
         //display the view if no data
         $option = "delete";
         require_once "view/bigActionOnAccount.php";
     } else {
-        //Check data sent and delete account
+        checkRightForCallFlashMessagesDeleteArchive($post,"delete");
     }
 }
 
 function archiveAccount($post)
 {
-    if (empty($post)) {
-        //display the view if no data
-        $option = "archive";
-        require_once "view/bigActionOnAccount.php";
+    defineConstantsSentences();
+    if (checkUserHasRightsForBigActionOnAccount()) {// Check if user can archive his account
+        if (empty($post)) {
+            //display the view if no data
+            $option = "archive";
+            require_once "view/bigActionOnAccount.php";
+        } else {
+            checkRightForCallFlashMessagesDeleteArchive($post,"archive");
+        }
     } else {
-        //Check data sent and archive account
+        limitedAccessInfo();
     }
+}
+
+
+//check creditential to call flashmessages for delete and archive
+function checkRightForCallFlashMessagesDeleteArchive($post,$option){
+    if ($option=="delete"){
+        $textToCopy=USER_SENTENCES_DELETE["textToCopy"];
+    }else{
+        $textToCopy=USER_SENTENCES_ARCHIVE["textToCopy"];
+    }
+    $userid = $_SESSION["user"]["id"];
+    //check if textToCopy is correctly copied and if password send is the one
+    if ($post["sentence"] == $textToCopy && checkUserPassword($userid, $post["password"])) {
+        switch ($option) {//success messages for delete or archive account
+            case "delete":
+                deleteUser($userid);
+                flshmsg(18);
+                session_unset();
+                require_once 'view/login.php';
+                break;
+            case "archive":
+                archiveUser($userid);
+                flshmsg(19);
+                limitedAccessInfo();
+                break;
+        }
+
+
+    } else {
+        if ($post["sentence"] == $textToCopy) {
+            flshmsg(8);
+        }
+        elseif (checkUserPassword($_SESSION["user"]["id"], $post["password"])) {
+            flshmsg(17);
+        }
+        elseif (!checkUserPassword($_SESSION["user"]["id"], $post["password"])&&$post["sentence"] != $textToCopy) {
+            flshmsg(17);
+            flshmsg(8);
+        }
+
+        require_once "view/bigActionOnAccount.php";
+    }//if sentence or password isn't correct
 }

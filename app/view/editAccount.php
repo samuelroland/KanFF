@@ -224,11 +224,13 @@ Vous pouvez laisser une information dans votre statut concernant la raison de vo
             <div class="pt-3">
                 <hr class="hrlight">
                 <h4 class="d-inline text-danger">Zone danger</h4>
+                <?php if (checkUserHasRightsForBigActionOnAccount()){?>
                 <div class="  pt-3">
                     <button type="submit" class="clickable btn btn-dark" data-href="?action=archiveAccount">Archiver mon
                         compte...
                     </button>
                 </div>
+                <?php }?>
                 <div class=" pt-3">
                     <button type="submit" class="clickable btn btn-dark" data-href="?action=deleteAccount">Supprimer mon
                         compte...
