@@ -7,35 +7,27 @@
  */
 
 define("ARRAY_ACCENT_CHARS", array('Š' => 'S', 'š' => 's', 'Ž' => 'Z', 'ž' => 'z', 'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A', 'Æ' => 'A', 'Ç' => 'C', 'È' => 'E', 'É' => 'E',
-        'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I', 'Ñ' => 'N', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'O', 'Ø' => 'O', 'Ù' => 'U',
-        'Ú' => 'U', 'Û' => 'U', 'Ü' => 'U', 'Ý' => 'Y', 'Þ' => 'B', 'ß' => 'Ss', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'a', 'å' => 'a', 'æ' => 'a', 'ç' => 'c',
-        'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ð' => 'o', 'ñ' => 'n', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o',
-        'ö' => 'o', 'ø' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ý' => 'y', 'þ' => 'b', 'ÿ' => 'y', 'Ğ' => 'G', 'İ' => 'I', 'Ş' => 'S', 'ğ' => 'g', 'ı' => 'i', 'ş' => 's', 'ü' => 'u'));
-define("USER_SENTENCES_DELETE",array(
-    "title" => "Suppression du compte",
-    "verb" => "Supprimer définitivement son compte",
-    "button" => "Supprimer définitivement mon compte",
-    "introduction" => "Attention cette action est irréversible !
-            Si vous souhaitez quitter le collectif et disparaître entièrement, supprimer son compte est la bonne
-            option. Si vous voulez rester dans les archives du collectif (sous les comptes archivés) et garder les
-            références à votre compte tel quel, archiver son compte est une meilleure option.",
-    "consequences" => 'A part votre compte, rien ne sera supprimé... Seul les références à votre compte (permettant de savoir qui a créé une tâche, un travail, un groupe, ou une entrée de journal de bord) ou permettant
-                de savoir qui est responsable de quelque chose (une tâche, un travail ou un projet) ainsi que les
-                références vous liant à une adhésion à un groupe, seront supprimées (à les place, il sera affiché
-                "Compte supprimé").',
-    "textToCopy" => "d"));
-define("USER_SENTENCES_ARCHIVE",array(
-    "title" => "Archivage du compte",
-    "verb" => "oui",
-    "button" => "oui",
-    "introduction" => "oui",
-    "consequences" => 'oui',
-    "textToCopy" => "oui"));
-
-
-
-
-
+    'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I', 'Ñ' => 'N', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'O', 'Ø' => 'O', 'Ù' => 'U',
+    'Ú' => 'U', 'Û' => 'U', 'Ü' => 'U', 'Ý' => 'Y', 'Þ' => 'B', 'ß' => 'Ss', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'a', 'å' => 'a', 'æ' => 'a', 'ç' => 'c',
+    'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ð' => 'o', 'ñ' => 'n', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o',
+    'ö' => 'o', 'ø' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ý' => 'y', 'þ' => 'b', 'ÿ' => 'y', 'Ğ' => 'G', 'İ' => 'I', 'Ş' => 'S', 'ğ' => 'g', 'ı' => 'i', 'ş' => 's', 'ü' => 'u'));
+function defineConstantsSentences()
+{
+    define("USER_SENTENCES_DELETE", array(
+        "title" => "Suppression du compte",
+        "verb" => "Supprimer définitivement son compte",
+        "button" => "Supprimer définitivement mon compte",
+        "introduction" => "Attention cette action est irréversible ! Si vous souhaitez quitter le collectif et disparaître entièrement, supprimer son compte est la bonne option. Si vous quittez le collectif mais vous souhaitez rester dans les archives du collectif (sous les comptes archivés) ou si vous revenez bientôt, archiver son compte est une meilleure option. L'action est possible seulement pour vous (sauf si vous êtes non approuvé).",
+        "consequences" => 'Toutes vos informations présentes sur votre compte (visible dans la page Mon compte) seront supprimées immédiatement... Seul les références à votre compte seront vidées (par ex. champs "créé par" et "responsable", pour les projets, travaux, tâches, groupes, entrée de journal de bord, ...). La liste complète et des précisions se trouvent <a href="?action=manual#consequences-suppression">dans le mode d\'emploi.</a>',
+        "textToCopy" => "J'ai compris les conséquences irréversibles de la suppression de mon compte sur les informations me concernant, et je confirme vouloir supprimer mon compte de cette instance " . getInstanceInfos()['instance']['name'] . "."));
+    define("USER_SENTENCES_ARCHIVE", array(
+        "title" => "Archivage du compte",
+        "verb" => "Archiver son compte",
+        "button" => "Archiver mon compte",
+        "introduction" => "Si vous quitter le collectif, archiver son compte permet de garder la trace de vos contributions et informations liées au collectif, et rester sous les comptes archivés. Si vous revenez dans le collectif, un·e admin peut désarchiver votre compte et revenir au même état que avant l'archivage. Seulement les admins et vous peuvent archiver votre compte.",
+        "consequences" => "L'archivage du compte ne cause pas de perte de données. Puisque vous quittez le collectif, vous n'aurez plus accès aux données internes (page Accès limité).",
+        "textToCopy" => "Je confirme vouloir archiver mon compte."));
+}
 
 //Check that the password sent is the password of the user logged. The function is not useful for the logins, but it's useful to check the password when the user make an important action that need to be validated.
 function checkUserPassword($id, $password)
@@ -380,10 +372,12 @@ function checkNamesValidity($name)
     return checkRegex($name, $regex);
 }
 
-function checkUserHasRightsForBigActionOnAccount(){
-    if ($_SESSION["user"]["state"] == USER_STATE_ADMIN || $_SESSION["user"]["state"] == USER_STATE_APPROVED){
+function checkUserHasRightsForBigActionOnAccount()
+{
+    if ($_SESSION["user"]["state"] == USER_STATE_ADMIN || $_SESSION["user"]["state"] == USER_STATE_APPROVED) {
         return true;
     }
     return false;
 }
+
 ?>

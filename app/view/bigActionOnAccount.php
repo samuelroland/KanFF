@@ -19,7 +19,7 @@ switch ($option) {
 }
 $cssForSpan = "box-verticalaligncenter spanForForm";
 $cssForInput = "form-control inputForForm nomargin";
-
+$title = $textChosen['title'];
 ob_start();
 ?>
     <div class="<?= $cssForDivZone ?>">
