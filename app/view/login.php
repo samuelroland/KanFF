@@ -9,7 +9,7 @@ $instance = $instanceinfos['instance'];
         <div>
             <p class="aligncenter"><?= $instanceinfos['collective']['msg'] ?></p>
             <?php if ($instance['testinstance'] == true) {
-                echo "<p class='text-danger'><strong>Vous êtes sur une instance de test et les données sont fictives. Elles doivent le rester car elles sont accessibles publiquement! (Ne créer pas de compte, projet, travail, tâche, groupe, ... réel).</strong></p>";
+                echo "<p class='text-danger'><strong>Vous êtes sur une instance de test et les données sont fictives. Elles doivent le rester car elles sont accessibles publiquement! (Ne créez pas de compte, projet, travail, tâche, groupe, ... réel).</strong></p>";
             } ?>
             <div class="box-aligncenter pt-4"><img src="view/medias/logos/KanFF_Logo.svg" alt="logoLog" class="logoLog">
                 <br><span class="versiontext"></span>
@@ -17,9 +17,9 @@ $instance = $instanceinfos['instance'];
         </div>
         <h1 class="aligncenter pt-4"><?= $title ?></h1>
         <div class="form-group">
-            <label for="infoLogin">Nom d'utilisateur, initiales ou email</label>
+            <label for="infoLogin">Nom d'utilisateur·ice, initiales ou email</label>
             <input type="text" width="auto" class="form-control" name="infoLogin" id="infoLogin" autofocus
-                   aria-describedby="emailHelp" placeholder="josette27 ou JRD/jrd ou josette.richard@assoc.ch"
+                   placeholder="josette27 ou JRD/jrd ou josette.richard@assoc.ch"
                    minlength="3" required>
         </div>
         <div class="form-group">
