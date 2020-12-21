@@ -186,11 +186,17 @@ function checkThatEachKeyIsNotEmpty($array)
     return true;
 }
 
-function isAtLeastEqual($value, $possibilities)
+function isAtLeastEqual($value, $possibilities, $mustBeTypeEqual = false)
 {
     foreach ($possibilities as $possibility) {
-        if ($value == $possibility) {
-            return true;
+        if ($mustBeTypeEqual) {
+            if ($value === $possibility) {
+                return true;
+            }
+        } else {
+            if ($value == $possibility) {
+                return true;
+            }
         }
     }
     return false;
