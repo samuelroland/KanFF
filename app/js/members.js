@@ -15,7 +15,7 @@ function init() {
     $(".icnChangeStatus").on("click", tryChangeStatus)  //present everywhere because is in the gabarit
     $(".membersTrashIcons").on("click", tryDeleteUnapprovedUser)  //present everywhere because is in the gabarit
 
-    if (queryActionIncludes("deleteAccount")||queryActionIncludes("archiveAccount")) {
+    if (queryActionIncludes("deleteAccount") || queryActionIncludes("archiveAccount")) {
         $('body').bind('copy paste', function (e) {
             e.preventDefault();
             return false;
@@ -77,15 +77,21 @@ function manageEditMode() {
     invertHiddenState(inpDivPassword) //display or hide #inpDivPassword (with "?" and password input")
 
     //change disabled state of .sltAccountState elements (actual disabled state is taken in the first .sltAccountState element
-    $(".sltAccountState").attr("disabled", !document.querySelector(".sltAccountState").disabled)
-    if (document.querySelector(".membersTrashIcons").classList.contains("cursorpointer")) { //if contains class .cursorpointer
-        $(".membersTrashIcons").removeClass("cursorpointer") //remove the pointer cursor
-        $(".membersTrashIcons").addClass("cursorforbidden") //add the forbidden cursor
-    } else {
-        $(".membersTrashIcons").removeClass("cursorforbidden") //remove the forbidden cursor
-        $(".membersTrashIcons").addClass("cursorpointer")    //add the pointer cursor
+    $(".sltAccountState").attr("disabled", btnEditMode.innerText == "Mode édition") //enable or disabled all select .sltAccountState
+    $(".sltAccountState").each(function () {
+        if (this.getAttribute("data-startstate") != this.value) {   //if it has been already modified (start state is not equal to current value of state)
+            this.disabled = true    //disable it again
+        }
+    })
+    if (queryActionIncludes("option=5", true)) {
+        if (!isEditModeEnabled()) { //option is unapproved users and edit mode is enabled
+            $(".membersTrashIcons").removeClass("cursorpointer") //remove the pointer cursor
+            $(".membersTrashIcons").addClass("cursorforbidden") //add the forbidden cursor
+        } else {
+            $(".membersTrashIcons").removeClass("cursorforbidden") //remove the forbidden cursor
+            $(".membersTrashIcons").addClass("cursorpointer")    //add the pointer cursor
+        }
     }
-
 }
 
 /* 3 functions to manage change of the state of a user account in JS and Ajax */
@@ -144,8 +150,10 @@ function accountStateCallback(response) {
 
         //Update change state info:
         lastChangeStateInfo = document.querySelector(".tdStateChangeInfo[data-user='" + user.id + "']")
-        sentence = user.sentence_modification_state
-        lastChangeStateInfo.innerHTML = sentence
+        if (lastChangeStateInfo != null) {  //unapproved members table doesn't contain the column "last state change".
+            sentence = user.sentence_modification_state
+            lastChangeStateInfo.innerHTML = sentence
+        }
     } else {
         if (response.data.hasOwnProperty("user")) {
             user = response.data.user
@@ -156,29 +164,42 @@ function accountStateCallback(response) {
 
 }
 
+//Is the edit mode enabled ?
+function isEditModeEnabled() {
+    return (inpPassword.parentNode.hidden != true)    //if edition mode is enabled (password input parent must be not hidden)
+}
+
 /* 3 functions to delete unapproved user if needed in JS and Ajax */
 
 function tryDeleteUnapprovedUser(event) {
     trash = event.target
-    if (inpPassword.parentNode.hidden != true) {    //if edition mode is enabled (password input parent must be not hidden)
-        deleteUnapprovedUser(trash)
-    }
+    if (isEditModeEnabled()) {
+        if (inpPassword.value != "") {
+            fullname = getRealParentHavingId(trash, "tr-member-").querySelector(".memberfullname").innerText
+            if (chkDeleteWithoutConfirmation.checked == true) { //if "delete without confirmation" mode is enabled
+                deleteUnapprovedUser(trash) //delete directly
+            } else {    //ask for confirmation before deletion
+                confirmation = confirm("Confirmez-vous vouloir supprimer le compte de " + fullname + " ?")
+                if (confirmation) {
+                    deleteUnapprovedUser(trash)
+                }
+            }
+        } else {
+            inpPassword.focus() //focus the password input
+            displayResponseMsg("Mot de passe non rempli", false)    //display error msg
+        }
+    }//else nothing because trash icon (with .cursorforbidden) are like "unclickable"
 }
 
 function deleteUnapprovedUser(trash) {
-
     trash = getRealParentHavingId(trash)    //img or span element can be clicked
     idUser = trash.getAttribute("data-userid")
     pwd = inpPassword.value
 
-    if (checkAllValuesAreNotEmpty([idUser, pwd])) {  //last minute check
-        sendRequest("POST", "?action=deleteUnapprovedUser", deleteUnapprovedUserCallback, {
-            'id': idUser,
-            'password': pwd
-        })
-    } else {
-        displayResponseMsg("Mot de passe non rempli", false)    //display error msg
-    }
+    sendRequest("POST", "?action=deleteUnapprovedUser", deleteUnapprovedUserCallback, {
+        'id': idUser,
+        'password': pwd
+    })
 }
 
 function deleteUnapprovedUserCallback(response) {

@@ -44,11 +44,20 @@ $isAdmin = checkAdmin();
         <span class="pt-2 flex-2">La liste ci-dessous contient <strong><?= count($members) ?></strong> membres.</span>
         <?php if ($isAdmin) { ?>
             <div class="box-alignright box-verticalaligncenter" id="inpDivPassword" hidden>
-                <div class="d-flex flex-1 box-verticalaligncenter mr-3">
+                <div class="box-verticalaligncenter mr-3">
                     <input type="checkbox" id="chkAnonymous" class="mr-2">
-                    <label for="chkAnonymous"
-                           class="nomargin"><?= createToolTip("Rester anonyme", "La référence à l'admin ayant changé l'état du compte ne sera pas enregistrée si ce mode est activé.", false, "bottom") ?></label>
+                    <label for="chkAnonymous" class="nomargin">
+                        <?= createToolTip("Rester anonyme", "La référence à l'admin ayant changé l'état du compte ne sera pas enregistrée si ce mode est activé.", false, "top") ?>
+                    </label>
                 </div>
+                <?php if ($option == 5) { ?>
+                    <div class="box-verticalaligncenter mr-3">
+                        <input type="checkbox" id="chkDeleteWithoutConfirmation" class="mr-2">
+                        <label for="chkDeleteWithoutConfirmation" class="nomargin">
+                            <?= createToolTip("Suppression sans confirmation", "Vous pouvez supprimer des comptes sans confirmation quand ce mode est activé. Cela est utile en cas de spam par exemple.", false, "top") ?>
+                        </label>
+                    </div>
+                <?php } ?>
                 <?= createToolTipWithPoint("Pour activer le mode édition, vous devez rentrer votre mot de passe.", "icon-xsmall ml-2 mr-2", false, "bottom") ?>
                 <input type="password" id="inpPassword" class="form-control width-min-content"
                        placeholder="Mot de passe">
