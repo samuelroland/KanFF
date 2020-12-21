@@ -101,11 +101,18 @@ function invertInnerText(obj, firsttext, secondtext) {
 }
 
 //Get the real parent (event can be produced on childrens and not on the parent directly. The parent is the first parentNode that have an id.)
-function getRealParentHavingId(parent) {
-    while (parent.id == "" || parent.id == null) {
-        parent = parent.parentNode
+function getRealParentHavingId(parent, mustContains = "") {
+    if (mustContains == "") {
+        while (parent.id == "" || parent.id == null) {
+            parent = parent.parentNode
+        }
+        return parent
+    } else {
+        while (parent.id == "" || parent.id == null || parent.id.indexOf(mustContains) == -1) {
+            parent = parent.parentNode
+        }
+        return parent
     }
-    return parent
 }
 
 //Manage (display or hide) divRightPanel
