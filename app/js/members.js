@@ -210,5 +210,6 @@ function deleteUnapprovedUserCallback(response) {
         if (userInTheList != null) {
             userInTheList.remove()  //delete the line of the member
         }
+        displayTrEmptyTableMsgIfTableIsEmpty("tblMembers")  //verification
     }   //else do nothing, because message has been displayed and the member has not been deleted
 }

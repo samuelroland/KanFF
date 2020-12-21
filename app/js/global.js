@@ -194,3 +194,14 @@ function isJson(str) {
     }
     return true;
 }
+
+//display tr ".tr-emptytable" if the table is empty
+function displayTrEmptyTableMsgIfTableIsEmpty(tableid) {
+    tbl = document.getElementById(tableid)
+    nbElement = tbl.children[1].children.length - 1     //-1 because .tr-emptytable is counted
+    if (nbElement == 0) {   //if table is empty, display msg
+        trEmptyTableMsg = tbl.querySelector(".tr-emptytable")
+        trEmptyTableMsg.hidden = false
+    }
+}
+

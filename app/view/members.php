@@ -67,7 +67,7 @@ $isAdmin = checkAdmin();
     </div>
 
     <div class="divMembers pt-0 flexdiv">
-        <table class="table">
+        <table class="table" id="tblMembers">
             <thead class="yellowligthheader">
             <tr>
                 <th>Initiales</th>
@@ -84,8 +84,8 @@ $isAdmin = checkAdmin();
                 }
                 ?>
                 <?php
-                $onbreakColumn = ($isAdmin == false && ($option == 1 || $option == 2) || ($isAdmin == true && $option == 5));
-                echo($onbreakColumn ? "" : "<th>En<br>pause</th>")
+                $onbreakColumn = !(isAtLeastEqual($option, [1, 2, 5])); //on break column is displayed if option is 1, 2 or 5
+                echo($onbreakColumn ? "<th>En<br>pause</th>" : "")
                 ?>
                 <?php
                 $deletionColumn = ($isAdmin == false || ($isAdmin == true && $option != 5));
@@ -126,7 +126,7 @@ $isAdmin = checkAdmin();
                     <?php //On break cell:
                     //$cellOnBreak = '<td><input type="checkbox" disabled ' . (($member['on_break'] == 1) ? "checked" : "") . '></td>';
                     $cellOnBreak = '<td class="">' . (($member['on_break'] == 1) ? printAnIcon("break.svg", "En pause", "break icon", "flexdiv align-content-center icon-middlesmall marginauto", false) : "") . '</td>';
-                    echo ($onbreakColumn) ? "" : $cellOnBreak
+                    echo ($onbreakColumn) ? $cellOnBreak : ""
                     ?>
 
                     <?php //Deletion column
@@ -135,9 +135,7 @@ $isAdmin = checkAdmin();
                     ?>
                 </tr>
             <?php }
-            if (count($members) == 0) {
-                echo "<tr><td colspan='30' class='aligncenter'>Cette catégorie est vide</td></tr>";
-            }
+            echo "<tr " . ((count($members) == 0) ? "" : "hidden") . " class='tr-emptytable'><td colspan='30' class='aligncenter'>Cette catégorie est vide</td></tr>";
             ?>
             </tbody>
         </table>
