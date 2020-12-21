@@ -43,8 +43,13 @@ $isAdmin = checkAdmin();
     <div class="flexdiv pt-2 pb-2 divMembersSecondLine">
         <span class="pt-2 flex-2">La liste ci-dessous contient <strong><?= count($members) ?></strong> membres.</span>
         <?php if ($isAdmin) { ?>
-            <div class="box-alignright flex-1 box-verticalaligncenter" id="inpDivPassword" hidden>
-                <?= createToolTipWithPoint("Pour activer le mode édition, vous devez rentrer votre mot de passe.", "icon-xsmall ml-2 mr-2", false, "left") ?>
+            <div class="box-alignright box-verticalaligncenter" id="inpDivPassword" hidden>
+                <div class="d-flex flex-1 box-verticalaligncenter mr-3">
+                    <input type="checkbox" id="chkAnonymous" class="mr-2">
+                    <label for="chkAnonymous"
+                           class="nomargin"><?= createToolTip("Rester anonyme", "La référence à l'admin ayant changé l'état du compte ne sera pas enregistrée si ce mode est activé.", false, "bottom") ?></label>
+                </div>
+                <?= createToolTipWithPoint("Pour activer le mode édition, vous devez rentrer votre mot de passe.", "icon-xsmall ml-2 mr-2", false, "bottom") ?>
                 <input type="password" id="inpPassword" class="form-control width-min-content"
                        placeholder="Mot de passe">
 
@@ -57,15 +62,15 @@ $isAdmin = checkAdmin();
             <thead class="yellowligthheader">
             <tr>
                 <th>Initiales</th>
-                <th>Nom <br>d'utilisateur.ice</th>
+                <th>Nom <br>d'utilisateur·ice</th>
                 <th>Nom <br>complet</th>
                 <th>Statut</th>
                 <th>Inscription</th>
                 <?php
                 if ($isAdmin) {
                     echo "<th>Etat du<br> compte</th>";
-                    if ($option != 5) {
-                        echo "<th>Changement état</th>";
+                    if ($option != 5) { //state unapproved account have never been modified
+                        echo "<th>Dernier changement d'état</th>";
                     }
                 }
                 ?>
@@ -86,11 +91,13 @@ $isAdmin = checkAdmin();
             foreach ($members as $member) {
                 ?>
                 <tr id="tr-member-<?= $member['id'] ?>"
-                    class="userline <?= ($member['id'] == $_SESSION['user']['id']) ? "yellowveryligthheader" : "" ?>"
-                    >
-                    <td class="clickable cursorpointer" data-href="?action=member&id=<?= $member['id'] ?>"><?= $member['initials'] ?></td>
-                    <td class="clickable cursorpointer" data-href="?action=member&id=<?= $member['id'] ?>"><?= $member['username'] ?></td>
-                    <td class="clickable cursorpointer memberfullname" data-href="?action=member&id=<?= $member['id'] ?>"><?= $member['firstname'] . " <strong>" . $member['lastname'] . "</strong>" ?></td>
+                    class="userline <?= ($member['id'] == $_SESSION['user']['id']) ? "yellowveryligthheader" : "" ?>">
+                    <td class="clickable cursorpointer"
+                        data-href="?action=member&id=<?= $member['id'] ?>"><?= $member['initials'] ?></td>
+                    <td class="clickable cursorpointer"
+                        data-href="?action=member&id=<?= $member['id'] ?>"><?= $member['username'] ?></td>
+                    <td class="clickable cursorpointer memberfullname"
+                        data-href="?action=member&id=<?= $member['id'] ?>"><?= $member['firstname'] . " <strong>" . $member['lastname'] . "</strong>" ?></td>
                     <td class='cursordefault'><?= "<em>" . createElementWithFixedLines(substrText($member['status'], 150), 1) . "</em>" ?></td>
                     <td><?= DTToHumanDate($member['inscription'], "simpleday") ?></td>
                     <?php //State account cell
@@ -102,8 +109,8 @@ $isAdmin = checkAdmin();
                             }
                         }
                         echo "</select></td>";
-                        if ($option != 5) {
-                            echo "<td>" . buildSentenceAccountStateLastChange($member, true, false) . "</td>";
+                        if ($option != 5) { //state unapproved account have never been modified
+                            echo "<td class='tdStateChangeInfo' data-user='" . $member['id'] . "'>" . buildSentenceAccountStateLastChange($member, true, false) . "</td>";
                         }
                     }
                     ?>
@@ -118,7 +125,11 @@ $isAdmin = checkAdmin();
                     echo ($deletionColumn) ? "" : $cellDeletion
                     ?>
                 </tr>
-            <?php } ?>
+            <?php }
+            if (count($members) == 0) {
+                echo "<tr><td colspan='30' class='aligncenter'>Cette catégorie est vide</td></tr>";
+            }
+            ?>
             </tbody>
         </table>
     </div>

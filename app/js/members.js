@@ -118,11 +118,13 @@ function tryChangeAccountState(event) {
 function changeAccountState(slt) {
     iduser = slt.getAttribute("data-user")
     pwd = inpPassword.value
+    anonymous = chkAnonymous.checked
 
     if (checkAllValuesAreNotEmpty([slt.value, pwd])) {  //last minute check
         sendRequest("POST", "?action=updateAccountState", accountStateCallback, {
             'id': iduser,
             'state': slt.value,
+            'anonymous': anonymous,
             'password': pwd
         })
     }
@@ -134,9 +136,16 @@ function accountStateCallback(response) {
     //TODO: display success message or reselect the first value:
     if (isSuccess == true) {
         user = response.data.user
+
+        //Update select input
         lastSlt = document.querySelector("select[data-user='" + user.id + "']")
         lastSlt.style.backgroundColor = "#d9edff"
         lastSlt.disabled = true
+
+        //Update change state info:
+        lastChangeStateInfo = document.querySelector(".tdStateChangeInfo[data-user='" + user.id + "']")
+        sentence = user.sentence_modification_state
+        lastChangeStateInfo.innerHTML = sentence
     } else {
         if (response.data.hasOwnProperty("user")) {
             user = response.data.user
