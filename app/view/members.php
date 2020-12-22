@@ -72,9 +72,9 @@ $isAdmin = checkAdmin();
             <tr>
                 <th>Initiales</th>
                 <th>Nom <br>d'utilisateur·ice</th>
-                <th>Nom <br>complet</th>
+                <th>Nom complet</th>
                 <th>Statut</th>
-                <th>Inscription</th>
+                <th><?= createToolTip("Inscription", "Date d'inscription sur l'instance")?></th>
                 <?php
                 if ($isAdmin) {
                     echo "<th>Etat du<br> compte</th>";
@@ -135,7 +135,7 @@ $isAdmin = checkAdmin();
                     ?>
                 </tr>
             <?php }
-            echo "<tr " . ((count($members) == 0) ? "" : "hidden") . " class='tr-emptytable'><td colspan='30' class='aligncenter'>Cette catégorie est vide</td></tr>";
+            echo "<tr " . ((count($members) == 0) ? "" : "hidden") . " class='tr-emptytable'><td colspan='30' class='aligncenter'>Cette catégorie est vide.</td></tr>";
             ?>
             </tbody>
         </table>
