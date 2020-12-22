@@ -29,8 +29,8 @@ function members($option)
         }
         switch ($option) {
             case "2":
-                //On break members
-                if ($onbreak != 1) {
+                //On break members (approved or admin)
+                if ($onbreak != 1 || isAtLeastEqual($state, [USER_STATE_ADMIN, USER_STATE_APPROVED]) == false) {
                     unset($members[$member['id']]);
                 }
                 break;
@@ -60,10 +60,7 @@ function members($option)
                 break;
             default:    //option 1 by default
                 //Active members (approved, admin, no other states and not onbreak):
-                if ($state != USER_STATE_ADMIN && $state != USER_STATE_APPROVED) {
-                    unset($members[$member['id']]);
-                }
-                if ($onbreak == 1) {
+                if ($onbreak == 1 || isAtLeastEqual($state, [USER_STATE_ADMIN, USER_STATE_APPROVED]) == false) {
                     unset($members[$member['id']]);
                 }
                 //Change $option to default:
