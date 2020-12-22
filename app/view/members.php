@@ -107,7 +107,7 @@ $isAdmin = checkAdmin();
                         data-href="?action=member&id=<?= $member['id'] ?>"><?= $member['username'] ?></td>
                     <td class="clickable cursorpointer memberfullname"
                         data-href="?action=member&id=<?= $member['id'] ?>"><?= $member['firstname'] . " <strong>" . $member['lastname'] . "</strong>" ?></td>
-                    <td class='cursordefault'><?= "<em>" . createElementWithFixedLines(substrText($member['status'], 150), 1) . "</em>" ?></td>
+                    <td class='cursordefault memberstatus'><?= "<em>" . createElementWithFixedLines($member['status'], 1) . "</em>" ?></td>
                     <td><?= DTToHumanDate($member['inscription'], "simpleday") ?></td>
                     <?php //State account cell
                     if ($isAdmin) {
@@ -130,7 +130,7 @@ $isAdmin = checkAdmin();
                     ?>
 
                     <?php //Deletion column
-                    $cellDeletion = '<td class=""><span data-userid="' . $member['id'] . '" class="membersTrashIcons cursorforbidden" id="membertrash-' . $member['id'] . '">' . printAnIcon("trash.png", "Supprimer ce compte", "trash icon", " flexdiv icon-middlesmall marginauto", false) . '</span></td>';
+                    $cellDeletion = '<td class=""><span data-userid="' . $member['id'] . '" class="membersTrashIcons cursorforbidden" data-clickauthorized="true" id="membertrash-' . $member['id'] . '">' . printAnIcon("trash.png", "Supprimer ce compte", "trash icon", " flexdiv icon-middlesmall marginauto", false) . '</span></td>';
                     echo ($deletionColumn) ? "" : $cellDeletion
                     ?>
                 </tr>

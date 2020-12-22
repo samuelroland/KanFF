@@ -173,14 +173,19 @@ function isEditModeEnabled() {
 
 function tryDeleteUnapprovedUser(event) {
     trash = event.target
-    if (isEditModeEnabled()) {
+    spanParentOfTrash = getRealParentHavingId(trash)
+    hasAuthorizationToClick = spanParentOfTrash.getAttribute("data-clickauthorized")
+    if (isEditModeEnabled() && hasAuthorizationToClick == "true") { //if click is authorized
         if (inpPassword.value != "") {
             fullname = getRealParentHavingId(trash, "tr-member-").querySelector(".memberfullname").innerText
+
             if (chkDeleteWithoutConfirmation.checked == true) { //if "delete without confirmation" mode is enabled
+                spanParentOfTrash.setAttribute("data-clickauthorized", false)   //no second click are authorized
                 deleteUnapprovedUser(trash) //delete directly
             } else {    //ask for confirmation before deletion
                 confirmation = confirm("Confirmez-vous vouloir supprimer le compte de " + fullname + " ?")
                 if (confirmation) {
+                    spanParentOfTrash.setAttribute("data-clickauthorized", false)   //no second click are authorized
                     deleteUnapprovedUser(trash)
                 }
             }
