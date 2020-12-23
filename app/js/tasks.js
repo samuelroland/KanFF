@@ -21,9 +21,11 @@ function declareEventsForTasks() {
             displayTaskDetails(null)
         }
     })
+
     $(".divTask").on("mouseout", function (event) {
         optionsOpened = false
     })
+
     Array.prototype.forEach.call(document.getElementsByClassName("icon-task-triangle"), function (icon) {
         icon.addEventListener("click", function (event) {
             //event.stopPropagation()
@@ -34,6 +36,111 @@ function declareEventsForTasks() {
     $("#btnSave").on("click", tryUpdateTask)
 
     $(".iconresponsible").on("click", changeResponsible)
+
+    //Drag and drop events:
+    //Inspired from: https://javascript.info/mouse-drag-and-drop
+    //Inspired from: https://www.geeksforgeeks.org/how-to-determine-which-element-the-mouse-pointer-move-over-using-javascript/
+
+    $(".divTask").on("mousedown", function (event) {    //when the mouse goes down on a divTask, all next events on mouse will concern this task
+        task = event.target
+        task = getRealParentHavingId(task)  //if clicked on inner HTML of .divTask
+
+        document.addEventListener("mousemove", onMouseMove)
+
+        function onMouseMove(event) {
+            realWorkState = getRealParentHavingId(task, "workstate-")   //get the workstate parent of the task (before movement)
+
+            if (realWorkState.querySelector(".divBlankTaskFix") === null) { //if there is not yet any .divBlankTaskFix, create it
+                blankTask = document.createElement("div")
+                blankTask.classList.add("divBlankTaskFix")
+                blankTask.classList.add("borderformodifiabletask")
+                task.insertAdjacentElement("beforebegin", blankTask)
+            }
+            task.classList.add("positionabsolute")  //make task free of its parent
+            moveHTMLElementAt(task, event.pageX, event.pageY)  //move the task at position of the mouse
+            checkIsOverAWorkState(event)    //after have moved, check if is over a workstate (to display the .divBlankTask inside it)
+        }
+
+        $(".divTask").on("mouseup", function (event) {
+            blankTaskChosen = null  //the blankTask chosen for new position (old position or new position)
+            blankTaskChosen = document.querySelector(".divBlankTask")   //if a .divBlankTask exist, the task will change workstate (in the workstate where this .divBlankTask exists)
+            if (blankTaskChosen == null) {  //if not found
+                blankTaskChosen = document.querySelector(".divBlankTaskFix")    //stay at old position (same workstate)
+            }
+            //Replace the blankTask by the dragged task
+            blankTaskChosen.insertAdjacentElement("beforebegin", task)  //place the task at the left of the blankTask
+            task.classList.remove("positionabsolute")   //remove position absolute
+            task.style = "" //remove style (left and top position)
+            manageBlankTaskToWorkColumn(null, false, true)   //remove all
+
+            //TODO: update the state of the task
+            workstate = getRealParentHavingId(task, "workstate")
+            newState = workstate.id.substr(workstate.id.lastIndexOf("-"))
+            work = getRealParentHavingId(task, "work-")
+            workid = work.getAttribute("data-id")
+            taskid = task.getAttribute("data-id")
+            tryUpdateTaskState(workid, taskid, newState)
+        })
+
+        document.addEventListener("mouseup", function () {  //on mouseup, events "mousemove" and "mouseup" are deleted
+            document.removeEventListener('mousemove', onMouseMove);
+            task.onmouseup = null;
+        });
+
+        $(".divTask").on("dragstart", function () { //disable default dragstart event (by default the browser makes a transparent clone of the draggable element)
+            return false;
+        });
+
+        // centers the element at (pageX, pageY) coordinates (the cursor will be in the middle of the element)
+        function moveHTMLElementAt(element, pageX, pageY) {
+            element.style.left = pageX - element.offsetWidth / 2 + 'px';    //position = mouse X position - half width of the element
+            element.style.top = pageY - element.offsetHeight / 2 + 'px';
+        }
+
+        //Check if the task (his top right corner) is above
+        function checkIsOverAWorkState(event) {
+            realWorkState = null
+            realWorkState = document.elementFromPoint(event.clientX + 61, event.clientY - 61)  //corner at top right of the task to find the element behind
+            realWorkState = getRealParentHavingId(realWorkState, "workstate")
+            if (realWorkState != null) {    //manage blank task (old and new)
+                manageBlankTaskToWorkColumn(realWorkState, false)
+                if (realWorkState.querySelector(".divBlankTask") === null) {
+                    manageBlankTaskToWorkColumn(realWorkState, true)
+                }
+            }
+        }
+    })
+}
+
+//manage blank task for work column (give the workstate html element, boolean value to add or not, and if you wants to remove both blank task types
+function manageBlankTaskToWorkColumn(workstate, add, removeBothBlankTaskTypes = false) {
+    if (add == true) {
+        if (workstate.querySelector(".divBlankTaskFix") === null) { //only if the workstate in the same that where the task is previous fixed position
+            //Create a normal blank task in this workstate
+            blankTask = document.createElement("div")
+            blankTask.classList.add("divBlankTask")
+            blankTask.classList.add("borderformodifiabletask")
+            workstate.appendChild(blankTask)
+        }
+    } else {
+        $(".divBlankTask").remove() //remove normal blank tasks (no workstate specified because all blank task must disappear)
+        if (removeBothBlankTaskTypes == true) {    //remove both types
+            $(".divBlankTaskFix").remove()
+        }
+    }
+}
+
+/* 3 functions to update the task state */
+function tryUpdateTaskState(workid, taskid, newState) {
+    updateTaskState(workid, taskid, newState)
+}
+
+function updateTaskState(workid, taskid, newState) {
+    //TODO: the ajax request
+}
+
+function updateTaskStateCallback(response) {
+    //TODO: manage the response
 }
 
 //After the DOM has been loaded:
