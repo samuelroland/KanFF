@@ -67,24 +67,25 @@ function declareEventsForTasks() {
             if (blankTaskChosen == null) {  //if not found
                 blankTaskChosen = document.querySelector(".divBlankTaskFix")    //stay at old position (same workstate)
             }
-            //Replace the blankTask by the dragged task
-            blankTaskChosen.insertAdjacentElement("beforebegin", task)  //place the task at the left of the blankTask
-            task.classList.remove("positionabsolute")   //remove position absolute
-            task.style = "" //remove style (left and top position)
-            manageBlankTaskToWorkColumn(null, false, true)   //remove all
+            if (blankTaskChosen != null) {  //last check because if the task hasn't moved, the no blank task will exist
+                //Replace the blankTask by the dragged task
+                blankTaskChosen.insertAdjacentElement("beforebegin", task)  //place the task at the left of the blankTask
+                task.classList.remove("positionabsolute")   //remove position absolute
+                task.style = "" //remove style (left and top position)
+                manageBlankTaskToWorkColumn(null, false, true)   //remove all
 
-            //TODO: update the state of the task
-            workstate = getRealParentHavingId(task, "workstate")
-            newState = workstate.id.substr(workstate.id.lastIndexOf("-"))
-            work = getRealParentHavingId(task, "work-")
-            workid = work.getAttribute("data-id")
-            taskid = task.getAttribute("data-id")
-            tryUpdateTaskState(workid, taskid, newState)
+                //TODO: update the state of the task
+                workstate = getRealParentHavingId(task, "workstate")
+                newState = workstate.id.substr(workstate.id.lastIndexOf("-"))
+                work = getRealParentHavingId(task, "Work-")
+                workid = work.getAttribute("data-id")
+                taskid = task.getAttribute("data-id")
+                tryUpdateTaskState(workid, taskid, newState)
+            }
         })
 
         document.addEventListener("mouseup", function () {  //on mouseup, events "mousemove" and "mouseup" are deleted
             document.removeEventListener('mousemove', onMouseMove);
-            task.onmouseup = null;
         });
 
         $(".divTask").on("dragstart", function () { //disable default dragstart event (by default the browser makes a transparent clone of the draggable element)
