@@ -15,7 +15,7 @@ function declareEventsForTasks() {
 
     //On click on .divTask display the task details
     $(".divTask").on("click", function (event) {
-        if (optionsOpened == false) {
+        if (optionsOpened == false && getRealParentHavingId(event.target).getAttribute("data-clickdisabled") != "true") {   //if options of the task are not opened and if the click is not disabled
             displayTaskDetails(event.target)
         } else {
             displayTaskDetails(null)
@@ -81,11 +81,20 @@ function declareEventsForTasks() {
                 workid = work.getAttribute("data-id")
                 taskid = task.getAttribute("data-id")
                 tryUpdateTaskState(workid, taskid, newState)
+
+                //Disable very shortly the click possibility
+                taskDisabled = event.target
+                taskDisabled = getRealParentHavingId(taskDisabled)
+                taskDisabled.setAttribute("data-clickdisabled", true)
+                setTimeout(function () {    //in 20ms enable click for all tasks in the page
+                    document.querySelector(".divTask[data-clickdisabled='true']").setAttribute("data-clickdisabled", false)
+                }, 20)
             }
         })
 
         document.addEventListener("mouseup", function () {  //on mouseup, events "mousemove" and "mouseup" are deleted
             document.removeEventListener('mousemove', onMouseMove);
+            task.onmouseup = null
         });
 
         $(".divTask").on("dragstart", function () { //disable default dragstart event (by default the browser makes a transparent clone of the draggable element)
