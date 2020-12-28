@@ -102,13 +102,18 @@ function invertInnerText(obj, firsttext, secondtext) {
 
 //Get the real parent (event can be produced on childrens and not on the parent directly. The parent is the first parentNode that have an id.)
 function getRealParentHavingId(parent, mustContains = "") {
+    if (parent == null) {
+        return null
+    }
     if (mustContains == "") {
-        while (parent.id == "" || parent.id == null) {
+        //while the parent with an id and while the parent is not the body tag (if is body no parent have been found)
+        while ((parent.id == "" || parent.id == null) && parent.toString() != "[object HTMLDocument]") {
             parent = parent.parentNode
         }
         return parent
     } else {
-        while (parent.id == "" || parent.id == null || parent.id.indexOf(mustContains) == -1) {
+        //while the parent with an id that contains the given string and while the parent is not the body tag (if is body no parent have been found)
+        while ((parent.id == "" || parent.id == null || parent.id.indexOf(mustContains) == -1) && parent.toString() != "[object HTMLDocument]") {
             parent = parent.parentNode
         }
         return parent
