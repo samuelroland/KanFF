@@ -251,27 +251,29 @@ function manageVisibilityTasks(btn, display) {
 }
 
 function displayTaskDetails(task) {
-    task = getRealParentHavingId(task)
     if (task != null) {
-        this.task = task
-        id = task.getAttribute("data-id")
-        window.location.hash = "t-" + id
-        changeOptInUrl(1)   //change opt in the url
-        testa = new XMLHttpRequest()
-        testa.onreadystatechange = function () {
-            if (testa.readyState == XMLHttpRequest.DONE && testa.status == 200) {
-                response = JSON.parse(testa.responseText)
-                loadTaskDetailsWithData(response)   //load data in the divRightPanel
-                managedivRightPanel(true, 1)  //display when ajax call is finished and data has been loaded
-                checkTextFieldToCheck()
-                manageActiveTasks(null)     //unactive all tasks
-                manageActiveTasks(task)     //active the clicked task
+        task = getRealParentHavingId(task)
+        if (task != null) {
+            this.task = task
+            id = task.getAttribute("data-id")
+            window.location.hash = "t-" + id
+            changeOptInUrl(1)   //change opt in the url
+            testa = new XMLHttpRequest()
+            testa.onreadystatechange = function () {
+                if (testa.readyState == XMLHttpRequest.DONE && testa.status == 200) {
+                    response = JSON.parse(testa.responseText)
+                    loadTaskDetailsWithData(response)   //load data in the divRightPanel
+                    managedivRightPanel(true, 1)  //display when ajax call is finished and data has been loaded
+                    checkTextFieldToCheck()
+                    manageActiveTasks(null)     //unactive all tasks
+                    manageActiveTasks(task)     //active the clicked task
+                }
             }
+            testa.open("GET", "?action=getTask&id=" + id)
+            testa.send()
+        } else {
+            window.location.hash = ""
         }
-        testa.open("GET", "?action=getTask&id=" + id)
-        testa.send()
-    } else {
-        window.location.hash = ""
     }
 }
 
