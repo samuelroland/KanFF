@@ -68,11 +68,7 @@ function declareEventsForTasks() {
                 blankTaskChosen = document.querySelector(".divBlankTaskFix")    //stay at old position (same workstate)
             }
             if (blankTaskChosen != null) {  //last check because if the task hasn't moved, the no blank task will exist
-                //Replace the blankTask by the dragged task
-                blankTaskChosen.insertAdjacentElement("beforebegin", task)  //place the task at the left of the blankTask
-                task.classList.remove("positionabsolute")   //remove position absolute
-                task.style = "" //remove style (left and top position)
-                manageBlankTaskToWorkColumn(null, false, true)   //remove all
+                moveDraggedTaskToBlankTaskChosen(task, blankTaskChosen)
 
                 //TODO: update the state of the task
                 workstate = getRealParentHavingId(task, "workstate")
@@ -92,7 +88,23 @@ function declareEventsForTasks() {
             }
         })
 
-        document.addEventListener("mouseup", function () {  //on mouseup, events "mousemove" and "mouseup" are deleted
+        //replace the blankTask chosen by the dragged task
+        function moveDraggedTaskToBlankTaskChosen(taskToMove, blankTaskElement) {
+            blankTaskElement.insertAdjacentElement("beforebegin", taskToMove)  //place the task at the left of the blankTask
+            taskToMove.classList.remove("positionabsolute")   //remove position absolute
+            taskToMove.style = "" //remove style (left and top position)
+            manageBlankTaskToWorkColumn(null, false, true)   //remove all
+        }
+
+        document.addEventListener("mouseup", function () {
+            //launch moveDraggedTaskToBlankTaskChosen() again because mouseup event on task may not have been launched if
+            // the mouse was not directly on the task at this event (if task is dragged under the menu for ex.)
+            blankTask = document.querySelector(".divBlankTaskFix")
+            if (blankTask != null) {    //little check because the mouseup event is launched on each HTML element of the task (approximately 5 times)
+                moveDraggedTaskToBlankTaskChosen(task, document.querySelector(".divBlankTaskFix"))
+            }
+
+            //events "mousemove" and "mouseup" are deleted
             document.removeEventListener('mousemove', onMouseMove);
             task.onmouseup = null
         });
@@ -107,16 +119,17 @@ function declareEventsForTasks() {
             element.style.top = pageY - element.offsetHeight / 2 + 'px';
         }
 
-        //Check if the task (his top right corner) is above
+        //Check if the task (his top right corner) is above a workstate and manage blankTask in this workstate
         function checkIsOverAWorkState(event) {
-            realWorkState = null
+            //Search if a workstate is under the task
             realWorkState = document.elementFromPoint(event.clientX + 61, event.clientY - 61)  //corner at top right of the task to find the element behind
-            realWorkState = getRealParentHavingId(realWorkState, "workstate")
-            if (realWorkState != null) {    //manage blank task (old and new)
-                manageBlankTaskToWorkColumn(realWorkState, false)
-                if (realWorkState.querySelector(".divBlankTask") === null) {
-                    manageBlankTaskToWorkColumn(realWorkState, true)
-                }
+            if (realWorkState !== null) {   //if right corner of the task is not outside of the window
+                realWorkState = getRealParentHavingId(realWorkState, "workstate")
+            }
+            //If a workstate is found:
+            if (realWorkState != null) {
+                manageBlankTaskToWorkColumn(realWorkState, false)   //remove all .divBlankTask
+                manageBlankTaskToWorkColumn(realWorkState, true)    //add a .divBlankTask in this workstate
             }
         }
     })
