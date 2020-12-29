@@ -71,6 +71,9 @@ if (!isset($_SESSION['user']['id'])) {
             setHTTPHeaderForAPIResponse();
             sendFeedback($data);
             break;
+        case "manual":
+            manual();
+            break;
         default:
             //Default action: return to the login page
             login(null, null);
@@ -94,6 +97,9 @@ if (!isset($_SESSION['user']['id'])) {
             case "sendFeedback":    //Ajax call to send a feedback with the feedback form
                 setHTTPHeaderForAPIResponse();
                 sendFeedback($data);
+                break;
+            case "manual":
+                manual();
                 break;
             default:
                 limitedAccessInfo();
