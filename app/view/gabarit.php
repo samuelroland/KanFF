@@ -8,7 +8,7 @@ function displayManualIconIfActionIsNotManual($action, $title)
 {
     if ($action != "manual") {  //displayed on every page except the manual itself
         echo '<div class="fullname alignright pl-3 justify-content-end box-verticalaligncenter">';
-        echo createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-small", false), "Aide sur la page " . $title, "?action=manual#" . createKeyNameForElementId($title));
+        echo createToolTip(printAnIcon("manual.png", "", "manual icon", "icon-small", false), "Aide sur la page " . $title, "?action=manual#" . createKeyNameForElementId($title));
         echo "</div>";
     }
 }
