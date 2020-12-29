@@ -466,7 +466,7 @@ function mentionUser($basicUser, $css = "text-info")
 //Get HTML code to create a tooltip with or without a link
 function createToolTip($innerText, $tooltipText, $link = false, $type = "top")
 {
-    $html = "<span class=' d-inline " . (($link != false) ? "linkInternal clickable cursorpointer" : "") . "' data-fallbackPlacement='flip' data-toggle='tooltip' data-title=\"" . $tooltipText . "\" data-placement='$type' data-delay='1' " . (($link != false) ? "data-href='$link'" : "") . ">{$innerText}</span>";
+    $html = "<span class=' d-inline " . (($link != false) ? "linkInternal clickable cursorpointer" : "") . "' data-fallbackPlacement='flip' data-toggle='tooltip' data-title=\"" . $tooltipText . "\" data-placement='$type' data-delay='1' " . (($link != false) ? "data-href='$link' " : "") . ((contains($link, "?action=manual")) ? "data-target='_blank'" : "") . ">{$innerText}</span>";
     return $html;
 }
 
@@ -474,7 +474,7 @@ function createToolTip($innerText, $tooltipText, $link = false, $type = "top")
 function createToolTipWithPoint($tooltipText, $pointClasses = "icon-small m-2", $link = false, $type = "top")
 {
     $innerText = printAnIcon("point.png", "", "question mark icon", $pointClasses, false);
-    $html = "<span class=' d-inline " . (($link != false) ? "linkInternal clickable cursorpointer" : "") . "' data-fallbackPlacement='flip' data-toggle='tooltip' data-title=\"" . $tooltipText . "\" data-placement='$type' data-delay='1' " . (($link != false) ? "data-href='$link'" : "") . ">{$innerText}</span>";
+    $html = createToolTip($innerText, $tooltipText, $link, $type);
     return $html;
 }
 
