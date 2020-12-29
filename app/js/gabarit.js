@@ -168,7 +168,7 @@ function adjustAutoScrollWithHashIn30Ms() {
 //Adjust auto scroll with anchor (scroll in top direction to display the title under the menu)
 function adjustAutoScrollWithHash() {
     //Thanks to: https://stackoverflow.com/questions/4086107/fixed-page-header-overlaps-in-page-anchors#answer-28824157
-    if (window.location.hash != "" && queryActionIncludes("manual")) {
+    if (window.location.hash != "" && queryActionIncludes("manual") && document.getElementById(window.location.hash.substr(1)) != null) {
         var offset = $(':target').offset();
         var scrollto = offset.top - 90; // minus fixed header height
         $('html, body').animate({scrollTop: scrollto}, 0);

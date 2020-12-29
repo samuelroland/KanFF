@@ -47,6 +47,7 @@ function displayManualIconIfActionIsNotManual($action, $title)
     <script src="js/users.js"></script>
     <script src="js/projects.js"></script>
     <script src="js/tasks.js"></script>
+    <script src="js/manual.js"></script>
 
 </head>
 <body>
