@@ -142,20 +142,6 @@ document.addEventListener('DOMContentLoaded', function () {
         })
     })
 
-    var els2 = document.getElementsByClassName("linkToCopy");
-    Array.prototype.forEach.call(els2, function (el) {
-        el.addEventListener('click', function (evt) {
-            link = evt.target
-            if (link.tagName == "IMG") {
-                link = link.parentNode
-            }
-            href = link.getAttribute('data-hrefcopy')
-            if (href != null) {
-                navigator.clipboard.writeText(href)
-                displayResponseMsg("Lien de la section copié dans le presse papiers.")
-            }
-        })
-    })
     $(".linkOfTOC").on("click", adjustAutoScrollWithHashIn30Ms) //all links in TOC must have adjustment of scroll after
     adjustAutoScrollWithHashIn30Ms()
 })
