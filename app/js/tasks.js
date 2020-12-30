@@ -295,7 +295,7 @@ function displayTaskDetails(task) {
             testa.onreadystatechange = function () {
                 if (testa.readyState == XMLHttpRequest.DONE && testa.status == 200) {
                     response = JSON.parse(testa.responseText)
-                    loadTaskDetailsWithData(response)   //load data in the divRightPanel
+                    loadTaskDetailsWithData(response, task.getAttribute("data-canedit"))   //load data in the divRightPanel
                     managedivRightPanel(true, 1)  //display when ajax call is finished and data has been loaded
                     checkTextFieldToCheck()
                     manageActiveTasks(null)     //unactive all tasks
@@ -311,7 +311,7 @@ function displayTaskDetails(task) {
 }
 
 //load the divRightPanel form with the array of data task
-function loadTaskDetailsWithData(response) {
+function loadTaskDetailsWithData(response, canEditTask) {
     task = response.data.task
     logIt(task)
 
@@ -355,6 +355,29 @@ function loadTaskDetailsWithData(response) {
         spancompletion.innerText = "le " + task.completion
     } else {
         spancompletion.innerText = ""
+    }
+    if (canEditTask == 'true') {    //if the user can edit the task
+        //Enable all fields of the form
+        subElements = divTaskDetails.getElementsByTagName("*")
+        Array.prototype.forEach.call(subElements, function (el) {
+            if (el.tagName == "INPUT" || el.tagName == "TEXTAREA" || el.tagName == "SELECT") {
+                if (el.hasAttribute("readonly") == false) { //disable only if the input is not readonly (because readonly inputs must always be disabled).
+                    el.disabled = false
+                }
+            }
+        })
+        document.querySelector("#divTaskDetails .panelRightStandardBottomLine").removeAttribute("hidden")   //show the panelRightStandardBottomLine
+    } else {
+        //Disable all fields of the form
+        subElements = divTaskDetails.getElementsByTagName("*")
+        Array.prototype.forEach.call(subElements, function (el) {
+            if (el.tagName == "INPUT" || el.tagName == "TEXTAREA" || el.tagName == "SELECT") {
+                if (el.hasAttribute("readonly") == false) { //disable only if the input is not readonly (because readonly inputs must always be disabled). So we just live "" instead of replacing by "true".
+                    el.disabled = true
+                }
+            }
+        })
+        document.querySelector("#divTaskDetails .panelRightStandardBottomLine").setAttribute("hidden", "true")  //hide the panelRightStandardBottomLine
     }
 }
 
@@ -421,7 +444,7 @@ function createTaskCallback(response) {
 
         } else {    //display divTaskDetails with details of task
             managedivRightPanel(true, 1)    //display details form
-            loadTaskDetailsWithData(response)   //load data for details
+            loadTaskDetailsWithData(response, true)   //load data for details | canEdit is true because else the user could not create the task
             manageActiveTasks(document.getElementById("Task-" + newtask.id))    //active new task created
         }
     }
@@ -441,7 +464,7 @@ function updateTask() {
 
 function updateTaskCallback(response) {
     isSuccess = manageResponseStatus(response)
-    loadTaskDetailsWithData(response)
+    loadTaskDetailsWithData(response, true)
 }
 
 /* 3 functions to manage deletion of task in JS and Ajax */

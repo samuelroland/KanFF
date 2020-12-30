@@ -777,3 +777,11 @@ hr {
     height: 40px;
     width: 40px;
 }
+
+input, select, textarea {
+    color: #232323 !important;
+}
+
+input:disabled, select:disabled, textarea:disabled {
+    background-color: #efefef !important;
+}

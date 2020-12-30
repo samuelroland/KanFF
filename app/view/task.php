@@ -17,9 +17,12 @@ function printATask($task, $hasWritingRightOnTasks, $hidden = false)
         //TODO: choose the right color depending on the type
     }
     ?>
-    <div draggable="true" class="divTask <?= (($hasWritingRightOnTasks) ? "cursorgrab borderformodifiabletask " : "") ?>"
+    <div draggable="true"
+         class="divTask <?= (($hasWritingRightOnTasks) ? "cursorgrab borderformodifiabletask " : "") ?>"
          id="Task-<?= $task['id'] ?>"
-         data-id="<?= $task['id'] ?>" <?= ($hidden) ? "hidden" : "" ?>>
+         data-id="<?= $task['id'] ?>"
+         data-canedit="<?= (($hasWritingRightOnTasks) ? "true" : "false") ?>"
+        <?= ($hidden) ? "hidden" : "" ?>>
         <div class="flexdiv divTaskNumber">
             <div class="flex-1"><?php if ($task['responsible_id'] != null) {
                     echo "<span class='divTaskUserMentionEllipsis'>" . mentionUser($task['responsible'], "txtMentionOnTask responsible") . "</span>";
