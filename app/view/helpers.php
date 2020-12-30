@@ -560,7 +560,8 @@ function getTitleWithIdAttributeInHTMLIfIsTitle($line, $startWith, $markup)
         $result = "<div class='flexdiv  box-verticalaligncenter'><$markup id='" . $id . "' class=''>" . $text . "</$markup>";  //ex: "<h1 id='introduction'>Introduction</h1>"
 
         //Add the copylink icon:
-        $result .= "<span data-hrefcopy='" . $_SERVER['HTTP_HOST'] . "/?action=manual#" . $id . "' class='cursorpointer linkToCopy'>" . printAnIcon("copylinkmini.png", "Copier le lien vers cette section", "copy lin icon", "icon-xsmall m-2 noborder mt-3 copylink", false) . "</span>";
+        $result .= "<span class='cursorpointer' " . getInlineJSForALinkToCopy($_SERVER['HTTP_HOST'] . "/?action=manual#" . $id, false, "Lien de la section copié dans le presse-papiers.") . ">"
+            . printAnIcon("copylinkmini.png", "Copier le lien vers cette section", "copy lin icon", "icon-xsmall m-2 noborder mt-3 copylink", false) . "</span>";
         $result .= "</div>";
         return $result;
     }
@@ -615,6 +616,20 @@ function startwith($text, $with)
 function contains($haystack, $needle)
 {
     return (strpos($haystack, $needle) !== false);
+}
+
+//Get inline JS for a link to copy on click
+function getInlineJSForALinkToCopy($link, $linkIsJS = false, $responseMsg = "Lien copié dans le presse-papiers.")
+{
+    //Inline JS is sensible to chars " and ' (little securization even if these data are not user input. It's useful to avoid that the text given in dev contain " or '
+    $link = htmlspecialchars($link, ENT_QUOTES);  //transform '
+    $link = htmlentities($link);  //transform "
+    $responseMsg = htmlspecialchars($responseMsg, ENT_QUOTES);  //transform '
+    $responseMsg = htmlentities($responseMsg);  //transform "
+    $singleQuoteAroundLinkOrNot = (($linkIsJS) ? "" : "'"); //is there single quotes around the link or not ? if not, it's javascript in the link (useful to get value of another input)
+
+    //The final string is in JS: copy given link then display response msg given
+    return ' onclick="navigator.clipboard.writeText(' . $singleQuoteAroundLinkOrNot . $link . $singleQuoteAroundLinkOrNot . '); displayResponseMsg(\'' . $responseMsg . '\');" ';
 }
 
 ?>

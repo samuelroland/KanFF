@@ -123,38 +123,6 @@ document.addEventListener('DOMContentLoaded', function () {
         })
     })
 
-    var els2 = document.getElementsByClassName("linkToCopy");
-    Array.prototype.forEach.call(els2, function (el) {
-        el.addEventListener('click', function (evt) {
-            btn = evt.target
-            if (btn.tagName == "IMG") {
-                btn = btn.parentNode
-            }
-
-            //2 potentials places where the link is stored (data-hrefcopy or the value of the input with the id stored in data-inputidwithlink)
-            href = btn.getAttribute('data-hrefcopy')
-            href2 = null
-            if (btn.getAttribute('data-inputidwithlink') != null) { //if the input id that contains the link exists
-                href2 = document.getElementById(btn.getAttribute("data-inputidwithlink")).value //value of element taken by id
-            }
-
-            //Copy if linked are found
-            if (href != null) {
-                navigator.clipboard.writeText(href)
-                if (queryActionIncludes("manual")) {
-                    displayResponseMsg("Lien de la section copié dans le presse-papiers.")
-                } else {
-                    displayResponseMsg("Lien copié dans le presse-papiers.")
-                }
-            } else if (href2 != null) {
-                navigator.clipboard.writeText(href2)
-                displayResponseMsg("Lien copié dans le presse-papiers.")
-            } else {
-                displayResponseMsg("Aucun lien trouvé...", false)
-            }
-        })
-    })
-
     $(".linkOfTOC").on("click", adjustAutoScrollWithHashIn30Ms) //all links in TOC must have adjustment of scroll after
     adjustAutoScrollWithHashIn30Ms()
 })
