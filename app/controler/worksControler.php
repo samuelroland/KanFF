@@ -69,13 +69,14 @@ function hasWritingRightOnTasksOfAWork($isInTheProject, $work)
 {
     $open = $work['open'];
     $visible = $work['visible'];
-
-    if ($isInTheProject) {
-        return true;
-    }
-    if ($visible == 1) {
-        if ($open == 1) {
+    if (isAtLeastEqual($work['state'], [WORK_STATE_DONE, WORK_STATE_TODO]) == false) {
+        if ($isInTheProject) {
             return true;
+        }
+        if ($visible == 1) {
+            if ($open == 1) {
+                return true;
+            }
         }
     }
     return false;

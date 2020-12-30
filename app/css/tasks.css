@@ -26,8 +26,12 @@
     background-color: #ffb400f0;
 }
 
-.divTask:active {
-    cursor: grabbing;
+.divTask[data-canedit='true']:active {
+    cursor: grabbing !important;
+}
+
+.divTask[data-canedit='true']:hover {
+    cursor: grab;
 }
 
 .positionabsolute {

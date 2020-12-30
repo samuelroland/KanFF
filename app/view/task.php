@@ -17,8 +17,8 @@ function printATask($task, $hasWritingRightOnTasks, $hidden = false)
         //TODO: choose the right color depending on the type
     }
     ?>
-    <div draggable="true"
-         class="divTask <?= (($hasWritingRightOnTasks) ? "cursorgrab borderformodifiabletask " : "") ?>"
+    <div draggable="<?= (($hasWritingRightOnTasks) ? "true" : "false") ?>"
+         class="divTask <?= (($hasWritingRightOnTasks) ? "borderformodifiabletask " : "") ?>"
          id="Task-<?= $task['id'] ?>"
          data-id="<?= $task['id'] ?>"
          data-canedit="<?= (($hasWritingRightOnTasks) ? "true" : "false") ?>"

@@ -46,6 +46,7 @@ function declareEventsForTasks() {
         task = event.target
         task = getRealParentHavingId(task)  //if clicked on inner HTML of .divTask
 
+        if (task.getAttribute("data-canedit")== "true"){
         //Manage task position on mousemove and scroll. Events are declared on document and not on .divTask, because the task can leave the mouse with a quick movement of the mouse.
         document.addEventListener("mousemove", onMouseMove)
         document.addEventListener("scroll", onMouseMove)
@@ -151,6 +152,7 @@ function declareEventsForTasks() {
                 manageBlankTaskToWorkColumn(realWorkState, false)   //remove all .divBlankTask
                 manageBlankTaskToWorkColumn(realWorkState, true)    //add a .divBlankTask in this workstate
             }
+        }
         }
     })
 }

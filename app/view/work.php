@@ -88,7 +88,7 @@ function printAWork($work, $isInsideTheProject)
                 ?>
                 <?php
                 displaydebug($work['hasWritingRightOnTasks']);
-                if ($work['hasWritingRightOnTasks'] && $work['state'] != WORK_STATE_DONE) {
+                if ($work['hasWritingRightOnTasks']) {
                     echo "<div id='divTaskPlusButton' class='divTaskPlusButton borderformodifiabletask cursorpointer' data-work='{$work['id']}'>";
                     printAnIcon("plus.png", "Créer une tâche", "plus icon", "divTaskPlusButtonIcon");
                     echo "</div>";
