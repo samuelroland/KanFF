@@ -52,6 +52,7 @@ if (isset($_POST)) {
     $password = $_POST["password"];
     $infoLogin = $_POST['infoLogin'];
 }
+$isAjax = ($_SERVER['HTTP_X_AJAX'] == 'true');
 
 //If user is not logged, actions authorized are login and signin.
 if (!isset($_SESSION['user']['id'])) {
@@ -76,8 +77,14 @@ if (!isset($_SESSION['user']['id'])) {
             manual();
             break;
         default:
-            //Default action: return to the login page
-            login(null, null);
+            if ($isAjax) {
+                $apiData = getApiDataContentError("Echec. Vous êtes déconnecté·e, l'action est interdite.", 551);
+                $response = getApiResponse(API_FAIL, $apiData);
+                echo json_encode($response);
+            } else {
+                //Default action: return to the login page
+                login(null, null);
+            }
             break;
     }
 } else {    //if user is logged
@@ -103,7 +110,13 @@ if (!isset($_SESSION['user']['id'])) {
                 manual();
                 break;
             default:
-                limitedAccessInfo();
+                if ($isAjax) {
+                    $apiData = getApiDataContentError("Echec. Vous êtes en accès limité, l'action est interdite.", 552);
+                    $response = getApiResponse(API_FAIL, $apiData);
+                    echo json_encode($response);
+                } else {
+                    limitedAccessInfo();
+                }
         }
     } else {    //if there is no access limitation, then all actions (made as logged user) can be started
         switch ($action) {
@@ -205,11 +218,18 @@ if (!isset($_SESSION['user']['id'])) {
             case "":    //if no action it's the dashboard
                 dashboard();
                 break;
-            default: // if action is unknown, return back to the dashboard
-                if ($action != "signin" && $action != "login") {    //signin et login doesn't make sense when the user is logged but it's not unknown actions so the message is not displayed.
-                    flshmsg(0);
+            default:
+                if ($isAjax) {
+                    $apiData = getApiDataContentError("Echec. L'action demandée n'existe pas.", 553);
+                    $response = getApiResponse(API_FAIL, $apiData);
+                    echo json_encode($response);
+                } else {
+                    // if action is unknown, return back to the dashboard
+                    if ($action != "signin" && $action != "login") {    //signin et login doesn't make sense when the user is logged but it's not unknown actions so the message is not displayed.
+                        flshmsg(0);
+                    }
+                    dashboard();
                 }
-                dashboard();
                 break;
         }
     }
