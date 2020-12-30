@@ -44,6 +44,7 @@ function tasks()
 //Ajax call to get one task in JSON
 function getTask($id)
 {
+    setHTTPHeaderForAPIResponse();
     //TODO: check permissions (if the project is visible) before send the task
     //TODO: return error or empty if task is not found
     $task = getOneTask($id);
@@ -71,6 +72,7 @@ function createTaskComplementFields($task)
 //Ajax call to create one task
 function createATask($data)
 {
+    setHTTPHeaderForAPIResponse();
     displaydebug($data);
     $task = [];
     $hasPermissionToCreate = null; //default value
@@ -123,6 +125,7 @@ function createATask($data)
 //Ajax call to update one task
 function updateATask($data)
 {
+    setHTTPHeaderForAPIResponse();
     $error = false;
     var_dump($data);
     $task = [];
@@ -225,6 +228,7 @@ function updateATask($data)
 //Ajax call to delete a task
 function deleteATask($data)
 {
+    setHTTPHeaderForAPIResponse();
     displaydebug($data);
     $task = getOneTask($data['id']);
     $hasPermissionToDelete = null; //default value
