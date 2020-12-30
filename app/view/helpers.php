@@ -632,4 +632,16 @@ function getInlineJSForALinkToCopy($link, $linkIsJS = false, $responseMsg = "Lie
     return ' onclick="navigator.clipboard.writeText(' . $singleQuoteAroundLinkOrNot . $link . $singleQuoteAroundLinkOrNot . '); displayResponseMsg(\'' . $responseMsg . '\');" ';
 }
 
+//Get inline JS for a link to copy on click
+function getInlineJSForALinkToOpen($link, $linkIsJS = false, $target = null)
+{
+    //Inline JS is sensible to chars " and ' (little securization even if these data are not user input. It's useful to avoid that the text given in dev contain " or '
+    $link = htmlspecialchars($link, ENT_QUOTES);  //transform '
+    $link = htmlentities($link);  //transform "
+    $singleQuoteAroundLinkOrNot = (($linkIsJS) ? "" : "'"); //is there single quotes around the link or not ? if not, it's javascript in the link (useful to get value of another input)
+
+    //The final string is in JS: copy given link then display response msg given
+    return ' onclick="goToLink(' . $singleQuoteAroundLinkOrNot . $link . $singleQuoteAroundLinkOrNot . ', \'' . $target . '\');" ';
+}
+
 ?>

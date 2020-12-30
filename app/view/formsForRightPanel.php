@@ -94,7 +94,7 @@ function printDivTaskDetails($project)
                     <div class="flexdiv">
                         <span class="flex-1">Lien:</span>
                         <span class="alignright" <?= getInlineJSForALinkToCopy("link.value", true) ?>>Copier le lien</span>
-                        <span class="alignright">Ouvrir le lien</span>
+                        <span class="alignright" <?= getInlineJSForALinkToOpen("link.value", true, "_blank") ?>>Ouvrir le lien</span>
                     </div>
                     <input type="text" placeholder="Lien relatif à la tâche" name="link" id="link"
                            class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength inputspan"
