@@ -93,6 +93,7 @@ function printDivTaskDetails($project)
                 <div class="<?= $divCSS ?>">
                     <div class="flexdiv">
                         <span class="flex-1">Lien:</span>
+                        <span class="alignright linkToCopy" data-inputidwithlink="link">Copier le lien</span>
                         <span class="alignright">Ouvrir le lien</span>
                     </div>
                     <input type="text" placeholder="Lien relatif à la tâche" name="link" id="link"
