@@ -94,6 +94,7 @@ function memberDetails($id)
 //update the account state of a member
 function updateAccountState($data)  //Ajax call
 {
+    setHTTPHeaderForAPIResponse();
     displaydebug($data);
 
     //if values are not null
@@ -138,6 +139,7 @@ function updateAccountState($data)  //Ajax call
 //change the status text of the user logged
 function changeStatus($data)  //Ajax call
 {
+    setHTTPHeaderForAPIResponse();
     $data['status'] = trimIt($data['status']);  //trim the text
 
     if (chkLength($data['status'], 200)) {  //maxlength is 200 chars
@@ -158,6 +160,7 @@ function changeStatus($data)  //Ajax call
 //delete an unapproved member taken by id
 function deleteUnapprovedUser($data)    //Ajax call
 {
+    setHTTPHeaderForAPIResponse();
     //Take ressources needed for validations:
     $isAdmin = checkAdmin();
     $userToDelete = getUserById($data['id']);   //if id doesn't exist, it will be false

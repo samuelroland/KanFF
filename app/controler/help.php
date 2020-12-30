@@ -273,6 +273,7 @@ function isEmailFormat($text)
 //Send feedback with data sent with Ajax
 function sendFeedback($data)
 {
+    setHTTPHeaderForAPIResponse();
     $versions = getVersionsApp();
     require ".const.php";
     if ($feedbackForm != true) {
