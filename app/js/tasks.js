@@ -42,10 +42,13 @@ function declareEventsForTasks() {
     //Inspired from: https://www.geeksforgeeks.org/how-to-determine-which-element-the-mouse-pointer-move-over-using-javascript/
 
     $(".divTask").on("mousedown", function (event) {    //when the mouse goes down on a divTask, all next events on mouse will concern this task
+        let lastEvent = event   //save the last event information at mousedown (because if the mouse scroll directly, the lastEvent will not be defined)
         task = event.target
         task = getRealParentHavingId(task)  //if clicked on inner HTML of .divTask
 
+        //Manage task position on mousemove and scroll. Events are declared on document and not on .divTask, because the task can leave the mouse with a quick movement of the mouse.
         document.addEventListener("mousemove", onMouseMove)
+        document.addEventListener("scroll", onMouseMove)
 
         function onMouseMove(event) {
             realWorkState = getRealParentHavingId(task, "workstate-")   //get the workstate parent of the task (before movement)
@@ -56,9 +59,21 @@ function declareEventsForTasks() {
                 blankTask.classList.add("borderformodifiabletask")
                 task.insertAdjacentElement("beforebegin", blankTask)
             }
-            task.classList.add("positionabsolute")  //make task free of its parent
-            moveHTMLElementAt(task, event.pageX, event.pageY)  //move the task at position of the mouse
-            checkIsOverAWorkState(event)    //after have moved, check if is over a workstate (to display the .divBlankTask inside it)
+            if (event.type == "mousemove") {
+                logIt("move task for mousemove")
+                lastEvent = event   //save the last event information
+                moveHTMLElementAt(task, lastEvent.pageX, lastEvent.pageY)
+                //Position is absolute because the coordinates are relative to page zone (not the client zone)
+                task.classList.remove("positionfixed")
+                task.classList.add("positionabsolute")
+            } else {    //else event.type will be "scroll"
+                logIt("move task for scroll")
+                moveHTMLElementAt(task, lastEvent.clientX, lastEvent.clientY)   //the lastEvent is used because event scroll doesn't give client position information (the position if fixed on the client)
+                //Position need to be fixed because the coordinates are relative to client zone (not the page zone). The task doesn't move on the client zone.
+                task.classList.remove("positionabsolute")
+                task.classList.add("positionfixed")
+            }
+            checkIsOverAWorkState(lastEvent)    //after have moved, check if is over a workstate (to display the .divBlankTask inside it)
         }
 
         $(".divTask").on("mouseup", function (event) {
@@ -92,6 +107,7 @@ function declareEventsForTasks() {
         function moveDraggedTaskToBlankTaskChosen(taskToMove, blankTaskElement) {
             blankTaskElement.insertAdjacentElement("beforebegin", taskToMove)  //place the task at the left of the blankTask
             taskToMove.classList.remove("positionabsolute")   //remove position absolute
+            taskToMove.classList.remove("positionfixed")   //remove position fixed
             taskToMove.style = "" //remove style (left and top position)
             manageBlankTaskToWorkColumn(null, false, true)   //remove all
         }
@@ -104,8 +120,9 @@ function declareEventsForTasks() {
                 moveDraggedTaskToBlankTaskChosen(task, document.querySelector(".divBlankTaskFix"))
             }
 
-            //events "mousemove" and "mouseup" are deleted
+            //events "mousemove", "scroll" and "mouseup" are deleted because the task has been released
             document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('scroll', onMouseMove);
             task.onmouseup = null
         });
 
@@ -115,12 +132,15 @@ function declareEventsForTasks() {
 
         // centers the element at (pageX, pageY) coordinates (the cursor will be in the middle of the element)
         function moveHTMLElementAt(element, pageX, pageY) {
+            logIt("move at " + pageX + ":" + pageY)
+            logIt(pageX - element.offsetWidth / 2 + 'px')
             element.style.left = pageX - element.offsetWidth / 2 + 'px';    //position = mouse X position - half width of the element
             element.style.top = pageY - element.offsetHeight / 2 + 'px';
         }
 
         //Check if the task (his top right corner) is above a workstate and manage blankTask in this workstate
         function checkIsOverAWorkState(event) {
+            logIt(event)
             //Search if a workstate is under the task
             realWorkState = document.elementFromPoint(event.clientX + 61, event.clientY - 61)  //corner at top right of the task to find the element behind
             if (realWorkState !== null) {   //if right corner of the task is not outside of the window

@@ -34,6 +34,10 @@
     position: absolute;
 }
 
+.positionfixed {
+    position: fixed;
+}
+
 .divTaskNumber {
     height: 20px;
 }
