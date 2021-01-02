@@ -432,7 +432,7 @@ function manual()
         $acceptLine = true; //the current line is accepted (or not)
         if ((strpos($line, "src") != -1 || strpos($line, "href") != -1) && strpos($line, "http") == false) {
             //displaydebug(substr($line, 0, 4));
-            $line = str_replace("src=\"", "src=\"$linkImages/", $line);
+            $line = str_replace("src=\"", " onerror='this.src = \"view/medias/images/imagenotfound.png\"; this.style.height = \"50px\"' src=\"$linkImages/", $line);
             $line = str_replace("href=\"", "target='_blank' href=\"$linkDocGithub/", $line);
         }
 
