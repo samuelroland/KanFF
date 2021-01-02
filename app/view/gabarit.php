@@ -202,7 +202,7 @@ switch ($contenttype) {
         break;
     case "restricted":
         ?>
-        <div class="flexdiv <?= ($msg != "") ? "" : "margintopforheader" ?> justify-content-center">
+        <div class="<?= ($msg != "") ? "" : "margintopforheader" ?> justify-content-center">
             <div class="appbody appbodyrestrict marginauto p-3"><?= $content; ?></div>
         </div>
         <?php

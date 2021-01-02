@@ -802,3 +802,15 @@ hr {
     height: 40px;
     width: 40px;
 }
+
+.flexwrap {
+    flex-wrap: wrap;
+}
+
+.aligncontentbaseline {
+    align-content: baseline;
+}
+
+.keepentire {
+    min-width: max-content;
+}
