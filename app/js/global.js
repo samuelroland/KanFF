@@ -194,3 +194,10 @@ function isJson(str) {
     }
     return true;
 }
+
+//An easier foreach than the long way in pure js, "foreach(" can replace "Array.prototype.foreach.call("
+function foreach(elements, func) {
+    Array.prototype.forEach.call(elements, function (el) {
+        func(el)
+    })
+}
