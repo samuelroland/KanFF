@@ -432,7 +432,10 @@ function manual()
         $acceptLine = true; //the current line is accepted (or not)
         if ((strpos($line, "src") != -1 || strpos($line, "href") != -1) && strpos($line, "http") == false) {
             //displaydebug(substr($line, 0, 4));
-            $line = str_replace("src=\"", " onerror='this.src = \"view/medias/images/imagenotfound.png\"; this.style.height = \"50px\"' src=\"$linkImages/", $line);
+            if (strpos($line, "/icons/")) {
+                $cssForIcons = "icon-middlesmall nomargin";
+            }
+            $line = str_replace("src=\"", " onerror='this.src = \"view/medias/images/imagenotfound.png\"; this.style.height = \"50px\"; this.classList = \"\"; ' class=\"$cssForIcons iconsForManual\" src=\"$linkImages/", $line);
             $line = str_replace("href=\"", "target='_blank' href=\"$linkDocGithub/", $line);
         }
 
@@ -455,7 +458,7 @@ function manual()
             $currentLinesAreComment = true; //current and next lines will be inside the comment markup
         }
         if (contains($line, "[INSERT TOC HERE]")) { //if line contains mention to insert the table of content
-            $line = MDToHTML($toc);    //insert the table of content on this line
+            $line = "<div class='mdTOC'>" . MDToHTML($toc) . "</div>";    //insert the table of content on this line
         }
         if ($currentLinesAreComment == false && $acceptLine == true) {  //if current lines are no comments and the line is accepted
             $newLines[] = $line;    //include the line in the list of new lines

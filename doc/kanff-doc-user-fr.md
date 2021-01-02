@@ -4,8 +4,8 @@
  *  Author: Samuel Roland
  *  Relecture:
  *  Creation date: 22.10.2020
- *  Version: 0.2.0
- *  Versiondate: 2020-12-17 20:00:00
+ *  Version: 0.2.1
+ *  Versiondate: 2021-01-02 23:05:00
  *  INFO: here is the manual to learn how to use KanFF. This file is hosted in the GitHub repository.
  *  To get regular updates of this manual, each instance take content directly from GitHub on branch develop and not from a local file.
  *  If commits pushed to GitHub are WIP (Work In Progress), they must be pushed on another feature branch to not impact production.
@@ -33,6 +33,26 @@ Vous êtes membre d'un collectif, d'un groupe, d'un mouvement social, une associ
 - Projets:
 - Travaux:
 - Tâches:
+
+## Trouver ses repères
+Il peut être compliqué de trouver ses repères dans une grosse application. Voici quelques informations générales qui vous permettront de ne plus être perdu·e.
+
+### Significations des icônes
+- ![icon](../app/view/medias/icons/manual.png) **Lien vers une section du mode d'emploi**. En haut à côté des initiales, c'est un lien pour la section de la page. Les autres endroits où cette icône apparaît c'est pour des informations plus spécifiques. Un nouvel onglet est ouvert.
+- ![icon](../app/view/medias/icons/point.png) **Info-bulle d'aide** permettant d'avoir quelques courtes précisions sans quitter la page.
+- ![icon](../app/view/medias/icons/logout.png) **Déconnexion**.
+- ![icon](../app/view/medias/icons/settings.png) **Réglages** possibles.
+- ![icon](../app/view/medias/icons/kanban.png) **Le kanban**. Utilisé sur la page `Projets`.
+- ![icon](../app/view/medias/icons/copylinkmini.png) **Bouton pour copier un lien**.
+- ![icon](../app/view/medias/icons/openlink.png) **Bouton pour ouvrir un lien** dans un nouvel onglet.
+- ![icon](../app/view/medias/icons/hiddeneye.png) **Invisible**. Quelquechose est invisible pour les personnes à l'extérieur (d'un projet, d'un groupe, ...).
+- ![icon](../app/view/medias/icons/inbox.png) **Boîte de réception**. Ce travail est la boîte de réception du projet.
+- ![icon](../app/view/medias/icons/infopoint.png) **Information sur un statut**.
+- ![icon](../app/view/medias/icons/checkmark.png) **L'action a réussi**. Affiché dans les messages sur les actions temporaires.
+- ![icon](../app/view/medias/icons/redcross.png) **L'action a échoué**. Affiché dans les messages sur les actions temporaires.
+- ![icon](../app/view/medias/icons/exclamationmark.png) **Mesure de l'importance**, pour les projets.
+- ![icon](../app/view/medias/icons/clock.png) **Mesure de l'urgence**, pour les projets, travaux et tâches.
+- ![icon](../app/view/medias/icons/repetitive.png) **Répétitif**. Utilisé pour les travaux.
 
 
 ## A quoi ça sert ?
