@@ -43,14 +43,22 @@ function projects($option)
 }
 
 // Display the page create a project or create the project (depends on the data sent)
-function createAProject($newProject)
+function createAProject($data)
 {
-    $groups = getAllGroupsByUser($_SESSION['user']['id']);
-    if (empty($newProject) == false) {
+    if (empty($data) == false) {
         $error = false;
-        $newProject['name'] = trimIt($newProject['name']);
 
-        if (checkUserPassword($_SESSION['user']['id'], $newProject['password']) == false) {
+        //Check length of name, description and goal
+        $newProject['name'] = trimIt($data['name']);
+        $newProject['description'] = trimIt($data['description']);
+        $newProject['goal'] = trimIt($data['goal']);
+
+        //Check length of name, description and goal
+        if (areAreAllEqualTo(true, [chkLength($newProject['name'], 70), chkLength($newProject['description'], 1000), chkLength($newProject['goal'], 1000)]) == false) {
+            $error = true;
+        }
+
+        if (checkUserPassword($_SESSION['user']['id'], $data['password']) == false) {
             $error = 8;
         }
         unset($newProject['password']);
@@ -91,6 +99,7 @@ function createAProject($newProject)
             require "view/projects.php";
         }
     } else {
+        $groups = getAllGroupsByUser($_SESSION['user']['id']);
         require_once "view/createAProject.php";
     }
 
