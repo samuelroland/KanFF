@@ -41,7 +41,7 @@ Propres à KanFF:
 
 Techniques:
 - **Instance**: serveur sur lequel est installé KanFF. L'instance est accessible via une **URL** (`blason.com` par ex.) et a un **nom** donné par la personne la gérant (par exemple `Blason`)
-- **Admin**:
+- **Admin**: Membres ayant accès à des options avancées de gestion (dans le collectif, dans les groupes) qui ne sont pas utilisables par les autres membres.
 - **URL**: Lien internet vers une ressource stockée sur internet (site web, fichier, ...).
 
 ## Trouver ses repères
