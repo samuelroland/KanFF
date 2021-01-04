@@ -55,7 +55,12 @@ function createAProject($data)
 
         //Check length of name, description and goal
         if (areAreAllEqualTo(true, [chkLength($newProject['name'], 70), chkLength($newProject['description'], 1000), chkLength($newProject['goal'], 1000)]) == false) {
-            $error = true;
+            $error = 10;
+        }
+
+        //Check that the user is in the given group
+        if (isMemberInAGroup($_SESSION['user']['id'], $data['group_id']) == false) {
+            $error = 10;
         }
 
         if (checkUserPassword($_SESSION['user']['id'], $data['password']) == false) {
@@ -69,29 +74,34 @@ function createAProject($data)
         $newProject['responsible_id'] = null;
         $newProject['state'] = PROJECT_STATE_UNDERREFLECTION;
 
-        if ($newProject['visible'] == "on") {
-            $newProject['visible'] = 1;
-        } else {
-            $newProject['visible'] = 0;
+        //Convert checkbox values to tinyint
+        $newProject['visible'] = chkToTinyint($newProject['visible']);
+        $newProject['logbook_visible'] = chkToTinyint($newProject['logbook_visible']);
+        $newProject['goal'] = chkToTinyint($newProject['goal']);
+
+        //Verify start and end date
+        $newProject['start'] = timeToDT($data['start']);
+        if ($newProject['start'] == false) {
+            $error = 10;
         }
-        if ($newProject['logbook_visible'] == "on") {
-            $newProject['logbook_visible'] = 1;
-        } else {
-            $newProject['logbook_visible'] = 0;
+
+        $newProject['end'] = null;  //default value
+        if ($data['end'] != "") {
+            $newProject['end'] = strtotime($data['end']);
+            $newProject['end'] = timeToDT($newProject['end']);
+            if ($newProject['end'] == false) {
+                $error = 10;
+            }
         }
-        if ($newProject['goal'] == "") {
-            $newProject['goal'] = "Non défini";
+        //Check that end date are bigger than start date
+        if ($newProject['start'] >= $newProject['end']) {
+            $error = 10;
         }
-        if ($newProject['end'] = " ") {
-            $dateEnd = null;
-            $dateEnd = date("Y-m-d H:i:s", $dateEnd);
-            displaydebug($dateEnd);
-            displaydebug("salut");
-            $newProject['end'] = $dateEnd;
-        }
+
         //Then depending on errors or on success:
         if ($error != false) {
             flshmsg($error);
+            $groups = getAllGroupsByUser($_SESSION['user']['id']);
             require "view/createAProject.php";  //view values sent inserted
         } else {
             createOne("projects", $newProject);
