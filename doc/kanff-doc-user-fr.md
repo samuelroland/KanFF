@@ -121,6 +121,10 @@ Cette page permet de gérer son compte (pouvoir modifier ses informations person
 ![my account button](img/myaccountbutton.PNG)
 
 #### Changement du mot de passe
+Il est possible de changer de mot de passe. Pour ceci vous devez connaître l'actuel et entrez 2 fois le nouveau. Sur la page `Mon compte`, accédez en bas au formulaire `Changement du mot de passe`.
+1. Rentrez le mot de passe actuel
+1. Rentrez le nouveau mot de passe
+1. Rentrez le nouveau mot de passe une 2ème fois
 
 #### Archivage son compte
 
