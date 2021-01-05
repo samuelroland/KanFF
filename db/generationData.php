@@ -284,7 +284,7 @@ function dataUsers()
         //Generate chat_link:
         $userinrun['chat_link'] = "";
         if (rand(0, 1) == 0) {
-            $userinrun['chat_link'] = "chat.link/user?t=" . generateRandomString(rand(10, 15));
+            $userinrun['chat_link'] = "userchat.link/user?t=" . generateRandomString(rand(10, 15));
         }
         //Save data not already present in $userinrun
         $userinrun['id'] = $id; //fix id in prevision of foreign keys later
