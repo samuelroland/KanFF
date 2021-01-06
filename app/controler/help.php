@@ -469,4 +469,8 @@ function manual()
     require_once "view/manual.php";
 }
 
+function devMode(){
+    require ".const.php";
+    return ($dev);
+}
 ?>
