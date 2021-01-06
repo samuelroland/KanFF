@@ -18,7 +18,11 @@ if ($dev == true) { //dev zone
     <h2>
         <p>Résultat de la requète:</p><br>
         <?php
-        displaydebug(getContributionsByUsers(20, true));
+        displaydebug(count(getAllGroupsByUser(22)));
+        echo "VS";
+        displaydebug(getAllVisibleGroupsByUser(22));
+        echo  "=";
+        displaydebug(array_diff(getAllVisibleGroupsByUser(22),getAllGroupsByUser(22)));
         ?>
     </h2>
     <?php

@@ -78,7 +78,7 @@ function members($option)
 function memberDetails($id)
 {
     $user = getUserById($id);
-    $groups = getAllGroupsByUser($id);
+    $groups = getAllVisibleGroupsByUser($id);
     $contributions['inrun'] = getContributionsByUser($id, true);
     $contributions['old'] = getContributionsByUser($id, false);
     //Seperate each work contributed by project in contributions:
