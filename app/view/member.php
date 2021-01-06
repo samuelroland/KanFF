@@ -79,7 +79,7 @@ ob_start();
             <span>Lien messagerie instantanée: <a class="linkExternal"
                                                   title="Contacter <?= $fullname ?> par messagerie instantanée"
                                                   target="_blank"
-                                                  href="<?= $user['chat_link'] ?>"><?= $user['chat_link'] ?></a>
+                                                  href="http://<?= $user['chat_link'] ?>"><?= $user['chat_link'] ?></a>
         </span>
         <?php } ?>
     </div>
