@@ -463,7 +463,8 @@ function manual()
             $currentLinesAreComment = true; //current and next lines will be inside the comment markup
         }
         if (contains($line, "[INSERT TOC HERE]")) { //if line contains mention to insert the table of content
-            $line = "<h2 id=\"table-des-matieres\" class=\"width-max-content\">Table des matières</h2><div class='mdTOC'>" . MDToHTML($toc) . "</div>";    //insert the table of content on this line
+            $line = "<div class='flexdiv  box-verticalaligncenter'><h2 id=\"table-des-matieres\" class=\"width-max-content\">Table des matières</h2>" . createCopyLinkIconForManual("Table des matières") .
+                "</div><div class='mdTOC'>" . MDToHTML($toc) . "</div>";    //insert the table of content on this line
         }
         if ($currentLinesAreComment == false && $acceptLine == true) {  //if current lines are no comments and the line is accepted
             $newLines[] = $line;    //include the line in the list of new lines

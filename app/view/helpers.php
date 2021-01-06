@@ -568,11 +568,18 @@ function getTitleWithIdAttributeInHTMLIfIsTitle($line, $startWith, $markup)
         $result = "<div class='flexdiv  box-verticalaligncenter'><$markup id='" . $id . "' class=''>" . $text . "</$markup>";  //ex: "<h1 id='introduction'>Introduction</h1>"
 
         //Add the copylink icon:
-        $result .= "<span data-hrefcopy='" . $_SERVER['HTTP_HOST'] . "/?action=manual#" . $id . "' class='cursorpointer linkToCopy'>" . printAnIcon("copylinkmini.png", "Copier le lien vers cette section", "copy lin icon", "icon-xsmall m-2 noborder mt-3 copylink", false) . "</span>";
+        $result .= createCopyLinkIconForManual($text);
+
         $result .= "</div>";
         return $result;
     }
 
+}
+
+//Create HTML element with a copylink icon for a link to a section of the manual
+function createCopyLinkIconForManual($section)
+{
+    return "<span data-hrefcopy='" . $_SERVER['HTTP_HOST'] . "/?action=manual#" . createKeyNameForElementId($section) . "' class='cursorpointer linkToCopy'>" . printAnIcon("copylinkmini.png", "Copier le lien vers cette section", "copy lin icon", "icon-xsmall m-2 noborder mt-3 copylink", false) . "</span>";
 }
 
 //Get table of content element in Markdown, if the line is a title
