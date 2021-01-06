@@ -5,7 +5,7 @@
  *  Author: Samuel Roland
  *  Creation date: 08.05.2020
  *  Version date: 16.12.2020
- *  VERSION: v2.5
+ *  VERSION: v2.6
  *  MLD: MLD-KanFF-official.png v1.3
  *
  *  How to run ?
