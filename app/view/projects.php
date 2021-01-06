@@ -136,6 +136,26 @@ function printAProject($project)
         <div class="position-bottom-right">
             <button class="btn btn-info clickable" data-href="?action=project&id=<?= $project['id'] ?>">Détails</button>
         </div>
+        <?php
+        //TODO: refactor the code in a function to avoid duplicate. Make a more clever calcul with data progression.
+        //Calculate effort provided/total and value generated/total
+        $totalEffort = 0;
+        $totalValue = 0;
+        $providedEffort = 0;
+        $generatedValue = 0;
+        foreach ($project['works'] as $work) {
+            $totalEffort += $work['effort'];
+            $totalValue += $work['value'];
+            if ($work['state'] == WORK_STATE_DONE) {
+                $providedEffort += $work['effort'];
+                $generatedValue += $work['value'];
+            }
+        }
+        $percentageEffort = round($providedEffort * 100 / $totalEffort, 1); //with the rule of 3, calculate the percentage and round it to one digit
+        ?>
+        <div class="positionBottomForProgressBar fullwidth heightProgressBar">
+            <div class="heightProgressBar progressBar" style="width: <?= $percentageEffort ?>%"></div>
+        </div>
     </div>
     <?php
     echo ob_get_clean();

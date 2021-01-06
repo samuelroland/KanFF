@@ -64,6 +64,7 @@ function projects($option)
         $projects[$key]['needExternalHelp'] = $needExternalHelp;
         $projects[$key]['needInternalHelp'] = $needInternalHelp;
 
+        $projects[$key]['works'] = $worksByProject[$project['id']];
 
         $projects[$key]['isUserLoggedInside'] = (in_array($project['id'], $projectsOfLoggedUser));
     }
