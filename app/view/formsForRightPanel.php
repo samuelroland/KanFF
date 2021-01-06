@@ -110,8 +110,8 @@ function printDivTaskDetails($project)
                 </div>
                 <div class="panelRightStandardBottomLine">
                     <div class="flexdiv box-alignright">
-                        <button class="btnSaveCancel btn colorCancel">Annuler</button>
-                        <button id="btnSave" class="btnSaveCancel btn colorSave">Enregistrer</button>
+                        <button id="btnCancelTaskDetails" class="btnSaveCancel btn colorCancel">Annuler</button>
+                        <button id="btnSaveTaskDetails" class="btnSaveCancel btn colorSave">Enregistrer</button>
                     </div>
                 </div>
             </div>
@@ -201,8 +201,8 @@ function printDivTaskCreate($project)
                     </div>
                 </div>
                 <div class="flexdiv box-alignright">
-                    <button id="btnCancel" class="btnSaveCancel btn colorCancel">Annuler</button>
-                    <button id="btnCreate" class="btnSaveCancel btn colorSave">Créer la tâche</button>
+                    <button id="btnCancelCreate" class="btnSaveCancel btn colorCancel">Annuler</button>
+                    <button id="btnCreateTask" class="btnSaveCancel btn colorSave">Créer la tâche</button>
                 </div>
             </div>
         </div>

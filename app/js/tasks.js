@@ -7,6 +7,12 @@
 
 var optionsOpened = false
 
+//Load the latest copy of task data to restore the form before modifications
+function reloadCurrentTaskWithoutModification(){
+    response.data.task = task
+    loadTaskDetailsWithData(response, "true")
+}
+
 function declareEventsForTasks() {
     //bottom line of divTask have to be hidden if divTask is not on hover and displayed if on hover
     declareChangeHiddenStateOnOneChildOnParentHover("divTask", "mouseover", "divTaskBottomLine", false)
@@ -33,7 +39,8 @@ function declareEventsForTasks() {
         })
     })
     $(".optTaskDelete").on("click", tryDeleteTask)
-    $("#btnSave").on("click", tryUpdateTask)
+    $("#btnSaveTaskDetails").on("click", tryUpdateTask)
+    $("#btnCancelTaskDetails").on("click", reloadCurrentTaskWithoutModification)
 
     $(".iconresponsible").on("click", changeResponsible)
 
@@ -187,13 +194,16 @@ function updateTaskState(workid, taskid, newState) {
 function updateTaskStateCallback(response) {
     //TODO: manage the response
 }
-
+function closeRightPanel(){
+    managedivRightPanel(false)
+}
 //After the DOM has been loaded:
 $(document).ready(function () {
     if (queryActionIncludes("kanban")) { //init only if page is kanban
         declareEventsForTasks()
 
-        $("#btnCreate").on("click", tryCreateTask)
+        $("#btnCreateTask").on("click", tryCreateTask)  //try to create the task
+        $("#btnCancelCreate").on("click", closeRightPanel)  //close right panel when the user want to cancel task creation
 
         //Extract value from url:
         url = window.location.toString()
