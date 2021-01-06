@@ -466,6 +466,7 @@ function mentionUser($basicUser, $css = "text-info")
 //Get HTML code to create a tooltip with or without a link
 function createToolTip($innerText, $tooltipText, $link = false, $type = "top")
 {
+    //TODO: if needed manage linkInternal or linkExternal... some css adjustments for block may be applied
     $html = "<span class=' d-inline " . (($link != false) ? "linkInternal clickable cursorpointer" : "") . "' data-fallbackPlacement='flip' data-toggle='tooltip' data-title=\"" . $tooltipText . "\" data-placement='$type' data-delay='1' " . (($link != false) ? "data-href='$link' " : "") . ((contains($link, "?action=manual")) ? "data-target='_blank'" : "") . ">{$innerText}</span>";
     return $html;
 }
@@ -475,6 +476,13 @@ function createToolTipWithPoint($tooltipText, $pointClasses = "icon-small m-2", 
 {
     $innerText = printAnIcon("point.png", "", "question mark icon", $pointClasses, false);
     $html = createToolTip($innerText, $tooltipText, $link, $type);
+    return $html;
+}
+
+//Get HTML code to create a tooltip on a question mark icon (point.png)
+function createManualLink($section, $concernFullPage = true, $cssOnManualIcon = "icon-xsmall", $tooltipType = "top")
+{
+    $html = createToolTip(printAnIcon("manual.png", "", "manual icon", $cssOnManualIcon, false), "Aide sur " . (($concernFullPage) ? "la page " : "") . $section, "?action=manual#" . createKeyNameForElementId($section));
     return $html;
 }
 
