@@ -11,7 +11,14 @@ require_once "model/projectsModel.php";
 // Display the page groups
 function projects($option)
 {
+    $projectsOfLoggedUser = getAllProjectsIdWhereUserIsInside($_SESSION['user']['id']);
     $users = getAllUsers();
+    $works = getAllWorks();
+    $worksByProject = [];
+    foreach ($works as $work) {
+        $worksByProject[$work['project_id']][] = $work;
+    }
+
     switch ($option) {
         case 1:
             $projects = getAllProjectsVisible($_SESSION['user']['id']);
@@ -39,7 +46,26 @@ function projects($option)
         } else {
             $projects[$key]['responsible'] = $users[$project['responsible_id']];
         }
+        //Check all works of the project to find if some works need help (external or internal)
+        $needExternalHelp = false;
+        $needInternalHelp = false;
+        foreach ($worksByProject[$project['id']] as $work) {    //if at least one of the works need help, the need help icon will be displayed
+            if ($work['need_help'] == WORK_NEEDHELP_OUTER) {
+                $needExternalHelp = true;
+            }
+            if ($work['need_help'] == WORK_NEEDHELP_INNER) {
+                $needInternalHelp = true;
+            }
+            if ($work['need_help'] == WORK_NEEDHELP_BOTH) {
+                $needExternalHelp = true;
+                $needInternalHelp = true;
+            }
+        }
+        $projects[$key]['needExternalHelp'] = $needExternalHelp;
+        $projects[$key]['needInternalHelp'] = $needInternalHelp;
 
+
+        $projects[$key]['isUserLoggedInside'] = (in_array($project['id'], $projectsOfLoggedUser));
     }
 
     //TODO: fix bug with substrText() after specialCharsConvertFromAnArray() ...
@@ -111,6 +137,7 @@ function projectDetails($id, $option)
     }
     //TODO: check visibility of the project and if isMember
     $project = getOneProject($id);
+    $works = getAllWorksByProject($id);
     if (empty($project) == false) {
         $users = getAllUsers();
         $groups = getAllGroupsByProject($id);

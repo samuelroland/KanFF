@@ -5,6 +5,11 @@ function printAProject($project)
     ob_start();
     ?>
     <div class="divProject breakword thinBorder <?= (($project['visible'] == 0) ? "notVisibleToAll" : "") ?>">
+        <?php if ($project['isUserLoggedInside'] == true) { ?>
+            <div class="topRightForProjectKey borderradius">
+                <div class="p-1 pl-3 pr-3 "><?= printAnIcon("key.png", "", "", "icon-small") ?></div>
+            </div>
+        <?php } ?>
         <div class="divProjectFirstLine">
             <div class="divProjectTitleLine flexdiv">
                 <h3 title="<?= $project['name'] ?>" class="flex-1"><?php
@@ -80,12 +85,41 @@ function printAProject($project)
                     <img src="view/medias/icons/clock.png" alt="email logo" class="icon-small nomargin">
                     <span class="pl-2 pr-1 bigvalue"><?= $project['urgency'] ?></span>
                 </div>
-                <?php if ($project['']) { ?>
-                    <div class="box-verticalaligncenter" title="Urgence du projet (1 à 5)">
-                        <img src="view/medias/icons/clock.png" alt="email logo" class="icon-small nomargin">
-                        <span class="pl-2 pr-1 bigvalue"><?= $project['urgency'] ?></span>
+                <?php
+                $helptype = null;
+                if ($project['needInternalHelp'] == true) {
+                    $helptype = WORK_NEEDHELP_INNER;
+                }
+                if ($project['needExternalHelp'] == true) {
+                    $helptype = WORK_NEEDHELP_OUTER;
+                }
+                if ($project['needExternalHelp'] == true && $project['needInternalHelp'] == true) {
+                    $helptype = WORK_NEEDHELP_BOTH;
+                }
+                $concernedByNeedHelp = ($project['needExternalHelp'] == true && $project['isUserLoggedInside'] == false || $project['needInternalHelp'] == true && $project['isUserLoggedInside'] == true);
+                $addCssIfConcerned = "";
+                if ($concernedByNeedHelp) {
+                    $addCssIfConcerned = "borderForConcernedNeedhelp";
+                }
+                if ($project['isUserLoggedInside'] == true) {
+                    ?>
+                    <div class="box-verticalaligncenter pl-2 pr-1">
+                        <?php
+                        if ($helptype != null) {
+                            printAnIcon(convertWorkNeedhelpIcon($helptype), convertWorkNeedhelp($helptype, true), "need external help icon", "icon-small nomargin $addCssIfConcerned");
+                        } ?>
                     </div>
-                <?php } ?>
+                    <?php
+                } else {
+                    ?>
+                    <div class="box-verticalaligncenter pl-2 pr-1">
+                        <?php
+                        if ($helptype != null && $helptype != WORK_NEEDHELP_INNER) {
+                            printAnIcon(convertWorkNeedhelpIcon($helptype), convertWorkNeedhelp($helptype, true), "need external help icon", "icon-small nomargin $addCssIfConcerned");
+                        } ?>
+                    </div>
+                    <?php
+                } ?>
             </div>
             <div class="flex-4 box-verticalaligncenter">
                 <div>

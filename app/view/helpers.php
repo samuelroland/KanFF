@@ -356,7 +356,7 @@ function convertWorkNeedhelp($int, $needFirstCharToUpper = false)
 }
 
 //Convert the work need_help to the name of the icon
-function convertWorkNeedhelpIcon($int, $needFirstCharToUpper = false)
+function convertWorkNeedhelpIcon($int)
 {
     switch ($int) {
         case WORK_NEEDHELP_NONE:
@@ -374,7 +374,6 @@ function convertWorkNeedhelpIcon($int, $needFirstCharToUpper = false)
         default:
             $txt = "ERROR UNKNOWN STATE";
     }
-    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
     return $txt;
 }
 

@@ -550,6 +550,10 @@ tr {
     border-radius: 5px;
 }
 
+.borderForConcernedNeedhelp {
+    border: 2px solid #1c0e02;
+}
+
 .notVisibleToAll {
     background-color: #d9dadb;
 }
@@ -772,4 +776,15 @@ hr {
 .iconsize-40 {
     height: 40px;
     width: 40px;
+}
+
+.borderradius {
+    border-radius: 0px 5px 0px 5px;
+}
+
+.topRightForProjectKey {
+    background-color: #f7c654;
+    position: absolute;
+    top: -1px;
+    right: -1px;
 }

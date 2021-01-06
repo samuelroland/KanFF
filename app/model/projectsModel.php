@@ -131,6 +131,7 @@ WHERE users.id = :userid AND participate.state IN (" . PARTICIPATE_STATE_INVITAT
     return Query($query, $params, true);
 }
 
+//Get all users id where users are in a given project
 function getAllUsersIdInsideAProject($projectid)
 {
     $query = "SELECT distinct users.id FROM users
@@ -142,6 +143,26 @@ WHERE participate.state IN (2, 3) AND `join`.state IN (7, 8) AND projects.id = :
 ORDER BY users.id";
 
     $params = ["id" => $projectid];
+    $items = Query($query, $params, true);
+    $ids = [];
+    foreach ($items as $item) {
+        $ids[] = $item['id'];
+    }
+    return $ids;
+}
+
+//Get all projects id where the given user is inside them
+function getAllProjectsIdWhereUserIsInside($userid)
+{
+    $query = "SELECT DISTINCT projects.id FROM users
+INNER join `join` ON `join`.user_id = users.id
+INNER join `groups` ON `join`.group_id = `groups`.id
+INNER join participate ON participate.group_id = `groups`.id
+INNER join projects ON participate.project_id = projects.id
+WHERE participate.state IN (2, 3) AND `join`.state IN (7, 8) AND users.id = :id AND users.state != 0
+ORDER BY projects.id";
+
+    $params = ["id" => $userid];
     $items = Query($query, $params, true);
     $ids = [];
     foreach ($items as $item) {
