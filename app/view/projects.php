@@ -9,7 +9,7 @@ function printAProject($project)
             <div class="divProjectTitleLine flexdiv">
                 <h3 title="<?= $project['name'] ?>" class="flex-1"><?php
                     if (strlen($project['name']) > 26) {
-                        echo createToolTip(createElementWithFixedLines($project['name'], 1), $project['name']);
+                        echo createToolTip(createElementWithFixedLines($project['name'], 1), htmlspecialchars($project['name']));
                     } else {
                         echo(createElementWithFixedLines($project['name'], 1));
                     }
@@ -58,6 +58,11 @@ function printAProject($project)
                     if ($notAllDisplayed) {
                         echo "...";
                     }
+
+                    if ($project['responsible'] != null) {
+                        echo "<span><strong>Responsable:</strong></span> ";
+                        echo mentionUser($project['responsible']);
+                    }
                     ?>
                 </div>
                 <div class="flex-4 pl-2">
@@ -75,6 +80,12 @@ function printAProject($project)
                     <img src="view/medias/icons/clock.png" alt="email logo" class="icon-small nomargin">
                     <span class="pl-2 pr-1 bigvalue"><?= $project['urgency'] ?></span>
                 </div>
+                <?php if ($project['']) { ?>
+                    <div class="box-verticalaligncenter" title="Urgence du projet (1 à 5)">
+                        <img src="view/medias/icons/clock.png" alt="email logo" class="icon-small nomargin">
+                        <span class="pl-2 pr-1 bigvalue"><?= $project['urgency'] ?></span>
+                    </div>
+                <?php } ?>
             </div>
             <div class="flex-4 box-verticalaligncenter">
                 <div>
@@ -107,11 +118,13 @@ function printACategoryOfProjects($name, $projects, $authorizedStates, $archived
             if ($project['archived'] == 1) {    //if project is archived
                 if ($archivedProjectsAuthorized) {  //display only if authorized
                     printAProject($project);
+                    $noProjectDisplayed = false;    //at least one project has been display (so no msg to say "no project in this category")
                 }
             } else {
                 printAProject($project);
+                $noProjectDisplayed = false;    //at least one project has been display (so no msg to say "no project in this category")
             }
-            $noProjectDisplayed = false;    //at least one project has been display (so no msg to say "no project in this category")
+
         }
     }
     //If no project has been displayed, display a information message
@@ -152,12 +165,16 @@ $title = "Projets";
     </div>
     <div class="divProjectCategory">
         <?php
-        if ($option != 3) { //not display in run and on break category for option 3 (archived projects)
-            printACategoryOfProjects("En cours", $projects, [PROJECT_STATE_SEMIACTIVEWORK, PROJECT_STATE_ACTIVEWORK, PROJECT_STATE_UNDERREFLECTION, PROJECT_STATE_UNDERPLANNING]);
-            printACategoryOfProjects("En pause", $projects, [PROJECT_STATE_ONBREAK, PROJECT_STATE_REPORTED]);
+        if (empty($projects) == false) {
+            if ($option != 3) { //not display in run and on break category for option 3 (archived projects)
+                printACategoryOfProjects("En cours", $projects, [PROJECT_STATE_SEMIACTIVEWORK, PROJECT_STATE_ACTIVEWORK, PROJECT_STATE_UNDERREFLECTION, PROJECT_STATE_UNDERPLANNING]);
+                printACategoryOfProjects("En pause", $projects, [PROJECT_STATE_ONBREAK, PROJECT_STATE_REPORTED]);
+            }
+            printACategoryOfProjects("Terminés", $projects, [PROJECT_STATE_DONE], (isAtLeastEqual($option, [2, 3])));   //archived projects are visible in contributed and archived projects options
+            printACategoryOfProjects("Autres", $projects, [PROJECT_STATE_ABANDONNED, PROJECT_STATE_CANCELLED], (isAtLeastEqual($option, [2, 3])));  //archived projects are visible in contributed and archived projects options
+        } else {
+            echo "<h5 class='marginplus5px mt-3'>Aucun projet sous cette option...</h5>";
         }
-        printACategoryOfProjects("Terminés", $projects, [PROJECT_STATE_DONE], (isAtLeastEqual($option, [2, 3])));   //archived projects are visible in contributed and archived projects options
-        printACategoryOfProjects("Autres", $projects, [PROJECT_STATE_ABANDONNED, PROJECT_STATE_CANCELLED], (isAtLeastEqual($option, [2, 3])));  //archived projects are visible in contributed and archived projects options
         ?>
     </div>
 <?php

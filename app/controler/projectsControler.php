@@ -11,6 +11,7 @@ require_once "model/projectsModel.php";
 // Display the page groups
 function projects($option)
 {
+    $users = getAllUsers();
     switch ($option) {
         case 1:
             $projects = getAllProjectsVisible($_SESSION['user']['id']);
@@ -33,6 +34,12 @@ function projects($option)
             $participates[$key2]['group'] = $groups[$participate['group_id']];
         }
         $projects[$key]['participate'] = $participates;
+        if (is_null($project['responsible_id'])) {
+            $projects[$key]['responsible'] = null;
+        } else {
+            $projects[$key]['responsible'] = $users[$project['responsible_id']];
+        }
+
     }
 
     //TODO: fix bug with substrText() after specialCharsConvertFromAnArray() ...
