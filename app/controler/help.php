@@ -203,11 +203,17 @@ function checkThatEachKeyIsNotEmpty($array)
     return true;
 }
 
-function isAtLeastEqual($value, $possibilities)
+function isAtLeastEqual($value, $possibilities, $mustBeTypeEqual = false)
 {
     foreach ($possibilities as $possibility) {
-        if ($value == $possibility) {
-            return true;
+        if ($mustBeTypeEqual) {
+            if ($value === $possibility) {
+                return true;
+            }
+        } else {
+            if ($value == $possibility) {
+                return true;
+            }
         }
     }
     return false;
@@ -267,6 +273,7 @@ function isEmailFormat($text)
 //Send feedback with data sent with Ajax
 function sendFeedback($data)
 {
+    setHTTPHeaderForAPIResponse();
     $versions = getVersionsApp();
     require ".const.php";
     if ($feedbackForm != true) {
@@ -425,7 +432,7 @@ function manual()
         $acceptLine = true; //the current line is accepted (or not)
         if ((strpos($line, "src") != -1 || strpos($line, "href") != -1) && strpos($line, "http") == false) {
             //displaydebug(substr($line, 0, 4));
-            $line = str_replace("src=\"", "src=\"$linkImages/", $line);
+            $line = str_replace("src=\"", " onerror='this.src = \"view/medias/images/imagenotfound.png\"; this.style.height = \"50px\"' src=\"$linkImages/", $line);
             $line = str_replace("href=\"", "target='_blank' href=\"$linkDocGithub/", $line);
         }
 
@@ -462,4 +469,8 @@ function manual()
     require_once "view/manual.php";
 }
 
+function devMode(){
+    require ".const.php";
+    return ($dev);
+}
 ?>

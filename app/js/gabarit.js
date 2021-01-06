@@ -98,14 +98,27 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
     var els = document.getElementsByClassName("clickable");
     Array.prototype.forEach.call(els, function (el) {
-        el.addEventListener('click', function (evt) {
-            console.log(evt.target)
-            if (evt.target.getAttribute('data-href') == null) {
-                if (evt.target.parentNode.getAttribute('data-href') != null) {
-                    window.location = evt.target.parentNode.getAttribute('data-href')
+        el.addEventListener('click', function (event) {
+            console.log(event.target)
+            obj = event.target
+
+            //Search the link in data-href attribute (in obj or its parent)
+            if (obj.getAttribute('data-href') == null) {
+                obj = obj.parentNode    //try with the parent
+                if (obj.getAttribute('data-href') != null) {
+                    link = obj.getAttribute('data-href')
+                } else {    //the link is missing
+                    displayResponseMsg("Error: attribute data-href missing", false)
                 }
             } else {
-                window.location = evt.target.getAttribute('data-href')
+                link = obj.getAttribute('data-href')
+            }
+
+            //Go to the link
+            if (obj.getAttribute('data-target') != null) {
+                window.open(link, obj.getAttribute('data-target'))  //change tab with this link with given target (target is like the HTML attribute)
+            } else {
+                window.location = link  //go to the link in the same tab
             }
         })
     })
@@ -120,10 +133,15 @@ document.addEventListener('DOMContentLoaded', function () {
             href = link.getAttribute('data-hrefcopy')
             if (href != null) {
                 navigator.clipboard.writeText(href)
-                displayResponseMsg("Lien de la section copié dans le presse papiers.")
+                if (queryActionIncludes("manual")) {
+                    displayResponseMsg("Lien de la section copié dans le presse-papiers.")
+                } else {
+                    displayResponseMsg("Lien copié dans le presse-papiers.")
+                }
             }
         })
     })
+
     $(".linkOfTOC").on("click", adjustAutoScrollWithHashIn30Ms) //all links in TOC must have adjustment of scroll after
     adjustAutoScrollWithHashIn30Ms()
 })
@@ -136,7 +154,7 @@ function adjustAutoScrollWithHashIn30Ms() {
 //Adjust auto scroll with anchor (scroll in top direction to display the title under the menu)
 function adjustAutoScrollWithHash() {
     //Thanks to: https://stackoverflow.com/questions/4086107/fixed-page-header-overlaps-in-page-anchors#answer-28824157
-    if (window.location.hash != "") {
+    if (window.location.hash != "" && queryActionIncludes("manual") && document.getElementById(window.location.hash.substr(1)) != null) {
         var offset = $(':target').offset();
         var scrollto = offset.top - 90; // minus fixed header height
         $('html, body').animate({scrollTop: scrollto}, 0);

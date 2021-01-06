@@ -6,10 +6,10 @@
  *  Creation date: 26.04.2020
  */
 
-session_start();
+session_start();    //start the session system
 
-error_reporting(0); //Hide all error with the php code and html/css/js code
-// Include all controllers
+// Include all controllers and global php files
+require_once "controler/constants.php";     //global constants
 require_once "view/helpers.php";     //functions for helpers functions
 require_once "controler/help.php";   //controler to generate common contents
 require_once "controler/accountControler.php"; // controler to modify account settings
@@ -24,33 +24,24 @@ require_once "controler/eventsControler.php"; // controler for the projects
 require_once "controler/adminControler.php"; // controler for the projects
 require_once "model/localFilesModel.php";    //model for local files functions
 require_once "model/CRUDModel.php";//default model CRUD
-//require  "controler/testCRUDmodel.php";//controler for test CRUDmodel functions
 
-$isAdmin = checkAdmin();
+$isAdmin = checkAdmin();    //check if is admin and reload the session
 
 // Extract the action of the querystring
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
 }
 
-// Extract values sent by GET
-extract($_GET); //vars:
-displaydebug($_GET);
-
-// Extract values sent by POST
-extract($_POST); //vars:
-displaydebug($_POST);
-
-//Extract values from post data sent with ajax calls
+//Get values from post data sent with ajax calls
 $data = (array)json_decode(file_get_contents("php://input"));
-displaydebug($data);
 
+//displaydebug all input values and the session content
+displaydebug($_GET);
+displaydebug($_POST);
+displaydebug($data);
 displaydebug($_SESSION);
 
-if (isset($_POST)) {
-    $password = $_POST["password"];
-    $infoLogin = $_POST['infoLogin'];
-}
+$isAjax = ($_SERVER['HTTP_X_AJAX'] == 'true');  //look at HTTP header of request to know if it's an Ajax call
 
 //If user is not logged, actions authorized are login and signin.
 if (!isset($_SESSION['user']['id'])) {
@@ -58,7 +49,7 @@ if (!isset($_SESSION['user']['id'])) {
     switch ($action) {
         // try login using the infomations given
         case"login":
-            login($infoLogin, $password);
+            login($_POST['infoLogin'], $_POST["password"]);
             break;
         // try signin using the infomations given
         case"signin":
@@ -68,12 +59,20 @@ if (!isset($_SESSION['user']['id'])) {
             about();
             break;
         case "sendFeedback":    //Ajax call to send a feedback with the feedback form
-            setHTTPHeaderForAPIResponse();
             sendFeedback($data);
             break;
+        case "manual":
+            manual();
+            break;
         default:
-            //Default action: return to the login page
-            login(null, null);
+            if ($isAjax) {
+                $apiData = getApiDataContentError("Echec. Vous êtes déconnecté·e, l'action est interdite.", 551);
+                $response = getApiResponse(API_FAIL, $apiData);
+                echo json_encode($response);
+            } else {
+                //Default action: return to the login page
+                login(null, null);
+            }
             break;
     }
 } else {    //if user is logged
@@ -92,11 +91,19 @@ if (!isset($_SESSION['user']['id'])) {
                 about();
                 break;
             case "sendFeedback":    //Ajax call to send a feedback with the feedback form
-                setHTTPHeaderForAPIResponse();
                 sendFeedback($data);
                 break;
+            case "manual":
+                manual();
+                break;
             default:
-                limitedAccessInfo();
+                if ($isAjax) {
+                    $apiData = getApiDataContentError("Echec. Vous êtes en accès limité, l'action est interdite.", 552);
+                    $response = getApiResponse(API_FAIL, $apiData);
+                    echo json_encode($response);
+                } else {
+                    limitedAccessInfo();
+                }
         }
     } else {    //if there is no access limitation, then all actions (made as logged user) can be started
         switch ($action) {
@@ -133,15 +140,12 @@ if (!isset($_SESSION['user']['id'])) {
                 memberDetails($_GET['id']);
                 break;
             case "updateAccountState": //Ajax call to update the account state of a member
-                setHTTPHeaderForAPIResponse();
                 updateAccountState($data);
                 break;
             case "changeStatus": //Ajax call to change the status of the user logged
-                setHTTPHeaderForAPIResponse();
                 changeStatus($data);
                 break;
             case "deleteUnapprovedUser": //Ajax call to delete an unapproved member (for spam)
-                setHTTPHeaderForAPIResponse();
                 deleteUnapprovedUser($data);
                 break;
             case "createAGroup":
@@ -170,26 +174,21 @@ if (!isset($_SESSION['user']['id'])) {
                 tasks();
                 break;
             case "getTask": //Ajax call to get one task
-                setHTTPHeaderForAPIResponse();
                 getTask($_GET['id']);
                 break;
             case "createTask":  //Ajax call to create one task
-                setHTTPHeaderForAPIResponse();
                 createATask($data);
                 break;
             case "updateTask":  //Ajax call to update one task
-                setHTTPHeaderForAPIResponse();
                 updateATask($data);
                 break;
             case "deleteTask":  //Ajax call to delete one task
-                setHTTPHeaderForAPIResponse();
                 deleteATask($data);
                 break;
             case "about":
                 about();
                 break;
             case "sendFeedback":    //Ajax call to send a feedback with the feedback form
-                setHTTPHeaderForAPIResponse();
                 sendFeedback($data);
                 break;
             case "manual":
@@ -198,11 +197,18 @@ if (!isset($_SESSION['user']['id'])) {
             case "":    //if no action it's the dashboard
                 dashboard();
                 break;
-            default: // if action is unknown, return back to the dashboard
-                if ($action != "signin" && $action != "login") {    //signin et login doesn't make sense when the user is logged but it's not unknown actions so the message is not displayed.
-                    flshmsg(0);
+            default:
+                if ($isAjax) {
+                    $apiData = getApiDataContentError("Echec. L'action demandée n'existe pas.", 553);
+                    $response = getApiResponse(API_FAIL, $apiData);
+                    echo json_encode($response);
+                } else {
+                    // if action is unknown, return back to the dashboard
+                    if ($action != "signin" && $action != "login") {    //signin et login doesn't make sense when the user is logged but it's not unknown actions so the message is not displayed.
+                        flshmsg(0);
+                    }
+                    dashboard();
                 }
-                dashboard();
                 break;
         }
     }

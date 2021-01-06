@@ -13,7 +13,6 @@
 
 .versiontextformanual {
     font-size: 0.9em;
-    color: black;
     padding: 0;
 }
 
@@ -502,6 +501,10 @@ tr {
     margin: 0px !important;
 }
 
+.nopadding {
+    padding: 0px !important;
+}
+
 .noborder {
     border: none !important;
 }
@@ -585,6 +588,10 @@ hr {
 
 .width-min-content {
     width: min-content;
+}
+
+.width-max-content {
+    width: max-content;
 }
 
 .inputtypenumber {
@@ -700,17 +707,19 @@ hr {
     border: 1px #717171 solid;
     max-height: 900px;
     border-radius: 3px;
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 
 .mdstyle .thinBlackBorderForTitle {
     margin: 0px !important;
     padding-bottom: 10px;
-    border-bottom: 1px solid;
+    border-bottom: 2px solid #38417f;
+    color: #38417f;
 }
 
 .mdstyle h1 {
     padding-bottom: 5px;
-    border-bottom: 1px solid;
     color: #38417f;
 }
 
@@ -723,6 +732,8 @@ hr {
 .mdstyle h2 {
     margin-top: 0.6em;
     color: #348a19;
+    border-bottom: 1px solid;
+    padding-bottom: 2px;
 }
 
 .mdstyle h3 {
@@ -752,6 +763,24 @@ hr {
     padding-left: 5px;
     padding-right: 5px;
     border-radius: 5px;
+}
+
+.mdstyle pre {
+    background-color: #c5d2ff;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.clickablebanner {
+    background-color: #d1d5e4;
+    padding: 3px;
+    border-radius: 5px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.clickablebanner:hover {
+    background-color: #b9bdcb;
 }
 
 .circlebordered {

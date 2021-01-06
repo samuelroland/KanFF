@@ -3,6 +3,16 @@ $versions = getVersionsApp();
 $action = $_GET['action'];
 $instanceinfos = getInstanceInfos();
 require ".const.php";
+
+function displayManualIconIfActionIsNotManual($action, $title)
+{
+    if ($action != "manual") {  //displayed on every page except the manual itself
+        echo '<div class="fullname alignright pl-3 justify-content-end box-verticalaligncenter">';
+        echo createManualLink($title, true, "icon-small");
+        echo "</div>";
+    }
+}
+
 ?>
 
 <!DOCTYPE HTML>
@@ -37,6 +47,7 @@ require ".const.php";
     <script src="js/users.js"></script>
     <script src="js/projects.js"></script>
     <script src="js/tasks.js"></script>
+    <script src="js/manual.js"></script>
 
 </head>
 <body>
@@ -72,7 +83,8 @@ Y,                    `\"8bd888b,             ,P
 ?>
 
 <!-- The full header -->
-<header class="bg-header <?= ($debug == false) ? "header-fixed" : "" //the header is not fixed in debug mode because else devs can't see var_dump() results printed under the menu.                                                   ?>">
+<header class="bg-header <?= ($debug == false) ? "header-fixed" : "" //the header is not fixed in debug mode because else devs can't see var_dump() results printed under the menu.
+?>">
 
     <!-- Zone Logo with logo image + version texts -->
     <div class="divZoneLogo flexdiv">
@@ -85,7 +97,8 @@ Y,                    `\"8bd888b,             ,P
             </div>
         </div>
         <div data-href="?action=about"
-             class="flex-3 collectivename flexdiv overflow-hidden borderleftorange borderrightorange clickable cursorpointer <?= ($action == "about") ? 'active' : '' //button active or not                                                   ?>">
+             class="flex-3 collectivename flexdiv overflow-hidden borderleftorange borderrightorange clickable cursorpointer <?= ($action == "about") ? 'active' : '' //button active or not
+             ?>">
             <div class="align-items-center flexdiv"><?= $instanceinfos['collective']['name'] ?></div>
         </div>
     </div>
@@ -97,16 +110,10 @@ Y,                    `\"8bd888b,             ,P
             <!--<div class="pr-2 pl-2 box-verticalaligncenter"><img src="view/medias/icons/bell.png" class="bell"
                                                                 alt="bell icon">
             </div> -->
-            <div class="fullname alignright pr-3 pl-3 justify-content-end box-verticalaligncenter">
-                <?php //echo $_SESSION['user']['firstname'] . " " . $_SESSION['user']['lastname']; ?>
-                <?php
-                if ($action != "manual") {  //displayed on every page except the manual itself
-                    echo createToolTip(printAnIcon("point.png", "", "question mark icon", "icon-middlesmall", false), "Aide sur la page " . $title, "?action=manual#" . createKeyNameForElementId($title));
-                } ?>
-            </div>
+            <?php displayManualIconIfActionIsNotManual($action, $title); ?>
 
             <!-- Circle for user initials and dropdown -->
-            <div class="box-alignright pr-4 nomargin">
+            <div class="box-alignright pl-3 pr-4 nomargin">
                 <div class="usericon">
                     <div class="dropdown">
                         <form action="" class="nomargin">
@@ -122,7 +129,7 @@ Y,                    `\"8bd888b,             ,P
                                     <p><strong>Statut <br></strong><em
                                                 id="pStatus" class="breakword"><?= $_SESSION['user']['status'] ?></em>
                                         <span id="spChangeStatusIcon">
-                                            <?= printAnIcon("modify.png", "Modifier le statut", "modifiy icon", "yellowdarkonhover p-1 icon-small justify-content-end icnChangeStatus modify", false) ?>
+                                            <?= printAnIcon("modify.png", "Modifier le statut", "modify icon", "yellowdarkonhover p-1 icon-small justify-content-end icnChangeStatus modify", false) ?>
                                             <?= printAnIcon("checkmark.png", "Enregistrer le statut", "check mark icon", "yellowdarkonhover p-1 icon-small justify-content-end icnChangeStatus checkmark", false, "", true) ?>
                                         </span>
                                     </p>
@@ -146,8 +153,10 @@ Y,                    `\"8bd888b,             ,P
             </div>
         </div>
     <?php } else { //if user is not logged display only a login button?>
-        <div class="user row col-2 borderleftorange txtblack">
-            <div class="col-10 box-verticalaligncenter header-height">
+        <div class="user row col-2 borderleftorange txtblack nomargin nopadding">
+            <?php
+            displayManualIconIfActionIsNotManual($action, $title); ?>
+            <div class="pr-3 pl-3 box-verticalaligncenter header-height">
                 <a href="?action=login"><span class="btn btn-info">Connexion</span></a>
             </div>
         </div>
