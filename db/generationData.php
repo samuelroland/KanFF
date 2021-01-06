@@ -357,7 +357,7 @@ function dataGroups()
         }
 
         //Generate chat and drive link that seem like a real one
-        $group['chat_link'] = "chat.link/join?v=" . generateRandomString(rand(10, 15));
+        $group['chat_link'] = "userchat.link/join?v=" . generateRandomString(rand(10, 15));
         $group['drive_link'] = "drive.link/open?f=" . generateRandomString(rand(50, 70));
 
         //Foreign key of the user creator
@@ -784,7 +784,7 @@ function extraDataForOneTask($task, $work)
     }
 
     if (rand(1, 20)) {
-        $task['link'] = "https://" . generateRandomString(rand(6, 25)) . "/" . getLoremIpsum(rand(15, 2000));
+        $task['link'] = "https://" . generateRandomString(rand(6, 25)) . ".com/" .clearAllNonAlphabeticalChars(getLoremIpsum(rand(15, 2000))) ;
         $task['link'] = substr($task['link'], 0, 2000); //substring to 2000 chars
     }
 
