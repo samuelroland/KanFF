@@ -16,7 +16,7 @@ function printContributions($contributions)
     if (count($contributions) > 0) {
         ob_start();
         foreach ($contributions as $project) { ?>
-            <h4><?= $project[0]['projectname'] //get the name of the project with the value in the first work                 ?></h4>
+            <h4><?= $project[0]['projectname'] //get the name of the project with the value in the first work                  ?></h4>
             <ol>
             <?php foreach ($project as $work) { ?>
                 <li><span class="linkInternal clickable cursorpointer"
@@ -34,6 +34,34 @@ function printContributions($contributions)
     echo "</div>";
 }
 
+function visibilityOfGroups($group)
+{
+    //constant's case GROUP_VISIBILITY_INVISIBLE
+    $groupVisibility = [
+        "name" => "",
+        "state" => "",
+        "nbusers" => "",
+        "entrydate" => "",
+        "creation_date" => ""];
+    switch ($group['visibility']) {
+
+        case GROUP_VISIBILITY_TITLE:
+            $groupVisibility = [
+                "name" => $group['name']];
+            break;
+        case GROUP_VISIBILITY_STANDARD:
+        case GROUP_VISIBILITY_TOTAL:
+            $groupVisibility = [
+                "name" => $group['name'],
+                "state" => convertGroupState($group['state'], true),
+                "nbusers" => $group['nbusers'],
+                "entrydate" => DTToHumanDate($group['entrydate']),
+                "creation_date" => DTToHumanDate($group['creation_date'])];
+            break;
+    }
+    return $groupVisibility;
+}
+
 ob_start();
 ?>
     <h1><?= $title ?></h1>
@@ -42,7 +70,7 @@ ob_start();
         informations peuvent être masquées en raison du niveau de visibilité défini...</p>
     <div class="statebanner flexdiv">
         <div class="iconsize-40">
-            <?= printAnIcon("infopoint.png", "Statut","info point", "icon-small") ?>
+            <?= printAnIcon("infopoint.png", "Statut", "info point", "icon-small") ?>
         </div>
         <div class="box-verticalaligncenter ml-3">
             <em><?= $user['status'] ?></em>
@@ -101,15 +129,17 @@ ob_start();
                 <?php
                 $test = 0;
                 foreach ($groups as $group) {
+                    $fields=visibilityOfGroups($group);
+                    if ($fields["name"]!=""){
                     ?>
                     <tr>
-                        <td><?= $group['name'] ?></td>
-                        <td><?= convertGroupState($group['state'], true) ?></td>
-                        <td><?= $group['nbusers'] ?></td>
-                        <td><?= DTToHumanDate($group['entrydate']) ?></td>
-                        <td><?= DTToHumanDate($group['creation_date']) ?></td>
+                        <td><?= $fields['name'] ?></td>
+                        <td><?= $fields['state'] ?></td>
+                        <td><?= $fields['nbusers'] ?></td>
+                        <td><?= $fields['entrydate'] ?></td>
+                        <td><?= $fields['creation_date'] ?></td>
                     </tr>
-                <?php } ?>
+                <?php }} ?>
                 </tbody>
             </table>
         <?php } else {
