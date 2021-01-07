@@ -43,6 +43,7 @@ function visibilityOfGroups($group)
         "nbusers" => "",
         "entrydate" => "",
         "creation_date" => ""];
+
     switch ($group['visibility']) {
 
         case GROUP_VISIBILITY_TITLE:
@@ -62,9 +63,9 @@ function visibilityOfGroups($group)
     return $groupVisibility;
 }
 
-function visibilityOfGroupsForLoggedUser($seenUserGroups, $loggedUserGroups){
-    foreach ($seenUserGroups as $groupToCheck){
-        if (in_array($groupToCheck["id"],$loggedUserGroups)){
+function visibilityOfGroupsForLoggedUser($groupToCheck, $loggedUserGroups){
+    displaydebug($groupToCheck);
+        if (checkIfKeyIsInMultidimentionalArray($loggedUserGroups,"id",$groupToCheck["id"])){
             return [
                 "name" => $groupToCheck['name'],
                 "state" => convertGroupState($groupToCheck['state'], true),
@@ -74,7 +75,7 @@ function visibilityOfGroupsForLoggedUser($seenUserGroups, $loggedUserGroups){
         }else{
             return visibilityOfGroups($groupToCheck);
         }
-    }
+
 }
 function checkIfKeyIsInMultidimentionalArray($array, $key, $val) {
     foreach ($array as $item)
@@ -151,6 +152,7 @@ ob_start();
                 foreach ($groups as $group) {
                     $fields=visibilityOfGroupsForLoggedUser($group,$loggedUserGroups);
                     if ($fields["name"]!=""){
+                       // displaydebug($fields);
                     ?>
                     <tr>
                         <td><?= $fields['name'] ?></td>
