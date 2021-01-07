@@ -40,6 +40,9 @@ function checkUserPassword($id, $password)
 //Check length of a string that must not be greater than the max given but less or equal
 function chkLength($string, $max)
 {
+    if ($string == "") {
+        return false;
+    }
     return (strlen($string) <= $max);
 }
 
@@ -469,8 +472,19 @@ function manual()
     require_once "view/manual.php";
 }
 
-function devMode(){
+function devMode()
+{
     require ".const.php";
     return ($dev);
 }
+
+function checkIntMinMax($intValue, $min, $max)
+{
+    if (($intValue >= $min && $intValue <= $max) != false) {
+        return $intValue;
+    } else {
+        return false;
+    }
+}
+
 ?>
