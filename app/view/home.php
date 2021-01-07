@@ -14,11 +14,8 @@ ob_start();
 <?php
 require ".const.php";
 if ($dev == true) { //dev zone
-    ?>
-    <h2>
-        
-    </h2>
-    <?php
+    echo createManualLink("membres");
+
 }
 $contenttype = "large";
 $content = ob_get_clean();

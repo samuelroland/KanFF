@@ -466,6 +466,7 @@ function mentionUser($basicUser, $css = "text-info")
 //Get HTML code to create a tooltip with or without a link
 function createToolTip($innerText, $tooltipText, $link = false, $type = "top")
 {
+    //TODO: if needed manage linkInternal or linkExternal... some css adjustments for block may be applied
     $html = "<span class=' d-inline " . (($link != false) ? "linkInternal clickable cursorpointer" : "") . "' data-fallbackPlacement='flip' data-toggle='tooltip' data-title=\"" . $tooltipText . "\" data-placement='$type' data-delay='1' " . (($link != false) ? "data-href='$link' " : "") . ((contains($link, "?action=manual")) ? "data-target='_blank'" : "") . ">{$innerText}</span>";
     return $html;
 }
@@ -475,6 +476,13 @@ function createToolTipWithPoint($tooltipText, $pointClasses = "icon-small m-2", 
 {
     $innerText = printAnIcon("point.png", "", "question mark icon", $pointClasses, false);
     $html = createToolTip($innerText, $tooltipText, $link, $type);
+    return $html;
+}
+
+//Get HTML code to create a tooltip on a question mark icon (point.png)
+function createManualLink($section, $concernFullPage = true, $cssOnManualIcon = "icon-xsmall", $tooltipType = "top")
+{
+    $html = createToolTip(printAnIcon("manual.png", "", "manual icon", $cssOnManualIcon, false), "Aide sur " . (($concernFullPage) ? "la page " : "") . $section, "?action=manual#" . createKeyNameForElementId($section));
     return $html;
 }
 
@@ -560,11 +568,18 @@ function getTitleWithIdAttributeInHTMLIfIsTitle($line, $startWith, $markup)
         $result = "<div class='flexdiv  box-verticalaligncenter'><$markup id='" . $id . "' class=''>" . $text . "</$markup>";  //ex: "<h1 id='introduction'>Introduction</h1>"
 
         //Add the copylink icon:
-        $result .= "<span data-hrefcopy='" . $_SERVER['HTTP_HOST'] . "/?action=manual#" . $id . "' class='cursorpointer linkToCopy'>" . printAnIcon("copylinkmini.png", "Copier le lien vers cette section", "copy lin icon", "icon-xsmall m-2 noborder mt-3 copylink", false) . "</span>";
+        $result .= createCopyLinkIconForManual($text);
+
         $result .= "</div>";
         return $result;
     }
 
+}
+
+//Create HTML element with a copylink icon for a link to a section of the manual
+function createCopyLinkIconForManual($section)
+{
+    return "<span data-hrefcopy='" . $_SERVER['HTTP_HOST'] . "/?action=manual#" . createKeyNameForElementId($section) . "' class='cursorpointer linkToCopy'>" . printAnIcon("copylinkmini.png", "Copier le lien vers cette section", "copy lin icon", "icon-xsmall m-2 noborder mt-3 copylink", false) . "</span>";
 }
 
 //Get table of content element in Markdown, if the line is a title

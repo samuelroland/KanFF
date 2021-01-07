@@ -430,12 +430,17 @@ function manual()
     $currentLinesAreComment = false;    //the current lines are inside some comments and must be not included
     foreach ($lines as $key => $line) {
         $acceptLine = true; //the current line is accepted (or not)
-        if ((strpos($line, "src") != -1 || strpos($line, "href") != -1) && strpos($line, "http") == false) {
-            //displaydebug(substr($line, 0, 4));
-            if (strpos($line, "/icons/")) {
-                $cssForIcons = "icon-middlesmall nomargin";
+
+        //Manage images and relative linkss
+        if ((strpos($line, "src") != false || strpos($line, "href") != false) && strpos($line, "http") == false) {    //if line contains src or href and doesn't contain http (absolute links)
+            if (strpos($line, "/icons/") != false) {    //for little icons
+                $additionnalCssForImages = "icon-middlesmall nomargin noborder";
+            } else if (strpos($line, "manual_title.png") != false) {  //for the title banner
+                $additionnalCssForImages = "fullwidth mt-3 mb-0";
+            } else {
+                $additionnalCssForImages = "width-max-content"; //for other illustrations images
             }
-            $line = str_replace("src=\"", " onerror='this.src = \"view/medias/images/imagenotfound.png\"; this.style.height = \"50px\"; this.classList = \"\"; ' class=\"$cssForIcons iconsForManual\" src=\"$linkImages/", $line);
+            $line = str_replace("src=\"", " onerror='this.src = \"view/medias/images/imagenotfound.png\"; this.style.height = \"50px\"; this.classList = \"\"; ' class=\"$additionnalCssForImages \" src=\"$linkImages/", $line);
             $line = str_replace("href=\"", "target='_blank' href=\"$linkDocGithub/", $line);
         }
 
@@ -458,7 +463,8 @@ function manual()
             $currentLinesAreComment = true; //current and next lines will be inside the comment markup
         }
         if (contains($line, "[INSERT TOC HERE]")) { //if line contains mention to insert the table of content
-            $line = "<div class='mdTOC'>" . MDToHTML($toc) . "</div>";    //insert the table of content on this line
+            $line = "<div class='flexdiv  box-verticalaligncenter'><h2 id=\"table-des-matieres\" class=\"width-max-content\">Table des matières</h2>" . createCopyLinkIconForManual("Table des matières") .
+                "</div><div class='mdTOC'>" . MDToHTML($toc) . "</div>";    //insert the table of content on this line
         }
         if ($currentLinesAreComment == false && $acceptLine == true) {  //if current lines are no comments and the line is accepted
             $newLines[] = $line;    //include the line in the list of new lines

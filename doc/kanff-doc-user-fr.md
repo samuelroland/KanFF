@@ -15,12 +15,13 @@
  *  When writing in this file, the result should be looked in the manual directly (activate dev mode to load the local file)
  *  and tested on the test instance.
 */ -->
+![img title](img/manual_title.png)
 
 [INSERT TOC HERE]
 
 ## Introduction
-Ce mode d'emploi vous explique de la manière la plus concise comment utiliser l'application web KanFF. Si vous recherchez des informations sur le projet, la documentation technique, vous les trouverez ici [ADDLINK]
-Ce document est adapté pour un maximum de niveaux différents en informatique. Les personnes les plus à l'aise iront directement lire les chapitres qui les intéressent et les autres personnes iront pas à pas en s'aidant des captures d'écran.
+Ce mode d'emploi vous permet d'apprendre à utiliser KanFF. Si vous recherchez des informations sur le projet, le code source, la documentation technique, vous les trouverez ici [ADDLINK].
+L'intention de ce manuel est d'être accessible au plus grand nombre, les personnes les plus à l'aise sauteront directement aux bons chapitres et les autres personnes iront pas à pas (avec l'aide des captures d'écrans).
 
 ## Contexte d'utilisation
 Vous êtes membre d'un collectif, d'un groupe, d'un mouvement social, une association, ... (appelé ici "collectif" afin de simplifier) et votre collectif est inscrit sur une instance KanFF ? Vous aimeriez être guidé pour vos premiers pas ? Alors vous êtes au bon endroit.
@@ -41,7 +42,7 @@ Propres à KanFF:
 
 Techniques:
 - **Instance**: serveur sur lequel est installé KanFF. L'instance est accessible via une **URL** (`blason.com` par ex.) et a un **nom** donné par la personne la gérant (par exemple `Blason`)
-- **Admin**:
+- **Admin**: Membres ayant accès à des options avancées de gestion (dans le collectif, dans les groupes) qui ne sont pas utilisables par les autres membres.
 - **URL**: Lien internet vers une ressource stockée sur internet (site web, fichier, ...).
 
 ## Trouver ses repères
@@ -121,6 +122,10 @@ Cette page permet de gérer son compte (pouvoir modifier ses informations person
 ![my account button](img/myaccountbutton.PNG)
 
 #### Changement du mot de passe
+Il est possible de changer de mot de passe. Pour ceci vous devez connaître l'actuel et entrez 2 fois le nouveau. Sur la page `Mon compte`, accédez en bas au formulaire `Changement du mot de passe`.
+1. Rentrez le mot de passe actuel
+1. Rentrez le nouveau mot de passe
+1. Rentrez le nouveau mot de passe une 2ème fois
 
 #### Archivage son compte
 
