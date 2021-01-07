@@ -74,7 +74,7 @@ $isAdmin = checkAdmin();
                 <th>Nom <br>d'utilisateur·ice</th>
                 <th>Nom complet</th>
                 <th>Statut</th>
-                <th><?= createToolTip("Inscription", "Date d'inscription sur l'instance")?></th>
+                <th><?= createToolTip("Inscription", "Date d'inscription sur l'instance") ?></th>
                 <?php
                 if ($isAdmin) {
                     echo "<th>Etat du<br> compte</th>";
@@ -97,17 +97,20 @@ $isAdmin = checkAdmin();
             <tbody>
             <?php
             $test = 0;
+
+            $cssDefaultForTd = 'clickable cursorpointer';
             foreach ($members as $member) {
+                $datahrefmember = ' data-href="?action=member&id=' . $member['id'] . '"';
                 ?>
                 <tr id="tr-member-<?= $member['id'] ?>"
                     class="userline <?= ($member['id'] == $_SESSION['user']['id']) ? "yellowveryligthheader" : "" ?>">
-                    <td class="clickable cursorpointer"
-                        data-href="?action=member&id=<?= $member['id'] ?>"><?= $member['initials'] ?></td>
-                    <td class="clickable cursorpointer"
-                        data-href="?action=member&id=<?= $member['id'] ?>"><?= $member['username'] ?></td>
-                    <td class="clickable cursorpointer memberfullname"
-                        data-href="?action=member&id=<?= $member['id'] ?>"><?= $member['firstname'] . " <strong>" . $member['lastname'] . "</strong>" ?></td>
-                    <td class='cursordefault memberstatus'><?= "<em>" . createElementWithFixedLines($member['status'], 1) . "</em>" ?></td>
+                    <td class="<?= $cssDefaultForTd ?>" <?= $datahrefmember ?>
+                    ><?= $member['initials'] ?></td>
+                    <td class="<?= $cssDefaultForTd ?>"
+                        <?= $datahrefmember ?>><?= $member['username'] ?></td>
+                    <td class="<?= $cssDefaultForTd ?> memberfullname"
+                        <?= $datahrefmember ?>><?= $member['firstname'] . " <strong>" . $member['lastname'] . "</strong>" ?></td>
+                    <td class='<?= $cssDefaultForTd ?> memberstatus' <?= $datahrefmember ?>><?= "<em>" . createElementWithFixedLines($member['status'], 1) . "</em>" ?></td>
                     <td><?= DTToHumanDate($member['inscription'], "simpleday") ?></td>
                     <?php //State account cell
                     if ($isAdmin) {
