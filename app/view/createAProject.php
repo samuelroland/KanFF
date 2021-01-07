@@ -11,15 +11,15 @@ $title = "Créer un projet"
         <div class="col-lg-3 col-md-12 ">
             <h4>Nom du projet</h4>
             <input type="text" class="form-control smalltextinput textFieldToCheck" name="name" id="txtName"
-                   maxlength="70" required>
+                   maxlength="70" required value="<?= $data['name'] ?>">
         </div>
 
         <div class="col-lg-3 col-md-10">
             <h4>Réalisé par</h4>
             <div class="d-inline-flex box-verticalaligncenter">
                 <select name="manager_id" id="manager_id" class="form-control" required>
-                    <?php foreach ($groups as $g) { ?>
-                        <option value="<?= $g['id'] ?>"><?= $g['name'] ?></option>
+                    <?php foreach ($groups as $group) { ?>
+                        <option value="<?= $group['id'] ?>" <?= (($data['manager_id'] == $group['id']) ? "selected" : "") ?>><?= $group['name'] ?></option>
                     <?php } ?>
                 </select>
                 <?= createToolTipWithPoint("Les projets sont réalisés par un ou plusieurs groupes. Vous devez choisir un premier groupe dont vous êtes
@@ -32,7 +32,7 @@ $title = "Créer un projet"
         <div class="col-lg-3 col-md-12"><h4>Description</h4></div>
         <div class="col-12"><textarea class="form-control fullwidth textFieldToCheck" name="description"
                                       id="txtDescription" rows="2"
-                                      maxlength="500" minlength="3" required></textarea>
+                                      maxlength="500" minlength="3" required><?= $data['description'] ?></textarea>
         </div>
 
     </div>
@@ -42,7 +42,7 @@ $title = "Créer un projet"
         <div class="col-lg-3 col-md-12"><h4>Objectif</h4></div>
         <div class="col-12"><textarea class="form-control fullwidth textFieldToCheck" name="goal" id="txtGoal" rows="2"
                                       maxlength="500"
-                                      minlength="3"></textarea></div>
+                                      minlength="3"><?= $data['goal'] ?></textarea></div>
     </div>
 
     <p id="pCounterGoal">0/500</p>
@@ -51,11 +51,13 @@ $title = "Créer un projet"
         <h4 class="ml-3 mr-5">Début et fin prévus</h4>
         <div class="ml-4">
             <label for="start">Début:</label>
-            <input type="date" id="start" name="start" value="<?= date("Y-m-d") ?>" required>
+            <input type="date" id="start" name="start"
+                   value="<?= ((isset($data['start'])) ? date("Y-m-d", strtotime($data['start'])) : date("Y-m-d")) ?>"
+                   required>
         </div>
         <div class="ml-4">
             <label for="end">Fin (facultatif):</label>
-            <input class="marginauto" type="date" id="end" min="" name="end">
+            <input class="marginauto" type="date" id="end" min="" name="end" value="<?= ((isset($data['end'])) ? date("Y-m-d", strtotime($data['end'])) : "") ?>">
         </div>
 
 
@@ -70,23 +72,25 @@ $title = "Créer un projet"
             <h4>Importance</h4>
 
             <input class="form-control inputtypenumber" type="number" min="1" max="5" name="importance"
-                   id="selImportance" value="1" required></div>
+                   id="selImportance" value="<?= ((isset($data['importance'])) ? $data['importance'] : 1) ?>" required></div>
         <div class="col-lg-3 col-md">
             <h4>Urgence</h4>
             <input class="form-control inputtypenumber" type="number" min="1" max="5" name="urgency" id="selUrgency"
-                   value="1" required></div>
+                   value="<?= ((isset($data['urgency'])) ? $data['urgency'] : 1) ?>" required></div>
     </div>
     <div class="divVisibility mr-0 pt-4">
         <h4>Confidentialité</h4>
         <div class="col-lg-12 col-md-12">
             <input type="checkbox" id="visible"
-                   name="visible" checked>
+                   name="visible" <?= ((isset($data['name'])) ? (($data['visible'] == "on") ? "checked" : "") : "checked") //checked by default or if form has been sent, take value sent
+            ?>>
             <label for="chkRestrictAccess">Le projet est visible par les personnes non-membres des groupes réalisant ce
                 projet</label>
         </div>
         <div class="col-lg-12 col-md-12">
             <input type="checkbox" id="logbook_visible"
-                   name="logbook_visible" checked>
+                   name="logbook_visible" <?= ((isset($data['name'])) ? (($data['logbook_visible'] == "on") ? "checked" : "") : "checked") //checked by default or if form has been sent, take value sent
+            ?>>
             <label for="chkRestrictAccess">Le journal de bord est visible par les personnes non-membres des groupes
                 réalisant ce projet</label>
         </div>
