@@ -7,7 +7,7 @@ $title = "Créer un projet"
 <p>Cette page vous permet de créer un nouveau projet réalisé par un groupe dont vous êtes membre.</p>
 
 <form action="?action=createAProject" method="POST" class="pt-1">
-    <div class="divContext row pt-4 box-verticalaligncenter">
+    <div class="divContext row pt-2 box-verticalaligncenter">
         <div class="col-lg-3 col-md-12 ">
             <h4>Nom du projet</h4>
             <input type="text" class="form-control smalltextinput textFieldToCheck" name="name" id="txtName"
@@ -38,7 +38,7 @@ $title = "Créer un projet"
     </div>
     <p id="pCounterDescription">0/500</p>
 
-    <div class="divContext row pt-4">
+    <div class="divContext row pt-2">
         <div class="col-lg-3 col-md-12"><h4>Objectif</h4></div>
         <div class="col-12"><textarea class="form-control fullwidth textFieldToCheck" name="goal" id="txtGoal" rows="2"
                                       maxlength="500"
@@ -47,7 +47,7 @@ $title = "Créer un projet"
 
     <p id="pCounterGoal">0/500</p>
 
-    <div class="divContext row pt-4">
+    <div class="divContext row pt-2">
         <h4 class="ml-3 mr-5">Début et fin prévus</h4>
         <div class="ml-4">
             <label for="start">Début:</label>
@@ -79,20 +79,18 @@ $title = "Créer un projet"
                    value="<?= ((isset($data['urgency'])) ? $data['urgency'] : 1) ?>" required></div>
     </div>
     <div class="divVisibility mr-0 pt-4">
-        <h4>Confidentialité</h4>
+        <h4>Confidentialité<?= createManualLink("les paramètres de visibilités des projets", false, "icon-middlesmall ml-3") ?></h4>
         <div class="col-lg-12 col-md-12">
             <input type="checkbox" id="visible"
                    name="visible" <?= ((isset($data['name'])) ? (($data['visible'] == "on") ? "checked" : "") : "checked") //checked by default or if form has been sent, take value sent
             ?>>
-            <label for="chkRestrictAccess">Le projet est visible par les personnes non-membres des groupes réalisant ce
-                projet</label>
+            <label for="chkRestrictAccess">Le projet est visible par les membres extérieurs au projet.</label>
         </div>
         <div class="col-lg-12 col-md-12">
             <input type="checkbox" id="logbook_visible"
                    name="logbook_visible" <?= ((isset($data['name'])) ? (($data['logbook_visible'] == "on") ? "checked" : "") : "checked") //checked by default or if form has been sent, take value sent
             ?>>
-            <label for="chkRestrictAccess">Le journal de bord est visible par les personnes non-membres des groupes
-                réalisant ce projet</label>
+            <label for="chkRestrictAccess">Le journal de bord est visible par les membres extérieurs au projet.</label>
         </div>
     </div>
     <div class="divPassword row pt-4 col-lg-12">
