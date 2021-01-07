@@ -9,7 +9,7 @@ $title = "Créer un projet"
 <form action="?action=createAProject" method="POST" class="pt-1">
     <div class="divContext row pt-2 box-verticalaligncenter">
         <div class="col-lg-3 col-md-12 ">
-            <h4>Nom du projet</h4>
+            <h4>Nom</h4>
             <input type="text" class="form-control smalltextinput textFieldToCheck" name="name" id="txtName"
                    maxlength="70" required value="<?= $data['name'] ?>">
         </div>
@@ -57,7 +57,8 @@ $title = "Créer un projet"
         </div>
         <div class="ml-4">
             <label for="end">Fin (facultatif):</label>
-            <input class="marginauto" type="date" id="end" min="" name="end" value="<?= ((isset($data['end'])) ? date("Y-m-d", strtotime($data['end'])) : "") ?>">
+            <input class="marginauto" type="date" id="end" min="" name="end"
+                   value="<?= ((($data['end']) !=  '') ? date("Y-m-d", strtotime($data['end'])) : "") ?>">
         </div>
 
 

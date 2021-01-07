@@ -7,6 +7,7 @@
  */
 
 require_once "model/projectsModel.php";
+require_once "model/participateModel.php";
 
 // Display the page groups
 function projects($option)
@@ -52,15 +53,17 @@ function createAProject($data)
         $newProject['name'] = trimIt($data['name']);
         $newProject['description'] = trimIt($data['description']);
         $newProject['goal'] = trimIt($data['goal']);
-
+        displaydebug($newProject);
         //Check length of name, description and goal
         if (areAreAllEqualTo(true, [chkLength($newProject['name'], 70), chkLength($newProject['description'], 1000), chkLength($newProject['goal'], 1000)]) == false) {
             $error = 10;
         }
 
         //Check that the user is in the given group
-        if (isMemberInAGroup($_SESSION['user']['id'], $data['group_id']) == false) {
+        if (isMemberInAGroup($_SESSION['user']['id'], $data['manager_id']) == false) {
             $error = 10;
+        } else {
+            $newProject['manager_id'] = $data['manager_id'];
         }
 
         if (checkUserPassword($_SESSION['user']['id'], $data['password']) == false) {
@@ -75,12 +78,17 @@ function createAProject($data)
         $newProject['state'] = PROJECT_STATE_UNDERREFLECTION;
 
         //Convert checkbox values to tinyint
-        $newProject['visible'] = chkToTinyint($newProject['visible']);
-        $newProject['logbook_visible'] = chkToTinyint($newProject['logbook_visible']);
-        $newProject['goal'] = chkToTinyint($newProject['goal']);
+        $newProject['visible'] = chkToTinyint($data['visible']);
+        $newProject['logbook_visible'] = chkToTinyint($data['logbook_visible']);
+
+        $newProject['importance'] = checkIntMinMax($data['importance'], 1, 5);
+        $newProject['urgency'] = checkIntMinMax($data['urgency'], 1, 5);
+        if ($newProject['importance'] == false && $newProject['urgency'] == false) {
+            $error = 10;
+        }
 
         //Verify start and end date
-        $newProject['start'] = timeToDT($data['start']);
+        $newProject['start'] = timeToDT(strtotime($data['start']));
         if ($newProject['start'] == false) {
             $error = 10;
         }
@@ -92,29 +100,55 @@ function createAProject($data)
             if ($newProject['end'] == false) {
                 $error = 10;
             }
-        }
-        //Check that end date are bigger than start date
-        if ($newProject['start'] >= $newProject['end']) {
-            $error = 10;
+            //Check that end date are bigger than start date
+            if ($newProject['start'] >= $newProject['end']) {
+                $error = 10;
+            }
         }
 
+        displaydebug($newProject);
         //Then depending on errors or on success:
         if ($error != false) {
             flshmsg($error);
             $groups = getAllGroupsByUser($_SESSION['user']['id']);
             require "view/createAProject.php";  //view values sent inserted
         } else {
-            createOne("projects", $newProject);
-            flshmsg(9);
+            $insertedId = createOne("projects", $newProject);
+            $projectBack = getOneProject($insertedId);
+            displaydebug($projectBack);
+            if (empty($projectBack) == false) {
+                createGroupParticipationToAProject($insertedId, $projectBack['manager_id']);
+                flshmsg(9);
+            } else {
+                flshmsg(55);    //error when executing querys
+            }
+
+
             require "view/projects.php";
         }
     } else {
         $groups = getAllGroupsByUser($_SESSION['user']['id']);
         require_once "view/createAProject.php";
     }
-
 }
 
+function createGroupParticipationToAProject($projectid, $managerid)
+{
+    $participate = [
+        "group_id" => $managerid,
+        "project_id" => $projectid,
+        "start" => timeToDT(time()),
+        "end" => null,
+        "state" => PARTICIPATE_STATE_CREATOR
+    ];
+    displaydebug($participate);
+    $idResult = createParticipate($participate);
+    if ($idResult != null) {
+        return $idResult;
+    } else {
+        return false;
+    }
+}
 
 function projectDetails($id, $option)
 {
