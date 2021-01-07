@@ -473,4 +473,14 @@ function devMode(){
     require ".const.php";
     return ($dev);
 }
+
+function checkIntMinMax($intValue, $min, $max)
+{
+    if (($intValue >= $min && $intValue <= $max) != false) {
+        return $intValue;
+    } else {
+        return false;
+    }
+}
+
 ?>
