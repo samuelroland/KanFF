@@ -67,6 +67,7 @@ $title = "Créer un projet"
         <div><h3>Priorité du projet</h3></div>
         <?= createToolTipWithPoint("Notez de 1 à 5 (1 = minimum et 5 = maximum), l'importance de l'urgence du projet.
             Ce qui permet ensuite de calculer la priorité du projet en privélégiant l'important à l'urgent.", "icon-middlesmall ml-2 mr-2 m-2", false, "Top") ?>
+        <?= createManualLink("les priorités des projets", false, "icon-middlesmall") ?>
     </div>
     <div class="divImportance row">
         <div class="col-lg-3 col-md">

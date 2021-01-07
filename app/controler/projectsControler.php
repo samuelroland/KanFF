@@ -69,13 +69,12 @@ function createAProject($data)
         if (checkUserPassword($_SESSION['user']['id'], $data['password']) == false) {
             $error = 8;
         }
-        unset($newProject['password']);
 
         // Default values (not in the form)
         $newProject['archived'] = 0;
-        $newProject['logbook_content'] = "Non défini";
+        $newProject['logbook_content'] = PROJECTS_DEFAULT_TEXT_LOGBOOK_CONTENT;
         $newProject['responsible_id'] = null;
-        $newProject['state'] = PROJECT_STATE_UNDERREFLECTION;
+        $newProject['state'] = PROJECT_LIST_STATE[0];
 
         //Convert checkbox values to tinyint
         $newProject['visible'] = chkToTinyint($data['visible']);
@@ -83,7 +82,7 @@ function createAProject($data)
 
         $newProject['importance'] = checkIntMinMax($data['importance'], 1, 5);
         $newProject['urgency'] = checkIntMinMax($data['urgency'], 1, 5);
-        if ($newProject['importance'] == false && $newProject['urgency'] == false) {
+        if ($newProject['importance'] == false || $newProject['urgency'] == false) {
             $error = 10;
         }
 
@@ -117,10 +116,14 @@ function createAProject($data)
             $projectBack = getOneProject($insertedId);
             displaydebug($projectBack);
             if (empty($projectBack) == false) {
-                createGroupParticipationToAProject($insertedId, $projectBack['manager_id']);
-                flshmsg(9);
+                $idInsertedForParticipate = createGroupParticipationToAProject($insertedId, $projectBack['manager_id']);
+                if (empty(getOneParticipate($idInsertedForParticipate)) != null) {
+                    flshmsg(9);
+                } else {
+                    flshmsg(45);    //Internal error when participate was created
+                }
             } else {
-                flshmsg(55);    //error when executing querys
+                flshmsg(55);    //Internal error when project was created
             }
 
 
