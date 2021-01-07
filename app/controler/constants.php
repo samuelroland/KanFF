@@ -9,6 +9,23 @@
 //Constants for users
 define("USERS_NB_ADMINS_MIN", 1);
 
+//Constants for join
+
+
+//Constants for groups
+
+
+//Constants for participate
+
+
+//Constants for projects
+define("PROJECTS_DEFAULT_TEXT_LOGBOOK_CONTENT", "Non défini");
+
+//Constants for works
+
+
+//Constants for tasks
+
 
 //Constants for log
 define("NB_DAYS_MODIFICATION_AUTHORIZED", 4);
