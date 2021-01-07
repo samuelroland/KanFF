@@ -26,11 +26,11 @@ function projects($option)
             break;
         case 2:
             $projects = getAllProjectsContributed($_SESSION['user']['id']);
-            $description = "Tous les projets auxquels vous avez contribué dans ce collectif et qui sont visibles pour vous. (Contribué signifie techniquement que vous avez effectué au moins une tâche).";
+            $description = "Tous les projets auxquels vous avez contribué dans ce collectif et qui sont visibles pour vous." . createToolTipWithPoint("Contribué signifie techniquement que vous avez effectué au moins une tâche.", "icon-middlesmall m-2");
             break;
         case 3:
             $projects = getAllArchivedProjects($_SESSION['user']['id']);
-            $description = "Tous les projets archivés du collectif qui sont visibles pour vous. Ils ont été archivés parce qu'il n'était plus d'actualité (et qu'ils étaient terminés, abandonnés ou annulés).";
+            $description = "Tous les projets archivés du collectif qui sont visibles pour vous. Ils ont été archivés parce qu'il n'était plus d'actualité.". createToolTipWithPoint("Seuls les projets terminés, abandonnés ou annulés, peuvent être archivés.", "icon-middlesmall m-2");
             break;
     }
 
