@@ -67,7 +67,11 @@ function flshmsg($number)
 //Convert a timestamp in the DATETIME format
 function timeToDT($timestamp)
 {
-    return date("Y-m-d H:i:s", $timestamp);
+    $result=false;
+    if (is_int($timestamp)){
+        $result = date("Y-m-d H:i:s", $timestamp);
+    }
+    return $result;
 }
 
 function DTToHumanDate($datetime, $mode = "simpleday", $isTimestamp = false)
