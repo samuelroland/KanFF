@@ -347,13 +347,13 @@ function checkRightForCallFlashMessagesDeleteArchive($post,$option){
         switch ($option) {//success messages for delete or archive account
             case "delete":
                 deleteUser($userid);
+                unset($_SESSION['user']);
                 flshmsg(18);
-                session_unset();
-                require_once 'view/login.php';
+                login(null, null);
                 break;
             case "archive":
-                archiveUser($userid);
                 flshmsg(19);
+                archiveUser($userid);
                 limitedAccessInfo();
                 break;
         }

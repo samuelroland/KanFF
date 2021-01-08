@@ -36,9 +36,7 @@ ob_start();
         <hr class="hrlight">
         <form action="?action=<?= $option ?>Account" method="POST">
             <div id="divDeleteValidation" class="">
-                <p id="pDeleteValidationText" class="txtdarkbluelogo font-italic">
-                    <?= $textChosen["textToCopy"] ?>
-                </p>
+                <p id="pDeleteValidationText" class="txtdarkbluelogo font-italic"><?= $textChosen["textToCopy"] ?></p>
                 <textarea name="sentence" id="txtSentenceDeleteValidation" rows="4"
                           class="fullwidth form-control nomargin"
                           placeholder="Veuillez accepter et recopier le texte ci-dessus."

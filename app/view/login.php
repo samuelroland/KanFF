@@ -31,7 +31,9 @@ $lastVersion = $versions[count($versions) - 1];
             <label for="password">Mot de passe</label>
             <input type="password" class="form-control" name="password" id="password" placeholder="" required>
         </div>
-        <?php echo flashMessage(); ?>
+        <?php if ($action == "login") {
+            echo flashMessage();
+        } ?>
         <div>
             <div class="box-alignright">
                 <button type="submit" class="btn btn-primary mt-2">Se connecter</button>
