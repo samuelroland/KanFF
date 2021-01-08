@@ -77,33 +77,52 @@ ORDER BY participate.`start`";
 //Get all visible groups by the logged user's id
 function getAllProjectsVisible($id)
 {
-    $query = "SELECT (importance*2+urgency) as priority, projects.* FROM projects 
+    //Strategy: to get all visible projects: get visible projects (visible = 1) + all projects where you are inside (then group by projects.name to remove duplicate)
+    $baseQuery = "SELECT (projects.importance * 2 + projects.urgency) as priority, projects.* FROM projects 
 INNER	join participate ON projects.id = participate.project_id
 INNER	join `groups` ON `groups`.id = participate.group_id
 INNER join `join` ON `join`.group_id = `groups`.id
 INNER	join users ON users.id = `join`.user_id
-WHERE	users.id = 1 AND participate.state IN (2, 3)
-UNION	
-SELECT (importance*2+urgency) as priority, projects.* FROM projects 
-INNER	join participate ON projects.id = participate.project_id
-INNER	join `groups` ON `groups`.id = participate.group_id
-INNER join `join` ON `join`.group_id = `groups`.id
-WHERE	projects.visible = 1
-ORDER BY (importance*2+urgency) desc, importance desc, urgency DESC, end;";
+WHERE	(users.id =:id AND users.state != 0 AND `join`.state IN (7, 8) AND participate.state IN (2, 3) OR projects.visible = 1)";
+
+    //Get all projects visible for given userid, where category (in the view) are In run or On break, ordered by priority first.
+    $query = $baseQuery . " AND projects.state NOT IN (6, 7, 8)
+GROUP BY  projects.name
+ORDER BY priority desc, importance desc, urgency DESC, end, start DESC;";
     $params = ["id" => $id];
-    return Query($query, $params, true);
+    $projectsPriorityFirst = Query($query, $params, true);
+
+    //Get all projects visible for given userid, where category (in the view) are Done or Others, ordered by end date first. (There is no notion of priority if the projects are done).
+    $query = $baseQuery . " AND projects.state IN (6, 7, 8)
+GROUP BY  projects.name
+ORDER BY end DESC, importance DESC, start DESC;";
+    $params = ["id" => $id];
+    $projectsCompletionFirst = Query($query, $params, true);
+
+    return array_merge($projectsPriorityFirst, $projectsCompletionFirst);   //merge the 2 arrays (the order will be intact, because it's logically separated after)
 }
 
 //Get all projects where the logged user has finish a task
 function getAllProjectsContributed($id)
 {
-    $query = "SELECT projects.* FROM	projects
+    //Get all projects contributed without any order (it's only to get ids)
+    $query = "SELECT (projects.importance * 2 + projects.urgency) as priority, projects.* FROM	projects
 INNER join works ON works.project_id = projects.id
 INNER	join tasks ON tasks.work_id = works.id
 WHERE	tasks.responsible_id = :id AND tasks.state = :state
 GROUP BY projects.name;";
     $params = ["id" => $id, "state" => TASK_STATE_DONE];
-    return Query($query, $params, true);
+    $projectsContributed = Query($query, $params, true);
+
+    //Remove projects not contributed (where $project['id'] is not in the list of ids)
+    $idsOfProjectsContributed = array_column($projectsContributed, "id");   //extract ids in 2D array
+    $projectsVisible = getAllProjectsVisible($id);
+    foreach ($projectsVisible as $key => $project) {
+        if (in_array($project['id'], $idsOfProjectsContributed) == false) {
+            unset($projectsVisible[$key]);
+        }
+    }
+    return $projectsVisible;
 }
 
 function getAllArchivedProjects($id)
@@ -131,6 +150,7 @@ WHERE users.id = :userid AND participate.state IN (" . PARTICIPATE_STATE_INVITAT
     return Query($query, $params, true);
 }
 
+//Get all users id where users are in a given project
 function getAllUsersIdInsideAProject($projectid)
 {
     $query = "SELECT distinct users.id FROM users
@@ -142,6 +162,26 @@ WHERE participate.state IN (2, 3) AND `join`.state IN (7, 8) AND projects.id = :
 ORDER BY users.id";
 
     $params = ["id" => $projectid];
+    $items = Query($query, $params, true);
+    $ids = [];
+    foreach ($items as $item) {
+        $ids[] = $item['id'];
+    }
+    return $ids;
+}
+
+//Get all projects id where the given user is inside them
+function getAllProjectsIdWhereUserIsInside($userid)
+{
+    $query = "SELECT DISTINCT projects.id FROM users
+INNER join `join` ON `join`.user_id = users.id
+INNER join `groups` ON `join`.group_id = `groups`.id
+INNER join participate ON participate.group_id = `groups`.id
+INNER join projects ON participate.project_id = projects.id
+WHERE participate.state IN (2, 3) AND `join`.state IN (7, 8) AND users.id = :id AND users.state != 0    
+ORDER BY projects.id";
+
+    $params = ["id" => $userid];
     $items = Query($query, $params, true);
     $ids = [];
     foreach ($items as $item) {

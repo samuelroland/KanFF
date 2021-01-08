@@ -5,11 +5,16 @@ function printAProject($project)
     ob_start();
     ?>
     <div class="divProject breakword thinBorder <?= (($project['visible'] == 0) ? "notVisibleToAll" : "") ?>">
+        <?php if ($project['isUserLoggedInside'] == true) { ?>
+            <div class="topRightForProjectKey borderradius">
+                <div class="p-1 pl-3 pr-3 "><?= printAnIcon("key.png", "", "", "icon-small") ?></div>
+            </div>
+        <?php } ?>
         <div class="divProjectFirstLine">
             <div class="divProjectTitleLine flexdiv">
                 <h3 title="<?= $project['name'] ?>" class="flex-1"><?php
                     if (strlen($project['name']) > 26) {
-                        echo createToolTip(createElementWithFixedLines($project['name'], 1), $project['name']);
+                        echo createToolTip(createElementWithFixedLines($project['name'], 1), htmlspecialchars($project['name']));
                     } else {
                         echo(createElementWithFixedLines($project['name'], 1));
                     }
@@ -58,6 +63,11 @@ function printAProject($project)
                     if ($notAllDisplayed) {
                         echo "...";
                     }
+
+                    if ($project['responsible'] != null) {
+                        echo "<span><strong>Responsable:</strong></span> ";
+                        echo mentionUser($project['responsible']);
+                    }
                     ?>
                 </div>
                 <div class="flex-4 pl-2">
@@ -71,10 +81,47 @@ function printAProject($project)
                     <img src="view/medias/icons/exclamationmark.png" alt="email logo" class="icon-small nomargin">
                     <span class="pr-2 bigvalue"><?= $project['importance'] ?></span>
                 </div>
-                <div class="box-verticalaligncenter" title="Urgence du projet (1 à 5)">
-                    <img src="view/medias/icons/clock.png" alt="email logo" class="icon-small nomargin">
-                    <span class="pl-2 pr-1 bigvalue"><?= $project['urgency'] ?></span>
-                </div>
+                <?php if (isAtLeastEqual($project['state'], [PROJECT_STATE_ABANDONNED, PROJECT_STATE_CANCELLED, PROJECT_STATE_DONE]) == false) { ?>
+                    <div class="box-verticalaligncenter" title="Urgence du projet (1 à 5)">
+                        <img src="view/medias/icons/clock.png" alt="email logo" class="icon-small nomargin">
+                        <span class="pl-2 pr-1 bigvalue"><?= $project['urgency'] ?></span>
+                    </div>
+                    <?php
+                }
+                $helptype = null;
+                if ($project['needInternalHelp'] == true) {
+                    $helptype = WORK_NEEDHELP_INNER;
+                }
+                if ($project['needExternalHelp'] == true) {
+                    $helptype = WORK_NEEDHELP_OUTER;
+                }
+                if ($project['needExternalHelp'] == true && $project['needInternalHelp'] == true) {
+                    $helptype = WORK_NEEDHELP_BOTH;
+                }
+                $concernedByNeedHelp = ($project['needExternalHelp'] == true && $project['isUserLoggedInside'] == false || $project['needInternalHelp'] == true && $project['isUserLoggedInside'] == true);
+                $addCssIfConcerned = "";
+                if ($concernedByNeedHelp) {
+                    $addCssIfConcerned = "borderForConcernedNeedhelp";
+                }
+                if ($project['isUserLoggedInside'] == true) {
+                    ?>
+                    <div class="box-verticalaligncenter pl-2 pr-1">
+                        <?php
+                        if ($helptype != null) {
+                            printAnIcon(convertWorkNeedhelpIcon($helptype), convertWorkNeedhelp($helptype, true), "need external help icon", "icon-small nomargin $addCssIfConcerned");
+                        } ?>
+                    </div>
+                    <?php
+                } else {
+                    ?>
+                    <div class="box-verticalaligncenter pl-2 pr-1">
+                        <?php
+                        if ($helptype != null && $helptype != WORK_NEEDHELP_INNER) {
+                            printAnIcon(convertWorkNeedhelpIcon($helptype), convertWorkNeedhelp($helptype, true), "need external help icon", "icon-small nomargin $addCssIfConcerned");
+                        } ?>
+                    </div>
+                    <?php
+                } ?>
             </div>
             <div class="flex-4 box-verticalaligncenter">
                 <div>
@@ -88,8 +135,28 @@ function printAProject($project)
             </div>
 
         </div>
-        <div class="position-bottom-right">
+        <div class="positionBottomRightForProjectsDetailsBtn">
             <button class="btn btn-info clickable" data-href="?action=project&id=<?= $project['id'] ?>">Détails</button>
+        </div>
+        <?php
+        //TODO: refactor the code in a function to avoid duplicate. Make a more clever calcul with data progression.
+        //Calculate effort provided/total and value generated/total
+        $totalEffort = 0;
+        $totalValue = 0;
+        $providedEffort = 0;
+        $generatedValue = 0;
+        foreach ($project['works'] as $work) {
+            $totalEffort += $work['effort'];
+            $totalValue += $work['value'];
+            if ($work['state'] == WORK_STATE_DONE) {
+                $providedEffort += $work['effort'];
+                $generatedValue += $work['value'];
+            }
+        }
+        $percentageEffort = round($providedEffort * 100 / $totalEffort, 1); //with the rule of 3, calculate the percentage and round it to one digit
+        ?>
+        <div class="positionBottomForProgressBar fullwidth heightProgressBar">
+            <div class="heightProgressBar progressBar" style="width: <?= $percentageEffort ?>%"></div>
         </div>
     </div>
     <?php
@@ -107,11 +174,13 @@ function printACategoryOfProjects($name, $projects, $authorizedStates, $archived
             if ($project['archived'] == 1) {    //if project is archived
                 if ($archivedProjectsAuthorized) {  //display only if authorized
                     printAProject($project);
+                    $noProjectDisplayed = false;    //at least one project has been display (so no msg to say "no project in this category")
                 }
             } else {
                 printAProject($project);
+                $noProjectDisplayed = false;    //at least one project has been display (so no msg to say "no project in this category")
             }
-            $noProjectDisplayed = false;    //at least one project has been display (so no msg to say "no project in this category")
+
         }
     }
     //If no project has been displayed, display a information message
@@ -152,12 +221,16 @@ $title = "Projets";
     </div>
     <div class="divProjectCategory">
         <?php
-        if ($option != 3) { //not display in run and on break category for option 3 (archived projects)
-            printACategoryOfProjects("En cours", $projects, [PROJECT_STATE_SEMIACTIVEWORK, PROJECT_STATE_ACTIVEWORK, PROJECT_STATE_UNDERREFLECTION, PROJECT_STATE_UNDERPLANNING]);
-            printACategoryOfProjects("En pause", $projects, [PROJECT_STATE_ONBREAK, PROJECT_STATE_REPORTED]);
+        if (empty($projects) == false) {
+            if ($option != 3) { //not display in run and on break category for option 3 (archived projects)
+                printACategoryOfProjects("En cours", $projects, [PROJECT_STATE_SEMIACTIVEWORK, PROJECT_STATE_ACTIVEWORK, PROJECT_STATE_UNDERREFLECTION, PROJECT_STATE_UNDERPLANNING]);
+                printACategoryOfProjects("En pause", $projects, [PROJECT_STATE_ONBREAK, PROJECT_STATE_REPORTED]);
+            }
+            printACategoryOfProjects("Terminés", $projects, [PROJECT_STATE_DONE], (isAtLeastEqual($option, [2, 3])));   //archived projects are visible in contributed and archived projects options
+            printACategoryOfProjects("Autres", $projects, [PROJECT_STATE_ABANDONNED, PROJECT_STATE_CANCELLED], (isAtLeastEqual($option, [2, 3])));  //archived projects are visible in contributed and archived projects options
+        } else {
+            echo "<h5 class='marginplus5px mt-3'>Aucun projet sous cette option...</h5>";
         }
-        printACategoryOfProjects("Terminés", $projects, [PROJECT_STATE_DONE], (isAtLeastEqual($option, [2, 3])));   //archived projects are visible in contributed and archived projects options
-        printACategoryOfProjects("Autres", $projects, [PROJECT_STATE_ABANDONNED, PROJECT_STATE_CANCELLED], (isAtLeastEqual($option, [2, 3])));  //archived projects are visible in contributed and archived projects options
         ?>
     </div>
 <?php

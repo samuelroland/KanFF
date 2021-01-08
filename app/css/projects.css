@@ -31,9 +31,16 @@
     margin: 5px;
     position: relative; /*to keep the button "See" in the div*/
     max-width: 850px;
-    max-height: 250px;
+    max-height: 257px;
     display: flex;
     flex-wrap: inherit;
+    padding-bottom: 17px;
+}
+
+.positionBottomRightForProjectsDetailsBtn {
+    position: absolute;
+    bottom: 17px;
+    right: 10px;
 }
 
 .divProjectFirstLine {

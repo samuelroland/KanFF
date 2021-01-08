@@ -92,7 +92,8 @@ Réaliser l'application KanFF permettant la gestion des membres, groupes et proj
 
 ## Installation (pour une instance)
 Cette procédure s'applique pour une instance à distance.  
-A venir quand sera publié en v1.0...
+A venir quand sera publié en v1.0...  
+**AVERTISSEMENT : l'application n'est pas prête à être mise en production ! Ne l'utilisez pas à cette fin. Seulement des instances de tests avec des données fictives doivent être utilisées/créés.**
 <!--
 ### Prérequis:
 1. Accès SSH

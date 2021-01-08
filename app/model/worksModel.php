@@ -16,7 +16,6 @@ function getOneWork($id)
 function getAllWorks()
 {
     return getAll("works");
-
 }
 
 //Get one work whith conditions

@@ -251,16 +251,21 @@ This pack of data in french is about a fictive collective called "Collectif Asso
 
 **One important thing: Passwords are the firstname of the user.**
 
-### How to use it ?
-If you want to install it on your own instance:
+### How to use it/test it ?
+**DISCLAIMER: the app is not ready to be run in production ! Don't use it for this purpose! Only test instances with fictitious data should be used/created.**
+If you want to install it on your own instance to try it:
 - Look at [process to import db](../README.md#proc%C3%A9dure-1) at the part about the import of the pack.  
 Else, if you are looking for an easier option:
-- Use the official test instance. You will find the link in the README too.
+- Use the [official test instance](try.kanff.org).
 
-Examples users (often used in user doc and other examples) to login:
+Examples users (often used in manual, technical documentation and other examples):
 - Josette Richard (`JRD` - `josette.richard@assoc.ch`)
 - Vincent Rigot (`VRT` - `vincent.rigot@assoc.ch`)
 - Mégane Blan (`MBN` - `megane.blan@assoc.ch`)
+- Michel Charrière (`MCE` - `michel.charriere@assoc.ch`)
+- Cassandra De Castro Del Amino (`CDO`)
+
+**Their passwords are their name.** (For ex, the credentials for Mégane Blan are `MBN`:`Mégane`)
 
 ## How to generate another pack ?
 Prerequesite:

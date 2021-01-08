@@ -531,7 +531,7 @@ tr {
 }
 
 .hryellowproject {
-    border: #a27200 1px solid;
+    border: #bd85008c 1px solid;
     border-radius: 5px;
 }
 
@@ -551,6 +551,10 @@ tr {
 .thinBorder {
     border: solid #ffb400ab 2px;
     border-radius: 5px;
+}
+
+.borderForConcernedNeedhelp {
+    border: 2px solid #1c0e02;
 }
 
 .notVisibleToAll {
@@ -825,4 +829,30 @@ hr {
 
 .keepentire {
     min-width: max-content;
+}
+
+.borderradius {
+    border-radius: 0px 5px 0px 5px;
+}
+
+.topRightForProjectKey {
+    background-color: #f7c654;
+    position: absolute;
+    top: -1px;
+    right: -1px;
+}
+
+.positionBottomForProgressBar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-top: 1px solid #7a5702;
+}
+
+.progressBar {
+    background-color: #ffc437;
+}
+
+.heightProgressBar {
+    height: 7px;
 }

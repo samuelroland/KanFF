@@ -21,6 +21,8 @@ define("USERS_NB_ADMINS_MIN", 1);
 //Constants for projects
 define("PROJECTS_DEFAULT_TEXT_LOGBOOK_CONTENT", "Non défini");
 
+define("PROJECTS_DATES_PRECISION", "day");  //precision to day with dates (start and end).
+
 //Constants for works
 
 

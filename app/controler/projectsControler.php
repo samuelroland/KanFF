@@ -12,6 +12,14 @@ require_once "model/participateModel.php";
 // Display the page groups
 function projects($option)
 {
+    $projectsOfLoggedUser = getAllProjectsIdWhereUserIsInside($_SESSION['user']['id']);
+    $users = getAllUsers();
+    $works = getAllWorks();
+    $worksByProject = [];
+    foreach ($works as $work) {
+        $worksByProject[$work['project_id']][] = $work;
+    }
+
     switch ($option) {
         case 1:
             $projects = getAllProjectsVisible($_SESSION['user']['id']);
@@ -19,11 +27,11 @@ function projects($option)
             break;
         case 2:
             $projects = getAllProjectsContributed($_SESSION['user']['id']);
-            $description = "Tous les projets auxquels vous avez contribué dans ce collectif et qui sont visibles pour vous. (Contribué signifie techniquement que vous avez effectué au moins une tâche).";
+            $description = "Tous les projets auxquels vous avez contribué dans ce collectif et qui sont visibles pour vous." . createToolTipWithPoint("Contribué signifie techniquement que vous avez effectué au moins une tâche.", "icon-xsmall m-2");
             break;
         case 3:
             $projects = getAllArchivedProjects($_SESSION['user']['id']);
-            $description = "Tous les projets archivés du collectif qui sont visibles pour vous. Ils ont été archivés parce qu'il n'était plus d'actualité (et qu'ils étaient terminés, abandonnés ou annulés).";
+            $description = "Tous les projets archivés du collectif qui sont visibles pour vous.". createToolTipWithPoint("Ils ont été archivés parce qu'il n'était plus d'actualité. Seuls les projets terminés, abandonnés ou annulés, peuvent être archivés.", "icon-xsmall m-2");
             break;
     }
 
@@ -34,6 +42,32 @@ function projects($option)
             $participates[$key2]['group'] = $groups[$participate['group_id']];
         }
         $projects[$key]['participate'] = $participates;
+        if (is_null($project['responsible_id'])) {
+            $projects[$key]['responsible'] = null;
+        } else {
+            $projects[$key]['responsible'] = $users[$project['responsible_id']];
+        }
+        //Check all works of the project to find if some works need help (external or internal)
+        $needExternalHelp = false;
+        $needInternalHelp = false;
+        foreach ($worksByProject[$project['id']] as $work) {    //if at least one of the works need help, the need help icon will be displayed
+            if ($work['need_help'] == WORK_NEEDHELP_OUTER) {
+                $needExternalHelp = true;
+            }
+            if ($work['need_help'] == WORK_NEEDHELP_INNER) {
+                $needInternalHelp = true;
+            }
+            if ($work['need_help'] == WORK_NEEDHELP_BOTH) {
+                $needExternalHelp = true;
+                $needInternalHelp = true;
+            }
+        }
+        $projects[$key]['needExternalHelp'] = $needExternalHelp;
+        $projects[$key]['needInternalHelp'] = $needInternalHelp;
+
+        $projects[$key]['works'] = $worksByProject[$project['id']];
+
+        $projects[$key]['isUserLoggedInside'] = (in_array($project['id'], $projectsOfLoggedUser));
     }
 
     //TODO: fix bug with substrText() after specialCharsConvertFromAnArray() ...
@@ -160,6 +194,7 @@ function projectDetails($id, $option)
     }
     //TODO: check visibility of the project and if isMember
     $project = getOneProject($id);
+    $works = getAllWorksByProject($id);
     if (empty($project) == false) {
         $users = getAllUsers();
         $groups = getAllGroupsByProject($id);
