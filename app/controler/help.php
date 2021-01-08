@@ -37,10 +37,10 @@ function checkUserPassword($id, $password)
     return password_verify($password, $user['password']);   //return true ou false
 }
 
-//Check length of a string that must not be greater than the max given but less or equal
+//Check length of a string that must not be greater than the max given but less or equal (check that is a string and not empty at start)
 function checkStringLengthNotEmpty($string, $max)
 {
-    if ($string == "") {
+    if ($string == "" || is_string($string) == false) {
         return false;
     }
     return (strlen($string) <= $max);

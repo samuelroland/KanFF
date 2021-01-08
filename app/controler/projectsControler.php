@@ -151,7 +151,7 @@ function createAProject($data)
             displaydebug($projectBack);
             if (empty($projectBack) == false) {
                 $idInsertedForParticipate = createGroupParticipationToAProject($insertedId, $projectBack['manager_id']);
-                if (empty(getOneParticipate($idInsertedForParticipate)) != null) {
+                if (empty(getOneParticipate($idInsertedForParticipate)) == false) {
                     flshmsg(9);
                 } else {
                     flshmsg(45);    //Internal error when participate was created
