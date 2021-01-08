@@ -26,7 +26,6 @@ ob_start();
         <div class="flexdiv">
             <h1 class="flex-1"><?= $textChosen["title"] ?></h1>
         </div>
-        <?php printPageWIPTextInfo(); ?>
         <p><?= $textChosen["introduction"] ?></p>
         <div class="">
             <hr class="hrlight">

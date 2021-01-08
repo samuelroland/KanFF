@@ -109,7 +109,6 @@ function checkIfKeyIsInMultidimentionalArray($array, $key, $val)
 ob_start();
 ?>
     <h1><?= $title ?></h1>
-<?php printPageWIPTextInfo(); ?>
     <p>Voici les informations de <?= $fullname ?>, ses compétences, les groupes rejoints et ses contributions. Certaines
         informations peuvent être masquées en raison du niveau de visibilité défini...</p>
     <div class="statebanner flexdiv">

@@ -3,7 +3,6 @@ ob_start();
 $title = "Créer un projet"
 ?>
 <h1><?= $title ?></h1>
-<?php printPageWIPTextInfo(); ?>
 <p>Cette page vous permet de créer un nouveau projet réalisé par un groupe dont vous êtes membre.</p>
 
 <form action="?action=createAProject" method="POST" class="pt-1">
