@@ -208,6 +208,7 @@ ob_start();
         <?php printContributions($formatedContributions['old']); ?>
     </div>
 <?php
+unset($_SESSION['member-details-visibility']['autorizedGroups']);
 displaydebug($user);
 $contenttype = "large";
 $content = ob_get_clean();
