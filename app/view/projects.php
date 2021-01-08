@@ -135,7 +135,7 @@ function printAProject($project)
             </div>
 
         </div>
-        <div class="position-bottom-right">
+        <div class="positionBottomRightForProjectsDetailsBtn">
             <button class="btn btn-info clickable" data-href="?action=project&id=<?= $project['id'] ?>">Détails</button>
         </div>
         <?php
