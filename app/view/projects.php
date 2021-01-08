@@ -81,11 +81,13 @@ function printAProject($project)
                     <img src="view/medias/icons/exclamationmark.png" alt="email logo" class="icon-small nomargin">
                     <span class="pr-2 bigvalue"><?= $project['importance'] ?></span>
                 </div>
-                <div class="box-verticalaligncenter" title="Urgence du projet (1 à 5)">
-                    <img src="view/medias/icons/clock.png" alt="email logo" class="icon-small nomargin">
-                    <span class="pl-2 pr-1 bigvalue"><?= $project['urgency'] ?></span>
-                </div>
-                <?php
+                <?php if (isAtLeastEqual($project['state'], [PROJECT_STATE_ABANDONNED, PROJECT_STATE_CANCELLED, PROJECT_STATE_DONE]) == false) { ?>
+                    <div class="box-verticalaligncenter" title="Urgence du projet (1 à 5)">
+                        <img src="view/medias/icons/clock.png" alt="email logo" class="icon-small nomargin">
+                        <span class="pl-2 pr-1 bigvalue"><?= $project['urgency'] ?></span>
+                    </div>
+                    <?php
+                }
                 $helptype = null;
                 if ($project['needInternalHelp'] == true) {
                     $helptype = WORK_NEEDHELP_INNER;
