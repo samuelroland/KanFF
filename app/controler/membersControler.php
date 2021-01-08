@@ -29,8 +29,8 @@ function members($option)
         }
         switch ($option) {
             case "2":
-                //On break members
-                if ($onbreak != 1) {
+                //On break members (approved or admin)
+                if ($onbreak != 1 || isAtLeastEqual($state, [USER_STATE_ADMIN, USER_STATE_APPROVED]) == false) {
                     unset($members[$member['id']]);
                 }
                 break;
@@ -60,10 +60,7 @@ function members($option)
                 break;
             default:    //option 1 by default
                 //Active members (approved, admin, no other states and not onbreak):
-                if ($state != USER_STATE_ADMIN && $state != USER_STATE_APPROVED) {
-                    unset($members[$member['id']]);
-                }
-                if ($onbreak == 1) {
+                if ($onbreak == 1 || isAtLeastEqual($state, [USER_STATE_ADMIN, USER_STATE_APPROVED]) == false) {
                     unset($members[$member['id']]);
                 }
                 //Change $option to default:
@@ -96,40 +93,65 @@ function updateAccountState($data)  //Ajax call
 {
     setHTTPHeaderForAPIResponse();
     displaydebug($data);
+    $currentUser = getUserById($data['id']);
+    if (checkAdmin()) {
+        //if values are not null
+        if (isAtLeastEqual("", [$data['state'], $data['anonymous'], $data['password'], $data['id']], true) == false) {
 
-    //if values are not null
-    if (isAtLeastEqual("", [$data['state'], $data['password'], $data['id']]) == false) {
+            //check that user password is right
+            if (checkUserPassword($_SESSION['user']['id'], $data['password'])) {
 
-        //check that user password is right
-        if (checkUserPassword($_SESSION['user']['id'], $data['password'])) {
+                $thisChangeOfStateIsPossible = canChangeUserState($currentUser['state'], $data['state']) && (isAtLeastEqual($data['state'], USER_LIST_STATE));
 
-            $user = getUserById($data['id']);
-            $thisChangeOfStateIsPossible = canChangeUserState($user['state'], $data['state']) && (isAtLeastEqual($data['state'], USER_LIST_STATE));
+                //is this change of state possible (go from current state to next state is authorized and the state exists)
+                if ($thisChangeOfStateIsPossible) {
+                    $thereIsMoreThanMinimumRequired = true; //default value to not block other requests
+                    if ($data['state'] != USER_STATE_ADMIN && $currentUser['state'] == USER_STATE_ADMIN) {  //if the admin will be something else than admin
+                        $thereIsMoreThanMinimumRequired = (count(getAllUsersAdmins()) > USERS_NB_ADMINS_MIN);
+                    }
 
-            //is this change of state possible (go from current state to next state is authorized and the state exists)
-            if ($thisChangeOfStateIsPossible) {
-                updateUser(['state' => $data['state']], $data['id']);   //update only the state on the user
+                    if ($thereIsMoreThanMinimumRequired) {   //if there is more admin than minimum required, the admin logged can continue to remove admins.
+                        $dataToUpdate = ['state' => $data['state'], 'state_modification_date' => timeToDT(time())]; //the modification date is required
+                        if ($data['anonymous'] == false) {
+                            $dataToUpdate['state_modifier_id'] = $_SESSION['user']['id'];
+                        } else {
+                            $dataToUpdate['state_modifier_id'] = null; //make value null
+                        }
+                        updateUser($dataToUpdate, $data['id']);   //update only the state on the user
 
-                //success response with fullname and new state
-                $response = getApiResponse(API_SUCCESS, ['user' => unsetPasswordsInArrayOn2Dimensions($user), 'message' => "Etat de " . buildFullNameOfUser($user) . " changé en " . convertUserState($data['state'])]);
-            } else {    //not authorized
-                $dataAPI = getApiDataContentError("Impossible de changer vers cet état-là.", 33);
-                $user = getUserById($data['id']);
-                $dataAPI['user'] = unsetPasswordsInArrayOn2Dimensions($user);
+                        $newUser = getUserById($data['id']);
+                        $newUser['state_modifier'] = $_SESSION['user']; //the modifier can only be the admin logged
+                        $newUser['sentence_modification_state'] = buildSentenceAccountStateLastChange($newUser, false, false);
+
+                        //success response with fullname and new state
+                        $response = getApiResponse(API_SUCCESS, ['user' => unsetPasswordsInArrayOn2Dimensions($newUser), 'message' => "Etat de " . buildFullNameOfUser($currentUser) . " changé en " . convertUserState($data['state'])]);
+                    } else {
+                        $dataAPI = getApiDataContentError("Ce changement d'état est impossible car il doit rester au moins " . USERS_NB_ADMINS_MIN . " admin" . ((USERS_NB_ADMINS_MIN > 1) ? "s" : "") . " dans le collectif.", 63);
+                        $dataAPI['user'] = unsetPasswordsInArrayOn2Dimensions($currentUser);
+                        $response = getApiResponse(API_FAIL, $dataAPI);
+                    }
+                } else {    //not authorized
+                    $dataAPI = getApiDataContentError("Impossible de changer vers cet état-là.", 33);
+                    $dataAPI['user'] = unsetPasswordsInArrayOn2Dimensions($currentUser);
+                    $response = getApiResponse(API_FAIL, $dataAPI);
+                }
+            } else {    //password invalid
+                $dataAPI = getApiDataContentError("Mot de passe pour activer le mode édition erroné", 15);
+                $currentUser = getUserById($data['id']);
+                $dataAPI['user'] = unsetPasswordsInArrayOn2Dimensions($currentUser);
                 $response = getApiResponse(API_FAIL, $dataAPI);
             }
-        } else {    //password invalid
-            $dataAPI = getApiDataContentError("Mot de passe pour activer le mode édition erroné", 15);
-            $user = getUserById($data['id']);
-            $dataAPI['user'] = unsetPasswordsInArrayOn2Dimensions($user);
+        } else {    //missing data
+            $dataAPI = getApiDataContentError("Données manquantes", 17);
+            $currentUser = getUserById($data['id']);
+            if (empty($currentUser) == false) {    //to prevent empty value if id is inexistant, because the user will be empty
+                $dataAPI['user'] = unsetPasswordsInArrayOn2Dimensions($currentUser);
+            }
             $response = getApiResponse(API_FAIL, $dataAPI);
         }
-    } else {    //missing data
-        $dataAPI = getApiDataContentError("Données manquantes", 17);
-        $user = getUserById($data['id']);
-        if (empty($user) == false) {    //to prevent empty value if id is inexistant, because the user will be empty
-            $dataAPI['user'] = unsetPasswordsInArrayOn2Dimensions($user);
-        }
+    } else {
+        $dataAPI = getApiDataContentError("Permission requise, vous n'êtes pas admin.", 46);
+        $dataAPI['user'] = unsetPasswordsInArrayOn2Dimensions($currentUser);
         $response = getApiResponse(API_FAIL, $dataAPI);
     }
 

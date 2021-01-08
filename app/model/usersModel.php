@@ -27,6 +27,12 @@ function getAllUsers()
     return indexAnArrayById(getAll("users"));
 }
 
+//Get all admins:
+function getAllUsersAdmins()
+{
+    return indexAnArrayById(getByCondition("users", [], "users.state = " . USER_STATE_ADMIN, true));
+}
+
 //Get all users by inscription date desc
 function getAllUsersByInscriptionDesc()
 {
