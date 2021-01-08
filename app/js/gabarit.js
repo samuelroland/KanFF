@@ -101,7 +101,9 @@ document.addEventListener('DOMContentLoaded', function () {
         el.addEventListener('click', function (event) {
             console.log(event.target)
             obj = event.target
-
+            obj = getRealParentHavingGivenAttribute(obj, "data-href")
+            logIt(obj)
+            
             //Search the link in data-href attribute (in obj or its parent)
             if (obj.getAttribute('data-href') == null) {
                 obj = obj.parentNode    //try with the parent

@@ -120,6 +120,26 @@ function getRealParentHavingId(parent, mustContains = "") {
     }
 }
 
+//Get the real parent (event can be produced on childrens and not on the parent directly. The parent is the first parentNode that have an id.)
+function getRealParentHavingGivenAttribute(parent, attribute, mustContains = "") {
+    if (parent == null) {
+        return null
+    }
+    if (mustContains == "") {
+        //while the parent with an id and while the parent is not the body tag (if is body no parent have been found)
+        while (parent.getAttribute(attribute) == null && parent.toString() != "[object HTMLDocument]") {
+            parent = parent.parentNode
+        }
+        return parent
+    } else {
+        //while the parent with an id that contains the given string and while the parent is not the body tag (if is body no parent have been found)
+        while ((parent.getAttribute(attribute) == null || parent.getAttribute(attribute).indexOf(mustContains) == -1) && parent.toString() != "[object HTMLDocument]") {
+            parent = parent.parentNode
+        }
+        return parent
+    }
+}
+
 //Manage (display or hide) divRightPanel
 function managedivRightPanel(display, idFormToDisplay = 1) {
     switch (idFormToDisplay) {
