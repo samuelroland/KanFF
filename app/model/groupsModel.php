@@ -32,8 +32,8 @@ ORDER BY `groups`.creation_date DESC";
 
 }
 
-//Get all groups for one user
-function getAllGroupsByUser($idUser)
+//Get all visible groups for one user
+function getAllVisibleGroupsByUser($idUser)
 {
     $query = "SELECT `groups`.*, `joindetailedmember`.start as entrydate, COUNT(joinall.id) AS nbusers FROM `groups`
 INNER join `join` joindetailedmember ON `joindetailedmember`.group_id = `groups`.id
@@ -41,6 +41,21 @@ INNER join `join` joinall ON `joinall`.group_id = `groups`.id
 INNER join users detailedmember ON detailedmember.id = `joindetailedmember`.user_id
 INNER join users allusers ON allusers.id = `joinall`.user_id
 WHERE	detailedmember.id = :id AND `joindetailedmember`.state IN (".implode(", ", [JOIN_STATE_INVITATION_ACCEPTED, JOIN_STATE_APPROVED]).") AND `joinall`.state IN (7, 8)
+GROUP BY `joindetailedmember`.id
+ORDER BY `joindetailedmember`.start DESC";
+    $params = ['id' => $idUser];
+    return Query($query, $params, true);
+}
+
+//Get all  groups for one user
+function getAllGroupsByUser($idUser)
+{
+    $query = "SELECT `groups`.*, `joindetailedmember`.start as entrydate, COUNT(joinall.id) AS nbusers FROM `groups`
+INNER join `join` joindetailedmember ON `joindetailedmember`.group_id = `groups`.id
+INNER join `join` joinall ON `joinall`.group_id = `groups`.id
+INNER join users detailedmember ON detailedmember.id = `joindetailedmember`.user_id
+INNER join users allusers ON allusers.id = `joinall`.user_id
+WHERE	detailedmember.id = :id 
 GROUP BY `joindetailedmember`.id
 ORDER BY `joindetailedmember`.start DESC";
     $params = ['id' => $idUser];

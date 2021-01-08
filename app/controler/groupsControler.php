@@ -16,7 +16,7 @@ function groups($option)
             $groups = getAllGroups();
             break;
         case 2:
-            $groups = getAllGroupsByUser($_SESSION['user']['id']);
+            $groups = getAllVisibleGroupsByUser($_SESSION['user']['id']);
             break;
         case 3:
             $groups = getAllGroupsArchived();
