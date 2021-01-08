@@ -58,7 +58,7 @@ $title = "Créer un projet"
         <div class="ml-4">
             <label for="end">Fin (facultatif):</label>
             <input class="marginauto" type="date" id="end" min="" name="end"
-                   value="<?= ((($data['end']) !=  '') ? date("Y-m-d", strtotime($data['end'])) : "") ?>">
+                   value="<?= ((($data['end']) != '') ? date("Y-m-d", strtotime($data['end'])) : "") ?>">
         </div>
 
 
@@ -74,14 +74,16 @@ $title = "Créer un projet"
             <h4>Importance</h4>
 
             <input class="form-control inputtypenumber" type="number" min="1" max="5" name="importance"
-                   id="selImportance" value="<?= ((isset($data['importance'])) ? $data['importance'] : 1) ?>" required></div>
+                   id="selImportance" value="<?= ((isset($data['importance'])) ? $data['importance'] : 1) ?>" required>
+        </div>
         <div class="col-lg-3 col-md">
             <h4>Urgence</h4>
             <input class="form-control inputtypenumber" type="number" min="1" max="5" name="urgency" id="selUrgency"
                    value="<?= ((isset($data['urgency'])) ? $data['urgency'] : 1) ?>" required></div>
     </div>
     <div class="divVisibility mr-0 pt-4">
-        <h4>Confidentialité<?= createManualLink("les paramètres de visibilités des projets", false, "icon-middlesmall ml-3") ?></h4>
+        <h4>
+            Confidentialité<?= createManualLink("les paramètres de visibilités des projets", false, "icon-middlesmall ml-3") ?></h4>
         <div class="col-lg-12 col-md-12">
             <input type="checkbox" id="visible"
                    name="visible" <?= ((isset($data['name'])) ? (($data['visible'] == "on") ? "checked" : "") : "checked") //checked by default or if form has been sent, take value sent

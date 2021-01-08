@@ -31,7 +31,7 @@ function projects($option)
             break;
         case 3:
             $projects = getAllArchivedProjects($_SESSION['user']['id']);
-            $description = "Tous les projets archivés du collectif qui sont visibles pour vous.". createToolTipWithPoint("Ils ont été archivés parce qu'il n'était plus d'actualité. Seuls les projets terminés, abandonnés ou annulés, peuvent être archivés.", "icon-xsmall m-2");
+            $description = "Tous les projets archivés du collectif qui sont visibles pour vous." . createToolTipWithPoint("Ils ont été archivés parce qu'il n'était plus d'actualité. Seuls les projets terminés, abandonnés ou annulés, peuvent être archivés.", "icon-xsmall m-2");
             break;
     }
 

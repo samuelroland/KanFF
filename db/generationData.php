@@ -784,7 +784,7 @@ function extraDataForOneTask($task, $work)
     }
 
     if (rand(1, 20)) {
-        $task['link'] = "https://" . generateRandomString(rand(6, 25)) . ".com/" .clearAllNonAlphabeticalChars(getLoremIpsum(rand(15, 2000))) ;
+        $task['link'] = "https://" . generateRandomString(rand(6, 25)) . ".com/" . clearAllNonAlphabeticalChars(getLoremIpsum(rand(15, 2000)));
         $task['link'] = substr($task['link'], 0, 2000); //substring to 2000 chars
     }
 

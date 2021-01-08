@@ -313,7 +313,7 @@ function deleteAccount($post)
         $option = "delete";
         require_once "view/bigActionOnAccount.php";
     } else {
-        checkRightForCallFlashMessagesDeleteArchive($post,"delete");
+        checkRightForCallFlashMessagesDeleteArchive($post, "delete");
     }
 }
 
@@ -326,7 +326,7 @@ function archiveAccount($post)
             $option = "archive";
             require_once "view/bigActionOnAccount.php";
         } else {
-            checkRightForCallFlashMessagesDeleteArchive($post,"archive");
+            checkRightForCallFlashMessagesDeleteArchive($post, "archive");
         }
     } else {
         limitedAccessInfo();
@@ -335,11 +335,12 @@ function archiveAccount($post)
 
 
 //check creditential to call flashmessages for delete and archive
-function checkRightForCallFlashMessagesDeleteArchive($post,$option){
-    if ($option=="delete"){
-        $textToCopy=USER_SENTENCES_DELETE["textToCopy"];
-    }else{
-        $textToCopy=USER_SENTENCES_ARCHIVE["textToCopy"];
+function checkRightForCallFlashMessagesDeleteArchive($post, $option)
+{
+    if ($option == "delete") {
+        $textToCopy = USER_SENTENCES_DELETE["textToCopy"];
+    } else {
+        $textToCopy = USER_SENTENCES_ARCHIVE["textToCopy"];
     }
     $userid = $_SESSION["user"]["id"];
     //check if textToCopy is correctly copied and if password send is the one
@@ -362,11 +363,9 @@ function checkRightForCallFlashMessagesDeleteArchive($post,$option){
     } else {
         if ($post["sentence"] == $textToCopy) {
             flshmsg(8);
-        }
-        elseif (checkUserPassword($_SESSION["user"]["id"], $post["password"])) {
+        } elseif (checkUserPassword($_SESSION["user"]["id"], $post["password"])) {
             flshmsg(17);
-        }
-        elseif (!checkUserPassword($_SESSION["user"]["id"], $post["password"])&&$post["sentence"] != $textToCopy) {
+        } elseif (!checkUserPassword($_SESSION["user"]["id"], $post["password"]) && $post["sentence"] != $textToCopy) {
             flshmsg(17);
             flshmsg(8);
         }

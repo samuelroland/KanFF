@@ -8,7 +8,7 @@
 var optionsOpened = false
 
 //Load the latest copy of task data to restore the form before modifications
-function reloadCurrentTaskWithoutModification(){
+function reloadCurrentTaskWithoutModification() {
     response.data.task = task
     loadTaskDetailsWithData(response, "true")
 }
@@ -194,9 +194,11 @@ function updateTaskState(workid, taskid, newState) {
 function updateTaskStateCallback(response) {
     //TODO: manage the response
 }
-function closeRightPanel(){
+
+function closeRightPanel() {
     managedivRightPanel(false)
 }
+
 //After the DOM has been loaded:
 $(document).ready(function () {
     if (queryActionIncludes("kanban")) { //init only if page is kanban

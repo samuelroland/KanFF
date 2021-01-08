@@ -18,8 +18,9 @@ function printContributions($contributions)
         foreach ($contributions as $project) {
             if (visibilityOfProjects($project["id"])) {
 
-                 ?>
-                <h4><?= $project[0]['projectname'] //get the name of the project with the value in the first work                   ?></h4>
+                ?>
+                <h4><?= $project[0]['projectname'] //get the name of the project with the value in the first work
+                    ?></h4>
                 <ol>
                 <?php foreach ($project as $work) { ?>
                     <li><span class="linkInternal clickable cursorpointer"
@@ -38,15 +39,16 @@ function printContributions($contributions)
     echo "</div>";
 }
 
-function visibilityOfProjects($idProject){
+function visibilityOfProjects($idProject)
+{
 //groups autorized to show
     $_SESSION['member-details-visibility']['autorizedGroups'];
 //groups from logged user
-    $seenUserGroups=getAllGroupsByProject($idProject);
-    foreach ($seenUserGroups as $seenUserGroup){
-        if (checkIfKeyIsInMultidimentionalArray($_SESSION['member-details-visibility']['autorizedGroups'],"id",$seenUserGroup["id"])){
+    $seenUserGroups = getAllGroupsByProject($idProject);
+    foreach ($seenUserGroups as $seenUserGroup) {
+        if (checkIfKeyIsInMultidimentionalArray($_SESSION['member-details-visibility']['autorizedGroups'], "id", $seenUserGroup["id"])) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -173,7 +175,7 @@ ob_start();
                 foreach ($groups as $group) {
                     $fields = visibilityOfGroupsForLoggedUser($group, $loggedUserGroups);
                     if ($fields["name"] != "") {
-                        $_SESSION['member-details-visibility']['autorizedGroups'][]=$fields;
+                        $_SESSION['member-details-visibility']['autorizedGroups'][] = $fields;
                         ?>
                         <tr>
                             <td><?= $fields['name'] ?></td>
@@ -196,7 +198,7 @@ ob_start();
         <span>Les contributions en cours sont les travaux en cours, dont le membre affiché a participé (tâches en cours ou
             terminées). Les projets et les travaux sont ordrés par le nombre de tâches décroissant.</span>
         <?php printContributions($formatedContributions['inrun']);
-        displaydebug($formatedContributions);?>
+        displaydebug($formatedContributions); ?>
     </div>
 
     <div class="standardDivDetail">
