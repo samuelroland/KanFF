@@ -160,8 +160,7 @@ function createAProject($data)
                 flshmsg(55);    //Internal error when project was created
             }
 
-
-            require "view/projects.php";
+            projects(1);
         }
     } else {
         $groups = getAllGroupsByUser($_SESSION['user']['id']);
