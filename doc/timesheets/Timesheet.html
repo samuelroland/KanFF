@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Journal</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <script src='config.js'></script>
+    <script src='_icescrum_api_token.js'></script>
+    <style>
+        #spinner {
+            width: 80px;
+            height: 80px;
+            left: 0px;
+            top: 0px;
+            opacity: 1;
+        }
+
+        .code {
+            font-family: "Courier New";
+            font-weight: bolder;
+            padding: 4px;
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+<div class="pl-5 m-2 mt-4 text-center">
+    <h1>Projet <span id="spnProjName">?</span></h1>
+    <div id="divBadConfig" class="container d-none text-left">
+        <p>Cette page est mal configurée, voici ce que vous devez vérifier:</p>
+        <ol>
+            <li>
+                Le fichier <span class="code">config.js</span> initialise correctement les trois variables suivantes
+                <ul>
+                    <li><span class="code">projectId = 'XXXXXXX'</span> doit contenir le code Icescrum de votre projet. Vous la trouvez dans l'url quand vous êtes sur votre projet dans Icescrum</li>
+                    <li><span class="code">team = ["Pierrette", "Paul", "Jean"]</span> la liste des prénoms des personnes participant au projet</li>
+                    <li><span class="code">timeUnit = "min"</span> l'unité de temps que vous utilisez avec le TimeTracking</li>
+                </ul>
+            </li>
+            <li>
+                Vous avez créé le fichier <span class="code">_icescrum_api_token.js</span> qui contient votre token d'API Icescrum<br>
+                <span class="code">var iceScrumToken = '91030e0ea9a9ab58cbacbf399de65ff21'</span><br>
+                Vous retrouvez votre token dans votre profil ("My Account") sous l'onglet 'API token'<br>
+                <span style="font-weight: bolder">Attention: </span> veillez à ce que ce fichier soit exclu du système de versionning !...
+            </li>
+        </ol>
+    </div>
+    <div id="spnLoading">
+        <img src="https://media2.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt="Loading GIF by Mashable" id="spinner"> Chargement de données depuis IceScrum...
+    </div>
+</div>
+<div id="divContent" class="d-none">
+
+    <div class="pl-5 pr-2">
+        Données:
+        <input name="selDisplay" id="rbtPerso" type="radio" checked> personnelles ou
+        <input name="selDisplay" id="rbtProj" type="radio"> du projet
+    </div>
+
+    <div class="pl-5  pr-2" id="divPerso">
+        <h3>Journal de travail individuel de</h3>
+        <select class="form-control col-2 m-2" id="inpPerson" disabled>
+            <option>--- Choisir ---</option>
+        </select>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+            <th>Story</th>
+            <th>Task</th>
+            <th title='Dernière mise à jour de la tâche'>Date</th>
+            <th>Temps [<span id="spnTUnit1"></span>]</th>
+            <th>Release / Sprint</th>
+            </thead>
+            <tbody id="tblBodyPerso"></tbody>
+        </table>
+    </div>
+
+
+    <div class="pl-5 pr-2 d-none" id="divProj">
+        <h3>Toutes les tâches, par sprint</h3>
+        <div class="form-row">
+            <label class="form-check-label m-2" for="inpSprint">Sprint: </label>
+            <select id="inpSprint" class="form-control col-2 m-2" disabled>
+                <option value=0>--- Tous ---</option>
+            </select>
+        </div>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+            <th>Story</th>
+            <th>Task</th>
+            <th title='Dernière mise à jour de la tâche'>Date</th>
+            <th>Temps [<span id="spnTUnit2"></span>]</th>
+            <th>Responsable</th>
+            </thead>
+            <tbody id="tblBodyProj"></tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
+<script>
+
+    // ========= Event handlers ========
+    // Show / Hide sections with radio buttons
+    rbtPerso.addEventListener('click', function () {
+        divPerso.classList.remove('d-none')
+        divProj.classList.add('d-none')
+    })
+
+    rbtProj.addEventListener('click', function () {
+        divPerso.classList.add('d-none')
+        divProj.classList.remove('d-none')
+    })
+
+    // Person selection change
+    inpPerson.addEventListener('change', function () {
+        filteredTasks = []
+        projectStories.forEach(function (story) {
+            story.tasks.forEach(function (task, index) {
+                if (task.responsible)
+                { // someone took the task
+                    if (task.responsible.firstName == inpPerson.value)
+                    {
+                        task.data = projectSprints[task.sprint.id] ? projectSprints[task.sprint.id].release + " / " + projectSprints[task.sprint.id].number : '?' // specific data in view by people is the sprint number
+                        filteredTasks.push(task)
+                    }
+                }
+            })
+        })
+        showData(tblBodyPerso, filteredTasks)
+    })
+
+    // Sprint selection change
+    inpSprint.addEventListener('change', function () {
+        filteredTasks = []
+        projectStories.forEach(function (story) {
+            story.tasks.forEach(function (task, index) {
+                if (task.sprint.id == inpSprint.value)
+                {
+                    task.data = task.responsible ? task.responsible.firstName : '?' // specific data in view by sprint is the person
+                    filteredTasks.push(task)
+                }
+            })
+        })
+        showData(tblBodyProj, filteredTasks)
+    })
+
+    // ============ Initialization =================
+    var months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jui', 'Aou', 'Sep', 'Oct', 'Nov', 'Déc']
+    var projectStories // globals :-( holding all stories of the project
+    var projectSprints
+
+    // Configuration check
+    if (typeof (iceScrumToken) !== 'undefined' && typeof (projectId) !== 'undefined' && typeof (timeUnit) !== 'undefined')
+    {
+        var API_base_url = 'https://icescrum.cpnv.ch/ws/project/' + projectId
+        loadData()
+    } else
+    {
+        divBadConfig.classList.remove('d-none')
+        spnLoading.classList.add('d-none')
+    }
+
+    // Unit in headers
+    spnTUnit1.innerText = timeUnit
+    spnTUnit2.innerText = timeUnit
+
+    // Project name
+    fetch(API_base_url + '/?icescrum-token=' + iceScrumToken).then(function (response) {
+        return response.json()
+    }).then(function (data) {
+        spnProjName.innerText = data.name
+    })
+
+    // Team in dropdown
+    team.forEach(element => {
+        opt = document.createElement('option')
+        opt.text = element
+        inpPerson.appendChild(opt)
+    });
+
+    // Business stuff....
+    function showData(table, tasks)
+    {
+        table.innerHTML = ''
+        tasks.forEach(function (task) {
+            let d = new Date(task.lastUpdated)
+            date = d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear() + ' ' + d.getHours() + ':' + d.getMinutes()
+            switch (task.type)
+            {
+                case 10:
+                    storyName = 'Urgente'
+                    break;
+                case 11:
+                    storyName = 'Récurrente'
+                    break;
+                default:
+                    storyName = task.parentStory.name
+            }
+
+            tr = document.createElement('tr')
+            c = document.createElement('td') // Story
+            c.innerText = storyName
+            tr.appendChild(c)
+            c = document.createElement('td') // Task
+            c.innerText = task.name
+            tr.appendChild(c)
+            c = document.createElement('td') // Date
+            c.innerText = date
+            tr.appendChild(c)
+            c = document.createElement('td') // Time spent
+            c.innerText = task.spent
+            tr.appendChild(c)
+            c = document.createElement('td') // Filter-specific data
+            c.innerText = task.data
+            tr.appendChild(c)
+            table.appendChild(tr)
+        })
+    }
+
+    function loadData()
+    {
+        let stories = [] // the stories of the project
+        stories[10] = {name: '(Urgentes)', tasks: []}
+        stories[11] = {name: '(Récurrentes)', tasks: []}
+        let sprints = [] // the sprints of the project
+        // First get all sprints
+        fetch(API_base_url + '/sprint?icescrum-token=' + iceScrumToken).then(function (response) {
+            return response.json()
+        }).then(function (data) {
+            data.forEach(function (sprint) {
+                sprints[sprint.id] = {number: sprint.orderNumber, release: sprint.parentRelease.name}
+                opt = document.createElement('option')
+                opt.value = sprint.id
+                opt.text = sprint.parentRelease.name + " - " + sprint.orderNumber
+                inpSprint.appendChild(opt)
+            })
+            projectSprints = sprints
+        }).then(function () { // get stories
+            fetch(API_base_url + '/story?icescrum-token=' + iceScrumToken).then(function (response) {
+                return response.json()
+            }).then(function (data) {
+                data.forEach(function (story) {
+                    if (inpSprint.value == 0) // no sprint requested
+                    {
+                        stories[story.id] = {name: story.name, tasks: []}
+                    } else // keep story only if it's in the selected sprint
+                    {
+                        if (story.parentSprint) // story is planned
+                        {
+                            if (story.parentSprint.id == inpSprint.value)
+                            {
+                                stories[story.id] = {name: story.name, tasks: []}
+                            }
+                        }
+                    }
+                })
+            }).then(function () { // get all tasks
+                fetch(API_base_url + '/task?icescrum-token=' + iceScrumToken).then(function (response) {
+                    return response.json()
+                }).then(function (data) {
+                    data.forEach(function (task) {
+                        if (task.type == 10 || task.type == 11) // task is urgent or recurrent
+                        {
+                            if (inpSprint.value == 0 || task.sprint.id == inpSprint.value) // in a sprint we want (all or a specific one)
+                            {
+                                stories[task.type].tasks.push(task)
+                            }
+                        } else // it's linked to a user story
+                        {
+                            if (typeof (stories[task.parentStory.id]) != 'undefined') // it is one of the stories we kept for display
+                            {
+                                stories[task.parentStory.id].tasks.push(task)
+                            }
+                        }
+                    })
+                }).then(function () { // show tasks
+                    projectStories = stories
+                    inpSprint.disabled = false
+                    inpPerson.disabled = false
+                    spnLoading.classList.add('d-none')
+                    divContent.classList.remove('d-none')
+                })
+            })
+        }).catch(function (erreur) {
+            alert("Erreur de connexion au serveur IceScrum\n\nSi vous pouvez atteindre icescrum.cpnv.ch avec votre navigateur, alors c'est probablement que votre token est pourri")
+            window.close()
+        })
+    }
+
+</script>
