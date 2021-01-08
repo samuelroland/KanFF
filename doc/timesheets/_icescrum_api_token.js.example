@@ -1,0 +1,2 @@
+//File for IceScrum Credentials: duplicate the file and rename it "_icescrum_api_token.js". This file MUST be EXCLUDED of the versionning system.
+var iceScrumToken = ''  //put your personnal icescrum token here (create a new one)

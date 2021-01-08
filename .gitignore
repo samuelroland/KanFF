@@ -5,6 +5,11 @@ package-lock.json
 #phpStorm
 .idea
 
+#IceScrum credentials
+_icescrum_api_token.js
+*token.js
+*credentials.js
+
 #ngrok app and exe files
 ngrok.exe
 *.exe
