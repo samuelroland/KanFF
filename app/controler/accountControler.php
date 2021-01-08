@@ -348,8 +348,8 @@ function checkRightForCallFlashMessagesDeleteArchive($post,$option){
             case "delete":
                 deleteUser($userid);
                 unset($_SESSION['user']);
-                require_once 'view/about.php';
                 flshmsg(18);
+                login(null, null);
                 break;
             case "archive":
                 flshmsg(19);
