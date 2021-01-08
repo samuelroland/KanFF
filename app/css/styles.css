@@ -13,7 +13,6 @@
 
 .versiontextformanual {
     font-size: 0.9em;
-    color: black;
     padding: 0;
 }
 
@@ -222,6 +221,11 @@ label {
     display: flex;
 }
 
+.align-items-end {
+    display: flex;
+    align-items: end;
+}
+
 .smalltextinput {
     width: 100%;
     max-width: 300px;
@@ -310,7 +314,7 @@ label {
 
 .icon-small {
     width: 30px;
-    margin: 5px;
+    margin: 5px !important;
 }
 
 .icon-middlesmall {
@@ -502,6 +506,10 @@ tr {
     margin: 0px !important;
 }
 
+.nopadding {
+    padding: 0px !important;
+}
+
 .noborder {
     border: none !important;
 }
@@ -528,7 +536,7 @@ tr {
 }
 
 .hryellowproject {
-    border: #a27200 1px solid;
+    border: #bd85008c 1px solid;
     border-radius: 5px;
 }
 
@@ -548,6 +556,10 @@ tr {
 .thinBorder {
     border: solid #ffb400ab 2px;
     border-radius: 5px;
+}
+
+.borderForConcernedNeedhelp {
+    border: 2px solid #1c0e02;
 }
 
 .notVisibleToAll {
@@ -581,6 +593,10 @@ hr {
 
 .width-min-content {
     width: min-content;
+}
+
+.width-max-content {
+    width: max-content;
 }
 
 .inputtypenumber {
@@ -696,17 +712,23 @@ hr {
     border: 1px #717171 solid;
     max-height: 900px;
     border-radius: 3px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.iconsForManual {
+    border: none !important;
 }
 
 .mdstyle .thinBlackBorderForTitle {
     margin: 0px !important;
     padding-bottom: 10px;
-    border-bottom: 1px solid;
+    border-bottom: 2px solid #38417f;
+    color: #38417f;
 }
 
 .mdstyle h1 {
     padding-bottom: 5px;
-    border-bottom: 1px solid;
     color: #38417f;
 }
 
@@ -719,6 +741,8 @@ hr {
 .mdstyle h2 {
     margin-top: 0.6em;
     color: #348a19;
+    border-bottom: 1px solid;
+    padding-bottom: 2px;
 }
 
 .mdstyle h3 {
@@ -750,6 +774,32 @@ hr {
     border-radius: 5px;
 }
 
+.mdstyle pre {
+    background-color: #c5d2ff;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.mdstyle li {
+    margin-bottom: 7px;
+}
+
+.mdstyle .mdTOC li {
+    margin: 0;
+}
+
+.clickablebanner {
+    background-color: #d1d5e4;
+    padding: 3px;
+    border-radius: 5px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.clickablebanner:hover {
+    background-color: #b9bdcb;
+}
+
 .circlebordered {
     max-width: 40px;
     max-height: 40px;
@@ -772,4 +822,50 @@ hr {
 .iconsize-40 {
     height: 40px;
     width: 40px;
+}
+
+.flexwrap {
+    flex-wrap: wrap;
+}
+
+.aligncontentbaseline {
+    align-content: baseline;
+}
+
+.keepentire {
+    min-width: max-content;
+}
+
+.borderradius {
+    border-radius: 0px 5px 0px 5px;
+}
+
+.topRightForProjectKey {
+    background-color: #f7c654;
+    position: absolute;
+    top: -1px;
+    right: -1px;
+}
+
+.positionBottomForProgressBar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-top: 1px solid #7a5702;
+}
+
+.progressBar {
+    background-color: #ffc437;
+}
+
+.heightProgressBar {
+    height: 7px;
+}
+
+input, select, textarea {
+    color: #232323 !important;
+}
+
+input:disabled, select:disabled, textarea:disabled {
+    background-color: #efefef !important;
 }

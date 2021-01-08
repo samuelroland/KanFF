@@ -26,7 +26,7 @@ if ($project['archived'] == 1) {
 ?>
     <div class="statebanner box-verticalaligncenter ">
         <div class="iconsize-40">
-            <?= printAnIcon("infopoint.png", "Statut","info point", "icon-small") ?>
+            <?= printAnIcon("infopoint.png", "Statut", "info point", "icon-small") ?>
         </div>
         <span><h3 class="d-inline ml-3"><?= convertProjectState($project['state'], true) ?></h3></span>
     </div>
@@ -80,7 +80,8 @@ if ($project['archived'] == 1) {
             displaydebug($groups);
             foreach ($groups as $group) { ?>
                 <tr>
-                    <td><?= $group['name']; //TODO: display if group is creator and if is manager of the project          ?></td>
+                    <td><?= $group['name']; //TODO: display if group is creator and if is manager of the project
+                        ?></td>
                     <td><?= DTToHumanDate($group['creation_date']) ?></td>
                     <td><?= $group['nbmembers'] ?></td>
                     <td><?= DTToHumanDate($group['participate_since']) ?></td>
@@ -92,6 +93,9 @@ if ($project['archived'] == 1) {
     <div class="mt-4">
         <h3>Travaux</h3>
         <div>En construction</div>
+        <?php if (devMode()) {
+            var_dump($works);
+        } ?>
     </div>
 
     <div class="mt-4">

@@ -8,7 +8,7 @@ These are the full specifications of the database of the KanFF (the tables, fiel
    - [Table of content](#table-of-content)   
    - [MCD and MLD](#mcd-and-mld)   
    - [List of all tables:](#list-of-all-tables)   
-   - [List of all fields for each table:](#list-of-all-fields-for-each-table)   
+   - [Fields of each table:](#fields-of-each-table)   
       - [Information about the whole database:](#information-about-the-whole-database)   
       - [Users:](#users)   
       - [Groups:](#groups)   
@@ -16,8 +16,8 @@ These are the full specifications of the database of the KanFF (the tables, fiel
       - [Projects:](#projects)   
       - [Works:](#works)   
       - [Tasks:](#tasks)   
-   - [Participate](#participate)   
-   - [Log](#log)   
+      - [Participate](#participate)   
+      - [Log](#log)   
    - [Pack "Collectif Assoc Vaud":](#pack-collectif-assoc-vaud)   
       - [Content:](#content)   
       - [How to use it ?](#how-to-use-it)   
@@ -47,7 +47,7 @@ MLD (`Modèle Logique de Données` in french is the `Logical Data Model` in engl
 
 Other tables exist in the data model but are abandoned for v1.0...
 
-## List of all fields for each table:
+## Fields of each table:
 ### Information about the whole database:
 - **All tables contain an `id`** field that is the unique technical identifier for each entry in the database. To make this documentation lighter, this field isn't mentioned for each table below.
 - **All the dates are stored in DATETIME format** (even if the hours, minutes, seconds level of precision is not displayed).
@@ -209,7 +209,7 @@ Each entry represents a joining of a user to a group.
 - `creator_id`: a foreign key linked users.id. It's the creator of the task.
 - `work_id`: a foreign key linked works.id. It's the parent work.
 
-## Participate
+### Participate
 Each entry represents a participation of a group to a project.
 - `group_id`: a foreign key linked groups.id.
 - `project_id`: a foreign key linked projects.id.
@@ -224,7 +224,7 @@ Each entry represents a participation of a group to a project.
         - 5 = invitation refused
         - 6 = banned
 
-## Log
+### Log
 Each entry represents a log in the logbook of a project created by a user
 - `title`: title of the log (5-10 words resuming the log)
 - `description`: Complete description of what has happened (support line break)
@@ -251,16 +251,21 @@ This pack of data in french is about a fictive collective called "Collectif Asso
 
 **One important thing: Passwords are the firstname of the user.**
 
-### How to use it ?
-If you want to install it on your own instance:
+### How to use it/test it ?
+**DISCLAIMER: the app is not ready to be run in production ! Don't use it for this purpose! Only test instances with fictitious data should be used/created.**
+If you want to install it on your own instance to try it:
 - Look at [process to import db](../README.md#proc%C3%A9dure-1) at the part about the import of the pack.  
 Else, if you are looking for an easier option:
-- Use the official test instance. You will find the link in the README too.
+- Use the [official test instance](try.kanff.org).
 
-Examples users (often used in user doc and other examples) to login:
+Examples users (often used in manual, technical documentation and other examples):
 - Josette Richard (`JRD` - `josette.richard@assoc.ch`)
 - Vincent Rigot (`VRT` - `vincent.rigot@assoc.ch`)
 - Mégane Blan (`MBN` - `megane.blan@assoc.ch`)
+- Michel Charrière (`MCE` - `michel.charriere@assoc.ch`)
+- Cassandra De Castro Del Amino (`CDO`)
+
+**Their passwords are their name.** (For ex, the credentials for Mégane Blan are `MBN`:`Mégane`)
 
 ## How to generate another pack ?
 Prerequesite:

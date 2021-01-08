@@ -15,17 +15,17 @@ $title = "Mode d'emploi";
 ?>
     <div id="top"></div>
     <div class="mdstyle">
-        <div class="flexdiv thinBlackBorderForTitle">
-            <h1 class="flex-1" id="mode-d-emploi"><?= $title ?></h1>
-            <span class="flexdiv align-items-end versiontextformanual font-size-1"><?php echo createToolTip("v" . $docVersion . ", <em>le " . $docVersionDate . "</em>", "Ce mode d'emploi est mis à jour plus fréquemment que l'application (selon les retours). Actuellement en version " . $docVersion . " sortie le " . $docVersionDate . ".", false, "bottom"); ?></span>
+        <div class="flexdiv thinBlackBorderForTitle flexwrap">
+            <h1 class="flex-1 keepentire" id="mode-d-emploi"><?php echo $title;
+                echo createCopyLinkIconForManual("top") ?></h1>
+            <span class="flexdiv keepentire  align-items-end justify-content-end versiontextformanual font-size-1"><?php echo createToolTip("v" . $docVersion . ", <em>le " . ((compare2DatesWithDayPrecision(substr($docVersionDate, 0, strpos($docVersionDate, " ")), timeToDT(time())) == 0) ? "<strong>$docVersionDate</strong>" : $docVersionDate) . "</em>", "Ce mode d'emploi est mis à jour plus fréquemment que l'application (selon les retours). Actuellement en version " . $docVersion . " sortie le " . $docVersionDate . ".", false, "bottom"); ?></span>
         </div>
-        <h2 id="table-des-matieres">Table des matières</h2>
         <?php
         echo $doc;
         echo $msg;
         ?></div>
 <?php if ($doc != "") { ?>
-    <div class="clickablebanner linkOfTOC box-aligncenter box-verticalaligncenter clickable" data-href="#top">
+    <div class="clickablebanner linkOfTOC box-aligncenter box-verticalaligncenter clickable mt-5" data-href="#top">
         <h4 class="nomargin linkOfTOC">Retour en haut ^</h4>
     </div>
     <?php

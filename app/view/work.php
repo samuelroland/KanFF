@@ -78,7 +78,7 @@ function printAWork($work, $isInsideTheProject)
             </div>
         </div>
         <div class="divWorkContent flexdiv" <?= ($work['state'] == WORK_STATE_DONE) ? "hidden" : "" ?>>
-            <div class="flex-1 leftcolumn divWorkOneState">
+            <div class="flex-1 leftcolumn divWorkOneState" id="workstate-<?= $work['id'] ?>-1">
                 <?php
                 foreach ($work['tasks'] as $task) {
                     if ($task['state'] == TASK_STATE_TODO) {
@@ -88,14 +88,14 @@ function printAWork($work, $isInsideTheProject)
                 ?>
                 <?php
                 displaydebug($work['hasWritingRightOnTasks']);
-                if ($work['hasWritingRightOnTasks'] && $work['state'] != WORK_STATE_DONE) {
+                if ($work['hasWritingRightOnTasks']) {
                     echo "<div id='divTaskPlusButton' class='divTaskPlusButton borderformodifiabletask cursorpointer' data-work='{$work['id']}'>";
                     printAnIcon("plus.png", "Créer une tâche", "plus icon", "divTaskPlusButtonIcon");
                     echo "</div>";
                 }
                 ?>
             </div>
-            <div class="flex-1 middlecolumn divWorkOneState">
+            <div class="flex-1 middlecolumn divWorkOneState" id="workstate-<?= $work['id'] ?>-2">
                 <?php
                 foreach ($work['tasks'] as $task) {
                     if ($task['state'] == TASK_STATE_INRUN) {
@@ -104,7 +104,7 @@ function printAWork($work, $isInsideTheProject)
                 }
                 ?>
             </div>
-            <div class="flex-1 rightcolumn divWorkOneState">
+            <div class="flex-1 rightcolumn divWorkOneState" id="workstate-<?= $work['id'] ?>-3">
                 <?php
                 $nbtasks = 0;
                 foreach ($work['tasks'] as $task) {

@@ -26,7 +26,6 @@ ob_start();
         <div class="flexdiv">
             <h1 class="flex-1"><?= $textChosen["title"] ?></h1>
         </div>
-        <?php printPageWIPTextInfo(); ?>
         <p><?= $textChosen["introduction"] ?></p>
         <div class="">
             <hr class="hrlight">
@@ -36,13 +35,11 @@ ob_start();
         <hr class="hrlight">
         <form action="?action=<?= $option ?>Account" method="POST">
             <div id="divDeleteValidation" class="">
-                <p id="pDeleteValidationText" class="txtdarkbluelogo font-italic">
-                    <?= $textChosen["textToCopy"] ?>
-                </p>
+                <p id="pDeleteValidationText" class="txtdarkbluelogo font-italic"><?= $textChosen["textToCopy"] ?></p>
                 <textarea name="sentence" id="txtSentenceDeleteValidation" rows="4"
                           class="fullwidth form-control nomargin"
                           placeholder="Veuillez accepter et recopier le texte ci-dessus."
-                required></textarea>
+                          required></textarea>
             </div>
             <hr class="hrlight">
             <div class="">
@@ -54,7 +51,8 @@ ob_start();
                 <?= createToolTipWithPoint($textChosen["verb"] . " étant une action très importante, nous avons besoin de
             votre confirmation pour valider l'action. Pour ceci rentrer le mot de passe de votre compte.", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
                 <div class="divBtnCreate pt-4">
-                    <input type="button" class="btn btn-light clickable" data-href="?action=editAccount" value="Annuler">
+                    <input type="button" class="btn btn-light clickable" data-href="?action=editAccount"
+                           value="Annuler">
                     <input type="submit" class="btn btn-danger" value="<?= $textChosen["button"] ?>">
                 </div>
             </div>

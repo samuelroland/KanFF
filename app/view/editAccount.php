@@ -84,7 +84,7 @@ ob_start();
                            name="username" pattern="^[a-zA-Z0-9_]{4,15}$"
                            placeholder="josette27" value="<?= $user['username'] ?>" required/>
                     <p id="pCounterUsername" class="m-2"></p>
-                    <?= createToolTipWithPoint("Cette valeur doit être alphanumérique et peut contenir des '_'. La longueur minimum est de 5. ", "icon-middlesmall ml-2 mr-2 m-2", false, "right"); ?>
+                    <?= createToolTipWithPoint("Cette valeur doit être alphanumérique et peut contenir des '_'. La longueur minimum est 4 caractères. ", "icon-middlesmall ml-2 mr-2 m-2", false, "right"); ?>
                 </div>
 
                 <div class="<?= $cssForDivField ?>">
@@ -116,7 +116,7 @@ ob_start();
                         echo buildSentenceAccountStateLastChange($user);
                         ?></span>
                     <div class="">
-                        <?= createToolTipWithPoint("Information concernant le dernier changement d'état", "icon-small ml-2 mr-2 m-2", false, "right") ?>
+                        <?= createToolTipWithPoint("Information concernant le dernier changement d'état", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
                     </div>
                 </div>
 
@@ -150,7 +150,7 @@ Vous pouvez laisser une information dans votre statut concernant la raison de vo
                     <span class="<?= $cssForSpan ?>">Lien messagerie instantanée</span>
                     <input class="<?= $cssForInput ?>" type="text" name="chat_link"
                            placeholder="t.me/josette27" value="<?= $user['chat_link'] ?>" maxlength="2000"/>
-                    <?= createToolTipWithPoint("Lien permettant de vous écrire en privé via la messagerie instanée de votre collectif.", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
+                    <?= createToolTipWithPoint("Lien permettant de vous écrire en privé via la messagerie instantanée de votre collectif.", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
 
                 </div>
 
@@ -224,13 +224,14 @@ Vous pouvez laisser une information dans votre statut concernant la raison de vo
             <div class="pt-3">
                 <hr class="hrlight">
                 <h4 class="d-inline text-danger">Zone danger</h4>
-                <?php if (checkUserHasRightsForBigActionOnAccount()){?>
-                <div class="  pt-3">
-                    <button type="submit" class="clickable btn btn-dark" data-href="?action=archiveAccount">Archiver mon
-                        compte...
-                    </button>
-                </div>
-                <?php }?>
+                <?php if (checkUserHasRightsForBigActionOnAccount()) { ?>
+                    <div class="  pt-3">
+                        <button type="submit" class="clickable btn btn-dark" data-href="?action=archiveAccount">Archiver
+                            mon
+                            compte...
+                        </button>
+                    </div>
+                <?php } ?>
                 <div class=" pt-3">
                     <button type="submit" class="clickable btn btn-dark" data-href="?action=deleteAccount">Supprimer mon
                         compte...

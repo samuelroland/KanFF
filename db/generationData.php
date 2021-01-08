@@ -5,7 +5,7 @@
  *  Author: Samuel Roland
  *  Creation date: 08.05.2020
  *  Version date: 16.12.2020
- *  VERSION: v2.5
+ *  VERSION: v2.6
  *  MLD: MLD-KanFF-official.png v1.3
  *
  *  How to run ?
@@ -284,7 +284,7 @@ function dataUsers()
         //Generate chat_link:
         $userinrun['chat_link'] = "";
         if (rand(0, 1) == 0) {
-            $userinrun['chat_link'] = "chat.link/user?t=" . generateRandomString(rand(10, 15));
+            $userinrun['chat_link'] = "userchat.link/user?t=" . generateRandomString(rand(10, 15));
         }
         //Save data not already present in $userinrun
         $userinrun['id'] = $id; //fix id in prevision of foreign keys later
@@ -357,7 +357,7 @@ function dataGroups()
         }
 
         //Generate chat and drive link that seem like a real one
-        $group['chat_link'] = "chat.link/join?v=" . generateRandomString(rand(10, 15));
+        $group['chat_link'] = "userchat.link/join?v=" . generateRandomString(rand(10, 15));
         $group['drive_link'] = "drive.link/open?f=" . generateRandomString(rand(50, 70));
 
         //Foreign key of the user creator
@@ -784,7 +784,7 @@ function extraDataForOneTask($task, $work)
     }
 
     if (rand(1, 20)) {
-        $task['link'] = "https://" . generateRandomString(rand(6, 25)) . "/" . getLoremIpsum(rand(15, 2000));
+        $task['link'] = "https://" . generateRandomString(rand(6, 25)) . ".com/" . clearAllNonAlphabeticalChars(getLoremIpsum(rand(15, 2000)));
         $task['link'] = substr($task['link'], 0, 2000); //substring to 2000 chars
     }
 

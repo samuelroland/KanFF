@@ -144,14 +144,18 @@ function manageResponseStatus(response) {
 }
 
 //is the needle included in the action in the querystring ?
-function queryActionIncludes(needle) {
+function queryActionIncludes(needle, notInAction = false) {
     if (needle == "") {    //the needle can't be empty
         return false
     }
     querystring = window.location.search    //get the querystring
     action = querystring.split("&")[0]  //get the first parameter in the querystring (that must be in all cases the action=x
     action = action.toLowerCase()   //set to lowercase because updateTask and tasks contain the work "task" but the
-    return (action.includes(needle.toLowerCase()))
+    if (notInAction == false) {
+        return (action.includes(needle.toLowerCase()))
+    } else {
+        return (window.location.search.indexOf(needle) !== -1)
+    }
 }
 
 //Source: Thanks to https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro
@@ -189,4 +193,21 @@ function isJson(str) {
         return false;
     }
     return true;
+}
+
+//An easier foreach than the long way in pure js, "foreach(" can replace "Array.prototype.foreach.call("
+function foreach(elements, func) {
+    Array.prototype.forEach.call(elements, function (el) {
+        func(el)
+    })
+}
+
+//display tr ".tr-emptytable" if the table is empty
+function displayTrEmptyTableMsgIfTableIsEmpty(tableid) {
+    tbl = document.getElementById(tableid)
+    nbElement = tbl.children[1].children.length - 1     //-1 because .tr-emptytable is counted
+    if (nbElement == 0) {   //if table is empty, display msg
+        trEmptyTableMsg = tbl.querySelector(".tr-emptytable")
+        trEmptyTableMsg.hidden = false
+    }
 }

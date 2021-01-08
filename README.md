@@ -16,6 +16,7 @@ Chaque projet a un kanban et est divisé en parties appelées "travaux". Ceux-ci
 La gestion de toutes ces tâches et travaux dans les différents projets se fait collaborativement à travers le kanban et les détails du projet. Les événements importants relatifs à un projet sont consignés par les membres dans un journal de bord.
 
 #### Le kanban
+Le kanban est la page principale de l'application puisque c'est à cet endroit que les tâches vont pouvoir être gérées.
 Le kanban du projet `Crowdfunding Festival 2020` pour le collectif fictif `Collectif Assoc Vaud`.
 
 ![readme-kanban-example.PNG](doc/img/readme-kanban-example.PNG)
@@ -27,7 +28,7 @@ Les détails d'une tâche (numéro 1) sur le kanban du projet `Crowdfunding Fest
 ## Contexte d'utilisation
 L'application est pensée pour être utilisée par **des membres de collectifs, d'organisations, de mouvements, d'associations ou de simples groupes ayant des projets communs.**  
 L'application se veut **polyvalente** et devrait pouvoir être utilisée dans des groupes de différentes tailles, structures, objectifs et organisation du travail, et réalisant des projets de nature différente, ...
-*Pour l'instant, une instance KanFF ne peut pas héberger plusieurs collectifs*.
+*Pour l'instant, une instance KanFF ne peut pas héberger plusieurs collectifs*. A propos de la langue, l'application est en français, et sera traduite en d'autres langues (anglais, allemand, ...) une fois le système de traductions implémentés (après la v1.0). Le code est entièrement en anglais, la communication sur GitHub aussi. La documentation est partagée entre l'anglais et le français. A l'avenir, nous aimerions pouvoir avoir tout en anglais sur le repository mais ce n'est pas pour tout de suite...
 
 ## Objectif de l'application
 L'application doit permettre: de **gérer des projets, gérer des tâches**, la répartition du travail, de planifier des projets, de gérer les **membres** et les **groupes**, ... afin de **collaborer à plusieurs sur des projets**, avoir une **vision d'ensemble large** (de tous les projets, travaux, tâches, groupes et membres du collectif), mieux répartir la charge de travail, inclure de nouvelles personnes et aussi les personnes moins engagées...
@@ -51,31 +52,31 @@ L'indication de la version de l'application (ainsi que la date de publication) s
 ### Documentations
 Les documentations sont pour certaines en cours d'écriture ou incomplètes...
 
-#### Documentation utilisateur
-- [Documentation utilisateur](doc/kanff-doc-user-fr.md) (en cours)
+#### Documentation utilisateur·ice
+- [Mode d'emploi](doc/kanff-doc-user-fr.md) (en cours)
 
 #### Documentations techniques (développement)
-- [Documentation globale](doc/kanff-doc-fr.md)(en cours)
-- [Liste des pages (prévues et réalisées)](list-pages.md)
-- [Fonctions d'aide](helpers-functions.md)(en cours)
-- [Spécifications de la base de données](db-specifications.md)
-- [Structure des appels Ajax](structure-ajax-calls.md)
+- [Documentation globale](doc/kanff-doc-fr.md)
+- [Liste des pages (prévues et réalisées)](doc/list-pages.md)
+- [Fonctions d'aide](doc/helpers-functions.md)
+- [Spécifications de la base de données](doc/db-specifications.md)
+- [Structure des appels Ajax](doc/structure-ajax-calls.md)
 
 ### Avancement du projet
 Le projet a commencé le 23.04.2020 et est en développement actif. Il n'y a pas encore de version assez complète pour être utilisable (uniquement des versions bêta). La première version utilisable (`v1.0`) est prévue pour le 29.01.2021 (il est possible qu'il y ait du retard). Il y a actuellement beaucoup de petits bogues et de fonctionnalités commencées et non terminées. La sécurité est implémentée en partie (basiquement contre les injections SQL, l'accès à des ressources non-autorisées et le CSRF, mais par contre le XSS, l'upload de fichiers, ...). Un document sur la sécurité sortira avant la version 1.0.
 
 ### Contributions
-- Si vous avez trouvé un bogue, [créer un issue](https://github.com/samuelroland/KanFF/issues) et détailler le problème.
-Si vous êtes intéressé·e à contribuer, nous nous en réjouissons. Nous n'avons pas encore de lignes directrices pour les contributions, alors n'hésitez pas à nous envoyer un email pour nous motiver à les écrire (et nous dire au passage sur quoi vous aimeriez aider : code, documentation, design, autres) ... Vous pouvez sans hésiter ouvrir une issue également.
+Il y a plusieurs manières de contribuer à cette application, même sans savoir coder. Tout est décrit dans [les lignes directrices de contributions](CONTRIBUTING.md).
 
 ### Feuille de route
-Fonctionnalité prévues pour la version `v1.0` (~29.01.2021) :
+Fonctionnalité prévues pour la version `v1.0` (~~~29.01.2021~~ à partir d'avril 2021...) :
 - Gestion des membres
 - Gestion des groupes
 - Gestion des projets (inclut projets, travaux, tâches, groupes participants et journaux de bord)
 
 Fonctionnalité prévues pour les versions **après** la `v1.0` (pas de date définie pour l'instant) :
 - Gestion des collectifs (plusieurs collectifs par instance)
+- Système de traductions et traductions en anglais/allemand/italien
 - Gestion des événements (dans un calendrier)
 - Gestion notifications
 - Gestion des compétences
@@ -87,11 +88,12 @@ Le repository GitHub est public, mais le projet IceScrum est privé. Le projet e
 ### Objectif du projet
 Réaliser l'application KanFF permettant la gestion des membres, groupes et projets, pour une version `KanFF v1.0` publiée sur GitHub.
 
-<p style="color: #f66232"><em>L'application n'est pas responsive pour le moment, alors utilisez la en plein écran sur ordinateur.</em></p>
+<p style="color: #f66232"><em>L'application n'est pas responsive pour le moment, alors utilisez-la en plein écran sur ordinateur.</em></p>
 
 ## Installation (pour une instance)
 Cette procédure s'applique pour une instance à distance.  
-A venir quand sera publié en v1.0...
+A venir quand sera publié en v1.0...  
+**AVERTISSEMENT : l'application n'est pas prête à être mise en production ! Ne l'utilisez pas à cette fin. Seulement des instances de tests avec des données fictives doivent être utilisées/créés.**
 <!--
 ### Prérequis:
 1. Accès SSH

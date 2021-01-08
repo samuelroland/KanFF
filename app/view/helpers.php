@@ -356,7 +356,7 @@ function convertWorkNeedhelp($int, $needFirstCharToUpper = false)
 }
 
 //Convert the work need_help to the name of the icon
-function convertWorkNeedhelpIcon($int, $needFirstCharToUpper = false)
+function convertWorkNeedhelpIcon($int)
 {
     switch ($int) {
         case WORK_NEEDHELP_NONE:
@@ -374,7 +374,6 @@ function convertWorkNeedhelpIcon($int, $needFirstCharToUpper = false)
         default:
             $txt = "ERROR UNKNOWN STATE";
     }
-    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
     return $txt;
 }
 
@@ -466,7 +465,8 @@ function mentionUser($basicUser, $css = "text-info")
 //Get HTML code to create a tooltip with or without a link
 function createToolTip($innerText, $tooltipText, $link = false, $type = "top")
 {
-    $html = "<span class=' d-inline " . (($link != false) ? "linkInternal clickable cursorpointer" : "") . "' data-fallbackPlacement='flip' data-toggle='tooltip' data-title=\"" . $tooltipText . "\" data-placement='$type' data-delay='1' " . (($link != false) ? "data-href='$link'" : "") . ">{$innerText}</span>";
+    //TODO: if needed manage linkInternal or linkExternal... some css adjustments for block may be applied
+    $html = "<span class=' d-inline " . (($link != false) ? "linkInternal clickable cursorpointer" : "") . "' data-fallbackPlacement='flip' data-toggle='tooltip' data-title=\"" . $tooltipText . "\" data-placement='$type' data-delay='1' " . (($link != false) ? "data-href='$link' " : "") . ((contains($link, "?action=manual")) ? "data-target='_blank'" : "") . ">{$innerText}</span>";
     return $html;
 }
 
@@ -474,7 +474,14 @@ function createToolTip($innerText, $tooltipText, $link = false, $type = "top")
 function createToolTipWithPoint($tooltipText, $pointClasses = "icon-small m-2", $link = false, $type = "top")
 {
     $innerText = printAnIcon("point.png", "", "question mark icon", $pointClasses, false);
-    $html = "<span class=' d-inline " . (($link != false) ? "linkInternal clickable cursorpointer" : "") . "' data-fallbackPlacement='flip' data-toggle='tooltip' data-title=\"" . $tooltipText . "\" data-placement='$type' data-delay='1' " . (($link != false) ? "data-href='$link'" : "") . ">{$innerText}</span>";
+    $html = createToolTip($innerText, $tooltipText, $link, $type);
+    return $html;
+}
+
+//Get HTML code to create a tooltip on a question mark icon (point.png)
+function createManualLink($section, $concernFullPage = true, $cssOnManualIcon = "icon-xsmall", $tooltipType = "top")
+{
+    $html = createToolTip(printAnIcon("manual.png", "", "manual icon", $cssOnManualIcon, false), "Aide sur " . (($concernFullPage) ? "la page " : "") . $section, "?action=manual#" . createKeyNameForElementId($section));
     return $html;
 }
 
@@ -560,11 +567,18 @@ function getTitleWithIdAttributeInHTMLIfIsTitle($line, $startWith, $markup)
         $result = "<div class='flexdiv  box-verticalaligncenter'><$markup id='" . $id . "' class=''>" . $text . "</$markup>";  //ex: "<h1 id='introduction'>Introduction</h1>"
 
         //Add the copylink icon:
-        $result .= "<span data-hrefcopy='" . $_SERVER['HTTP_HOST'] . "/?action=manual#" . $id . "' class='cursorpointer linkToCopy'>" . printAnIcon("copylink.png", "Copier le lien vers cette section", "copy lin icon", "icon-xsmall m-2 noborder mt-3 copylink", false) . "</span>";
+        $result .= createCopyLinkIconForManual($text);
+
         $result .= "</div>";
         return $result;
     }
 
+}
+
+//Create HTML element with a copylink icon for a link to a section of the manual
+function createCopyLinkIconForManual($section)
+{
+    return "<span data-hrefcopy='" . $_SERVER['HTTP_HOST'] . "/?action=manual#" . createKeyNameForElementId($section) . "' class='cursorpointer linkToCopy'>" . printAnIcon("copylinkmini.png", "Copier le lien vers cette section", "copy lin icon", "icon-xsmall m-2 noborder mt-3 copylink", false) . "</span>";
 }
 
 //Get table of content element in Markdown, if the line is a title
@@ -615,6 +629,32 @@ function startwith($text, $with)
 function contains($haystack, $needle)
 {
     return (strpos($haystack, $needle) !== false);
+}
+
+//Get inline JS for a link to copy on click
+function getInlineJSForALinkToCopy($link, $linkIsJS = false, $responseMsg = "Lien copié dans le presse-papiers.")
+{
+    //Inline JS is sensible to chars " and ' (little securization even if these data are not user input. It's useful to avoid that the text given in dev contain " or '
+    $link = htmlspecialchars($link, ENT_QUOTES);  //transform '
+    $link = htmlentities($link);  //transform "
+    $responseMsg = htmlspecialchars($responseMsg, ENT_QUOTES);  //transform '
+    $responseMsg = htmlentities($responseMsg);  //transform "
+    $singleQuoteAroundLinkOrNot = (($linkIsJS) ? "" : "'"); //is there single quotes around the link or not ? if not, it's javascript in the link (useful to get value of another input)
+
+    //The final string is in JS: copy given link then display response msg given
+    return ' onclick="navigator.clipboard.writeText(' . $singleQuoteAroundLinkOrNot . $link . $singleQuoteAroundLinkOrNot . '); displayResponseMsg(\'' . $responseMsg . '\');" ';
+}
+
+//Get inline JS for a link to copy on click
+function getInlineJSForALinkToOpen($link, $linkIsJS = false, $target = null)
+{
+    //Inline JS is sensible to chars " and ' (little securization even if these data are not user input. It's useful to avoid that the text given in dev contain " or '
+    $link = htmlspecialchars($link, ENT_QUOTES);  //transform '
+    $link = htmlentities($link);  //transform "
+    $singleQuoteAroundLinkOrNot = (($linkIsJS) ? "" : "'"); //is there single quotes around the link or not ? if not, it's javascript in the link (useful to get value of another input)
+
+    //The final string is in JS: copy given link then display response msg given
+    return ' onclick="goToLink(' . $singleQuoteAroundLinkOrNot . $link . $singleQuoteAroundLinkOrNot . ', \'' . $target . '\');" ';
 }
 
 ?>

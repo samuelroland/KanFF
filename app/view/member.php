@@ -15,16 +15,21 @@ function printContributions($contributions)
     <?php
     if (count($contributions) > 0) {
         ob_start();
-        foreach ($contributions as $project) { ?>
-            <h4><?= $project[0]['projectname'] //get the name of the project with the value in the first work                 ?></h4>
-            <ol>
-            <?php foreach ($project as $work) { ?>
-                <li><span class="linkInternal clickable cursorpointer"
-                          data-href="?action=project&id=<?= $work['projectid'] ?>#work-<?= $work['workid'] ?>"><?= $work['workname'] ?></span>
-                </li>
-                <?php
+        foreach ($contributions as $project) {
+            if (visibilityOfProjects($project["id"])) {
+
+                ?>
+                <h4><?= $project[0]['projectname'] //get the name of the project with the value in the first work
+                    ?></h4>
+                <ol>
+                <?php foreach ($project as $work) { ?>
+                    <li><span class="linkInternal clickable cursorpointer"
+                              data-href="?action=project&id=<?= $work['projectid'] ?>#work-<?= $work['workid'] ?>"><?= $work['workname'] ?></span>
+                    </li>
+                    <?php
+                }
+                echo "</ol>";
             }
-            echo "</ol>";
         }
 
         echo ob_get_clean();
@@ -34,15 +39,81 @@ function printContributions($contributions)
     echo "</div>";
 }
 
+function visibilityOfProjects($idProject)
+{
+//groups autorized to show
+    $_SESSION['member-details-visibility']['autorizedGroups'];
+//groups from logged user
+    $seenUserGroups = getAllGroupsByProject($idProject);
+    foreach ($seenUserGroups as $seenUserGroup) {
+        if (checkIfKeyIsInMultidimentionalArray($_SESSION['member-details-visibility']['autorizedGroups'], "id", $seenUserGroup["id"])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+function visibilityOfGroups($group)
+{
+    //constant's case GROUP_VISIBILITY_INVISIBLE
+    $groupVisibility = [
+        "name" => "",
+        "state" => "",
+        "nbusers" => "",
+        "entrydate" => "",
+        "creation_date" => ""];
+
+    switch ($group['visibility']) {
+
+        case GROUP_VISIBILITY_TITLE:
+            $groupVisibility = [
+                "name" => $group['name']];
+            break;
+        case GROUP_VISIBILITY_STANDARD:
+        case GROUP_VISIBILITY_TOTAL:
+            $groupVisibility = [
+                "name" => $group['name'],
+                "state" => convertGroupState($group['state'], true),
+                "nbusers" => $group['nbusers'],
+                "entrydate" => DTToHumanDate($group['entrydate']),
+                "creation_date" => DTToHumanDate($group['creation_date'])];
+            break;
+    }
+    return $groupVisibility;
+}
+
+function visibilityOfGroupsForLoggedUser($groupToCheck, $loggedUserGroups)
+{
+    if (checkIfKeyIsInMultidimentionalArray($loggedUserGroups, "id", $groupToCheck["id"])) {
+        return [
+            "name" => $groupToCheck['name'],
+            "state" => convertGroupState($groupToCheck['state'], true),
+            "nbusers" => $groupToCheck['nbusers'],
+            "entrydate" => DTToHumanDate($groupToCheck['entrydate']),
+            "creation_date" => DTToHumanDate($groupToCheck['creation_date'])];
+    } else {
+        return visibilityOfGroups($groupToCheck);
+    }
+
+}
+
+function checkIfKeyIsInMultidimentionalArray($array, $key, $val)
+{
+    foreach ($array as $item)
+        if (isset($item[$key]) && $item[$key] == $val)
+            return true;
+    return false;
+}
+
 ob_start();
 ?>
     <h1><?= $title ?></h1>
-<?php printPageWIPTextInfo(); ?>
     <p>Voici les informations de <?= $fullname ?>, ses compétences, les groupes rejoints et ses contributions. Certaines
         informations peuvent être masquées en raison du niveau de visibilité défini...</p>
     <div class="statebanner flexdiv">
         <div class="iconsize-40">
-            <?= printAnIcon("infopoint.png", "Statut","info point", "icon-small") ?>
+            <?= printAnIcon("infopoint.png", "Statut", "info point", "icon-small") ?>
         </div>
         <div class="box-verticalaligncenter ml-3">
             <em><?= $user['status'] ?></em>
@@ -79,7 +150,7 @@ ob_start();
             <span>Lien messagerie instantanée: <a class="linkExternal"
                                                   title="Contacter <?= $fullname ?> par messagerie instantanée"
                                                   target="_blank"
-                                                  href="<?= $user['chat_link'] ?>"><?= $user['chat_link'] ?></a>
+                                                  href="http://<?= $user['chat_link'] ?>"><?= $user['chat_link'] ?></a>
         </span>
         <?php } ?>
     </div>
@@ -101,15 +172,19 @@ ob_start();
                 <?php
                 $test = 0;
                 foreach ($groups as $group) {
-                    ?>
-                    <tr>
-                        <td><?= $group['name'] ?></td>
-                        <td><?= convertGroupState($group['state'], true) ?></td>
-                        <td><?= $group['nbusers'] ?></td>
-                        <td><?= DTToHumanDate($group['entrydate']) ?></td>
-                        <td><?= DTToHumanDate($group['creation_date']) ?></td>
-                    </tr>
-                <?php } ?>
+                    $fields = visibilityOfGroupsForLoggedUser($group, $loggedUserGroups);
+                    if ($fields["name"] != "") {
+                        $_SESSION['member-details-visibility']['autorizedGroups'][] = $fields;
+                        ?>
+                        <tr>
+                            <td><?= $fields['name'] ?></td>
+                            <td><?= $fields['state'] ?></td>
+                            <td><?= $fields['nbusers'] ?></td>
+                            <td><?= $fields['entrydate'] ?></td>
+                            <td><?= $fields['creation_date'] ?></td>
+                        </tr>
+                    <?php }
+                } ?>
                 </tbody>
             </table>
         <?php } else {
@@ -121,7 +196,8 @@ ob_start();
         <h2>Contributions en cours</h2>
         <span>Les contributions en cours sont les travaux en cours, dont le membre affiché a participé (tâches en cours ou
             terminées). Les projets et les travaux sont ordrés par le nombre de tâches décroissant.</span>
-        <?php printContributions($formatedContributions['inrun']); ?>
+        <?php printContributions($formatedContributions['inrun']);
+        displaydebug($formatedContributions); ?>
     </div>
 
     <div class="standardDivDetail">
@@ -131,6 +207,7 @@ ob_start();
         <?php printContributions($formatedContributions['old']); ?>
     </div>
 <?php
+unset($_SESSION['member-details-visibility']['autorizedGroups']);
 displaydebug($user);
 $contenttype = "large";
 $content = ob_get_clean();

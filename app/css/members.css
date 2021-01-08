@@ -12,3 +12,11 @@
 .divMembersSecondLine {
     height: 55px;
 }
+
+.divMembers .memberfullname {
+    min-width: 200px;
+}
+
+.divMembers .memberstatus {
+    max-width: 800px;
+}

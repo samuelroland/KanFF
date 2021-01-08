@@ -44,6 +44,12 @@
     right: 10px;
 }
 
+.position-top-right {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
 .groupDetails {
     width: 200px;
 }

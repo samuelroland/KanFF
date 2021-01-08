@@ -30,11 +30,11 @@ function getAllByConditionTasks($conditions, $params)
     return getByCondition("tasks", $params, $conditions, true);
 }
 
-function getAllTasksByWorks($idWorks)
+function getAllTasksByWork($idWorks)
 {
     $query = "SELECT tasks.* FROM	tasks
 INNER join works ON tasks.work_id = works.id
-WHERE	works.id = 12";
+WHERE	works.id = :id";
     $params = ['id' => $idWorks];
     return Query($query, $params, true);
 }

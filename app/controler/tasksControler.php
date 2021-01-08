@@ -44,6 +44,7 @@ function tasks()
 //Ajax call to get one task in JSON
 function getTask($id)
 {
+    setHTTPHeaderForAPIResponse();
     //TODO: check permissions (if the project is visible) before send the task
     //TODO: return error or empty if task is not found
     $task = getOneTask($id);
@@ -71,6 +72,7 @@ function createTaskComplementFields($task)
 //Ajax call to create one task
 function createATask($data)
 {
+    setHTTPHeaderForAPIResponse();
     displaydebug($data);
     $task = [];
     $hasPermissionToCreate = null; //default value
@@ -87,7 +89,7 @@ function createATask($data)
         }
     }
     //Check that data sent are valid
-    if (chkLength($data['name'], 100) && $data['name'] != "" && isAtLeastEqual($data['type'], TASK_LIST_TYPE) && $hasPermissionToCreate) {
+    if (checkStringLengthNotEmpty($data['name'], 100) && $data['name'] != "" && isAtLeastEqual($data['type'], TASK_LIST_TYPE) && $hasPermissionToCreate) {
         $task['name'] = $data['name'];
         $task['type'] = $data['type'];
         $task['work_id'] = $data['work'];
@@ -123,6 +125,7 @@ function createATask($data)
 //Ajax call to update one task
 function updateATask($data)
 {
+    setHTTPHeaderForAPIResponse();
     $error = false;
     var_dump($data);
     $task = [];
@@ -158,12 +161,12 @@ function updateATask($data)
 
     /**Check strings's length*/
 
-    $error = setErrorValueIfNotTrue(!isAtLeastEqual("", $data["description"]) && !chkLength($data['description'], 2000), $error);
+    $error = setErrorValueIfNotTrue(!isAtLeastEqual("", $data["description"]) && !checkStringLengthNotEmpty($data['description'], 2000), $error);
 
-    $error = setErrorValueIfNotTrue((!isAtLeastEqual("", $data["link"]) && !chkLength($data['link'], 2000)), $error);
+    $error = setErrorValueIfNotTrue((!isAtLeastEqual("", $data["link"]) && !checkStringLengthNotEmpty($data['link'], 2000)), $error);
 
     //Check if
-    $error = (!chkLength($data['name'], 100));
+    $error = (!checkStringLengthNotEmpty($data['name'], 100));
 
     /**En of checking strings's lenght*/
     if (isAtLeastEqual($data['type'], TASK_LIST_TYPE) && $hasPermissionToUpdate && !$error) {
@@ -225,6 +228,7 @@ function updateATask($data)
 //Ajax call to delete a task
 function deleteATask($data)
 {
+    setHTTPHeaderForAPIResponse();
     displaydebug($data);
     $task = getOneTask($data['id']);
     $hasPermissionToDelete = null; //default value
