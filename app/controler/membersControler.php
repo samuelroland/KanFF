@@ -165,7 +165,7 @@ function changeStatus($data)  //Ajax call
     setHTTPHeaderForAPIResponse();
     $data['status'] = trimIt($data['status']);  //trim the text
 
-    if (chkLength($data['status'], 200)) {  //maxlength is 200 chars
+    if (checkStringLengthNotEmpty($data['status'], 200)) {  //maxlength is 200 chars
         updateUser(['status' => $data['status']], $_SESSION['user']['id']); //update the user status
         $msg = "Statut modifié!";   //default response msg is "status modified"
         if ($data['status'] == "") {

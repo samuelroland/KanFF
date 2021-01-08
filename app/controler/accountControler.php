@@ -47,28 +47,28 @@ function editAccount($post)
             }
 
             //Check the length of all strings
-            if (strlen($editUser['username']) < 4 || chkLength($editUser['username'], 15) == false) {
+            if (strlen($editUser['username']) < 4 || checkStringLengthNotEmpty($editUser['username'], 15) == false) {
                 $msg = 5; //data error
             }
-            if (chkLength($editUser['firstname'], 100) == false) {
+            if (checkStringLengthNotEmpty($editUser['firstname'], 100) == false) {
                 $msg = 5; //data error
             }
-            if (chkLength($editUser['lastname'], 100) == false) {
+            if (checkStringLengthNotEmpty($editUser['lastname'], 100) == false) {
                 $msg = 5; //data error
             }
-            if (chkLength($editUser['status'], 200) == false) {
+            if (checkStringLengthNotEmpty($editUser['status'], 200) == false) {
                 $msg = 5; //data error
             }
-            if (chkLength($editUser['email'], 254) == false) {
+            if (checkStringLengthNotEmpty($editUser['email'], 254) == false) {
                 $msg = 5; //data error
             }
-            if (chkLength($editUser['phonenumber'], 20) == false) {
+            if (checkStringLengthNotEmpty($editUser['phonenumber'], 20) == false) {
                 $msg = 5; //data error
             }
-            if (chkLength($editUser['chat_link'], 2000) == false) {
+            if (checkStringLengthNotEmpty($editUser['chat_link'], 2000) == false) {
                 $msg = 5; //data error
             }
-            if (chkLength($editUser['biography'], 2000) == false) {
+            if (checkStringLengthNotEmpty($editUser['biography'], 2000) == false) {
                 $msg = 5; //data error
             }
 

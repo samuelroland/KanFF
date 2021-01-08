@@ -15,7 +15,7 @@ ob_start();
 require ".const.php";
 if ($dev == true) { //dev zone
     echo createManualLink("membres");
-
+var_dump(checkStringLengthNotEmpty("", 5));
 }
 $contenttype = "large";
 $content = ob_get_clean();

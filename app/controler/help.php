@@ -38,7 +38,7 @@ function checkUserPassword($id, $password)
 }
 
 //Check length of a string that must not be greater than the max given but less or equal
-function chkLength($string, $max)
+function checkStringLengthNotEmpty($string, $max)
 {
     if ($string == "") {
         return false;
@@ -284,7 +284,7 @@ function sendFeedback($data)
     }
     if (isEmailFormat($emailSourceForFeedback) && isEmailFormat($emailForFeedback)) {
 
-        if (isAtLeastEqual("", [$data['subject'], $data['content']]) == false && chkLength($data['content'], 6000) && chkLength($data['subject'], 100)) {
+        if (isAtLeastEqual("", [$data['subject'], $data['content']]) == false && checkStringLengthNotEmpty($data['content'], 6000) && checkStringLengthNotEmpty($data['subject'], 100)) {
             $to = $emailForFeedback;
             $subject = "Retour KanFF: " . time();
             $cookies = $_COOKIE;

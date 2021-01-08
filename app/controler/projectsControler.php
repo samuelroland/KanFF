@@ -89,7 +89,7 @@ function createAProject($data)
         $newProject['goal'] = trimIt($data['goal']);
         displaydebug($newProject);
         //Check length of name, description and goal
-        if (areAreAllEqualTo(true, [chkLength($newProject['name'], 70), chkLength($newProject['description'], 1000), chkLength($newProject['goal'], 1000)]) == false) {
+        if (areAreAllEqualTo(true, [checkStringLengthNotEmpty($newProject['name'], 70), checkStringLengthNotEmpty($newProject['description'], 1000), checkStringLengthNotEmpty($newProject['goal'], 1000)]) == false) {
             $error = 10;
         }
 

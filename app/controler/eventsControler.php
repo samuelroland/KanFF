@@ -26,14 +26,14 @@ function createAnEvent($group)
     $dataerror = false; //no error
     if ($group != null) {
         //If the required informations exist and if they are valid:
-        if (isset($group['name'], $group['password'], $group['visibility']) && chkLength($group['name'], 50) && $group['visibility'] > 0 && $group['visibility'] < 13) {
+        if (isset($group['name'], $group['password'], $group['visibility']) && checkStringLengthNotEmpty($group['name'], 50) && $group['visibility'] > 0 && $group['visibility'] < 13) {
             if (isset($group['context'])) {
-                if (chkLength($group['context'], 200) == false) {
+                if (checkStringLengthNotEmpty($group['context'], 200) == false) {
                     $dataerror = true;
                 }
             }
             if (isset($group['description'])) {
-                if (chkLength($group['description'], 200) == false) {
+                if (checkStringLengthNotEmpty($group['description'], 200) == false) {
                     $dataerror = true;
                 }
             }
