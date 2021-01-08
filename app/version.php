@@ -89,6 +89,21 @@ $versions = [
 \n
 \nOthers:
 \n- **Page Member details** is in progress. Design is finished and contributions are displayed. Visibility parameters are not managed yet.
+"],
+    [
+        "version" => "v2.3-beta",
+        "date" => "2021-01-08",
+        "changelog" => "New features:
+\n- **Addings on Page Members** are done. Delete unapproved users is possible. Last change of state displayed is useful when updating a user's state.
+\n- **Page Delete/Archive account** that had an issue with flashmessages, is fixed.
+\n- **Page Create a project** is done. Validations at server-side are better (empty string values and int values, invalid dates, ...)
+\n- **User manual**. Little fixes and adjustements of images design. The error that occurs when the image is not found, is also fixed.
+\n- **CRUD Models** for Projects management are done.
+\n
+\nOthers:
+\n- **Page Projects** is almost finished. The order for projects in categories `Completed` and `Others` has been fixed (based on end date, not on priority like the 2 other categories). Some little design is needed yet for the progress bar and the access icon.
+\n- **Page Member details** is in progress. Visibility parameters are managed for groups but not for contributions.
+\n- **Tasks management in the Kanban** is advanced. The tasks can change columns.
 "]
 ];
 
