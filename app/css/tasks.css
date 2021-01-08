@@ -26,6 +26,22 @@
     background-color: #ffb400f0;
 }
 
+.divTask[data-canedit='true']:active {
+    cursor: grabbing !important;
+}
+
+.divTask[data-canedit='true']:hover {
+    cursor: grab;
+}
+
+.positionabsolute {
+    position: absolute;
+}
+
+.positionfixed {
+    position: fixed;
+}
+
 .divTaskNumber {
     height: 20px;
 }
@@ -65,6 +81,28 @@
 .divTaskPlusButton:hover {
     background-color: #d9dbdf;
     border: 1px solid rgba(0, 0, 0, 0.24);
+}
+
+.divBlankTask {
+    min-height: 46px;
+    min-width: 46px;
+    height: 120px;
+    width: 120px;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.divBlankTaskFix {
+    min-height: 46px;
+    min-width: 46px;
+    height: 120px;
+    width: 120px;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .divTaskPlusButtonIcon {

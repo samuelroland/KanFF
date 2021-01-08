@@ -221,6 +221,11 @@ label {
     display: flex;
 }
 
+.align-items-end {
+    display: flex;
+    align-items: end;
+}
+
 .smalltextinput {
     width: 100%;
     max-width: 300px;
@@ -855,4 +860,12 @@ hr {
 
 .heightProgressBar {
     height: 7px;
+}
+
+input, select, textarea {
+    color: #232323 !important;
+}
+
+input:disabled, select:disabled, textarea:disabled {
+    background-color: #efefef !important;
 }

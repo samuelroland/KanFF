@@ -116,37 +116,22 @@ document.addEventListener('DOMContentLoaded', function () {
                 link = obj.getAttribute('data-href')
             }
 
-            //Go to the link
-            if (obj.getAttribute('data-target') != null) {
-                window.open(link, obj.getAttribute('data-target'))  //change tab with this link with given target (target is like the HTML attribute)
-            } else {
-                window.location = link  //go to the link in the same tab
-            }
-        })
-    })
-
-    var els2 = document.getElementsByClassName("linkToCopy");
-    Array.prototype.forEach.call(els2, function (el) {
-        el.addEventListener('click', function (evt) {
-            link = evt.target
-            if (link.tagName == "IMG") {
-                link = link.parentNode
-            }
-            href = link.getAttribute('data-hrefcopy')
-            if (href != null) {
-                navigator.clipboard.writeText(href)
-                if (queryActionIncludes("manual")) {
-                    displayResponseMsg("Lien de la section copié dans le presse-papiers.")
-                } else {
-                    displayResponseMsg("Lien copié dans le presse-papiers.")
-                }
-            }
+            goToLink(link, obj.getAttribute('data-target')) //Go to the link
         })
     })
 
     $(".linkOfTOC").on("click", adjustAutoScrollWithHashIn30Ms) //all links in TOC must have adjustment of scroll after
     adjustAutoScrollWithHashIn30Ms()
 })
+
+//Go to a given link (same tab or new one depending on the given target)
+function goToLink(theLink, target = null) {
+    if (target != null) {
+        window.open(theLink, target)  //change tab with this link with given target (target is like the HTML attribute)
+    } else {
+        window.location = theLink  //go to the link in the same tab
+    }
+}
 
 //Start adjustAutoScrollWithHash() in 30ms
 function adjustAutoScrollWithHashIn30Ms() {

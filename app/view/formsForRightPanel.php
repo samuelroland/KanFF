@@ -92,8 +92,9 @@ function printDivTaskDetails($project)
                 </div>
                 <div class="<?= $divCSS ?>">
                     <div class="flexdiv">
-                        <span class="flex-1">Lien:</span>
-                        <span class="alignright">Ouvrir le lien</span>
+                        <span class="flex-1 align-items-end">Lien:</span>
+                        <?= createToolTip('<span class="alignright yellowdarkonhover d-inline-block" ' . getInlineJSForALinkToCopy("link.value", true) . '>' . printAnIcon("copylink.png", "", "copy link icon", "icon-middlesmall m-2", false) . '</span>', "Copier le lien"); ?>
+                        <?= createToolTip('<span class="alignright yellowdarkonhover d-inline-block" ' . getInlineJSForALinkToOpen("link.value", true) . '>' . printAnIcon("openlink.png", "", "open link icon", "icon-middlesmall m-2", false) . '</span>', "Ouvrir le lien dans un nouvel onglet"); ?>
                     </div>
                     <input type="text" placeholder="Lien relatif à la tâche" name="link" id="link"
                            class="form-control textFieldToCheck counterVisibleOnlyIfFastMaxLength inputspan"
@@ -109,8 +110,8 @@ function printDivTaskDetails($project)
                 </div>
                 <div class="panelRightStandardBottomLine">
                     <div class="flexdiv box-alignright">
-                        <button class="btnSaveCancel btn colorCancel">Annuler</button>
-                        <button id="btnSave" class="btnSaveCancel btn colorSave">Enregistrer</button>
+                        <button id="btnCancelTaskDetails" class="btnSaveCancel btn colorCancel">Annuler</button>
+                        <button id="btnSaveTaskDetails" class="btnSaveCancel btn colorSave">Enregistrer</button>
                     </div>
                 </div>
             </div>
@@ -200,8 +201,8 @@ function printDivTaskCreate($project)
                     </div>
                 </div>
                 <div class="flexdiv box-alignright">
-                    <button id="btnCancel" class="btnSaveCancel btn colorCancel">Annuler</button>
-                    <button id="btnCreate" class="btnSaveCancel btn colorSave">Créer la tâche</button>
+                    <button id="btnCancelCreate" class="btnSaveCancel btn colorCancel">Annuler</button>
+                    <button id="btnCreateTask" class="btnSaveCancel btn colorSave">Créer la tâche</button>
                 </div>
             </div>
         </div>
