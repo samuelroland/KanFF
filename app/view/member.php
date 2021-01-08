@@ -15,13 +15,11 @@ function printContributions($contributions)
     <?php
     if (count($contributions) > 0) {
         ob_start();
-        foreach ($contributions as $project) {
-            if (visibilityOfProjects($project["id"])) {
-
-                 ?>
+        foreach ($contributions as $project) { ?>
                 <h4><?= $project[0]['projectname'] //get the name of the project with the value in the first work                   ?></h4>
                 <ol>
-                <?php foreach ($project as $work) { ?>
+                <?php foreach ($project as $work) {
+                if (visibilityOfProjects($work["projectid"])) {?>
                     <li><span class="linkInternal clickable cursorpointer"
                               data-href="?action=project&id=<?= $work['projectid'] ?>#work-<?= $work['workid'] ?>"><?= $work['workname'] ?></span>
                     </li>
@@ -40,22 +38,23 @@ function printContributions($contributions)
 
 function visibilityOfProjects($idProject){
 //groups autorized to show
-    $_SESSION['member-details-visibility']['autorizedGroups'];
+    //$_SESSION['member-details-visibility']['autorizedGroups'];
 //groups from logged user
     $seenUserGroups=getAllGroupsByProject($idProject);
     foreach ($seenUserGroups as $seenUserGroup){
+        displaydebug($seenUserGroup);
         if (checkIfKeyIsInMultidimentionalArray($_SESSION['member-details-visibility']['autorizedGroups'],"id",$seenUserGroup["id"])){
             return true;
-        }else{
-            return false;
         }
     }
+    return false;
 }
 
 function visibilityOfGroups($group)
 {
     //constant's case GROUP_VISIBILITY_INVISIBLE
     $groupVisibility = [
+        "id"=> "",
         "name" => "",
         "state" => "",
         "nbusers" => "",
@@ -66,11 +65,13 @@ function visibilityOfGroups($group)
 
         case GROUP_VISIBILITY_TITLE:
             $groupVisibility = [
+                "id"=> $group["id"],
                 "name" => $group['name']];
             break;
         case GROUP_VISIBILITY_STANDARD:
         case GROUP_VISIBILITY_TOTAL:
             $groupVisibility = [
+                "id"=> $group["id"],
                 "name" => $group['name'],
                 "state" => convertGroupState($group['state'], true),
                 "nbusers" => $group['nbusers'],
@@ -85,6 +86,7 @@ function visibilityOfGroupsForLoggedUser($groupToCheck, $loggedUserGroups)
 {
     if (checkIfKeyIsInMultidimentionalArray($loggedUserGroups, "id", $groupToCheck["id"])) {
         return [
+            "id"=>$groupToCheck['id'],
             "name" => $groupToCheck['name'],
             "state" => convertGroupState($groupToCheck['state'], true),
             "nbusers" => $groupToCheck['nbusers'],
@@ -195,8 +197,7 @@ ob_start();
         <h2>Contributions en cours</h2>
         <span>Les contributions en cours sont les travaux en cours, dont le membre affiché a participé (tâches en cours ou
             terminées). Les projets et les travaux sont ordrés par le nombre de tâches décroissant.</span>
-        <?php printContributions($formatedContributions['inrun']);
-        displaydebug($formatedContributions);?>
+        <?php printContributions($formatedContributions['inrun']);?>
     </div>
 
     <div class="standardDivDetail">
