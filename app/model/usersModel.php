@@ -127,11 +127,11 @@ INNER join participate ON `groups`.id = participate.group_id
 INNER join projects ON projects.id = participate.project_id
 INNER join works ON works.project_id = projects.id
 INNER join tasks ON tasks.work_id = works.id
-WHERE `join`.state IN(:state1,:state2) AND participate.state = :participatestate AND tasks.responsible_id = :userid  AND users.id = :userid 
+WHERE `join`.state IN(" . implode(", ", [JOIN_STATE_INVITATION_ACCEPTED, JOIN_STATE_APPROVED]) . ") AND participate.state = :participatestate AND tasks.responsible_id = :userid  AND users.id = :userid 
 GROUP BY tasks.work_id
 ORDER BY totaltasks DESC";
 
-    return Query($query, ["state1" => JOIN_STATE_INVITATION_ACCEPTED, "state2" => JOIN_STATE_APPROVED, "userid" => $userid, "participatestate" => $participatestate], true);
+    return Query($query, ["userid" => $userid, "participatestate" => $participatestate], true);
 }
 
 ?>
