@@ -2,8 +2,8 @@
  *  Project: KanFF
  *  File: create-db-kanff.sql file to create database structure of kanff
  *  Author: Samuel Roland
- *  Version date: 16.12.2020
- *  Version: v2.5
+ *  Version date: 06.01.2021
+ *  Version: v2.6
  *  MCD: MCD-KanFF-official.png v1.3
  *  MLD: MLD-KanFF-official.png v1.3
  *  Launchable by: restore-db-kanff.bat

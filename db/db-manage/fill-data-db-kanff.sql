@@ -4,7 +4,7 @@
  *  Author: Samuel Roland
  *  Co-Author: Benoit Pierrehumbert
  *  Pack of data: Collectif Assoc Vaud
- *  Version date: 16.12.2020
+ *  Version date: 06.01.2021
  *  Version: v2.6
  *  Script: generationData.php v2.6
  *  Sources: see basic-data-*.json
