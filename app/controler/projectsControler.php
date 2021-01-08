@@ -7,6 +7,7 @@
  */
 
 require_once "model/projectsModel.php";
+require_once "model/participateModel.php";
 
 // Display the page groups
 function projects($option)
@@ -43,59 +44,114 @@ function projects($option)
 }
 
 // Display the page create a project or create the project (depends on the data sent)
-function createAProject($newProject)
+function createAProject($data)
 {
-    $groups = getAllGroupsByUser($_SESSION['user']['id']);
-    if (empty($newProject) == false) {
+    if (empty($data) == false) {
         $error = false;
-        $newProject['name'] = trimIt($newProject['name']);
 
-        if (checkUserPassword($_SESSION['user']['id'], $newProject['password']) == false) {
+        //Check length of name, description and goal
+        $newProject['name'] = trimIt($data['name']);
+        $newProject['description'] = trimIt($data['description']);
+        $newProject['goal'] = trimIt($data['goal']);
+        displaydebug($newProject);
+        //Check length of name, description and goal
+        if (areAreAllEqualTo(true, [chkLength($newProject['name'], 70), chkLength($newProject['description'], 1000), chkLength($newProject['goal'], 1000)]) == false) {
+            $error = 10;
+        }
+
+        //Check that the user is in the given group
+        if (isMemberInAGroup($_SESSION['user']['id'], $data['manager_id']) == false) {
+            $error = 10;
+        } else {
+            $newProject['manager_id'] = $data['manager_id'];
+        }
+
+        if (checkUserPassword($_SESSION['user']['id'], $data['password']) == false) {
             $error = 8;
         }
-        unset($newProject['password']);
 
         // Default values (not in the form)
         $newProject['archived'] = 0;
-        $newProject['logbook_content'] = "Non défini";
+        $newProject['logbook_content'] = PROJECTS_DEFAULT_TEXT_LOGBOOK_CONTENT;
         $newProject['responsible_id'] = null;
-        $newProject['state'] = PROJECT_STATE_UNDERREFLECTION;
+        $newProject['state'] = PROJECT_LIST_STATE[0];
 
-        if ($newProject['visible'] == "on") {
-            $newProject['visible'] = 1;
-        } else {
-            $newProject['visible'] = 0;
+        //Convert checkbox values to tinyint
+        $newProject['visible'] = chkToTinyint($data['visible']);
+        $newProject['logbook_visible'] = chkToTinyint($data['logbook_visible']);
+
+        $newProject['importance'] = checkIntMinMax($data['importance'], 1, 5);
+        $newProject['urgency'] = checkIntMinMax($data['urgency'], 1, 5);
+        if ($newProject['importance'] == false || $newProject['urgency'] == false) {
+            $error = 10;
         }
-        if ($newProject['logbook_visible'] == "on") {
-            $newProject['logbook_visible'] = 1;
-        } else {
-            $newProject['logbook_visible'] = 0;
+
+        //Verify start and end date
+        $newProject['start'] = timeToDT(strtotime($data['start']));
+        if ($newProject['start'] == false) {
+            $error = 10;
         }
-        if ($newProject['goal'] == "") {
-            $newProject['goal'] = "Non défini";
+
+        $newProject['end'] = null;  //default value
+        if ($data['end'] != "") {
+            $newProject['end'] = strtotime($data['end']);
+            $newProject['end'] = timeToDT($newProject['end']);
+            if ($newProject['end'] == false) {
+                $error = 10;
+            }
+            //Check that end date are bigger than start date
+            if ($newProject['start'] >= $newProject['end']) {
+                $error = 10;
+            }
         }
-        if ($newProject['end'] = " ") {
-            $dateEnd = null;
-            $dateEnd = date("Y-m-d H:i:s", $dateEnd);
-            displaydebug($dateEnd);
-            displaydebug("salut");
-            $newProject['end'] = $dateEnd;
-        }
+
+        displaydebug($newProject);
         //Then depending on errors or on success:
         if ($error != false) {
             flshmsg($error);
+            $groups = getAllGroupsByUser($_SESSION['user']['id']);
             require "view/createAProject.php";  //view values sent inserted
         } else {
-            createOne("projects", $newProject);
-            flshmsg(9);
+            $insertedId = createOne("projects", $newProject);
+            $projectBack = getOneProject($insertedId);
+            displaydebug($projectBack);
+            if (empty($projectBack) == false) {
+                $idInsertedForParticipate = createGroupParticipationToAProject($insertedId, $projectBack['manager_id']);
+                if (empty(getOneParticipate($idInsertedForParticipate)) != null) {
+                    flshmsg(9);
+                } else {
+                    flshmsg(45);    //Internal error when participate was created
+                }
+            } else {
+                flshmsg(55);    //Internal error when project was created
+            }
+
+
             require "view/projects.php";
         }
     } else {
+        $groups = getAllGroupsByUser($_SESSION['user']['id']);
         require_once "view/createAProject.php";
     }
-
 }
 
+function createGroupParticipationToAProject($projectid, $managerid)
+{
+    $participate = [
+        "group_id" => $managerid,
+        "project_id" => $projectid,
+        "start" => timeToDT(time()),
+        "end" => null,
+        "state" => PARTICIPATE_STATE_CREATOR
+    ];
+    displaydebug($participate);
+    $idResult = createParticipate($participate);
+    if ($idResult != null) {
+        return $idResult;
+    } else {
+        return false;
+    }
+}
 
 function projectDetails($id, $option)
 {
