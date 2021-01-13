@@ -20,10 +20,10 @@ require_once "controler/projectsControler.php"; // controler for the projects
 require_once "controler/logControler.php"; // controler for the projects
 require_once "controler/tasksControler.php"; // controler for the projects
 require_once "controler/worksControler.php"; // controler for the projects
-require_once "controler/eventsControler.php"; // controler for the projects
 require_once "controler/adminControler.php"; // controler for the projects
 require_once "model/localFilesModel.php";    //model for local files functions
 require_once "model/CRUDModel.php";//default model CRUD
+//require_once "controler/eventsControler.php"; // controler for the projects
 
 $isAdmin = checkAdmin();    //check if is admin and reload the session
 
@@ -32,7 +32,7 @@ if (isset($_GET['action'])) {
     $action = $_GET['action'];
 }
 
-//Get values from post data sent with ajax calls
+//Get values from post data sent with Ajax calls
 $data = (array)json_decode(file_get_contents("php://input"));
 
 //displaydebug all input values and the session content
@@ -66,7 +66,7 @@ if (!isset($_SESSION['user']['id'])) {
             break;
         default:
             if ($isAjax) {
-                $apiData = getApiDataContentError("Echec. Vous êtes déconnecté·e, l'action est interdite.", 551);
+                $apiData = getApiDataContentError("Échec. Vous êtes déconnecté·e, l'action est interdite.", 551);
                 $response = getApiResponse(API_FAIL, $apiData);
                 echo json_encode($response);
             } else {
@@ -98,7 +98,7 @@ if (!isset($_SESSION['user']['id'])) {
                 break;
             default:
                 if ($isAjax) {
-                    $apiData = getApiDataContentError("Echec. Vous êtes en accès limité, l'action est interdite.", 552);
+                    $apiData = getApiDataContentError("Échec. Vous êtes en accès limité, l'action est interdite.", 552);
                     $response = getApiResponse(API_FAIL, $apiData);
                     echo json_encode($response);
                 } else {
@@ -167,12 +167,6 @@ if (!isset($_SESSION['user']['id'])) {
             case "kanban":
                 kanban($_GET['id'], $_GET['opt']);
                 break;
-            case "calendar":
-                calendar();
-                break;
-            case "tasks":
-                tasks();
-                break;
             case "getTask": //Ajax call to get one task
                 getTask($_GET['id']);
                 break;
@@ -194,12 +188,17 @@ if (!isset($_SESSION['user']['id'])) {
             case "manual":
                 manual();
                 break;
-            case "":    //if no action it's the dashboard
-                dashboard();
+            /* Actions for future versions
+             case "calendar":
+                calendar();
                 break;
+            case "tasks":
+                tasks();
+                break;
+            */
             default:
                 if ($isAjax) {
-                    $apiData = getApiDataContentError("Echec. L'action demandée n'existe pas.", 553);
+                    $apiData = getApiDataContentError("Échec. L'action demandée n'existe pas.", 553);
                     $response = getApiResponse(API_FAIL, $apiData);
                     echo json_encode($response);
                 } else {
