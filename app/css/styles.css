@@ -150,6 +150,14 @@ body {
     */
 }
 
+.btn-yellow {
+    background-color: #ffc437;
+}
+
+.btn-yellow:hover {
+    background-color: #ffb400;
+}
+
 .bell {
     height: 60px;
     padding: 5px;

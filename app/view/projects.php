@@ -136,7 +136,8 @@ function printAProject($project)
 
         </div>
         <div class="positionBottomRightForProjectsDetailsBtn">
-            <button class="btn btn-info clickable" data-href="?action=project&id=<?= $project['id'] ?>">Détails</button>
+            <button class="btn nopadding btn-yellow clickable" data-href="?action=kanban&id=<?= $project['id'] ?>"><?php printAnIcon("kanban.png", "Kanban du projet", "kanban icon", "icon-small") ?></button>
+            <button class="btn nopadding btn-yellow clickable" data-href="?action=project&id=<?= $project['id'] ?>"><?php printAnIcon("details.svg", "Détails du projet", "details icon", "icon-small") ?></button>
         </div>
         <?php
         //TODO: refactor the code in a function to avoid duplicate. Make a more clever calcul with data progression.
