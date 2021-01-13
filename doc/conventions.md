@@ -19,8 +19,13 @@
 - Le *try* appel la fonction qui porte son nom; *try*`deleteTask()` appel `deleteTask()`.
 - La fonction appelée par le *try* appel une fonction `sendRequest()`.
 - Après l'appel de la fonction principale il y a un *callback*, qui est appelé par `sendRequest()`.
+## Noms des constantes-messages 
+- Utiliser des tirets-bas "_" pour séparer les mots.
+1) Utiliser l'action dans la querystring comme premier mot.
+2) Définir ce dont parle le message
+- Exemple : `ACTION_JE_FAIT_QUOI`
 
-## Nom des objets HTML
+## Noms des objets HTML
 #### Nom des id
 - Le nom de l'objet est contenu au début de id, un diminutif est utilisé dans le cas où l'objet dépasse 4 caractères.
 - Les mots suivants on tous une majuscule comme première lettre.
