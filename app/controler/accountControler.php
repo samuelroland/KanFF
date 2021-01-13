@@ -1,7 +1,7 @@
 <?php
 /**
  *  Project: KanFF
- *  File: accountControler.php file for controler functions about the management of the account of a user (login, signin, editAccount, ...)
+ *  File: accountControler.php file for controler functions about the management of the account of a user (login, signin, myAccount, ...)
  *  Author: Kevin Vaucher et Luís Pedro Pinheiro
  *  Creation date: 18.05.2020
  */
@@ -12,7 +12,7 @@ define("USER_PASSWORD_CONDITIONS", "Le mot de passe doivent contenir: 8 caractè
 
 define("USER_NAMES_REGEX", "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð '-]{2,100}$"); //Regular expression for users names (thanks to https://stackoverflow.com/questions/2385701/regular-expression-for-first-and-last-name#answer-2385967)
 
-function editAccount($post)
+function myAccount($post)
 {
     $userBase = getUserById($_SESSION['user']['id']);
     $user = $userBase;
@@ -56,19 +56,19 @@ function editAccount($post)
             if (checkStringLengthNotEmpty($editUser['lastname'], 100) == false) {
                 $msg = 5; //data error
             }
-            if (checkStringLengthNotEmpty($editUser['status'], 200) == false) {
+            if (checkStringLengthOnly($editUser['status'], 200) == false) {
                 $msg = 5; //data error
             }
-            if (checkStringLengthNotEmpty($editUser['email'], 254) == false) {
+            if (checkStringLengthOnly($editUser['email'], 254) == false) {
                 $msg = 5; //data error
             }
-            if (checkStringLengthNotEmpty($editUser['phonenumber'], 20) == false) {
+            if (checkStringLengthOnly($editUser['phonenumber'], 20) == false) {
                 $msg = 5; //data error
             }
-            if (checkStringLengthNotEmpty($editUser['chat_link'], 2000) == false) {
+            if (checkStringLengthOnly($editUser['chat_link'], 2000) == false) {
                 $msg = 5; //data error
             }
-            if (checkStringLengthNotEmpty($editUser['biography'], 2000) == false) {
+            if (checkStringLengthOnly($editUser['biography'], 2000) == false) {
                 $msg = 5; //data error
             }
 
@@ -134,7 +134,7 @@ function editAccount($post)
         flshmsg($msg);
     }
     $user = userItemLoadExtraFields($user);
-    require "view/editAccount.php"; //in all cases, the view will be displayed (independently of all possibles errors or content of $user)
+    require "view/myAccount.php"; //in all cases, the view will be displayed (independently of all possibles errors or content of $user)
 }
 
 //Load extra field for a user (state modifier)

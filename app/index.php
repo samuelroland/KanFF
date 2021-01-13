@@ -81,8 +81,8 @@ if (!isset($_SESSION['user']['id'])) {
             case"logout":
                 logout();
                 break;
-            case "editAccount":
-                editAccount($_POST);
+            case "myAccount":
+                myAccount($_POST);
                 break;
             case "deleteAccount":
                 deleteAccount($_POST);
@@ -110,8 +110,8 @@ if (!isset($_SESSION['user']['id'])) {
             case"logout":
                 logout();
                 break;
-            case "editAccount":
-                editAccount($_POST);
+            case "myAccount":
+                myAccount($_POST);
                 break;
             case "deleteAccount":
                 deleteAccount($_POST);
