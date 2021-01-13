@@ -54,6 +54,7 @@ Il peut être compliqué de trouver ses repères dans une grosse application. Vo
 - ![icon](../app/view/medias/icons/logout.png) **Déconnexion**.
 - ![icon](../app/view/medias/icons/settings.png) **Réglages** possibles.
 - ![icon](../app/view/medias/icons/kanban.png) **Le kanban**. Utilisé sur la page `Projets`.
+- ![icon](../app/view/medias/icons/details.svg) **Détails** d'un élément.
 - ![icon](../app/view/medias/icons/copylinkmini.png) **Bouton pour copier un lien**.
 - ![icon](../app/view/medias/icons/openlink.png) **Bouton pour ouvrir un lien** dans un nouvel onglet.
 - ![icon](../app/view/medias/icons/hiddeneye.png) **Invisible**. Quelquechose est invisible pour les personnes à l'extérieur (d'un projet, d'un groupe, ...).
@@ -198,4 +199,7 @@ A venir.
 A venir.
 
 ## Membres
-A venir.
+### Membres
+La liste des membres du collectif.
+Options de filtres:
+- 
