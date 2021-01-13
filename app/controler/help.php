@@ -46,6 +46,12 @@ function checkStringLengthNotEmpty($string, $max)
     return (strlen($string) <= $max);
 }
 
+//Check length of a string that must not be greater than the max given but less or equal (no check if empty or not, because empty is authorized)
+function checkStringLengthOnly($string, $max)
+{
+    return (strlen($string) <= $max);
+}
+
 //Convert the value "on" or null sent with a checkbox in a form, to a tinyint value
 function chkToTinyint($value)
 {

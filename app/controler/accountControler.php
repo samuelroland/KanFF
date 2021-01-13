@@ -56,19 +56,19 @@ function editAccount($post)
             if (checkStringLengthNotEmpty($editUser['lastname'], 100) == false) {
                 $msg = 5; //data error
             }
-            if (checkStringLengthNotEmpty($editUser['status'], 200) == false) {
+            if (checkStringLengthOnly($editUser['status'], 200) == false) {
                 $msg = 5; //data error
             }
-            if (checkStringLengthNotEmpty($editUser['email'], 254) == false) {
+            if (checkStringLengthOnly($editUser['email'], 254) == false) {
                 $msg = 5; //data error
             }
-            if (checkStringLengthNotEmpty($editUser['phonenumber'], 20) == false) {
+            if (checkStringLengthOnly($editUser['phonenumber'], 20) == false) {
                 $msg = 5; //data error
             }
-            if (checkStringLengthNotEmpty($editUser['chat_link'], 2000) == false) {
+            if (checkStringLengthOnly($editUser['chat_link'], 2000) == false) {
                 $msg = 5; //data error
             }
-            if (checkStringLengthNotEmpty($editUser['biography'], 2000) == false) {
+            if (checkStringLengthOnly($editUser['biography'], 2000) == false) {
                 $msg = 5; //data error
             }
 

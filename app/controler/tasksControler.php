@@ -89,7 +89,7 @@ function createATask($data)
         }
     }
     //Check that data sent are valid
-    if (checkStringLengthNotEmpty($data['name'], 100) && $data['name'] != "" && isAtLeastEqual($data['type'], TASK_LIST_TYPE) && $hasPermissionToCreate) {
+    if (checkStringLengthNotEmpty($data['name'], 100) && isAtLeastEqual($data['type'], TASK_LIST_TYPE) && $hasPermissionToCreate) {
         $task['name'] = $data['name'];
         $task['type'] = $data['type'];
         $task['work_id'] = $data['work'];
@@ -161,9 +161,9 @@ function updateATask($data)
 
     /**Check strings's length*/
 
-    $error = setErrorValueIfNotTrue(!isAtLeastEqual("", $data["description"]) && !checkStringLengthNotEmpty($data['description'], 2000), $error);
+    $error = setErrorValueIfNotTrue(!isAtLeastEqual("", $data["description"]) && !checkStringLengthOnly($data['description'], 2000), $error);
 
-    $error = setErrorValueIfNotTrue((!isAtLeastEqual("", $data["link"]) && !checkStringLengthNotEmpty($data['link'], 2000)), $error);
+    $error = setErrorValueIfNotTrue((!isAtLeastEqual("", $data["link"]) && !checkStringLengthOnly($data['link'], 2000)), $error);
 
     //Check if
     $error = (!checkStringLengthNotEmpty($data['name'], 100));
