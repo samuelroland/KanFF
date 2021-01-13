@@ -80,7 +80,7 @@ function myAccount($post)
                     $editUser['initials'] = getUniqueInitials($editUser['firstname'], $editUser['lastname']);
                     //Check initials if error has occurred:
                     if ($editUser['initials'] == false) {    //no unique combination for initials have been found
-                        $msg = 4; //data not unique
+                        $msg = SIGNIN_SOME_FIELDS_NOT_UNIQUE; //data not unique
                     }
                 }
             }
@@ -118,7 +118,7 @@ function myAccount($post)
                 displaydebug($editUser);
                 unset($user['password']);
                 $_SESSION['user'] = $user;
-                $msg = 13; //update has succeed
+                $msg = MYACCOUNT_SUCCESS; //update has succeed
             }
 
         } else {    //if data are not valid to update password and for general update
