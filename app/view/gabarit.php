@@ -126,16 +126,18 @@ Y,                    `\"8bd888b,             ,P
                             <!-- The dropdown -->
                             <div class="divDropDown dropdown-menu yellowheader" style="">
                                 <div>
-                                    <p><strong>Statut <br></strong><em
+                                    <h5 class="mb-2"><?= buildFullNameOfUser($_SESSION['user']); ?></h5>
+                                    <p class="mb-1"><strong>Statut <br></strong><em
                                                 id="pStatus" class="breakword"><?= $_SESSION['user']['status'] ?></em>
                                         <span id="spChangeStatusIcon">
-                                            <?= printAnIcon("modify.png", "Modifier le statut", "modify icon", "yellowdarkonhover p-1 icon-small justify-content-end icnChangeStatus modify", false) ?>
-                                            <?= printAnIcon("checkmark.png", "Enregistrer le statut", "check mark icon", "yellowdarkonhover p-1 icon-small justify-content-end icnChangeStatus checkmark", false, "", true) ?>
+                                            <?= printAnIcon("modify.png", "Modifier le statut", "modify icon", "yellowdarkonhover p-1 icon-small justify-content-end icnChangeStatus modify cursorpointer", false) ?>
+                                            <?= printAnIcon("checkmark.png", "Enregistrer le statut", "check mark icon", "yellowdarkonhover p-1 icon-small justify-content-end icnChangeStatus checkmark cursorpointer", false, "", true) ?>
                                         </span>
                                     </p>
                                     <?= ($_SESSION['user']['on_break'] == 1) ? "<p class='lightbluelogo p-2'><strong>En pause</strong></p>" : "" ?>
                                     <!-- The 2 buttons for "my account" and "logout" -->
-                                    <div class="clickable cursorpointer yellowdarkonhover"
+                                    <hr class="hryellowproject nomargin">
+                                    <div class="mt-1 clickable cursorpointer yellowdarkonhover"
                                          data-href="?action=myAccount">
                                         <img src="view/medias/icons/settings.png" alt="settings icon"
                                              class="icon-small">
