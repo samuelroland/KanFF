@@ -100,7 +100,7 @@ define("UNWANTED_CHARS_ARRAY", array('Š' => 'S', 'š' => 's', 'Ž' => 'Z', 'ž'
 function flashMessage($withHtml = true)
 {
     if (isset($_SESSION["flashmsg"])) { //if flashmessage exists
-        $message = getFlashMessageById($_SESSION['flashmsg']);  //get message from JSON file flashmessages.json
+        $message = $_SESSION["flashmsg"];
         if ($withHtml) {
             $content = "<div id='flashmessage' class='flashmessage'>" . $message . "</div>";
         } else {

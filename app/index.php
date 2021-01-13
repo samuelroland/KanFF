@@ -10,6 +10,7 @@ session_start();    //start the session system
 
 // Include all controllers and global php files
 require_once "controler/constants.php";     //global constants
+require_once "messages.php";     //constants for messages displayed after actions
 require_once "view/helpers.php";     //functions for helpers functions
 require_once "controler/help.php";   //controler to generate common contents
 require_once "controler/accountControler.php"; // controler to modify account settings

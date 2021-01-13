@@ -65,9 +65,9 @@ function isCheckboxValueValid($value)
 }
 
 //Define the next flashmessage with his number
-function flshmsg($number)
+function flshmsg($text)
 {
-    $_SESSION['flashmsg'] = $number;
+    $_SESSION['flashmsg'] = $text;
 }
 
 //Convert a timestamp in the DATETIME format
