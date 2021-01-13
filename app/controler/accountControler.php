@@ -23,16 +23,16 @@ function myAccount($post)
             if (checkUserPassword($_SESSION['user']['id'], $post['currentpassword'])) {   //if passwords are valid
                 if (checkRegex($post['newpassword'], USER_PASSWORD_REGEX) && $post['newpassword'] == $post['newpasswordc']) {
                     if ($post['currentpassword'] == $post['newpassword']) {
-                        $msg = 15;  //current password and new password can not be equal
+                        $msg = MYACCOUNT_UPDATE_PWD_FAIL_SAME;  //current password and new password can not be equal
                     } else {
                         updateOne("users", $_SESSION['user']['id'], ['password' => password_hash($post['newpassword'], PASSWORD_DEFAULT)]); //update the password
-                        $msg = 14;  //update password succeed
+                        $msg = MYACCOUNT_UPDATE_PWD_SUCCESS;  //update password succeed
                     }
                 } else {
-                    $msg = 5; //password invalid --> invalid data
+                    $msg = COMMON_INVALID_DATA_SENT; //password invalid --> invalid data
                 }
             } else {
-                $msg = 16;   //current password is wrong
+                $msg = MYACCOUNT_UPDATE_PWD_FAIL_BAD_CURRENT;   //current password is wrong
             }
         } else if (isset($post['firstname'], $post['lastname'], $post['username'], $post['status'], $post['email'], $post['phonenumber'], $post['biography'])) { //if data are set for general update
 
@@ -43,37 +43,37 @@ function myAccount($post)
 
             //All not null values are set so we can test if these informations are not missing:
             if (checkThatEachKeyIsNotEmpty($editUser) == false) {
-                $msg = 5; //data error
+                $msg = COMMON_INVALID_DATA_SENT; //data error
             }
 
             //Check the length of all strings
             if (strlen($editUser['username']) < 4 || checkStringLengthNotEmpty($editUser['username'], 15) == false) {
-                $msg = 5; //data error
+                $msg = COMMON_INVALID_DATA_SENT; //data error
             }
             if (checkStringLengthNotEmpty($editUser['firstname'], 100) == false) {
-                $msg = 5; //data error
+                $msg = COMMON_INVALID_DATA_SENT; //data error
             }
             if (checkStringLengthNotEmpty($editUser['lastname'], 100) == false) {
-                $msg = 5; //data error
+                $msg = COMMON_INVALID_DATA_SENT; //data error
             }
             if (checkStringLengthOnly($editUser['status'], 200) == false) {
-                $msg = 5; //data error
+                $msg = COMMON_INVALID_DATA_SENT; //data error
             }
             if (checkStringLengthOnly($editUser['email'], 254) == false) {
-                $msg = 5; //data error
+                $msg = COMMON_INVALID_DATA_SENT; //data error
             }
             if (checkStringLengthOnly($editUser['phonenumber'], 20) == false) {
-                $msg = 5; //data error
+                $msg = COMMON_INVALID_DATA_SENT; //data error
             }
             if (checkStringLengthOnly($editUser['chat_link'], 2000) == false) {
-                $msg = 5; //data error
+                $msg = COMMON_INVALID_DATA_SENT; //data error
             }
             if (checkStringLengthOnly($editUser['biography'], 2000) == false) {
-                $msg = 5; //data error
+                $msg = COMMON_INVALID_DATA_SENT; //data error
             }
 
             if (checkNamesValidity($editUser['firstname']) == false || checkNamesValidity($editUser['lastname']) == false) {   //check validity of firstname and lastname
-                $msg = 5; //data error
+                $msg = COMMON_INVALID_DATA_SENT; //data error
             } else {    //generate initials only if firstname and lastname are valid
                 //If firstname or lastname have changed, generate initials again
                 if ($editUser['firstname'] != $userBase['firstname'] || $editUser['lastname'] != $userBase['lastname']) {
@@ -93,23 +93,23 @@ function myAccount($post)
             $editUser['status'] = trimIt($post['status']);
 
             if ($editUser['email'] != "" && isEmailFormat($editUser['email']) == false) {
-                $msg = 5; //data error
+                $msg = COMMON_INVALID_DATA_SENT; //data error
             }
 
             //Onbreak management:
             if (isCheckboxValueValid($post['on_break'])) {
                 $editUser['on_break'] = chkToTinyint($post['on_break']);   //on break value from checkbox
             } else {
-                $msg = 5; //data error
+                $msg = COMMON_INVALID_DATA_SENT; //data error
             }
 
             //Is username already taken ?
             if (empty(searchUserByUsername($editUser['username'])) == false && $editUser['username'] != $userBase['username']) {
-                $msg = 4; //data not unique
+                $msg = SIGNIN_SOME_FIELDS_NOT_UNIQUE; //data not unique
             }
             //Is email already taken ?
             if (empty(searchUserByEmail($editUser['email'])) == false && $editUser['email'] != $userBase['email']) {
-                $msg = 4; //data not unique
+                $msg = SIGNIN_SOME_FIELDS_NOT_UNIQUE; //data not unique
             }
 
             if ($msg == null) {   //if no error, then update the general information
@@ -122,7 +122,7 @@ function myAccount($post)
             }
 
         } else {    //if data are not valid to update password and for general update
-            $msg = 5; //invalid data
+            $msg = COMMON_INVALID_DATA_SENT; //invalid data
         }
     } else {    //if no data, load the page as normal
         $user = getUserById($_SESSION['user']['id']);
@@ -161,7 +161,7 @@ function signin($post)
 
         //All not null values are set so we can test if these informations are not missing:
         if (checkThatEachKeyIsNotEmpty($newUser) == false) {
-            $error = 5; //data error
+            $error = COMMON_INVALID_DATA_SENT; //data error
         }
 
         //Optionnals variables
@@ -184,26 +184,26 @@ function signin($post)
 
         //Check initials if error has occured:
         if ($newUser['initials'] == false) {    //no unique combination for initials have been found
-            $error = 4; //data not unique
+            $error = SIGNIN_SOME_FIELDS_NOT_UNIQUE; //data not unique
         }
 
         //Check that the 2 passwords are the same:
         if ($password1 != $password2) {
-            $error = 5; //data error
+            $error = COMMON_INVALID_DATA_SENT; //data error
         }
 
         //Check the Regex on it:
         if (!preg_match("/^(?=.*[A-Za-z])(?=.*\d).{8,}$/", $password1)) {
-            $error = 5; //data error
+            $error = COMMON_INVALID_DATA_SENT; //data error
         }
 
         //Is username already taken ?
         if (empty(searchUserByUsername($newUser['username'])) == false) {
-            $error = 4; //data not unique
+            $error = SIGNIN_SOME_FIELDS_NOT_UNIQUE; //data not unique
         }
         //Is email already taken ?
         if (empty(searchUserByEmail($newUser['email'])) == false) {
-            $error = 4; //data not unique
+            $error = SIGNIN_SOME_FIELDS_NOT_UNIQUE; //data not unique
         }
 
         //Then depending on errors or on success:
@@ -213,7 +213,7 @@ function signin($post)
         } else {
             createOne("users", $newUser);
             displaydebug($newUser);
-            flshmsg(6);
+            flshmsg(SIGNIN_SUCCESS);
             login($newUser['initials'], $password1);
         }
     } else {    //if no data, load the page as normal
@@ -289,7 +289,7 @@ function login($infoLogin, $password)
             }
 
         } else {
-            flshmsg(1);
+            flshmsg(LOGIN_FAIL);
             require_once 'view/login.php';
         }
     } else {
@@ -349,11 +349,11 @@ function checkRightForCallFlashMessagesDeleteArchive($post, $option)
             case "delete":
                 deleteUser($userid);
                 unset($_SESSION['user']);
-                flshmsg(18);
+                flshmsg(DELETEACCOUNT_SUCCESS);
                 login(null, null);
                 break;
             case "archive":
-                flshmsg(19);
+                flshmsg(ARCHIVEACCOUNT_SUCCESS);
                 archiveUser($userid);
                 limitedAccessInfo();
                 break;
@@ -362,12 +362,12 @@ function checkRightForCallFlashMessagesDeleteArchive($post, $option)
 
     } else {
         if ($post["sentence"] == $textToCopy) {
-            flshmsg(8);
+            flshmsg(COMMON_CONFIRMATION_PWD_ERROR);
         } elseif (checkUserPassword($_SESSION["user"]["id"], $post["password"])) {
-            flshmsg(17);
+            flshmsg(COMMON_VALIDATION_SENTENCE_ERROR);
         } elseif (!checkUserPassword($_SESSION["user"]["id"], $post["password"]) && $post["sentence"] != $textToCopy) {
-            flshmsg(17);
-            flshmsg(8);
+            flshmsg(COMMON_VALIDATION_SENTENCE_ERROR);
+            flshmsg(COMMON_CONFIRMATION_PWD_ERROR);
         }
 
         require_once "view/bigActionOnAccount.php";

@@ -90,18 +90,18 @@ function createAProject($data)
         displaydebug($newProject);
         //Check length of name, description and goal
         if (areAreAllEqualTo(true, [checkStringLengthNotEmpty($newProject['name'], 70), checkStringLengthNotEmpty($newProject['description'], 1000), checkStringLengthOnly($newProject['goal'], 1000)]) == false) {
-            $error = 10;
+            $error = COMMON_INVALID_DATA_SENT;
         }
 
         //Check that the user is in the given group
         if (isMemberInAGroup($_SESSION['user']['id'], $data['manager_id']) == false) {
-            $error = 10;
+            $error = COMMON_INVALID_DATA_SENT;
         } else {
             $newProject['manager_id'] = $data['manager_id'];
         }
 
         if (checkUserPassword($_SESSION['user']['id'], $data['password']) == false) {
-            $error = 8;
+            $error = COMMON_CONFIRMATION_PWD_ERROR;
         }
 
         // Default values (not in the form)
@@ -117,13 +117,13 @@ function createAProject($data)
         $newProject['importance'] = checkIntMinMax($data['importance'], 1, 5);
         $newProject['urgency'] = checkIntMinMax($data['urgency'], 1, 5);
         if ($newProject['importance'] == false || $newProject['urgency'] == false) {
-            $error = 10;
+            $error = COMMON_INVALID_DATA_SENT;
         }
 
         //Verify start and end date
         $newProject['start'] = timeToDT(strtotime($data['start']));
         if ($newProject['start'] == false) {
-            $error = 10;
+            $error = COMMON_INVALID_DATA_SENT;
         }
 
         $newProject['end'] = null;  //default value
@@ -131,11 +131,11 @@ function createAProject($data)
             $newProject['end'] = strtotime($data['end']);
             $newProject['end'] = timeToDT($newProject['end']);
             if ($newProject['end'] == false) {
-                $error = 10;
+                $error = COMMON_INVALID_DATA_SENT;
             }
             //Check that end date are bigger than start date
             if ($newProject['start'] >= $newProject['end']) {
-                $error = 10;
+                $error = COMMON_INVALID_DATA_SENT;
             }
         }
 
@@ -152,7 +152,7 @@ function createAProject($data)
             if (empty($projectBack) == false) {
                 $idInsertedForParticipate = createGroupParticipationToAProject($insertedId, $projectBack['manager_id']);
                 if (empty(getOneParticipate($idInsertedForParticipate)) == false) {
-                    flshmsg(9);
+                    flshmsg(CREATEAPROJECT_SUCCESS);
                 } else {
                     flshmsg(45);    //Internal error when participate was created
                 }

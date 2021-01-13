@@ -14,5 +14,7 @@
   "MYACCOUNT_UPDATE_PWD_FAIL_BAD_CURRENT": "Echec de mise à jour du mot de passe. Le mot de passe actuel est erroné.",
   "COMMON_VALIDATION_SENTENCE_ERROR": "La phrase de vérification insérée n'est pas correcte.... Veuillez ressayer",
   "DELETEACCOUNT_SUCCESS": "Votre compte à été supprimé avec succès!",
-  "ARCHIVEACCOUNT_SUCCESS": "Votre compte à été archivé avec succès!"
+  "ARCHIVEACCOUNT_SUCCESS": "Votre compte à été archivé avec succès!",
+  "CREATEAGROUP_SUCCESS": "Le groupe a été créé avec succès. Vous l'avez rejoint automatiquement."
+
 }

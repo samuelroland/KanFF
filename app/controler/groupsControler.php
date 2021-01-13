@@ -55,10 +55,10 @@ function createAGroup($group)
                 $group['creation_date'] = timeToDT(time());
 
                 createGroup($group);
-                flshmsg(16);    //"group well created" msg
+                flshmsg(CREATEAGROUP_SUCCESS);    //"group well created" msg
                 groups(1);   //back to groups page
             } else {
-                flshmsg(12);    //password error for action
+                flshmsg(COMMON_CONFIRMATION_PWD_ERROR);    //password error for action
                 $dataerror = false; //unset error to protect the flshmsg of password error
                 require_once "view/createAGroup.php";
             }
@@ -67,7 +67,7 @@ function createAGroup($group)
             $dataerror = true;
         }
         if ($dataerror) {
-            flshmsg(14);
+            flshmsg(COMMON_INVALID_DATA_SENT);
             require_once "view/createAGroup.php";
         }
         displaydebug($dataerror);
