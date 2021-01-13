@@ -39,7 +39,7 @@ ob_start();
                 gérer votre compte mais aussi archiver ou
                 supprimer votre compte.</p>
 
-            <form class="pt-1" action="?action=editAccount" method="POST">
+            <form class="pt-1" action="?action=myAccount" method="POST">
                 <hr class="hrlight">
                 <h4>Informations principales</h4>
                 <div class="<?= $cssForDivField ?>">
@@ -173,12 +173,12 @@ Vous pouvez laisser une information dans votre statut concernant la raison de vo
                 <p class="">Ces informations (mot de passe et changement d'état exclus) sont visibles à l'entièreté des
                     membres du collectif de l'instance. Les champs facultatifs donne un moyen de contact aux autres
                     membres.</p>
-                <div data-href="?action=editAccount" class="clickable btn btn-light">Annuler</div>
-                <button type="submit" data-href="?action=editAccount" class="btn btn-primary">Enregistrer</button>
+                <div data-href="?action=myAccount" class="clickable btn btn-light">Annuler</div>
+                <button type="submit" data-href="?action=myAccount" class="btn btn-primary">Enregistrer</button>
             </form>
 
 
-            <form action="?action=editAccount" class="formCheckNoErrorMessages" id="frmUpdatePassword" method="POST">
+            <form action="?action=myAccount" class="formCheckNoErrorMessages" id="frmUpdatePassword" method="POST">
                 <div class="pt-3">
                     <hr class="hrlight">
                     <h4>Changement du mot de passe</h4>

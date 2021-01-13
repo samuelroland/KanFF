@@ -51,7 +51,7 @@ ob_start();
                 <?= createToolTipWithPoint($textChosen["verb"] . " étant une action très importante, nous avons besoin de
             votre confirmation pour valider l'action. Pour ceci rentrer le mot de passe de votre compte.", "icon-middlesmall ml-2 mr-2 m-2", false, "right") ?>
                 <div class="divBtnCreate pt-4">
-                    <input type="button" class="btn btn-light clickable" data-href="?action=editAccount"
+                    <input type="button" class="btn btn-light clickable" data-href="?action=myAccount"
                            value="Annuler">
                     <input type="submit" class="btn btn-danger" value="<?= $textChosen["button"] ?>">
                 </div>

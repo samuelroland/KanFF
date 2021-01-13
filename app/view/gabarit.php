@@ -136,7 +136,7 @@ Y,                    `\"8bd888b,             ,P
                                     <?= ($_SESSION['user']['on_break'] == 1) ? "<p class='lightbluelogo p-2'><strong>En pause</strong></p>" : "" ?>
                                     <!-- The 2 buttons for "my account" and "logout" -->
                                     <div class="clickable cursorpointer yellowdarkonhover"
-                                         data-href="?action=editAccount">
+                                         data-href="?action=myAccount">
                                         <img src="view/medias/icons/settings.png" alt="settings icon"
                                              class="icon-small">
                                         <strong>Mon compte</strong></div>

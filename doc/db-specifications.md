@@ -77,7 +77,7 @@ Other tables exist in the data model but are abandoned for v1.0...
         - 3 = banned
         - 4 = admin
     - Effect:
-        - unapproved, archived and banned: the user has no access to internal data. The user can run these actions only: login, signin, about, sendFeedback, editAccount.
+        - unapproved, archived and banned: the user has no access to internal data. The user can run these actions only: login, signin, about, sendFeedback, myAccount.
         - approved: access to internal data like a normal user (most common state)
         - admin: access to internal data and the management of members (management of their state only)
 - `state_modifier_id`: As only admins can change state of users, this field store the id of the admin that change the user state for the last time
