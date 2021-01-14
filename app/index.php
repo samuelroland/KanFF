@@ -204,7 +204,7 @@ if (!isset($_SESSION['user']['id'])) {
                     echo json_encode($response);
                 } else {
                     // if action is unknown, return back to the dashboard
-                    if ($action != "signin" && $action != "login") {    //signin et login doesn't make sense when the user is logged but it's not unknown actions so the message is not displayed.
+                    if ($action != "signin" && $action != "login" && isset($_GET['action'])) {    //signin et login doesn't make sense when the user is logged but it's not unknown actions so the message is not displayed.
                         flshmsg(COMMON_404);
                     }
                     dashboard();
