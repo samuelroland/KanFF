@@ -131,7 +131,7 @@ if (!isset($_SESSION['user']['id'])) {
                 groupDetails($_GET['id']);
                 break;
             case "members":
-                $option = getIfSet($_GET['option']);
+                $option = $_GET['option'];
                 if ($isAdmin == false && ($option == 5 || $option == 6)) {
                     $option = 1;
                 }

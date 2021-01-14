@@ -139,292 +139,161 @@ function displaydebug($var, $needPrint_r = false)
 //Convert the user state in french
 function convertUserState($int, $needFirstCharToUpper = false)
 {
-    switch ($int) {
-        case USER_STATE_UNAPPROVED:
-            $txt = "non approuvé";
-            break;
-        case USER_STATE_APPROVED:
-            $txt = "approuvé";
-            break;
-        case USER_STATE_ARCHIVED:
-            $txt = "archivé";
-            break;
-        case USER_STATE_BANNED:
-            $txt = "banni";
-            break;
-        case USER_STATE_ADMIN:
-            $txt = "admin";
-            break;
-        default:
-            $txt = "ERROR UNKNOWN STATE";
-    }
+    $values = [
+        USER_STATE_UNAPPROVED => "non approuvé",
+        USER_STATE_APPROVED => "approuvé",
+        USER_STATE_ARCHIVED => "archivé",
+        USER_STATE_BANNED => "banni",
+        USER_STATE_ADMIN => "admin"
+    ];
+    return applyPostTraitementOnTxt($values[$int], $needFirstCharToUpper);
+}
+
+function applyPostTraitementOnTxt($txt, $needFirstCharToUpper)
+{
+    $txt = checkIfTxtIsSet($txt);
     $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
+    return $txt;
+}
+
+function checkIfTxtIsSet($txt)
+{
+    if (isset($txt) == false) {
+        $txt = "ERROR UNKNOWN STATE";
+    }
     return $txt;
 }
 
 //Convert the user state in french
 function convertJoinState($int, $needFirstCharToUpper = false)
 {
-    switch ($int) {
-        case JOIN_STATE_UNAPPROVED:
-            $txt = "non approuvé";
-            break;
-        case JOIN_STATE_REFUSED:
-            $txt = "refusé";
-            break;
-        case JOIN_STATE_INVITATION:
-            $txt = "invitation";
-            break;
-        case JOIN_STATE_LEFT:
-            $txt = "quitté";
-            break;
-        case JOIN_STATE_INVITATION_REFUSED:
-            $txt = "invitation refusée";
-            break;
-        case JOIN_STATE_BANNED:
-            $txt = "banni";
-            break;
-        case JOIN_STATE_INVITATION_ACCEPTED:
-            $txt = "invitation acceptée";
-            break;
-        case JOIN_STATE_APPROVED:
-            $txt = "approuvé";
-            break;
-        default:
-            $txt = "ERROR UNKNOWN STATE";
-    }
-    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
-    return $txt;
+    $values = [
+        JOIN_STATE_UNAPPROVED => "non approuvé",
+        JOIN_STATE_REFUSED => "refusé",
+        JOIN_STATE_INVITATION => "invitation",
+        JOIN_STATE_LEFT => "quitté",
+        JOIN_STATE_INVITATION_REFUSED => "invitation refusée",
+        JOIN_STATE_BANNED => "banni",
+        JOIN_STATE_INVITATION_ACCEPTED => "invitation acceptée",
+        JOIN_STATE_APPROVED => "approuvé"
+    ];
+    return applyPostTraitementOnTxt($values[$int], $needFirstCharToUpper);
 }
 
 //Convert the group state in french
 function convertGroupState($int, $needFirstCharToUpper = false)
 {
-    switch ($int) {
-        case GROUP_STATE_ONSTARTUP:
-            $txt = "en démarrage";
-            break;
-        case GROUP_STATE_ACTIVE:
-            $txt = "actif";
-            break;
-        case GROUP_STATE_ONBREAK:
-            $txt = "en pause";
-            break;
-        case GROUP_STATE_ARCHIVED:
-            $txt = "archivé";
-            break;
-        default:
-            $txt = "ERROR UNKNOWN STATE";
-    }
-    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
-    return $txt;
+    $values = [
+        GROUP_STATE_ONSTARTUP => "en démarrage",
+        GROUP_STATE_ACTIVE => "actif",
+        GROUP_STATE_ONBREAK => "en pause",
+        GROUP_STATE_ARCHIVED => "archivé"
+    ];
+    return applyPostTraitementOnTxt($values[$int], $needFirstCharToUpper);
 }
 
 //Convert the group visibility in french
 function convertGroupVisibility($int, $needFirstCharToUpper = false)
 {
-    switch ($int) {
-        case GROUP_VISIBILITY_INVISIBLE:
-            $txt = "Invisible";
-            break;
-        case GROUP_VISIBILITY_TITLE:
-            $txt = "Titre uniquement";
-            break;
-        case GROUP_VISIBILITY_STANDARD:
-            $txt = "Standard";
-            break;
-        case GROUP_VISIBILITY_TOTAL:
-            $txt = "Totalement visible";
-            break;
-        default:
-            $txt = "ERROR UNKNOWN STATE";
-    }
-    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
-    return $txt;
+    $values = [
+        GROUP_VISIBILITY_INVISIBLE => "Invisible",
+        GROUP_VISIBILITY_TITLE => "Titre uniquement",
+        GROUP_VISIBILITY_STANDARD => "Standard",
+        GROUP_VISIBILITY_TOTAL => "Totalement visible"
+    ];
+    return applyPostTraitementOnTxt($values[$int], $needFirstCharToUpper);
 }
 
 //Convert the project state in french
 function convertProjectState($int, $needFirstCharToUpper = false)
 {
-    switch ($int) {
-        case PROJECT_STATE_UNDERREFLECTION:
-            $txt = "en cours de réflexion";
-            break;
-        case PROJECT_STATE_UNDERPLANNING:
-            $txt = "en planification";
-            break;
-        case PROJECT_STATE_SEMIACTIVEWORK:
-            $txt = "travail semi-actif";
-            break;
-        case PROJECT_STATE_ACTIVEWORK:
-            $txt = "travail actif";
-            break;
-        case PROJECT_STATE_ONBREAK:
-            $txt = "travail en pause";
-            break;
-        case PROJECT_STATE_REPORTED:
-            $txt = "reporté";
-            break;
-        case PROJECT_STATE_ABANDONNED:
-            $txt = "abandonné";
-            break;
-        case PROJECT_STATE_CANCELLED:
-            $txt = "annulé";
-            break;
-        case PROJECT_STATE_DONE:
-            $txt = "terminé";
-            break;
-        default:
-            $txt = "ERROR UNKNOWN STATE";
-    }
-    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
-    return $txt;
+    $values = [
+        PROJECT_STATE_UNDERREFLECTION => "en cours de réflexion",
+        PROJECT_STATE_UNDERPLANNING => "en planification",
+        PROJECT_STATE_SEMIACTIVEWORK => "travail semi-actif",
+        PROJECT_STATE_ACTIVEWORK => "travail actif",
+        PROJECT_STATE_ONBREAK => "travail en pause",
+        PROJECT_STATE_REPORTED => "reporté",
+        PROJECT_STATE_ABANDONNED => "abandonné",
+        PROJECT_STATE_CANCELLED => "annulé",
+        PROJECT_STATE_DONE => "terminé"
+    ];
+    return applyPostTraitementOnTxt($values[$int], $needFirstCharToUpper);
 }
 
 //Convert the participate state in french
 function convertParticipateState($int, $needFirstCharToUpper = false)
 {
-    switch ($int) {
-        case PARTICIPATE_STATE_INVITATION:
-            $txt = "invitation";
-            break;
-        case PARTICIPATE_STATE_INVITATION_ACCEPTED:
-            $txt = "invitation acceptée";
-            break;
-        case PARTICIPATE_STATE_CREATOR:
-            $txt = "créateur";
-            break;
-        case PARTICIPATE_STATE_LEFT:
-            $txt = "quitté";
-            break;
-        case PARTICIPATE_STATE_INVITATION_REFUSED:
-            $txt = "invitation refusée";
-            break;
-        case PARTICIPATE_STATE_BANNED:
-            $txt = "banni";
-            break;
-        default:
-            $txt = "ERROR UNKNOWN STATE";
-    }
-    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
-    return $txt;
+    $values = [
+        PARTICIPATE_STATE_INVITATION => "invitation",
+        PARTICIPATE_STATE_INVITATION_ACCEPTED => "invitation acceptée",
+        PARTICIPATE_STATE_CREATOR => "créateur",
+        PARTICIPATE_STATE_LEFT => "quitté",
+        PARTICIPATE_STATE_INVITATION_REFUSED => "invitation refusée",
+        PARTICIPATE_STATE_BANNED => "banni"
+    ];
+    return applyPostTraitementOnTxt($values[$int], $needFirstCharToUpper);
 }
 
 //Convert the work state in french
 function convertWorkState($int, $needFirstCharToUpper = false)
 {
-    switch ($int) {
-        case WORK_STATE_TODO:
-            $txt = "à faire";
-            break;
-        case WORK_STATE_INRUN:
-            $txt = "en cours";
-            break;
-        case WORK_STATE_ONBREAK:
-            $txt = "en pause";
-            break;
-        case WORK_STATE_DONE:
-            $txt = "terminé";   //ou fini ??
-            break;
-        default:
-            $txt = "ERROR UNKNOWN STATE";
-    }
-    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
-    return $txt;
+    $values = [
+        WORK_STATE_TODO => "à faire",
+        WORK_STATE_INRUN => "en cours",
+        WORK_STATE_ONBREAK => "en pause",
+        WORK_STATE_DONE => "terminé"
+    ];
+    return applyPostTraitementOnTxt($values[$int], $needFirstCharToUpper);
 }
 
 //Convert the work need_help in french
 function convertWorkNeedhelp($int, $needFirstCharToUpper = false)
 {
-    switch ($int) {
-        case WORK_NEEDHELP_NONE:
-            $txt = "Pas besoin";
-            break;
-        case WORK_NEEDHELP_INNER:
-            $txt = "Besoin d'aide interne";
-            break;
-        case WORK_NEEDHELP_OUTER:
-            $txt = "Besoin d'aide externe";
-            break;
-        case WORK_NEEDHELP_BOTH:
-            $txt = "Besoin d'aide interne et externe";
-            break;
-        default:
-            $txt = "ERROR UNKNOWN STATE";
-    }
-    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
-    return $txt;
+    $values = [
+        WORK_NEEDHELP_NONE => "Pas besoin",
+        WORK_NEEDHELP_INNER => "Besoin d'aide interne",
+        WORK_NEEDHELP_OUTER => "Besoin d'aide externe",
+        WORK_NEEDHELP_BOTH => "Besoin d'aide interne et externe"
+    ];
+    return applyPostTraitementOnTxt($values[$int], $needFirstCharToUpper);
 }
 
 //Convert the work need_help to the name of the icon
 function convertWorkNeedhelpIcon($int)
 {
-    switch ($int) {
-        case WORK_NEEDHELP_NONE:
-            $txt = false;
-            break;
-        case WORK_NEEDHELP_INNER:
-            $txt = "help_orange.png";
-            break;
-        case WORK_NEEDHELP_OUTER:
-            $txt = "help_yellow.png";
-            break;
-        case WORK_NEEDHELP_BOTH:
-            $txt = "help_orangeyellow.png";
-            break;
-        default:
-            $txt = "ERROR UNKNOWN STATE";
-    }
-    return $txt;
+    $values = [
+        WORK_NEEDHELP_NONE => false,
+        WORK_NEEDHELP_INNER => "help_orange.png",
+        WORK_NEEDHELP_OUTER => "help_yellow.png",
+        WORK_NEEDHELP_BOTH => "help_orangeyellow.png"
+    ];
+    return applyPostTraitementOnTxt($values[$int], $needFirstCharToUpper);
 }
 
 //Convert the task state in french
 function convertTaskState($int, $needFirstCharToUpper = false)
 {
-    switch ($int) {
-        case TASK_STATE_TODO:
-            $txt = "à faire";
-            break;
-        case TASK_STATE_INRUN:
-            $txt = "en cours";
-            break;
-        case TASK_STATE_DONE:
-            $txt = "terminé";   //ou fini ??
-            break;
-        default:
-            $txt = "ERROR UNKNOWN STATE";
-    }
-    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
-    return $txt;
+    $values = [
+        TASK_STATE_TODO => "à faire",
+        TASK_STATE_INRUN => "en cours",
+        TASK_STATE_DONE => "terminé"
+    ];
+    return applyPostTraitementOnTxt($values[$int], $needFirstCharToUpper);
 }
 
 //Convert the task type in french
 function convertTaskType($int, $needFirstCharToUpper = false)
 {
-    switch ($int) {
-        case TASK_TYPE_NONE:
-            $txt = "autre"; //TBD
-            break;
-        case TASK_TYPE_QUESTION:
-            $txt = "question";
-            break;
-        case TASK_TYPE_INFORMATION:
-            $txt = "information";
-            break;
-        case TASK_TYPE_PROPOSITION:
-            $txt = "proposition";
-            break;
-        case TASK_TYPE_IDEA:
-            $txt = "idée";
-            break;
-        case TASK_TYPE_REFLEXION:
-            $txt = "réflexion";
-            break;
-        default:
-            $txt = "ERROR UNKNOWN STATE";
-    }
-    $txt = manageIfApplyOnFirstChar($txt, $needFirstCharToUpper);
-    return $txt;
+    $values = [
+        TASK_TYPE_NONE => "autre",  //TBD
+        TASK_TYPE_QUESTION => "question",
+        TASK_TYPE_INFORMATION => "information",
+        TASK_TYPE_PROPOSITION => "proposition",
+        TASK_TYPE_IDEA => "idée",
+        TASK_TYPE_REFLEXION => "réflexion"
+    ];
+    return applyPostTraitementOnTxt($values[$int], $needFirstCharToUpper);
 }
 
 //Set the first char of a string to uppercase

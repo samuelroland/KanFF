@@ -16,6 +16,7 @@ require ".const.php";
 if ($dev == true) { //dev zone
     echo createManualLink("membres");
 var_dump(checkStringLengthNotEmpty("", 5));
+echo convertProjectState(10);
 }
 $contenttype = "large";
 $content = ob_get_clean();
