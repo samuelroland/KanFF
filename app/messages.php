@@ -11,7 +11,9 @@
 //COMMON for the whole app (not related to a page or table of the db)
 define("COMMON_404", "Page demandée inconnue... Vous avez été redirigé vers le dashboard.");
 define("COMMON_INVALID_DATA_SENT", "Données invalides. Veuillez retenter.");
+define("COMMON_MISSING_DATA_SENT", "Données manquantes. Veuillez retenter.");
 define("COMMON_ACTION_DENIED", "Action non autorisée avec ces permissions.");
+define("COMMON_ACTION_DENIED_BECAUSE_NOT_ADMIN", "Action non autorisée car vous n'êtes pas admin.");
 define("COMMON_CONFIRMATION_PWD_ERROR", "Mot de passe de confirmation pour une action importante erroné. Veuillez retenter.");
 define("COMMON_VALIDATION_SENTENCE_ERROR", "La phrase de vérification insérée n'est pas correcte.... Veuillez ressayer");
 
@@ -54,6 +56,14 @@ define("COMMON_ACTION_DENIED_LIMITED_ACCESS", "Vous êtes en accès limité, l'a
 define("COMMON_ACTION_UNKNOWN", "L'action demandée n'existe pas.");
 
 //USERS
+define("USER_STATE_UPDATE_FAIL_ADMINS_MIN", "Ce changement d'état est impossible car il doit rester au moins {nbadmins} {adminOrAdmins} dans le collectif.");
+define("USER_STATE_UPDATE_COMBINATION_DENIED", "Impossible de changer vers cet état-là.");
+define("USER_STATE_UPDATE_PWD_EDITION_MODE_FAIL", "Mot de passe pour activer le mode édition erroné");
+define("USER_STATE_SUCCESS", "Etat de {fullname} changé en {state}");
+define("UPDATESTATUS_SUCCESS", "Statut modifié.");
+define("UPDATESTATUS_SUCCESS_EMPTIED", "Statut vidé.");
+define("DELETEUNAPPROVEDUSER_SUCCESS", "Le compte de {fullname} a bien été supprimé.");
+define("DELETEUNAPPROVEDUSER_FAIL", "Erreur interne. Echec de la suppression dans la base de données.");
 
 //JOIN
 
@@ -66,7 +76,15 @@ define("COMMON_ACTION_UNKNOWN", "L'action demandée n'existe pas.");
 //WORKS
 
 //TASKS
+define("CREATEATASK_SUCCESS", "Tâche {number} créée avec succès.");
+define("UPDATEATASK_SUCCESS", "Tâche {number} mise à jour.");
+define("DELETEATASK_SUCCESS", "Tâche {number} supprimée avec succès.");
 
 //LOG
+
+//FEEDBACK
+define("SENDFEEDBACK_SUCCESS", "Feedback envoyé.");
+define("SENDFEEDBACK_INVALID_DATA_SENT", "Données invalides. Echec d'envoi du feedback.");
+define("SENDFEEDBACK_INVALID_EMAILS_CONFIGURATION", "Mauvaise configuration côté serveur pour l'envoi de feedback. Contacter l'admin de l'instance.");
 
 ?>

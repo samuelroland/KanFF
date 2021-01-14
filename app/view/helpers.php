@@ -657,4 +657,9 @@ function getInlineJSForALinkToOpen($link, $linkIsJS = false, $target = null)
     return ' onclick="goToLink(' . $singleQuoteAroundLinkOrNot . $link . $singleQuoteAroundLinkOrNot . ', \'' . $target . '\');" ';
 }
 
+function interpolateVarsInMsg($text, $vars)
+{
+    return "WIP";
+}
+
 ?>

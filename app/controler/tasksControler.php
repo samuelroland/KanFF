@@ -79,16 +79,17 @@ function createATask($data)
         $newtask = getOneTask($id);
         $newtask = createTaskComplementFields($newtask);
 
-        $t = getApiResponse(API_SUCCESS, ['task' => $newtask, 'message' => "Tâche " . $task['number'] . " créée avec succès."]);
+        $msg = interpolateVarsInMsg(CREATEATASK_SUCCESS, ["number" => $task['number']]);
+        $t = getApiResponse(API_SUCCESS, ['task' => $newtask, 'message' => $msg]);
         echo json_encode($t);
         die();
     } else {
         if ($hasPermissionToCreate === false) {
             //TODO: return error message in JSON: work not found (or "you don't have permissions" ??)
-            $response = getApiResponse(API_FAIL, ["error" => getFlashMessageById(11), "code" => 11, "position" => "top"]);
+            $response = getApiResponse(API_FAIL, getApiDataContentError(COMMON_ACTION_DENIED));
         } else {
             //TODO: return error message in JSON: invalid data
-            $response = getApiResponse(API_FAIL, ["error" => getFlashMessageById(10), "code" => 10, "position" => "top"]);
+            $response = getApiResponse(API_FAIL, getApiDataContentError(COMMON_INVALID_DATA_SENT));
         }
 
     }
@@ -183,15 +184,16 @@ function updateATask($data)
         updateTasks($data['work_id'], $id);
 
         $task = getOneTask($id);
-        $response = getApiResponse(API_SUCCESS, ['task' => $task, 'message' => "Tâche mise à jour"]);
+        $msg = interpolateVarsInMsg(UPDATEATASK_SUCCESS, ["number" => $task['number']]);
+        $response = getApiResponse(API_SUCCESS, ['task' => $task, 'message' => $msg]);
         echo json_encode($response);
     } else {
         if ($hasPermissionToUpdate === false) {
             //TODO: return error message in JSON: work not found (or "you don't have permissions" ??)
-            $response = getApiResponse(API_FAIL, ["error" => getFlashMessageById(11), "code" => 11, "position" => "top"]);
+            $response = getApiResponse(API_FAIL, getApiDataContentError(COMMON_ACTION_DENIED));
         } else {
             //TODO: return error message in JSON: invalid data
-            $response = getApiResponse(API_FAIL, ["error" => getFlashMessageById(10), "code" => 10, "position" => "top"]);
+            $response = getApiResponse(API_FAIL, getApiDataContentError(COMMON_INVALID_DATA_SENT));
         }
         echo json_encode($response);
     }
@@ -219,9 +221,9 @@ function deleteATask($data)
 
     if ($hasPermissionToDelete) {
         deleteTasks($data['id']);
-        $response = getApiResponse(API_SUCCESS, ["reference" => ["id" => $data['id']], "message" => "Tâche " . $task['number'] . " supprimée avec succès."]);
+        $response = getApiResponse(API_SUCCESS, ["reference" => ["id" => $data['id']], "message" => interpolateVarsInMsg(DELETEATASK_SUCCESS, $task)]);
     } else {
-        $response = getApiResponse(API_FAIL, getApiDataContentError("no permission"));
+        $response = getApiResponse(API_FAIL, getApiDataContentError(COMMON_ACTION_DENIED));
         //TODO: error about invalid data (and export message to messages.php)
     }
     echo json_encode($response);

@@ -125,25 +125,26 @@ function updateAccountState($data)  //Ajax call
                         $newUser['sentence_modification_state'] = buildSentenceAccountStateLastChange($newUser, false, false);
 
                         //success response with fullname and new state
-                        $response = getApiResponse(API_SUCCESS, ['user' => unsetPasswordsInArrayOn2Dimensions($newUser), 'message' => "Etat de " . buildFullNameOfUser($currentUser) . " changé en " . convertUserState($data['state'])]);
+                        $msg = interpolateVarsInMsg(USER_STATE_SUCCESS, ["fullname" => buildFullNameOfUser($currentUser), "state" => convertUserState($data['state'])]);
+                        $response = getApiResponse(API_SUCCESS, ['user' => unsetPasswordsInArrayOn2Dimensions($newUser), 'message' => $msg]);
                     } else {
-                        $dataAPI = getApiDataContentError("Ce changement d'état est impossible car il doit rester au moins " . USERS_NB_ADMINS_MIN . " admin" . ((USERS_NB_ADMINS_MIN > 1) ? "s" : "") . " dans le collectif.");
+                        $dataAPI = getApiDataContentError(interpolateVarsInMsg(USER_STATE_UPDATE_FAIL_ADMINS_MIN, ["nbadmins" => USERS_NB_ADMINS_MIN, "adminOrAdmins" => " admin" . ((USERS_NB_ADMINS_MIN > 1) ? "s" : "")]));
                         $dataAPI['user'] = unsetPasswordsInArrayOn2Dimensions($currentUser);
                         $response = getApiResponse(API_FAIL, $dataAPI);
                     }
                 } else {    //not authorized
-                    $dataAPI = getApiDataContentError("Impossible de changer vers cet état-là.");
+                    $dataAPI = getApiDataContentError(USER_STATE_UPDATE_COMBINATION_DENIED);
                     $dataAPI['user'] = unsetPasswordsInArrayOn2Dimensions($currentUser);
                     $response = getApiResponse(API_FAIL, $dataAPI);
                 }
             } else {    //password invalid
-                $dataAPI = getApiDataContentError("Mot de passe pour activer le mode édition erroné");
+                $dataAPI = getApiDataContentError(USER_STATE_UPDATE_PWD_EDITION_MODE_FAIL);
                 $currentUser = getUserById($data['id']);
                 $dataAPI['user'] = unsetPasswordsInArrayOn2Dimensions($currentUser);
                 $response = getApiResponse(API_FAIL, $dataAPI);
             }
         } else {    //missing data
-            $dataAPI = getApiDataContentError("Données manquantes");
+            $dataAPI = getApiDataContentError(COMMON_MISSING_DATA_SENT);
             $currentUser = getUserById($data['id']);
             if (empty($currentUser) == false) {    //to prevent empty value if id is inexistant, because the user will be empty
                 $dataAPI['user'] = unsetPasswordsInArrayOn2Dimensions($currentUser);
@@ -151,7 +152,7 @@ function updateAccountState($data)  //Ajax call
             $response = getApiResponse(API_FAIL, $dataAPI);
         }
     } else {
-        $dataAPI = getApiDataContentError("Permission requise, vous n'êtes pas admin.");
+        $dataAPI = getApiDataContentError(COMMON_ACTION_DENIED_BECAUSE_NOT_ADMIN);
         $dataAPI['user'] = unsetPasswordsInArrayOn2Dimensions($currentUser);
         $response = getApiResponse(API_FAIL, $dataAPI);
     }
@@ -167,14 +168,14 @@ function changeStatus($data)  //Ajax call
 
     if (checkStringLengthOnly($data['status'], 200)) {  //maxlength is 200 chars
         updateUser(['status' => $data['status']], $_SESSION['user']['id']); //update the user status
-        $msg = "Statut modifié!";   //default response msg is "status modified"
+        $msg = UPDATESTATUS_SUCCESS;   //default response msg is "status modified"
         if ($data['status'] == "") {
-            $msg = "Statut vidé.";  //and if status is empty, msg is "status emptied"
+            $msg = UPDATESTATUS_SUCCESS_EMPTIED;  //and if status is empty, msg is "status emptied"
         }
         //response is the new user updated and the success message
         $response = getApiResponse(API_SUCCESS, ['user' => unsetPasswordsInArrayOn2Dimensions(getUserById($_SESSION['user']['id'])), 'message' => $msg]);
     } else {
-        $dataError = getApiDataContentError("Données invalides.");    //basic invalid data error
+        $dataError = getApiDataContentError(COMMON_INVALID_DATA_SENT);    //basic invalid data error
         $response = getApiResponse(API_FAIL, array_merge(['user' => $_SESSION['user']], $dataError)); //response contains error and user information (to have the state)
     }
     echo json_encode($response);
@@ -195,17 +196,17 @@ function deleteUnapprovedUser($data)    //Ajax call
         $userToDelete = unsetPasswordsInArrayOn2Dimensions($userToDelete);
         $callback = getUserById($data['id']);
         if ($callback == false) {   //if callback user is empty, the user has been deleted
-            $msg = "Le compte de " . buildFullNameOfUser($userToDelete) . " a bien été supprimé.";
+            $msg = interpolateVarsInMsg(DELETEUNAPPROVEDUSER_SUCCESS, ["fullname" => buildFullNameOfUser($userToDelete)]);
             $response = getApiResponse(API_SUCCESS, ['user' => $userToDelete, 'message' => $msg]);
         } else {    //the user hasn't been deleted because of an SQL error (like foreign key doesn't accept deletion of their reference...)
-            $msg = "Erreur interne. Suppression impossible.";
+            $msg = DELETEUNAPPROVEDUSER_FAIL;
             $response = getApiResponse(API_ERROR, null, $msg);
         }
     } else { //permission denied
         if ($passwordVerification == false) {   //because of the password
-            $dataError = getApiDataContentError("Echec. Mot de passe invalide.");    //validation password wrong
+            $dataError = getApiDataContentError(COMMON_CONFIRMATION_PWD_ERROR);    //validation password wrong
         } else {    //because of other reasons
-            $dataError = getApiDataContentError("Action non autorisée.");    //permission denied message
+            $dataError = getApiDataContentError(COMMON_ACTION_DENIED);    //permission denied message
         }
         $response = getApiResponse(API_FAIL, $dataError); //response contains error only
     }

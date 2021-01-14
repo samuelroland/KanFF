@@ -362,12 +362,12 @@ function sendFeedback($data)
             displaydebug($errorMessage);
             displaydebug($result);
 
-            $response = getApiResponse(API_SUCCESS, ['message' => "Feedback envoyé."]);
+            $response = getApiResponse(API_SUCCESS, ['message' => SENDFEEDBACK_SUCCESS]);
         } else {
-            $response = getApiResponse(API_FAIL, getApiDataContentError("Données invalides. Echec d'envoi du feedback."));
+            $response = getApiResponse(API_FAIL, getApiDataContentError(SENDFEEDBACK_INVALID_DATA_SENT));
         }
     } else {
-        $response = getApiResponse(API_ERROR, null, "Mauvaise configuration côté serveur pour l'envoi de feedback. Contacter l'admin de l'instance.");
+        $response = getApiResponse(API_ERROR, null, SENDFEEDBACK_INVALID_EMAILS_CONFIGURATION);
     }
     echo json_encode($response);
 }
