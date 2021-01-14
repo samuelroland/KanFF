@@ -337,7 +337,7 @@ function sendFeedback($data)
 
             $response = getApiResponse(API_SUCCESS, ['message' => "Feedback envoyé."]);
         } else {
-            $response = getApiResponse(API_FAIL, getApiDataContentError("Données invalides. Echec d'envoi du feedback.", 152));
+            $response = getApiResponse(API_FAIL, getApiDataContentError("Données invalides. Echec d'envoi du feedback."));
         }
     } else {
         $response = getApiResponse(API_ERROR, null, "Mauvaise configuration côté serveur pour l'envoi de feedback. Contacter l'admin de l'instance.");

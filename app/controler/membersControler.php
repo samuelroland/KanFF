@@ -132,18 +132,18 @@ function updateAccountState($data)  //Ajax call
                         $response = getApiResponse(API_FAIL, $dataAPI);
                     }
                 } else {    //not authorized
-                    $dataAPI = getApiDataContentError("Impossible de changer vers cet état-là.", 33);
+                    $dataAPI = getApiDataContentError("Impossible de changer vers cet état-là.");
                     $dataAPI['user'] = unsetPasswordsInArrayOn2Dimensions($currentUser);
                     $response = getApiResponse(API_FAIL, $dataAPI);
                 }
             } else {    //password invalid
-                $dataAPI = getApiDataContentError("Mot de passe pour activer le mode édition erroné", 15);
+                $dataAPI = getApiDataContentError("Mot de passe pour activer le mode édition erroné");
                 $currentUser = getUserById($data['id']);
                 $dataAPI['user'] = unsetPasswordsInArrayOn2Dimensions($currentUser);
                 $response = getApiResponse(API_FAIL, $dataAPI);
             }
         } else {    //missing data
-            $dataAPI = getApiDataContentError("Données manquantes", 17);
+            $dataAPI = getApiDataContentError("Données manquantes");
             $currentUser = getUserById($data['id']);
             if (empty($currentUser) == false) {    //to prevent empty value if id is inexistant, because the user will be empty
                 $dataAPI['user'] = unsetPasswordsInArrayOn2Dimensions($currentUser);
@@ -151,7 +151,7 @@ function updateAccountState($data)  //Ajax call
             $response = getApiResponse(API_FAIL, $dataAPI);
         }
     } else {
-        $dataAPI = getApiDataContentError("Permission requise, vous n'êtes pas admin.", 46);
+        $dataAPI = getApiDataContentError("Permission requise, vous n'êtes pas admin.");
         $dataAPI['user'] = unsetPasswordsInArrayOn2Dimensions($currentUser);
         $response = getApiResponse(API_FAIL, $dataAPI);
     }
@@ -174,7 +174,7 @@ function changeStatus($data)  //Ajax call
         //response is the new user updated and the success message
         $response = getApiResponse(API_SUCCESS, ['user' => unsetPasswordsInArrayOn2Dimensions(getUserById($_SESSION['user']['id'])), 'message' => $msg]);
     } else {
-        $dataError = getApiDataContentError("Données invalides.", 33);    //basic invalid data error
+        $dataError = getApiDataContentError("Données invalides.");    //basic invalid data error
         $response = getApiResponse(API_FAIL, array_merge(['user' => $_SESSION['user']], $dataError)); //response contains error and user information (to have the state)
     }
     echo json_encode($response);
@@ -203,9 +203,9 @@ function deleteUnapprovedUser($data)    //Ajax call
         }
     } else { //permission denied
         if ($passwordVerification == false) {   //because of the password
-            $dataError = getApiDataContentError("Echec. Mot de passe invalide.", 42);    //validation password wrong
+            $dataError = getApiDataContentError("Echec. Mot de passe invalide.");    //validation password wrong
         } else {    //because of other reasons
-            $dataError = getApiDataContentError("Action non autorisée.", 35);    //permission denied message
+            $dataError = getApiDataContentError("Action non autorisée.");    //permission denied message
         }
         $response = getApiResponse(API_FAIL, $dataError); //response contains error only
     }
