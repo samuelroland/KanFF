@@ -27,10 +27,9 @@ function getApiResponse($status, $data, $message = "Error...")
     return $response;
 }
 
-function getApiDataContentError($error, $code, $position = "topright")
+function getApiDataContentError($error, $position = "topright")
 {
     $data['error'] = $error;
-    $data['code'] = $code;
     $data['position'] = $position;
     return $data;
 }
