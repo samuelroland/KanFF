@@ -13,8 +13,9 @@ require_once "view/formsForRightPanel.php";
 
 
 $title = "Kanban de " . $project['name'];
-ob_start();
-?>
+if ($project != false) {
+    ob_start();
+    ?>
     <!-- divHeader Header of the page with information about the project -->
     <div class="divHeader flexdiv p-1 pr-2 pl-2">
         <div class="flex-1 flexdiv box-verticalaligncenter">
@@ -80,9 +81,14 @@ ob_start();
             <?php printDivTaskCreate($project); ?>
         </div>
     </div>
-<?php
+    <?php
+}
 displaydebug($project);
 $contenttype = "full";
 $content = ob_get_clean();
+if ($project == false) { //if no project
+    flshmsg(KANBAN_FAIL_UNKNOWN_ID);
+    $content = "";
+}
 require "gabarit.php";
 ?>

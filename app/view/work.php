@@ -53,6 +53,7 @@ function printAWork($work, $isInsideTheProject)
                     if ($work['need_help'] != 0) {
                         $description = convertWorkNeedhelp($work['need_help']);
                         $iconname = convertWorkNeedhelpIcon($work['need_help']);
+                        $icontitle = convertWorkNeedhelp($work['need_help']);
                         if ($isInsideTheProject) {  //inside the project, the icon is in all cases displayed (even if don't need help from members inside the project)
                             printAnIcon($iconname, $icontitle, "H letter for help icon");
                             echo "<span class=' mr-2'>$description</span>";

@@ -9,6 +9,14 @@
 //print a task in a kanban
 function printATask($task, $hasWritingRightOnTasks, $hidden = false)
 {
+    if (isset($task['id'])==false){
+        $task['id'] = null;
+        $task['state'] = null;
+        $task['number'] = null;
+        $task['responsible_id'] = null;
+        $task['name'] = null;
+        $task['type'] = null;
+    }
     ob_start();
     switch ($task['type']) {
         case 1:

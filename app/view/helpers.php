@@ -106,15 +106,16 @@ function flashMessage($withHtml = true)
         } else {
             $content = $message;
         }
+        unset($_SESSION["flashmsg"]);   //après avoir affiché le message, le message ne doit pas réapparaitre.
+        return $content;
     }
-    unset($_SESSION["flashmsg"]);   //après avoir affiché le message, le message ne doit pas réapparaitre.
-    return $content;
+    return "";
 }
 
 //display a var (with var_dump()) for debug, only if debug mode is enabled
 function displaydebug($var, $needPrint_r = false)
 {
-    $isAjax = ($_SERVER['HTTP_X_AJAX'] == 'true');  //if the request is an Ajax call, the debug is different
+    $isAjax = isAjax();
     require ".const.php";   //get the $debug variable
     if ($debug == true) {   //if debug mode enabled
         echo "\n";

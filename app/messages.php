@@ -39,6 +39,7 @@ define("CREATEAGROUP_SUCCESS", "Le groupe a été créé avec succès. Vous l'av
 
 //PROJECTS
 define("CREATEAPROJECT_SUCCESS", "Votre projet a été créé avec succès!");
+define("KANBAN_FAIL_UNKNOWN_ID", "Ce projet n'existe pas. Le kanban ne peut pas être affiché.");
 
 //WORKS
 
@@ -72,6 +73,7 @@ define("DELETEUNAPPROVEDUSER_FAIL", "Erreur interne. Echec de la suppression dan
 //PARTICIPATE
 
 //PROJECTS
+
 
 //WORKS
 

@@ -100,8 +100,8 @@ function flshmsg($text)
 //Convert a timestamp in the DATETIME format
 function timeToDT($timestamp)
 {
-    $result=false;
-    if (is_int($timestamp)){
+    $result = false;
+    if (is_int($timestamp)) {
         $result = date("Y-m-d H:i:s", $timestamp);
     }
     return $result;
@@ -220,6 +220,16 @@ function checkAdmin()
     return $isAdmin;
 }
 
+//Is the HTTP request sent with Ajax ?
+function isAjax()
+{
+    if (isset($_SERVER['HTTP_X_AJAX'])) {
+        $isAjax = ($_SERVER['HTTP_X_AJAX'] == 'true');
+    } else {
+        return false;
+    }
+    return $isAjax;
+}
 //Return true or false if the user has limited access (because the state is not approved or is not admin)
 function checkLimitedAccess()
 {
@@ -532,5 +542,6 @@ function checkIntMinMax($intValue, $min, $max)
         return false;
     }
 }
+
 
 ?>

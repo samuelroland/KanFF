@@ -42,7 +42,7 @@ displaydebug($_POST);
 displaydebug($data);
 displaydebug($_SESSION);
 
-$isAjax = ($_SERVER['HTTP_X_AJAX'] == 'true');  //look at HTTP header of request to know if it's an Ajax call
+$isAjax = isAjax();
 
 //If user is not logged, actions authorized are login and signin.
 if (!isset($_SESSION['user']['id'])) {
@@ -131,7 +131,7 @@ if (!isset($_SESSION['user']['id'])) {
                 groupDetails($_GET['id']);
                 break;
             case "members":
-                $option = $_GET['option'];
+                $option = getIfSet($_GET['option']);
                 if ($isAdmin == false && ($option == 5 || $option == 6)) {
                     $option = 1;
                 }
@@ -166,7 +166,12 @@ if (!isset($_SESSION['user']['id'])) {
                 projectDetails($_GET['id'], $_GET['option']);
                 break;
             case "kanban":
-                kanban($_GET['id'], $_GET['opt']);
+                if (isset($opt) == false) {
+                    $opt = 0;
+                } else {
+                    $opt = $_GET['opt'];
+                }
+                kanban($_GET['id'], $opt);
                 break;
             case "getTask": //Ajax call to get one task
                 getTask($_GET['id']);
