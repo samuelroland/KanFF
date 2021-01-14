@@ -67,7 +67,7 @@ if (!isset($_SESSION['user']['id'])) {
             break;
         default:
             if ($isAjax) {
-                $apiData = getApiDataContentError("Échec. Vous êtes déconnecté·e, l'action est interdite.");
+                $apiData = getApiDataContentError(COMMON_ACTION_DENIED_LOGGED_OUT);
                 $response = getApiResponse(API_FAIL, $apiData);
                 echo json_encode($response);
             } else {
@@ -99,7 +99,7 @@ if (!isset($_SESSION['user']['id'])) {
                 break;
             default:
                 if ($isAjax) {
-                    $apiData = getApiDataContentError("Échec. Vous êtes en accès limité, l'action est interdite.");
+                    $apiData = getApiDataContentError(COMMON_ACTION_DENIED_LIMITED_ACCESS);
                     $response = getApiResponse(API_FAIL, $apiData);
                     echo json_encode($response);
                 } else {
@@ -199,7 +199,7 @@ if (!isset($_SESSION['user']['id'])) {
             */
             default:
                 if ($isAjax) {
-                    $apiData = getApiDataContentError("Échec. L'action demandée n'existe pas.");
+                    $apiData = getApiDataContentError(COMMON_ACTION_UNKNOWN);
                     $response = getApiResponse(API_FAIL, $apiData);
                     echo json_encode($response);
                 } else {

@@ -127,7 +127,7 @@ function updateAccountState($data)  //Ajax call
                         //success response with fullname and new state
                         $response = getApiResponse(API_SUCCESS, ['user' => unsetPasswordsInArrayOn2Dimensions($newUser), 'message' => "Etat de " . buildFullNameOfUser($currentUser) . " changé en " . convertUserState($data['state'])]);
                     } else {
-                        $dataAPI = getApiDataContentError("Ce changement d'état est impossible car il doit rester au moins " . USERS_NB_ADMINS_MIN . " admin" . ((USERS_NB_ADMINS_MIN > 1) ? "s" : "") . " dans le collectif.", 63);
+                        $dataAPI = getApiDataContentError("Ce changement d'état est impossible car il doit rester au moins " . USERS_NB_ADMINS_MIN . " admin" . ((USERS_NB_ADMINS_MIN > 1) ? "s" : "") . " dans le collectif.");
                         $dataAPI['user'] = unsetPasswordsInArrayOn2Dimensions($currentUser);
                         $response = getApiResponse(API_FAIL, $dataAPI);
                     }

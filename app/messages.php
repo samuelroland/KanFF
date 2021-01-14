@@ -47,6 +47,26 @@ define("CREATEAPROJECT_SUCCESS", "Votre projet a été créé avec succès!");
 
 //--------------------------------------------
 //Messages for Ajax calls:
-define("CREATETASK_SUCCESS", "x")
+
+//COMMON for the whole app (not related to a page or table of the db)
+define("COMMON_ACTION_DENIED_LOGGED_OUT", "Vous êtes déconnecté·e, l'action est interdite.");
+define("COMMON_ACTION_DENIED_LIMITED_ACCESS", "Vous êtes en accès limité, l'action est interdite.");
+define("COMMON_ACTION_UNKNOWN", "L'action demandée n'existe pas.");
+
+//USERS
+
+//JOIN
+
+//GROUPS
+
+//PARTICIPATE
+
+//PROJECTS
+
+//WORKS
+
+//TASKS
+
+//LOG
 
 ?>
