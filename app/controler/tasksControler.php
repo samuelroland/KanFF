@@ -7,32 +7,6 @@
  */
 
 require_once "model/tasksModel.php";
-define("API_SUCCESS", 1);
-define("API_FAIL", 2);
-define("API_ERROR", 3);
-
-function getApiResponse($status, $data, $message = "Error...")
-{
-    if (isAtLeastEqual($status, [API_SUCCESS, API_FAIL, API_ERROR]) == false) {
-        die("$status not possible for \$status");
-    }
-    $statusPossible = [API_SUCCESS => "success", API_FAIL => "fail", API_ERROR => "error"];
-    $response['status'] = $statusPossible[$status];
-    if ($data !== false) {
-        $response['data'] = $data;
-    }
-    if ($status == API_ERROR) {
-        $response['message'] = $message;
-    }
-    return $response;
-}
-
-function getApiDataContentError($error, $position = "topright")
-{
-    $data['error'] = $error;
-    $data['position'] = $position;
-    return $data;
-}
 
 //display the page Tasks
 function tasks()

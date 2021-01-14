@@ -6,6 +6,33 @@
  *  Creation date: 26.04.2020
  */
 
+define("API_SUCCESS", 1);
+define("API_FAIL", 2);
+define("API_ERROR", 3);
+
+function getApiResponse($status, $data, $message = "Error...")
+{
+    if (isAtLeastEqual($status, [API_SUCCESS, API_FAIL, API_ERROR]) == false) {
+        die("$status not possible for \$status");
+    }
+    $statusPossible = [API_SUCCESS => "success", API_FAIL => "fail", API_ERROR => "error"];
+    $response['status'] = $statusPossible[$status];
+    if ($data !== false) {
+        $response['data'] = $data;
+    }
+    if ($status == API_ERROR) {
+        $response['message'] = $message;
+    }
+    return $response;
+}
+
+function getApiDataContentError($error, $position = "topright")
+{
+    $data['error'] = $error;
+    $data['position'] = $position;
+    return $data;
+}
+
 define("ARRAY_ACCENT_CHARS", array('Š' => 'S', 'š' => 's', 'Ž' => 'Z', 'ž' => 'z', 'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A', 'Æ' => 'A', 'Ç' => 'C', 'È' => 'E', 'É' => 'E',
     'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I', 'Ñ' => 'N', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'O', 'Ø' => 'O', 'Ù' => 'U',
     'Ú' => 'U', 'Û' => 'U', 'Ü' => 'U', 'Ý' => 'Y', 'Þ' => 'B', 'ß' => 'Ss', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'a', 'å' => 'a', 'æ' => 'a', 'ç' => 'c',
