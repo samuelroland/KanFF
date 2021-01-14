@@ -11,12 +11,7 @@
 //display the page groups
 function calendar()
 {
-    /*
-    $groups = getAllEvents();
-    $fieldsToConvert = ["name", "description", "context", "status"];
-    $groups = specialCharsConvertFromAnArray($groups, $fieldsToConvert);
-    displaydebug($groups);
-    */
+
     require_once "view/calendar.php";
 }
 
