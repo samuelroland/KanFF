@@ -28,7 +28,8 @@
 - Contenu de la constante :
     - Le premier mot défini là où est utilisié la constante :
         - Utiliser l'action dans la querystring.
-        - Utiliser *`COMMON`* dans le cas où on utilise la constante sur plusieurs pages. 
+        - Utiliser le nom de la table de la base de donnée MySQL.
+        - Utiliser *`COMMON`* dans le cas où on utilise la constante sur plusieurs pages, avec des sujets différents. 
     - Le deuxième (et suivants) permet de définir dans quel cas est utilisé le message.
 - Exemple : `ACTION_QUE_CE_PASSE_T'IL`.
     - *`MYACCOUNT_PWD_BAD_CURRENT`*
