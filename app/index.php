@@ -67,7 +67,7 @@ if (!isset($_SESSION['user']['id'])) {
             break;
         default:
             if ($isAjax) {
-                $apiData = getApiDataContentError("Échec. Vous êtes déconnecté·e, l'action est interdite.", 551);
+                $apiData = getApiDataContentError("Échec. Vous êtes déconnecté·e, l'action est interdite.");
                 $response = getApiResponse(API_FAIL, $apiData);
                 echo json_encode($response);
             } else {
@@ -99,7 +99,7 @@ if (!isset($_SESSION['user']['id'])) {
                 break;
             default:
                 if ($isAjax) {
-                    $apiData = getApiDataContentError("Échec. Vous êtes en accès limité, l'action est interdite.", 552);
+                    $apiData = getApiDataContentError("Échec. Vous êtes en accès limité, l'action est interdite.");
                     $response = getApiResponse(API_FAIL, $apiData);
                     echo json_encode($response);
                 } else {
@@ -199,7 +199,7 @@ if (!isset($_SESSION['user']['id'])) {
             */
             default:
                 if ($isAjax) {
-                    $apiData = getApiDataContentError("Échec. L'action demandée n'existe pas.", 553);
+                    $apiData = getApiDataContentError("Échec. L'action demandée n'existe pas.");
                     $response = getApiResponse(API_FAIL, $apiData);
                     echo json_encode($response);
                 } else {

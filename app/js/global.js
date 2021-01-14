@@ -125,20 +125,24 @@ function manageResponseStatus(response) {
             break;
         case "fail":
             if (response.data.hasOwnProperty("error")) {    //failed queries must contain error index
-                displayResponseMsg("Erreur " + response.data.code + ": " + response.data.error, false)
+                displayResponseMsg("Erreur: " + response.data.error, false)
             } else {
-                displayResponseMsg("Erreur indéfinie")
+                displayResponseMsg("Erreur indéfinie", false)
             }
             isSuccess = false
             break
         case "error":   //TODO with specs
             if (response.hasOwnProperty("message")) {
                 displayResponseMsg(response.message, false, "red")
+            } else {
+                displayResponseMsg("Erreur interne indéfinie", false)
             }
             isSuccess = false
             break;
         default:
             displayResponseMsg("Unknown status '" + response.status + "' of the response")
+            isSuccess = false
+            break;
     }
     return isSuccess
 }
