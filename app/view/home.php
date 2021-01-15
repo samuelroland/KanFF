@@ -14,6 +14,11 @@ ob_start();
 <?php
 require ".const.php";
 if ($dev == true) { //dev zone
+
+    //Benoit en haut
+    echo "<h1>=============Séparation des zones===============</h1>";
+    //Samuel en bas
+
     echo createManualLink("membres");
 var_dump(checkStringLengthNotEmpty("", 5));
 echo convertProjectState(10);
