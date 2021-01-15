@@ -366,8 +366,7 @@ function checkRightForCallFlashMessagesDeleteArchive($post, $option)
         } elseif (checkUserPassword($_SESSION["user"]["id"], $post["password"])) {
             flshmsg(COMMON_VALIDATION_SENTENCE_ERROR);
         } elseif (!checkUserPassword($_SESSION["user"]["id"], $post["password"]) && $post["sentence"] != $textToCopy) {
-            flshmsg(COMMON_VALIDATION_SENTENCE_ERROR);
-            flshmsg(COMMON_CONFIRMATION_PWD_ERROR);
+            flshmsg(COMMON_VALIDATION_SENTENCE_AND_PWD_ERROR);
         }
 
         require_once "view/bigActionOnAccount.php";

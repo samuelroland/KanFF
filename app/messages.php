@@ -10,12 +10,13 @@
 
 //COMMON for the whole app (not related to a page or table of the db)
 define("COMMON_404", "Page demandée inconnue... Vous avez été redirigé vers le dashboard.");
-define("COMMON_INVALID_DATA_SENT", "Données invalides. Veuillez retenter.");
-define("COMMON_MISSING_DATA_SENT", "Données manquantes. Veuillez retenter.");
+define("COMMON_INVALID_DATA_SENT", "Données invalides. Veuillez réessayer.");
+define("COMMON_MISSING_DATA_SENT", "Données manquantes. Veuillez réessayer.");
 define("COMMON_ACTION_DENIED", "Action non autorisée avec ces permissions.");
 define("COMMON_ACTION_DENIED_BECAUSE_NOT_ADMIN", "Action non autorisée car vous n'êtes pas admin.");
-define("COMMON_CONFIRMATION_PWD_ERROR", "Mot de passe de confirmation pour une action importante erroné. Veuillez retenter.");
-define("COMMON_VALIDATION_SENTENCE_ERROR", "La phrase de vérification insérée n'est pas correcte.... Veuillez ressayer");
+define("COMMON_CONFIRMATION_PWD_ERROR", "Mot de passe de confirmation pour une action importante erroné. Veuillez réessayer.");
+define("COMMON_VALIDATION_SENTENCE_ERROR", "La phrase de vérification insérée n'est pas correcte.... Veuillez réessayer");
+define("COMMON_VALIDATION_SENTENCE_AND_PWD_ERROR", "La phrase de vérification insérée et le mot de passe de confirmation ne sont pas correctes.... Veuillez réessayer");
 
 //USERS
 define("LOGIN_FAIL", "Les identifiants de connexion ne concordent pas. Veuillez retenter la connexion.");
