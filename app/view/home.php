@@ -19,16 +19,8 @@ if ($dev == true) { //dev zone
     echo "<h1>=============Séparation des zones===============</h1>";
     //Samuel en bas
 
-    echo createManualLink("membres");
-    var_dump(checkStringLengthNotEmpty("", 5));
-    echo convertProjectState(10);
-    $projects = indexAnArrayById(getAllProjects());
-    $works = getAllWorks();
-    foreach ($works as $work) {
-        $projects[$work['project_id']]['works'][$work['id']] = $work;
-    }
-    displaydebug($projects, true, true);
-    $progressionsByProject = calculateProgressionOfProjects($projects, getAllTasks());
+    //displaydebug($projects, true, true);
+    $progressionsByProject = calculateProgressionOfProjects(getAllProjects(), getAllWorks(), getAllTasks());
     displaydebug($progressionsByProject, true, true);
 }
 $contenttype = "large";

@@ -539,71 +539,50 @@ function interpolateArrayValuesInAString($text, $array)
     return strtr($text, $values);   //will replace {key} by his value, for each key...
 }
 
-function calculateProgressionOfProjects($projects, $tasks)
+function calculateProgressionOfProjects($projects, $works, $tasks)
 {
-    //useless
-    foreach ($projects as $key => $baseProject) {
-        $newProject = $baseProject;
-        foreach ($baseProject['works'] as $keywork => $work) {
-            $nbTotalTasks = 0;
-            $nbTasksDone = 0;
-            foreach ($tasks as $task) {
-                if ($task['work_id'] == $work['id']) {
-                    $nbTotalTasks++;
-                    if ($task['state'] == TASK_STATE_DONE) {
-                        $nbTasksDone++;
-                    }
-                }
-            }
-            $work['nbTotalTasks'] = $nbTotalTasks;
-            $work['nbTasksDone'] = $nbTasksDone;
-            $newProject['works'][$key];
-        }
-        $newProject = $baseProject;
-        $projects[$key] = $newProject;
-    }
-    //end useless
-
+    $worksIndexedByProject = indexAnArrayByGivenField($works, "project_id", true, "id");
+    $tasksIndexedByWork = indexAnArrayByGivenField($tasks, "work_id", true, "id");  //index the array tasks by field "work_id" (several element by index, and indexed the second time with "id" field)
     $progressionsByProject = [];
-    //displaydebug($projects, true, true);
     foreach ($projects as $project) {
-        $totalEffort = 0;
-        $totalValue = 0;
-        $providedEffort = 0;
-        $generatedValue = 0;
-        foreach ($project['works'] as $work) {
+        $more = [];
+        $totalEffortForTheProject = 0;
+        $totalValueForTheProject = 0;
+        $providedEffortForTheProject = 0;
+        $generatedValueForTheProject = 0;
+        $worksForTheCurrentProject = $worksIndexedByProject[$project['id']];
+        foreach ($worksForTheCurrentProject as $work) {
             //Calculate the total effort in the project
-            $totalEffort += $work['effort'];
-            $totalValue += $work['value'];
-            if ($work['state'] != WORK_STATE_TODO) {
-                //Calculate the provided effort in the works (include only tasks done).
-                $nbTotalTasks = 0;
-                $nbTasksDone = 0;
-                $allWorks = getAllTasksByWork($work['id']);
-                foreach ($allWorks as $task) {
-                    if ($task['work_id'] == $work['id']) {
-                        $nbTotalTasks++;
-                        if ($task['state'] == TASK_STATE_DONE) {
-                            $nbTasksDone++;
-                        }
-                    }
-                }
-                $more[$work['id']] = ["workname"=>$work['name'] ,"nbtotaltasks" => $nbTotalTasks, "nbtasksdone" => $nbTasksDone];
-                $effortProvidedForThisWork = ($nbTasksDone / $nbTotalTasks) * $work['effort'];
+            $totalEffortForTheProject += $work['effort'];
+            $totalValueForTheProject += $work['value'];
 
-                $providedEffort += $effortProvidedForThisWork;
-                $generatedValue += $work['value'];
+            //Calculate the provided effort in the works (include only tasks done).
+            $nbTasksDone = 0;   //default value for nb tasks done in this work
+            $tasksForTheCurrentWork = $tasksIndexedByWork[$work['id']];
+            foreach ($tasksForTheCurrentWork as $task) {
+                if ($task['state'] == TASK_STATE_DONE) {
+                    $nbTasksDone++;
+                }
             }
+            $nbTotalTasks = count($tasksForTheCurrentWork); //count the total number of tasks for the current work
+
+            //$more[$work['id']] = ["workname" => $work['name'], "nbtotaltasks" => $nbTotalTasks, "nbtasksdone" => $nbTasksDone]; //more data useful for debug
+
+            $effortProvidedForThisWork = 0; //default value (useful if total task is 0, because the division will be executed)
+            if ($nbTotalTasks > 0) {    //division by zero is forbidden (> instead of !=, to prevent strange negative values)
+                $effortProvidedForThisWork = ($nbTasksDone / $nbTotalTasks) * $work['effort'];  //take the value of the percentage applied on the work effort.
+            }
+            $providedEffortForTheProject += $effortProvidedForThisWork;
+            $generatedValueForTheProject += $work['value']; //TODO: manage value calculations
         }
 
-        $percentageEffort = round($providedEffort * 100 / $totalEffort, 1); //with the rule of 3, calculate the percentage and round it to one digit
-        $providedEffort = round($providedEffort, 1);
-        $totalEffort = round($totalEffort, 1);
+        $percentageEffortForTheProject = round($providedEffortForTheProject / $totalEffortForTheProject * 100, 0); //calculate the percentage of effort for the current project and round it to one digit
+        $providedEffortForTheProject = round($providedEffortForTheProject, 0);  //After percentage calculated, round the provided effort for the project (0 = no comma, because the calculation is approximate for the simple reason the task effort doesn't exist).
 
-        $progressionsByProject[$project['id']]['providedEffort'] = $providedEffort;
-        $progressionsByProject[$project['id']]['totalEffort'] = $totalEffort;
-        $progressionsByProject[$project['id']]['percentageEffort'] = $percentageEffort;
-        $progressionsByProject[$project['id']]['more'] = $more;
+        $progressionsByProject[$project['id']]['providedEffort'] = $providedEffortForTheProject;
+        $progressionsByProject[$project['id']]['totalEffort'] = $totalEffortForTheProject;
+        $progressionsByProject[$project['id']]['percentageEffort'] = $percentageEffortForTheProject;
+        //$progressionsByProject[$project['id']]['more'] = $more;   //more data useful for debug
     }
     return $progressionsByProject;
 }

@@ -203,6 +203,23 @@ function indexAnArrayById($array)
     return $newarray;
 }
 
+function indexAnArrayByGivenField($array, $fieldname, $severalValuesByIndex = false, $secondIndexIfSeveralValues = false)
+{
+    $newarray = [];
+    foreach ($array as $item) {
+        if ($severalValuesByIndex == false) {
+            $newarray[$item[$fieldname]] = $item;
+        } else {
+            if ($secondIndexIfSeveralValues == false) {
+                $newarray[$item[$fieldname]][] = $item;
+            } else {
+                $newarray[$item[$fieldname]][$item[$secondIndexIfSeveralValues]] = $item;
+            }
+        }
+    }
+    return $newarray;
+}
+
 //Return true or false if the user logged is an admin
 function checkAdmin()
 {
@@ -230,6 +247,7 @@ function isAjax()
     }
     return $isAjax;
 }
+
 //Return true or false if the user has limited access (because the state is not approved or is not admin)
 function checkLimitedAccess()
 {

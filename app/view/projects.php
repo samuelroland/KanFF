@@ -167,12 +167,7 @@ function printAProject($project, $progressionsByProject)
 //Print the category HTML and filter projects depeding on the category (states and archived or not)
 function printACategoryOfProjects($name, $projects, $authorizedStates, $archivedProjectsAuthorized = false)
 {
-    $projects = getAllProjects();
-    $works = getAllWorks();
-    foreach ($works as $work) {
-        $projects[$work['project_id']]['works'][$work['id']] = $work;
-    }
-    $progressionsByProject = calculateProgressionOfProjects($projects, getAllTasks());
+    $progressionsByProject = calculateProgressionOfProjects(getAllProjects(), getAllWorks(), getAllTasks());
     $noProjectDisplayed = true; //default value
     echo '<h2 class="mt-4">' . $name . '</h2>
         <div class="divGroups margin-5px">';    //name of category and start of div
