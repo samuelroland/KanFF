@@ -256,6 +256,8 @@ $(document).ready(function () {
         })
         loadTaskNameForCreate()
         $("#inputnamecreate").on("keydown", createTaskIfEnterKey)
+        $("#typecreate").on("keydown", createTaskIfEnterKey)
+        $("#workcreate").on("keydown", createTaskIfEnterKey)
     }
 })
 
@@ -453,9 +455,9 @@ function createTaskCallback(response) {
 
         //Manage right panel:
         if (chkSerialCreation.checked) {    //if serial mode enabled
-            inputnamecreate.value = ""  //empty name
+            inputnamecreate.value = ""  //empty the name
             typecreate.options.selectedIndex = 0    //set the first option by default (index 0 is not equal to value 0 !)
-
+            loadTaskCreateForm()    //reload task create form to focus on input name
         } else {    //display divTaskDetails with details of task
             managedivRightPanel(true, 1)    //display details form
             loadTaskDetailsWithData(response, true)   //load data for details | canEdit is true because else the user could not create the task

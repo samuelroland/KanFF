@@ -175,14 +175,16 @@ function managedivRightPanel(display, idFormToDisplay = 1) {
 }
 
 //load task creation form
-function loadTaskCreateForm(idwork) {
+function loadTaskCreateForm(idwork = null) {
     managedivRightPanel(true, 2)    //open right panel and display divTaskCreate
     manageActiveTasks(null)
 
     changeOptInUrl(2)   //change opt in url
     inputnamecreate.focus() //focus on the name field to be ready to start typing
     //TODO: scroll to an ideal work position where the task is at top of the divKanban but not hidden.
-    $("#workcreate").val(idwork)  //select the good option on #work with the attribute value of option markup
+    if (idwork != null) {   //select the given work only if given
+        $("#workcreate").val(idwork)  //select the good option on #work with the attribute value of option markup
+    }
 }
 
 //change var opt in the querystring without refresh page
