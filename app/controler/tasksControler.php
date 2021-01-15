@@ -79,7 +79,7 @@ function createATask($data)
         $newtask = getOneTask($id);
         $newtask = createTaskComplementFields($newtask);
 
-        $msg = interpolateVarsInMsg(CREATEATASK_SUCCESS, ["number" => $task['number']]);
+        $msg = interpolateArrayValuesInAString(CREATEATASK_SUCCESS, ["number" => $task['number']]);
         $t = getApiResponse(API_SUCCESS, ['task' => $newtask, 'message' => $msg]);
         echo json_encode($t);
         die();
@@ -184,7 +184,7 @@ function updateATask($data)
         updateTasks($data['work_id'], $id);
 
         $task = getOneTask($id);
-        $msg = interpolateVarsInMsg(UPDATEATASK_SUCCESS, ["number" => $task['number']]);
+        $msg = interpolateArrayValuesInAString(UPDATEATASK_SUCCESS, ["number" => $task['number']]);
         $response = getApiResponse(API_SUCCESS, ['task' => $task, 'message' => $msg]);
         echo json_encode($response);
     } else {
@@ -221,7 +221,7 @@ function deleteATask($data)
 
     if ($hasPermissionToDelete) {
         deleteTasks($data['id']);
-        $response = getApiResponse(API_SUCCESS, ["reference" => ["id" => $data['id']], "message" => interpolateVarsInMsg(DELETEATASK_SUCCESS, $task)]);
+        $response = getApiResponse(API_SUCCESS, ["reference" => ["id" => $data['id']], "message" => interpolateArrayValuesInAString(DELETEATASK_SUCCESS, $task)]);
     } else {
         $response = getApiResponse(API_FAIL, getApiDataContentError(COMMON_ACTION_DENIED));
         //TODO: error about invalid data (and export message to messages.php)

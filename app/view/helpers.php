@@ -530,7 +530,7 @@ function getInlineJSForALinkToOpen($link, $linkIsJS = false, $target = null)
 //Interpolate values of an associative array in a string
 //Ex: $text = "hey {name}, are you {state} ?"; $vars = ["name"=>"Marie", "state"=>"ill"];
 //Return: "hey Maria, are you ill ?"
-function interpolateVarsInMsg($text, $array)
+function interpolateArrayValuesInAString($text, $array)
 {
     $values = [];
     foreach ($array as $key => $val) {

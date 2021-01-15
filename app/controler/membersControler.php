@@ -125,10 +125,10 @@ function updateAccountState($data)  //Ajax call
                         $newUser['sentence_modification_state'] = buildSentenceAccountStateLastChange($newUser, false, false);
 
                         //success response with fullname and new state
-                        $msg = interpolateVarsInMsg(USER_STATE_SUCCESS, ["fullname" => buildFullNameOfUser($currentUser), "state" => convertUserState($data['state'])]);
+                        $msg = interpolateArrayValuesInAString(USER_STATE_SUCCESS, ["fullname" => buildFullNameOfUser($currentUser), "state" => convertUserState($data['state'])]);
                         $response = getApiResponse(API_SUCCESS, ['user' => unsetPasswordsInArrayOn2Dimensions($newUser), 'message' => $msg]);
                     } else {
-                        $dataAPI = getApiDataContentError(interpolateVarsInMsg(USER_STATE_UPDATE_FAIL_ADMINS_MIN, ["nbadmins" => USERS_NB_ADMINS_MIN, "adminOrAdmins" => " admin" . ((USERS_NB_ADMINS_MIN > 1) ? "s" : "")]));
+                        $dataAPI = getApiDataContentError(interpolateArrayValuesInAString(USER_STATE_UPDATE_FAIL_ADMINS_MIN, ["nbadmins" => USERS_NB_ADMINS_MIN, "adminOrAdmins" => " admin" . ((USERS_NB_ADMINS_MIN > 1) ? "s" : "")]));
                         $dataAPI['user'] = unsetPasswordsInArrayOn2Dimensions($currentUser);
                         $response = getApiResponse(API_FAIL, $dataAPI);
                     }
@@ -196,7 +196,7 @@ function deleteUnapprovedUser($data)    //Ajax call
         $userToDelete = unsetPasswordsInArrayOn2Dimensions($userToDelete);
         $callback = getUserById($data['id']);
         if ($callback == false) {   //if callback user is empty, the user has been deleted
-            $msg = interpolateVarsInMsg(DELETEUNAPPROVEDUSER_SUCCESS, ["fullname" => buildFullNameOfUser($userToDelete)]);
+            $msg = interpolateArrayValuesInAString(DELETEUNAPPROVEDUSER_SUCCESS, ["fullname" => buildFullNameOfUser($userToDelete)]);
             $response = getApiResponse(API_SUCCESS, ['user' => $userToDelete, 'message' => $msg]);
         } else {    //the user hasn't been deleted because of an SQL error (like foreign key doesn't accept deletion of their reference...)
             $msg = DELETEUNAPPROVEDUSER_FAIL;
