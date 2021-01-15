@@ -527,9 +527,16 @@ function getInlineJSForALinkToOpen($link, $linkIsJS = false, $target = null)
     return ' onclick="goToLink(' . $singleQuoteAroundLinkOrNot . $link . $singleQuoteAroundLinkOrNot . ', \'' . $target . '\');" ';
 }
 
-function interpolateVarsInMsg($text, $vars)
+//Interpolate values of an associative array in a string
+//Ex: $text = "hey {name}, are you {state} ?"; $vars = ["name"=>"Marie", "state"=>"ill"];
+//Return: "hey Maria, are you ill ?"
+function interpolateVarsInMsg($text, $array)
 {
-    return "WIP";
+    $values = [];
+    foreach ($array as $key => $val) {
+        $values["{" . $key . "}"] = $val;   //create the same array with {$key} instead of $key as key.
+    }
+    return strtr($text, $values);   //will replace {key} by his value, for each key...
 }
 
 ?>
