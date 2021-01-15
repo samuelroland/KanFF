@@ -113,11 +113,11 @@ function flashMessage($withHtml = true)
 }
 
 //display a var (with var_dump()) for debug, only if debug mode is enabled
-function displaydebug($var, $needPrint_r = false)
+function displaydebug($var, $needPrint_r = false, $force = false)
 {
     $isAjax = isAjax();
     require ".const.php";   //get the $debug variable
-    if ($debug == true) {   //if debug mode enabled
+    if ($debug == true || $force == true) {   //if debug mode enabled
         echo "\n";
         if ($isAjax) {
             print_r($var);  //only print_r() because text is not interpreted in Network panel of the browser
@@ -537,6 +537,75 @@ function interpolateArrayValuesInAString($text, $array)
         $values["{" . $key . "}"] = $val;   //create the same array with {$key} instead of $key as key.
     }
     return strtr($text, $values);   //will replace {key} by his value, for each key...
+}
+
+function calculateProgressionOfProjects($projects, $tasks)
+{
+    //useless
+    foreach ($projects as $key => $baseProject) {
+        $newProject = $baseProject;
+        foreach ($baseProject['works'] as $keywork => $work) {
+            $nbTotalTasks = 0;
+            $nbTasksDone = 0;
+            foreach ($tasks as $task) {
+                if ($task['work_id'] == $work['id']) {
+                    $nbTotalTasks++;
+                    if ($task['state'] == TASK_STATE_DONE) {
+                        $nbTasksDone++;
+                    }
+                }
+            }
+            $work['nbTotalTasks'] = $nbTotalTasks;
+            $work['nbTasksDone'] = $nbTasksDone;
+            $newProject['works'][$key];
+        }
+        $newProject = $baseProject;
+        $projects[$key] = $newProject;
+    }
+    //end useless
+
+    $progressionsByProject = [];
+    //displaydebug($projects, true, true);
+    foreach ($projects as $project) {
+        $totalEffort = 0;
+        $totalValue = 0;
+        $providedEffort = 0;
+        $generatedValue = 0;
+        foreach ($project['works'] as $work) {
+            //Calculate the total effort in the project
+            $totalEffort += $work['effort'];
+            $totalValue += $work['value'];
+            if ($work['state'] != WORK_STATE_TODO) {
+                //Calculate the provided effort in the works (include only tasks done).
+                $nbTotalTasks = 0;
+                $nbTasksDone = 0;
+                $allWorks = getAllTasksByWork($work['id']);
+                foreach ($allWorks as $task) {
+                    if ($task['work_id'] == $work['id']) {
+                        $nbTotalTasks++;
+                        if ($task['state'] == TASK_STATE_DONE) {
+                            $nbTasksDone++;
+                        }
+                    }
+                }
+                $more[$work['id']] = ["workname"=>$work['name'] ,"nbtotaltasks" => $nbTotalTasks, "nbtasksdone" => $nbTasksDone];
+                $effortProvidedForThisWork = ($nbTasksDone / $nbTotalTasks) * $work['effort'];
+
+                $providedEffort += $effortProvidedForThisWork;
+                $generatedValue += $work['value'];
+            }
+        }
+
+        $percentageEffort = round($providedEffort * 100 / $totalEffort, 1); //with the rule of 3, calculate the percentage and round it to one digit
+        $providedEffort = round($providedEffort, 1);
+        $totalEffort = round($totalEffort, 1);
+
+        $progressionsByProject[$project['id']]['providedEffort'] = $providedEffort;
+        $progressionsByProject[$project['id']]['totalEffort'] = $totalEffort;
+        $progressionsByProject[$project['id']]['percentageEffort'] = $percentageEffort;
+        $progressionsByProject[$project['id']]['more'] = $more;
+    }
+    return $progressionsByProject;
 }
 
 ?>

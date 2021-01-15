@@ -20,8 +20,16 @@ if ($dev == true) { //dev zone
     //Samuel en bas
 
     echo createManualLink("membres");
-var_dump(checkStringLengthNotEmpty("", 5));
-echo convertProjectState(10);
+    var_dump(checkStringLengthNotEmpty("", 5));
+    echo convertProjectState(10);
+    $projects = indexAnArrayById(getAllProjects());
+    $works = getAllWorks();
+    foreach ($works as $work) {
+        $projects[$work['project_id']]['works'][$work['id']] = $work;
+    }
+    displaydebug($projects, true, true);
+    $progressionsByProject = calculateProgressionOfProjects($projects, getAllTasks());
+    displaydebug($progressionsByProject, true, true);
 }
 $contenttype = "large";
 $content = ob_get_clean();
