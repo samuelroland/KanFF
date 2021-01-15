@@ -13,13 +13,14 @@ ob_start();
 
 <?php
 require ".const.php";
+//INFO dev zone: to force displaydebug without debug mode, write displaydebug($var, true, true);
 if ($dev == true) { //dev zone
 
     //Benoit en haut
-    echo "<h1>=============Séparation des zones===============</h1>";
+    echo "<h4>=============Séparation des zones===============</h4>";
     //Samuel en bas
 
-    //displaydebug($projects, true, true);
+    echo "Tests calculateProgressionOfProjects()";
     $progressionsByProject = calculateProgressionOfProjects(getAllProjects(), getAllWorks(), getAllTasks());
     displaydebug($progressionsByProject, true, true);
 }

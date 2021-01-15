@@ -165,9 +165,8 @@ function printAProject($project, $progressionsByProject)
 }
 
 //Print the category HTML and filter projects depeding on the category (states and archived or not)
-function printACategoryOfProjects($name, $projects, $authorizedStates, $archivedProjectsAuthorized = false)
+function printACategoryOfProjects($name, $projects, $progressionsByProject, $authorizedStates, $archivedProjectsAuthorized = false)
 {
-    $progressionsByProject = calculateProgressionOfProjects(getAllProjects(), getAllWorks(), getAllTasks());
     $noProjectDisplayed = true; //default value
     echo '<h2 class="mt-4">' . $name . '</h2>
         <div class="divGroups margin-5px">';    //name of category and start of div
@@ -223,13 +222,14 @@ $title = "Projets";
     </div>
     <div class="divProjectCategory">
         <?php
+        $progressionsByProject = calculateProgressionOfProjects(getAllProjects(), getAllWorks(), getAllTasks());
         if (empty($projects) == false) {
             if ($option != 3) { //not display in run and on break category for option 3 (archived projects)
-                printACategoryOfProjects("En cours", $projects, [PROJECT_STATE_SEMIACTIVEWORK, PROJECT_STATE_ACTIVEWORK, PROJECT_STATE_UNDERREFLECTION, PROJECT_STATE_UNDERPLANNING]);
-                printACategoryOfProjects("En pause", $projects, [PROJECT_STATE_ONBREAK, PROJECT_STATE_REPORTED]);
+                printACategoryOfProjects("En cours", $projects, $progressionsByProject, [PROJECT_STATE_SEMIACTIVEWORK, PROJECT_STATE_ACTIVEWORK, PROJECT_STATE_UNDERREFLECTION, PROJECT_STATE_UNDERPLANNING]);
+                printACategoryOfProjects("En pause", $projects, $progressionsByProject, [PROJECT_STATE_ONBREAK, PROJECT_STATE_REPORTED]);
             }
-            printACategoryOfProjects("Terminés", $projects, [PROJECT_STATE_DONE], (isAtLeastEqual($option, [2, 3])));   //archived projects are visible in contributed and archived projects options
-            printACategoryOfProjects("Autres", $projects, [PROJECT_STATE_ABANDONNED, PROJECT_STATE_CANCELLED], (isAtLeastEqual($option, [2, 3])));  //archived projects are visible in contributed and archived projects options
+            printACategoryOfProjects("Terminés", $projects, $progressionsByProject, [PROJECT_STATE_DONE], (isAtLeastEqual($option, [2, 3])));   //archived projects are visible in contributed and archived projects options
+            printACategoryOfProjects("Autres", $projects, $progressionsByProject, [PROJECT_STATE_ABANDONNED, PROJECT_STATE_CANCELLED], (isAtLeastEqual($option, [2, 3])));  //archived projects are visible in contributed and archived projects options
         } else {
             echo "<h5 class='marginplus5px mt-3'>Aucun projet sous cette option...</h5>";
         }
