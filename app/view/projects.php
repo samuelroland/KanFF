@@ -7,7 +7,7 @@ function printAProject($project, $progressionsByProject)
     <div class="divProject breakword thinBorder <?= (($project['visible'] == 0) ? "notVisibleToAll" : "") ?>">
         <?php if ($project['isUserLoggedInside'] == true) { ?>
             <div class="topRightForProjectKey borderradius">
-                <?= createToolTip('<div class="p-1 pl-3 pr-3 ">' . printAnIcon("key.png", "", "", "icon-small", false) . "</div>", "Vous êtes dans ce projet.") ?>
+                <?= createToolTip('<div class="p-1 pl-2 pr-2">' . printAnIcon("key.png", "", "", "icon-small", false) . "</div>", "Vous êtes dans ce projet.") ?>
             </div>
         <?php } ?>
         <div class="divProjectFirstLine">
@@ -21,7 +21,7 @@ function printAProject($project, $progressionsByProject)
                     ?>
                 </h3>
                 <?= //Hidden key icon to imitate a right padding to the first line (to stop the name of the project before the icon)
-                createToolTip('<div class="p-1 pl-3 pr-3 m-right--10 visibilityhidden">' . printAnIcon("key.png", "", "", "icon-small", false) . "</div>", "Vous êtes dans ce projet.") ?>
+                createToolTip('<div class="p-1 pl-2 pr-2 m-right--10 visibilityhidden">' . printAnIcon("key.png", "", "", "icon-small", false) . "</div>", "Vous êtes dans ce projet.") ?>
             </div>
             <div class="flexdiv">
                 <div class="flex-2 divParticipate mb-4">
@@ -133,9 +133,9 @@ function printAProject($project, $progressionsByProject)
             <?php }
             ?>
             <button class="btn nopadding btn-yellow clickable"
-                    data-href="?action=kanban&id=<?= $project['id'] ?>"><?php printAnIcon("kanban.png", "Kanban du projet", "kanban icon", "icon-small") ?></button>
-            <button class="btn nopadding btn-yellow clickable"
                     data-href="?action=project&id=<?= $project['id'] ?>"><?php printAnIcon("details.svg", "Détails du projet", "details icon", "icon-small") ?></button>
+            <button class="btn nopadding btn-yellow clickable"
+                    data-href="?action=kanban&id=<?= $project['id'] ?>"><?php printAnIcon("kanban.png", "Kanban du projet", "kanban icon", "icon-small") ?></button>
         </div>
         <?php
         //TODO: refactor the code in a function to avoid duplicate. Make a more clever calcul with data progression.
@@ -164,7 +164,7 @@ function printAProject($project, $progressionsByProject)
 function printACategoryOfProjects($name, $projects, $progressionsByProject, $authorizedStates, $archivedProjectsAuthorized = false)
 {
     $noProjectDisplayed = true; //default value
-    echo '<h2 class="mt-4">' . $name . '</h2>
+    echo '<h2>' . $name . '</h2>
         <div class="divGroups margin-5px">';    //name of category and start of div
     foreach ($projects as $project) {
         if (isAtLeastEqual($project['state'], $authorizedStates)) { //accept only project with states authorized by the category
@@ -186,7 +186,7 @@ function printACategoryOfProjects($name, $projects, $progressionsByProject, $aut
     }
 
     echo "</div>";
-    echo "<hr class='hryellowproject'>";    //horizontal separator line
+    echo "<hr class='hryellowproject mb-4 mt-3'>";    //horizontal separator line
 }
 
 //Start of the view:
