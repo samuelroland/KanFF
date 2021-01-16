@@ -20,26 +20,8 @@ function printAProject($project, $progressionsByProject)
                     }
                     ?>
                 </h3>
-
-                <?php
-                //divIcons management (display or not, and the content):
-                $divIconsIsDisplayed = false;
-                if (isAtLeastEqual(1, [$project['archived'], $project['visible'] + 1])) {   //if at least one icon will be displayed
-                    echo "<div class='ml-3 divIcons box-alignright'>";  //create the div
-                    $divIconsIsDisplayed = true;
-                }
-                //Display the archive icon if the project is archived
-                if ($project['archived'] == 1) { ?>
-                    <img title="Projet archivé" class="icon-small" src="view/medias/icons/archive.png"
-                         alt="archive icon">
-                <?php }
-                //Display the invisible icon if the project is invisible
-                if ($project['visible'] == 0) { ?>
-                    <img title="Ce projet est invisible pour les personnes extérieures au projet"
-                         src="view/medias/icons/hiddeneye.png" alt="email logo" class="icon-simple">
-                <?php }
-                if ($divIconsIsDisplayed) echo "</div>";    //close divIcons if previously created
-                ?>
+                <?= //Hidden key icon to imitate a right padding to the first line (to stop the name of the project before the icon)
+                createToolTip('<div class="p-1 pl-3 pr-3 m-right--10 visibilityhidden">' . printAnIcon("key.png", "", "", "icon-small", false) . "</div>", "Vous êtes dans ce projet.") ?>
             </div>
             <div class="flexdiv">
                 <div class="flex-2 divParticipate mb-4">
@@ -71,7 +53,15 @@ function printAProject($project, $progressionsByProject)
                     ?>
                 </div>
                 <div class="flex-4 pl-2">
-                    <p title="<?= $project['description'] ?>"><?= createElementWithFixedLines($project['description'], 5) ?></p>
+                    <span title="<?= $project['description'] ?>"><?= createElementWithFixedLines($project['description'], 5) ?></span>
+                    <div>
+                        <span>État: <strong><?= convertProjectState($project['state'], true) ?></strong>.</span>
+                        <?php if ($project['state'] == PROJECT_STATE_DONE) { ?>
+                            <span>Fin: <strong><?= DTToHumanDate($project['end']) ?></strong>.</span>
+                        <?php } else if (compare2DatesWithDayPrecision($project['start'], timeToDT(time())) == 1) { ?>
+                            <span>Début: <strong><?= DTToHumanDate($project['start']) ?></strong>.</span>
+                        <?php } ?>
+                    </div>
                 </div>
             </div>
         </div>
@@ -123,19 +113,25 @@ function printAProject($project, $progressionsByProject)
                     <?php
                 } ?>
             </div>
+
             <div class="flex-4 box-verticalaligncenter">
-                <div>
-                    <span>État: <strong><?= convertProjectState($project['state'], true) ?></strong></span><br>
-                    <?php if ($project['state'] == PROJECT_STATE_DONE) { ?>
-                        <span>Date fin: <strong><?= DTToHumanDate($project['end']) ?></strong></span>
-                    <?php } else if (compare2DatesWithDayPrecision($project['start'], timeToDT(time())) == 1) { ?>
-                        <span>Date début: <strong><?= DTToHumanDate($project['start']) ?></strong></span>
-                    <?php } ?>
-                </div>
+
             </div>
 
         </div>
+
         <div class="positionBottomRightForProjectsDetailsBtn">
+            <?php
+            //Display the archive icon if the project is archived
+            if ($project['archived'] == 1) { ?>
+                <img title="Projet archivé" class="icon-small" src="view/medias/icons/archive.png"
+                     alt="archive icon"><?php }
+            //Display the invisible icon if the project is invisible
+            if ($project['visible'] == 0) { ?>
+                <img title="Ce projet est invisible pour les personnes extérieures au projet"
+                     src="view/medias/icons/hiddeneye.png" alt="email logo" class="icon-small">
+            <?php }
+            ?>
             <button class="btn nopadding btn-yellow clickable"
                     data-href="?action=kanban&id=<?= $project['id'] ?>"><?php printAnIcon("kanban.png", "Kanban du projet", "kanban icon", "icon-small") ?></button>
             <button class="btn nopadding btn-yellow clickable"
