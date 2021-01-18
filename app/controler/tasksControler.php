@@ -143,6 +143,8 @@ function updateATask($data)
     $error = (!checkStringLengthNotEmpty($data['name'], 100));
 
     /**En of checking strings's lenght*/
+
+
     if (isAtLeastEqual($data['type'], TASK_LIST_TYPE) && $hasPermissionToUpdate && !$error) {
 
         //use state only if state = true
@@ -197,6 +199,31 @@ function updateATask($data)
         }
         echo json_encode($response);
     }
+
+    //free space
+
+    if (isset($data, $data['id'])) {
+        $id = $data['id'];
+        //TODO: check that the user can update the task
+        //TODO: get the project_id of the task
+        $projectid = getProjectIdByTask($id);
+        $isInsideTheProject = isAUserInsideAProject($projectid, $_SESSION['user']['id']);
+        $work = getOneWork($data['work']);
+
+        //Check that the work exist and that the user have the permissions to create a task in this work
+        $hasPermissionToUpdate = (hasWritingRightOnTasksOfAWork($isInsideTheProject, $work));
+    }
+    if ($hasPermissionToUpdate) {
+        //Go to the chosen update mode (update responsible, update state, update general)
+        if (isset($data['type'])) {
+
+        } else if (isset($data['responsible_id'])) {
+
+        } else {
+
+        }
+    }
+
 }
 
 
