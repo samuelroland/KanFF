@@ -460,7 +460,7 @@ function createTaskCallback(response) {
             loadTaskCreateForm()    //reload task create form to focus on input name
         } else {    //display divTaskDetails with details of task
             managedivRightPanel(true, 1)    //display details form
-            loadTaskDetailsWithData(response, true)   //load data for details | canEdit is true because else the user could not create the task
+            loadTaskDetailsWithData(response, "true")   //load data for details | canEdit is true because else the user could not create the task
             manageActiveTasks(document.getElementById("Task-" + newtask.id))    //active new task created
         }
     }
@@ -480,7 +480,7 @@ function updateTask() {
 
 function updateTaskCallback(response) {
     isSuccess = manageResponseStatus(response)
-    loadTaskDetailsWithData(response, true)
+    loadTaskDetailsWithData(response, "true")
 }
 
 /* 3 functions to manage deletion of task in JS and Ajax */
