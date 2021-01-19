@@ -74,6 +74,7 @@ define("DELETEUNAPPROVEDUSER_FAIL", "Erreur interne. Echec de la suppression dan
 //PARTICIPATE
 
 //PROJECTS
+define("CREATEAPROJECT_NO_GROUPS_VIEW_FAIL", "Vous ne faites partie d'aucun groupe, vous ne pouvez donc pas créer de projet.");
 
 
 //WORKS
