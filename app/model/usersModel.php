@@ -115,10 +115,10 @@ function searchUserByEmail($email)
 function getContributionsByUser($userid, $isInRun)
 {
     if ($isInRun) {
-        $participatestate = TASK_STATE_INRUN;
+        $tasksStates = [TASK_STATE_INRUN, TASK_STATE_DONE];
         $workstate = [WORK_STATE_INRUN,WORK_STATE_ONBREAK];
     } else {
-        $participatestate = TASK_STATE_DONE;
+        $tasksStates = [TASK_STATE_DONE];
         $workstate = [WORK_STATE_DONE];
     }
     $query = "SELECT DISTINCT projects.id AS projectid,projects.name AS projectname, works.name AS workname, works.id AS workid, works.state, COUNT(distinct tasks.id) AS totaltasks
@@ -129,11 +129,11 @@ INNER join participate ON `groups`.id = participate.group_id
 INNER join projects ON projects.id = participate.project_id
 INNER join works ON works.project_id = projects.id
 INNER join tasks ON tasks.work_id = works.id
-WHERE `join`.state IN(" . implode(", ", [JOIN_STATE_INVITATION_ACCEPTED, JOIN_STATE_APPROVED]) . ") AND participate.state = :participatestate AND tasks.responsible_id = :userid  AND users.id = :userid AND works.state IN(" . implode(", ", $workstate) . ")
+WHERE  tasks.state IN (". implode(",", $tasksStates). ") AND tasks.responsible_id = :userid  AND users.id = :userid AND works.state IN(" . implode(", ", $workstate) . ")
 GROUP BY tasks.work_id
 ORDER BY totaltasks DESC";
 
-    return Query($query, ["userid" => $userid, "participatestate" => $participatestate], true);
+    return Query($query, ["userid" => $userid], true);
 }
 
 ?>
