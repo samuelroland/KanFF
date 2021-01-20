@@ -25,8 +25,8 @@ function printContributions($contributions)
                     </li>
                     <?php
                 }
-                echo "</ol>";
             }
+            echo "</ol>";
         }
 
         echo ob_get_clean();
