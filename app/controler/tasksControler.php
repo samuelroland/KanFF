@@ -101,7 +101,7 @@ function updateATask($data)
 {
     setHTTPHeaderForAPIResponse();
     $error = false;
-    var_dump($data);
+    displaydebug($data, true, true);
     $task = [];
     $hasPermissionToUpdate = null; //default value
     if (isset($data, $id)) {
@@ -201,19 +201,21 @@ function updateATask($data)
     }
 
     //free space
-
+    $taskIsFound = null;
+    $hasPermissionToUpdate = null;
     if (isset($data, $data['id'])) {
         $id = $data['id'];
-        //TODO: check that the user can update the task
-        //TODO: get the project_id of the task
-        $projectid = getProjectIdByTask($id);
-        $isInsideTheProject = isAUserInsideAProject($projectid, $_SESSION['user']['id']);
-        $work = getOneWork($data['work']);
+        $projectid = getProjectIdByTask($id);   //the parent project taken by a task id
+        $taskIsFound = ($projectid != null);    //task exist if the parent project is found
+        if ($taskIsFound) { //search other information only if the task is found
+            $isInsideTheProject = isAUserInsideAProject($projectid, $_SESSION['user']['id']);
+            $work = getOneWork($data['work']);
 
-        //Check that the work exist and that the user have the permissions to create a task in this work
-        $hasPermissionToUpdate = (hasWritingRightOnTasksOfAWork($isInsideTheProject, $work));
+            //Check that the work exist and that the user have the permissions to create a task in this work
+            $hasPermissionToUpdate = (hasWritingRightOnTasksOfAWork($isInsideTheProject, $work));
+        }
     }
-    if ($hasPermissionToUpdate) {
+    if ($hasPermissionToUpdate === true && $taskIsFound === true) {
         //Go to the chosen update mode (update responsible, update state, update general)
         if (isset($data['type'])) {
 
@@ -222,6 +224,7 @@ function updateATask($data)
         } else {
 
         }
+        echo json_encode($response);
     }
 
 }

@@ -71,9 +71,9 @@ function createTask($task)
 }
 
 //Update one task with his id
-function updateTasks($Work, $id)
+function updateTasks($task, $id)
 {
-    updateOne("tasks", $id, $Work);
+    updateOne("tasks", $id, $task);
 }
 
 //Delete one task with his id

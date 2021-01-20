@@ -475,6 +475,8 @@ function tryUpdateTask() {
 
 function updateTask() {
     data = getArrayFromAFormFieldsWithName("divTaskDetails")
+    //data.id = task.id
+    data.id = 1
     sendRequest("POST", "?action=updateTask", updateTaskCallback, data)
 }
 
