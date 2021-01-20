@@ -1,13 +1,13 @@
 <?php
 //Print a project with all its informations
-function printAProject($project)
+function printAProject($project, $progressionsByProject)
 {
     ob_start();
     ?>
     <div class="divProject breakword thinBorder <?= (($project['visible'] == 0) ? "notVisibleToAll" : "") ?>">
         <?php if ($project['isUserLoggedInside'] == true) { ?>
             <div class="topRightForProjectKey borderradius">
-                <div class="p-1 pl-3 pr-3 "><?= printAnIcon("key.png", "", "", "icon-small") ?></div>
+                <?= createToolTip('<div class="p-1 pl-2 pr-2">' . printAnIcon("key.png", "", "", "icon-small", false) . "</div>", "Vous êtes dans ce projet.") ?>
             </div>
         <?php } ?>
         <div class="divProjectFirstLine">
@@ -20,26 +20,8 @@ function printAProject($project)
                     }
                     ?>
                 </h3>
-
-                <?php
-                //divIcons management (display or not, and the content):
-                $divIconsIsDisplayed = false;
-                if (isAtLeastEqual(1, [$project['archived'], $project['visible'] + 1])) {   //if at least one icon will be displayed
-                    echo "<div class='ml-3 divIcons box-alignright'>";  //create the div
-                    $divIconsIsDisplayed = true;
-                }
-                //Display the archive icon if the project is archived
-                if ($project['archived'] == 1) { ?>
-                    <img title="Projet archivé" class="icon-small" src="view/medias/icons/archive.png"
-                         alt="archive icon">
-                <?php }
-                //Display the invisible icon if the project is invisible
-                if ($project['visible'] == 0) { ?>
-                    <img title="Ce projet est invisible pour les personnes extérieures au projet"
-                         src="view/medias/icons/hiddeneye.png" alt="email logo" class="icon-simple">
-                <?php }
-                if ($divIconsIsDisplayed) echo "</div>";    //close divIcons if previously created
-                ?>
+                <?= //Hidden key icon to imitate a right padding to the first line (to stop the name of the project before the icon)
+                createToolTip('<div class="p-1 pl-2 pr-2 m-right--10 visibilityhidden">' . printAnIcon("key.png", "", "", "icon-small", false) . "</div>", "Vous êtes dans ce projet.") ?>
             </div>
             <div class="flexdiv">
                 <div class="flex-2 divParticipate mb-4">
@@ -71,7 +53,15 @@ function printAProject($project)
                     ?>
                 </div>
                 <div class="flex-4 pl-2">
-                    <p title="<?= $project['description'] ?>"><?= createElementWithFixedLines($project['description'], 5) ?></p>
+                    <span title="<?= $project['description'] ?>"><?= createElementWithFixedLines($project['description'], 5) ?></span>
+                    <div>
+                        <span>État: <strong><?= convertProjectState($project['state'], true) ?></strong>.</span>
+                        <?php if ($project['state'] == PROJECT_STATE_DONE) { ?>
+                            <span>Fin: <strong><?= DTToHumanDate($project['end']) ?></strong>.</span>
+                        <?php } else if (compare2DatesWithDayPrecision($project['start'], timeToDT(time())) == 1) { ?>
+                            <span>Début: <strong><?= DTToHumanDate($project['start']) ?></strong>.</span>
+                        <?php } ?>
+                    </div>
                 </div>
             </div>
         </div>
@@ -123,21 +113,29 @@ function printAProject($project)
                     <?php
                 } ?>
             </div>
+
             <div class="flex-4 box-verticalaligncenter">
-                <div>
-                    <span>État: <strong><?= convertProjectState($project['state'], true) ?></strong></span><br>
-                    <?php if ($project['state'] == PROJECT_STATE_DONE) { ?>
-                        <span>Date fin: <strong><?= DTToHumanDate($project['end']) ?></strong></span>
-                    <?php } else if (compare2DatesWithDayPrecision($project['start'], timeToDT(time())) == 1) { ?>
-                        <span>Date début: <strong><?= DTToHumanDate($project['start']) ?></strong></span>
-                    <?php } ?>
-                </div>
+
             </div>
 
         </div>
+
         <div class="positionBottomRightForProjectsDetailsBtn">
-            <button class="btn nopadding btn-yellow clickable" data-href="?action=kanban&id=<?= $project['id'] ?>"><?php printAnIcon("kanban.png", "Kanban du projet", "kanban icon", "icon-small") ?></button>
-            <button class="btn nopadding btn-yellow clickable" data-href="?action=project&id=<?= $project['id'] ?>"><?php printAnIcon("details.svg", "Détails du projet", "details icon", "icon-small") ?></button>
+            <?php
+            //Display the archive icon if the project is archived
+            if ($project['archived'] == 1) { ?>
+                <img title="Projet archivé" class="icon-small" src="view/medias/icons/archive.png"
+                     alt="archive icon"><?php }
+            //Display the invisible icon if the project is invisible
+            if ($project['visible'] == 0) { ?>
+                <img title="Ce projet est invisible pour les personnes extérieures au projet"
+                     src="view/medias/icons/hiddeneye.png" alt="email logo" class="icon-small">
+            <?php }
+            ?>
+            <button class="btn nopadding btn-yellow clickable"
+                    data-href="?action=project&id=<?= $project['id'] ?>"><?php printAnIcon("details.svg", "Détails du projet", "details icon", "icon-small") ?></button>
+            <button class="btn nopadding btn-yellow clickable"
+                    data-href="?action=kanban&id=<?= $project['id'] ?>"><?php printAnIcon("kanban.png", "Kanban du projet", "kanban icon", "icon-small") ?></button>
         </div>
         <?php
         //TODO: refactor the code in a function to avoid duplicate. Make a more clever calcul with data progression.
@@ -146,18 +144,16 @@ function printAProject($project)
         $totalValue = 0;
         $providedEffort = 0;
         $generatedValue = 0;
-        foreach ($project['works'] as $work) {
-            $totalEffort += $work['effort'];
-            $totalValue += $work['value'];
-            if ($work['state'] == WORK_STATE_DONE) {
-                $providedEffort += $work['effort'];
-                $generatedValue += $work['value'];
-            }
-        }
-        $percentageEffort = round($providedEffort * 100 / $totalEffort, 1); //with the rule of 3, calculate the percentage and round it to one digit
+
+        $providedEffort = $progressionsByProject[$project['id']]['providedEffort'];
+        $totalEffort = $progressionsByProject[$project['id']]['totalEffort'];
+        $percentageEffort = $progressionsByProject[$project['id']]['percentageEffort'];
+
         ?>
-        <div class="positionBottomForProgressBar fullwidth heightProgressBar">
-            <div class="heightProgressBar progressBar" style="width: <?= $percentageEffort ?>%"></div>
+        <div title="<?= $percentageEffort . "% du projet réalisé (" . $providedEffort . "/" . $totalEffort . " points d'effort)" ?>"
+             class="positionBottomForProgressBar fullwidth heightProgressBar">
+            <div class="heightProgressBar progressBar"
+                 style="width: <?= $percentageEffort ?>%"></div>
         </div>
     </div>
     <?php
@@ -165,20 +161,20 @@ function printAProject($project)
 }
 
 //Print the category HTML and filter projects depeding on the category (states and archived or not)
-function printACategoryOfProjects($name, $projects, $authorizedStates, $archivedProjectsAuthorized = false)
+function printACategoryOfProjects($name, $projects, $progressionsByProject, $authorizedStates, $archivedProjectsAuthorized = false)
 {
     $noProjectDisplayed = true; //default value
-    echo '<h2 class="mt-4">' . $name . '</h2>
+    echo '<h2>' . $name . '</h2>
         <div class="divGroups margin-5px">';    //name of category and start of div
     foreach ($projects as $project) {
         if (isAtLeastEqual($project['state'], $authorizedStates)) { //accept only project with states authorized by the category
             if ($project['archived'] == 1) {    //if project is archived
                 if ($archivedProjectsAuthorized) {  //display only if authorized
-                    printAProject($project);
+                    printAProject($project, $progressionsByProject);
                     $noProjectDisplayed = false;    //at least one project has been display (so no msg to say "no project in this category")
                 }
             } else {
-                printAProject($project);
+                printAProject($project, $progressionsByProject);
                 $noProjectDisplayed = false;    //at least one project has been display (so no msg to say "no project in this category")
             }
 
@@ -190,7 +186,7 @@ function printACategoryOfProjects($name, $projects, $authorizedStates, $archived
     }
 
     echo "</div>";
-    echo "<hr class='hryellowproject'>";    //horizontal separator line
+    echo "<hr class='hryellowproject mb-4 mt-3'>";    //horizontal separator line
 }
 
 //Start of the view:
@@ -222,13 +218,14 @@ $title = "Projets";
     </div>
     <div class="divProjectCategory">
         <?php
+        $progressionsByProject = calculateProgressionOfProjects(getAllProjects(), getAllWorks(), getAllTasks());
         if (empty($projects) == false) {
             if ($option != 3) { //not display in run and on break category for option 3 (archived projects)
-                printACategoryOfProjects("En cours", $projects, [PROJECT_STATE_SEMIACTIVEWORK, PROJECT_STATE_ACTIVEWORK, PROJECT_STATE_UNDERREFLECTION, PROJECT_STATE_UNDERPLANNING]);
-                printACategoryOfProjects("En pause", $projects, [PROJECT_STATE_ONBREAK, PROJECT_STATE_REPORTED]);
+                printACategoryOfProjects("En cours", $projects, $progressionsByProject, [PROJECT_STATE_SEMIACTIVEWORK, PROJECT_STATE_ACTIVEWORK, PROJECT_STATE_UNDERREFLECTION, PROJECT_STATE_UNDERPLANNING]);
+                printACategoryOfProjects("En pause", $projects, $progressionsByProject, [PROJECT_STATE_ONBREAK, PROJECT_STATE_REPORTED]);
             }
-            printACategoryOfProjects("Terminés", $projects, [PROJECT_STATE_DONE], (isAtLeastEqual($option, [2, 3])));   //archived projects are visible in contributed and archived projects options
-            printACategoryOfProjects("Autres", $projects, [PROJECT_STATE_ABANDONNED, PROJECT_STATE_CANCELLED], (isAtLeastEqual($option, [2, 3])));  //archived projects are visible in contributed and archived projects options
+            printACategoryOfProjects("Terminés", $projects, $progressionsByProject, [PROJECT_STATE_DONE], (isAtLeastEqual($option, [2, 3])));   //archived projects are visible in contributed and archived projects options
+            printACategoryOfProjects("Autres", $projects, $progressionsByProject, [PROJECT_STATE_ABANDONNED, PROJECT_STATE_CANCELLED], (isAtLeastEqual($option, [2, 3])));  //archived projects are visible in contributed and archived projects options
         } else {
             echo "<h5 class='marginplus5px mt-3'>Aucun projet sous cette option...</h5>";
         }

@@ -13,10 +13,16 @@ ob_start();
 
 <?php
 require ".const.php";
+//INFO dev zone: to force displaydebug without debug mode, write displaydebug($var, true, true);
 if ($dev == true) { //dev zone
-    echo createManualLink("membres");
-var_dump(checkStringLengthNotEmpty("", 5));
-echo convertProjectState(10);
+
+    //Benoit en haut
+    echo "<h4>=============Séparation des zones===============</h4>";
+    //Samuel en bas
+
+    echo "Tests calculateProgressionOfProjects()";
+    $progressionsByProject = calculateProgressionOfProjects(getAllProjects(), getAllWorks(), getAllTasks());
+    displaydebug($progressionsByProject, true, true);
 }
 $contenttype = "large";
 $content = ob_get_clean();
