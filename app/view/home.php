@@ -23,6 +23,11 @@ if ($dev == true) { //dev zone
     echo "Tests calculateProgressionOfProjects()";
     $progressionsByProject = calculateProgressionOfProjects(getAllProjects(), getAllWorks(), getAllTasks());
     displaydebug($progressionsByProject, true, true);
+
+    echo "Test of getProjectIdByTask() with unknown id:";
+    displaydebug(getProjectIdByTask(15), false, true);
+    var_dump(getProjectIdByTask(1));
+    var_dump(getContributionsByUser(22, true));
 }
 $contenttype = "large";
 $content = ob_get_clean();
