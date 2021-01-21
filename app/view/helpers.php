@@ -587,4 +587,9 @@ function calculateProgressionOfProjects($projects, $works, $tasks)
     return $progressionsByProject;
 }
 
+function errorPage($subject, $message)
+{
+    require_once 'view/error.php';
+}
+
 ?>
