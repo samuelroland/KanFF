@@ -16,7 +16,7 @@ function printContributions($contributions)
     if (count($contributions) > 0) {
         ob_start();
         foreach ($contributions as $project) { ?>
-                <h4><?= $project[0]['projectname'] //get the name of the project with the value in the first work                   ?></h4>
+                <h5><?= $project[0]['projectname'] //get the name of the project with the value in the first work                   ?></h5>
                 <ol>
                 <?php foreach ($project as $work) {
                 if (visibilityOfProjects($work["projectid"])) {?>
@@ -109,7 +109,7 @@ function checkIfKeyIsInMultidimentionalArray($array, $key, $val)
 
 ob_start();
 ?>
-    <h1><?= $title ?></h1>
+    <h2><?= $title ?></h2>
     <p>Voici les informations de <?= $fullname ?>, ses compétences, les groupes rejoints et ses contributions. Certaines
         informations peuvent être masquées en raison du niveau de visibilité défini...</p>
     <div class="statebanner flexdiv">
@@ -121,7 +121,7 @@ ob_start();
         </div>
     </div>
     <div class="spanAreBlock standardDivDetail">
-        <h2>Informations</h2>
+        <h3>Informations</h3>
         <span>Nom complet: <?= $fullname ?></span>
         <span>Initiales: <?= $user['initials'] ?></span>
         <span>Nom d'utilisateur·ice: <?= $user['username'] ?></span>
@@ -129,11 +129,11 @@ ob_start();
         <span>Etat du compte: <?= convertUserState($user['state']) ?></span>
     </div>
     <div class="standardDivDetail">
-        <h3>Biographie</h3>
+        <h4>Biographie</h4>
         <span><?= $user['biography'] ?></span>
     </div>
     <div class="standardDivDetail spanAreBlock">
-        <h3>Contact</h3>
+        <h4>Contact</h4>
         <?php if (areAreAllEqualTo("", [$user['email'], $user['phonenumber'], $user['chat_link']])) {
             echo "Aucune moyen de contact défini.";
         } ?>
@@ -157,7 +157,7 @@ ob_start();
     </div>
 
     <div class="standardDivDetail">
-        <h2>Groupes rejoints</h2>
+        <h3>Groupes rejoints</h3>
         <?php if (count($groups) > 0) { ?>
             <table class="table width-min-content">
                 <thead class="yellowligthheader">
@@ -194,14 +194,14 @@ ob_start();
     </div>
 
     <div class="standardDivDetail">
-        <h2>Contributions en cours</h2>
+        <h3>Contributions en cours</h3>
         <span>Les contributions en cours sont les travaux en cours, dont le membre affiché a participé (tâches en cours ou
             terminées). Les projets et les travaux sont ordrés par le nombre de tâches décroissant.</span>
         <?php printContributions($formatedContributions['inrun']);?>
     </div>
 
     <div class="standardDivDetail">
-        <h2>Contributions antérieures</h2>
+        <h3>Contributions antérieures</h3>
         <span>Les contributions antérieures sont les travaux terminés dont le membre affiché a participé. Les projets et les travaux sont
             ordrés par le nombre de tâches décroissant.</span>
         <?php printContributions($formatedContributions['old']); ?>
