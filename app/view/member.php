@@ -16,10 +16,10 @@ function printContributions($contributions)
     if (count($contributions) > 0) {
         ob_start();
         foreach ($contributions as $project) { ?>
-                <h5><?= $project[0]['projectname'] //get the name of the project with the value in the first work                   ?></h5>
-                <ol>
-                <?php foreach ($project as $work) {
-                if (visibilityOfProjects($work["projectid"])) {?>
+            <h5><?= $project[0]['projectname'] //get the name of the project with the value in the first work                    ?></h5>
+            <ol>
+            <?php foreach ($project as $work) {
+                if (visibilityOfProjects($work["projectid"])) { ?>
                     <li><span class="linkInternal clickable cursorpointer"
                               data-href="?action=project&id=<?= $work['projectid'] ?>#work-<?= $work['workid'] ?>"><?= $work['workname'] ?></span>
                     </li>
@@ -41,10 +41,10 @@ function visibilityOfProjects($idProject)
 //groups autorized to show
     //$_SESSION['member-details-visibility']['autorizedGroups'];
 //groups from logged user
-    $seenUserGroups=getAllGroupsByProject($idProject);
-    foreach ($seenUserGroups as $seenUserGroup){
+    $seenUserGroups = getAllGroupsByProject($idProject);
+    foreach ($seenUserGroups as $seenUserGroup) {
         displaydebug($seenUserGroup);
-        if (checkIfKeyIsInMultidimentionalArray($_SESSION['member-details-visibility']['autorizedGroups'],"id",$seenUserGroup["id"])){
+        if (checkIfKeyIsInMultidimentionalArray($_SESSION['member-details-visibility']['autorizedGroups'], "id", $seenUserGroup["id"])) {
             return true;
         }
     }
@@ -55,7 +55,7 @@ function visibilityOfGroups($group)
 {
     //constant's case GROUP_VISIBILITY_INVISIBLE
     $groupVisibility = [
-        "id"=> "",
+        "id" => "",
         "name" => "",
         "state" => "",
         "nbusers" => "",
@@ -66,13 +66,13 @@ function visibilityOfGroups($group)
 
         case GROUP_VISIBILITY_TITLE:
             $groupVisibility = [
-                "id"=> $group["id"],
+                "id" => $group["id"],
                 "name" => $group['name']];
             break;
         case GROUP_VISIBILITY_STANDARD:
         case GROUP_VISIBILITY_TOTAL:
             $groupVisibility = [
-                "id"=> $group["id"],
+                "id" => $group["id"],
                 "name" => $group['name'],
                 "state" => convertGroupState($group['state'], true),
                 "nbusers" => $group['nbusers'],
@@ -87,7 +87,7 @@ function visibilityOfGroupsForLoggedUser($groupToCheck, $loggedUserGroups)
 {
     if (checkIfKeyIsInMultidimentionalArray($loggedUserGroups, "id", $groupToCheck["id"])) {
         return [
-            "id"=>$groupToCheck['id'],
+            "id" => $groupToCheck['id'],
             "name" => $groupToCheck['name'],
             "state" => convertGroupState($groupToCheck['state'], true),
             "nbusers" => $groupToCheck['nbusers'],
@@ -110,16 +110,18 @@ function checkIfKeyIsInMultidimentionalArray($array, $key, $val)
 ob_start();
 ?>
     <h2><?= $title ?></h2>
-    <p>Voici les informations de <?= $fullname ?>, ses compétences, les groupes rejoints et ses contributions. Certaines
+    <p>Voici les informations de <?= $fullname ?>, les groupes rejoints et ses contributions. Certaines
         informations peuvent être masquées en raison du niveau de visibilité défini...</p>
-    <div class="statebanner flexdiv">
-        <div class="iconsize-40">
-            <?= printAnIcon("infopoint.png", "Statut", "info point", "icon-small") ?>
+    <?php if ($user['status']!="") { ?>
+        <div class="statebanner flexdiv">
+            <div class="iconsize-40">
+                <?= printAnIcon("infopoint.png", "Statut", "info point", "icon-small") ?>
+            </div>
+            <div class="box-verticalaligncenter ml-3">
+                <em><?= $user['status'] ?></em>
+            </div>
         </div>
-        <div class="box-verticalaligncenter ml-3">
-            <em><?= $user['status'] ?></em>
-        </div>
-    </div>
+    <?php } ?>
     <div class="spanAreBlock standardDivDetail">
         <h3>Informations</h3>
         <span>Nom complet: <?= $fullname ?></span>
@@ -197,7 +199,7 @@ ob_start();
         <h3>Contributions en cours</h3>
         <span>Les contributions en cours sont les travaux en cours, dont le membre affiché a participé (tâches en cours ou
             terminées). Les projets et les travaux sont ordrés par le nombre de tâches décroissant.</span>
-        <?php printContributions($formatedContributions['inrun']);?>
+        <?php printContributions($formatedContributions['inrun']); ?>
     </div>
 
     <div class="standardDivDetail">
