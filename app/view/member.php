@@ -197,7 +197,7 @@ ob_start();
 
     <div class="standardDivDetail">
         <h3>Contributions en cours</h3>
-        <span>Les contributions en cours sont les travaux en cours, dont le membre affiché a participé (tâches en cours ou
+        <span>Les contributions en cours sont les travaux en cours et en pauses, dont le membre affiché a participé (tâches en cours ou
             terminées). Les projets et les travaux sont ordrés par le nombre de tâches décroissant.</span>
         <?php printContributions($formatedContributions['inrun']); ?>
     </div>
