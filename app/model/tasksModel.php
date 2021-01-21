@@ -71,7 +71,7 @@ function createTask($task)
 }
 
 //Update one task with his id
-function updateTasks($task, $id)
+function updateTask($task, $id)
 {
     updateOne("tasks", $id, $task);
 }

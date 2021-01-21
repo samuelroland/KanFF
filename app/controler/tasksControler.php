@@ -99,134 +99,84 @@ function createATask($data)
 //Ajax call to update one task
 function updateATask($data)
 {
-    setHTTPHeaderForAPIResponse();
-    $error = false;
-    displaydebug($data, true, true);
-    $task = [];
-    $hasPermissionToUpdate = null; //default value
-    if (isset($data, $id)) {
-        //TODO: check that the user can update the task
-        //TODO: get the project_id of the task
-        $isInsideTheProject = isAUserInsideAProject(getProjectIdByTask($id), $_SESSION['user']['id']);
-        $work = getOneWork($data['work']);
-
-        //Check that the work exist and that the user have the permissions to create a task in this work
-        if (hasWritingRightOnTasksOfAWork($isInsideTheProject, $work) && $work['state'] != WORK_STATE_DONE) {
-            $hasPermissionToUpdate = true;
-        } else {
-            $hasPermissionToUpdate = false;
-        }
-    }
-    /**
-     * Validation Data
-     */
-    //Check type of update
-    $total = 0;
-    for ($i = 0; $i == count($data); $i++) {
-        if (isset($data[1])) {
-            $total += 1;
-        }
-    }
-
-    //Check if value needed aren't empty
-    if (isAtLeastEqual("", [$data["name"], $data["state"], $data["urgency"]])) {
-        $error = true;
-    }
-
-    /**Check strings's length*/
-
-    $error = setErrorValueIfNotTrue(!isAtLeastEqual("", $data["description"]) && !checkStringLengthOnly($data['description'], 2000), $error);
-
-    $error = setErrorValueIfNotTrue((!isAtLeastEqual("", $data["link"]) && !checkStringLengthOnly($data['link'], 2000)), $error);
-
-    //Check if
-    $error = (!checkStringLengthNotEmpty($data['name'], 100));
-
-    /**En of checking strings's lenght*/
-
-
-    if (isAtLeastEqual($data['type'], TASK_LIST_TYPE) && $hasPermissionToUpdate && !$error) {
-
-        //use state only if state = true
-        if ($data['state']) {
-            if (isset($data['state'])) {
-                if (is_int($data['state'])) {
-                    $task['state'] = $data['state'];
-                } else {
-                    //TODO: API
-                }
-            }
-
-
-        } elseif ($data['responsible_id']) {
-
-            if (is_int($data['responsible_id'])) {
-                $task['responsible_id'] = $data['responsible_id'];
-            } else {
-                //TODO: API
-            }
-
-        } else {
-            //TODO: update TOUT
-            //Check Data
-            if (is_int($data['urgency']) && is_int($data['type']) && is_int($data['name'])) {
-
-            }
-        }
-
-
-        //check if below's var are in right type (INT, STRING...)
-        $error = setErrorValueIfNotTrue(isAtLeastEqual(false, [is_int($data['urgency']), is_int($data['type']), is_int($data['responsible_id'])]) == false, $error);
-        //TODO: mettre les variable de data dans les tasks correspondante
-        //Then generate other fields:
-        $task['state'] = TASK_STATE_TODO;
-        $task['urgency'] = 0;
-
-        //Then create the task:
-        updateTasks($data['work_id'], $id);
-
-        $task = getOneTask($id);
-        $msg = interpolateArrayValuesInAString(UPDATEATASK_SUCCESS, ["number" => $task['number']]);
-        $response = getApiResponse(API_SUCCESS, ['task' => $task, 'message' => $msg]);
-        echo json_encode($response);
-    } else {
-        if ($hasPermissionToUpdate === false) {
-            //TODO: return error message in JSON: work not found (or "you don't have permissions" ??)
-            $response = getApiResponse(API_FAIL, getApiDataContentError(COMMON_ACTION_DENIED));
-        } else {
-            //TODO: return error message in JSON: invalid data
-            $response = getApiResponse(API_FAIL, getApiDataContentError(COMMON_INVALID_DATA_SENT));
-        }
-        echo json_encode($response);
-    }
-
-    //free space
     $taskIsFound = null;
     $hasPermissionToUpdate = null;
+    $msg = null;
+    $success = false;   //the query has succeed or not (by default not)
     if (isset($data, $data['id'])) {
         $id = $data['id'];
-        $projectid = getProjectIdByTask($id);   //the parent project taken by a task id
-        $taskIsFound = ($projectid != null);    //task exist if the parent project is found
+        $currentTask = getOneTask($data['id']);
+        $taskIsFound = ($currentTask != null);    //task exist if the parent project is found
+
         if ($taskIsFound) { //search other information only if the task is found
+            $projectid = getProjectIdByTask($id);   //the parent project taken by a task id
             $isInsideTheProject = isAUserInsideAProject($projectid, $_SESSION['user']['id']);
-            $work = getOneWork($data['work']);
+            $work = getOneWork($currentTask['work_id']);
 
             //Check that the work exist and that the user have the permissions to create a task in this work
             $hasPermissionToUpdate = (hasWritingRightOnTasksOfAWork($isInsideTheProject, $work));
+
+            if ($hasPermissionToUpdate === true) {
+                //Go to the chosen update mode (update responsible, update state, update general)
+                if (isset($data['responsible_id'])) {   //update responsible
+                    $newResponsible = getUserById($data['responsible_id']);
+                    if (is_int($data['responsible_id']) && $newResponsible != false) {
+                        $task['responsible_id'] = $data['responsible_id'];
+                        $success = true;
+                        $msg = interpolateArrayValuesInAString(UPDATEATASK_RESPONSIBLE_SUCCESS, ["number" => $currentTask['number'], "fullname" => buildFullNameOfUser($newResponsible)]);
+                    }
+                } else if (isset($data['state'])) { //update state
+                    if (is_int($data['state']) && in_array($data['state'], TASK_LIST_STATE)) {
+                        $task['state'] = $data['state'];
+                        $success = true;
+                        //no $msg because no message on update is returned
+                    }
+                } else {    //update general
+                    //Check if value needed aren't empty
+                    if (isAtLeastEqual("", [$data["name"], $data["type"], $data["urgency"]]) == false) {
+                        //Make advanced validations of each value
+                        $validations = [
+                            checkStringLengthNotEmpty(trimIt($data['name']), 100),
+                            checkStringLengthOnly(trimIt($data['description']), 2000),
+                            checkStringLengthOnly(trimIt($data["link"]), 2000),
+                            checkIntMinMax($data['urgency'], 0, 5),
+                            in_array($data['type'], TASK_LIST_TYPE),
+                            ((strtotime($data['deadline']) != false) || $data['deadline'] == "")
+                        ];
+                        if (areAreAllEqualTo(true, $validations)) {   //list of validations before update
+                            $task['name'] = trimIt($data['name']);
+                            $task['description'] = trimIt($data['description']);
+                            $task['link'] = trimIt($data['link']);
+                            $task['urgency'] = $data['urgency'];
+                            $task['type'] = $data['type'];
+                            $task['deadline'] = timeToDT(strtotime($data['deadline']));
+                            $success = true;
+                            $msg = interpolateArrayValuesInAString(UPDATEATASK_GENERAL_SUCCESS, ["number" => $currentTask['number']]);
+                        }
+                    }
+                }
+
+                //After all manipulations
+                if ($success == true) {
+                    updateTask($task, $id);
+                    $updatedTask = getOneTask($id);
+                    $response = getApiResponse(API_SUCCESS, ["task" => $updatedTask, "message" => $msg]);
+                } else {
+                    $msg = COMMON_INVALID_DATA_SENT;
+                }
+            } else {    //no permission
+                $msg = COMMON_ACTION_DENIED;
+            }
+        } else {    //task not found
+            $msg = UPDATEATASK_FAIL_TASK_NOT_FOUND;
         }
+    } else {    //error in data sent
+        $msg = COMMON_INVALID_DATA_SENT;
     }
-    if ($hasPermissionToUpdate === true && $taskIsFound === true) {
-        //Go to the chosen update mode (update responsible, update state, update general)
-        if (isset($data['type'])) {
-
-        } else if (isset($data['responsible_id'])) {
-
-        } else {
-
-        }
-        echo json_encode($response);
+    if ($success == false) {    //if not success, build the fail api response
+        $response = getApiResponse(API_FAIL, getApiDataContentError($msg));
     }
-
+    echo json_encode($response);    //finally print the response in JSON
 }
 
 
