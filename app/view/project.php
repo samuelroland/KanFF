@@ -74,6 +74,8 @@ if ($project['archived'] == 1) {
             if ($project['responsible_id'] != null) {
                 echo "<span><strong>Responsable:</strong></span> ";
                 echo mentionUser(getUserById($project['responsible_id']));
+            }else{
+                echo "<span><strong>Responsable:</strong> Non défini</span> ";
             }
         ?>
     </div>
