@@ -519,17 +519,21 @@ function deleteTaskCallback(response) {
 function changeResponsible(event) {
     event.stopPropagation()
     icon = event.target
-    parent = getRealParentHavingId(icon)
+    taskHTML = getRealParentHavingId(icon, "Task-")
 
+    data = {}
+    data.id = taskHTML.getAttribute("data-id")
     if (icon.classList.contains("addresponsible")) {    //if icon is "add responsible"
-        data = {'responsible_id': userloggedid.innerText}   //insert id of the user logged
+        data.responsible_id = userloggedid.innerText   //insert id of the user logged
     } else {    //else the icon is "remove responsible"
-        data = {'responsible_id': null}
+        data.responsible_id = ""
     }
-    sendRequest("POST", "?action=updateTask&id=" + parent.getAttribute("data-id"), changeResponsibleCallback, data)
+    sendRequest("POST", "?action=updateTask", changeResponsibleCallback, data)
 }
 
 function changeResponsibleCallback(response) {
+
+    isSuccess = manageResponseStatus(response)
     //manageResponseStatus(response)
     //TODO: update responsible in kanban and in task details if open
 

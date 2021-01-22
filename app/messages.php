@@ -82,7 +82,8 @@ define("CREATEAPROJECT_NO_GROUPS_VIEW_FAIL", "Vous ne faites partie d'aucun grou
 //TASKS
 define("CREATEATASK_SUCCESS", "Tâche {number} créée avec succès.");
 define("UPDATEATASK_GENERAL_SUCCESS", "Tâche {number} mise à jour.");
-define("UPDATEATASK_RESPONSIBLE_SUCCESS", "Responsable de la tâche {number} défini à {fullname}.");
+define("UPDATEATASK_RESPONSIBLE_SET_SUCCESS", "Responsable de la tâche {number} défini à {fullname}.");
+define("UPDATEATASK_RESPONSIBLE_REMOVED_SUCCESS", "Responsable de la tâche {number} retiré.");
 define("UPDATEATASK_FAIL_TASK_NOT_FOUND", "Tâche non trouvée. Impossible de mettre à jour.");
 define("DELETEATASK_SUCCESS", "Tâche {number} supprimée avec succès.");
 

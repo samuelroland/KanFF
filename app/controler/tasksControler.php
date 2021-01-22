@@ -115,21 +115,30 @@ function updateATask($data)
             $hasPermissionToUpdate = (hasWritingRightOnTasksOfAWork($isInsideTheProject, $work));
 
             //Check that the work exist and that the user have the permissions to create a task in this work
-            displaydebug($hasPermissionToUpdate, false, true);
             if ($hasPermissionToUpdate === true) {
                 //Go to the chosen update mode (update responsible, update state, update general)
                 if (isset($data['responsible_id'])) {   //update responsible
-                    $newResponsible = getUserById($data['responsible_id']);
-                    if ($newResponsible != false) {
+                    $newResponsible = false;
+                    if ($data['responsible_id'] == "") {    //little conversion because "" is not equal to null for MySQL
+                        $data['responsible_id'] = null;
+                    }
+                    if ($data['responsible_id'] != null) {  //execute the sql query only if responsible is not null
+                        $newResponsible = getUserById($data['responsible_id']);
+                    }
+                    if ($newResponsible != false || $data['responsible_id'] == null) {  //the responsible must be a valid user or null
                         $task['responsible_id'] = $data['responsible_id'];
                         $success = true;
-                        $msg = interpolateArrayValuesInAString(UPDATEATASK_RESPONSIBLE_SUCCESS, ["number" => $currentTask['number'], "fullname" => buildFullNameOfUser($newResponsible)]);
+                        if ($task['responsible_id'] != null) {
+                            $msg = interpolateArrayValuesInAString(UPDATEATASK_RESPONSIBLE_SET_SUCCESS, ["number" => $currentTask['number'], "fullname" => buildFullNameOfUser($newResponsible)]);
+                        } else {
+                            $msg = interpolateArrayValuesInAString(UPDATEATASK_RESPONSIBLE_REMOVED_SUCCESS, ["number" => $currentTask['number']]);
+                        }
                     }
                 } else if (isset($data['state'])) { //update state
                     if (in_array($data['state'], TASK_LIST_STATE)) {    //if the new state is valid
                         $task['state'] = $data['state'];    //take the new state value
                         $success = true;
-                        //no $msg because no message on update is returned
+
                         if ($data['work'] != $currentTask['work_id'] && $data['work'] != "") {   //update the work_id only if the work_id has been changed
                             if ((hasWritingRightOnTasksOfAWork($isInsideTheProject, getOneWork($data['work'])))) {   //if the user has the permission to write on the new work
                                 $task['work_id'] = $data['work'];
@@ -138,6 +147,7 @@ function updateATask($data)
                                 $success = false;
                             }
                         }
+                        //no $msg because no message on update is returned if success
                     }
                 } else {    //update general
                     //Check if value needed aren't empty
