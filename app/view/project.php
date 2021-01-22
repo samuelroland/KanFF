@@ -31,7 +31,14 @@ if ($project['archived'] == 1) {
         <span><h4 class="d-inline ml-3"><?= convertProjectState($project['state'], true) ?></h4></span>
     </div>
     <div class="mt-4">
-        <h3>Informations</h3>
+        <div class="flexdiv">
+            <h3 class="flex-1">Informations</h3>
+            <div class="">
+                <button class="clickable btn btn-primary" data-href="?action=edit&id=<?= $project['id'] ?>&opt=0">
+                    Éditer
+                </button>
+            </div>
+        </div>
         <div class="mt-2">
             <strong>Nom: </strong>
             <?= $project['name'] ?>
