@@ -118,7 +118,7 @@ function declareEventsForTasks() {
                 taskToMove.classList.remove("positionfixed")   //remove position fixed
                 taskToMove.style = "" //remove style (left and top position)
                 manageBlankTaskToWorkColumn(null, false, true)   //remove all
-                newState = getRealParentHavingId(taskToMove, "workstate").getAttribute("data-id")
+                newState = getRealParentHavingId(taskToMove, "workstate").getAttribute("data-taskstate")
                 tryChangeState(taskToMove.getAttribute("data-id"), newState)
             }
 

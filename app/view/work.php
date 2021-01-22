@@ -79,7 +79,7 @@ function printAWork($work, $isInsideTheProject)
             </div>
         </div>
         <div class="divWorkContent flexdiv" <?= ($work['state'] == WORK_STATE_DONE) ? "hidden" : "" ?>>
-            <div class="flex-1 leftcolumn divWorkOneState" id="workstate-<?= $work['id'] ?>-1" data-id="<?= $work['state'] ?>">
+            <div class="flex-1 leftcolumn divWorkOneState" id="workstate-<?= $work['id'] ?>-1" data-taskstate="<?= TASK_STATE_TODO ?>">
                 <?php
                 foreach ($work['tasks'] as $task) {
                     if ($task['state'] == TASK_STATE_TODO) {
@@ -96,7 +96,7 @@ function printAWork($work, $isInsideTheProject)
                 }
                 ?>
             </div>
-            <div class="flex-1 middlecolumn divWorkOneState" id="workstate-<?= $work['id'] ?>-2" data-id="<?= $work['state'] ?>">
+            <div class="flex-1 middlecolumn divWorkOneState" id="workstate-<?= $work['id'] ?>-2" data-taskstate="<?= TASK_STATE_INRUN ?>">
                 <?php
                 foreach ($work['tasks'] as $task) {
                     if ($task['state'] == TASK_STATE_INRUN) {
@@ -105,7 +105,7 @@ function printAWork($work, $isInsideTheProject)
                 }
                 ?>
             </div>
-            <div class="flex-1 rightcolumn divWorkOneState" id="workstate-<?= $work['id'] ?>-3" data-id="<?= $work['state'] ?>">
+            <div class="flex-1 rightcolumn divWorkOneState" id="workstate-<?= $work['id'] ?>-3" data-taskstate="<?= TASK_STATE_DONE ?>">
                 <?php
                 $nbtasks = 0;
                 foreach ($work['tasks'] as $task) {

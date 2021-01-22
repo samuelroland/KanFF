@@ -112,6 +112,7 @@ function updateATask($data)
             $projectid = getProjectIdByTask($id);   //the parent project taken by a task id
             $isInsideTheProject = isAUserInsideAProject($projectid, $_SESSION['user']['id']);
             $work = getOneWork($currentTask['work_id']);
+            $hasPermissionToUpdate = (hasWritingRightOnTasksOfAWork($isInsideTheProject, $work));
 
             //Check that the work exist and that the user have the permissions to create a task in this work
             displaydebug($hasPermissionToUpdate, false, true);
@@ -119,13 +120,13 @@ function updateATask($data)
                 //Go to the chosen update mode (update responsible, update state, update general)
                 if (isset($data['responsible_id'])) {   //update responsible
                     $newResponsible = getUserById($data['responsible_id']);
-                    if (is_int($data['responsible_id']) && $newResponsible != false) {
+                    if ($newResponsible != false) {
                         $task['responsible_id'] = $data['responsible_id'];
                         $success = true;
                         $msg = interpolateArrayValuesInAString(UPDATEATASK_RESPONSIBLE_SUCCESS, ["number" => $currentTask['number'], "fullname" => buildFullNameOfUser($newResponsible)]);
                     }
                 } else if (isset($data['state'])) { //update state
-                    if (is_int($data['state']) && in_array($data['state'], TASK_LIST_STATE)) {
+                    if (in_array($data['state'], TASK_LIST_STATE)) {
                         $task['state'] = $data['state'];
                         $success = true;
                         //no $msg because no message on update is returned
