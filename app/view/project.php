@@ -30,7 +30,7 @@ if ($project['archived'] == 1) {
         </div>
         <span><h4 class="d-inline ml-3"><?= convertProjectState($project['state'], true) ?></h4></span>
     </div>
-    <div class="mt-4">
+    <div class="mt-4" id="showInfosProjects">
         <div class="flexdiv">
             <h3 class="flex-1">Informations</h3>
             <div class="">
@@ -71,13 +71,57 @@ if ($project['archived'] == 1) {
             ?>
         </div>
         <?php
-            if ($project['responsible_id'] != null) {
-                echo "<span><strong>Responsable:</strong></span> ";
-                echo mentionUser(getUserById($project['responsible_id']));
-            }else{
-                echo "<span><strong>Responsable:</strong> Non défini</span> ";
-            }
+        if ($project['responsible_id'] != null) {
+            echo "<span><strong>Responsable:</strong></span> ";
+            echo mentionUser(getUserById($project['responsible_id']));
+        } else {
+            echo "<span><strong>Responsable:</strong> Non défini</span> ";
+        }
         ?>
+    </div>
+    <div class="mt-4" id="editInfosProjects">
+        <form action="">
+            <div class="col-lg-3 col-md-12 pt-4"><h5>Nom</h5></div>
+            <div class="col-12"><input type="text" class="form-control smalltextinput textFieldToCheck" name="name" id="txtName"
+                                       maxlength="70"></div>
+
+            <div class="col-lg-3 col-md-12 pt-4"><h5>Description</h5></div>
+            <div class="col-12"><textarea class="form-control fullwidth textFieldToCheck" name="description"
+                                          id="txtDescription" rows="2"
+                                          maxlength="500" minlength="3"
+                                          required></textarea></div>
+
+            <div class="col-lg-3 col-md-12 pt-4"><h5>Objectif</h5></div>
+            <div class="col-12"><textarea class="form-control fullwidth textFieldToCheck" name="goal" id="txtGoal" rows="2"
+                                          maxlength="500"
+                                          minlength="3"></textarea></div>
+
+            <div class="divLittleInfo row pt-4">
+                    <div class="col-lg-3 col-md">
+                        <label for="start">Début:</label>
+                        <input type="date" id="start" name="start"
+                               value="">
+                    </div>
+                    <div class="col-lg-3 col-md">
+                        <label for="end">Fin (facultatif):</label>
+                        <input class="marginauto" type="date" id="end" min="" name="end"
+                               value="">
+                    </div>
+
+                <div class="col-lg-3 col-md">
+                    <label for="selImportance">Importance</label>
+                    <input class=" inputtypenumber" type="number" min="1" max="5" name="importance"
+                           id="selImportance" value="">
+                </div>
+                <div class="col-lg-3 col-md">
+                    <label for="selUrgency">Urgence</label>
+                    <input class=" inputtypenumber" type="number" min="1" max="5" name="urgency"
+                           id="selUrgency"
+                           value="">
+                </div>
+            </div>
+
+        </form>
     </div>
     <div class="mt-4">
         <h3>Groupes participants <?= createToolTipWithPoint("Le groupe gérant ce projet est surligné en jaune.") ?></h3>
@@ -94,7 +138,9 @@ if ($project['archived'] == 1) {
             <?php
             displaydebug($groups);
             foreach ($groups as $group) { ?>
-                <tr<?php if($project['manager_id']==$group['id']){echo " class='yellowveryligthheader'";}?>>
+                <tr<?php if ($project['manager_id'] == $group['id']) {
+                    echo " class='yellowveryligthheader'";
+                } ?>>
                     <td><?= $group['name']; //TODO: display if group is creator and if is manager of the project
                         ?></td>
                     <td><?= DTToHumanDate($group['creation_date']) ?></td>
