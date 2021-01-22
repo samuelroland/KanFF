@@ -69,37 +69,39 @@ function sendRequest(verb, url, callback, data) {
 
 //display a temporary message on topright
 function displayResponseMsg(val, checkmark = true, color = "black") {
-    //Take the message depending if started directly as a callback of an Ajax call (response sent in parameter), or started by an other function (message sent in parameter)
-    if (val.hasOwnProperty("data")) {
-        msg = val.data.message
-    } else {
-        msg = val
-    }
-    logIt(val)
-    htmlMsg = document.importNode(createElementFromHTML(document.querySelector("#templateMsg").innerHTML), true)  //copy html content from the template
+    if (val !== null) {
+        //Take the message depending if started directly as a callback of an Ajax call (response sent in parameter), or started by an other function (message sent in parameter)
+        if (val.hasOwnProperty("data")) {
+            msg = val.data.message
+        } else {
+            msg = val
+        }
+        logIt(val)
+        htmlMsg = document.importNode(createElementFromHTML(document.querySelector("#templateMsg").innerHTML), true)  //copy html content from the template
 
-    //Fill text:
-    htmlMsg.querySelector(".msgText").innerHTML = msg
-    htmlMsg.querySelector(".msgText").style.color = color
-    if (checkmark === false) {
-        checkMark = htmlMsg.querySelector(".checkmark")
-        redCross = htmlMsg.querySelector(".redcross")
+        //Fill text:
+        htmlMsg.querySelector(".msgText").innerHTML = msg
+        htmlMsg.querySelector(".msgText").style.color = color
+        if (checkmark === false) {
+            checkMark = htmlMsg.querySelector(".checkmark")
+            redCross = htmlMsg.querySelector(".redcross")
 
-        checkMark.hidden = true
-        redCross.hidden = false
-    }
+            checkMark.hidden = true
+            redCross.hidden = false
+        }
 
-    setTimeout(function () {
-        divTempMessages.firstChild.classList.replace("visible", "hidden")
         setTimeout(function () {
-            divTempMessages.firstChild.remove()
-        }, 1500)
-    }, 3000)   //remove the first child of the list of temp messages in 4.5 seconds. At this time the first message will be the current htmlMsg (because precedent msg will removed just before).
+            divTempMessages.firstChild.classList.replace("visible", "hidden")
+            setTimeout(function () {
+                divTempMessages.firstChild.remove()
+            }, 1500)
+        }, 3000)   //remove the first child of the list of temp messages in 4.5 seconds. At this time the first message will be the current htmlMsg (because precedent msg will removed just before).
 
-    //display the message
-    htmlMsg.classList.add("hidden")
-    divTempMessages.appendChild(htmlMsg)
-    htmlMsg.classList.replace("hidden", "visible")
+        //display the message
+        htmlMsg.classList.add("hidden")
+        divTempMessages.appendChild(htmlMsg)
+        htmlMsg.classList.replace("hidden", "visible")
+    }
 }
 
 function checkAllValuesAreNotEmpty(values) {
