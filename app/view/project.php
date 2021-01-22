@@ -28,7 +28,7 @@ if ($project['archived'] == 1) {
         <div class="iconsize-40">
             <?= printAnIcon("infopoint.png", "Statut", "info point", "icon-small") ?>
         </div>
-        <span><h3 class="d-inline ml-3"><?= convertProjectState($project['state'], true) ?></h3></span>
+        <span><h4 class="d-inline ml-3"><?= convertProjectState($project['state'], true) ?></h4></span>
     </div>
     <div class="mt-4">
         <h3>Informations</h3>
@@ -79,7 +79,7 @@ if ($project['archived'] == 1) {
             <?php
             displaydebug($groups);
             foreach ($groups as $group) { ?>
-                <tr>
+                <tr<?php if($project['manager_id']==$group['id']){echo " class='yellowveryligthheader'";}?>>
                     <td><?= $group['name']; //TODO: display if group is creator and if is manager of the project
                         ?></td>
                     <td><?= DTToHumanDate($group['creation_date']) ?></td>
