@@ -34,7 +34,7 @@ if ($project['archived'] == 1) {
         <div class="flexdiv">
             <h3 class="flex-1">Informations</h3>
             <div class="">
-                <button class="clickable btn btn-primary" data-href="?action=edit&id=<?= $project['id'] ?>&opt=0">
+                <button class="clickable btn btn-primary" data-href="">
                     Éditer
                 </button>
             </div>
@@ -70,9 +70,15 @@ if ($project['archived'] == 1) {
             echo "<span class='pr-2 bigvalue'>" . $project['urgency'] . "</span>";
             ?>
         </div>
+        <?php
+            if ($project['responsible_id'] != null) {
+                echo "<span><strong>Responsable:</strong></span> ";
+                echo mentionUser(getUserById($project['responsible_id']));
+            }
+        ?>
     </div>
     <div class="mt-4">
-        <h3>Groupes participants</h3>
+        <h3>Groupes participants <?= createToolTipWithPoint("Le groupe gérant ce projet est surligné en jaune.") ?></h3>
         <table class="table">
             <thead>
             <tr>
