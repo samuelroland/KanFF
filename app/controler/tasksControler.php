@@ -178,6 +178,7 @@ function updateATask($data)
                 if ($success == true) {
                     updateTask($task, $id);
                     $updatedTask = getOneTask($id);
+                    $updatedTask = completeTaskDataForForeignKeys($updatedTask);
                     $response = getApiResponse(API_SUCCESS, ["task" => $updatedTask, "message" => $msg]);
                 } else {
                     $msg = COMMON_INVALID_DATA_SENT;
@@ -225,6 +226,30 @@ function deleteATask($data)
         //TODO: error about invalid data (and export message to messages.php)
     }
     echo json_encode($response);
+}
+
+//Complete the $task data for foreign keys (responsible and creator)
+function completeTaskDataForForeignKeys($task)
+{
+    //Add responsible
+    if ($task['responsible_id'] != null) {
+        $task['responsible'] = getUserById($task['responsible_id']);
+    } else {
+        $task['responsible'] = null;
+    }
+
+    //Add creator
+    if ($task['creator_id'] != null) {
+        $task['creator'] = getUserById($task['creator_id']);
+    } else {
+        $task['creator'] = buildFullNameOfUser(["firstname" => "Compte", "lastname" => "supprimé"]);
+    }
+
+    //Add work (never null)
+    $task['work'] = getOneWork($task['work_id']);
+
+    $task = unsetPasswordsInArrayOn2Dimensions($task);  //unset passwords for responsible and creator
+    return $task;
 }
 
 ?>

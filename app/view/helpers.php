@@ -321,8 +321,13 @@ function manageIfApplyOnFirstChar($txt, $needFirstCharToUpper)
 //Get HTML code to mention an user with initials clickable (for user details) and with a tooltip to show full name:
 function mentionUser($basicUser, $css = "text-info")
 {
-    //TODO: add tooltip on initials hover with full name (and username?)
-    //TODO: remove link if user has limited access
+    //if value, set the default value 000 as innertext and "Undefined user" as tooltip text.
+    if (isset($basicUser) == false || empty($basicUser)) {
+        $mention = "<span class='cursorpointer $css d-inline' data-fallbackPlacement='flip' data-toggle='tooltip' data-title='Undefined user' data-placement='top' data-delay='1'>000</span>";
+        return $mention;
+    }
+
+    //If $basicUser exists, create the mention
     if (checkLimitedAccess()) {
         $mention = "<span class='cursorpointer $css d-inline' data-fallbackPlacement='flip' data-toggle='tooltip' data-title='" . $basicUser['firstname'] . " " . $basicUser['lastname'] . " " . (($basicUser['username'] != "") ? "(" . $basicUser['username'] . ")" : "") . "' data-placement='top' data-delay='1'>{$basicUser['initials']}</span>";
     } else {

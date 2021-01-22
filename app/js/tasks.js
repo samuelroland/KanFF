@@ -354,7 +354,7 @@ function loadTaskDetailsWithData(response, canEditTask) {
     //TODO: add H:m support
 
     //Responsible management if exists
-    if (task.hasOwnProperty("responsible")) {
+    if (task.responsible != null) {
         responsible.value = buildFullNameWithUser(task.responsible)
         initials.innerText = task.responsible.initials
     } else {
@@ -532,12 +532,34 @@ function changeResponsible(event) {
 }
 
 function changeResponsibleCallback(response) {
-
     isSuccess = manageResponseStatus(response)
-    //manageResponseStatus(response)
-    //TODO: update responsible in kanban and in task details if open
+    if (isSuccess) {
+        //Extract needed information and html elements
+        taskData = response.data.task
+        taskHTML = document.getElementById("Task-" + taskData.id)
+        logIt(taskHTML)
+        divTaskResponsibleZone = taskHTML.querySelector(".divTaskResponsibleZone")  //zone displayed or hidden
+        spanWithTooltip = taskHTML.querySelector(".responsible")    //span of the tooltip
 
-    //loadTaskDetailsWithData(response.data.task)
+        //Set responsible values in the tooltip in the kanban
+        if (taskData.responsible != null) { //a responsible must be displayed
+            spanWithTooltip.setAttribute("data-original-title", buildFullNameWithUser(taskData.responsible) + " (" + taskData.responsible.username + ")")  //set the tooltip text with the fullname and username
+            spanWithTooltip.innerHTML = taskData.responsible.initials   //set innertext of the tooltip with the initials
+            divTaskResponsibleZone.classList.remove("visibilityhidden") //display it
+
+        } else {  //responsible will be hidden (default value is applied, in case of other errors showing it)
+            spanWithTooltip.setAttribute("data-original-title", "Undefined user")
+            spanWithTooltip.innerHTML = "000"
+            divTaskResponsibleZone.classList.add("visibilityhidden")    //hide it
+        }
+        invertResponsibleIconsAddOrRemove(taskHTML) //invert the 2 icons
+        loadTaskDetailsWithData(response, "true")   //reload the task details with the new information (to change the responsible in the task details if displayed)
+    }
+}
+
+function invertResponsibleIconsAddOrRemove(taskHTML) {
+    invertHiddenState(taskHTML.querySelector(".iconresponsible.removeresponsible"))
+    invertHiddenState(taskHTML.querySelector(".iconresponsible.addresponsible"))
 }
 
 /* 2 functions to change the responsible of a task in JS and Ajax */

@@ -9,7 +9,7 @@
 //print a task in a kanban
 function printATask($task, $hasWritingRightOnTasks, $hidden = false)
 {
-    if (isset($task['id'])==false){
+    if (isset($task['id']) == false) {
         $task['id'] = null;
         $task['state'] = null;
         $task['number'] = null;
@@ -32,9 +32,10 @@ function printATask($task, $hasWritingRightOnTasks, $hidden = false)
          data-canedit="<?= (($hasWritingRightOnTasks) ? "true" : "false") ?>"
         <?= ($hidden) ? "hidden" : "" ?>>
         <div class="flexdiv divTaskNumber">
-            <div class="flex-1"><?php if ($task['responsible_id'] != null) {
-                    echo "<span class='divTaskUserMentionEllipsis'>" . mentionUser($task['responsible'], "txtMentionOnTask responsible") . "</span>";
-                } ?></div>
+            <div class="flex-1 divTaskResponsibleZone <?= (($task['responsible_id'] == null) ? "visibilityhidden" : "") ?>">
+                <?php
+                echo "<span class='divTaskUserMentionEllipsis'>" . mentionUser($task['responsible'], "txtMentionOnTask responsible") . "</span>";
+                ?></div>
             <div class=""><em class="number"><?= $task['number'] ?></em></div>
         </div>
         <div class="divTaskName"><strong><?= createElementWithFixedLines($task['name'], 4, "name") ?></strong></div>
@@ -43,11 +44,10 @@ function printATask($task, $hasWritingRightOnTasks, $hidden = false)
                 <span>
                 <?php
                 if ($hasWritingRightOnTasks) {
-                    if ($task['responsible_id'] != null && $task['responsible_id'] == $_SESSION['user']['id']) {
-                        printAnIcon("removeuser.png", "Relâcher la tache", "remove user icon", "icon-task iconresponsible removeresponsible " . (($hasWritingRightOnTasks) ? "cursorpointer" : ""));
-                    } else {
-                        printAnIcon("adduser3.png", "Prendre la tâche", "add user icon", "icon-task iconresponsible addresponsible " . (($hasWritingRightOnTasks) ? "cursorpointer" : ""));
-                    }
+                    $isUserLoggedTheResponsible = ($task['responsible_id'] != null && $task['responsible_id'] == $_SESSION['user']['id']);  //is the user logged the responsible ?
+                    //Print the 2 icons, but one on 2 must be hidden (hidden state depend on $isUserLoggedTheResponsible)
+                    printAnIcon("removeuser.png", "Relâcher la tache", "remove user icon", "icon-task iconresponsible removeresponsible " . (($hasWritingRightOnTasks) ? "cursorpointer" : ""), true, "", (($isUserLoggedTheResponsible) ? "" : "hidden"));
+                    printAnIcon("adduser3.png", "Prendre la tâche", "add user icon", "icon-task iconresponsible addresponsible " . (($hasWritingRightOnTasks) ? "cursorpointer" : ""), true, "", (($isUserLoggedTheResponsible) ? "hidden" : ""));
                 }
                 ?>
                 </span>
