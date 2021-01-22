@@ -114,8 +114,7 @@ function updateATask($data)
             $work = getOneWork($currentTask['work_id']);
 
             //Check that the work exist and that the user have the permissions to create a task in this work
-            $hasPermissionToUpdate = (hasWritingRightOnTasksOfAWork($isInsideTheProject, $work));
-
+            displaydebug($hasPermissionToUpdate, false, true);
             if ($hasPermissionToUpdate === true) {
                 //Go to the chosen update mode (update responsible, update state, update general)
                 if (isset($data['responsible_id'])) {   //update responsible

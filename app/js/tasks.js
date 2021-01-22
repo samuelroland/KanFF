@@ -118,6 +118,8 @@ function declareEventsForTasks() {
                 taskToMove.classList.remove("positionfixed")   //remove position fixed
                 taskToMove.style = "" //remove style (left and top position)
                 manageBlankTaskToWorkColumn(null, false, true)   //remove all
+                newState = getRealParentHavingId(taskToMove, "workstate").getAttribute("data-id")
+                tryChangeState(taskToMove.getAttribute("data-id"), newState)
             }
 
             document.addEventListener("mouseup", function () {
@@ -536,20 +538,21 @@ function changeResponsibleCallback(response) {
 /* 2 functions to change the responsible of a task in JS and Ajax */
 
 //TODO: complete the 3 followings functions
-function tryChangeState(event) {
-    task = getRealParentHavingId(event.target)
-    //TODO: move the task with the mouse in an other column of the kanban
-
-    newstate = 1
+function tryChangeState(taskid, newState) {
     //build data for body request
+    data = {
+        "id": taskid,
+        "state": newState,
+    }
     changeState(data)
 }
 
 function changeState(data) {   //change state and/or work of a task
-    sendRequest("POST", "?action=updateTask&id=" + parent.getAttribute("data-id"), changeStateCallback, data)
+    sendRequest("POST", "?action=updateTask", changeStateCallback, data)
 }
 
 function changeStateCallback(response) {
+    isSuccess = manageResponseStatus(response)
     //manageResponseStatus(response)
     //TODO: move the task to position saved on the server ? (depending on state and work).
 
