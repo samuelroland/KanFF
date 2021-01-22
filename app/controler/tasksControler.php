@@ -126,10 +126,18 @@ function updateATask($data)
                         $msg = interpolateArrayValuesInAString(UPDATEATASK_RESPONSIBLE_SUCCESS, ["number" => $currentTask['number'], "fullname" => buildFullNameOfUser($newResponsible)]);
                     }
                 } else if (isset($data['state'])) { //update state
-                    if (in_array($data['state'], TASK_LIST_STATE)) {
-                        $task['state'] = $data['state'];
+                    if (in_array($data['state'], TASK_LIST_STATE)) {    //if the new state is valid
+                        $task['state'] = $data['state'];    //take the new state value
                         $success = true;
                         //no $msg because no message on update is returned
+                        if ($data['work'] != $currentTask['work_id'] && $data['work'] != "") {   //update the work_id only if the work_id has been changed
+                            if ((hasWritingRightOnTasksOfAWork($isInsideTheProject, getOneWork($data['work'])))) {   //if the user has the permission to write on the new work
+                                $task['work_id'] = $data['work'];
+                            } else {
+                                $msg = COMMON_ACTION_DENIED;
+                                $success = false;
+                            }
+                        }
                     }
                 } else {    //update general
                     //Check if value needed aren't empty

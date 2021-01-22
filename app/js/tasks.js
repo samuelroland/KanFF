@@ -119,7 +119,8 @@ function declareEventsForTasks() {
                 taskToMove.style = "" //remove style (left and top position)
                 manageBlankTaskToWorkColumn(null, false, true)   //remove all
                 newState = getRealParentHavingId(taskToMove, "workstate").getAttribute("data-taskstate")
-                tryChangeState(taskToMove.getAttribute("data-id"), newState)
+                workId = getRealParentHavingId(taskToMove, "Work-").getAttribute("data-id")
+                tryChangeState(taskToMove.getAttribute("data-id"), newState, workId)
             }
 
             document.addEventListener("mouseup", function () {
@@ -538,11 +539,12 @@ function changeResponsibleCallback(response) {
 /* 2 functions to change the responsible of a task in JS and Ajax */
 
 //TODO: complete the 3 followings functions
-function tryChangeState(taskid, newState) {
+function tryChangeState(taskid, newState, workId) {
     //build data for body request
     data = {
         "id": taskid,
         "state": newState,
+        "work": workId
     }
     changeState(data)
 }
