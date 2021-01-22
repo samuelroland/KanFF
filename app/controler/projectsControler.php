@@ -188,11 +188,13 @@ function createGroupParticipationToAProject($projectid, $managerid)
 
 function projectDetails($id, $option)
 {
+    $project = getOneProject($id);
+    if ($project != false){
     if ($option == null) {
         $option = 2;
     }
     //TODO: check visibility of the project and if isMember
-    $project = getOneProject($id);
+
     $works = getAllWorksByProject($id);
     if (empty($project) == false) {
         $users = getAllUsers();
@@ -203,6 +205,12 @@ function projectDetails($id, $option)
         }
     }
     require_once "view/project.php";
+    } else {
+        $subject = "Le projet demandé est introuvable.";
+        $message = "L'id: '" . $id . "' n'éxiste pas.
+        Veuillez réessayer.";
+        errorPage($subject, $message);
+    }
 }
 
 function kanban($id, $opt)
