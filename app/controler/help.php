@@ -554,11 +554,7 @@ function devMode()
 
 function checkIntMinMax($intValue, $min, $max)
 {
-    if (($intValue >= $min && $intValue <= $max) != false) {
-        return $intValue;
-    } else {
-        return false;
-    }
+    return (($intValue >= $min && $intValue <= $max) != false);
 }
 
 

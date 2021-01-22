@@ -114,9 +114,9 @@ function createAProject($data)
         $newProject['visible'] = chkToTinyint($data['visible']);
         $newProject['logbook_visible'] = chkToTinyint($data['logbook_visible']);
 
-        $newProject['importance'] = checkIntMinMax($data['importance'], 1, 5);
-        $newProject['urgency'] = checkIntMinMax($data['urgency'], 1, 5);
-        if ($newProject['importance'] == false || $newProject['urgency'] == false) {
+        $newProject['importance'] = $data['importance'];
+        $newProject['urgency'] = $data['urgency'];
+        if (checkIntMinMax($data['importance'], 1, 5) == false || checkIntMinMax($data['urgency'], 1, 5) == false) {
             $error = COMMON_INVALID_DATA_SENT;
         }
 
