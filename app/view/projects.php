@@ -12,16 +12,19 @@ function printAProject($project, $progressionsByProject)
         <?php } ?>
         <div class="divProjectFirstLine">
             <div class="divProjectTitleLine flexdiv">
-                <h3 title="<?= $project['name'] ?>" class="flex-1"><?php
-                    if (strlen($project['name']) > 26) {
+                <h3 class="flex-1">
+                    <?php //Display the project name and add a tooltip with if the name is long (to be able to read it without changing browser size or look at details)
+                    if (strlen($project['name']) >= 27) {
                         echo createToolTip(createElementWithFixedLines($project['name'], 1), htmlspecialchars($project['name']));
                     } else {
                         echo(createElementWithFixedLines($project['name'], 1));
                     }
                     ?>
                 </h3>
-                <?= //Hidden key icon to imitate a right padding to the first line (to stop the name of the project before the icon)
-                createToolTip('<div class="p-1 pl-2 pr-2 m-right--10 visibilityhidden">' . printAnIcon("key.png", "", "", "icon-small", false) . "</div>", "Vous êtes dans ce projet.") ?>
+                <?php //Hidden key icon to imitate a right padding to the first line (to avoid the overlaying of the icon above of the project name)
+                if ($project['isUserLoggedInside'] == true) {
+                    echo createToolTip('<div class="p-1 pl-2 pr-2 m-right--10 visibilityhidden">' . printAnIcon("key.png", "", "", "icon-small", false) . "</div>", "Vous êtes dans ce projet.");
+                } ?>
             </div>
             <div class="flexdiv">
                 <div class="flex-2 divParticipate mb-4">
