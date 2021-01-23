@@ -196,10 +196,10 @@ function convertGroupState($int, $needFirstCharToUpper = false)
 function convertGroupVisibility($int, $needFirstCharToUpper = false)
 {
     $values = [
-        GROUP_VISIBILITY_INVISIBLE => "Invisible",
-        GROUP_VISIBILITY_TITLE => "Titre uniquement",
-        GROUP_VISIBILITY_STANDARD => "Standard",
-        GROUP_VISIBILITY_TOTAL => "Totalement visible"
+        GROUP_VISIBILITY_INVISIBLE => "invisible",
+        GROUP_VISIBILITY_TITLE => "titre uniquement",
+        GROUP_VISIBILITY_STANDARD => "standard",
+        GROUP_VISIBILITY_TOTAL => "totalement visible"
     ];
     return applyPostTraitementOnTxt($values[$int], $needFirstCharToUpper);
 }
@@ -210,9 +210,9 @@ function convertProjectState($int, $needFirstCharToUpper = false)
     $values = [
         PROJECT_STATE_UNDERREFLECTION => "en cours de réflexion",
         PROJECT_STATE_UNDERPLANNING => "en planification",
-        PROJECT_STATE_SEMIACTIVEWORK => "travail semi-actif",
-        PROJECT_STATE_ACTIVEWORK => "travail actif",
-        PROJECT_STATE_ONBREAK => "travail en pause",
+        PROJECT_STATE_SEMIACTIVEWORK => "semi-actif",
+        PROJECT_STATE_ACTIVEWORK => "actif",
+        PROJECT_STATE_ONBREAK => "en pause",
         PROJECT_STATE_REPORTED => "reporté",
         PROJECT_STATE_ABANDONNED => "abandonné",
         PROJECT_STATE_CANCELLED => "annulé",
@@ -251,10 +251,10 @@ function convertWorkState($int, $needFirstCharToUpper = false)
 function convertWorkNeedhelp($int, $needFirstCharToUpper = false)
 {
     $values = [
-        WORK_NEEDHELP_NONE => "Pas besoin",
-        WORK_NEEDHELP_INNER => "Besoin d'aide interne",
-        WORK_NEEDHELP_OUTER => "Besoin d'aide externe",
-        WORK_NEEDHELP_BOTH => "Besoin d'aide interne et externe"
+        WORK_NEEDHELP_NONE => "pas besoin",
+        WORK_NEEDHELP_INNER => "besoin d'aide interne",
+        WORK_NEEDHELP_OUTER => "besoin d'aide externe",
+        WORK_NEEDHELP_BOTH => "besoin d'aide interne et externe"
     ];
     return applyPostTraitementOnTxt($values[$int], $needFirstCharToUpper);
 }
