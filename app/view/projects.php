@@ -194,11 +194,9 @@ function printACategoryOfProjects($name, $projects, $progressionsByProject, $aut
 
 //Start of the view:
 ob_start();
-$title = "Projets";
-
+$title = "Projets"; 
 ?>
     <h1><?= $title ?></h1>
-<?php printPageWIPTextInfo(); ?>
     <div class="headView flexdiv">
         <div class="flex-1">
             <button data-href="?action=projects&option=1"
