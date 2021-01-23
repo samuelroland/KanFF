@@ -194,7 +194,7 @@ function printACategoryOfProjects($name, $projects, $progressionsByProject, $aut
 
 //Start of the view:
 ob_start();
-$title = "Projets"; 
+$title = "Projets";
 ?>
     <h1><?= $title ?></h1>
     <div class="headView flexdiv">

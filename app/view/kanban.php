@@ -20,9 +20,9 @@ if ($project != false) {
     <div class="divHeader flexdiv p-1 pr-2 pl-2">
         <div class="flex-1 flexdiv box-verticalaligncenter">
             <h2 class="mt-2 mb-1"><?= $project['name'] ?></h2>
-            <h4 class="pl-5 pr-2 mt-2 mb-1"><?= convertProjectState($project['state'], true) ?></h4>
-
+            <h5 class="pl-4 pr-2 mt-2 mb-1"><?= convertProjectState($project['state'], true) ?></h5>
         </div>
+        <div class="flexdiv box-verticalaligncenter mr-4"><?php printPageWIPTextInfo(); ?></div>
         <div class="box-verticalaligncenter">
             <h5 class="pl-2 pr-4 mt-2 mb-1" title="Effort fourni/total pour tous les travaux">
                 Effort: <?= $providedEffort . "/" . $totalEffort ?></h5>

@@ -4,8 +4,7 @@ $title = "Créer un groupe"
 ?>
     <h1><?= $title ?></h1>
 <?php printPageWIPTextInfo(); ?>
-    <span>Sur cette page vous pouvez créer un nouveau groupe sur cette instance. Les informations sont modifiables plus tard si besoin.</span>
-
+    <br><span>Sur cette page vous pouvez créer un nouveau groupe sur cette instance. Les informations sont modifiables plus tard si besoin.</span>
     <form action="?action=createAGroup" method="POST" class="pt-4">
         <h4>Nom</h4>
         <input type="text" class="form-control smalltextinput textFieldToCheck" name="name" id="txtName"
