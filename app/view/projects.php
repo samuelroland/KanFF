@@ -7,7 +7,7 @@ function printAProject($project, $progressionsByProject)
     <div class="divProject breakword thinBorder <?= (($project['visible'] == 0) ? "notVisibleToAll" : "") ?>">
         <?php if ($project['isUserLoggedInside'] == true) { ?>
             <div class="topRightForProjectKey borderradius">
-                <?= createToolTip('<div class="p-1 pl-2 pr-2">' . printAnIcon("key.png", "", "", "icon-small", false) . "</div>", "Vous êtes dans ce projet.") ?>
+                <?= '<div class="p-1 pl-2 pr-2">' . createToolTip(printAnIcon("key.png", "", "", "icon-small", false), "Vous êtes dans ce projet.") . "</div>" ?>
             </div>
         <?php } ?>
         <div class="divProjectFirstLine">
@@ -23,7 +23,7 @@ function printAProject($project, $progressionsByProject)
                 </h3>
                 <?php //Hidden key icon to imitate a right padding to the first line (to avoid the overlaying of the icon above of the project name)
                 if ($project['isUserLoggedInside'] == true) {
-                    echo createToolTip('<div class="p-1 pl-2 pr-2 m-right--10 visibilityhidden">' . printAnIcon("key.png", "", "", "icon-small", false) . "</div>", "Vous êtes dans ce projet.");
+                    echo '<div class="p-1 pl-2 pr-2 m-right--10 visibilityhidden">' . printAnIcon("key.png", "", "", "icon-small", false) . "</div>";
                 } ?>
             </div>
             <div class="flexdiv">
