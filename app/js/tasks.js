@@ -93,6 +93,7 @@ function declareEventsForTasks() {
                 if (blankTaskChosen != null) {  //last check because if the task hasn't moved, the no blank task will exist
                     moveDraggedTaskToBlankTaskChosen(task, blankTaskChosen)
 
+                    if (mustStartUpdate) {
                     //TODO: update the state of the task
                     workstate = getRealParentHavingId(task, "workstate")
                     newState = workstate.id.substr(workstate.id.lastIndexOf("-"))
@@ -102,6 +103,9 @@ function declareEventsForTasks() {
                     tryUpdateTaskState(workid, taskid, newState)
 
                     //Disable very shortly the click possibility
+                    tryChangeState(taskid, newState, workid)
+                    }
+                    //Disable very shortly the click possibility to avoid click event (click event select the task and display its details in the right panel, but we don't want it)
                     taskDisabled = event.target
                     taskDisabled = getRealParentHavingId(taskDisabled)
                     taskDisabled.setAttribute("data-clickdisabled", true)
@@ -117,10 +121,8 @@ function declareEventsForTasks() {
                 taskToMove.classList.remove("positionabsolute")   //remove position absolute
                 taskToMove.classList.remove("positionfixed")   //remove position fixed
                 taskToMove.style = "" //remove style (left and top position)
+
                 manageBlankTaskToWorkColumn(null, false, true)   //remove all
-                newState = getRealParentHavingId(taskToMove, "workstate").getAttribute("data-taskstate")
-                workId = getRealParentHavingId(taskToMove, "Work-").getAttribute("data-id")
-                tryChangeState(taskToMove.getAttribute("data-id"), newState, workId)
             }
 
             document.addEventListener("mouseup", function () {
