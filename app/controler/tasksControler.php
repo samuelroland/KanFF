@@ -268,6 +268,16 @@ function completeTaskDataForForeignKeys($task)
     //Add work (never null)
     $task['work'] = getOneWork($task['work_id']);
 
+    //Add statename (never null). It's the state value in human format
+    $task['statename'] = convertTaskState($task['state'], true);
+
+    //Completion date in human date format
+    if ($task['completion_date'] != null) {
+        $task['completion'] = DTToHumanDate($task['completion_date'], "simpletime");
+    } else {
+        $task['completion'] = null;
+    }
+
     $task = unsetPasswordsInArrayOn2Dimensions($task);  //unset passwords for responsible and creator
     return $task;
 }
