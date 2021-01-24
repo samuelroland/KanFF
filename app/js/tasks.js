@@ -99,7 +99,7 @@ function declareEventsForTasks() {
                     if (mustStartUpdate) {
                         //TODO: update the state of the task
                         workstate = getRealParentHavingId(task, "workstate")
-                        newState = workstate.id.substr(workstate.id.lastIndexOf("-") + 1)
+                        newState = workstate.getAttribute("data-taskstate")
                         work = getRealParentHavingId(task, "Work-")
                         workid = work.getAttribute("data-id")
                         taskid = task.getAttribute("data-id")
@@ -185,19 +185,6 @@ function manageBlankTaskToWorkColumn(workstate, add, removeBothBlankTaskTypes = 
             $(".divBlankTaskFix").remove()
         }
     }
-}
-
-/* 3 functions to update the task state */
-function tryUpdateTaskState(workid, taskid, newState) {
-    updateTaskState(workid, taskid, newState)
-}
-
-function updateTaskState(workid, taskid, newState) {
-    //TODO: the ajax request
-}
-
-function updateTaskStateCallback(response) {
-    //TODO: manage the response
 }
 
 function closeRightPanel() {
