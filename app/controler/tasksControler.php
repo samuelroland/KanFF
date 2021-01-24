@@ -116,6 +116,7 @@ function updateATask($data)
 
             //Check that the work exist and that the user have the permissions to create a task in this work
             if ($hasPermissionToUpdate === true) {
+
                 //Go to the chosen update mode (update responsible, update state, update general)
                 if (isset($data['responsible_id'])) {   //update responsible
                     $newResponsible = false;
@@ -125,8 +126,12 @@ function updateATask($data)
                     if ($data['responsible_id'] != null) {  //execute the sql query only if responsible is not null
                         $newResponsible = getUserById($data['responsible_id']);
                     }
+
                     if ($newResponsible != false || $data['responsible_id'] == null) {  //the responsible must be a valid user or null
                         $task['responsible_id'] = $data['responsible_id'];
+                        if ($task['responsible_id'] == null) {  //if the new responsible is null, the task must be in to do state
+                            $task['state'] = TASK_STATE_TODO;
+                        }
                         $success = true;
                         if ($task['responsible_id'] != null) {
                             $msg = interpolateArrayValuesInAString(UPDATEATASK_RESPONSIBLE_SET_SUCCESS, ["number" => $currentTask['number'], "fullname" => buildFullNameOfUser($newResponsible)]);
@@ -134,11 +139,25 @@ function updateATask($data)
                             $msg = interpolateArrayValuesInAString(UPDATEATASK_RESPONSIBLE_REMOVED_SUCCESS, ["number" => $currentTask['number']]);
                         }
                     }
+
                 } else if (isset($data['state'])) { //update state
                     if (in_array($data['state'], TASK_LIST_STATE)) {    //if the new state is valid
                         $task['state'] = $data['state'];    //take the new state value
                         $success = true;
 
+                        //Manage completion_date (set it if done, else unset it)
+                        if ($task['state'] == TASK_STATE_DONE) {
+                            $task['completion_date'] = timeToDT(time());
+                        } else {
+                            $task['completion_date'] = null;
+                        }
+
+                        //If new state is not to do, and the current responsible is null, the responsible is the user logged
+                        if ($task['state'] != TASK_STATE_TODO && $currentTask['responsible_id'] == null) {
+                            $task['responsible_id'] = $_SESSION['user']['id'];
+                        }
+
+                        //If the work has changed, check that the user has the permissions in this new work
                         if ($data['work'] != $currentTask['work_id'] && $data['work'] != "") {   //update the work_id only if the work_id has been changed
                             if ((hasWritingRightOnTasksOfAWork($isInsideTheProject, getOneWork($data['work'])))) {   //if the user has the permission to write on the new work
                                 $task['work_id'] = $data['work'];
@@ -149,6 +168,7 @@ function updateATask($data)
                         }
                         //no $msg because no message on update is returned if success
                     }
+
                 } else {    //update general
                     //Check if value needed aren't empty
                     if (isAtLeastEqual("", [$data["name"], $data["type"], $data["urgency"]]) == false) {
