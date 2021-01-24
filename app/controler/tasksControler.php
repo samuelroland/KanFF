@@ -21,25 +21,8 @@ function getTask($id)
     //TODO: check permissions (if the project is visible) before send the task
     //TODO: return error or empty if task is not found
     $task = getOneTask($id);
-    $task = createTaskComplementFields($task);
+    $task = completeTaskDataForForeignKeys($task, false);
     echo json_encode(getApiResponse(API_SUCCESS, ['task' => $task]));
-}
-
-//create complements fields of a task (creator, repsonsible, completion in simpletime, work, state in text)
-function createTaskComplementFields($task)
-{
-    $task['statename'] = convertTaskState($task['state'], true);
-    $task['work'] = getOneWork($task['work_id']);
-    if ($task['responsible_id'] != null) {
-        $task['responsible'] = unsetPasswordsInArrayOn2Dimensions(getUserById($task['responsible_id']));
-    }
-    if ($task['creator_id'] != null) {
-        $task['creator'] = unsetPasswordsInArrayOn2Dimensions(getUserById($task['creator_id']));
-    }
-    if ($task['completion_date'] != null) {
-        $task['completion'] = DTToHumanDate($task['completion_date'], "simpletime");
-    }
-    return $task;
 }
 
 //Ajax call to create one task
@@ -77,7 +60,7 @@ function createATask($data)
         $id = createTask($task);
 
         $newtask = getOneTask($id);
-        $newtask = createTaskComplementFields($newtask);
+        $newtask = completeTaskDataForForeignKeys($newtask, false);
 
         $msg = interpolateArrayValuesInAString(CREATEATASK_SUCCESS, ["number" => $task['number']]);
         $t = getApiResponse(API_SUCCESS, ['task' => $newtask, 'message' => $msg]);
@@ -249,13 +232,15 @@ function deleteATask($data)
 }
 
 //Complete the $task data for foreign keys (responsible and creator)
-function completeTaskDataForForeignKeys($task)
+function completeTaskDataForForeignKeys($task, $includeKeyIfNull = false)
 {
+    if ($includeKeyIfNull){
+        $task['responsible'] = null;
+        $task['completion'] = null;
+    }
     //Add responsible
     if ($task['responsible_id'] != null) {
         $task['responsible'] = getUserById($task['responsible_id']);
-    } else {
-        $task['responsible'] = null;
     }
 
     //Add creator
@@ -274,8 +259,6 @@ function completeTaskDataForForeignKeys($task)
     //Completion date in human date format
     if ($task['completion_date'] != null) {
         $task['completion'] = DTToHumanDate($task['completion_date'], "simpletime");
-    } else {
-        $task['completion'] = null;
     }
 
     $task = unsetPasswordsInArrayOn2Dimensions($task);  //unset passwords for responsible and creator
