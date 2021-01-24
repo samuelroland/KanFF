@@ -583,7 +583,19 @@ function changeState(data) {   //change state and/or work of a task
 
 function changeStateCallback(response) {
     isSuccess = manageResponseStatus(response)
-    //manageResponseStatus(response)
-    //TODO: move the task to position saved on the server ? (depending on state and work).
 
+    //In all cases, move the task to the right position (depending on response.data.task to be correct with data at server-side).
+    taskData = response.data.task
+    taskHTML = document.getElementById("Task-" + taskData.id)
+    if (taskHTML.classList.contains("activeTask")) {    //load the task in details only if the task is active (else the user is updating another task)
+        loadTaskDetailsWithData(response, "true")   //reload the task details with the new information (to change the responsible in the task details if displayed)
+    }
+    moveTaskHTMLToCorrectPlaceInTheKanban(taskHTML, response.data.task)
+}
+
+function moveTaskHTMLToCorrectPlaceInTheKanban(taskHTML, taskData) {
+    if (taskData != undefined) {
+        workStateParent = document.getElementById("workstate-" + taskData.work_id + "-" + taskData.state)   //get the workstate parent of the task (their id respect this structure: workstate-<workid>-<state>)
+        workStateParent.appendChild(taskHTML)   //the taskHTML will be transfered from his current place to the workStateParent (so no need to delete old element)
+    }
 }
