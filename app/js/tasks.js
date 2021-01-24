@@ -97,13 +97,13 @@ function declareEventsForTasks() {
 
                     //Update task state only if the task is not at the original position
                     if (mustStartUpdate) {
-                    //TODO: update the state of the task
-                    workstate = getRealParentHavingId(task, "workstate")
-                    newState = workstate.id.substr(workstate.id.lastIndexOf("-"))
-                    work = getRealParentHavingId(task, "Work-")
-                    workid = work.getAttribute("data-id")
-                    taskid = task.getAttribute("data-id")
-                    tryChangeState(taskid, newState, workid)
+                        //TODO: update the state of the task
+                        workstate = getRealParentHavingId(task, "workstate")
+                        newState = workstate.id.substr(workstate.id.lastIndexOf("-") + 1)
+                        work = getRealParentHavingId(task, "Work-")
+                        workid = work.getAttribute("data-id")
+                        taskid = task.getAttribute("data-id")
+                        tryChangeState(taskid, newState, workid)
                     }
                     //Disable very shortly the click possibility to avoid click event (click event select the task and display its details in the right panel, but we don't want it)
                     taskDisabled = event.target
