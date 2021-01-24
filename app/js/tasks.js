@@ -87,12 +87,15 @@ function declareEventsForTasks() {
             $(".divTask").on("mouseup", function (event) {
                 blankTaskChosen = null  //the blankTask chosen for new position (old position or new position)
                 blankTaskChosen = document.querySelector(".divBlankTask")   //if a .divBlankTask exist, the task will change workstate (in the workstate where this .divBlankTask exists)
+                mustStartUpdate = true
                 if (blankTaskChosen == null) {  //if not found
                     blankTaskChosen = document.querySelector(".divBlankTaskFix")    //stay at old position (same workstate)
+                    mustStartUpdate = false
                 }
                 if (blankTaskChosen != null) {  //last check because if the task hasn't moved, the no blank task will exist
                     moveDraggedTaskToBlankTaskChosen(task, blankTaskChosen)
 
+                    //Update task state only if the task is not at the original position
                     if (mustStartUpdate) {
                     //TODO: update the state of the task
                     workstate = getRealParentHavingId(task, "workstate")
@@ -100,9 +103,6 @@ function declareEventsForTasks() {
                     work = getRealParentHavingId(task, "Work-")
                     workid = work.getAttribute("data-id")
                     taskid = task.getAttribute("data-id")
-                    tryUpdateTaskState(workid, taskid, newState)
-
-                    //Disable very shortly the click possibility
                     tryChangeState(taskid, newState, workid)
                     }
                     //Disable very shortly the click possibility to avoid click event (click event select the task and display its details in the right panel, but we don't want it)
