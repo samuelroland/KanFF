@@ -553,7 +553,9 @@ function changeResponsibleCallback(response) {
             divTaskResponsibleZone.classList.add("visibilityhidden")    //hide it
         }
         invertResponsibleIconsAddOrRemove(taskHTML) //invert the 2 icons
-        loadTaskDetailsWithData(response, "true")   //reload the task details with the new information (to change the responsible in the task details if displayed)
+        if (taskHTML.classList.contains("activeTask")) {    //load the task in details only if the task is active (else the user is updating another task)
+            loadTaskDetailsWithData(response, "true")   //reload the task details with the new information (to change the responsible in the task details if displayed)
+        }
     }
 }
 
