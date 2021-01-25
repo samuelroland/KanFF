@@ -526,22 +526,9 @@ function changeResponsibleCallback(response) {
         //Extract needed information and html elements
         taskData = response.data.task
         taskHTML = document.getElementById("Task-" + taskData.id)
-        logIt(taskHTML)
-        divTaskResponsibleZone = taskHTML.querySelector(".divTaskResponsibleZone")  //zone displayed or hidden
-        spanWithTooltip = taskHTML.querySelector(".responsible")    //span of the tooltip
 
-        //Set responsible values in the tooltip in the kanban
-        if (taskData.responsible != null) { //a responsible must be displayed
-            spanWithTooltip.setAttribute("data-original-title", buildFullNameWithUser(taskData.responsible) + " (" + taskData.responsible.username + ")")  //set the tooltip text with the fullname and username
-            spanWithTooltip.innerHTML = taskData.responsible.initials   //set innertext of the tooltip with the initials
-            divTaskResponsibleZone.classList.remove("visibilityhidden") //display it
-
-        } else {  //responsible will be hidden (default value is applied, in case of other errors showing it)
-            spanWithTooltip.setAttribute("data-original-title", "Undefined user")
-            spanWithTooltip.innerHTML = "000"
-            divTaskResponsibleZone.classList.add("visibilityhidden")    //hide it
-        }
-        invertResponsibleIconsAddOrRemove(taskHTML) //invert the 2 icons
+        loadTaskResponsibleForGivenTask(taskHTML, taskData)
+        moveTaskHTMLToCorrectPlaceInTheKanban(taskHTML, taskData)
         if (taskHTML.classList.contains("activeTask")) {    //load the task in details only if the task is active (else the user is updating another task)
             loadTaskDetailsWithData(response, "true")   //reload the task details with the new information (to change the responsible in the task details if displayed)
         }
@@ -579,12 +566,35 @@ function changeStateCallback(response) {
     if (taskHTML.classList.contains("activeTask")) {    //load the task in details only if the task is active (else the user is updating another task)
         loadTaskDetailsWithData(response, "true")   //reload the task details with the new information (to change the responsible in the task details if displayed)
     }
-    moveTaskHTMLToCorrectPlaceInTheKanban(taskHTML, response.data.task)
+    loadTaskResponsibleForGivenTask(taskHTML, taskData)
+    moveTaskHTMLToCorrectPlaceInTheKanban(taskHTML, taskData)
 }
 
 function moveTaskHTMLToCorrectPlaceInTheKanban(taskHTML, taskData) {
     if (taskData != undefined) {
         workStateParent = document.getElementById("workstate-" + taskData.work_id + "-" + taskData.state)   //get the workstate parent of the task (their id respect this structure: workstate-<workid>-<state>)
         workStateParent.appendChild(taskHTML)   //the taskHTML will be transfered from his current place to the workStateParent (so no need to delete old element)
+    }
+}
+
+function loadTaskResponsibleForGivenTask(taskHTML, taskData) {
+    divTaskResponsibleZone = taskHTML.querySelector(".divTaskResponsibleZone")  //zone displayed or hidden
+    spanWithTooltip = taskHTML.querySelector(".responsible")    //span of the tooltip
+
+    //Manage responsible icons (if value of responsible change, the icons invert them)
+    if (spanWithTooltip.innerHTML == "000" && taskData.responsible != null || spanWithTooltip.innerHTML != "000" && taskData.responsible == null) {  //if value go from null to not null or vice versa
+        invertResponsibleIconsAddOrRemove(taskHTML) //invert the 2 icons
+    }
+
+    //Set responsible values in the tooltip in the kanban
+    if (taskData.responsible != null && taskHTML != null) { //a responsible must be displayed
+        spanWithTooltip.setAttribute("data-original-title", buildFullNameWithUser(taskData.responsible) + " (" + taskData.responsible.username + ")")  //set the tooltip text with the fullname and username
+        spanWithTooltip.innerHTML = taskData.responsible.initials   //set innertext of the tooltip with the initials
+        divTaskResponsibleZone.classList.remove("visibilityhidden") //display it
+
+    } else {  //responsible will be hidden (default value is applied, in case of other errors showing it)
+        spanWithTooltip.setAttribute("data-original-title", "Undefined user")
+        spanWithTooltip.innerHTML = "000"
+        divTaskResponsibleZone.classList.add("visibilityhidden")    //hide it
     }
 }
