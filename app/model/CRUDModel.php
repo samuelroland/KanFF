@@ -88,10 +88,11 @@ function updateOne($table, $id, $params)
 {
     //$table = "users" OR "competences" ...
     //$id = 55 OR 96556 OR 1 ...
-    //$params = ["id"=>$id,"name"=>$name,"NPA"=>94654]
+    //$params = ["name"=>$name,"NPA"=>94654]
 
     unset($params['id']);   //destroy id because update the id is prohibited
-    $query = "UPDATE `$table` SET " . buildStringForUpdateValues($params) . " WHERE id=" . $id;
+    $query = "UPDATE `$table` SET " . buildStringForUpdateValues($params) . " WHERE id=:id";
+    $params['id'] = $id;
     displaydebug($query);
     displaydebug($params);
     return Query($query, $params, false);
