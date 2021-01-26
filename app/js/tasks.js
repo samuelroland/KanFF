@@ -581,8 +581,8 @@ function loadTaskResponsibleForGivenTask(taskHTML, taskData) {
     divTaskResponsibleZone = taskHTML.querySelector(".divTaskResponsibleZone")  //zone displayed or hidden
     spanWithTooltip = taskHTML.querySelector(".responsible")    //span of the tooltip
 
-    //Manage responsible icons (if value of responsible change, the icons invert them)
-    if (spanWithTooltip.innerHTML == "000" && taskData.responsible != null || spanWithTooltip.innerHTML != "000" && taskData.responsible == null) {  //if value go from null to not null or vice versa
+    //Manage responsible icons (if the responsible change, the icons invert them)
+    if (spanWithTooltip.innerHTML != taskData.responsible) {  //new responsible initials has not the same than the current = responsible has changed
         invertResponsibleIconsAddOrRemove(taskHTML) //invert the 2 icons
     }
 
