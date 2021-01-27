@@ -571,9 +571,15 @@ function changeStateCallback(response) {
 }
 
 function moveTaskHTMLToCorrectPlaceInTheKanban(taskHTML, taskData) {
-    if (taskData != undefined) {
-        workStateParent = document.getElementById("workstate-" + taskData.work_id + "-" + taskData.state)   //get the workstate parent of the task (their id respect this structure: workstate-<workid>-<state>)
-        workStateParent.appendChild(taskHTML)   //the taskHTML will be transfered from his current place to the workStateParent (so no need to delete old element)
+    if (taskData != undefined && taskHTML != undefined) {
+        currentWorkStateParent = getRealParentHavingId(taskHTML, "workstate-")  //get current element workstate that is parent of the task
+        currentWorkParent = getRealParentHavingId(taskHTML, "Work-")    //get current element work that is parent of the task
+
+        if (taskData.work_id != currentWorkParent.getAttribute("data-id") || taskData.state != currentWorkStateParent.getAttribute("data-taskstate")) { //move only if work or state has changed
+            //Get new workstate for the task
+            workStateParent = document.getElementById("workstate-" + taskData.work_id + "-" + taskData.state)   // (their id respect this structure: workstate-<workid>-<state>)
+            workStateParent.appendChild(taskHTML)   //the taskHTML will be transferred from his current place to the workStateParent (so no need to delete old element)
+        }
     }
 }
 
@@ -582,8 +588,13 @@ function loadTaskResponsibleForGivenTask(taskHTML, taskData) {
     spanWithTooltip = taskHTML.querySelector(".responsible")    //span of the tooltip
 
     //Manage responsible icons (if the responsible change, the icons invert them)
-    if (spanWithTooltip.innerHTML != taskData.responsible) {  //new responsible initials has not the same than the current = responsible has changed
+    if (spanWithTooltip.innerHTML != "000" && taskData.responsible == null) {
         invertResponsibleIconsAddOrRemove(taskHTML) //invert the 2 icons
+    }
+    if (taskData.responsible != null){
+        if (spanWithTooltip.innerHTML != taskData.responsible.initials){    //if initials are different, the responsible are different
+            invertResponsibleIconsAddOrRemove(taskHTML) //invert the 2 icons
+        }
     }
 
     //Set responsible values in the tooltip in the kanban
