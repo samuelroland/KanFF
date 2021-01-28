@@ -1,7 +1,7 @@
-# Journal de bord du projet KanFF (Projet Web+BDD, 2ème année, Trimestre 4)
-[Lien du repository GitHub](https://github.com/samuelroland/KanFF) | [Lien du projet sur IceScrum](https://cloud.icescrum.com/p/PWB2AGDC)
+# Journal de bord du projet KanFF
+[Lien du repository GitHub](https://github.com/samuelroland/KanFF)
 
-## Evénements importants, décisions, changements, documentations, ...
+## Événements importants, décisions, changements, documentations, ...
 1. (__SRD__, 26.04.2020) Lancement du projet et du Sprint 1 sur IceScrum. Création du repos. Décision d'appeler le projet `KanFF`, prise par SRD.
 1. (__SRD__, 04.05.2020) Le MCD réalisé par SRD, a été revu, discuté, modifié et validé en réunion virtuelle de 1h environ (personnes présentes: SRD, XCL, JIE). La version v1.1 sera publiée après relecture.
 1. (__SRD__, 05.05.2020) Publication du MCD v1.1 par SRD.
@@ -30,6 +30,10 @@
 1. (__SRD__, 15.11.2020) **Release** `KanFF Beta v2.0` sur [GitHub](https://github.com/samuelroland/KanFF/releases/tag/v2.0-beta).
 1. (__SRD__, 15.11.2020) **Replanification du sprint 7** sur IceScrum. Le trop plein de stories (34) dans le sprint rendant le principe du sprint inutile, il a fallu tout déplanifier puis replanifier les stories de la feature Gestion des utilisateurs + quelques autres stories complémentaires presque terminées ou nécessaires.
 1. (__SRD__, 03.12.2020) **Release** `KanFF Beta v2.1` sur [GitHub](https://github.com/samuelroland/KanFF/releases/tag/v2.1-beta).
+1. (__SRD__, 28.01.2021) **Sprint review** du sprint 7 avec Team + XCL. PV dans le dossier [`PVs` du repos](https://github.com/samuelroland/KanFF/tree/master/PVs) . Clôture du Sprint 7. Lancement du Sprint 8 sur IceScrum.
 1. (__SRD__, 18.12.2020) **Release** `KanFF Beta v2.2` sur [GitHub](https://github.com/samuelroland/KanFF/releases/tag/v2.2-beta).
+1. (__SRD__, 28.01.2021) **Sprint review** du sprint 8 avec Team + XCL. PV dans le dossier [`PVs` du repos](https://github.com/samuelroland/KanFF/tree/master/PVs) . Clôture du Sprint 8. Lancement du Sprint 9 sur IceScrum.
 1. (__SRD__, 08.01.2021) **Release** `KanFF Beta v2.3` sur [GitHub](https://github.com/samuelroland/KanFF/releases/tag/v2.3-beta).
+1. (__SRD__, 28.01.2021) **Sprint review** du sprint 9 avec Team + XCL. PV dans le dossier [`PVs` du repos](https://github.com/samuelroland/KanFF/tree/master/PVs) . Clôture du Sprint 9. Lancement du Sprint 10 sur IceScrum.
 1. (__SRD__, 28.01.2021) **Release** `KanFF Beta v2.4` sur [GitHub](https://github.com/samuelroland/KanFF/releases/tag/v2.4-beta).
+1. (__SRD__, 28.01.2021) **Sprint review et retrospective** du sprint 10 avec Team + XCL. PV dans le dossier [`PVs` du repos](https://github.com/samuelroland/KanFF/tree/master/PVs) . Clôture du Sprint 10. Lancement du Sprint 11 sur IceScrum. Le module "Projet à choix en binôme" est terminé, mais le projet continue !
