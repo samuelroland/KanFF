@@ -104,7 +104,18 @@ $versions = [
 \n- **Page Projects** is almost finished. The order for projects in categories `Completed` and `Others` has been fixed (based on end date, not on priority like the 2 other categories). Some little design is needed yet for the progress bar and the access icon.
 \n- **Page Member details** is in progress. Visibility parameters are managed for groups but not for contributions.
 \n- **Tasks management in the Kanban** is advanced. The tasks can change columns.
-"]
+"],
+    [
+        "version" => "v2.4-beta",
+        "date" => "2021-01-28",
+        "changelog" => "New features:
+\n- **Page Member details** is done. Visibility management is fixed.
+\n- **Tasks management** has well progressed. General information, responsible and state can be updated. But there are still a lot of bugs in the display after the updates.
+\n- **Page Projects**: design fixed and progress bar algorithm enhanced (tasks are included in the calculation).
+\n- **Documentations** for trimester 10 well completed (not completly done).
+\n
+\nOthers:
+\n- **Page Kanban**, **Tasks management**, **Details/Management of a project**, **Works management**, **Groups participatings management**, have not progressed."]
 ];
 
 ?>
