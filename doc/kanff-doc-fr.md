@@ -1,6 +1,7 @@
 # KanFF - Documentation globale
-Ce document apporte des informations sur le projet et l'application au niveau technique.   
-Rédaction: Samuel, Relecture: Benoît. Version 1.1 du 03.11.2020.
+Ce document globale apporte beaucoup d'informations sur le projet et l'application au niveau technique.   
+Rédaction: Samuel, Relecture: Benoît. Version 1.1 du 03.11.2020.  
+**Rédaction: Samuel, Relecture: YYYYYY. Version 2.0 du 28.01.2021.**
 
 ## Documentations liées spécifiques:
 - [Liste des pages](list-pages.md)
@@ -12,7 +13,6 @@ Rédaction: Samuel, Relecture: Benoît. Version 1.1 du 03.11.2020.
 [INSERT TOC HERE]
 
 ## Cadre, description et motivation
-
 **Le projet KanFF consiste à réaliser l'application web KanFF**, afin de permettre de gérer des projets, des tâches et l'organisation du travail en général au sein des collectifs, mouvements, associations ou simples groupes de personnes ayant des projets communs. Ce projet est destiné à une utilisation réelle par un nombre important de personnes.
 
 Le projet part de zéro. Le projet est réalisé durant les périodes prévues à l'école pour tout le monde et à la maison pour les personnes qui le veulent.  
@@ -20,10 +20,10 @@ Ce projet prend une autre dimension et utilité que d'autres précédents projet
 
 ### Objectifs
 L'application doit pouvoir:
-1. **Gérer des projets, des travaux et des tâches** à l'aide de kanbans
+1. **Gérer des projets, des travaux et des tâches** à l'aide de kanbans notamment
 1. Répartir le travail et planifier les projets
-1. Planifier **des réunions et des événements**
 1. Gérer les **membres** et les **groupes**
+1. Planifier **des réunions et des événements**
 1. Gérer différents niveaux de visibilité pour les données internes
 
 #### Buts:
@@ -41,6 +41,7 @@ Toute la gestion des tâches se fait à l'aide d'un kanban. Chaque projet a son 
 - **Intuitif et compréhensible** en majorité sans le mode d'emploi, pour un maximum de générations.
 - **Niveaux de visibilités** pour permettre de protéger les informations sensibles et permettre aux groupes sensibles d'utiliser l'applicaiton sans changer son utilisation.
 <!--
+WIP. A réfléchir et travailler! Version non-finale.
 - **Code ouvert, neutralité et transparence**: tout le code doit être ouvert, les algorithmes doivent afficher le même résultat pour les personnes du collectif (à l'exception des éléments masqués par leur niveau de visibilité), toutes les données stockées dans la base de données ainsi que les algorithmes particuliers (notamment de tri) doivent être documentés et compréhensibles par le grand public.
 - **Aucune surveillance**: pas de télémétrie, aucun traçage (données stockées sont celles créée/générés consciemment par les membres, donc pas de données d'utilisation).
 - **Amélioration et évolution par les retours/feedbacks**: les feedbacks doivent être simples à envoyer et doivent être pris en compte pour que l'application soit vraiment conçue pour les collectifs, et évoluer dans le temps selon les besoins (sans réinventer des fonctionnalités qui existent déjà dans l'opensource).
@@ -158,7 +159,7 @@ KanFF est une application web développée **en PHP** (HTML + CSS + Javascript +
 - **3 fichiers de fonctions d'aides (fichier help)**: `helpers.php` (fonctions générant du contenu commun), help.php (fonctions contrôleur communes), global.js (fonctions JS communes). Toutes ces fonctions sont décrites dans un document séparé [ici](doc/helpers-functions.md).
 - **Login**: il est possible de se connecter avec un email, un nom d'utilisateur ou des initiales. Ces 3 valeurs sont donc uniques dans la base de données.
 - **Contenu de la session**: se résume en le contenu de l'utilisateur connecté (sans mot de passe) et le flashmessage (qui reste temporairement dans la session). On peut donc savoir quel utilisateur est connecté en regardant dans `$_SESSION['user']`:  
-  ![flashmessage dans la session](img/flashmessage-session.PNG)
+  ![flashmessage dans la session](img/session-content.PNG)
 - **Génération unique des initiales**: Les initiales sont toujours stockées en majuscules. Le premier format est "première lettre du prénom + première lettre du nom + dernière lettre du nom" et le deuxième est "première lettre du prénom + première lettre du nom + deuxième lettre du nom". Si le premier format ne permet pas l'unicité, alors le 2ème format est appliqué. Si ce n'est toujours pas unique, il y a n'a pas d'autres formats prévus et la création du compte ne peut pas se faire... Cest la fonction `getUniqueInitials($firstname, $lastname)` qui s'en occupe.
 - **Champs INT et constantes**: La base de données contenant de nombreux champs de type INT stockant diverses valeurs ayant une signification, il est indispensable de prévoir un moyen pratique pour développer sans connaître les valeurs INT mais uniquement en s'adaptant à leur signification, et pouvoir changer ou rajouter une nouvelle valeur en changeant uniquement le code dans un fichier help. Ceci concerne les champs state, type, visibility et need_help notamment.  
     - On définit des constantes PHP dans le fichier `helpers.php`:
@@ -201,7 +202,7 @@ KanFF est une application web développée **en PHP** (HTML + CSS + Javascript +
     - `large`: simple marge `p-3`: pour la plupart des pages avec une marge standard
     - `restricted`: largeur maximum définie, zone centrée et marge `p-3`: pour les pages d'informations ou avec peu d'éléments.
 - **Messages affichables**: Il y a 2 types de messages affichables: Les **flashmessages** affichés en haut du gabarit ou dans une vue directement, **les "messages API"** qui sont renvoyés après une requête Ajax et affichés dans des `jsTempMsg`. Dans les 2 cas cela permet d'avertir l'utilisateur d'une erreur ou de la réussite pour une action. Tous ces messages doivent être stockés dans le fichier `messages.json`. Un seul message par requête est possible.
-    - Format d'écriture des messages:  
+    - Format d'écriture des messages (stockés dans des constantes):  
     ![exemple flashmessage](img/list-messages.PNG)
     - Exemple flashmessage:
     ![exemple flashmessage](img/flashmessage.png)
@@ -228,27 +229,30 @@ KanFF est une application web développée **en PHP** (HTML + CSS + Javascript +
         - Bleu foncé: `txtdarkbluelogo`
         - Bleu clair: `txtlightbluelogo`
         - Vert: `txtgreenlogo`
-- **Les tooltips**: ce sont des info-bulles qui apparaissent au survol et qui contiennent du texte. Ils sont très utilisés pour les icônes d'aide ("?") afin d'expliquer rapidement le but ou le fonctionnement d'une fonctionnalité ou d'un champ, mais aussi pour mentionner des membres et à d'autres occasions.
+- **Les tooltips**: ce sont les petits encadrés qui apparaissent au survol et qui contiennent du texte. Ils sont très utilisés pour les icônes d'aide ("?") afin d'expliquer rapidement le but ou le fonctionnement d'une fonctionnalité ou d'un champ, mais aussi pour mentionner des membres et à d'autres occasions. Ces tooltips sont créés à l'aide de PopperJS qui est inclus dans le fichier bundle de boostrap.
     - Exemples:  
         ![tooltip example](img/tooltip_point.png)
         ![tooltip example](img/tooltip_mentionuser.png)
-    - On les crée avec la fonction `createToolTip($innerText, $tooltipText, $link = false, $type = "top")`. Si c'est un tooltip sur une icône d'aide, alors on peut directement utiliser `createToolTipWithPoint($tooltipText, $pointClasses = "icon-small m-2", $link = false, $type = "top")`.
-- **Afficher des icônes**: pour ne pas avoir besoin de constamment réécrire le HTML pour créer une icône, il existe la fonction `printAnIcon($iconname, $title, $alt, $defaultClasses = "icon-small ml-2 mr-2", $echo = true, $id = "", $hidden = false)`. Des classes CSS par défaut sont donc appliquées.
-- **Le dropdown user**: est la petite zone qui s'affiche avec un clic sur les initiales de la personne connectée.
+    - On les crée avec la fonction `createToolTip()`. Si c'est un tooltip sur une icône d'aide, alors on peut directement utiliser `createToolTipWithPoint()` (voir documentation fonctions d'aide).
+- **Afficher des icônes**: pour ne pas avoir besoin de constamment réécrire le HTML pour créer une icône, il existe la fonction `printAnIcon()`. Des classes CSS par défaut sont appliquées (voir signature de fonction).
+- **Le panneau session**: est la petite zone qui s'affiche avec un clic sur les initiales de la personne connectée.
     - Aperçu:  
     ![dropdown user example](img/dropdown_user.PNG)
-- **Mots de passe**: les mots de passe des membres sont hashés et salés avec la fonction `password_hash($password, PASSWORD_DEFAULT);`. Les mots de passe doivent respecter une Regex (regex stockée dans la constante `USER_PASSWORD_REGEX` et la description est stockée dans `USER_PASSWORD_CONDITIONS`)
+- **Mots de passe**: les mots de passe des membres sont hashés et salés avec la fonction `password_hash($password, PASSWORD_DEFAULT)` native de PHP. Les mots de passe doivent respecter une Regex (regex stockée dans la constante `USER_PASSWORD_REGEX` et la description est stockée dans `USER_PASSWORD_CONDITIONS`)
 - **Les regex (expressions régulières)**: sont stockées dans des constantes dans le format sans "/" de départ et de fin (compatible en HTML et JS). Les "/" sont nécessaires en PHP. La fonction `checkRegex($string, $regex)` existe en PHP et `testRegex(regex, string)` existe en JS. Pour tester des regex pour un certain type de valeur (nom, email, username, ...), des fonctions sont créées parfois. Par ex. `isEmailFormat($text)`.
-- **Ordre des listes**: YYY
+- **Ordre des listes**: les algorithmes de tri des listes (liste des projets, groupes, membres, ...) sont documentés dans le mode d'emploi afin d'être accessibles (niveau compréhension) au grand public.
 
 ### Sécurité
 Le logiciel étant destiné à la production, il doit y avoir plusieurs tests de sécurité avant de pouvoir publier en production. Dans l'idéal ces tests seraient automatisés et potentiellement fait par un logiciel externes (pour ne pas devoir les inventer nous même). En dehors de certains fonctionnalités dont la sécurité est assurée déjà un minimum par validation des permissions et bloquage des injections SQL car directement appliqué à chaque fois, il y a diverses autres failles (dont XSS) qui sont facilement exploitable...  
-Des détails sur ces tests, failles, corrections et checklist arriveront plus tard dans le projet...
+Des détails sur ces tests, failles, corrections et checklist arriveront plus tard dans le projet... En bref: **l'application est globalement pas sécurisée**.
 
 ### Livraisons
 Il y a 3 publications majeures et d'autres petites entre deux. Une publication est faite à la fin de chaque sprint sur GitHub. (Seulement les tags sont affichés ici). Pour voir les releases et leur description, suivez le lien de l'image.
 
 [![livraisons](img/releases_2.0-beta.png)](https://github.com/samuelroland/KanFF/releases)
+
+## Conclusion (v2.0-beta)
+Cette conclusion est faite à la fin du module Projet Web+BDD (`v2.0-beta`) et l'état des lieux ne concerne donc que ce moment-là.
 
 ### Erreurs restantes
 Les erreurs décrites ci-dessous concernent la version actuellement (`v2.0-beta`) implémentée uniquement sur les stories terminées. (Les stories en cours contenant des tonnes d'erreurs et de partie non terminées, dû au manque de temps, ne sont pas incluses dans la liste):
@@ -256,9 +260,6 @@ Les erreurs décrites ci-dessous concernent la version actuellement (`v2.0-beta`
 - Il y a des erreurs dans la console JS dû à une déclaration des événements sur chaque page au lieu de pages ciblées.
 - Le texte d'explications des fonctionnalités est parfois trop long et mal écrit. Il faudrait le réécrire en demandant des avis extérieurs.
 - Le menu n'est pas responsive et ne s'adapte pas sur écran restreint. Il est cassé et la plupart des boutons deviennent invisible. Il faudrait gérer les options et l'affichage du menu pour les écrans moins larges.
-
-## Conclusion
-Cette conclusion est faite à la fin du module Projet Web+BDD (`v2.0-beta`) et l'état des lieux ne concerne donc que ce moment-là.
 
 ### Objectifs atteints
 - Gestion des membres basiques (création compte, connexion, changement d'état),
@@ -270,6 +271,31 @@ Cette conclusion est faite à la fin du module Projet Web+BDD (`v2.0-beta`) et l
 - Gestion complète des projets (projets, travaux et tâches) pas terminée.
 
 Une instance ne peut héberger qu'un seul collectif.
+
+## Conclusion (v2.4-beta)
+Cette conclusion est faite à la fin du cours `Projet à choix en binôme` (`v2.4-beta`) et l'état des lieux ne concerne donc que ce moment-là puisque le projet continue en dehors des cours. Une autre organisation et temps de travail est à prévoir, puisque ce ne sera plus rythmé par les cours.
+
+### Regard en arrière (par SRD)
+Cela fait 9 mois que ce projet a commencé, on a dépassé les 1000 commits, mis en place plein d'éléments qui nous aide dans le développement, on a fait plein de réflexions sur diverses implémentations complétement nouvelles pour nous. Le projet n'est clairement pas terminé et va continuer, mais c'est incroyable de voir que tout a pris 3-4 fois plus de temps qu'estimé... Avec le kanban qui est bien avancé on commence à avoir quelque chose qui ressemble de plus en plus à un logiciel utilisable (ce ne sont que les prémices).
+
+### Erreurs restantes
+Les erreurs décrites ci-dessous concernent la version actuellement (`v2.4-beta`) implémentée:
+- Pleins de bug dans le kanban
+- Issues github non résolues (gardées en réserve pour les futur·e·s contributions externes)
+- Certaines données ne sont vraiment pas cohérentes ou font des combinaisons interdites (tâche en cours sans responsable par ex.) et devraient être corrigés.
+
+### Objectifs atteints
+- Gestion complète des membres !
+- Base de données, structure app, structure API et appels Ajax, flashmessages et messages API, design, javascript, modèle git, déjà bien structuré... (C'est une bonne base pour la suite).
+- Une dizaine de personnes ont pu tester sur l'instance de test et faire des retours oraux ou écrits plus ou moins détaillés.
+- Le Kanban a vraiment bien avancé. La gestion des tâches est presque fonctionnelle.
+
+### Objectifs non-atteints
+- Gestion des projets en cours (estimé à 40%).
+- Gestion des groupes pas commencée ... 
+- Gestion des compétences, notifications et événements abandonnés pour la v1.0. (cf. MLD avec tables grisées).
+- Publier une version de production v1.0 d'ici le 31.01.2021... Objectif non-atteint (v2.4-beta) puisque pas du tout prêt pour la production. Il reste encore plein de stories à réaliser, puis d'autres stories pour la sécurité, tests unitaires, système de mise à jour automatique, ...
+- Mode d'emploi pas rédigé.
 
 ## Annexes
 ### Sources – Bibliographie
@@ -286,3 +312,8 @@ Liste des livres utilisés (Titre, auteur, date), des sites Internet (URL) consu
 
 ### Journal de bord du projet
 Le journal de bord se trouve sur GitHub ([voir `Journal.md`](../Journal.md)) et contient tous les événements importants, décisions, changements, documentations, ...
+
+![board book extract](img/board-book.png)
+
+### Journal de travail du projet
+Le journal de travail peut être consulté via les [timesheets](timesheets/). Un accès au projet IceScrum est requis... Le temps est compté pour chaque tâche (unité = 1/4 d'heure).
