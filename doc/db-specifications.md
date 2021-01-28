@@ -58,15 +58,15 @@ Other tables exist in the data model but are abandoned for v1.0...
 - All fields given an information about the state with a text (content of this text is free) are called `status` and are always in VARCHAR type. (Example for users.status: `I'm in holiday. I'll be back the 10th. Leave me an SMS if you really need me...`). This information is not technically linked to state and has no impact on the use of the app.
 
 ### Users:
-- `username`: a simple username of a maximum of 15 characters
+- `username`: a simple username between 4 and 15 characters. It's a unique identifier.
 - `initials`: initials built with firstname and lastname (first letter of firstname + first and last letter of lastname (default format)) always in uppercase. It's a unique identifier.
 - `firstname`: firstname of the user
 - `lastname`: lastname of the user
 - `chat_link`: link to an external messaging app internal to the collective, to write in private to the user (first contact mean)
-- `email`: an facultative email that can useful for other users of the collective (second contact mean, not technically used)
+- `email`: an facultative email that can useful for other users of the collective (second contact mean, not technically used). It's a unique identifier.
 - `phonenumber`: a string of 20 digits for the phonenumber (third contact mean, not technically used)
 - `biography`: a biography text
-- `password`: the password to login hashed with password_hash() and DEFAULT_PASSWORD mode
+- `password`: the password to login hashed with password_hash() and `DEFAULT_PASSWORD` mode
 - `inscription`: date of creation of the account
 - `on_break`: if you are on break or not (of your work in the collective)
 - `status`: status written by the user
@@ -270,7 +270,7 @@ Here is a list of the functions, and an example to show a preview of how to use 
     - Equivalent: The query `delete from groups where id=:id`.
 
 ## Pack "Collectif Assoc Vaud":
-This pack of data in french is about a fictive collective called "Collectif Assoc Vaud". Current version of the pack is **2.5**.
+This pack of data in french is about a fictive collective called "Collectif Assoc Vaud". Current version of the pack is **2.6**.
 
 ### Content:
 - 100 users
@@ -286,7 +286,7 @@ This pack of data in french is about a fictive collective called "Collectif Asso
 
 ### How to use it/test it ?
 **DISCLAIMER: the app is not ready to be run in production ! Don't use it for this purpose! Only test instances with fictitious data should be used/created.**
-If you want to install it on your own instance to try it:
+If you want to install it on your own local instance to try it:
 - Look at [process to import db](../README.md#proc%C3%A9dure-1) at the part about the import of the pack.  
 Else, if you are looking for an easier option:
 - Use the [official test instance](try.kanff.org).
