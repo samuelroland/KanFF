@@ -18,9 +18,10 @@ These are the full specifications of the database of the KanFF (the tables, fiel
       - [Tasks:](#tasks)   
       - [Participate](#participate)   
       - [Log](#log)   
+   - [The General CRUD Model](#the-general-crud-model)   
    - [Pack "Collectif Assoc Vaud":](#pack-collectif-assoc-vaud)   
       - [Content:](#content)   
-      - [How to use it ?](#how-to-use-it)   
+      - [How to use it/test it ?](#how-to-use-ittest-it)   
    - [How to generate another pack ?](#how-to-generate-another-pack)   
       - [Process](#process)   
 
@@ -235,6 +236,38 @@ Each entry represents a log in the logbook of a project created by a user
 - `user_id`: a foreign key linked users.id. It's the creator of the log.
 - `project_id`: a foreign key linked projects.id. It's the parent project.
 
+## The General CRUD Model
+To apply the concept of DRY and make easier to write model functions for each tables, we have created `CRUDModel.php` that provide general functions to interact with the database. With this file, we don't need to use PDO in other files and we don't need to write SQL for some standard queries (get all items, get one item, ...).
+
+Here is a list of the functions, and an example to show a preview of how to use it and how they work:
+- **Query()**:
+    - Signature: `Query($query, $params, $manyrecords)`
+    - Example: `Query("select * from users where id=:id", ['id'=>5], false)`
+    - Equivalent: The query `select * from users where id=:id` with 5 in `->execute()` method, and `->fetch()` used instead of `fetchAll()` (depending on $manyrecords). Return false on failure (and the last inserted id if the query start with "insert into").
+- **getAll()**:
+    - Signature: `getAll($table)`
+    - Example: `getAll('projects')`
+    - Equivalent: The query `select * from projects` using `fetchAll()`
+- **getOne()**:
+    - Signature: `getOne($table, $id)`
+    - Example: `getOne('works', 8)`
+    - Equivalent: The query `select * from works where id=:id` using `fetch()`
+- **getByCondition()**:
+    - Signature: `getByCondition($table, $params, $conditions, $manyrecords)`
+    - Example: `getByCondition("tasks", ['state'=>3], "tasks.state = :id", true)`
+    - Equivalent: The query `select * from tasks where tasks.state = :id` using `fetchAll()` (depending on $manyrecords).
+- **createOne()**:
+    - Signature: `createOne($table, $params)`
+    - Example: `createOne("groups",['name' => "mega name", "description" => "first cool description"])`
+    - Equivalent: The query `insert into groups (name, description) values (:name, :description)`. It returns false or the last inserted id.
+- **updateOne()**:
+    - Signature: `updateOne($table, $id, $params)`
+    - Example: `updateOne("groups", 5, ['name' => "new name", "description" => null])`
+    - Equivalent: The query `update groups set name =:name AND description =:description where id=:id` using `fetchAll()` (depending on $manyrecords).
+- **deleteOne()**:
+    - Signature: `deleteOne($table, $id)`
+    - Example: `deleteOne("groups", 15)`
+    - Equivalent: The query `delete from groups where id=:id`.
 
 ## Pack "Collectif Assoc Vaud":
 This pack of data in french is about a fictive collective called "Collectif Assoc Vaud". Current version of the pack is **2.5**.
