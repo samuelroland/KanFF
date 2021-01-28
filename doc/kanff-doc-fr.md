@@ -9,8 +9,49 @@ Rédaction: Samuel, Relecture: Benoît. Version 1.1 du 03.11.2020.
 - [Spécifications de la base de données](db-specifications.md)
 - [Structure des appels Ajax](structure-ajax-calls.md)
 
-## **Table des matières**
-[INSERT TOC HERE]
+## Table des matières
+<!-- MDTOC maxdepth:6 firsth1:1 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
+
+- [KanFF - Documentation globale](#kanff-documentation-globale)   
+   - [Documentations liées spécifiques:](#documentations-liées-spécifiques)   
+   - [Table des matières](#table-des-matières)   
+   - [Cadre, description et motivation](#cadre-description-et-motivation)   
+      - [Objectifs](#objectifs)   
+         - [Buts](#buts)   
+         - [Ambitions](#ambitions)   
+      - [Vision](#vision)   
+      - [Identification](#identification)   
+      - [Organisation du projet](#organisation-du-projet)   
+      - [Découpage](#découpage)   
+      - [Comment tester ?](#comment-tester)   
+   - [Analyse](#analyse)   
+      - [Modèle Conceptuel de Données](#modèle-conceptuel-de-données)   
+      - [Modèle Logique de Données](#modèle-logique-de-données)   
+   - [Stratégie de tests](#stratégie-de-tests)   
+      - [Moyens mis en place:](#moyens-mis-en-place)   
+      - [Tests et demandes de feedback extérieurs](#tests-et-demandes-de-feedback-extérieurs)   
+   - [Implémentation](#implémentation)   
+      - [Vue d’ensemble](#vue-d’ensemble)   
+      - [Description technique](#description-technique)   
+      - [Conventions](#conventions)   
+      - [Points techniques spécifiques](#points-techniques-spécifiques)   
+      - [Sécurité](#sécurité)   
+      - [Livraisons](#livraisons)   
+   - [Conclusion (v2.0-beta)](#conclusion-v20-beta)   
+      - [Erreurs restantes](#erreurs-restantes)   
+      - [Objectifs atteints](#objectifs-atteints)   
+      - [Objectifs non-atteints](#objectifs-non-atteints)   
+   - [Conclusion (v2.4-beta)](#conclusion-v24-beta)   
+      - [Regard en arrière (par SRD)](#regard-en-arrière-par-srd)   
+      - [Erreurs restantes](#erreurs-restantes)   
+      - [Objectifs atteints](#objectifs-atteints)   
+      - [Objectifs non-atteints](#objectifs-non-atteints)   
+   - [Annexes](#annexes)   
+      - [Sources – Bibliographie](#sources-–-bibliographie)   
+      - [Journal de bord du projet](#journal-de-bord-du-projet)   
+      - [Journal de travail du projet](#journal-de-travail-du-projet)   
+
+<!-- /MDTOC -->
 
 ## Cadre, description et motivation
 **Le projet KanFF consiste à réaliser l'application web KanFF**, afin de permettre de gérer des projets, des tâches et l'organisation du travail en général au sein des collectifs, mouvements, associations ou simples groupes de personnes ayant des projets communs. Ce projet est destiné à une utilisation réelle par un nombre important de personnes.
@@ -26,7 +67,7 @@ L'application doit pouvoir:
 1. Planifier **des réunions et des événements**
 1. Gérer différents niveaux de visibilité pour les données internes
 
-#### Buts:
+#### Buts
 - **Collaborer efficacement à plusieurs sur des projets**
 - Avoir une **vision d'ensemble large** de l'organisation du collectif (de tous les projets, travaux, tâches, événements, groupes et membres du collectif)
 - Mieux répartir la charge de travail et inclure de nouvelles personnes et les membres moins engagé·e·s.
@@ -53,8 +94,11 @@ WIP. A réfléchir et travailler! Version non-finale.
 Les collectifs sont confrontés à de nombreux problèmes dans la gestion des projets, car ne bénéficiant pas d'outil adapté et étant soumis à des contraintes d'investissements et de compétences de leurs membres, contrairement au monde professionnel. Leur structure horizontale et/ou moins hiérarchique complique l'organisation.
 
 ### Identification
-#### Nom
-Pourquoi `KanFF` ?? `Kan` vient de **"Kanban"** car c'est l'élément principal de l'application et `FF` est l'acronyme de **"For Future"**, inspiré du mouvement international "Fridays For Future" et à tous les noms dérivés "Strike For Future", "Teachers For Future", "Parents For Future", ... De plus, le logo inclut un "vu" bleu foncé dans la lettre "K" car **le vu est le symbole de la tâche terminée**.
+**Nom**:
+Pourquoi **KanFF** ?? **Kan** vient de **"Kanban"** car c'est l'élément principal de l'application et **FF** est l'acronyme de **"For Future"**, inspiré du mouvement international **Fridays For Future** et à tous les noms dérivés "Strike For Future", "Teachers For Future", "Parents For Future", ... De plus, le logo inclut un "vu" bleu foncé dans la lettre **K** car **le vu est le symbole de la tâche terminée**.
+
+**Logo sur fond jaune**:
+![logo](../app/view/medias/logos/KanFF_Logo_background.png)
 
 ### Organisation du projet
 Ce projet est réalisé dans le cadre du cours **Projet Web+BDD** au CPNV en informatique en fin de 2ème et début de 3ème année. Après le cours **Projet à choix en binôme**, il n'y aura plus de périodes de travail durant le temps scolaire, cependant le projet ne va pas s'arrêter! C'est un projet assez long en comparaison des autres projets fait au CPNV (22 semaines de cours a minima).
@@ -91,6 +135,25 @@ Le projet étant relativement long, il est découpé en 3 parties. L'unité de t
    1. **Trimestre 9: 8 semaines** (3 sprints) de travail à 4 personnes pour le cours "Projet Web+BDD" entre le 22.06.2020 et le 13.11.2020 pour une release significative "**Beta 2.0**".
    1. **Trimestre 10: 8 semaines** (4 sprints) de travail à 2 personnes pour le cours "Projet à choix en binôme" entre le 16.11.2020 et 28.01.2021 pour une release significative "**1.0**" qui sera une version de production donc utilisable.
 Ces parties correspondent au temps de cours. Durant les vacances et à d'autres moments, du travail est également fourni par une partie des participants.
+
+### Comment tester ?
+Vous voulez voir à quoi cela ressemble ? Pas besoin d'installer un serveur en local pour commencer, l'instance de test est à disposition: [try.kanff.org](https://try.kanff.org).
+
+**Identifiants** (structure initiales - email - mot de passe - état):
+- Josette Richard (`JRD` - `josette.richard@assoc.ch` - `Josette` - admin)
+- Vincent Rigot (`VRT` - `vincent.rigot@assoc.ch` - `Vincent` - banni)
+- Mégane Blan (`MBN` - `megane.blan@assoc.ch` - `Mégane` - approuvé)
+- Michel Charrière (`MCE` - `michel.charriere@assoc.ch` - `Michel` - approuvé)
+- Cassandra De Castro Del Amino (`CDO` - aucun - `Cassandra` - non approuvé)
+
+Vous pouvez aussi créer un compte (avec des données fictives! tout est public sur cette instance de test, et pas sécurisé surtout) et aller vous auto-approuver avec le compte admin de JRD. Ne changez pas le mot de passe des comptes préexistants (vous pouvez changer celui de votre compte si vous voulez tester).
+
+**Pour commencer**:
+1. Se connecter avec des identifiants donnés (au-dessus) ou se créer un compte fictif.
+1. Lire la page A propos, pour mieux connaitre le collectif l'instance et comprendre dans les grandes lignes la structure de KanFF.
+1. Découvrir les pages Projets, Groupes et Membres.
+
+--> **L'application n'étant pas terminée, il reste beaucoup de bugs et de fonctionnalité non-implémentées** ...
 
 ## Analyse
 Quand un collectif utilise l'application, les membres du collectif ont un compte, se connecte à l'app avec leur navigateur web, et rejoignent des groupes. Les groupes réalisent 0, 1 ou plusieurs projets (les projets sont réalisés par un ou plusieurs groupes).
@@ -137,10 +200,16 @@ Afin de montrer et faire tester l'application, KanFF sera déployé sur une inst
 ### Vue d’ensemble
 Pour l'instant, une instance KanFF ne peut contenir qu'un seul collectif. Chaque membre du collectif sur une instance doit se créer un compte pour accéder au collectif. Aucune donnée de projet, tâches, groupes, membres, ... n'est publique. Seule la page A propos est publique et contient des informations à propos du collectif, de l'instance et de KanFF.
 
-L'application web s'utilise avec un navigateur via l'URL du serveur sur lequel est installé l'application. Une connexion internet active est requise pour charger les pages et effectuer des actions. L'application est adaptée à une utilisation sur ordinateur mais pas sur smartphone ni tablette. Le site n'est pas assez responsive et aucun test ne sera fait pour les navigateurs web mobile.
+L'application web s'utilise avec un navigateur via l'URL du serveur sur lequel est installé l'application. Une connexion internet active est requise pour charger les pages et effectuer des actions. L'application est adaptée à une utilisation sur ordinateur mais pas sur smartphone ni tablette. Le site n'est pas assez responsive et aucun test ne sera fait pour les navigateurs web mobile.  
+L'application web doit être installée sur un serveur web accessible sur Internet. Sur une instance, 1 collectif pourra être hébergé. Chaque instance des informations propres (nom, informations sur l'admin, contact, autres informations sur l'instance).
 
 ### Description technique
 KanFF est une application web développée **en PHP** (HTML + CSS + Javascript + Ajax) **en MVC (Model View Controler)** avec une **base de données MySQL**. Les dépendances [npm](npmjs.com) utilisées sont bootstrap 4 et jquery 3. KanFF utilise aussi la librairie PHP Parsedown (permettant de parser du markdown en HTML).
+
+Pour développer sur cette application, vous avez besoin d'avoir de bonnes bases en PHP et connaître HTML et CSS évidemment. Le SQL est nécessaire seulement pour les fonctions modèles et plus généralement tout ce qui touche à la base de données (en travaillant sur le backend donc). Le javascript est nécessaire si vous travailler sur le frontend.
+
+### Conventions
+Les conventions sont en cours de rédactions. Voir [ici](conventions.md).
 
 ### Points techniques spécifiques
 - **Structure du repos:** Le [repository GitHub](github.com/samuelroland/KanFF) contient les éléments suivants
@@ -185,10 +254,10 @@ KanFF est une application web développée **en PHP** (HTML + CSS + Javascript +
     $pass = "Pa\$\$w0rd";
     $dbhost = "localhost";
     $dbname = "kanff";
-    
+
     //Mode debug:
     $debug = false; // enable or disable the debug mode (for displaydebug(), ...).
-    
+
     //Other configurations:
     $dev = true; // dev zone with code to tests model or helpers functions
     $feedbackForm = false;   //is feedback form at bottom left displayed
@@ -292,7 +361,7 @@ Les erreurs décrites ci-dessous concernent la version actuellement (`v2.4-beta`
 
 ### Objectifs non-atteints
 - Gestion des projets en cours (estimé à 40%).
-- Gestion des groupes pas commencée ... 
+- Gestion des groupes pas commencée ...
 - Gestion des compétences, notifications et événements abandonnés pour la v1.0. (cf. MLD avec tables grisées).
 - Publier une version de production v1.0 d'ici le 31.01.2021... Objectif non-atteint (v2.4-beta) puisque pas du tout prêt pour la production. Il reste encore plein de stories à réaliser, puis d'autres stories pour la sécurité, tests unitaires, système de mise à jour automatique, ...
 - Mode d'emploi pas rédigé.
