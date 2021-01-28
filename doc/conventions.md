@@ -16,8 +16,8 @@
 - Le verbe au début du nom de la fonction est en minuscule.
 - Les mots suivants on tous une majuscule comme première lettre.
 - Il n'y a pas de "_" entre les mots.
-#### Pour les fonctions **`Ajax`** :
 
+#### Pour les fonction **`Ajax`** :
 - Lors de l'utilisation d'une fonction avec **`Ajax`**, nous utilisons un *try* pour le premier appel de la fonction.
 - Le *try* appel la fonction qui porte son nom; *try*`deleteTask()` appel `deleteTask()`.
 - La fonction appelée par le *try* appel une fonction `sendRequest()`.
@@ -29,7 +29,7 @@
     - Le premier mot défini là où est utilisié la constante :
         - Utiliser l'action dans la querystring.
         - Utiliser le nom de la table de la base de donnée MySQL.
-        - Utiliser *`COMMON`* dans le cas où on utilise la constante sur plusieurs pages, avec des sujets différents. 
+        - Utiliser *`COMMON`* dans le cas où on utilise la constante sur plusieurs pages, avec des sujets différents.
     - Le deuxième (et suivants) permet de définir dans quel cas est utilisé le message.
 - Exemple : `ACTION_QUE_CE_PASSE_T'IL`.
     - *`MYACCOUNT_PWD_BAD_CURRENT`*
@@ -42,14 +42,23 @@
 - Le nom de l'objet est contenu au début de id, un diminutif est utilisé dans le cas où l'objet dépasse 4 caractères.
 - Les mots suivants on tous une majuscule comme première lettre.
 - Il n'y a pas de "_" entre les mots.
-## Nom de classe CSS
-
+#### Nom de classe CSS
 - WIP
 ## Nom des paramètres de fonctions :
 
 - Nous utilisons du ***LowerCamelCase***.
 - Les données provenant d'une requète **`Ajax`** sont toutes contenue dans la variable : **$data** .
 
-## Conditions exclusives de validation
-
+## Conditions exclusive de validation
 - Permet qu'une validation de donnée ne soie pas impactée par une éventuelle modification de la structure de la base de donnée.
+
+## Updates et sauvegardes
+- Nous ne prenons que les champs utiles au lieu de tous les prendre et, par la suite supprimer les non autorisés.
+
+## Versioning system pour le changelog
+- Work in Progress.
+- Voir [semver.org](https://semver.org/).
+
+## Nom des fichiers
+- Les nom des fichiers sont en ***LowerCamelCase***.
+- Ce à quoi le fichier est destiné est défini par le premier mot du nom de fichier.
