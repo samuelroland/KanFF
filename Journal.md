@@ -32,3 +32,4 @@
 1. (__SRD__, 03.12.2020) **Release** `KanFF Beta v2.1` sur [GitHub](https://github.com/samuelroland/KanFF/releases/tag/v2.1-beta).
 1. (__SRD__, 18.12.2020) **Release** `KanFF Beta v2.2` sur [GitHub](https://github.com/samuelroland/KanFF/releases/tag/v2.2-beta).
 1. (__SRD__, 08.01.2021) **Release** `KanFF Beta v2.3` sur [GitHub](https://github.com/samuelroland/KanFF/releases/tag/v2.3-beta).
+1. (__SRD__, 28.01.2021) **Release** `KanFF Beta v2.4` sur [GitHub](https://github.com/samuelroland/KanFF/releases/tag/v2.4-beta).
