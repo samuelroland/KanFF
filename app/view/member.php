@@ -63,12 +63,7 @@ function visibilityOfGroups($group)
         "creation_date" => ""];
 
     switch ($group['visibility']) {
-
-        case GROUP_VISIBILITY_TITLE:
-            $groupVisibility = [
-                "id" => $group["id"],
-                "name" => $group['name']];
-            break;
+        //groups with value GROUP_VISIBILITY_TITLE are not displayed because their members must be hidden
         case GROUP_VISIBILITY_STANDARD:
         case GROUP_VISIBILITY_TOTAL:
             $groupVisibility = [
