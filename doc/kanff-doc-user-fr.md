@@ -187,16 +187,31 @@ Un bouton `Nouveau projet` dans la page `Projets` vous emmène sur la page de cr
 C'est la page principale qui permet de gérer les tâches des projets.
 
 #### Créer une tâche
-A venir.
+
 
 #### Détails d'une tâche
 A venir.
 
-####  une tâche
-A venir.
+#### Modifier une tâche
+Une fois les détails d'une tâche ouvert, des champs sont disponibles si vous avez l'autorisation de modifier. Il vous suffit de changer les informations nécessaires et d'enregistrer. Certaines informations ne sont pas modifiables (car n'ont pas intêret à être modifiée).
 
 ## Groupes
-A venir.
+### Généralités sur les groupes
+#### Niveaux de visibilité
+
+### Groupes
+Dans la liste des groupes, tous les groupes qui vous sont visibles sont affichés par catégorie:
+- Tous les groupes actuels
+- Tous les groupes rejoints par vous
+- Tous les groupes archivés
+Certain groupe n'ont que leur titre visible (voir "niveaux de visibilité"), c'est pour ça que vous ne verrez pas d'autres informations.
+
+### Créer un groupe
+1. Bouton `Nouveau groupe` en haut à droite de `Groupes`.
+1. Remplir les informations requises et/ou facultatives
+1. Vérifier les paramètres de visibilités
+1. Enregistrer
+Une fois le groupe créé avec succès, vous êtes directement dans le groupe et assigné comme "Créateur·ice".
 
 ## Membres
 ### Membres
