@@ -8,6 +8,9 @@
 
 session_start();    //start the session system
 
+//Display no errors - debug only
+ini_set('display_errors', '0');
+
 // Include all controllers and global php files
 require_once "controler/constants.php";     //global constants
 require_once "messages.php";     //constants for messages displayed after actions
