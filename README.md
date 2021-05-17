@@ -1,14 +1,16 @@
 <!--/**
  *  Project: KanFF
- *  File: kanff-doc-fr.md technical doc of KanFF
+ *  File: README.md README file of the KanFF repos
  *  Author: Samuel Roland
  *  Relecture: Benoît Pierrehumbert
  *  Creation date: 24.06.2020
  */ -->
-# KanFF
+
 ![kanff logo](https://raw.githubusercontent.com/samuelroland/KanFF/master/app/view/medias/logos/KanFF_Logo_background.png)
 
-## Une application web (opensource) de gestion de projets, de tâches, et d'organisation du travail, conçue pour le milieu militant et associatif.
+## Une application web opensource de gestion de projets à l'aide de kanbans, pour les groupes, collectifs et associations.
+**Site officiel du projet**: [kanff.org](https://kanff.org)
+
 ### Structure de l'application
 Quand un collectif utilise KanFF, les membres du collectif ont un compte et rejoignent des groupes. Les groupes réalisent 0, 1 ou plusieurs projets (les projets sont réalisés par 1 ou plusieurs groupes).
 
@@ -16,10 +18,9 @@ Chaque projet a un kanban et est divisé en parties appelées "travaux". Ceux-ci
 La gestion de toutes ces tâches et travaux dans les différents projets se fait collaborativement à travers le kanban et les détails du projet. Les événements importants relatifs à un projet sont consignés par les membres dans un journal de bord.
 
 #### Le kanban
-Le kanban est la page principale de l'application puisque c'est à cet endroit que les tâches vont pouvoir être gérées.
-Le kanban du projet `Crowdfunding Festival 2020` pour le collectif fictif `Collectif Assoc Vaud`.
+Le kanban est la page principale de l'application, c'est là que toutes les tâches vont pouvoir être gérées. Voici un apercu du kanban du projet fictif `Crowdfunding Festival 2020` pour le collectif `Collectif Assoc Vaud`. (Toutes les données sont fictives).
 
-![readme-kanban-example.PNG](doc/img/readme-kanban-example.PNG)
+![readme-kanban-example.PNG](https://kanff.org/imgs/kanban.png)
 
 Les détails d'une tâche (numéro 1) sur le kanban du projet `Crowdfunding Festival 2020` pour le collectif fictif `Collectif Assoc Vaud`.
 
@@ -46,7 +47,7 @@ L'instance de tests est mise à jour toutes les 2-3 semaines (en fin de sprint) 
 L'indication de la version de l'application (ainsi que la date de publication) se trouve sous le logo dans le menu, ou sur la dernière entrée du fichier `app/version.php`.
 
 ## Contact
-**Cette application vous intéresse ?** Vous avez des questions, des suggestions, des remarques, des critiques constructives, sur l'application ou le projet ? Vos idées nous intéressent ! Écrivez-nous à kanff[ate]pm.me en français ou en anglais. *(OpenPGP:`de52d839a9baf0486f6049761500b58971c1047f`)*. Si vous avez un compte GitHub mettez-nous une étoile !
+**Cette application vous intéresse ?** Vous avez des questions, des suggestions, des remarques, des critiques constructives, sur l'application ou le projet ? Vos idées nous intéressent ! Écrivez-nous à kanff[ate]pm.me en français ou en anglais. Si vous avez un compte GitHub mettez-nous une étoile !
 
 ## Informations sur le projet
 ### Documentations
@@ -56,25 +57,26 @@ Les documentations sont pour certaines en cours d'écriture ou incomplètes...
 - [Mode d'emploi](doc/kanff-doc-user-fr.md) (en cours)
 
 #### Documentations techniques (développement)
-- [Documentation globale](doc/kanff-doc-fr.md)
-- [Liste des pages (prévues et réalisées)](doc/list-pages.md)
-- [Fonctions d'aide](doc/helpers-functions.md)
-- [Spécifications de la base de données](doc/db-specifications.md)
-- [Structure des appels Ajax](doc/structure-ajax-calls.md)
+- [Documentation globale](doc/kanff-doc-fr.md) (presque à jour)
+- [Liste des pages (prévues et réalisées)](doc/list-pages.md) (à jour)
+- [Fonctions d'aide](doc/helpers-functions.md) (presque à jour)
+- [Spécifications de la base de données](doc/db-specifications.md) (à jour)
+- [Structure des appels Ajax](doc/structure-ajax-calls.md) (à jour)
 
 ### Avancement du projet
-Le projet a commencé le 23.04.2020 et est en développement actif. Il n'y a pas encore de version assez complète pour être utilisable (uniquement des versions bêta). La première version utilisable (`v1.0`) est prévue pour le 29.01.2021 (il est possible qu'il y ait du retard). Il y a actuellement beaucoup de petits bogues et de fonctionnalités commencées et non terminées. La sécurité est implémentée en partie (basiquement contre les injections SQL, l'accès à des ressources non-autorisées et le CSRF, mais par contre le XSS, l'upload de fichiers, ...). Un document sur la sécurité sortira avant la version 1.0.
+Le projet a commencé le 23.04.2020 et est en reprise après 2 mois de pause (notamment en travaillant sur kanff.org et onepageMD). Il n'y a pas encore de version assez complète pour être utilisable (uniquement des versions bêta). Il n'y a pas de planning de publication de la V1 pour l'instant. Il y a actuellement beaucoup de petits bogues et de fonctionnalités commencées et non terminées. La sécurité est implémentée en partie (basiquement contre les injections SQL, l'accès à des ressources non-autorisées et le CSRF, mais par contre le XSS, l'upload de fichiers, ...). Un document sur la sécurité sortira avant la version 1.0.
 
 ### Contributions
-Il y a plusieurs manières de contribuer à cette application, même sans savoir coder. Tout est décrit dans [les lignes directrices de contributions](CONTRIBUTING.md).
+Il y a plusieurs manières de contribuer à cette application, même sans savoir coder. Cependant nous réfléchissons encore à la meilleure manière d'accueillir les contributions. 
 
 ### Feuille de route
-Fonctionnalité prévues pour la version `v1.0` (~~~29.01.2021~~ à partir d'avril 2021...) :
+OBSOLETE...  
+Fonctionnalité prévues pour la version `v1.0` (~~29.01.2021~~ à partir d'avril 2021...) :
+- Gestion des projets (inclut projets, travaux, tâches, groupes participants et journaux de bord)
 - Gestion des membres
 - Gestion des groupes
-- Gestion des projets (inclut projets, travaux, tâches, groupes participants et journaux de bord)
 
-Fonctionnalité prévues pour les versions **après** la `v1.0` (pas de date définie pour l'instant) :
+Fonctionnalité prévues pour les versions **après** la `v1.0` (pas de date définie) :
 - Gestion des collectifs (plusieurs collectifs par instance)
 - Système de traductions et traductions en anglais/allemand/italien
 - Gestion des événements (dans un calendrier)
@@ -141,6 +143,9 @@ TBD. fichiers.
 
         initiales: JRD
         mot de passe: Josette
+        ou
+        initiales: ZEA
+        mot de passe: Zia
 
-Voilà. Si vous êtes bien connecté avec le compte de Josette Richard, l'installation est réussie et vous pouvez maintenant commencer à développer !  
+Voilà. Si vous êtes bien connecté avec le compte de Josette Richard ou de Zia Espinoza, l'installation est réussie et vous pouvez maintenant commencer à développer !  
 (Si vous tombez sur l'erreur semblable à celle-ci: `Error: Could not find the driver!` alors c'est probablement parce que l'extension PDO n'a pas été activée).
