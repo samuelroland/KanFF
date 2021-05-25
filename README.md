@@ -11,6 +11,8 @@
 ## Une application web opensource de gestion de projets à l'aide de kanbans, pour les groupes, collectifs et associations.
 **Site officiel du projet**: [kanff.org](https://kanff.org)
 
+### Avertissement: KanFF est en cours de développement et n'est pas encore utilisable... Beaucoup de choses seront modifiées (notamment niveau design) avant la première version de production. Visitez [kanff.org](https://kanff.org) pour plus d'informations.
+
 ### Structure de l'application
 Quand un collectif utilise KanFF, les membres du collectif ont un compte et rejoignent des groupes. Les groupes réalisent 0, 1 ou plusieurs projets (les projets sont réalisés par 1 ou plusieurs groupes).
 
