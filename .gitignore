@@ -2,8 +2,9 @@
 node_modules/
 package-lock.json
 
-#phpStorm
+#IDE
 .idea
+.vscode
 
 #IceScrum credentials
 _icescrum_api_token.js
@@ -40,3 +41,6 @@ db/db-manage/create-db-kanff-ok.sql
 db/db-manage/fill-data-db-kanff-ok.sql
 
 # docs:
+doc/timesheets/_icescrum_api_token.js
+*token*
+*key*
