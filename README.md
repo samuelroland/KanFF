@@ -116,6 +116,7 @@ TBD. fichiers.
 - Avoir un service `Php` et `MySQL` installé et pouvoir les atteindre dans un shell (tester `php -v` et `mysql -v` pour vérifier. Vérification réussie si la commande est reconnue... Cela sera utile pour la mise à jour de la base de données et l'exécution des tests unitaires).
 - Avoir l'extension **PDO** et **OpenSSL** activée sur le serveur Php (changer `;extension=pdo_mysql` par `extension=pdo_mysql` et `;extension=openssl` par `extension=openssl` dans le fichier `php.ini` ou vérifier que c'est déjà fait).
 - Avoir [`NPM`](https://www.npmjs.com/get-npm) installé
+- Avoir [`Composer`](https://getcomposer.org/doc/00-intro.md) installé
 
 ### Procédure:
 1. **Récupérer le repository** depuis GitHub (clone ou téléchargement `.zip`) (exemple de clone dans un shell dans le dossier `C:/Alice/Documents/GitHub/`)
@@ -124,10 +125,11 @@ TBD. fichiers.
         cd C:/Alice/Documents/GitHub/
         git clone https://github.com/samuelroland/KanFF
 
-1. Ouvrir un shell et **installer les dépendances** avec [`npm`](https://www.npmjs.com/get-npm) dans le dossier `app` ! Un dossier `node_modules` et un fichier `package-lock.json` apparaissent.
+1. Ouvrir un shell et **installer les dépendances** avec [`npm`](https://www.npmjs.com/get-npm), ainsi que les paquets PHP (avec `Composer`) dans le dossier `app` ! Un dossier `node_modules` et un fichier `package-lock.json` apparaissent.
 
         cd app
         npm install
+        composer install
 
 1. Démarrer le service MySQL. Se connecter (avec un client SQL par ex.) en compte `root`. Executer le fichier `db/db-manage/create-db-kanff.sql`, ce qui a pour effet de **créer la base de données** `kanff` et ses tables. Ensuite **créer un nouvel utilisateur** (nommé dans ici `kanffApp` avec `Pa$$w0rd` pour mot de passe) et lui donner accès à la base de données `kanff` précédemment créée. Se connecter au nouvel utilisateur afin de vérifier qu'il a bien été créé et qu'il accède à la base de données `kanff`.
 1. Aller dans `app`. Dupliquer le fichier `.const.php.example` et renommer le en `.const.php`.
